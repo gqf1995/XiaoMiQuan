@@ -1,4 +1,40 @@
 <resources>
     <string name="app_name">XiaoMiQuan</string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="str_login_label_email">邮箱</string>
+    <string name="str_login_et_email">请输入邮箱</string>
+    <string name="str_login_label_pass">密码</string>
+    <string name="str_login_et_pass">请输入密码</string>
+    <string name="str_login_label_phone">手机号</string>
+    <string name="str_login_et_phone">请输入手机号</string>
+
+
+    <string name="str_registered">注册</string>
+    <string name="str_login">登录</string>
+    <string name="str_forget_pass">忘记密码?</string>
+    <string name="str_code_not_received">收不到验证码?</string>
+    <string name="str_agreement">用户协议</string>
+    <string name="str_label_agreement">注册即表示同意</string>
+    <string name="str_resend">重新发送</string>
+
+
+    <string name="str_confirm">确认</string>
+    <string name="str_determine">确定</string>
+    <string name="str_cancel">取消</string>
+
+    <string name="str_new">新</string>
+    <string name="str_complete">完成</string>
+    <string name="str_next_step">下一步</string>
+    <string name="str_please_enter">请输入</string>
+
+    <string name="str_set_password">请设置6-20位密码</string>
+    <string name="str_send_code_toast">验证码已发送至注册(%1$s),请查收 </string>
+
+    <string name="str_title_findpassword">找回密码</string>
+    <string name="str_title_setpasswordagain">重置密码</string>
+    <string name="str_title_registeredvalidation">注册验证</string>
+
+
 </resources>

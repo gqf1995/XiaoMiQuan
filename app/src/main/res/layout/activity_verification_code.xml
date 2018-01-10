@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar"/>
+
+
+    <TextView
+        android:id="@+id/tv_toast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/trans_80px"
+        android:gravity="center"
+        android:text="验证码已发送至注册邮箱,请查收"
+        android:textColor="@color/color_font2"
+        android:textSize="@dimen/text_trans_28px"/>
+
+
+    <com.xiaomiquan.widget.editcodeview.EditCodeView
+        android:id="@+id/et_code"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_90px"
+        android:layout_marginLeft="@dimen/trans_60px"
+        android:layout_marginRight="@dimen/trans_60px"
+        android:layout_marginTop="@dimen/trans_30px"
+        app:codeLength="6"
+        app:textColor="@color/color_font1"
+        app:textSize="@dimen/trans_32px"
+        app:underlineBaseColor="@color/color_font2"
+        app:underlineCursorColor="@color/color_font1"
+        app:underlineFilledColor="@color/color_font1"
+        app:underlineSelectedColor="@color/color_font2"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_get_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/trans_10px"
+        android:gravity="center"
+        android:padding="@dimen/trans_20px"
+        android:text="@string/str_resend"
+        android:textColor="@drawable/color_select_blue"
+        android:textSize="@dimen/text_trans_28px"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tv_not_received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/trans_80px"
+        android:gravity="center"
+        android:padding="@dimen/trans_20px"
+        android:text="@string/str_code_not_received"
+        android:textColor="@color/color_font1"
+        android:textSize="@dimen/text_trans_28px"/>
+
+</LinearLayout>

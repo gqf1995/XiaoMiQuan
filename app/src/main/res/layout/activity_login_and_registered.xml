@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tl="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/include_toolbar_with_statusbar"/>
+
+        <com.xiaomiquan.widget.CommonTabLayout
+            android:id="@+id/tl_2"
+            android:layout_width="@dimen/trans_300px"
+            android:layout_height="@dimen/trans_90px"
+            android:layout_gravity="bottom|center_horizontal"
+            android:orientation="horizontal"
+            tl:tl_indicator_color="@color/white"
+            tl:tl_indicator_height="@dimen/trans_5px"
+            tl:tl_indicator_margin_bottom="@dimen/trans_5px"
+            tl:tl_indicator_width="@dimen/trans_32px"
+            tl:tl_textSelectColor="@color/color_font1"
+            tl:tl_textUnselectColor="@color/color_font2"
+            tl:tl_textsize="@dimen/text_trans_32px"
+            tl:tl_underline_color="#1A000000"
+            tl:tl_underline_height="0dp"
+            />
+
+    </FrameLayout>
+
+
+    <include layout="@layout/layout_input_two"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/trans_40px"
+        android:paddingRight="@dimen/trans_40px">
+
+        <TextView
+            android:id="@+id/tv_forget_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:paddingBottom="@dimen/trans_20px"
+            android:paddingTop="@dimen/trans_20px"
+            android:text="@string/str_forget_pass"
+            android:textColor="@drawable/color_select_blue"
+            android:textSize="@dimen/text_trans_28px"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/trans_10px"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tv_choose_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/trans_20px"
+            android:paddingTop="@dimen/trans_20px"
+            android:textColor="@drawable/color_select_blue"
+            android:textSize="@dimen/text_trans_28px"/>
+
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/trans_40px"
+        android:paddingRight="@dimen/trans_40px">
+
+        <include layout="@layout/layout_commit"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_label_agreement"
+            android:textColor="@color/color_font3"
+            android:textSize="@dimen/text_trans_28px"/>
+
+        <TextView
+            android:id="@+id/tv_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="@dimen/trans_20px"
+            android:text="@string/str_agreement"
+            android:textColor="@drawable/color_select_blue"
+            android:textSize="@dimen/text_trans_28px"/>
+    </LinearLayout>
+
+
+</LinearLayout>

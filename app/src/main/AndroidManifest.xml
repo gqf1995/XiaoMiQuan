@@ -44,6 +44,14 @@
             android:name=".mvp.activity.DemoActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".mvp.activity.user.LoginAndRegisteredActivity">
+        </activity>
+        <activity android:name=".mvp.activity.user.VerificationCodeActivity">
+        </activity>
+        <activity android:name=".mvp.activity.user.InputSetActivity">
+        </activity>
+        <activity android:name=".mvp.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
