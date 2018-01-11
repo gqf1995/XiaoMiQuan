@@ -1,6 +1,8 @@
-package com.xiaomiquan.entity.bean;
+package com.xiaomiquan.entity.bean.kline;
 
-
+/**
+ * Created by loro on 2017/2/8.
+ */
 public class MinutesBean {
     public String time;
     public float cjprice;

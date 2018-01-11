@@ -1,7 +1,6 @@
 package com.xiaomiquan.base;
 
 import android.app.Activity;
-import android.graphics.Typeface;
 
 import com.biv.BigImageViewer;
 import com.biv.loader.glide.GlideImageLoader;
@@ -9,8 +8,6 @@ import com.blankj.utilcode.util.Utils;
 import com.fivefivelike.mybaselibrary.base.BaseApp;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
-import com.norbsoft.typefacehelper.TypefaceCollection;
-import com.norbsoft.typefacehelper.TypefaceHelper;
 import com.squareup.leakcanary.LeakCanary;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -34,17 +31,6 @@ public class Application extends BaseApp {
         super.onCreate();
         initClient();
     }
-
-    private void initTypefacehelper() {
-        TypefaceCollection typeface = new TypefaceCollection.Builder()
-                .set(Typeface.NORMAL, Typeface.createFromAsset(getAssets(), "font/Exo2-Regular.ttf"))
-                .set(Typeface.BOLD, Typeface.createFromAsset(getAssets(), "font/Exo2-Bold.ttf"))
-                .set(Typeface.BOLD_ITALIC, Typeface.createFromAsset(getAssets(), "font/Exo2-BoldItalic.ttf"))
-                .set(Typeface.ITALIC, Typeface.createFromAsset(getAssets(), "font/Exo2-Italic.ttf"))
-                .create();
-        TypefaceHelper.init(typeface);
-    }
-
     private void initSkin() {
         SkinCompatManager.withoutActivity(this)                         // 基础控件换肤初始化
                 .addInflater(new SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]
@@ -68,8 +54,6 @@ public class Application extends BaseApp {
             KLog.init(isLog);
             //初始化换肤
             initSkin();
-            //初始化字体
-            initTypefacehelper();
         }
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.

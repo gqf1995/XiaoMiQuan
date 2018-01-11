@@ -30,14 +30,14 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.bean.DataParse;
-import com.xiaomiquan.entity.bean.KLineBean;
+import com.xiaomiquan.entity.bean.kline.DataParse;
+import com.xiaomiquan.entity.bean.kline.KLineBean;
 import com.xiaomiquan.mpchart.ConstantTest;
 import com.xiaomiquan.mpchart.CoupleChartGestureListener;
-import com.xiaomiquan.mpchart.MyUtils;
 import com.xiaomiquan.mpchart.VolFormatter;
 import com.xiaomiquan.mvp.databinder.DemoBinder;
 import com.xiaomiquan.mvp.delegate.DemoDelegate;
+import com.xiaomiquan.widget.chart.MyUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

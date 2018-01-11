@@ -7,27 +7,43 @@
         </shape>
     </item>
     <item android:state_selected="true">
-        <shape>
+        <shape android:shape="rectangle">
             <corners android:radius="@dimen/trans_5px"/>
-            <solid android:color="@color/color_blue_dark"/>
+            <gradient
+                android:angle="45"
+                android:endColor="@color/color_blue_dark_more"
+                android:centerColor="@color/color_blue_dark"
+                android:startColor="@color/color_blue_more"/>
         </shape>
     </item>
     <item android:state_pressed="true">
-        <shape>
+        <shape android:shape="rectangle">
             <corners android:radius="@dimen/trans_5px"/>
-            <solid android:color="@color/color_blue_dark"/>
+            <gradient
+                android:angle="45"
+                android:endColor="@color/color_blue_dark_more"
+                android:centerColor="@color/color_blue_dark"
+                android:startColor="@color/color_blue_more"/>
         </shape>
     </item>
     <item android:state_focused="true">
-        <shape>
+        <shape android:shape="rectangle">
             <corners android:radius="@dimen/trans_5px"/>
-            <solid android:color="@color/color_blue_dark"/>
+            <gradient
+                android:angle="45"
+                android:endColor="@color/color_blue_dark_more"
+                android:centerColor="@color/color_blue_dark"
+                android:startColor="@color/color_blue_more"/>
         </shape>
     </item>
     <item>
-        <shape>
+        <shape android:shape="rectangle">
             <corners android:radius="@dimen/trans_5px"/>
-            <solid android:color="@color/color_blue"/>
+            <gradient
+                android:angle="45"
+                android:endColor="@color/color_blue_dark"
+                android:centerColor="@color/color_blue_more"
+                android:startColor="@color/color_blue"/>
         </shape>
     </item>
 </selector>

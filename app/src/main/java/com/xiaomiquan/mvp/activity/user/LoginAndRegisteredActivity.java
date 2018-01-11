@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.xiaomiquan.mvp.activity.MainActivity;
 import com.xiaomiquan.mvp.databinder.LoginAndRegisteredBinder;
 import com.xiaomiquan.mvp.delegate.LoginAndRegisteredDelegate;
 
@@ -26,7 +27,12 @@ public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndReg
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(""));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
-
+        viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoActivity(MainActivity.class).startAct();
+            }
+        });
 
     }
 

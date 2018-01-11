@@ -53,6 +53,8 @@ public abstract class BaseDelegate extends IDelegateImpl {
     private LinearLayout mToolbarBackLin;
     private TextView mToolbarBackTxt;
     private IconFontTextview mToolbarBack;
+    private View mViewSubtitlePoint;
+
 
     public NetWorkDialog getNetConnectDialog() {
         return initDialog("加载中...");
@@ -85,6 +87,27 @@ public abstract class BaseDelegate extends IDelegateImpl {
         this.circleDialogLinsener = circleDialogLinsener;
     }
 
+    public void setShowMsg(boolean isShow) {
+        if (mViewSubtitlePoint != null) {
+            mViewSubtitlePoint.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    /**
+     * 设置返回按钮 文字 或者 iconfont
+     *
+     * @param txt
+     */
+    public void setBackIconFontText(String txt) {
+        if (mToolbarBack != null) {
+            //重置属性
+            mToolbarBack.setRotation(0);
+            mToolbarBack.setScaleX(1);
+            mToolbarBack.setScaleY(1);
+            mToolbarBack.setText(txt);
+        }
+    }
+
     /**
      * 初始化标题栏
      *
@@ -102,6 +125,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
         mToolbarBackTxt = getViewById(R.id.toolbar_back_txt);
         mToolbarBackLin = getViewById(R.id.toolbar_lin_back);
         mToolbarBack = getViewById(R.id.toolbar_back);
+        mViewSubtitlePoint = getViewById(R.id.view_subtitle_point);
 
 
         //标题总背景
@@ -368,4 +392,15 @@ public abstract class BaseDelegate extends IDelegateImpl {
         return fragmentList;
     }
 
+    public LinearLayout getmToolbarBackLin() {
+        return mToolbarBackLin;
+    }
+
+    public TextView getmToolbarBackTxt() {
+        return mToolbarBackTxt;
+    }
+
+    public IconFontTextview getmToolbarBack() {
+        return mToolbarBack;
+    }
 }

@@ -1,9 +1,7 @@
-package com.xiaomiquan.entity.bean;
+package com.xiaomiquan.entity.bean.kline;
 
 /**
- * author：ajiang
- * mail：1025065158@qq.com
- * blog：http://blog.csdn.net/qqyanjiang
+ * Created by loro on 2017/2/8.
  */
 public class KLineBean {
     public String date;

@@ -83,8 +83,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //框架
     compile project(':mybaselibrary')
-    //导航栏
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     //轮播图
     compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     //圆角imageview
@@ -105,7 +103,5 @@ dependencies {
     compile 'skin.support:skin-support-design:2.2.3'            // skin-support-design material design 控件支持[可选]
     compile 'skin.support:skin-support-cardview:2.2.3'          // skin-support-cardview CardView 控件支持[可选]
     compile 'skin.support:skin-support-constraint-layout:2.2.3' // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
-    //字体
-    compile 'com.norbsoft.typefacehelper:library:0.9.0'
 
 }

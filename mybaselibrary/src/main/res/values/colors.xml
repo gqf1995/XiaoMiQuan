@@ -55,22 +55,32 @@
     <color name="color_24CE91">#24CE91</color>
     <color name="color_25A73F">#25a93f</color>
     <color name="color_F5A623">#F5A623</color>
+    <color name="color_ef4bc1">#ef4bc1</color>
 
-    <color name="color_blue">#34A9FF</color>
-    <color name="color_blue_dark">#177dc7</color>
+    <color name="color_blue">#2babff</color>
+    <color name="color_blue_more">#198cf1</color>
+    <color name="color_blue_dark">#0074f6</color>
+    <color name="color_blue_dark_more">#0163d1</color>
+
+    <color name="color_purple">#782184</color>
+    <color name="color_purple_more">#56237c</color>
+    <color name="color_purple_dark">#2e266f</color>
+
 
     <color name="increasing_color">#FF6960</color>
     <color name="decreasing_color">#0DCE2B</color>
+    <color name="black_transparent_10">#0a000000</color>
+    <color name="black_transparent_25">#19000000</color>
+    <color name="black_transparent_50">#32000000</color>
+    <color name="black_transparent_100">#64000000</color>
+    <color name="black_transparent_150">#96000000</color>
 
 
     <!--皮肤包颜色-->
     <color name="color_Primary">#1E1E35</color>
     <color name="colorPrimary">#1E1E35</color>
     <color name="colorPrimaryDark">#19193b</color>
-    <color name="black_transparent_10">#0a000000</color>
-    <color name="black_transparent_50">#32000000</color>
-    <color name="black_transparent_100">#64000000</color>
-    <color name="black_transparent_150">#96000000</color>
+
 
     <color name="color_font1">@color/white</color>
     <color name="color_font2">@color/color_cccccc</color>
@@ -90,7 +100,6 @@
     <color name="ma10">#B99C7A</color>
     <color name="ma20">#3C7193</color>
     <color name="ma30">#7F9976</color>
-
 
     <color name="minute_grayLine">#2D3945</color>
     <color name="minute_black">#101419</color>

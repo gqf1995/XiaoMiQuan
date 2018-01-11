@@ -1,6 +1,7 @@
-package com.xiaomiquan.entity;
+package com.tablayout;
 
-import com.flyco.tablayout.listener.CustomTabEntity;
+
+import com.tablayout.listener.CustomTabEntity;
 
 public class TabEntity implements CustomTabEntity {
     public String title;

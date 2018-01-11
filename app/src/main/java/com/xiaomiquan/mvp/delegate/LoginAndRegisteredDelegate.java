@@ -10,12 +10,12 @@ import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText;
-import com.flyco.tablayout.listener.CustomTabEntity;
-import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.tablayout.CommonTabLayout;
+import com.tablayout.TabEntity;
+import com.tablayout.listener.CustomTabEntity;
+import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.TabEntity;
 import com.xiaomiquan.mvp.activity.user.InputSetActivity;
-import com.xiaomiquan.widget.CommonTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;

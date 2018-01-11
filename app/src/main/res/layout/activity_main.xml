@@ -8,7 +8,6 @@
               android:orientation="vertical">
 
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -31,7 +30,7 @@
     </FrameLayout>
 
 
-    <com.xiaomiquan.widget.CommonTabLayout
+    <com.tablayout.CommonTabLayout
         android:id="@+id/tl_2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/trans_80px"
@@ -41,16 +40,16 @@
         app:tl_underline_gravity="TOP"
         tl:tl_iconHeight="@dimen/trans_50px"
         tl:tl_iconWidth="@dimen/trans_50px"
-        tl:tl_indicator_color="#2C97DE"
+        tl:tl_indicator_color="@color/color_blue"
         tl:tl_indicator_height="@dimen/trans_8px"
         tl:tl_textSelectColor="@color/color_blue"
-        tl:tl_textUnselectColor="@color/transparent"
+        tl:tl_textUnselectColor="@color/color_font3"
         tl:tl_textsize="@dimen/text_trans_40px"
         tl:tl_underline_color="@color/black_transparent_99"
         tl:tl_underline_height="0dp"
         >
 
-    </com.xiaomiquan.widget.CommonTabLayout>
+    </com.tablayout.CommonTabLayout>
 
     <Space
         android:layout_width="match_parent"

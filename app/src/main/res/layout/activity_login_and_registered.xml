@@ -15,7 +15,7 @@
 
         <include layout="@layout/include_toolbar_with_statusbar"/>
 
-        <com.xiaomiquan.widget.CommonTabLayout
+        <com.tablayout.CommonTabLayout
             android:id="@+id/tl_2"
             android:layout_width="@dimen/trans_300px"
             android:layout_height="@dimen/trans_90px"

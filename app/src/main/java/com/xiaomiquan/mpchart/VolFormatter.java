@@ -3,6 +3,7 @@ package com.xiaomiquan.mpchart;
 
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
+import com.xiaomiquan.widget.chart.MyUtils;
 
 import java.text.DecimalFormat;
 
@@ -18,7 +19,7 @@ public class VolFormatter implements YAxisValueFormatter {
             mFormat = new DecimalFormat("#0.00");
         }
         this.unit = unit;
-        this.u=MyUtils.getVolUnit(unit);
+        this.u= MyUtils.getVolUnit(unit);
     }
 
 

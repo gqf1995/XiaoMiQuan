@@ -32,9 +32,49 @@
     <string name="str_set_password">请设置6-20位密码</string>
     <string name="str_send_code_toast">验证码已发送至注册(%1$s),请查收 </string>
 
+    <string name="str_information">资讯</string>
+    <string name="str_advance_warning">预警</string>
+    <string name="str_currency_data">币种资料</string>
+    <string name="str_global_market">全球行情</string>
+
+    <string name="str_total">量\u3000</string>
+    <string name="str_cost">费\u3000</string>
+    <string name="str_buy_in">买入</string>
+    <string name="str_highest">最高</string>
+    <string name="str_opening_quotation">开盘</string>
+    <string name="str_sell_out">卖出</string>
+    <string name="str_minimum">最低</string>
+    <string name="str_closing_quotation">收盘</string>
+    <string name="str_add">添加</string>
+
+
     <string name="str_title_findpassword">找回密码</string>
     <string name="str_title_setpasswordagain">重置密码</string>
     <string name="str_title_registeredvalidation">注册验证</string>
+    <string name="str_title_market">币价行情</string>
 
 
+    <string name="wan_unit">万手</string>
+    <string name="yi_unit">亿手</string>
+
+    <string-array name="sa_select_market">
+        <item>自选</item>
+        <item>市值</item>
+        <item>涨幅</item>
+        <item>币安</item>
+        <item>OKEx</item>
+        <item>OKEx</item>
+        <item>OKEx</item>
+        <item>OKEx</item>
+        <item>OKEx</item>
+        <item>OKEx</item>
+    </string-array>
+
+    <string-array name="sa_select_time">
+        <item>1天</item>
+        <item>3天</item>
+        <item>1周</item>
+        <item>1月</item>
+        <item>分钟</item>
+    </string-array>
 </resources>

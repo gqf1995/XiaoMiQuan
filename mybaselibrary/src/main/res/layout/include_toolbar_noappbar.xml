@@ -29,9 +29,11 @@
             android:layout_marginLeft="@dimen/trans_20px"
             android:gravity="center"
             android:rotation="90"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_45px"
+            android:scaleX="1.7"
+            android:scaleY="1.7"
             android:text="@string/ic_zhankai"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_28px"
             />
 
         <TextView
@@ -41,22 +43,37 @@
             android:layout_gravity="left|center_vertical"
             android:gravity="center"
             android:text=""
-            android:visibility="gone"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_trans_28px"/>
+            android:textSize="@dimen/text_trans_28px"
+            android:visibility="gone"/>
     </LinearLayout>
 
-    <com.fivefivelike.mybaselibrary.view.IconFontTextview
-        android:id="@+id/toolbar_subtitle"
-        style="@style/toolbar_subtitle"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/trans_90px"
-        android:layout_gravity="right|center_vertical"
-        android:gravity="center"
-        android:maxLines="1"
-        android:text="subtitle"
-        android:textColor="@color/color_font1"
-        android:visibility="gone"/>
+        android:layout_gravity="right|center_vertical">
+
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:id="@+id/toolbar_subtitle"
+            style="@style/toolbar_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/trans_90px"
+            android:layout_gravity="right|center_vertical"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="subtitle"
+            android:textColor="@color/color_font1"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/view_subtitle_point"
+            android:layout_width="@dimen/trans_10px"
+            android:layout_height="@dimen/trans_10px"
+            android:layout_margin="@dimen/trans_30px"
+            android:background="@drawable/shape_red_max_radiu"
+            android:visibility="gone"/>
+    </FrameLayout>
+
 
     <ImageView
         android:id="@+id/toolbar_img2"
