@@ -13,6 +13,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xiaomiquan.R;
+import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
 
@@ -132,8 +133,8 @@ public class CoinLineDraw {
         LineDataSet lowLineDataSet = MyUtils.setMaLine(5, mData.getXVals(), lowEntries);
         heightLineDataSet.setCircleColor(CommonUtils.getColor(R.color.color_font1));
         lowLineDataSet.setCircleColor(CommonUtils.getColor(R.color.color_font1));
-        heightLineDataSet.setCircleColorHole(CommonUtils.getColor(R.color.decreasing_color));
-        lowLineDataSet.setCircleColorHole(CommonUtils.getColor(R.color.increasing_color));
+        heightLineDataSet.setCircleColorHole(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+        lowLineDataSet.setCircleColorHole(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
         heightLineDataSet.setDrawCircleHole(true);
         lowLineDataSet.setDrawCircleHole(true);
         heightLineDataSet.setCircleSize(8f);

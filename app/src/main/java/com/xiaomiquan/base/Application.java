@@ -12,25 +12,32 @@ import com.squareup.leakcanary.LeakCanary;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.yanzhenjie.nohttp.NoHttp;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Message;
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCardViewInflater;
 import skin.support.constraint.app.SkinConstraintViewInflater;
 import skin.support.design.app.SkinMaterialViewInflater;
 
 import static com.xiaomiquan.base.AppConst.isLog;
+import static com.xiaomiquan.base.AppConst.rongId;
 
 
 /**
  * Created by 郭青枫 on 2017/9/25.
  */
 
-public class Application extends BaseApp {
+public class Application extends BaseApp implements RongIMClient.OnReceiveMessageListener {
 
     @Override
     public void onCreate() {
         super.onCreate();
+        //融云初始化
+        initRongCloud();
         initClient();
     }
+
     private void initSkin() {
         SkinCompatManager.withoutActivity(this)                         // 基础控件换肤初始化
                 .addInflater(new SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]
@@ -39,6 +46,24 @@ public class Application extends BaseApp {
                 .setSkinStatusBarColorEnable(true)                     // 关闭状态栏换肤，默认打开[可选]
                 .setSkinWindowBackgroundEnable(true)                   // 关闭windowBackground换肤，默认打开[可选]
                 .loadSkin();
+    }
+
+    private void initRongCloud() {
+        /**
+         * OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIMClient 的进程和 Push 进程执行了 init。
+         * io.rong.push 为融云 push 进程名称，不可修改。
+         */
+        if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))
+                || "io.rong.push".equals(getCurProcessName(getApplicationContext()))
+                ) {
+            RongIM.init(this, rongId);
+            RongIMClient.init(this, rongId);
+            RongIM.getInstance().setMessageAttachedUserInfo(true);
+        }
+
+        //监听接收到的消息
+        //RongIMClient.setOnReceiveMessageListener(this);
+        RongIM.setOnReceiveMessageListener(this);
     }
 
     private void initClient() {
@@ -79,4 +104,8 @@ public class Application extends BaseApp {
     }
 
 
+    @Override
+    public boolean onReceived(Message message, int i) {
+        return false;
+    }
 }

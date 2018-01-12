@@ -69,18 +69,25 @@
 
     <color name="increasing_color">#FF6960</color>
     <color name="decreasing_color">#0DCE2B</color>
+
+
     <color name="black_transparent_10">#0a000000</color>
     <color name="black_transparent_25">#19000000</color>
     <color name="black_transparent_50">#32000000</color>
     <color name="black_transparent_100">#64000000</color>
     <color name="black_transparent_150">#96000000</color>
-
+    <color name="white_transparent_10">#0affffff</color>
+    <color name="white_transparent_25">#19ffffff</color>
+    <color name="white_transparent_50">#32ffffff</color>
+    <color name="white_transparent_100">#64ffffff</color>
+    <color name="white_transparent_150">#96ffffff</color>
 
     <!--皮肤包颜色-->
     <color name="color_Primary">#1E1E35</color>
     <color name="colorPrimary">#1E1E35</color>
     <color name="colorPrimaryDark">#19193b</color>
 
+    <color name="base_mask">@color/white_transparent_50</color>
 
     <color name="color_font1">@color/white</color>
     <color name="color_font2">@color/color_cccccc</color>

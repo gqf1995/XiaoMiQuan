@@ -1,5 +1,6 @@
 package com.xiaomiquan.widget.chart;
 
+import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
@@ -25,6 +26,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xiaomiquan.R;
+import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
 import com.xiaomiquan.mpchart.CoupleChartGestureListener;
@@ -50,18 +52,26 @@ public class KlineDraw {
     //K线图数据
     private ArrayList<KLineBean> kLineDatas;
 
-    protected CombinedChart mChartKline;
-    protected CombinedChart mChartVolume;
+    protected KCombinedChart mChartKline;
+    protected KCombinedChart mChartVolume;
 
-    public void setData(DataParse data, CombinedChart chartKline, CombinedChart chartVolume) {
+    Context mContext;
+
+    public void setData(Context context, DataParse data, KCombinedChart chartKline, KCombinedChart chartVolume) {
         mData = data;
+        mContext = context;
         mChartKline = chartKline;
         mChartVolume = chartVolume;
-        setKLineDatas();
 
+        chartKline.setDrawHeightAndLow(true);
+
+        setKLineDatas();
         initChartKline();
         initChartVolume();
         setChartListener();
+
+        setMarkerViewButtom(mData, chartKline);
+        setMarkerView(mData, chartVolume);
 
         setKLineByChart(mChartKline);
         setVolumeByChart(mChartVolume);
@@ -116,12 +126,14 @@ public class KlineDraw {
         axisLeftKline.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         axisLeftKline.setLabelCount(8, false); //第一个参数是Y轴坐标的个数，第二个参数是 是否不均匀分布，true是不均匀分布
         axisLeftKline.setSpaceTop(10f);//距离顶部留白
+        axisLeftKline.setAxisMinValue(0);
 
         axisRightKline = mChartKline.getAxisLeft();
         axisRightKline.setDrawLabels(false);
         axisRightKline.setDrawGridLines(false);
         axisRightKline.setDrawAxisLine(false);
         axisRightKline.setLabelCount(4, false); //第一个参数是Y轴坐标的个数，第二个参数是 是否不均匀分布，true是不均匀分布
+        axisRightKline.setAxisMinValue(0);
 
         mChartKline.setDragDecelerationEnabled(true);
         mChartKline.setDragDecelerationFrictionCoef(0.2f);
@@ -170,12 +182,15 @@ public class KlineDraw {
         axisLeftVolume.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         axisLeftVolume.setLabelCount(6, false); //第一个参数是Y轴坐标的个数，第二个参数是 是否不均匀分布，true是不均匀分布
         axisLeftVolume.setSpaceTop(10f);//距离顶部留白
+
+
         //        axisLeftVolume.setSpaceBottom(0);//距离顶部留白
 
         axisRightVolume = mChartVolume.getAxisLeft();
         axisRightVolume.setDrawLabels(false);
         axisRightVolume.setDrawGridLines(false);
         axisRightVolume.setDrawAxisLine(false);
+
 
         mChartVolume.setDragDecelerationEnabled(true);
         mChartVolume.setDragDecelerationFrictionCoef(0.2f);
@@ -259,11 +274,11 @@ public class KlineDraw {
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
         set.setShadowWidth(1f);
         set.setValueTextSize(10f);
-        set.setDecreasingColor(CommonUtils.getColor(R.color.decreasing_color));//设置开盘价高于收盘价的颜色
+        set.setDecreasingColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));//设置开盘价高于收盘价的颜色
         set.setDecreasingPaintStyle(Paint.Style.FILL);
-        set.setIncreasingColor(CommonUtils.getColor(R.color.increasing_color));//设置开盘价地狱收盘价的颜色
+        set.setIncreasingColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));//设置开盘价地狱收盘价的颜色
         set.setIncreasingPaintStyle(Paint.Style.FILL);
-        set.setNeutralColor(CommonUtils.getColor(R.color.decreasing_color));//设置开盘价等于收盘价的颜色
+        set.setNeutralColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));//设置开盘价等于收盘价的颜色
         set.setShadowColorSameAsCandle(true);
         set.setHighlightLineWidth(1f);
         set.setHighLightColor(CommonUtils.getColor(R.color.color_font2));
@@ -279,43 +294,44 @@ public class KlineDraw {
         sets.add(MyUtils.setMaLine(20, mData.getXVals(), mData.getMa20DataL()));
         sets.add(MyUtils.setMaLine(30, mData.getXVals(), mData.getMa30DataL()));
 
-        Entry heightEntry = mData.getCandleEntries().get(mData.getCandleEntries().size() - 1);
-        Entry lowEntry = mData.getCandleEntries().get(mData.getCandleEntries().size() - 1);
-        for (int i = 0; i < mData.getCandleEntries().size(); i++) {
-            if (heightEntry.getVal() < mData.getCandleEntries().get(mData.getCandleEntries().size() - 1 - i).getVal()) {
-                heightEntry = mData.getCandleEntries().get(mData.getCandleEntries().size() - 1 - i);
-            }
-            if (lowEntry.getVal() > mData.getCandleEntries().get(mData.getCandleEntries().size() - 1 - i).getVal()) {
-                lowEntry = mData.getCandleEntries().get(mData.getCandleEntries().size() - 1 - i);
-            }
-        }
-        ArrayList<Entry> heightEntries = new ArrayList<>();
-        ArrayList<Entry> lowEntries = new ArrayList<>();
-        heightEntries.add(heightEntry);
-        lowEntries.add(lowEntry);
-        LineDataSet heightLineDataSet = MyUtils.setMaLine(5, mData.getXVals(), heightEntries);
-        LineDataSet lowLineDataSet = MyUtils.setMaLine(5, mData.getXVals(), lowEntries);
-        heightLineDataSet.setCircleColor(CommonUtils.getColor(R.color.color_font1));
-        lowLineDataSet.setCircleColor(CommonUtils.getColor(R.color.color_font1));
-        heightLineDataSet.setCircleColorHole(CommonUtils.getColor(R.color.decreasing_color));
-        lowLineDataSet.setCircleColorHole(CommonUtils.getColor(R.color.increasing_color));
-        heightLineDataSet.setDrawCircleHole(true);
-        lowLineDataSet.setDrawCircleHole(true);
-        heightLineDataSet.setCircleSize(8f);
-        lowLineDataSet.setCircleSize(8f);
-        heightLineDataSet.setCircleHoleRadius(4f);
-        lowLineDataSet.setCircleHoleRadius(4f);
-        heightLineDataSet.setDrawCircles(false);
-        lowLineDataSet.setDrawCircles(false);
-        heightLineDataSet.setDrawValues(true);
-        lowLineDataSet.setDrawValues(true);
-        heightLineDataSet.setValueTextColor(CommonUtils.getColor(R.color.color_font1));
-        lowLineDataSet.setValueTextColor(CommonUtils.getColor(R.color.color_font1));
-        heightLineDataSet.setValueTextSize(20f);
-        lowLineDataSet.setValueTextSize(20f);
-
-        sets.add(heightLineDataSet);
-        sets.add(lowLineDataSet);
+        //        Entry heightEntry = mData.getCandleEntries().get(mData.getCandleEntries().size() - 1);
+        //        Entry lowEntry = mData.getCandleEntries().get(mData.getCandleEntries().size() - 1);
+        //        for (int i = 0; i < mData.getCandleEntries().size(); i++) {
+        //            if (heightEntry.getVal() < mData.getCandleEntries().get(mData.getCandleEntries().size() - 1 - i).getVal()) {
+        //                heightEntry = mData.getCandleEntries().get(mData.getCandleEntries().size() - 1 - i);
+        //            }
+        //            if (lowEntry.getVal() > mData.getCandleEntries().get(mData.getCandleEntries().size() - 1 - i).getVal()) {
+        //                lowEntry = mData.getCandleEntries().get(mData.getCandleEntries().size() - 1 - i);
+        //            }
+        //        }
+        //
+        //        ArrayList<Entry> heightEntries = new ArrayList<>();
+        //        ArrayList<Entry> lowEntries = new ArrayList<>();
+        //        heightEntries.add(heightEntry);
+        //        lowEntries.add(lowEntry);
+        //        LineDataSet heightLineDataSet = MyUtils.setMaLine(5, mData.getXVals(), heightEntries);
+        //        LineDataSet lowLineDataSet = MyUtils.setMaLine(5, mData.getXVals(), lowEntries);
+        //        heightLineDataSet.setCircleColor(CommonUtils.getColor(R.color.color_font1));
+        //        lowLineDataSet.setCircleColor(CommonUtils.getColor(R.color.color_font1));
+        //        heightLineDataSet.setCircleColorHole(CommonUtils.getColor(R.color.decreasing_color));
+        //        lowLineDataSet.setCircleColorHole(CommonUtils.getColor(R.color.increasing_color));
+        //        heightLineDataSet.setDrawCircleHole(true);
+        //        lowLineDataSet.setDrawCircleHole(true);
+        //        heightLineDataSet.setCircleSize(8f);
+        //        lowLineDataSet.setCircleSize(8f);
+        //        heightLineDataSet.setCircleHoleRadius(4f);
+        //        lowLineDataSet.setCircleHoleRadius(4f);
+        //        heightLineDataSet.setDrawCircles(false);
+        //        lowLineDataSet.setDrawCircles(false);
+        //        heightLineDataSet.setDrawValues(true);
+        //        lowLineDataSet.setDrawValues(true);
+        //        heightLineDataSet.setValueTextColor(CommonUtils.getColor(R.color.color_font1));
+        //        lowLineDataSet.setValueTextColor(CommonUtils.getColor(R.color.color_font1));
+        //        heightLineDataSet.setValueTextSize(20f);
+        //        lowLineDataSet.setValueTextSize(20f);
+        //
+        //        sets.add(heightLineDataSet);
+        //        sets.add(lowLineDataSet);
 
 
         LineData lineData = new LineData(mData.getXVals(), sets);
@@ -324,6 +340,8 @@ public class KlineDraw {
         combinedData.setData(lineData);
         combinedData.setData(candleData);
         combinedChart.setData(combinedData);
+        combinedChart.setDrawHighlightArrow(true);
+
         setHandler(combinedChart);
     }
 
@@ -349,8 +367,8 @@ public class KlineDraw {
         set.setDrawValues(false);
 
         List<Integer> list = new ArrayList<>();
-        list.add(CommonUtils.getColor(R.color.increasing_color));
-        list.add(CommonUtils.getColor(R.color.decreasing_color));
+        list.add(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+        list.add(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
         set.setColors(list);
         BarData barData = new BarData(mData.getXVals(), set);
 
@@ -369,6 +387,8 @@ public class KlineDraw {
         combinedData.setData(barData);
         combinedData.setData(lineData);
         combinedChart.setData(combinedData);
+        combinedChart.setDrawHighlightArrow(true);
+
         setHandler(combinedChart);
     }
 
@@ -381,6 +401,18 @@ public class KlineDraw {
         touchmatrix.postScale(xscale, 1f);
     }
 
+    private void setMarkerViewButtom(DataParse mData, KCombinedChart combinedChart) {
+        MyLeftMarkerView leftMarkerView = new MyLeftMarkerView(mContext, R.layout.mymarkerview);
+        MyHMarkerView hMarkerView = new MyHMarkerView(mContext, R.layout.mymarkerview_line);
+        MyBottomMarkerView bottomMarkerView = new MyBottomMarkerView(mContext, R.layout.mymarkerview);
+        combinedChart.setMarker(leftMarkerView, bottomMarkerView, hMarkerView, mData);
+    }
+
+    private void setMarkerView(DataParse mData, KCombinedChart combinedChart) {
+        MyLeftMarkerView leftMarkerView = new MyLeftMarkerView(mContext, R.layout.mymarkerview);
+        MyHMarkerView hMarkerView = new MyHMarkerView(mContext, R.layout.mymarkerview_line);
+        combinedChart.setMarker(leftMarkerView, hMarkerView, mData);
+    }
 
     @NonNull
     private LineDataSet setMACDMaLine(int type, ArrayList<String> xVals, ArrayList<Entry> lineEntries) {

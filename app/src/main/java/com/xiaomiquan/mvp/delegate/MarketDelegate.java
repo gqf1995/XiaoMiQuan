@@ -10,7 +10,8 @@ import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.tablayout.SlidingTabLayout;
 import com.xiaomiquan.R;
-import com.xiaomiquan.mvp.fragment.UserFragment;
+import com.xiaomiquan.mvp.fragment.InstitutionsFragment;
+import com.xiaomiquan.mvp.fragment.MarketValueFragment;
 import com.xiaomiquan.widget.GainsTabView;
 
 import java.util.ArrayList;
@@ -37,8 +38,12 @@ public class MarketDelegate extends BaseDelegate {
             fragments = new ArrayList<>();
             mTitles = CommonUtils.getStringArray(R.array.sa_select_market);
         }
-        for (int i = 0; i < mTitles.length; i++) {
-            fragments.add(new UserFragment());
+
+        fragments.add(new InstitutionsFragment());
+        fragments.add(new MarketValueFragment());
+
+        for (int i = 2; i < mTitles.length; i++) {
+            fragments.add(new InstitutionsFragment());
         }
         viewHolder.tl_2.setViewPager(viewHolder.vp_sliding,
                 mTitles, (FragmentActivity) viewHolder.rootView.getContext(), fragments);

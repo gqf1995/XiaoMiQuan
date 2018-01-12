@@ -7,6 +7,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
+import com.xiaomiquan.mvp.fragment.UserFragment;
 
 public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> {
 
@@ -32,7 +33,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         viewDelegate.addFragment(new MarketFragment());
         viewDelegate.addFragment(new Fragment());
         viewDelegate.addFragment(new Fragment());
-        viewDelegate.addFragment(new Fragment());
+        viewDelegate.addFragment(new UserFragment());
         viewDelegate.showFragment(0);
         doubleClickActList.add(this.getClass().getName());//两次返回act注册
     }

@@ -46,16 +46,38 @@
     <string name="str_minimum">最低</string>
     <string name="str_closing_quotation">收盘</string>
     <string name="str_add">添加</string>
+    <string name="str_coin_index">币种指数</string>
+    <string name="str_name_of_the">名称</string>
+    <string name="str_latest_price">最新价</string>
+    <string name="str_volume">成交量</string>
+    <string name="str_rise_ranking">涨幅榜</string>
+    <string name="str_drop_ranking">跌幅榜</string>
 
 
     <string name="str_title_findpassword">找回密码</string>
     <string name="str_title_setpasswordagain">重置密码</string>
     <string name="str_title_registeredvalidation">注册验证</string>
     <string name="str_title_market">币价行情</string>
+    <string name="str_title_user">个人中心</string>
 
 
     <string name="wan_unit">万手</string>
     <string name="yi_unit">亿手</string>
+
+
+    <string name="str_red_sticker">红涨绿跌</string>
+    <string name="str_night_model">夜间模式</string>
+    <string name="str_price_model">默认显示价格</string>
+    <string name="str_customer_service">在线客服</string>
+    <string name="str_recommended">推荐给朋友</string>
+    <string name="str_language">语言切换</string>
+    <string name="str_security">安全中心</string>
+    <string name="str_setting">设置</string>
+    <string name="str_logout">退出登录</string>
+
+
+    <string name="str_language_zhcn">中文</string>
+
 
     <string-array name="sa_select_market">
         <item>自选</item>

@@ -1,14 +1,14 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.view.View;
+
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
-import com.xiaomiquan.entity.bean.kline.DataParse;
-import com.xiaomiquan.mpchart.ConstantTest;
+import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.xiaomiquan.R;
+import com.xiaomiquan.mvp.activity.user.ConversationActivity;
 import com.xiaomiquan.mvp.databinder.UserBinder;
 import com.xiaomiquan.mvp.delegate.UserDelegate;
-import com.xiaomiquan.widget.chart.CoinLineDraw;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder> {
 
@@ -26,21 +26,33 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        getOffLineData();
+        viewDelegate.setNoStatusBarFlag(true);
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_user)).setShowBack(false).setSubTitle(CommonUtils.getString(R.string.ic_zhankai)));
+        viewDelegate.setOnClickListener(this
+                , R.id.lin_set3
+                , R.id.lin_set4
+                , R.id.lin_set5
+                , R.id.lin_set6
+                , R.id.lin_set7
+                , R.id.lin_set8
+                , R.id.lin_set9
+        );
     }
 
-    private void getOffLineData() {
-           /*方便测试，加入假数据*/
-        DataParse mData = new DataParse();
-        JSONObject object = null;
-        try {
-            object = new JSONObject(ConstantTest.KLINEURL);
-        } catch (JSONException e) {
-            e.printStackTrace();
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.lin_set4:
+                gotoActivity(ConversationActivity.class).startAct();
+                break;
         }
-        mData.parseKLine(object);
-        CoinLineDraw coinLineDraw=new CoinLineDraw();
-        coinLineDraw.setData(mData,viewDelegate.viewHolder.linechart);
+    }
+
+    @Override
+    protected void clickRightTv() {
+        super.clickRightTv();
+
     }
 
     @Override

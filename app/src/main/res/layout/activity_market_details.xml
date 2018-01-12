@@ -423,14 +423,14 @@
                     android:layout_height="wrap_content">
 
 
-                    <com.github.mikephil.charting.charts.CombinedChart
+                    <com.xiaomiquan.widget.chart.KCombinedChart
                         android:id="@+id/combinedchart"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/trans_410px"
                         android:layout_marginBottom="@dimen/trans_10px"
                         >
 
-                    </com.github.mikephil.charting.charts.CombinedChart>
+                    </com.xiaomiquan.widget.chart.KCombinedChart>
 
                     <View
                         android:layout_width="match_parent"
@@ -440,12 +440,12 @@
 
                 </FrameLayout>
 
-                <com.github.mikephil.charting.charts.CombinedChart
+                <com.xiaomiquan.widget.chart.KCombinedChart
                     android:id="@+id/barchart"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/trans_240px">
 
-                </com.github.mikephil.charting.charts.CombinedChart>
+                </com.xiaomiquan.widget.chart.KCombinedChart>
 
             </LinearLayout>
 

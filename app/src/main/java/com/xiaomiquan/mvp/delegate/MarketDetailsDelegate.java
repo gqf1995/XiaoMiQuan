@@ -9,13 +9,13 @@ import android.widget.TextView;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
-import com.github.mikephil.charting.charts.CombinedChart;
 import com.tablayout.CommonTabLayout;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.widget.MinutesTabView;
+import com.xiaomiquan.widget.chart.KCombinedChart;
 
 import java.util.ArrayList;
 
@@ -97,8 +97,8 @@ public class MarketDetailsDelegate extends BaseDelegate {
         public CircleImageView iv_pic;
         public CommonTabLayout tl_2;
         public MinutesTabView view_time_tab;
-        public CombinedChart combinedchart;
-        public CombinedChart barchart;
+        public KCombinedChart combinedchart;
+        public KCombinedChart barchart;
         public LinearLayout lin_information;
         public LinearLayout lin_advance_warning;
         public LinearLayout lin_currency_data;
@@ -112,8 +112,8 @@ public class MarketDetailsDelegate extends BaseDelegate {
             this.iv_pic = (CircleImageView) rootView.findViewById(R.id.iv_pic);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
             this.view_time_tab = (MinutesTabView) rootView.findViewById(R.id.view_time_tab);
-            this.combinedchart = (CombinedChart) rootView.findViewById(R.id.combinedchart);
-            this.barchart = (CombinedChart) rootView.findViewById(R.id.barchart);
+            this.combinedchart = (KCombinedChart) rootView.findViewById(R.id.combinedchart);
+            this.barchart = (KCombinedChart) rootView.findViewById(R.id.barchart);
             this.lin_information = (LinearLayout) rootView.findViewById(R.id.lin_information);
             this.lin_advance_warning = (LinearLayout) rootView.findViewById(R.id.lin_advance_warning);
             this.lin_currency_data = (LinearLayout) rootView.findViewById(R.id.lin_currency_data);

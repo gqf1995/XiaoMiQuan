@@ -30,6 +30,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xiaomiquan.R;
+import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
 import com.xiaomiquan.mpchart.ConstantTest;
@@ -258,8 +259,8 @@ public class DemoActivity extends BaseDataBindActivity<DemoDelegate, DemoBinder>
         barDataSet.setDrawValues(false);
 
         List<Integer> list = new ArrayList<>();
-        list.add(getResources().getColor(R.color.increasing_color));
-        list.add(getResources().getColor(R.color.decreasing_color));
+        list.add(getResources().getColor(UserSet.getinstance().getDropColor()));
+        list.add(getResources().getColor(UserSet.getinstance().getRiseColor()));
         barDataSet.setColors(list);
 
         BarData barData = new BarData(xVals, barDataSet);
@@ -286,11 +287,11 @@ public class DemoActivity extends BaseDataBindActivity<DemoDelegate, DemoBinder>
         candleDataSet.setValueTextSize(10f);
         candleDataSet.setDrawValues(false);
 
-        candleDataSet.setDecreasingColor(getResources().getColor(R.color.decreasing_color));//设置开盘价高于收盘价的颜色
+        candleDataSet.setDecreasingColor(getResources().getColor(UserSet.getinstance().getRiseColor()));//设置开盘价高于收盘价的颜色
         candleDataSet.setDecreasingPaintStyle(Paint.Style.FILL_AND_STROKE);
-        candleDataSet.setIncreasingColor(getResources().getColor(R.color.increasing_color));//设置开盘价地狱收盘价的颜色
+        candleDataSet.setIncreasingColor(getResources().getColor(UserSet.getinstance().getDropColor()));//设置开盘价地狱收盘价的颜色
         candleDataSet.setIncreasingPaintStyle(Paint.Style.FILL_AND_STROKE);
-        candleDataSet.setNeutralColor(getResources().getColor(R.color.decreasing_color));//设置开盘价等于收盘价的颜色
+        candleDataSet.setNeutralColor(getResources().getColor(UserSet.getinstance().getRiseColor()));//设置开盘价等于收盘价的颜色
 
         candleDataSet.setShadowWidth(1f);
         candleDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -395,6 +396,7 @@ public class DemoActivity extends BaseDataBindActivity<DemoDelegate, DemoBinder>
         }
         viewDelegate.viewHolder.barChart.setViewPortOffsets(transLeft, 15, transRight, barBottom);
     }
+
     @Override
     protected Class<DemoDelegate> getDelegateClass() {
         return DemoDelegate.class;
@@ -404,8 +406,6 @@ public class DemoActivity extends BaseDataBindActivity<DemoDelegate, DemoBinder>
     public DemoBinder getDataBinder(DemoDelegate viewDelegate) {
         return new DemoBinder(viewDelegate);
     }
-
-
 
 
     @Override

@@ -11,6 +11,6 @@
         android:background="@drawable/markerview_bg_shape"
         android:padding="3dp"
         android:text=""
-        android:textColor="@color/marker_line_bg" />
+        android:textColor="@color/color_font2" />
 
 </LinearLayout>

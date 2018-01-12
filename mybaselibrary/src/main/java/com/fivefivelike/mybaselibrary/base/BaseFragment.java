@@ -2,6 +2,7 @@ package com.fivefivelike.mybaselibrary.base;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -13,6 +14,19 @@ import com.fivefivelike.mybaselibrary.mvp.presenter.FragmentPresenter;
 
 public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPresenter<T> implements View.OnClickListener {
 
+    /**
+     * 去掉状态栏
+     */
+    protected void addNoStatusBarFlag() {
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+    }
+
+    /**
+     * 显示状态栏
+     */
+    protected void clearNoStatusBarFlag() {
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+    }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -30,8 +44,27 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
             }
         }
     };
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (viewDelegate.isNoStatusBarFlag()) {
+            addNoStatusBarFlag();
+        } else {
+            clearNoStatusBarFlag();
+        }
+    }
+
     /**
      * 初始化标题
+     *
      * @param toolbarBuilder
      */
     protected void initToolbar(ToolbarBuilder toolbarBuilder) {

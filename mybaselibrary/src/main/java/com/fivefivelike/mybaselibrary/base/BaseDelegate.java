@@ -83,6 +83,10 @@ public abstract class BaseDelegate extends IDelegateImpl {
         return isNoStatusBarFlag;
     }
 
+    public void setNoStatusBarFlag(boolean noStatusBarFlag) {
+        isNoStatusBarFlag = noStatusBarFlag;
+    }
+
     public void setCircleDialogLinsener(CircleDialog.CircleDialogLinsener circleDialogLinsener) {
         this.circleDialogLinsener = circleDialogLinsener;
     }

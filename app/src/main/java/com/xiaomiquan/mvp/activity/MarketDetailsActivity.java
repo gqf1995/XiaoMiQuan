@@ -49,8 +49,9 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         }
         mData.parseKLine(object);
         klineDraw = new KlineDraw();
-        klineDraw.setData(mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
+        klineDraw.setData(this,mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
 
+        int i=0;
     }
 
 

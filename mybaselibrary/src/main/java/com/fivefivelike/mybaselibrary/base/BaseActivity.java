@@ -85,6 +85,7 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
 
     }
 
+
     public void onCancel(DialogInterface dialog) {
         //fragmentdialog网络加载弹窗返回后关闭 当前页面
         onBackPressed();
