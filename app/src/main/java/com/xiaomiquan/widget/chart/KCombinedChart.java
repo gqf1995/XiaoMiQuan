@@ -83,7 +83,7 @@ public class KCombinedChart extends CombinedChart {
 
 
                 float v = (mIndicesToHighlight[i].getValue() / this.getYChartMax()) * (this.getMeasuredHeight() - this.getViewPortHandler().offsetBottom() - this.getViewPortHandler().offsetTop());
-                float height = this.getMeasuredHeight()  - v - this.getViewPortHandler().offsetBottom();
+                float height = this.getMeasuredHeight() - v - this.getViewPortHandler().offsetBottom();
 
                 if (null != myMarkerViewH) {
                     myMarkerViewH.refreshContent(e, mIndicesToHighlight[i]);
@@ -130,63 +130,20 @@ public class KCombinedChart extends CombinedChart {
             }
         }
     }
-    //    @Override
-    //    protected void init() {
-    //        super.init();
-    //        /*此两处不能重新示例*/
-    //        mXAxis = new MyXAxis();
-    //        mAxisLeft = new MyYAxis(YAxis.AxisDependency.LEFT);
-    //        mXAxisRenderer = new MyXAxisRenderer(mViewPortHandler, (MyXAxis) mXAxis, mLeftAxisTransformer, this);
-    //        mAxisRendererLeft = new MyYAxisRenderer(mViewPortHandler, (MyYAxis) mAxisLeft, mLeftAxisTransformer);
-    //
-    //        mAxisRight = new MyYAxis(YAxis.AxisDependency.RIGHT);
-    //        mAxisRendererRight = new MyYAxisRenderer(mViewPortHandler, (MyYAxis) mAxisRight, mRightAxisTransformer);
-    //
-    //    }
 
     @Override
     public void setData(CombinedData data) {
         super.setData(data);
         if (isDrawHeightAndLow) {
-                        //获取屏幕宽度,因为默认是向右延伸显示数字的(如图1),当最值在屏幕右端,屏幕不够显示时要向左延伸(如图2)
-                        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-                        DisplayMetrics metrics = new DisplayMetrics();
-                        wm.getDefaultDisplay().getMetrics(metrics);
-                        //将mRenderer换成自己写的继承自LineChartRenderer的类
-                        mRenderer = new KLineChartRenderer(this, mAnimator, mViewPortHandler, metrics.widthPixels);
-                        mRenderer.initBuffers();
-
-//            mXAxis = new MyXAxis();
-            //            mAxisLeft = new MyYAxis(YAxis.AxisDependency.LEFT);
-            //            mXAxisRenderer = new MyXAxisRenderer(mViewPortHandler, (MyXAxis) mXAxis, mLeftAxisTransformer, this);
-            //            mAxisRendererLeft = new MyYAxisRenderer(mViewPortHandler, (MyYAxis) mAxisLeft, mLeftAxisTransformer);
-            //
-            //            mAxisRight = new MyYAxis(YAxis.AxisDependency.RIGHT);
-            //            mAxisRendererRight = new MyYAxisRenderer(mViewPortHandler, (MyYAxis) mAxisRight, mRightAxisTransformer);
+            //获取屏幕宽度,因为默认是向右延伸显示数字的(如图1),当最值在屏幕右端,屏幕不够显示时要向左延伸(如图2)
+            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+            DisplayMetrics metrics = new DisplayMetrics();
+            wm.getDefaultDisplay().getMetrics(metrics);
+            //将mRenderer换成自己写的继承自LineChartRenderer的类
+            mRenderer = new KLineChartRenderer(this, mAnimator, mViewPortHandler, metrics.widthPixels);
+            mRenderer.initBuffers();
         }
     }
 
 
-    //    /*返回转型后的左右轴*/
-    //    @Override
-    //    public MyYAxis getAxisLeft() {
-    //        return (MyYAxis) super.getAxisLeft();
-    //    }
-    //
-    //    @Override
-    //    public MyXAxis getXAxis() {
-    //        return (MyXAxis) super.getXAxis();
-    //    }
-    //
-    //
-    //    @Override
-    //    public MyYAxis getAxisRight() {
-    //        return (MyYAxis) super.getAxisRight();
-    //    }
-
-    //    @Override
-    //    protected void onDraw(Canvas canvas) {
-    //        super.onDraw(canvas);
-    //        mRenderer.drawValues(canvas);
-    //    }
 }

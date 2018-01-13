@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
 
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.data.CandleDataSet;
@@ -15,6 +16,7 @@ import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.xiaomiquan.base.UserSet;
 
 import java.util.List;
 
@@ -120,7 +122,7 @@ public class KLineChartRenderer extends CombinedChartRenderer {
 
         float lowX = width;
         float lowY = height;
-        paint.setColor(Color.parseColor("#1ab546"));
+        paint.setColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
         float rectLength = Utils.convertDpToPixel((minFloat[1] + "").length() * Utils.convertDpToPixel(2f));//矩形框长
         //画横竖线
         c.drawLine(lowX, lowY, lowX, lowY + vLength, paint);
@@ -159,7 +161,7 @@ public class KLineChartRenderer extends CombinedChartRenderer {
 
         float lowX = width;
         float lowY = height;
-        paint.setColor(Color.parseColor("#1ab546"));
+        paint.setColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
         float rectLength = Utils.convertDpToPixel((minFloat[1] + "").length() * Utils.convertDpToPixel(2f));//矩形框长
         //画横竖线
         c.drawLine(lowX, lowY, lowX, lowY + vLength, paint);

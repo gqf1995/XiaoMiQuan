@@ -25,4 +25,22 @@ public class UserSet {
         return R.color.decreasing_color;
     }
 
+
+    public String getLanguage() {
+        return "简体中文";
+    }
+
+    public String getUnit() {
+        return "CNY";
+    }
+
+    public void setLanguage(String language) {
+
+    }
+
+    public void setUnit(String unit) {
+
+    }
+
+
 }

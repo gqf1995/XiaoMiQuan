@@ -40,8 +40,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:theme">
-        <activity android:name=".mvp.activity.DemoActivity">
-        </activity>
         <activity android:name=".mvp.activity.user.LoginAndRegisteredActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -53,12 +51,18 @@
         </activity>
         <activity android:name=".mvp.activity.user.InputSetActivity">
         </activity>
-        <activity android:name=".mvp.activity.MainActivity">
+        <activity android:name=".mvp.activity.main.MainActivity">
         </activity>
-        <activity android:name=".mvp.activity.MarketDetailsActivity">
+        <activity android:name=".mvp.activity.market.MarketDetailsActivity">
         </activity>
         <activity android:name=".mvp.activity.user.ConversationActivity">
         </activity>
+        <activity android:name=".mvp.activity.user.SetActivity"/>
+        <activity android:name=".mvp.activity.user.ChangeDefaultSetActivity"/>
+        <activity android:name=".mvp.activity.user.SecurityActivity"/>
+        <activity android:name=".mvp.activity.market.AddCoinActivity"/>
+        <activity android:name=".mvp.activity.market.SearchCoinMarketActivity"/>
+        <activity android:name=".mvp.activity.market.SortingUserCoinActivity"/>
     </application>
 
 </manifest>

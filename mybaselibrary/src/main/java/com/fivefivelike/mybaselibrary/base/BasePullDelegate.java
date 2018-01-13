@@ -38,6 +38,8 @@ public abstract class BasePullDelegate extends BaseDelegate {
     private boolean isNoData = false;
     private LoadingListItemCreator loadingListItemCreator;
     private int headerCount = 0;//头布局数量
+    private View.OnClickListener noDataClickListener;
+
     /**
      * 下拉刷新控件
      */
@@ -64,6 +66,9 @@ public abstract class BasePullDelegate extends BaseDelegate {
      */
     private boolean isFinish;
 
+    public void setNoDataClickListener(View.OnClickListener noDataClickListener) {
+        this.noDataClickListener = noDataClickListener;
+    }
 
     public void setColorSchemeResources(int... colorResIds) {
         if (mWwipeRefreshLayout != null) {
@@ -150,6 +155,9 @@ public abstract class BasePullDelegate extends BaseDelegate {
         LinearLayout loadLayout = (LinearLayout) mFootView.findViewById(R.id.loading_view_layout);
         LinearLayout endLayout = (LinearLayout) mFootView.findViewById(R.id.end_layout);
         RelativeLayout nodata = (RelativeLayout) mFootView.findViewById(R.id.no_data);
+        if (noDataClickListener != null) {
+            nodata.setOnClickListener(noDataClickListener);
+        }
         nodata.getLayoutParams().height = mPullRecyclerView.getHeight();
         loadLayout.setVisibility(View.GONE);
         nodata.setVisibility(View.GONE);
@@ -227,6 +235,8 @@ public abstract class BasePullDelegate extends BaseDelegate {
             mFootView.findViewById(R.id.loading_view_layout).setVisibility(View.GONE);
         }
     }
+
+
 
     /**
      * 设置是否上拉加载

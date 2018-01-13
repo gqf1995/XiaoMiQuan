@@ -24,8 +24,6 @@ public class InstitutionsDelegate extends BaseDelegate {
 
 
 
-
-
     public static class ViewHolder {
         public View rootView;
         public FontTextview tv_coin_type;

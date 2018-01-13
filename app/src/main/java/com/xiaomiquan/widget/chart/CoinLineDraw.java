@@ -43,6 +43,8 @@ public class CoinLineDraw {
         setKLineDatas();
         initChartKline();
         setKLineByChart(mLineChart);
+
+
     }
 
     /**
@@ -58,6 +60,7 @@ public class CoinLineDraw {
         mLineChart.setDescription("");//右下角对图表的描述信息
         mLineChart.setMinOffset(0f);
         mLineChart.setExtraOffsets(0f, 0f, 20f, 3f);
+        mLineChart.setVisibleXRangeMaximum(mData.getKLineDatas().size());
 
         Legend lineChartLegend = mLineChart.getLegend();
         lineChartLegend.setEnabled(false);//是否绘制 Legend 图例
@@ -72,6 +75,7 @@ public class CoinLineDraw {
         xAxisKline.setTextColor(CommonUtils.getColor(R.color.color_font2));//设置字的颜色
         xAxisKline.setPosition(XAxis.XAxisPosition.BOTTOM);//设置值显示在什么位置
         xAxisKline.setAvoidFirstLastClipping(true);//设置首尾的值是否自动调整，避免被遮挡
+
 
         axisLeftKline = mLineChart.getAxisLeft();
         axisLeftKline.setDrawGridLines(true);
@@ -149,9 +153,10 @@ public class CoinLineDraw {
 
         sets.add(lineDataSet);
 
-        LineData lineData = new LineData(mData.getXVals(), sets);
 
+        LineData lineData = new LineData(mData.getXVals(), sets);
         lineChart.setData(lineData);
+
         setHandler(lineChart);
         lineChart.moveViewToX(mData.getMa5DataV().size() - 1);
     }

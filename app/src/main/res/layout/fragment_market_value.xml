@@ -1,134 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<com.xiaomiquan.widget.StickyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+    >
 
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/trans_140px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/trans_45px"
+            android:paddingRight="@dimen/trans_30px">
+
+            <ImageView
+                android:layout_width="@dimen/trans_52px"
+                android:layout_height="@dimen/trans_52px"
+                android:src="@color/color_blue"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/trans_25px"
+                android:text="@string/str_coin_index"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_28px"/>
+
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:rotation="270"
+                android:text="@string/ic_zhankai"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_30px"
+                />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_coin_index"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/trans_140px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/trans_45px"
+            android:paddingRight="@dimen/trans_30px">
+
+            <ImageView
+                android:layout_width="@dimen/trans_52px"
+                android:layout_height="@dimen/trans_52px"
+                android:src="@color/color_blue"
+                />
+
+            <TextView
+                android:id="@+id/tv_title_volume"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/trans_25px"
+                android:text="@string/str_coin_index"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_28px"/>
+
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:rotation="270"
+                android:text="@string/ic_zhankai"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_30px"
+                />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/base_mask"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/trans_8px"
+            android:paddingLeft="@dimen/trans_45px"
+            android:paddingRight="@dimen/trans_45px"
+            android:paddingTop="@dimen/trans_8px">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/trans_140px"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="390"
+                android:text="@string/str_name_of_the"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_30px"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingLeft="@dimen/trans_45px"
-                android:paddingRight="@dimen/trans_30px">
+                android:text="@string/str_latest_price"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_30px"/>
 
-                <ImageView
-                    android:layout_width="@dimen/trans_52px"
-                    android:layout_height="@dimen/trans_52px"
-                    android:src="@color/color_blue"
-                    />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="220"
+                android:gravity="right"
+                android:text="@string/str_volume"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_30px"/>
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/trans_25px"
-                    android:text="@string/str_coin_index"
-                    android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_28px"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_deal_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-                <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:rotation="270"
-                    android:text="@string/ic_zhankai"
-                    android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_30px"
-                    />
 
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_coin_index"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/trans_140px"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/trans_45px"
-                android:paddingRight="@dimen/trans_30px">
-
-                <ImageView
-                    android:layout_width="@dimen/trans_52px"
-                    android:layout_height="@dimen/trans_52px"
-                    android:src="@color/color_blue"
-                    />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/trans_25px"
-                    android:text="@string/str_coin_index"
-                    android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_28px"/>
-
-                <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:rotation="270"
-                    android:text="@string/ic_zhankai"
-                    android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_30px"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/trans_50px"
-                android:background="@color/base_mask"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="390"
-                    android:paddingLeft="@dimen/trans_45px"
-                    android:text="@string/str_name_of_the"
-                    android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_30px"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="190"
-                    android:paddingLeft="@dimen/trans_45px"
-                    android:text="@string/str_latest_price"
-                    android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_30px"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="@dimen/trans_45px"
-                    android:paddingRight="@dimen/trans_45px"
-                    android:text="@string/str_volume"
-                    android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_30px"/>
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_deal_num"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
+        <LinearLayout
+            android:id="@+id/lin_ranking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:tag="sticky-nonconstant-hastransparancy">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -167,25 +174,19 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/trans_50px"
+                android:layout_height="wrap_content"
                 android:background="@color/base_mask"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/trans_8px"
+                android:paddingLeft="@dimen/trans_45px"
+                android:paddingRight="@dimen/trans_45px"
+                android:paddingTop="@dimen/trans_8px">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="390"
-                    android:paddingLeft="@dimen/trans_45px"
                     android:text="@string/str_name_of_the"
-                    android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_30px"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="190"
-                    android:paddingLeft="@dimen/trans_45px"
-                    android:text="@string/str_latest_price"
                     android:textColor="@color/color_font3"
                     android:textSize="@dimen/text_trans_30px"/>
 
@@ -193,20 +194,58 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingLeft="@dimen/trans_45px"
-                    android:paddingRight="@dimen/trans_45px"
+                    android:text="@string/str_latest_price"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_30px"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="220"
+                    android:gravity="right"
                     android:text="@string/str_volume"
                     android:textColor="@color/color_font3"
                     android:textSize="@dimen/text_trans_30px"/>
             </LinearLayout>
+        </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_ranking"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_ranking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/lin_look_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/trans_24px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_look_all"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_28px"/>
+
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:rotation="270"
+                android:text="@string/ic_zhankai"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_30px"
+                />
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
 
 
-</LinearLayout>
+</com.xiaomiquan.widget.StickyScrollView>

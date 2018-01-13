@@ -52,6 +52,9 @@
     <string name="str_volume">成交量</string>
     <string name="str_rise_ranking">涨幅榜</string>
     <string name="str_drop_ranking">跌幅榜</string>
+    <string name="str_no_binding">去绑定</string>
+    <string name="str_binding">已绑定</string>
+    <string name="str_look_all">查看全部</string>
 
 
     <string name="str_title_findpassword">找回密码</string>
@@ -74,15 +77,26 @@
     <string name="str_security">安全中心</string>
     <string name="str_setting">设置</string>
     <string name="str_logout">退出登录</string>
-
+    <string name="str_about_us">关于我们</string>
+    <string name="str_clean_cache">清理缓存</string>
+    <string name="str_default_unit">默认价格显示</string>
+    <string name="str_change_language">切换语言</string>
+    <string name="str_change_password">修改密码</string>
+    <string name="str_global_index">全球指数</string>
+    <string name="str_add_coin_market">添加自选</string>
+    <string name="str_change_coin_market">币行情自选</string>
+    <string name="str_search_coin_market">币行情搜索</string>
+    <string name="str_search_coin_market_hint">搜索平台、币种</string>
+    <string name="str_search_history">搜索历史</string>
+    <string name="str_hot_coin">热门币种</string>
+    <string name="str_clean">清空</string>
+    <string name="str_srot_toast">取消请点击星星,排序请长按拖动</string>
 
     <string name="str_language_zhcn">中文</string>
-
 
     <string-array name="sa_select_market">
         <item>自选</item>
         <item>市值</item>
-        <item>涨幅</item>
         <item>币安</item>
         <item>OKEx</item>
         <item>OKEx</item>
@@ -92,6 +106,7 @@
         <item>OKEx</item>
     </string-array>
 
+
     <string-array name="sa_select_time">
         <item>1天</item>
         <item>3天</item>
@@ -99,4 +114,17 @@
         <item>1月</item>
         <item>分钟</item>
     </string-array>
+
+    <string-array name="sa_select_unit">
+        <item>默认</item>
+        <item>CNY</item>
+        <item>USD</item>
+    </string-array>
+    <string-array name="sa_select_language">
+        <item>English</item>
+        <item>简体中文</item>
+        <item>繁体中文</item>
+    </string-array>
+
+
 </resources>

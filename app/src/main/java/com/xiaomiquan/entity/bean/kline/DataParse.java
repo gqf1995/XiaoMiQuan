@@ -149,6 +149,7 @@ public class DataParse {
                 kLineData.low = (float) dayData.optDouble(4);
                 kLineData.vol = (float) dayData.optDouble(5);
 
+
                 kLineBeans.add(kLineData);
 
                 volmax = Math.max(kLineData.vol, volmax);
@@ -157,6 +158,11 @@ public class DataParse {
         }
         kDatas.addAll(kLineBeans);
     }
+
+    /**
+     * 转化k线时间 分钟 小时 天 周 月
+     */
+
 
     //    //得到成交量
     //    public void initLineDatas(ArrayList<KLineBean> datas) {

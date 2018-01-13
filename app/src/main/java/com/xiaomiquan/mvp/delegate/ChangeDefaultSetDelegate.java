@@ -1,13 +1,16 @@
 package com.xiaomiquan.mvp.delegate;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.CombinedChart;
+import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 
-public class DemoDelegate extends BaseDelegate {
+public class ChangeDefaultSetDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
 
     @Override
@@ -17,19 +20,17 @@ public class DemoDelegate extends BaseDelegate {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_demo;
+        return R.layout.activity_change_default_set;
     }
 
 
     public static class ViewHolder {
         public View rootView;
-        public CombinedChart combinedchart;
-        public BarChart barChart;
+        public RecyclerView recycler_view;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.combinedchart = (CombinedChart) rootView.findViewById(R.id.combinedchart);
-            this.barChart = (BarChart) rootView.findViewById(R.id.barchart);
+            this.recycler_view = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         }
 
     }

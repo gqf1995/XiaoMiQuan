@@ -79,6 +79,8 @@ public class KlineDraw {
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
         setOffset();
+        mChartKline.setAutoScaleMinMaxEnabled(true);
+        mChartVolume.setAutoScaleMinMaxEnabled(true);
     }
 
     private void setKLineDatas() {
@@ -274,11 +276,11 @@ public class KlineDraw {
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
         set.setShadowWidth(1f);
         set.setValueTextSize(10f);
-        set.setDecreasingColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));//设置开盘价高于收盘价的颜色
+        set.setDecreasingColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));//设置开盘价高于收盘价的颜色
         set.setDecreasingPaintStyle(Paint.Style.FILL);
-        set.setIncreasingColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));//设置开盘价地狱收盘价的颜色
+        set.setIncreasingColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));//设置开盘价地狱收盘价的颜色
         set.setIncreasingPaintStyle(Paint.Style.FILL);
-        set.setNeutralColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));//设置开盘价等于收盘价的颜色
+        set.setNeutralColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));//设置开盘价等于收盘价的颜色
         set.setShadowColorSameAsCandle(true);
         set.setHighlightLineWidth(1f);
         set.setHighLightColor(CommonUtils.getColor(R.color.color_font2));

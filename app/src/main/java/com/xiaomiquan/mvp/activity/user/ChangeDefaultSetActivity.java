@@ -1,0 +1,92 @@
+package com.xiaomiquan.mvp.activity.user;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import com.fivefivelike.mybaselibrary.base.BaseActivity;
+import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.xiaomiquan.R;
+import com.xiaomiquan.adapter.ChangeSetAdapter;
+import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.mvp.delegate.ChangeDefaultSetDelegate;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDelegate> {
+
+
+    public static final String TYPE_LANGUAGE = "type_language";
+    public static final String TYPE_UNIT = "type_unit";
+
+    String title = "";
+
+    List<String> data;
+
+    ChangeSetAdapter changeSetAdapter;
+    String defaultSet;
+
+    @Override
+    protected void bindEvenListener() {
+        super.bindEvenListener();
+        getIntentData();
+        if (TYPE_LANGUAGE.equals(type)) {
+            title = CommonUtils.getString(R.string.str_change_language);
+            data = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language));
+            defaultSet = UserSet.getinstance().getLanguage();
+        } else if (TYPE_UNIT.equals(type)) {
+            title = CommonUtils.getString(R.string.str_default_unit);
+            data = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
+            defaultSet = UserSet.getinstance().getUnit();
+        }
+        initToolbar(new ToolbarBuilder().setTitle(title));
+        initList();
+    }
+
+    private void initList() {
+        changeSetAdapter = new ChangeSetAdapter(this, data, defaultSet);
+        viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(this));
+        viewDelegate.viewHolder.recycler_view.setAdapter(changeSetAdapter);
+        changeSetAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                changeSetAdapter.setSelectPosition(position);
+                if (TYPE_LANGUAGE.equals(type)) {
+                    UserSet.getinstance().setLanguage(data.get(position));
+                } else if (TYPE_UNIT.equals(type)) {
+                    UserSet.getinstance().setUnit(data.get(position));
+                }
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
+    }
+
+    public static void startAct(Activity activity,
+                                String type
+    ) {
+        Intent intent = new Intent(activity, ChangeDefaultSetActivity.class);
+        intent.putExtra("type", type);
+        activity.startActivity(intent);
+    }
+
+    private String type;
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        type = intent.getStringExtra("type");
+    }
+
+    @Override
+    protected Class<ChangeDefaultSetDelegate> getDelegateClass() {
+        return ChangeDefaultSetDelegate.class;
+    }
+}

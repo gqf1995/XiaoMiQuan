@@ -1,4 +1,4 @@
-package com.xiaomiquan.mvp.activity;
+package com.xiaomiquan.mvp.activity.market;
 
 import android.view.View;
 
@@ -49,9 +49,9 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         }
         mData.parseKLine(object);
         klineDraw = new KlineDraw();
-        klineDraw.setData(this,mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
+        klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
 
-        int i=0;
+        int i = 0;
     }
 
 

@@ -20,4 +20,11 @@
             <enum name="bold_italic" value="3" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="StickyScrollView">
+        <attr name="stuckShadowHeight" format="dimension" />
+        <attr name="stuckShadowDrawable" format="reference" />
+    </declare-styleable>
+
+
 </resources>

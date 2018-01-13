@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.xiaomiquan.mvp.activity.MainActivity;
+import com.xiaomiquan.mvp.activity.main.MainActivity;
 import com.xiaomiquan.mvp.databinder.LoginAndRegisteredBinder;
 import com.xiaomiquan.mvp.delegate.LoginAndRegisteredDelegate;
 

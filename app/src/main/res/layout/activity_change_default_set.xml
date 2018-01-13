@@ -7,19 +7,12 @@
               android:orientation="vertical">
 
     <include layout="@layout/include_toolbar_with_statusbar"/>
-    <com.github.mikephil.charting.charts.CombinedChart
-        android:id="@+id/combinedchart"
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_height="wrap_content"/>
 
-    </com.github.mikephil.charting.charts.CombinedChart>
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barchart"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-    </com.github.mikephil.charting.charts.BarChart>
 </LinearLayout>

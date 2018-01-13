@@ -88,6 +88,7 @@
     <color name="colorPrimaryDark">#19193b</color>
 
     <color name="base_mask">@color/white_transparent_50</color>
+    <color name="base_mask_dark">@color/black_transparent_50</color>
 
     <color name="color_font1">@color/white</color>
     <color name="color_font2">@color/color_cccccc</color>

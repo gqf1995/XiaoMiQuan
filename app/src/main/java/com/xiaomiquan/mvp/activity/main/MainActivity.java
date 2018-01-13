@@ -1,4 +1,4 @@
-package com.xiaomiquan.mvp.activity;
+package com.xiaomiquan.mvp.activity.main;
 
 import android.support.v4.app.Fragment;
 
