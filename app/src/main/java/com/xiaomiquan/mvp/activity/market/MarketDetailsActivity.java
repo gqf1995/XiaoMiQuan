@@ -33,7 +33,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(CommonUtils.getString(R.string.ic_zhankai) + " " + CommonUtils.getString(R.string.str_add)));
+        initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
         getOffLineData();
     }

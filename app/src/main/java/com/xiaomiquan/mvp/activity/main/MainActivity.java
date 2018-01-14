@@ -6,6 +6,7 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
+import com.xiaomiquan.mvp.fragment.CircleFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
 
@@ -31,7 +32,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     public void initFragment() {
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
         viewDelegate.addFragment(new MarketFragment());
-        viewDelegate.addFragment(new Fragment());
+        viewDelegate.addFragment(new CircleFragment());
         viewDelegate.addFragment(new Fragment());
         viewDelegate.addFragment(new UserFragment());
         viewDelegate.showFragment(0);

@@ -35,6 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/trans_80px"
         android:layout_gravity="bottom"
+        android:paddingTop="@dimen/trans_15px"
         app:tl_indicator_width="@dimen/trans_8px"
         app:tl_textBold="BOTH"
         app:tl_underline_gravity="TOP"

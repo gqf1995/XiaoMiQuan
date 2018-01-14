@@ -14,14 +14,15 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.MotionEvent;
-import android.view.View;
 
 import com.fivefivelike.mybaselibrary.R;
+
+import skin.support.widget.SkinCompatView;
 
 /**
  * @author cncoderx
  */
-public class WheelView extends View {
+public class WheelView extends SkinCompatView {
     private boolean mCyclic;
     private int mVisibleItems = 9;
     private int mLineSpace = 10;

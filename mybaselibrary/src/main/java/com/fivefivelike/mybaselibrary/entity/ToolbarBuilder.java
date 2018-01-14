@@ -9,9 +9,9 @@ public class ToolbarBuilder {
     private String subTitle;//右边文字
     private String backTxt = "";//右边文字
     private boolean isShowBack = true;//是否显示返回按钮
-    private int mRightImg1;//右边第一个图标按钮
-    private int mRightImg2;//右边第二个图标按钮
-    private int mRightImg3;//右边第二个图标按钮
+    private String mRightImg1;//右边第一个图标按钮
+    private String mRightImg2;//右边第二个图标按钮
+    private String mRightImg3;//右边第二个图标按钮
     private int mToolbarBackColor;//toolbar背景颜色
     private boolean isTitleShow = true;//是否显示标题
     private int layoutBarBack;
@@ -99,11 +99,11 @@ public class ToolbarBuilder {
         return this;
     }
 
-    public int getmRightImg1() {
+    public String getmRightImg1() {
         return mRightImg1;
     }
 
-    public ToolbarBuilder setmRightImg1(int mRightImg1) {
+    public ToolbarBuilder setmRightImg1(String mRightImg1) {
         this.mRightImg1 = mRightImg1;
         return this;
     }
@@ -117,20 +117,20 @@ public class ToolbarBuilder {
         return this;
     }
 
-    public int getmRightImg2() {
+    public String getmRightImg2() {
         return mRightImg2;
     }
 
-    public ToolbarBuilder setmRightImg2(int mRightImg2) {
+    public ToolbarBuilder setmRightImg2(String mRightImg2) {
         this.mRightImg2 = mRightImg2;
         return this;
     }
 
-    public int getmRightImg3() {
+    public String getmRightImg3() {
         return mRightImg3;
     }
 
-    public ToolbarBuilder setmRightImg3(int mRightImg3) {
+    public ToolbarBuilder setmRightImg3(String mRightImg3) {
         this.mRightImg3 = mRightImg3;
         return this;
     }

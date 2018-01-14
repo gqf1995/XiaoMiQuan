@@ -19,7 +19,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,7 +30,9 @@ import com.tablayout.widget.MsgView;
 
 import java.util.ArrayList;
 
-public class SegmentTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener {
+import skin.support.widget.SkinCompatFrameLayout;
+
+public class SegmentTabLayout extends SkinCompatFrameLayout implements ValueAnimator.AnimatorUpdateListener {
     private Context mContext;
     private String[] mTitles;
     private LinearLayout mTabsContainer;

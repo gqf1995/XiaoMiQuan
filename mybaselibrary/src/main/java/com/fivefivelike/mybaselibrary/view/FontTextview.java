@@ -3,18 +3,18 @@ package com.fivefivelike.mybaselibrary.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
 import com.fivefivelike.mybaselibrary.R;
 
 import io.reactivex.internal.util.OpenHashSet;
+import skin.support.widget.SkinCompatTextView;
 
 /**
  * Created by 郭青枫 on 2017/10/14.
  */
 
-public class FontTextview extends AppCompatTextView {
+public class FontTextview extends SkinCompatTextView {
     OpenHashSet<Typeface> resources;
 
     int type = 0;

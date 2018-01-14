@@ -26,11 +26,12 @@ public class MarketValueDelegate extends BaseDelegate {
     }
 
     private void init() {
-        viewHolder.tv_drop_ranking.setText(CommonUtils.getString(R.string.ic_zhankai) + " " + CommonUtils.getString(R.string.str_drop_ranking));
-        viewHolder.tv_rise_ranking.setText(CommonUtils.getString(R.string.ic_zhankai) + " " + CommonUtils.getString(R.string.str_rise_ranking));
+        viewHolder.tv_drop_ranking.setText(CommonUtils.getString(R.string.ic_Fall) + " " + CommonUtils.getString(R.string.str_drop_ranking));
+        viewHolder.tv_rise_ranking.setText(CommonUtils.getString(R.string.ic_Climb) + " " + CommonUtils.getString(R.string.str_rise_ranking));
         viewHolder.tv_drop_ranking.setOnClickListener(onClickListener);
         viewHolder.tv_rise_ranking.setOnClickListener(onClickListener);
         viewHolder.tv_title_volume.setText("BTC 24H" + CommonUtils.getString(R.string.str_volume));
+        viewHolder.lin_root.setVisibility(View.GONE);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -59,8 +60,10 @@ public class MarketValueDelegate extends BaseDelegate {
         public RecyclerView rv_deal_num;
         public IconFontTextview tv_rise_ranking;
         public IconFontTextview tv_drop_ranking;
+        public LinearLayout lin_ranking;
         public RecyclerView rv_ranking;
         public LinearLayout lin_look_all;
+        public LinearLayout lin_root;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -69,8 +72,10 @@ public class MarketValueDelegate extends BaseDelegate {
             this.rv_deal_num = (RecyclerView) rootView.findViewById(R.id.rv_deal_num);
             this.tv_rise_ranking = (IconFontTextview) rootView.findViewById(R.id.tv_rise_ranking);
             this.tv_drop_ranking = (IconFontTextview) rootView.findViewById(R.id.tv_drop_ranking);
+            this.lin_ranking = (LinearLayout) rootView.findViewById(R.id.lin_ranking);
             this.rv_ranking = (RecyclerView) rootView.findViewById(R.id.rv_ranking);
             this.lin_look_all = (LinearLayout) rootView.findViewById(R.id.lin_look_all);
+            this.lin_root = (LinearLayout) rootView.findViewById(R.id.lin_root);
         }
 
     }

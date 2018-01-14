@@ -11,7 +11,6 @@ import com.fivefivelike.mybaselibrary.http.ServiceDataCallback;
 import com.fivefivelike.mybaselibrary.mvp.databind.IDataBind;
 import com.fivefivelike.mybaselibrary.mvp.view.IDelegate;
 import com.fivefivelike.mybaselibrary.utils.ActUtil;
-import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
@@ -120,32 +119,26 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
         KLog.i(this.getClass().getName(), "请求数据: " + jsonData);
         try {
             JSONObject object = new JSONObject(jsonData);
-            info = object.getString("msg");
+            info = object.getString(ResultDialog.DIALOG_KEY);
             status = object.getInt("code");
             data = object.getString("data");
-            if (status == 0000) {
+            if (status == 0) {
                 serviceDataCallback.onDataSuccess(data, info, status, requestCode);
             } else {
                 serviceDataCallback.onDataError(data, info, status, requestCode);
             }
-            String dialog = GsonUtil.getInstance().getValue(jsonData, ResultDialog.DIALOG_KEY, String.class);
-            if (TextUtils.isEmpty(dialog) && status != 0000) {
-                ToastUtil.show(info);
-            }
-            if (!TextUtils.isEmpty(dialog)) {
-                ResultDialogEntity resultDialogEntity = ResultDialog.getInstence().ShowResultDialog(activity, dialog, defaultClickLinsener);
-                if (TextUtils.isEmpty(resultDialogEntity.getType())) {
-                    ToastUtil.show(info);
-                }
+            //            String dialog = GsonUtil.getInstance().getValue(jsonData, ResultDialog.DIALOG_KEY, String.class);
+            //            if (TextUtils.isEmpty(dialog) && status != 0) {
+            //                ToastUtil.show(info);
+            //            }
+            if (!TextUtils.isEmpty(info)) {
+                ResultDialogEntity resultDialogEntity = ResultDialog.getInstence().ShowResultDialog(activity, info, defaultClickLinsener);
             }
         } catch (JSONException e) {
             e.printStackTrace();
             showError(e);
         }
-
     }
-
-
 
 
     protected Map<String, Object> getBaseMap() {
@@ -157,6 +150,16 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
         getBaseMap();
         baseMap.put("uid", SaveUtil.getInstance().getString("uid"));
         baseMap.put("token", SaveUtil.getInstance().getString("token"));
+        String language = SaveUtil.getInstance().getString("language");
+        if (TextUtils.isEmpty(language)) {
+            language = "zh-cn";
+        }
+        baseMap.put("language", language);
+        String unit = SaveUtil.getInstance().getString("unit");
+        if (TextUtils.isEmpty(unit)) {
+            unit = "default";
+        }
+        baseMap.put("unit", unit);
         return baseMap;
     }
 

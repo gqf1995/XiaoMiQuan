@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,9 +37,13 @@ public abstract class BaseDelegate extends IDelegateImpl {
     private TextView mToolbarTitle;
     private TextView mToolbarSubTitle;
     private Toolbar mToolbar;
-    private ImageView mToolbarRightImg1;
-    private ImageView mToolbarRightImg2;
-    private ImageView mToolbarRightImg3;
+    private IconFontTextview mToolbarRightImg1;
+    private IconFontTextview mToolbarRightImg2;
+    private IconFontTextview mToolbarRightImg3;
+
+    private View viewImg2Point;
+    private View viewImg1Point;
+    private View viewImgPoint;
     private DialogFragment netConnectDialog;
     private LinearLayout layoutTitleBar;
     private ImageButton mNavButtonView;
@@ -125,6 +128,10 @@ public abstract class BaseDelegate extends IDelegateImpl {
         mToolbarRightImg1 = getViewById(R.id.toolbar_img);
         mToolbarRightImg2 = getViewById(R.id.toolbar_img1);
         mToolbarRightImg3 = getViewById(R.id.toolbar_img2);
+        viewImg2Point = getViewById(R.id.view_img2_point);
+        viewImg1Point = getViewById(R.id.view_img1_point);
+        viewImgPoint = getViewById(R.id.view_img_point);
+
 
         mToolbarBackTxt = getViewById(R.id.toolbar_back_txt);
         mToolbarBackLin = getViewById(R.id.toolbar_lin_back);
@@ -163,20 +170,20 @@ public abstract class BaseDelegate extends IDelegateImpl {
             mToolbarSubTitle.setOnClickListener(listener);
         }
         //设置右边第一个按钮并显示
-        if (builder.getmRightImg1() != 0) {
+        if (!TextUtils.isEmpty(builder.getmRightImg1())) {
             mToolbarRightImg1.setVisibility(View.VISIBLE);
-            mToolbarRightImg1.setImageResource(builder.getmRightImg1());
+            mToolbarRightImg1.setText(builder.getmRightImg1());
             mToolbarRightImg1.setOnClickListener(listener);
         }
         //设置右边第二个按钮并显示
-        if (builder.getmRightImg2() != 0) {
+        if (!TextUtils.isEmpty(builder.getmRightImg2())) {
             mToolbarRightImg2.setVisibility(View.VISIBLE);
-            mToolbarRightImg2.setImageResource(builder.getmRightImg2());
+            mToolbarRightImg2.setText(builder.getmRightImg2());
             mToolbarRightImg2.setOnClickListener(listener);
         }   //设置右边第二个按钮并显示
-        if (builder.getmRightImg3() != 0) {
+        if (!TextUtils.isEmpty(builder.getmRightImg3())) {
             mToolbarRightImg3.setVisibility(View.VISIBLE);
-            mToolbarRightImg3.setImageResource(builder.getmRightImg3());
+            mToolbarRightImg3.setText(builder.getmRightImg3());
             mToolbarRightImg3.setOnClickListener(listener);
         }
         //设置显示返回按钮  可自定义图标
@@ -239,7 +246,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
                 activity.onBackPressed();
             }
         });
-        mToolbarBack.setText(CommonUtils.getString(R.string.ic_zhankai));
+        mToolbarBack.setText(CommonUtils.getString(R.string.ic_Back));
         mToolbarBackTxt.setText(backTxt);
     }
 
@@ -364,15 +371,15 @@ public abstract class BaseDelegate extends IDelegateImpl {
         return mToolbar;
     }
 
-    public ImageView getmToolbarRightImg1() {
+    public IconFontTextview getmToolbarRightImg1() {
         return mToolbarRightImg1;
     }
 
-    public ImageView getmToolbarRightImg2() {
+    public IconFontTextview getmToolbarRightImg2() {
         return mToolbarRightImg2;
     }
 
-    public ImageView getmToolbarRightImg3() {
+    public IconFontTextview getmToolbarRightImg3() {
         return mToolbarRightImg3;
     }
 
@@ -407,4 +414,17 @@ public abstract class BaseDelegate extends IDelegateImpl {
     public IconFontTextview getmToolbarBack() {
         return mToolbarBack;
     }
+
+    public View getViewImg2Point() {
+        return viewImg2Point;
+    }
+
+    public View getViewImg1Point() {
+        return viewImg1Point;
+    }
+
+    public View getViewImgPoint() {
+        return viewImgPoint;
+    }
+
 }

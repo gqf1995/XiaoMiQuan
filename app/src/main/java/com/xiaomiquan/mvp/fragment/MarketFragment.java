@@ -2,12 +2,16 @@ package com.xiaomiquan.mvp.fragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.ExchangeName;
 import com.xiaomiquan.mvp.activity.market.SearchCoinMarketActivity;
 import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.TabViewpageBinder;
@@ -15,11 +19,14 @@ import com.xiaomiquan.mvp.delegate.TabViewpageDelegate;
 import com.xiaomiquan.widget.GainsTabView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, TabViewpageBinder> {
     ArrayList<Fragment> fragments;
-    String[] mTitles;
+    List<String> mTitles;
     GainsTabView gainsTabView;
+    List<ExchangeName> exchangeNameList;
 
     @Override
     protected Class<TabViewpageDelegate> getDelegateClass() {
@@ -35,27 +42,35 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setSubTitle(CommonUtils.getString(R.string.ic_zhankai)).setTitle(CommonUtils.getString(R.string.str_title_market)).setShowBack(true));
-        viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_zhankai));
+        initToolbar(new ToolbarBuilder().setmRightImg1(CommonUtils.getString(R.string.ic_Notifications)).setmRightImg2(CommonUtils.getString(R.string.ic_Filter2))
+                .setTitle(CommonUtils.getString(R.string.str_title_market)).setShowBack(true));
+        viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_Search1));
         initBarClick();
-        initTablelayout();
+        //网络获取交易所 名称
+        String exchangeNamesStr = CacheUtils.getInstance().getString("exchangeNames");
+        if (!TextUtils.isEmpty(exchangeNamesStr)) {
+            exchangeNameList = GsonUtil.getInstance().toList(exchangeNamesStr, ExchangeName.class);
+            initTablelayout(exchangeNameList);
+        }
+        addRequest(binder.getAllEXchange(this));
+
 
     }
 
-    private void initTablelayout() {
-        if (mTitles == null && fragments == null) {
-            fragments = new ArrayList<>();
-            mTitles = CommonUtils.getStringArray(R.array.sa_select_market);
-        }
-
+    private void initTablelayout(List<ExchangeName> exchangeNames) {
+        fragments = new ArrayList<>();
+        mTitles = new ArrayList<>();
+        List<String> strings = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_market));
         fragments.add(new UserChooseFragment());
         fragments.add(new MarketValueFragment());
-
-        for (int i = 2; i < mTitles.length; i++) {
-            fragments.add(new InstitutionsFragment());
+        mTitles.add(strings.get(0));
+        mTitles.add(strings.get(1));
+        for (int i = 0; i < exchangeNames.size(); i++) {
+            mTitles.add(exchangeNames.get(i).getEname());
+            fragments.add(InstitutionsFragment.newInstance(exchangeNames.get(i)));
         }
         viewDelegate.viewHolder.tl_2.setViewPager(viewDelegate.viewHolder.vp_sliding,
-                mTitles, (FragmentActivity) viewDelegate.viewHolder.rootView.getContext(), fragments);
+                mTitles.toArray(new String[mTitles.size()]), (FragmentActivity) viewDelegate.viewHolder.rootView.getContext(), fragments);
 
         //        LinearLayout linearLayout = viewHolder.tl_2.getmTabsContainer();
         //        gainsTabView = new GainsTabView(viewHolder.rootView.getContext());
@@ -98,6 +113,17 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+            case 0x123:
+                //保存行情列表
+                List<ExchangeName> exchangeNames = GsonUtil.getInstance().toList(data, ExchangeName.class);
+                if (exchangeNameList == null) {
+                    initTablelayout(exchangeNames);
+                    break;
+                }
+                if (exchangeNameList.size() != exchangeNames.size()) {
+                    initTablelayout(exchangeNames);
+                }
+                break;
         }
     }
 

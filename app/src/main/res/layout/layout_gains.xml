@@ -35,7 +35,7 @@
                 android:id="@+id/tv_gains_top"
                 android:layout_width="@dimen/trans_15px"
                 android:layout_height="@dimen/trans_15px"
-                android:text="@string/ic_zhankai"
+                android:text="@string/ic_Up"
                 android:textColor="@color/color_font3"
                 android:textSize="@dimen/text_trans_15px"
                 />
@@ -44,7 +44,7 @@
                 android:id="@+id/tv_gains_up"
                 android:layout_width="@dimen/trans_15px"
                 android:layout_height="@dimen/trans_15px"
-                android:text="@string/ic_zhankai"
+                android:text="@string/ic_Down"
                 android:textColor="@color/color_font3"
                 android:textSize="@dimen/text_trans_15px"/>
         </LinearLayout>

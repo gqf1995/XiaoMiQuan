@@ -24,7 +24,9 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.xiaomiquan.R;
 
-public class EditCodeView extends View
+import skin.support.widget.SkinCompatView;
+
+public class EditCodeView extends SkinCompatView
         implements View.OnClickListener, View.OnFocusChangeListener {
 
     private static final int DEFAULT_CODE_LENGTH = 4;

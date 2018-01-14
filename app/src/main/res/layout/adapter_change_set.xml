@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@string/ic_zhankai"
+            android:text="@string/ic_Check1"
             android:textColor="@color/color_font3"
             android:textSize="@dimen/text_trans_60px"
             />

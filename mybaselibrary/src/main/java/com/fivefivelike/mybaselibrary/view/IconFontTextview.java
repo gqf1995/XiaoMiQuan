@@ -2,14 +2,15 @@ package com.fivefivelike.mybaselibrary.view;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+
+import skin.support.widget.SkinCompatTextView;
 
 /**
  * Created by 郭青枫 on 2017/10/14.
  */
 
-public class IconFontTextview extends AppCompatTextView {
+public class IconFontTextview extends SkinCompatTextView {
     public IconFontTextview(Context context) {
         super(context);
         init(context);

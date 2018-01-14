@@ -6,11 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.fivefivelike.mybaselibrary.mvp.view.IDelegate;
 
+import skin.support.annotation.Skinable;
+
 
 /**
  * Created by 郭青枫 on 2017/7/3.
  */
-
+@Skinable
 public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatActivity {
     protected T viewDelegate;
     private static final String TAG = "BaseActivity";

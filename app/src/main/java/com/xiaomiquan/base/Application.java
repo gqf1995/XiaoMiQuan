@@ -9,6 +9,7 @@ import com.fivefivelike.mybaselibrary.base.BaseApp;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
 import com.squareup.leakcanary.LeakCanary;
+import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.yanzhenjie.nohttp.NoHttp;
 
@@ -73,6 +74,8 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
             Utils.init(this);
             GlobleContext.init(this);
             //initNohttp();
+            //初始化数据库
+            DaoManager.getInstance().init(this);
             NoHttp.initialize(this);
             BigImageViewer.initialize(GlideImageLoader.with(this));
             //开启log日志

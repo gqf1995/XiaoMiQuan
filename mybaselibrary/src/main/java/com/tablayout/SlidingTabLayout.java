@@ -23,7 +23,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,10 +34,12 @@ import com.tablayout.widget.MsgView;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import skin.support.widget.SkinCompatLinearLayout;
+
 /**
  * 滑动TabLayout,对于ViewPager的依赖性强
  */
-public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.OnPageChangeListener {
+public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPager.OnPageChangeListener {
     private Context mContext;
     private ViewPager mViewPager;
     private ArrayList<String> mTitles;
@@ -126,9 +127,11 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     public SlidingTabLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
+
     public LinearLayout getmTabsContainer() {
         return mTabsContainer;
     }
+
     public SlidingTabLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setFillViewport(true);//设置滚动视图是否可以伸缩其内容以填充视口
@@ -137,7 +140,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         setClipToPadding(false);
 
         this.mContext = context;
-        mTabsContainer = new LinearLayout(context);
+        mTabsContainer = new SkinCompatLinearLayout(context);
         addView(mTabsContainer);
 
         obtainAttributes(context, attrs);
@@ -251,6 +254,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         this.mViewPager.addOnPageChangeListener(this);
         notifyDataSetChanged();
     }
+
     public void setViewPager(ViewPager vp, String[] titles, Fragment fa, ArrayList<Fragment> fragments) {
         if (vp == null) {
             throw new IllegalStateException("ViewPager can not be NULL !");
@@ -267,6 +271,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         this.mViewPager.addOnPageChangeListener(this);
         notifyDataSetChanged();
     }
+
     /**
      * 更新数据
      */

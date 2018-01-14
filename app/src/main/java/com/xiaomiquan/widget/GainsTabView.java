@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -14,11 +13,13 @@ import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.tablayout.widget.MsgView;
 import com.xiaomiquan.R;
 
+import skin.support.widget.SkinCompatRelativeLayout;
+
 /**
  * Created by 郭青枫 on 2018/1/11 0011.
  */
 
-public class GainsTabView extends RelativeLayout {
+public class GainsTabView extends SkinCompatRelativeLayout {
 
     boolean isTop = false;
     private TextView tv_tab_title;

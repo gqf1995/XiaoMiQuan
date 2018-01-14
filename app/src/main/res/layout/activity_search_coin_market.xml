@@ -28,7 +28,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/trans_20px"
                 android:gravity="center"
-                android:text="@string/ic_zhankai"
+                android:text="@string/ic_Search"
                 android:textColor="@color/color_font3"
                 android:textSize="@dimen/text_trans_30px"/>
 

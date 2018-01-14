@@ -1,5 +1,7 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,6 +13,7 @@ import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.github.mikephil.charting.charts.LineChart;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.CoinMarketAdapter;
+import com.xiaomiquan.entity.bean.ExchangeName;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.mpchart.ConstantTest;
 import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
@@ -30,6 +33,8 @@ public class InstitutionsFragment extends BasePullFragment<BaseFragentPullDelega
 
     CoinMarketAdapter coinMarketAdapter;
     HeaderAndFooterWrapper adapter;
+    ExchangeName exchangeName;
+
 
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
@@ -45,6 +50,7 @@ public class InstitutionsFragment extends BasePullFragment<BaseFragentPullDelega
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        exchangeName = getArguments().getParcelable("exchangeName");
         initList();
     }
 
@@ -127,5 +133,29 @@ public class InstitutionsFragment extends BasePullFragment<BaseFragentPullDelega
     @Override
     protected void refreshData() {
 
+    }
+
+    public static InstitutionsFragment newInstance(
+            ExchangeName exchangeName) {
+        InstitutionsFragment newFragment = new InstitutionsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("exchangeName", exchangeName);
+        newFragment.setArguments(bundle);
+        return newFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if ((savedInstanceState != null)
+                && savedInstanceState.containsKey("exchangeName")) {
+            exchangeName = savedInstanceState.getParcelable("exchangeName");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("exchangeName", exchangeName);
     }
 }

@@ -29,6 +29,7 @@
                     >
 
                     <LinearLayout
+                        android:id="@+id/lin_user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
@@ -46,6 +47,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:gravity="center_vertical"
                             android:orientation="vertical"
                             android:paddingLeft="@dimen/trans_30px">
 
@@ -54,21 +56,20 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="-"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/text_trans_40px"/>
-
-                            <Space
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/trans_5px"/>
+                                android:text="@string/str_nologin"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_32px"/>
 
                             <TextView
+                                android:id="@+id/tv_subtitle"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:gravity="bottom"
                                 android:text="-"
                                 android:textColor="@color/color_cccccc"
-                                android:textSize="@dimen/text_trans_28px"/>
+                                android:textSize="@dimen/text_trans_28px"
+                                android:visibility="gone"/>
 
                         </LinearLayout>
 
@@ -76,8 +77,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:rotation="270"
-                            android:text="@string/ic_zhankai"
+                            android:text="@string/ic_Next"
                             android:textColor="@color/color_font3"
                             android:textSize="@dimen/text_trans_30px"
                             />
@@ -221,8 +221,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:rotation="270"
-                        android:text="@string/ic_zhankai"
+                        android:text="@string/ic_Next"
                         android:textColor="@color/color_font3"
                         android:textSize="@dimen/text_trans_30px"
                         />
@@ -264,8 +263,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:rotation="270"
-                        android:text="@string/ic_zhankai"
+                        android:text="@string/ic_Next"
                         android:textColor="@color/color_font3"
                         android:textSize="@dimen/text_trans_30px"
                         />
@@ -308,8 +306,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:rotation="270"
-                        android:text="@string/ic_zhankai"
+                        android:text="@string/ic_Next"
                         android:textColor="@color/color_font3"
                         android:textSize="@dimen/text_trans_30px"
                         />
@@ -362,8 +359,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:rotation="270"
-                        android:text="@string/ic_zhankai"
+                        android:text="@string/ic_Next"
                         android:textColor="@color/color_font3"
                         android:textSize="@dimen/text_trans_30px"
                         />
@@ -407,8 +403,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:rotation="270"
-                        android:text="@string/ic_zhankai"
+                        android:text="@string/ic_Next"
                         android:textColor="@color/color_font3"
                         android:textSize="@dimen/text_trans_30px"
                         />
@@ -453,8 +448,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:rotation="270"
-                        android:text="@string/ic_zhankai"
+                        android:text="@string/ic_Next"
                         android:textColor="@color/color_font3"
                         android:textSize="@dimen/text_trans_30px"
                         />
@@ -500,8 +494,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:rotation="270"
-                        android:text="@string/ic_zhankai"
+                        android:text="@string/ic_Next"
                         android:textColor="@color/color_font3"
                         android:textSize="@dimen/text_trans_30px"
                         />

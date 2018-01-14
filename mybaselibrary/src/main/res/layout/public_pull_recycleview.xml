@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<skin.support.widget.SkinCompatFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fl_pull"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black_transparent_25"
     android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -17,10 +18,9 @@
             android:id="@+id/pull_recycleview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black_transparent_25"
             android:scrollbars="none"
             />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <!--<include layout="@layout/merge_layout_no_data"/>-->
-</FrameLayout>
+</skin.support.widget.SkinCompatFrameLayout>

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">MyBaseLibrary</string>
-    <string name="ic_zhankai">&#xe69e;</string>
+    <string name="ic_Back">#xe643;</string>
 
 </resources>

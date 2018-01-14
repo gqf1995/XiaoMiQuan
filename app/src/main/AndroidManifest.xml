@@ -41,17 +41,17 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:theme">
         <activity android:name=".mvp.activity.user.LoginAndRegisteredActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".mvp.activity.user.VerificationCodeActivity">
         </activity>
         <activity android:name=".mvp.activity.user.InputSetActivity">
         </activity>
         <activity android:name=".mvp.activity.main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".mvp.activity.market.MarketDetailsActivity">
         </activity>
@@ -63,6 +63,7 @@
         <activity android:name=".mvp.activity.market.AddCoinActivity"/>
         <activity android:name=".mvp.activity.market.SearchCoinMarketActivity"/>
         <activity android:name=".mvp.activity.market.SortingUserCoinActivity"/>
+        <activity android:name=".mvp.activity.main.WebActivityActivity"/>
     </application>
 
 </manifest>

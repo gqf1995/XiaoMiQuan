@@ -16,8 +16,8 @@ public class MainDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
     private String[] mTitles = {"", "", "", ""};
     private int[] mIconSelectIds = {
-            R.string.ic_zhankai, R.string.ic_zhankai,
-            R.string.ic_zhankai, R.string.ic_zhankai};
+            R.string.ic_Chart, R.string.ic_Layers,
+            R.string.ic_Inbox, R.string.ic_Home};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Override

@@ -10,17 +10,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.widget.ScrollView;
 
 import com.xiaomiquan.R;
 
 import java.util.ArrayList;
 
+import skin.support.widget.SkinCompatScrollView;
+
 /**
  * Created by 郭青枫 on 2018/1/13 0013.
  */
 
-public class StickyScrollView extends ScrollView {
+public class StickyScrollView extends SkinCompatScrollView {
 
     /**
      * Tag for views that should stick and have constant drawing. e.g. TextViews, ImageViews etc

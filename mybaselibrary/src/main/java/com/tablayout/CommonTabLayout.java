@@ -38,11 +38,13 @@ import com.tablayout.widget.MsgView;
 
 import java.util.ArrayList;
 
+import skin.support.widget.SkinCompatFrameLayout;
+
 
 /**
  * 没有继承HorizontalScrollView不能滑动,对于ViewPager无依赖
  */
-public class CommonTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener {
+public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnimator.AnimatorUpdateListener {
     private Context mContext;
     private ArrayList<CustomTabEntity> mTabEntitys = new ArrayList<>();
     private LinearLayout mTabsContainer;

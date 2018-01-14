@@ -27,6 +27,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.PathEntity;
@@ -331,21 +332,21 @@ public class UiHeplUtils {
                 }).subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(@NonNull Long aLong) throws Exception {
-                        textView.setText(aLong + "秒后重发");
+                        textView.setText(aLong + CommonUtils.getString(R.string.str_seconds_resend));
                         textView.setGravity(Gravity.CENTER);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         textView.setEnabled(true);
-                        textView.setText("点击重新获取");
+                        textView.setText(CommonUtils.getString(R.string.str_resend));
                         textView.setGravity(Gravity.CENTER);
                     }
                 }, new Action() {
                     @Override
                     public void run() throws Exception {
                         textView.setEnabled(true);
-                        textView.setText("点击重新获取");
+                        textView.setText(CommonUtils.getString(R.string.str_resend));
                         textView.setGravity(Gravity.CENTER);
                     }
                 });
