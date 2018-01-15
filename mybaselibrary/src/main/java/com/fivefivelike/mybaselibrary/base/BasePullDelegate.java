@@ -156,7 +156,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
         LinearLayout endLayout = (LinearLayout) mFootView.findViewById(R.id.end_layout);
         RelativeLayout nodata = (RelativeLayout) mFootView.findViewById(R.id.no_data);
         if (noDataClickListener != null) {
-            nodata.setOnClickListener(noDataClickListener);
+            nodata.findViewById(R.id.ic_nodata).setOnClickListener(noDataClickListener);
         }
         nodata.getLayoutParams().height = mPullRecyclerView.getHeight();
         loadLayout.setVisibility(View.GONE);

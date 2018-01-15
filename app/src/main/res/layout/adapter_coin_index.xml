@@ -9,12 +9,12 @@
         android:id="@+id/lin_root"
         android:layout_width="@dimen/trans_255px"
         android:layout_height="@dimen/trans_255px"
-        android:layout_marginRight="@dimen/trans_20px"
         android:background="@drawable/shape_mask_t20radiu"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/trans_25px"
-        android:paddingTop="@dimen/trans_25px">
+        android:paddingBottom="@dimen/trans_20px"
+        android:paddingTop="@dimen/trans_20px"
+        >
 
         <com.fivefivelike.mybaselibrary.view.FontTextview
             android:id="@+id/tv_coin_name"
@@ -36,10 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingTop="@dimen/trans_15px"
+            android:paddingTop="@dimen/trans_10px"
             android:text="@string/str_global_index"
             android:textColor="@color/color_font2"
-            android:textSize="@dimen/text_trans_28px"/>
+            android:textSize="@dimen/text_trans_26px"/>
 
         <com.fivefivelike.mybaselibrary.view.FontTextview
             android:id="@+id/tv_index"
@@ -49,7 +49,7 @@
             android:gravity="center"
             android:text="396762.22"
             android:textColor="@color/increasing_color"
-            android:textSize="@dimen/text_trans_45px"/>
+            android:textSize="@dimen/text_trans_35px"/>
 
         <com.fivefivelike.mybaselibrary.view.FontTextview
             android:id="@+id/tv_price"
@@ -58,7 +58,7 @@
             android:gravity="center"
             android:text="$126543.63"
             android:textColor="@color/color_font3"
-            android:textSize="@dimen/text_trans_24px"
+            android:textSize="@dimen/text_trans_22px"
             app:TypeFace="Regular"/>
 
     </LinearLayout>

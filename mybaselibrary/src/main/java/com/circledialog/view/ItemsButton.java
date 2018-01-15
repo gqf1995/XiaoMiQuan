@@ -29,7 +29,8 @@ class ItemsButton extends ScaleTextView {
         final ButtonParams buttonParams = negativeParams != null ? negativeParams : params
                 .positiveParams;
         //为列表显示时，设置列表与按钮之间的距离
-        if (params.itemsParams != null) buttonParams.topMargin = CircleDimen.BUTTON_ITEMS_MARGIN;
+        if (params.itemsParams != null)
+            buttonParams.topMargin = CircleDimen.BUTTON_ITEMS_MARGIN;
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup
                 .LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
@@ -41,7 +42,8 @@ class ItemsButton extends ScaleTextView {
             @Override
             public void onClick(View v) {
                 buttonParams.dismiss();
-                if (buttonParams.listener != null) buttonParams.listener.onClick(v);
+                if (buttonParams.listener != null)
+                    buttonParams.listener.onClick(v);
             }
         });
         setText(buttonParams.text);

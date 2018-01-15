@@ -3,12 +3,14 @@ package com.xiaomiquan.mvp.activity.main;
 import android.support.v4.app.Fragment;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
 import com.xiaomiquan.mvp.fragment.CircleFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
+import com.xiaomiquan.server.HttpUrl;
 
 public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> {
 
@@ -27,6 +29,21 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     protected void bindEvenListener() {
         super.bindEvenListener();
         initFragment();
+        initSocket();
+    }
+
+    private void initSocket() {
+        WebSocketRequest.getInstance().intiWebSocket("ws://47.97.169.136:8888/ws/123" + HttpUrl.getIntance().getUid(), this.getClass(), new WebSocketRequest.WebSocketCallBack() {
+            @Override
+            public void onDataSuccess(String data, String info, int status) {
+
+            }
+
+            @Override
+            public void onDataError(String data, String info, int status) {
+
+            }
+        });
     }
 
     public void initFragment() {
@@ -40,10 +57,17 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WebSocketRequest.getInstance().onDestory();
+    }
+
+    @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
         }
+
     }
 
 }

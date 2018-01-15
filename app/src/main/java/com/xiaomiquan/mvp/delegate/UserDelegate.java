@@ -11,7 +11,11 @@ import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.xiaomiquan.R;
+import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.UserLogin;
+
+import java.util.Arrays;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -38,11 +42,15 @@ public class UserDelegate extends BaseDelegate {
         }
         viewHolder.tv_nick_name.setText(userLogin.getNickName());
         viewHolder.tv_subtitle.setVisibility(View.VISIBLE);
-        if(!TextUtils.isEmpty(userLogin.getEmail())){
+        if (!TextUtils.isEmpty(userLogin.getEmail())) {
             viewHolder.tv_subtitle.setText(userLogin.getEmail());
-        }else  if(!TextUtils.isEmpty(userLogin.getPhone())){
+        } else if (!TextUtils.isEmpty(userLogin.getPhone())) {
             viewHolder.tv_subtitle.setText(userLogin.getPhone());
         }
+        List<String> strings = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language_abbreviations));
+        List<String> strings2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language));
+        viewHolder.tv_select_language.setText(strings2.get(strings.indexOf(UserSet.getinstance().getLanguage())));
+
     }
 
     private void init() {
@@ -76,6 +84,8 @@ public class UserDelegate extends BaseDelegate {
                 }
             }
         });
+        viewHolder.checkbox_night_model.setChecked(!UserSet.getinstance().isNight());
+        viewHolder.checkbox_red_sticker.setChecked(UserSet.getinstance().isRedRise());
     }
 
 

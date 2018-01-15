@@ -1,7 +1,6 @@
 package com.xiaomiquan.adapter;
 
 import android.content.Context;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -9,6 +8,7 @@ import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.CoinIndex;
+import com.xiaomiquan.utils.UiHeplUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -25,9 +25,17 @@ public class CoinIndexAdapter extends CommonAdapter<CoinIndex> {
     private FontTextview tv_index;
     private FontTextview tv_price;
     private LinearLayout lin_root;
+    int[] ints;
 
     public CoinIndexAdapter(Context context, List<CoinIndex> coinIndices) {
         super(context, R.layout.adapter_coin_index, coinIndices);
+        ints = UiHeplUtils.cacularWidAndHei(context, R.dimen.trans_80px, 3, 1, 1);
+    }
+
+    public void setDatas(List<CoinIndex> coinIndices) {
+        this.mDatas.clear();
+        this.mDatas.addAll(coinIndices);
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -36,17 +44,9 @@ public class CoinIndexAdapter extends CommonAdapter<CoinIndex> {
         tv_index = holder.getView(R.id.tv_index);
         tv_price = holder.getView(R.id.tv_price);
         lin_root = holder.getView(R.id.lin_root);
-        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) lin_root.getLayoutParams();
-        if (position == 0) {
-            layoutParams.leftMargin = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_20px);
-        } else {
-            layoutParams.leftMargin = 0;
-        }
-        lin_root.setLayoutParams(layoutParams);
         tv_index.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
-
         tv_coin_name.setText(s.getName());
-
+        UiHeplUtils.setCacularWidAndHei(ints, lin_root);
 
     }
 

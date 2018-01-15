@@ -262,7 +262,7 @@ public class HttpRequest {
                 String key = entry.getKey().toString().trim();
                 String value = entry.getValue().toString().trim();
                 KLog.i(REQUEST_TAG, "提交参数: " + key + " = " + value);
-                if (!key.equals("uid") && !key.equals("token")) {
+                if (!key.equals("uid") && !key.equals("token") && !key.equals("language") && !key.equals("unit")) {
                     sb.append(key + "=" + value);
                     sb.append("&");
                     if (!TextUtils.isEmpty(value)) {
@@ -280,7 +280,7 @@ public class HttpRequest {
             } catch (JSONException e) {
                 KLog.e(REQUEST_TAG, "Json请求失败 json转换出错: " + json);
             }
-        }else if(mRequest.getRequestMethod() == RequestMethod.GET && mParameterMode == ParameterMode.Rest){
+        } else if (mRequest.getRequestMethod() == RequestMethod.GET && mParameterMode == ParameterMode.Rest) {
             setRestUrl();
         }
 
@@ -292,6 +292,16 @@ public class HttpRequest {
         if (map.containsKey("token")) {
             if (mParameterMode != ParameterMode.Rest) {
                 mRequest.addHeader("token", map.get("token").toString());
+            }
+        }
+        if (map.containsKey("language")) {
+            if (mParameterMode != ParameterMode.Rest) {
+                mRequest.addHeader("language", map.get("language").toString());
+            }
+        }
+        if (map.containsKey("unit")) {
+            if (mParameterMode != ParameterMode.Rest) {
+                mRequest.addHeader("unit", map.get("unit").toString());
             }
         }
         sb.deleteCharAt(sb.length() - 1);

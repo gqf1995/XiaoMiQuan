@@ -131,6 +131,8 @@
     <string name="ic_Wallet">&#xe6c1;</string>
     <string name="ic_World">&#xe6c2;</string>
     <string name="ic_Zap">&#xe6c3;</string>
+    <string name="ic_icon_right">&#xe61d;</string>
+    <string name="ic_icon_left">&#xe61d;</string>
 
 
     <string name="str_login_label_email">邮箱</string>
@@ -219,6 +221,7 @@
     <string name="str_hot_coin">热门币种</string>
     <string name="str_clean">清空</string>
     <string name="str_srot_toast">取消请点击星星,排序请长按拖动</string>
+    <string name="str_is_clean_cache">是否清理缓存?</string>
 
     <string name="str_language_zhcn">中文</string>
 

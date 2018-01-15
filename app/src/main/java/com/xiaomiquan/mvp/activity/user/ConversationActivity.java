@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import com.fivefivelike.mybaselibrary.base.BaseActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.xiaomiquan.R;
+import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.mvp.delegate.CustomerServiceActDelegate;
 
 import io.rong.imkit.RongExtension;
@@ -43,7 +44,10 @@ public class ConversationActivity extends BaseActivity<CustomerServiceActDelegat
     protected void bindEvenListener() {
         super.bindEvenListener();
         //SoftHideKeyBoardUtil.assistActivity(this);
+        viewDelegate.setNoStatusBarFlag(false);
         initToolbar(new ToolbarBuilder().setTitle("客服中心"));
+        setStatusBarLightOrNight(UserSet.getinstance().isNight());
+
         setWindowManagerLayoutParams(WindowManagerLayoutParamsNone);
         ConversationFragment fragment = new ConversationFragment();
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()

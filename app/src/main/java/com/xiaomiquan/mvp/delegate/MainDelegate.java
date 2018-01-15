@@ -9,6 +9,7 @@ import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
+import com.xiaomiquan.base.UserSet;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,8 @@ public class MainDelegate extends BaseDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
+        //初始化皮肤
+        UserSet.getinstance().setNight(UserSet.getinstance().isNight());
         initBottom();
     }
 

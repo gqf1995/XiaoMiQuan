@@ -18,7 +18,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.Layout;
 import android.text.StaticLayout;
@@ -43,13 +42,18 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import skin.support.content.res.SkinCompatResources;
+import skin.support.widget.SkinCompatEditText;
+
+import static skin.support.widget.SkinCompatHelper.INVALID_ID;
+
 /**
  * EditText in Material Design
  * <p/>
  * author:rengwuxian
  * <p/>
  */
-public class MaterialEditText extends AppCompatEditText {
+public class MaterialEditText extends SkinCompatEditText {
 
   @IntDef({FLOATING_LABEL_NONE, FLOATING_LABEL_NORMAL, FLOATING_LABEL_HIGHLIGHT})
   public @interface FloatingLabelType {
@@ -351,6 +355,7 @@ public class MaterialEditText extends AppCompatEditText {
     textColorStateList = typedArray.getColorStateList(R.styleable.MaterialEditText_met_textColor);
     textColorHintStateList = typedArray.getColorStateList(R.styleable.MaterialEditText_met_textColorHint);
     baseColor = typedArray.getColor(R.styleable.MaterialEditText_met_baseColor, defaultBaseColor);
+    baseColor= SkinCompatResources.getColor(context, typedArray.getResourceId(R.styleable.MaterialEditText_met_baseColor,INVALID_ID));
 
     // retrieve the default primaryColor
     int defaultPrimaryColor;
@@ -377,13 +382,20 @@ public class MaterialEditText extends AppCompatEditText {
     }
 
     primaryColor = typedArray.getColor(R.styleable.MaterialEditText_met_primaryColor, defaultPrimaryColor);
+    primaryColor= SkinCompatResources.getColor(context, typedArray.getResourceId(R.styleable.MaterialEditText_met_primaryColor,INVALID_ID));
+
     setFloatingLabelInternal(typedArray.getInt(R.styleable.MaterialEditText_met_floatingLabel, 0));
     errorColor = typedArray.getColor(R.styleable.MaterialEditText_met_errorColor, Color.parseColor("#e7492E"));
+    if(typedArray.getResourceId(R.styleable.MaterialEditText_met_errorColor,INVALID_ID)!=INVALID_ID) {
+      errorColor = SkinCompatResources.getColor(context, typedArray.getResourceId(R.styleable.MaterialEditText_met_errorColor, INVALID_ID));
+    }
     minCharacters = typedArray.getInt(R.styleable.MaterialEditText_met_minCharacters, 0);
     maxCharacters = typedArray.getInt(R.styleable.MaterialEditText_met_maxCharacters, 0);
     singleLineEllipsis = typedArray.getBoolean(R.styleable.MaterialEditText_met_singleLineEllipsis, false);
     helperText = typedArray.getString(R.styleable.MaterialEditText_met_helperText);
-    helperTextColor = typedArray.getColor(R.styleable.MaterialEditText_met_helperTextColor, -1);
+    if(typedArray.getResourceId(R.styleable.MaterialEditText_met_helperTextColor,INVALID_ID)!=INVALID_ID) {
+      helperTextColor = SkinCompatResources.getColor(context, typedArray.getResourceId(R.styleable.MaterialEditText_met_helperTextColor, INVALID_ID));
+    }
     minBottomTextLines = typedArray.getInt(R.styleable.MaterialEditText_met_minBottomTextLines, 0);
     String fontPathForAccent = typedArray.getString(R.styleable.MaterialEditText_met_accentTypeface);
     if (fontPathForAccent != null && !isInEditMode()) {
@@ -402,10 +414,14 @@ public class MaterialEditText extends AppCompatEditText {
     floatingLabelPadding = typedArray.getDimensionPixelSize(R.styleable.MaterialEditText_met_floatingLabelPadding, bottomSpacing);
     floatingLabelTextSize = typedArray.getDimensionPixelSize(R.styleable.MaterialEditText_met_floatingLabelTextSize, getResources().getDimensionPixelSize(R.dimen.text_trans_23px));
     floatingLabelTextColor = typedArray.getColor(R.styleable.MaterialEditText_met_floatingLabelTextColor, -1);
+    if(typedArray.getResourceId(R.styleable.MaterialEditText_met_floatingLabelTextColor,INVALID_ID)!=INVALID_ID) {
+      floatingLabelTextColor = SkinCompatResources.getColor(context, typedArray.getResourceId(R.styleable.MaterialEditText_met_floatingLabelTextColor, INVALID_ID));
+    }
     floatingLabelAnimating = typedArray.getBoolean(R.styleable.MaterialEditText_met_floatingLabelAnimating, true);
     bottomTextSize = typedArray.getDimensionPixelSize(R.styleable.MaterialEditText_met_bottomTextSize, getResources().getDimensionPixelSize(R.dimen.text_trans_23px));
     hideUnderline = typedArray.getBoolean(R.styleable.MaterialEditText_met_hideUnderline, false);
     underlineColor = typedArray.getColor(R.styleable.MaterialEditText_met_underlineColor, -1);
+
     autoValidate = typedArray.getBoolean(R.styleable.MaterialEditText_met_autoValidate, false);
     iconLeftBitmaps = generateIconBitmaps(typedArray.getResourceId(R.styleable.MaterialEditText_met_iconLeft, -1));
     iconRightBitmaps = generateIconBitmaps(typedArray.getResourceId(R.styleable.MaterialEditText_met_iconRight, -1));

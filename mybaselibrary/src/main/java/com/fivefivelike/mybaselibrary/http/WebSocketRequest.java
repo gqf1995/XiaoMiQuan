@@ -2,17 +2,18 @@ package com.fivefivelike.mybaselibrary.http;
 
 import com.dhh.websocket.RxWebSocketUtil;
 import com.dhh.websocket.WebSocketInfo;
+import com.fivefivelike.mybaselibrary.utils.logger.KLog;
 
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.handshake.ServerHandshake;
+import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.WebSocket;
 
@@ -21,11 +22,13 @@ import okhttp3.WebSocket;
  */
 
 public class WebSocketRequest {
-    private WebSocketClient client;
+    private TickerWebsocket client;
     private Disposable mDisposable;
     private WebSocket mWebSocket;
-    private List<WebSocketCallBack> webSocketCallBacks;
+    //private ConcurrentLinkedQueue<WebSocketCallBack> webSocketCallBacks;
     private String mUrl;
+    private String REQUEST_TAG = "request";
+    private ConcurrentHashMap<String, WebSocketCallBack> webSocketCallBacks;
 
     public interface WebSocketCallBack {
         void onDataSuccess(String data, String info, int status);
@@ -50,19 +53,34 @@ public class WebSocketRequest {
         }
     }
 
+    public void addCallBack(Class clss, WebSocketCallBack webSocketCallBack) {
+        if (webSocketCallBacks != null) {
+            webSocketCallBacks.put(clss.getName(), webSocketCallBack);
+        }
+    }
 
-    public void initRxWebsocket(String url, WebSocketCallBack webSocketCallBack) {
+    public void remoceCallBack(Class clss) {
+        if (webSocketCallBacks != null) {
+            if (webSocketCallBacks != null) {
+                webSocketCallBacks.remove(clss.getName());
+            }
+        }
+    }
+
+    public void initRxWebsocket(String url, Class clss, WebSocketCallBack webSocketCallBack) {
         //if you want to use your okhttpClient
         OkHttpClient yourClient = new OkHttpClient();
         RxWebSocketUtil.getInstance().setClient(yourClient);
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
 
-        webSocketCallBacks = new ArrayList<>();
-        webSocketCallBacks.add(webSocketCallBack);
+        webSocketCallBacks = new ConcurrentHashMap<>();
+        webSocketCallBacks.put(clss.getName(), webSocketCallBack);
         mUrl = url;
         mDisposable = RxWebSocketUtil.getInstance().getWebSocketInfo(url)
                 //bind on life
+                .subscribeOn(Schedulers.io())//请求数据的事件发生在io线程
+                .observeOn(AndroidSchedulers.mainThread())//请求完成后在主线程更显UI
                 .subscribe(new Consumer<WebSocketInfo>() {
                     @Override
                     public void accept(WebSocketInfo webSocketInfo) throws Exception {
@@ -85,69 +103,104 @@ public class WebSocketRequest {
                 });
     }
 
-    public void intiWebSocket(String url, WebSocketCallBack webSocketCallBack) {
-        webSocketCallBacks = new ArrayList<>();
-        webSocketCallBacks.add(webSocketCallBack);
+    public void intiWebSocket(String url, Class clss, WebSocketCallBack webSocketCallBack) {
+        webSocketCallBacks = new ConcurrentHashMap<>();
+        webSocketCallBacks.put(clss.getName(), webSocketCallBack);
         mUrl = url;
-        client = new WebSocketClient(URI.create(url)) {
-            @Override
-            public void onOpen(ServerHandshake handshakedata) {
+        startSocket();
 
-            }
-
-            @Override
-            public void onMessage(String message) {
-                serviceSuccess(message);
-            }
-
-            @Override
-            public void onClose(int code, String reason, boolean remote) {
-                start();
-            }
-
-            @Override
-            public void onError(Exception ex) {
-                serviceError(ex);
-                start();
-            }
-        };
-        client.connect();
+        //        client = new WebSocketClient(URI.create(url)) {
+        //            @Override
+        //            public void onOpen(ServerHandshake handshakedata) {
+        //                KLog.i(REQUEST_TAG, "onOpen  ");
+        //            }
+        //
+        //            @Override
+        //            public void onMessage(String message) {
+        //                KLog.i(REQUEST_TAG, "onMessage  ");
+        //                serviceSuccess(message);
+        //            }
+        //
+        //            @Override
+        //            public void onClose(int code, String reason, boolean remote) {
+        //                KLog.i(REQUEST_TAG, "onClose  ");
+        //                start();
+        //            }
+        //
+        //            @Override
+        //            public void onError(Exception ex) {
+        //                KLog.i(REQUEST_TAG, "onError  ");
+        //                serviceError(ex);
+        //                start();
+        //            }
+        //        };
+        //        start();
+        //client.connect();
     }
 
+    private void startSocket() {
+        client=new TickerWebsocket(mUrl) {
+            @Override
+            public void onMessage(String message) {
+                KLog.i(REQUEST_TAG, "success  " + message);
+            }
+
+            @Override
+            protected void onSubscribe() {
+
+            }
+
+            @Override
+            protected void onSchedule(ScheduledExecutorService scheduler) {
+                scheduler.scheduleAtFixedRate(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }, 5, 30, TimeUnit.SECONDS);
+            }
+
+            @Override
+            protected void onReconnect() {
+                startSocket();
+            }
+        };
+        client.start();
+    }
 
     private void serviceError(Throwable ex) {
         //websocket链接失败
+        KLog.i(REQUEST_TAG, "error  " + ex.getMessage());
     }
 
     private void serviceSuccess(String msg) {
         //服务器获取成功
+        KLog.i(REQUEST_TAG, "success  " + msg);
     }
 
     private void success(String msg) {
         //服务器数据 成功
-        for (int i = 0; i < webSocketCallBacks.size(); i++) {
-
+        Iterator iter = webSocketCallBacks.keySet().iterator();
+        while (iter.hasNext()) {
+            String key = (String) iter.next();
+            KLog.i(REQUEST_TAG, "success 接受名称: " + key + "数据: " + msg);
+            WebSocketRequest webSocketRequest = (WebSocketRequest) webSocketCallBacks.get(key);
+            webSocketRequest.success(msg);
         }
     }
 
     private void error(String msg) {
         //服务器数据 失败
-        for (int i = 0; i < webSocketCallBacks.size(); i++) {
-
+        //KLog.json(RESPONSE_TAG, msg);
+        Iterator iter = webSocketCallBacks.keySet().iterator();
+        while (iter.hasNext()) {
+            String key = (String) iter.next();
+            KLog.i(REQUEST_TAG, "error 接受名称: " + key + "数据: " + msg);
+            WebSocketRequest webSocketRequest = (WebSocketRequest) webSocketCallBacks.get(key);
+            webSocketRequest.error(msg);
         }
     }
 
-    private void start() {
-        try {
-            boolean connected = client.connectBlocking();
-        } catch (InterruptedException e) {
-
-        }
-    }
-
-    public void onRemove(WebSocketCallBack webSocketCallBack) {
-        webSocketCallBacks.remove(webSocketCallBack);
-    }
 
     public void onDestory() {
         if (mDisposable != null) {

@@ -20,9 +20,12 @@ import com.circledialog.params.TextParams;
 import com.circledialog.params.TitleParams;
 import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.xiaomiquan.R;
 
 import java.util.List;
+
+import skin.support.content.res.SkinCompatResources;
 
 import static com.fivefivelike.mybaselibrary.utils.CommonUtils.getResources;
 
@@ -38,7 +41,7 @@ public class CircleDialogHelper {
                 .configDialog(new ConfigDialog() {
                     @Override
                     public void onConfig(DialogParams params) {
-                        params.backgroundColor = CommonUtils.getColor(R.color.color_Primary);
+                        params.backgroundColor = SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);//; CommonUtils.getColor(R.color.color_Primary);
                     }
                 })
                 .configText(new ConfigText() {
@@ -46,6 +49,7 @@ public class CircleDialogHelper {
                     public void onConfig(TextParams params) {
                         params.gravity = Gravity.CENTER;
                         params.padding = new int[]{50, 50, 50, 50};
+                        params.backgroundColor = SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 })
                 .setPositive(CommonUtils.getString(R.string.str_determine), onClickListener)
@@ -53,7 +57,7 @@ public class CircleDialogHelper {
                     @Override
                     public void onConfig(ButtonParams params) {
                         params.textColor = getResources().getColor(R.color.color_blue);
-
+                        params.backgroundColor = SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 });
     }
@@ -67,14 +71,15 @@ public class CircleDialogHelper {
                 .configDialog(new ConfigDialog() {
                     @Override
                     public void onConfig(DialogParams params) {
-                        params.backgroundColor = CommonUtils.getColor(R.color.color_Primary);
+                        params.backgroundColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 })
                 .configText(new ConfigText() {
                     @Override
                     public void onConfig(TextParams params) {
                         params.padding = new int[]{50, 50, 50, 50};
-                        params.textColor = CommonUtils.getColor(R.color.color_font1);
+                        params.textColor = SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_font1);
+                        params.backgroundColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 })
                 .setNegative(CommonUtils.getString(R.string.str_cancel), null)
@@ -82,7 +87,8 @@ public class CircleDialogHelper {
                 .configNegative(new ConfigButton() {
                     @Override
                     public void onConfig(ButtonParams params) {
-                        params.textColor = CommonUtils.getColor(R.color.color_font2);
+                        params.textColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_font2);
+                        params.backgroundColor = SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
 
                     }
                 })
@@ -90,7 +96,7 @@ public class CircleDialogHelper {
                     @Override
                     public void onConfig(ButtonParams params) {
                         params.textColor = getResources().getColor(R.color.color_blue);
-
+                        params.backgroundColor = SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 });
     }
@@ -102,7 +108,7 @@ public class CircleDialogHelper {
                 .configDialog(new ConfigDialog() {
                     @Override
                     public void onConfig(DialogParams params) {
-                        params.backgroundColor = CommonUtils.getColor(R.color.color_Primary);
+                        params.backgroundColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 })
                 .configItems(new ConfigItems() {
@@ -110,7 +116,7 @@ public class CircleDialogHelper {
                     public void onConfig(ItemsParams params) {
                         params.textColor = getResources().getColor(R.color.color_blue);
                         params.textSize = getResources().getDimensionPixelSize(R.dimen.text_trans_32px);
-                        params.backgroundColor = CommonUtils.getColor(R.color.colorPrimary);
+                        params.backgroundColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 })
                 .setNegative(CommonUtils.getString(R.string.str_cancel), null)
@@ -118,9 +124,9 @@ public class CircleDialogHelper {
                     @Override
                     public void onConfig(ButtonParams params) {
                         //取消按钮字体颜色
-                        params.textColor = CommonUtils.getColor(R.color.color_font2);
+                        params.textColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_font2);
                         params.textSize = getResources().getDimensionPixelSize(R.dimen.text_trans_32px);
-                        params.backgroundColor = CommonUtils.getColor(R.color.colorPrimary);
+                        params.backgroundColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 });
     }
@@ -132,22 +138,22 @@ public class CircleDialogHelper {
                 .configDialog(new ConfigDialog() {
                     @Override
                     public void onConfig(DialogParams params) {
-                        params.backgroundColor = CommonUtils.getColor(R.color.color_Primary);
+                        params.backgroundColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 })
                 .configTitle(new ConfigTitle() {
                     @Override
                     public void onConfig(TitleParams params) {
-                        params.backgroundColor = CommonUtils.getColor(R.color.colorPrimary);
+                        params.backgroundColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 })
                 .setItems(list.toArray(new String[list.size()]), onItemClickListener)
                 .configItems(new ConfigItems() {
                     @Override
                     public void onConfig(ItemsParams params) {
-                        params.textColor = CommonUtils.getColor(R.color.color_font1);
+                        params.textColor = SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_font1);
                         params.textSize = getResources().getDimensionPixelSize(R.dimen.text_trans_26px);
-                        params.backgroundColor = CommonUtils.getColor(R.color.colorPrimary);
+                        params.backgroundColor = SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 })
                 .setNegative(CommonUtils.getString(R.string.str_cancel), null)
@@ -155,9 +161,9 @@ public class CircleDialogHelper {
                     @Override
                     public void onConfig(ButtonParams params) {
                         //取消按钮字体颜色
-                        params.textColor = CommonUtils.getColor(R.color.color_font2);
+                        params.textColor = SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_font2);
                         params.textSize = getResources().getDimensionPixelSize(R.dimen.text_trans_30px);
-                        params.backgroundColor = CommonUtils.getColor(R.color.colorPrimary);
+                        params.backgroundColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 });
     }
@@ -170,7 +176,7 @@ public class CircleDialogHelper {
                 .configDialog(new ConfigDialog() {
                     @Override
                     public void onConfig(DialogParams params) {
-                        params.backgroundColor = CommonUtils.getColor(R.color.color_Primary);
+                        params.backgroundColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 })
                 .setInputHint(hint)
@@ -178,8 +184,9 @@ public class CircleDialogHelper {
                     @Override
                     public void onConfig(InputParams params) {
                         //                                params.inputBackgroundResourceId = R.drawable.bg_input;
-                        params.hintTextColor = CommonUtils.getColor(R.color.color_font2);// getResources().getColor(R.color.color_font3);
-                        params.textColor = CommonUtils.getColor(R.color.color_font1);
+                        params.hintTextColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_font2);// getResources().getColor(R.color.color_font3);
+                        params.textColor = SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_font1);
+                        params.backgroundColor =SkinCompatResources.getColor(GlobleContext.getInstance().getApplicationContext(), R.color.color_Primary);
                     }
                 })
                 .setNegative(CommonUtils.getString(R.string.str_cancel), null)

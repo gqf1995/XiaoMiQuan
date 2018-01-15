@@ -3,7 +3,8 @@ package com.circledialog.res.drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 
-import com.circledialog.res.values.CircleColor;
+import com.fivefivelike.mybaselibrary.R;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 
 /**
  * 按钮的背景，有点击效果
@@ -17,7 +18,7 @@ public class SelectorBtn extends StateListDrawable {
         //按下
         ShapeDrawable drawablePress = new ShapeDrawable(DrawableHelper.getRoundRectShape(leftTopRadius, rightTopRadius,
                 rightBottomRadius, leftBottomRadius));
-        drawablePress.getPaint().setColor(CircleColor.buttonPress);
+        drawablePress.getPaint().setColor(CommonUtils.getColor(R.color.black_transparent_25));
         //默认
         ShapeDrawable defaultDrawable = new ShapeDrawable(DrawableHelper.getRoundRectShape(leftTopRadius,
                 rightTopRadius,

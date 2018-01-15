@@ -96,10 +96,10 @@
                     android:paddingLeft="@dimen/trans_45px"
                     android:paddingRight="@dimen/trans_30px">
 
-                    <ImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_52px"
                         android:layout_height="@dimen/trans_52px"
-                        android:src="@color/color_blue"
+                        app:srcCompat="@drawable/ic_red_sticker"
                         />
 
                     <TextView
@@ -143,10 +143,10 @@
                     android:paddingLeft="@dimen/trans_45px"
                     android:paddingRight="@dimen/trans_30px">
 
-                    <ImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_52px"
                         android:layout_height="@dimen/trans_52px"
-                        android:src="@color/color_blue"
+                        app:srcCompat="@drawable/ic_night_model"
                         />
 
                     <TextView
@@ -192,10 +192,10 @@
                     android:paddingLeft="@dimen/trans_45px"
                     android:paddingRight="@dimen/trans_30px">
 
-                    <ImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_52px"
                         android:layout_height="@dimen/trans_52px"
-                        android:src="@color/color_blue"
+                        app:srcCompat="@drawable/ic_default_unit"
                         />
 
                     <TextView
@@ -244,10 +244,10 @@
                     android:paddingLeft="@dimen/trans_45px"
                     android:paddingRight="@dimen/trans_30px">
 
-                    <ImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_52px"
                         android:layout_height="@dimen/trans_52px"
-                        android:src="@color/color_blue"
+                        app:srcCompat="@drawable/ic_customer_service"
                         />
 
                     <TextView
@@ -287,10 +287,10 @@
                     android:paddingLeft="@dimen/trans_45px"
                     android:paddingRight="@dimen/trans_30px">
 
-                    <ImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_52px"
                         android:layout_height="@dimen/trans_52px"
-                        android:src="@color/color_blue"
+                        app:srcCompat="@drawable/ic_recommend"
                         />
 
                     <TextView
@@ -330,10 +330,10 @@
                     android:paddingLeft="@dimen/trans_45px"
                     android:paddingRight="@dimen/trans_30px">
 
-                    <ImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_52px"
                         android:layout_height="@dimen/trans_52px"
-                        android:src="@color/color_blue"
+                        app:srcCompat="@drawable/ic_language"
                         />
 
                     <TextView
@@ -384,10 +384,10 @@
                     android:paddingLeft="@dimen/trans_45px"
                     android:paddingRight="@dimen/trans_30px">
 
-                    <ImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_52px"
                         android:layout_height="@dimen/trans_52px"
-                        android:src="@color/color_blue"
+                        app:srcCompat="@drawable/ic_security"
                         />
 
                     <TextView
@@ -429,10 +429,10 @@
                     android:paddingLeft="@dimen/trans_45px"
                     android:paddingRight="@dimen/trans_30px">
 
-                    <ImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_52px"
                         android:layout_height="@dimen/trans_52px"
-                        android:src="@color/color_blue"
+                        app:srcCompat="@drawable/ic_setting"
                         />
 
                     <TextView
@@ -474,10 +474,10 @@
                     android:paddingLeft="@dimen/trans_45px"
                     android:paddingRight="@dimen/trans_30px">
 
-                    <ImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_52px"
                         android:layout_height="@dimen/trans_52px"
-                        android:src="@color/color_blue"
+                        app:srcCompat="@drawable/ic_logout"
                         />
 
                     <TextView

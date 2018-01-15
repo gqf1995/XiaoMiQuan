@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 
 import static com.xiaomiquan.base.AppConst.httpBaseUrl;
+import static com.xiaomiquan.base.AppConst.httpBaseUrl2;
 import static com.xiaomiquan.base.AppConst.isEditUrl;
 
 /**
@@ -67,27 +68,27 @@ public class HttpUrl {
     /**
      * 用户注册发送验证码
      */
-    public String sendCodeForRegister = getBaseUrl() + userUrl + "/sendCodeForRegister";
+    public String sendCodeForRegister = httpBaseUrl2 + userUrl + "/sendCodeForRegister";
     /**
      * 用户注册
      */
-    public String saveUser = getBaseUrl() + userUrl + "/saveUser";
+    public String saveUser = httpBaseUrl2 + userUrl + "/saveUser";
     /**
      * 用户登录
      */
-    public String userLogin = getBaseUrl() + userUrl + "/userLogin";
+    public String userLogin = httpBaseUrl2 + userUrl + "/userLogin";
     /**
      * 用户找回密码发送短信
      */
-    public String sendCodeForForgotPassWord = getBaseUrl() + userUrl + "/sendCodeForForgotPassWord";
+    public String sendCodeForForgotPassWord = httpBaseUrl2 + userUrl + "/sendCodeForForgotPassWord";
     /**
      * 用户找回密码
      */
-    public String retrievePassword = getBaseUrl() + userUrl + "/retrievePassword";
+    public String retrievePassword = httpBaseUrl2 + userUrl + "/retrievePassword";
     /**
      * 用户登出
      */
-    public String loginOut = getBaseUrl() + userUrl + "/loginOut";
+    public String loginOut = httpBaseUrl2 + userUrl + "/loginOut";
 
 
     /**

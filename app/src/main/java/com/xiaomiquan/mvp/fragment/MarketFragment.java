@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.xiaomiquan.base.AppConst.CACHE_EXCHANGENAME;
+
 public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, TabViewpageBinder> {
     ArrayList<Fragment> fragments;
     List<String> mTitles;
@@ -42,12 +44,12 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setmRightImg1(CommonUtils.getString(R.string.ic_Notifications)).setmRightImg2(CommonUtils.getString(R.string.ic_Filter2))
+        initToolbar(new ToolbarBuilder().setmRightImg2(CommonUtils.getString(R.string.ic_Notifications)).setmRightImg1(CommonUtils.getString(R.string.ic_Filter2))
                 .setTitle(CommonUtils.getString(R.string.str_title_market)).setShowBack(true));
         viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_Search1));
         initBarClick();
         //网络获取交易所 名称
-        String exchangeNamesStr = CacheUtils.getInstance().getString("exchangeNames");
+        String exchangeNamesStr = CacheUtils.getInstance().getString(CACHE_EXCHANGENAME);
         if (!TextUtils.isEmpty(exchangeNamesStr)) {
             exchangeNameList = GsonUtil.getInstance().toList(exchangeNamesStr, ExchangeName.class);
             initTablelayout(exchangeNameList);
@@ -55,6 +57,19 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         addRequest(binder.getAllEXchange(this));
 
 
+    }
+
+    @Override
+    protected void clickRightIv() {
+        super.clickRightIv();
+        // 排序
+        gotoActivity(SortingUserCoinActivity.class).startAct();
+    }
+
+    @Override
+    protected void clickRightIv1() {
+        super.clickRightIv1();
+        // 通知
     }
 
     private void initTablelayout(List<ExchangeName> exchangeNames) {
@@ -69,6 +84,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
             mTitles.add(exchangeNames.get(i).getEname());
             fragments.add(InstitutionsFragment.newInstance(exchangeNames.get(i)));
         }
+        viewDelegate.viewHolder.vp_sliding.setOffscreenPageLimit(1);
         viewDelegate.viewHolder.tl_2.setViewPager(viewDelegate.viewHolder.vp_sliding,
                 mTitles.toArray(new String[mTitles.size()]), (FragmentActivity) viewDelegate.viewHolder.rootView.getContext(), fragments);
 
@@ -117,10 +133,12 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 //保存行情列表
                 List<ExchangeName> exchangeNames = GsonUtil.getInstance().toList(data, ExchangeName.class);
                 if (exchangeNameList == null) {
+                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
                     initTablelayout(exchangeNames);
                     break;
                 }
                 if (exchangeNameList.size() != exchangeNames.size()) {
+                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
                     initTablelayout(exchangeNames);
                 }
                 break;

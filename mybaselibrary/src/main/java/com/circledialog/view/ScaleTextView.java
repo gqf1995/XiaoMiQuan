@@ -3,15 +3,16 @@ package com.circledialog.view;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.widget.TextView;
 
 import com.circledialog.scale.ScaleUtils;
+
+import skin.support.widget.SkinCompatTextView;
 
 /**
  * Created by hupei on 2017/3/29.
  */
 
-class ScaleTextView extends TextView {
+class ScaleTextView extends SkinCompatTextView {
     public ScaleTextView(Context context) {
         super(context);
         config();

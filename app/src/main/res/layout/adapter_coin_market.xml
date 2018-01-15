@@ -5,14 +5,24 @@
     android:id="@+id/card_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="0dp"
     android:layout_marginBottom="@dimen/trans_10px"
     android:layout_marginLeft="@dimen/trans_30px"
     android:layout_marginRight="@dimen/trans_30px"
     android:layout_marginTop="@dimen/trans_10px"
+    android:elevation="0dp"
+    app:cardBackgroundColor="@color/transparent"
     app:cardCornerRadius="@dimen/trans_10px"
-    app:cardBackgroundColor="@color/base_mask"
     app:cardElevation="0dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_120px"
+        android:layout_gravity="bottom"
+        android:src="@color/color_blue"
+        app:riv_corner_radius_bottom_left="@dimen/trans_10px"
+        app:riv_corner_radius_bottom_right="@dimen/trans_10px"
+        />
 
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -21,7 +31,6 @@
         android:layout_height="@dimen/trans_120px"
         android:layout_marginLeft="-10dp"
         android:layout_marginTop="-10dp"
-        android:src="@color/color_blue"
         app:riv_corner_radius_top_left="@dimen/trans_10px"
         />
 
@@ -30,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/trans_120px"
         android:orientation="horizontal"
-        android:paddingRight="@dimen/trans_25px">
+        >
 
         <include layout="@layout/layout_coin_market"/>
 

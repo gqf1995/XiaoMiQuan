@@ -27,6 +27,7 @@ public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDeleg
     String title = "";
 
     List<String> data;
+    int defaultIndex;
 
     ChangeSetAdapter changeSetAdapter;
     String defaultSet;
@@ -39,10 +40,15 @@ public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDeleg
             title = CommonUtils.getString(R.string.str_change_language);
             data = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language));
             defaultSet = UserSet.getinstance().getLanguage();
+            defaultIndex = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language_abbreviations)).indexOf(defaultSet);
         } else if (TYPE_UNIT.equals(type)) {
             title = CommonUtils.getString(R.string.str_default_unit);
             data = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
             defaultSet = UserSet.getinstance().getUnit();
+            defaultIndex = data.indexOf(defaultSet);
+            if (defaultIndex == -1) {
+                defaultIndex = 0;
+            }
         }
         initToolbar(new ToolbarBuilder().setTitle(title));
         initList();
@@ -57,8 +63,12 @@ public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDeleg
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                 changeSetAdapter.setSelectPosition(position);
                 if (TYPE_LANGUAGE.equals(type)) {
-                    UserSet.getinstance().setLanguage(data.get(position));
+                    UserSet.getinstance().setLanguage(Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language_abbreviations)).get(position));
                 } else if (TYPE_UNIT.equals(type)) {
+                    if (position == 0) {
+                        UserSet.getinstance().setUnit("default");
+                        return;
+                    }
                     UserSet.getinstance().setUnit(data.get(position));
                 }
             }

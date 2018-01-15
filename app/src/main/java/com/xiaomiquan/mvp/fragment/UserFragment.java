@@ -7,6 +7,7 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
+import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
@@ -16,8 +17,6 @@ import com.xiaomiquan.mvp.activity.user.SecurityActivity;
 import com.xiaomiquan.mvp.activity.user.SetActivity;
 import com.xiaomiquan.mvp.databinder.UserBinder;
 import com.xiaomiquan.mvp.delegate.UserDelegate;
-
-import skin.support.SkinCompatManager;
 
 public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder> {
 
@@ -44,9 +43,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setNoStatusBarFlag(true);
-        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_user)).setShowBack(false).setmRightImg1(CommonUtils.getString(R.string.ic_Chat)))
-        ;
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_user)).setShowBack(false).setmRightImg1(CommonUtils.getString(R.string.ic_Chat)));
         viewDelegate.setOnClickListener(this
                 , R.id.checkbox_night_model
                 , R.id.checkbox_red_sticker
@@ -66,16 +63,10 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
         super.onClick(v);
         switch (v.getId()) {
             case R.id.checkbox_night_model:
-                if(viewDelegate.viewHolder.checkbox_night_model.isChecked()){
-                    SkinCompatManager.getInstance().restoreDefaultTheme();
-                }else{
-                    SkinCompatManager.getInstance().loadSkin("night.skin", SkinCompatManager.SKIN_LOADER_STRATEGY_ASSETS);
-                }
-                //SkinCompatManager.getInstance().loadSkin("night", SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN); // 后缀加载
+                UserSet.getinstance().setNight(!viewDelegate.viewHolder.checkbox_night_model.isChecked());
                 break;
             case R.id.checkbox_red_sticker:
-
-
+                UserSet.getinstance().setRedRise(viewDelegate.viewHolder.checkbox_night_model.isChecked());
                 break;
             case R.id.lin_user:
                 if (SingSettingDBUtil.isLogin(getActivity())) {

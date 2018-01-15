@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="@dimen/trans_25px"
-            android:text="@string/str_clean_cache"
+            android:text="@string/str_about_us"
             android:textColor="@color/color_font1"
             android:textSize="@dimen/text_trans_28px"/>
 

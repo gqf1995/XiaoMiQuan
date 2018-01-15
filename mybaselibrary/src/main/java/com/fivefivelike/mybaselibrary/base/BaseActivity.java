@@ -13,6 +13,7 @@ import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.mvp.presenter.ActivityPresenter;
 import com.fivefivelike.mybaselibrary.utils.ActUtil;
+import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.githang.statusbar.StatusBarCompat;
 
@@ -67,14 +68,27 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         viewDelegate.setCircleDialogLinsener(this);
-        super.onCreate(savedInstanceState);
         mContext = this;
         ActUtil.getInstance().addActivity(this);
+        setStatusBarLightOrNight(SaveUtil.getInstance().getBoolean("isNight"));
+        super.onCreate(savedInstanceState);
+
+    }
+
+    public void setStatusBarLightOrNight(boolean lightStatuBar) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.color_Primary), false);
+            if (!lightStatuBar) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorPrimary), false);
+                } else {
+                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorPrimary), false);
+                }
             } else {
-                StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.color_Primary), false);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), true);
+                } else {
+                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.font_grey), false);
+                }
             }
             if (viewDelegate.isNoStatusBarFlag()) {
                 addNoStatusBarFlag();
@@ -82,9 +96,7 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
                 clearNoStatusBarFlag();
             }
         }
-
     }
-
 
     public void onCancel(DialogInterface dialog) {
         //fragmentdialog网络加载弹窗返回后关闭 当前页面

@@ -23,6 +23,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,19 +35,27 @@ import com.tablayout.widget.MsgView;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import skin.support.content.res.SkinCompatResources;
+import skin.support.widget.SkinCompatBackgroundHelper;
+import skin.support.widget.SkinCompatHelper;
 import skin.support.widget.SkinCompatLinearLayout;
+import skin.support.widget.SkinCompatSupportable;
+import skin.support.widget.SkinCompatTextHelper;
+
+import static skin.support.widget.SkinCompatHelper.INVALID_ID;
 
 /**
  * 滑动TabLayout,对于ViewPager的依赖性强
  */
-public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPager.OnPageChangeListener {
-    private Context mContext;
+public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.OnPageChangeListener, SkinCompatSupportable {
     private ViewPager mViewPager;
     private ArrayList<String> mTitles;
     private LinearLayout mTabsContainer;
     private int mCurrentTab;
     private float mCurrentPositionOffset;
     private int mTabCount;
+    private SkinCompatBackgroundHelper mBackgroundTintHelper;
+
     /**
      * 用于绘制显示器
      */
@@ -73,7 +82,8 @@ public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPa
     /**
      * indicator
      */
-    private int mIndicatorColor;
+    private int mIndicatorColor = INVALID_ID;
+    private int mIndicatorColorId = INVALID_ID;
     private float mIndicatorHeight;
     private float mIndicatorWidth;
     private float mIndicatorCornerRadius;
@@ -106,7 +116,9 @@ public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPa
     private static final int TEXT_BOLD_WHEN_SELECT = 1;
     private static final int TEXT_BOLD_BOTH = 2;
     private float mTextsize;
-    private int mTextSelectColor;
+    private int mTextSelectColor = INVALID_ID;
+    private int mTextSelectColorId = INVALID_ID;
+
     private int mTextUnselectColor;
     private int mTextBold;
     private boolean mTextAllCaps;
@@ -114,6 +126,30 @@ public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPa
     private int mLastScrollX;
     private int mHeight;
     private boolean mSnapOnTabClick;
+    private SkinCompatTextHelper mTextHelper;
+
+
+    @Override
+    public void applySkin() {
+        if (mTabsContainer != null && mViewPager != null && mViewPager.getAdapter() != null) {
+            applySelectColorResource();
+        }
+    }
+
+    private void applySelectColorResource() {
+        mTextSelectColorId = SkinCompatHelper.checkResourceId(mTextSelectColorId);
+        mIndicatorColorId = SkinCompatHelper.checkResourceId(mIndicatorColorId);
+        if (mTextSelectColorId != INVALID_ID) {
+            int color = SkinCompatResources.getColor(mContext, mTextSelectColorId);
+            mTextSelectColor = color;
+        }
+        if (mIndicatorColorId != INVALID_ID) {
+            int color = SkinCompatResources.getColor(mContext, mIndicatorColorId);
+            mIndicatorColor = color;
+        }
+        updateTabStyles();
+    }
+
 
     public void setmIndicatorId(int mIndicatorId) {
         this.mIndicatorId = mIndicatorId;
@@ -138,7 +174,8 @@ public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPa
         setWillNotDraw(false);//重写onDraw方法,需要调用这个方法来清除flag
         setClipChildren(false);
         setClipToPadding(false);
-
+        this.mBackgroundTintHelper = new SkinCompatBackgroundHelper(this);
+        this.mBackgroundTintHelper.loadFromAttributes(attrs, defStyleAttr);
         this.mContext = context;
         mTabsContainer = new SkinCompatLinearLayout(context);
         addView(mTabsContainer);
@@ -158,11 +195,16 @@ public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPa
         }
     }
 
+    TypedArray ta;
+    Context mContext;
+
     private void obtainAttributes(Context context, AttributeSet attrs) {
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SlidingTabLayout);
+        mContext = context;
+        ta = context.obtainStyledAttributes(attrs, R.styleable.SlidingTabLayout);
 
         mIndicatorStyle = ta.getInt(R.styleable.SlidingTabLayout_tl_indicator_style, STYLE_NORMAL);
         mIndicatorColor = ta.getColor(R.styleable.SlidingTabLayout_tl_indicator_color, Color.parseColor(mIndicatorStyle == STYLE_BLOCK ? "#4B6A87" : "#ffffff"));
+        mIndicatorColorId = ta.getResourceId(R.styleable.SlidingTabLayout_tl_indicator_color, INVALID_ID);
         mIndicatorHeight = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_height,
                 dp2px(mIndicatorStyle == STYLE_TRIANGLE ? 4 : (mIndicatorStyle == STYLE_BLOCK ? -1 : 2)));
         mIndicatorWidth = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_width, dp2px(mIndicatorStyle == STYLE_TRIANGLE ? 10 : -1));
@@ -184,6 +226,7 @@ public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPa
 
         mTextsize = ta.getDimension(R.styleable.SlidingTabLayout_tl_textsize, sp2px(14));
         mTextSelectColor = ta.getColor(R.styleable.SlidingTabLayout_tl_textSelectColor, Color.parseColor("#ffffff"));
+        mTextSelectColorId = ta.getResourceId(R.styleable.SlidingTabLayout_tl_textSelectColor, INVALID_ID);
         mTextUnselectColor = ta.getColor(R.styleable.SlidingTabLayout_tl_textUnselectColor, Color.parseColor("#AAffffff"));
         mTextBold = ta.getInt(R.styleable.SlidingTabLayout_tl_textBold, TEXT_BOLD_NONE);
         mTextAllCaps = ta.getBoolean(R.styleable.SlidingTabLayout_tl_textAllCaps, false);
@@ -193,7 +236,9 @@ public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPa
         mTabPadding = ta.getDimension(R.styleable.SlidingTabLayout_tl_tab_padding, mTabSpaceEqual || mTabWidth > 0 ? dp2px(0) : dp2px(20));
 
         ta.recycle();
+        applySelectColorResource();
     }
+
 
     /**
      * 关联ViewPager
@@ -367,6 +412,7 @@ public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPa
             }
         }
     }
+
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -927,6 +973,7 @@ public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPa
     public void setOnTabSelectListener(OnTabSelectListener listener) {
         this.mListener = listener;
     }
+
 
     class InnerPagerAdapter extends FragmentPagerAdapter {
         private ArrayList<Fragment> fragments = new ArrayList<>();

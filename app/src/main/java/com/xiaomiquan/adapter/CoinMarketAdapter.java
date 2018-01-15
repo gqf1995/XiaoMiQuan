@@ -2,6 +2,7 @@ package com.xiaomiquan.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.widget.LinearLayout;
 
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -17,6 +18,8 @@ import java.util.List;
 
 public class CoinMarketAdapter extends CommonAdapter<String> {
 
+    int[] bgIds = {R.drawable.ic_value_bg1, R.drawable.ic_value_bg2, R.drawable.ic_value_bg3, R.drawable.ic_value_bg4, R.drawable.ic_value_bg5};
+
     private RoundedImageView iv_pic;
     private FontTextview tv_coin_type;
     private FontTextview tv_coin_name;
@@ -25,6 +28,8 @@ public class CoinMarketAdapter extends CommonAdapter<String> {
     private FontTextview tv_gains;
     private CardView card_root;
     private FontTextview tv_coin_market_value;
+    private RoundedImageView iv_bg;
+    private LinearLayout lin_root;
 
     public CoinMarketAdapter(Context context, List<String> datas) {
         super(context, R.layout.adapter_coin_market, datas);
@@ -37,9 +42,12 @@ public class CoinMarketAdapter extends CommonAdapter<String> {
         tv_coin_name = holder.getView(R.id.tv_coin_name);
         tv_coin_price = holder.getView(R.id.tv_coin_price);
         tv_coin_probably = holder.getView(R.id.tv_coin_probably);
+        iv_bg = holder.getView(R.id.iv_bg);
         tv_gains = holder.getView(R.id.tv_gains);
         card_root = holder.getView(R.id.card_root);
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
+        iv_bg.setImageResource(bgIds[position / 5]);
+        iv_pic.setImageResource(R.drawable.bitcoin);
     }
 
 }

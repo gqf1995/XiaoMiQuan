@@ -40,8 +40,8 @@ public class CircleFragment extends BaseDataBindFragment<CircleDelegate, CircleB
         initBarClick();
         mTitles = CommonUtils.getStringArray(R.array.sa_select_circle);
         fragments = new ArrayList<>();
-        fragments.add(WebFragment.newInstance("https://www.baidu.com/?tn=47018152_dg"));
-        fragments.add(WebFragment.newInstance("https://www.baidu.com/?tn=47018152_dg"));
+        fragments.add(WebFragment.newInstance("http://192.168.0.11/redirect/dynamic"));
+        fragments.add(WebFragment.newInstance("http://192.168.0.11/redirect/group"));
         viewDelegate.viewHolder.tl_2.setViewPager(viewDelegate.viewHolder.viewpager,
                 mTitles, (FragmentActivity) viewDelegate.viewHolder.rootView.getContext(), fragments);
 

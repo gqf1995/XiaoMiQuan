@@ -1,11 +1,9 @@
 package com.xiaomiquan.mvp.databinder;
 
-import com.xiaomiquan.mvp.delegate.WebDelegate;
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
-import com.fivefivelike.mybaselibrary.http.HttpRequest;
-import com.fivefivelike.mybaselibrary.http.RequestCallback;
+import com.xiaomiquan.mvp.delegate.WebDelegate;
 
-import io.reactivex.disposables.Disposable;
+import java.util.Map;
 
 public class WebBinder extends BaseDataBind<WebDelegate> {
 
@@ -13,5 +11,18 @@ public class WebBinder extends BaseDataBind<WebDelegate> {
         super(viewDelegate);
     }
 
+    public String getMapWithUid() {
+        Map<String, Object> mapWithUid = getBaseMapWithUid();
+        StringBuffer sb = new StringBuffer();
+        sb.append("?");
+        for (Map.Entry<String, Object> entry : mapWithUid.entrySet()) {
+            String key = entry.getKey().toString().trim();
+            String value = entry.getValue().toString().trim();
+            sb.append(key + "=" + value);
+            sb.append("&");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
+    }
 
 }

@@ -15,8 +15,8 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="@dimen/trans_90px"
+            android:layout_gravity="bottom|center_horizontal"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/trans_25px"
-                android:text="@string/ic_Back"
+                android:text="@string/ic_icon_left"
                 android:textColor="@color/color_font1"
                 android:textSize="@dimen/text_trans_24px"
                 />
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/trans_25px"
-                android:text="@string/ic_Next"
+                android:text="@string/ic_icon_right"
                 android:textColor="@color/color_font1"
                 android:textSize="@dimen/text_trans_24px"
                 />

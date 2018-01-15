@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.delegate;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -55,6 +56,7 @@ public class MarketValueDelegate extends BaseDelegate {
 
     public static class ViewHolder {
         public View rootView;
+        public LinearLayout lin_coin_index;
         public RecyclerView rv_coin_index;
         public TextView tv_title_volume;
         public RecyclerView rv_deal_num;
@@ -64,9 +66,11 @@ public class MarketValueDelegate extends BaseDelegate {
         public RecyclerView rv_ranking;
         public LinearLayout lin_look_all;
         public LinearLayout lin_root;
+        public SwipeRefreshLayout swipeRefreshLayout;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
+            this.lin_coin_index = (LinearLayout) rootView.findViewById(R.id.lin_coin_index);
             this.rv_coin_index = (RecyclerView) rootView.findViewById(R.id.rv_coin_index);
             this.tv_title_volume = (TextView) rootView.findViewById(R.id.tv_title_volume);
             this.rv_deal_num = (RecyclerView) rootView.findViewById(R.id.rv_deal_num);
@@ -76,6 +80,7 @@ public class MarketValueDelegate extends BaseDelegate {
             this.rv_ranking = (RecyclerView) rootView.findViewById(R.id.rv_ranking);
             this.lin_look_all = (LinearLayout) rootView.findViewById(R.id.lin_look_all);
             this.lin_root = (LinearLayout) rootView.findViewById(R.id.lin_root);
+            this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         }
 
     }

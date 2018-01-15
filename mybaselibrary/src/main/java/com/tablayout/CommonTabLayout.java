@@ -26,7 +26,6 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
@@ -38,13 +37,18 @@ import com.tablayout.widget.MsgView;
 
 import java.util.ArrayList;
 
-import skin.support.widget.SkinCompatFrameLayout;
+import skin.support.content.res.SkinCompatResources;
+import skin.support.widget.SkinCompatHelper;
+import skin.support.widget.SkinCompatSupportable;
+import skin.support.widget.SkinCompatTextView;
+
+import static skin.support.widget.SkinCompatHelper.INVALID_ID;
 
 
 /**
  * 没有继承HorizontalScrollView不能滑动,对于ViewPager无依赖
  */
-public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnimator.AnimatorUpdateListener {
+public class CommonTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener, SkinCompatSupportable {
     private Context mContext;
     private ArrayList<CustomTabEntity> mTabEntitys = new ArrayList<>();
     private LinearLayout mTabsContainer;
@@ -74,6 +78,7 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
      * indicator
      */
     private int mIndicatorColor;
+    private int mIndicatorColorId = INVALID_ID;
     private float mIndicatorHeight;
     private float mIndicatorWidth;
     private float mIndicatorCornerRadius;
@@ -92,6 +97,7 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
      * underline
      */
     private int mUnderlineColor;
+    private int mTextSelectColorId = INVALID_ID;
     private float mUnderlineHeight;
     private int mUnderlineGravity;
 
@@ -178,7 +184,26 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         mValueAnimator = ValueAnimator.ofObject(new PointEvaluator(), mLastP, mCurrentP);
         mValueAnimator.addUpdateListener(this);
     }
+    @Override
+    public void applySkin() {
+        if (mTabsContainer != null) {
+            applySelectColorResource();
+        }
+    }
 
+    private void applySelectColorResource() {
+        mTextSelectColorId = SkinCompatHelper.checkResourceId(mTextSelectColorId);
+        mIndicatorColorId = SkinCompatHelper.checkResourceId(mIndicatorColorId);
+        if (mTextSelectColorId != INVALID_ID) {
+            int color = SkinCompatResources.getColor(mContext, mTextSelectColorId);
+            mTextSelectColor = color;
+        }
+        if (mIndicatorColorId != INVALID_ID) {
+            int color = SkinCompatResources.getColor(mContext, mIndicatorColorId);
+            mIndicatorColor = color;
+        }
+        updateTabStyles();
+    }
     private void obtainAttributes(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CommonTabLayout);
 
@@ -196,6 +221,9 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         mIndicatorBounceEnable = ta.getBoolean(R.styleable.CommonTabLayout_tl_indicator_bounce_enable, true);
         mIndicatorAnimDuration = ta.getInt(R.styleable.CommonTabLayout_tl_indicator_anim_duration, -1);
         mIndicatorGravity = ta.getInt(R.styleable.CommonTabLayout_tl_indicator_gravity, Gravity.BOTTOM);
+        mIndicatorColorId = ta.getResourceId(R.styleable.CommonTabLayout_tl_indicator_color, INVALID_ID);
+        mTextSelectColorId = ta.getResourceId(R.styleable.CommonTabLayout_tl_textSelectColor, INVALID_ID);
+
 
         mUnderlineColor = ta.getColor(R.styleable.CommonTabLayout_tl_underline_color, Color.parseColor("#ffffff"));
         mUnderlineHeight = ta.getDimension(R.styleable.CommonTabLayout_tl_underline_height, dp2px(0));
@@ -220,6 +248,9 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         mTabSpaceEqual = ta.getBoolean(R.styleable.CommonTabLayout_tl_tab_space_equal, true);
         mTabWidth = ta.getDimension(R.styleable.CommonTabLayout_tl_tab_width, dp2px(-1));
         mTabPadding = ta.getDimension(R.styleable.CommonTabLayout_tl_tab_padding, mTabSpaceEqual || mTabWidth > 0 ? dp2px(0) : dp2px(10));
+
+        mTextSelectColor=SkinCompatResources.getColor(mContext, mTextSelectColorId);
+        mIndicatorColor=SkinCompatResources.getColor(mContext, mTextSelectColorId);
 
         ta.recycle();
     }
@@ -273,9 +304,8 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
      */
 
     private void addTab(final int position, View tabView) {
-        TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
-        TextView tv_tab_icon = (TextView) tabView.findViewById(R.id.tv_tab_icon);
-
+        SkinCompatTextView tv_tab_title = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_title);
+        SkinCompatTextView tv_tab_icon = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_icon);
         tv_tab_title.setText(mTabEntitys.get(position).getTabTitle());
 
 
@@ -286,14 +316,14 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
             Typeface typeface = IconFontTextview.IconFontTypeFace.getTypeface(mContext);
             tv_tab_icon.setTypeface(typeface);
             int tid = mTabEntitys.get(position).getTabSelectedIcon();
-            String text = mContext.getResources().getString(tid+R.string.app_name-R.string.app_name);
+            String text = mContext.getResources().getString(tid + R.string.app_name - R.string.app_name);
             tv_tab_icon.setText(text);
 
             //tv_tab_icon.setTextColor(mContext.getResources().getColor(R.color.white));
             iv_tab_icon.setVisibility(GONE);
 
 
-            tv_tab_icon.setTextSize(TypedValue.COMPLEX_UNIT_PX, mIconHeight-7);
+            tv_tab_icon.setTextSize(TypedValue.COMPLEX_UNIT_PX, mIconHeight - 7);
             tv_tab_icon.setVisibility(VISIBLE);
         } else {
             tv_tab_icon.setVisibility(GONE);
@@ -331,7 +361,7 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         for (int i = 0; i < mTabCount; i++) {
             View tabView = mTabsContainer.getChildAt(i);
             tabView.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
-            TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
+            SkinCompatTextView tv_tab_title = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_title);
             tv_tab_title.setTextColor(i == mCurrentTab ? mTextSelectColor : mTextUnselectColor);
             tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextsize);
             //            tv_tab_title.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
@@ -346,13 +376,13 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
             }
 
             ImageView iv_tab_icon = (ImageView) tabView.findViewById(R.id.iv_tab_icon);
-            TextView tv_tab_icon = (TextView) tabView.findViewById(R.id.tv_tab_icon);
+            SkinCompatTextView tv_tab_icon = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_icon);
             if (mTabEntitys.get(i).getTabSelectedIcon() != 0 && mTabEntitys.get(i).getTabUnselectedIcon() == 0) {
 
                 tv_tab_icon.setVisibility(VISIBLE);
                 iv_tab_icon.setVisibility(GONE);
                 tv_tab_icon.setTextColor(i == mCurrentTab ? mTextSelectColor : mTextUnselectColor);
-                tv_tab_icon.setTextSize(TypedValue.COMPLEX_UNIT_PX, mIconHeight-7);
+                tv_tab_icon.setTextSize(TypedValue.COMPLEX_UNIT_PX, mIconHeight - 7);
 
             } else {
                 tv_tab_icon.setVisibility(GONE);
@@ -388,8 +418,8 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         for (int i = 0; i < mTabCount; ++i) {
             View tabView = mTabsContainer.getChildAt(i);
             final boolean isSelect = i == position;
-            TextView tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
-            TextView tab_icon = (TextView) tabView.findViewById(R.id.tv_tab_icon);
+            SkinCompatTextView tab_title = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_title);
+            SkinCompatTextView tab_icon = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_icon);
             tab_title.setTextColor(isSelect ? mTextSelectColor : mTextUnselectColor);
             ImageView iv_tab_icon = (ImageView) tabView.findViewById(R.id.iv_tab_icon);
             CustomTabEntity tabEntity = mTabEntitys.get(i);
@@ -542,7 +572,7 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
                     mIndicatorDrawableImg.draw(canvas);
 
 
-                }else {
+                } else {
 
                     if (mIndicatorCornerRadius < 0 || mIndicatorCornerRadius > mIndicatorHeight / 2) {
                         mIndicatorCornerRadius = mIndicatorHeight / 2;
@@ -898,9 +928,9 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         return iv_tab_icon;
     }
 
-    public TextView getTitleView(int tab) {
+    public SkinCompatTextView getTitleView(int tab) {
         View tabView = mTabsContainer.getChildAt(tab);
-        TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
+        SkinCompatTextView tv_tab_title = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_title);
         return tv_tab_title;
     }
 
@@ -977,7 +1007,7 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         View tabView = mTabsContainer.getChildAt(position);
         MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
         if (tipView != null) {
-            TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
+            SkinCompatTextView tv_tab_title = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_title);
             mTextPaint.setTextSize(mTextsize);
             float textWidth = mTextPaint.measureText(tv_tab_title.getText().toString());
             float textHeight = mTextPaint.descent() - mTextPaint.ascent();

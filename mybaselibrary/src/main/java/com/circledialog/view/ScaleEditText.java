@@ -7,10 +7,12 @@ import android.widget.EditText;
 
 import com.circledialog.scale.ScaleUtils;
 
+import skin.support.widget.SkinCompatEditText;
+
 /**
  * Created by hupei on 2017/3/31.
  */
-class ScaleEditText extends EditText {
+class ScaleEditText extends SkinCompatEditText {
     public ScaleEditText(Context context) {
         super(context);
         config();

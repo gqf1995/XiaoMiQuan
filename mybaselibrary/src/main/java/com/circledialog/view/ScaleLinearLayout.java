@@ -1,18 +1,17 @@
 package com.circledialog.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
 
 import com.circledialog.scale.ScaleLayoutConfig;
+
+import skin.support.widget.SkinCompatLinearLayout;
 
 
 /**
  * Created by hupei on 2017/3/29.
  */
-class ScaleLinearLayout extends LinearLayout {
+class ScaleLinearLayout extends SkinCompatLinearLayout {
     public ScaleLinearLayout(Context context) {
         this(context, null);
     }
@@ -26,9 +25,9 @@ class ScaleLinearLayout extends LinearLayout {
         ScaleLayoutConfig.init(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ScaleLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        ScaleLayoutConfig.init(context);
-    }
+//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+//    public ScaleLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+//        super(context, attrs, defStyleAttr, defStyleRes);
+//        ScaleLayoutConfig.init(context);
+//    }
 }

@@ -51,7 +51,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
     private int fragmentContainId = -1;
     private List<Fragment> fragmentList;
     private FragmentManager fragmentManager;
-    private boolean isNoStatusBarFlag = false;
+    private boolean isNoStatusBarFlag = true;
     private CircleDialog.CircleDialogLinsener circleDialogLinsener;
     private LinearLayout mToolbarBackLin;
     private TextView mToolbarBackTxt;

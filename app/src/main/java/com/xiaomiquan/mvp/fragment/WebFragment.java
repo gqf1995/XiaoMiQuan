@@ -98,9 +98,9 @@ public class WebFragment extends BaseDataBindFragment<WebDelegate, WebBinder> {
         super.bindEvenListener();
         type = getArguments().getString("type");
         UiHeplUtils.webviewRegister(viewDelegate.viewHolder.webView);
-        viewDelegate.viewHolder.webView.loadUrl(type);
-    }
 
+        viewDelegate.viewHolder.webView.loadUrl(type + binder.getMapWithUid());
+    }
 
     public boolean goBack() {
         if (viewDelegate.viewHolder.webView.canGoBack()) {

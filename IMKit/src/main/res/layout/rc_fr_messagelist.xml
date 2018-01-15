@@ -4,7 +4,7 @@
              android:id="@id/rc_content"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="@color/black_transparent_50">
+             android:background="@color/black_transparent_25">
 
     <io.rong.imkit.widget.AutoRefreshListView
         android:id="@id/rc_list"

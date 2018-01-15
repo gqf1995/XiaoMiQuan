@@ -1,16 +1,17 @@
 package com.circledialog.view;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import com.circledialog.res.values.CircleColor;
+
+import skin.support.widget.SkinCompatView;
 
 /**
  * 分隔线，默认垂直
  * Created by hupei on 2017/3/30.
  */
-class DividerView extends View {
+class DividerView extends SkinCompatView {
     public DividerView(Context context) {
         super(context);
         init();
