@@ -35,6 +35,20 @@ public class UserDelegate extends BaseDelegate {
     }
 
     public void initUserMsg(UserLogin userLogin) {
+        //基础信息设置
+        List<String> strings = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language_abbreviations));
+        List<String> strings2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language));
+        viewHolder.tv_select_language.setText(strings2.get(strings.indexOf(UserSet.getinstance().getLanguage())));
+
+        List<String> strings1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
+        if (strings1.contains(UserSet.getinstance().getUnit())) {
+            viewHolder.tv_select_price_model.setText(UserSet.getinstance().getUnit());
+        } else {
+            viewHolder.tv_select_price_model.setText(strings1.get(0));
+        }
+
+
+        //用户信息设置
         if (userLogin == null) {
             viewHolder.tv_nick_name.setText(CommonUtils.getString(R.string.str_nologin));
             viewHolder.tv_subtitle.setVisibility(View.GONE);
@@ -47,9 +61,6 @@ public class UserDelegate extends BaseDelegate {
         } else if (!TextUtils.isEmpty(userLogin.getPhone())) {
             viewHolder.tv_subtitle.setText(userLogin.getPhone());
         }
-        List<String> strings = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language_abbreviations));
-        List<String> strings2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language));
-        viewHolder.tv_select_language.setText(strings2.get(strings.indexOf(UserSet.getinstance().getLanguage())));
 
     }
 
@@ -65,7 +76,7 @@ public class UserDelegate extends BaseDelegate {
 
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
+                viewHolder.fl_toolbar.setVisibility(View.VISIBLE);
                 if (scrollY <= height) {
                     scale = (float) scrollY / height;
                     alpha = (int) (255 * scale);

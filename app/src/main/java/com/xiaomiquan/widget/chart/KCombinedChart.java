@@ -2,15 +2,17 @@ package com.xiaomiquan.widget.chart;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.view.WindowManager;
+import android.view.View;
 
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.xiaomiquan.entity.bean.kline.DataParse;
+
+import java.math.BigDecimal;
 
 /**
  * Created by 郭青枫 on 2018/1/12 0012.
@@ -72,6 +74,9 @@ public class KCombinedChart extends CombinedChart {
                     ? mXAxis.mAxisRange
                     : ((mData == null ? 0.f : mData.getXValCount()) - 1.f);
             if (xIndex <= deltaX && xIndex <= deltaX * mAnimator.getPhaseX()) {
+                if (mData.getAllData().size() < i) {
+                    return;
+                }
                 Entry e = mData.getEntryForHighlight(mIndicesToHighlight[i]);
                 // make sure entry not null
                 if (e == null || e.getXIndex() != mIndicesToHighlight[i].getXIndex())
@@ -81,9 +86,22 @@ public class KCombinedChart extends CombinedChart {
                 if (!mViewPortHandler.isInBounds(pos[0], pos[1]))
                     continue;
 
+                String yChartMax = this.getYChartMax() + "";
+                String yChartMin = this.getYChartMin() + "";
+                String value = mIndicesToHighlight[i].getValue() + "";
+                BigDecimal bigDecimal = new BigDecimal(yChartMin);
+                BigDecimal valueB = new BigDecimal(value).subtract(bigDecimal);
+                BigDecimal yChartMaxB = new BigDecimal(yChartMax).subtract(bigDecimal);
 
-                float v = (mIndicesToHighlight[i].getValue() / this.getYChartMax()) * (this.getMeasuredHeight() - this.getViewPortHandler().offsetBottom() - this.getViewPortHandler().offsetTop());
-                float height = this.getMeasuredHeight() - v - this.getViewPortHandler().offsetBottom();
+                String hightS = (this.getMeasuredHeight() - this.getViewPortHandler().offsetBottom() - this.getViewPortHandler().offsetTop()) + "";
+                BigDecimal divB = valueB.multiply(new BigDecimal(hightS)).divide(yChartMaxB, 10, BigDecimal.ROUND_HALF_UP);
+
+                float height = this.getMeasuredHeight() - divB.floatValue() - this.getViewPortHandler().offsetBottom();
+
+                //                float v1 = mIndicesToHighlight[i].getValue() - this.getYChartMin();
+                //                float v2 = this.getYChartMax() - this.getYChartMin();
+                //                float v = (mIndicesToHighlight[i].getValue() - this.getYChartMin() / this.getYChartMax() - this.getYChartMin()) * (this.getMeasuredHeight() - this.getViewPortHandler().offsetBottom() - this.getViewPortHandler().offsetTop());
+                //                float height = this.getMeasuredHeight() - v - this.getViewPortHandler().offsetBottom();
 
                 if (null != myMarkerViewH) {
                     myMarkerViewH.refreshContent(e, mIndicesToHighlight[i]);
@@ -134,16 +152,24 @@ public class KCombinedChart extends CombinedChart {
     @Override
     public void setData(CombinedData data) {
         super.setData(data);
-        if (isDrawHeightAndLow) {
-            //获取屏幕宽度,因为默认是向右延伸显示数字的(如图1),当最值在屏幕右端,屏幕不够显示时要向左延伸(如图2)
-            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-            DisplayMetrics metrics = new DisplayMetrics();
-            wm.getDefaultDisplay().getMetrics(metrics);
-            //将mRenderer换成自己写的继承自LineChartRenderer的类
-            mRenderer = new KLineChartRenderer(this, mAnimator, mViewPortHandler, metrics.widthPixels);
-            mRenderer.initBuffers();
-        }
+        initRenderer();
     }
 
+    public void initRenderer(){
+//        if (isDrawHeightAndLow) {
+//            //获取屏幕宽度,因为默认是向右延伸显示数字的(如图1),当最值在屏幕右端,屏幕不够显示时要向左延伸(如图2)
+//            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+//            DisplayMetrics metrics = new DisplayMetrics();
+//            wm.getDefaultDisplay().getMetrics(metrics);
+//            //将mRenderer换成自己写的继承自LineChartRenderer的类
+//            mRenderer = new KLineChartRenderer(this, mAnimator, mViewPortHandler, metrics.widthPixels);
+//            mRenderer.initBuffers();
+//        }
+    }
+
+    @Override
+    public void onDescendantInvalidated(@NonNull View child, @NonNull View target) {
+        super.onDescendantInvalidated(child, target);
+    }
 
 }

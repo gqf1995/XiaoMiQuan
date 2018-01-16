@@ -5,9 +5,10 @@ package com.xiaomiquan.entity.bean.kline;
  */
 public class KLineBean {
     public String date;
+    public long timestamp;
     public float open;
     public float close;
     public float high;
     public float low;
-    public float vol;
+    public float volume;
 }

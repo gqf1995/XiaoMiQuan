@@ -103,9 +103,9 @@ public class WebSocketRequest {
                 });
     }
 
-    public void intiWebSocket(String url, Class clss, WebSocketCallBack webSocketCallBack) {
+    public void intiWebSocket(String url,String name, WebSocketCallBack webSocketCallBack) {
         webSocketCallBacks = new ConcurrentHashMap<>();
-        webSocketCallBacks.put(clss.getName(), webSocketCallBack);
+        webSocketCallBacks.put(name, webSocketCallBack);
         mUrl = url;
         startSocket();
 

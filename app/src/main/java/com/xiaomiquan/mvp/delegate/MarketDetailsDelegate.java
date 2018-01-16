@@ -86,6 +86,8 @@ public class MarketDetailsDelegate extends BaseDelegate {
             }
         });
 
+        viewHolder.combinedchart.setNoDataText(CommonUtils.getString(R.string.str_chart_nodata));
+        viewHolder.barchart.setNoDataText(CommonUtils.getString(R.string.str_chart_nodata));
     }
 
 

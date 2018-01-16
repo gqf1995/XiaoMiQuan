@@ -1,6 +1,7 @@
 package com.xiaomiquan.mvp.databinder;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
+import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.mvp.delegate.WebDelegate;
 
 import java.util.Map;
@@ -21,7 +22,7 @@ public class WebBinder extends BaseDataBind<WebDelegate> {
             sb.append(key + "=" + value);
             sb.append("&");
         }
-        sb.deleteCharAt(sb.length() - 1);
+        sb.append("isNight" + "=" + UserSet.getinstance().isNight());
         return sb.toString();
     }
 

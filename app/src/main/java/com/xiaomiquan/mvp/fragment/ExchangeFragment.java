@@ -9,10 +9,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.github.mikephil.charting.charts.LineChart;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.CoinMarketAdapter;
+import com.xiaomiquan.adapter.ExchangeMarketAdapter;
+import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.ExchangeName;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.mpchart.ConstantTest;
@@ -29,12 +31,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InstitutionsFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
+public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
-    CoinMarketAdapter coinMarketAdapter;
+    ExchangeMarketAdapter exchangeMarketAdapter;
     HeaderAndFooterWrapper adapter;
     ExchangeName exchangeName;
-
+    List<ExchangeData> strDatas;
 
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
@@ -55,15 +57,12 @@ public class InstitutionsFragment extends BasePullFragment<BaseFragentPullDelega
     }
 
     private void initList() {
-        List<String> coinData = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            coinData.add("");
-        }
-        coinMarketAdapter = new CoinMarketAdapter(getActivity(), coinData);
-        coinMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+        strDatas = new ArrayList<>();
+        exchangeMarketAdapter = new ExchangeMarketAdapter(getActivity(), strDatas);
+        exchangeMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-
+                MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position - adapter.getHeadersCount()));
             }
 
             @Override
@@ -71,10 +70,12 @@ public class InstitutionsFragment extends BasePullFragment<BaseFragentPullDelega
                 return false;
             }
         });
-        adapter = new HeaderAndFooterWrapper(coinMarketAdapter);
+        adapter = new HeaderAndFooterWrapper(exchangeMarketAdapter);
         adapter.addHeaderView(initTopView());
-        viewDelegate.setIsLoadMore(false);
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         initRecycleViewPull(adapter, adapter.getHeadersCount(), new LinearLayoutManager(getActivity()));
+        viewDelegate.setIsLoadMore(false);
+
     }
 
     public FontTextview tv_coin_type;
@@ -127,17 +128,27 @@ public class InstitutionsFragment extends BasePullFragment<BaseFragentPullDelega
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+            case 0x123:
+                List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
+                getDataBack(strDatas, datas, adapter);
+                break;
         }
     }
 
     @Override
-    protected void refreshData() {
-
+    public void onResume() {
+        super.onResume();
+        onRefresh();
     }
 
-    public static InstitutionsFragment newInstance(
+    @Override
+    protected void refreshData() {
+        addRequest(binder.getAllMarketByExchange(exchangeName.getEname(), this));
+    }
+
+    public static ExchangeFragment newInstance(
             ExchangeName exchangeName) {
-        InstitutionsFragment newFragment = new InstitutionsFragment();
+        ExchangeFragment newFragment = new ExchangeFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("exchangeName", exchangeName);
         newFragment.setArguments(bundle);

@@ -2,6 +2,7 @@ package com.xiaomiquan.mvp.activity.main;
 
 import android.support.v4.app.Fragment;
 
+import com.blankj.utilcode.util.DeviceUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.xiaomiquan.R;
@@ -10,7 +11,6 @@ import com.xiaomiquan.mvp.delegate.MainDelegate;
 import com.xiaomiquan.mvp.fragment.CircleFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
-import com.xiaomiquan.server.HttpUrl;
 
 public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> {
 
@@ -33,7 +33,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     }
 
     private void initSocket() {
-        WebSocketRequest.getInstance().intiWebSocket("ws://47.97.169.136:8888/ws/123" + HttpUrl.getIntance().getUid(), this.getClass(), new WebSocketRequest.WebSocketCallBack() {
+        WebSocketRequest.getInstance().intiWebSocket("ws://47.97.169.136:1903/ws/" + DeviceUtils.getAndroidID(), this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
             @Override
             public void onDataSuccess(String data, String info, int status) {
 

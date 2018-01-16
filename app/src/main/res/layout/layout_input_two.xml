@@ -34,6 +34,9 @@
             android:textSize="@dimen/trans_32px"
             app:met_baseColor="@color/white"
             app:met_primaryColor="@color/color_blue"
+            app:met_textColor="@color/color_font2"
+            app:met_textColorHint="@color/color_font4"
+            app:met_underlineColor="@color/base_mask"
             />
 
 
@@ -68,6 +71,9 @@
             android:textSize="@dimen/trans_32px"
             app:met_baseColor="@color/white"
             app:met_primaryColor="@color/color_blue"
+            app:met_textColor="@color/color_font2"
+            app:met_textColorHint="@color/color_font4"
+            app:met_underlineColor="@color/base_mask"
             />
 
     </LinearLayout>

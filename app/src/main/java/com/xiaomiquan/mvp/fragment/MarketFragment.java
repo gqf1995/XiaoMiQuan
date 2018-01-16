@@ -77,12 +77,14 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         mTitles = new ArrayList<>();
         List<String> strings = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_market));
         fragments.add(new UserChooseFragment());
+        fragments.add(new ComprehensiveFragment());
         fragments.add(new MarketValueFragment());
         mTitles.add(strings.get(0));
         mTitles.add(strings.get(1));
+        mTitles.add(strings.get(2));
         for (int i = 0; i < exchangeNames.size(); i++) {
             mTitles.add(exchangeNames.get(i).getEname());
-            fragments.add(InstitutionsFragment.newInstance(exchangeNames.get(i)));
+            fragments.add(ExchangeFragment.newInstance(exchangeNames.get(i)));
         }
         viewDelegate.viewHolder.vp_sliding.setOffscreenPageLimit(1);
         viewDelegate.viewHolder.tl_2.setViewPager(viewDelegate.viewHolder.vp_sliding,

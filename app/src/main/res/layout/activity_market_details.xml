@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/trans_25px"
                 android:text="@string/ic_icon_left"
+                android:rotation="180"
                 android:textColor="@color/color_font1"
                 android:textSize="@dimen/text_trans_24px"
                 />

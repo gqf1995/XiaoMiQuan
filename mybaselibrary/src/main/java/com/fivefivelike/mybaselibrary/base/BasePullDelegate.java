@@ -101,8 +101,10 @@ public abstract class BasePullDelegate extends BaseDelegate {
         callbacks = new Paginate.Callbacks() {
             @Override
             public void onLoadMore() {
-                isLoading = true;
-                callback.loadData();
+                if(mIsLoadMore) {
+                    isLoading = true;
+                    callback.loadData();
+                }
             }
 
             @Override

@@ -2,6 +2,7 @@ package com.xiaomiquan.entity.bean.kline;
 
 import android.util.SparseArray;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.Entry;
@@ -9,6 +10,7 @@ import com.github.mikephil.charting.data.Entry;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +76,8 @@ public class DataParse {
     private String code = "sz002081";
     private SparseArray<String> xValuesLabel = new SparseArray<>();
 
+    List<KLineBean> mKLineBeans;
+
     public void parseMinutes(JSONObject object) {
         JSONArray jsonArray = object.optJSONObject("data").optJSONObject(code).optJSONObject("data").optJSONArray("data");
         String date = object.optJSONObject("data").optJSONObject(code).optJSONObject("data").optString("date");
@@ -123,7 +127,7 @@ public class DataParse {
         candleEntries = new ArrayList<>();//K线数据
         for (int i = 0, j = 0; i < datas.size(); i++, j++) {
             xVals.add(datas.get(i).date + "");
-            barEntries.add(new KlineBarEntry(i, datas.get(i).high, datas.get(i).low, datas.get(i).open, datas.get(i).close, datas.get(i).vol));
+            barEntries.add(new KlineBarEntry(i, datas.get(i).high, datas.get(i).low, datas.get(i).open, datas.get(i).close, datas.get(i).volume));
             candleEntries.add(new CandleEntry(i, datas.get(i).high, datas.get(i).low, datas.get(i).open, datas.get(i).close));
         }
     }
@@ -147,21 +151,60 @@ public class DataParse {
                 kLineData.close = (float) dayData.optDouble(2);
                 kLineData.high = (float) dayData.optDouble(3);
                 kLineData.low = (float) dayData.optDouble(4);
-                kLineData.vol = (float) dayData.optDouble(5);
+                kLineData.volume = (float) dayData.optDouble(5);
 
 
                 kLineBeans.add(kLineData);
 
-                volmax = Math.max(kLineData.vol, volmax);
+                volmax = Math.max(kLineData.volume, volmax);
                 xValuesLabel.put(i, kLineData.date);
             }
         }
         kDatas.addAll(kLineBeans);
     }
 
+    public void parseKLine(List<KLineBean> kLineBeans) {
+        if (kLineBeans != null) {
+            int count = kLineBeans.size();
+            for (int i = 0; i < count; i++) {
+                kLineBeans.get(i).date = TimeUtils.millis2String(kLineBeans.get(i).timestamp * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+                volmax = Math.max(kLineBeans.get(i).volume, volmax);
+                xValuesLabel.put(i, kLineBeans.get(i).date);
+            }
+        }
+        if (mKLineBeans == null) {
+            mKLineBeans = new ArrayList<>();
+        }
+        mKLineBeans.addAll(kLineBeans);
+        kDatas.addAll(kLineBeans);
+    }
+
     /**
      * 转化k线时间 分钟 小时 天 周 月
+     * <p>
      */
+    public void parseKlineBuyHour() {
+        List<KLineBean> kLineBeans = new ArrayList<>();
+        int index = 0;
+        KLineBean kLineBean = new KLineBean();
+        for (int i = 0; i < mKLineBeans.size(); i++) {
+            String s = TimeUtils.millis2String(mKLineBeans.get(i).timestamp, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+            String substring = s.substring(s.length() - 2, s.length() - 1);
+            if ("00".equals(substring)) {
+                //整小时
+                kLineBean.open = mKLineBeans.get(i).open;
+            } else if ("59".equals(substring)) {
+                kLineBean.close = mKLineBeans.get(i).close;
+
+
+                //添加 初始化
+                kLineBeans.add(kLineBean);
+                kLineBean = new KLineBean();
+            }
+        }
+        kDatas.clear();
+        kDatas.addAll(kLineBeans);
+    }
 
 
     //    //得到成交量

@@ -39,14 +39,15 @@ public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDeleg
         if (TYPE_LANGUAGE.equals(type)) {
             title = CommonUtils.getString(R.string.str_change_language);
             data = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language));
-            defaultSet = UserSet.getinstance().getLanguage();
-            defaultIndex = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language_abbreviations)).indexOf(defaultSet);
+            List<String> strings = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language_abbreviations));
+            defaultIndex = strings.indexOf(UserSet.getinstance().getLanguage());
         } else if (TYPE_UNIT.equals(type)) {
             title = CommonUtils.getString(R.string.str_default_unit);
             data = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
-            defaultSet = UserSet.getinstance().getUnit();
-            defaultIndex = data.indexOf(defaultSet);
-            if (defaultIndex == -1) {
+            List<String> strings1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
+            if (strings1.contains(UserSet.getinstance().getUnit())) {
+                defaultIndex = strings1.indexOf(UserSet.getinstance().getUnit());
+            } else {
                 defaultIndex = 0;
             }
         }
@@ -55,6 +56,7 @@ public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDeleg
     }
 
     private void initList() {
+        defaultSet = data.get(defaultIndex);
         changeSetAdapter = new ChangeSetAdapter(this, data, defaultSet);
         viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(this));
         viewDelegate.viewHolder.recycler_view.setAdapter(changeSetAdapter);

@@ -65,6 +65,7 @@
         <activity android:name=".mvp.activity.market.SortingUserCoinActivity"/>
         <activity android:name=".mvp.activity.main.WebActivityActivity"/>
         <activity android:name=".mvp.activity.market.CoinIndexActivity"/>
+        <activity android:name=".mvp.fragment.MarketValueFragment"/>
     </application>
 
 </manifest>

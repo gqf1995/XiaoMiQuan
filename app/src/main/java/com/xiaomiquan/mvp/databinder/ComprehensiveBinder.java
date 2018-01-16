@@ -3,27 +3,23 @@ package com.xiaomiquan.mvp.databinder;
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.http.RequestCallback;
-import com.xiaomiquan.mvp.delegate.MarketDetailsDelegate;
+import com.xiaomiquan.mvp.delegate.ComprehensiveDelegate;
 import com.xiaomiquan.server.HttpUrl;
 
 import io.reactivex.disposables.Disposable;
 
-public class MarketDetailsBinder extends BaseDataBind<MarketDetailsDelegate> {
+public class ComprehensiveBinder extends BaseDataBind<ComprehensiveDelegate> {
 
-    public MarketDetailsBinder(MarketDetailsDelegate viewDelegate) {
+    public ComprehensiveBinder(ComprehensiveDelegate viewDelegate) {
         super(viewDelegate);
     }
 
-    public Disposable getKlineByOnlyKey(
-            String onlyKey,
-            String lastTime,
+    public Disposable getAllMarketCaps(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("onlyKey", onlyKey);
-        baseMap.put("lastTime", lastTime);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().getKlineByOnlyKey)
+                .setRequestUrl(HttpUrl.getIntance().getAllMarketCaps)
                 .setShowDialog(false)
                 .setRequestName("获得所有市值信息 未做排序")
                 .setRequestMode(HttpRequest.RequestMode.POST)

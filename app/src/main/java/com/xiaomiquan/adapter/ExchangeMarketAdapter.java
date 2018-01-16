@@ -22,7 +22,7 @@ import java.util.List;
  * Created by 郭青枫 on 2018/1/10 0010.
  */
 
-public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
+public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
 
     int[] bgIds = {R.drawable.ic_value_bg1, R.drawable.ic_value_bg2, R.drawable.ic_value_bg3, R.drawable.ic_value_bg4, R.drawable.ic_value_bg5};
 
@@ -37,7 +37,7 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
     private RoundedImageView iv_bg;
     private LinearLayout lin_root;
 
-    public CoinMarketAdapter(Context context, List<ExchangeData> datas) {
+    public ExchangeMarketAdapter(Context context, List<ExchangeData> datas) {
         super(context, R.layout.adapter_coin_market, datas);
     }
 

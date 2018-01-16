@@ -3,6 +3,7 @@ package com.xiaomiquan.mvp.fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -12,8 +13,10 @@ import android.webkit.WebViewClient;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.just.agentweb.ChromeClientCallbackManager;
+import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.mvp.databinder.WebBinder;
 import com.xiaomiquan.mvp.delegate.WebDelegate;
+import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.utils.UiHeplUtils;
 
 import java.util.HashMap;
@@ -92,14 +95,25 @@ public class WebFragment extends BaseDataBindFragment<WebDelegate, WebBinder> {
     }
 
     String type;//网址
+    boolean isNight;
+    boolean isLogin;
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         type = getArguments().getString("type");
         UiHeplUtils.webviewRegister(viewDelegate.viewHolder.webView);
-
+        isNight = UserSet.getinstance().isNight();
+        isLogin = TextUtils.isEmpty(HttpUrl.getIntance().getToken());
         viewDelegate.viewHolder.webView.loadUrl(type + binder.getMapWithUid());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isNight != UserSet.getinstance().isNight() || isLogin != TextUtils.isEmpty(HttpUrl.getIntance().getToken())) {
+            viewDelegate.viewHolder.webView.loadUrl(type + binder.getMapWithUid());
+        }
     }
 
     public boolean goBack() {

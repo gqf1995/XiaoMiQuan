@@ -18,6 +18,7 @@ import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xiaomiquan.base.UserSet;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -113,8 +114,17 @@ public class KLineChartRenderer extends CombinedChartRenderer {
         float width = v2 + combinedChart.getViewPortHandler().offsetLeft();
 
 
-        float v = (minFloat[1] / combinedChart.getYChartMax()) * (combinedChart.getMeasuredHeight() - combinedChart.getViewPortHandler().offsetBottom() - combinedChart.getViewPortHandler().offsetTop());
-        float height = combinedChart.getMeasuredHeight() - v - combinedChart.getViewPortHandler().offsetBottom();
+        String yChartMax = combinedChart.getYChartMax() + "";
+        String yChartMin = combinedChart.getYChartMin() + "";
+        String value = minFloat[1] + "";
+        BigDecimal bigDecimal = new BigDecimal(yChartMin);
+        BigDecimal valueB = new BigDecimal(value).subtract(bigDecimal);
+        BigDecimal yChartMaxB = new BigDecimal(yChartMax).subtract(bigDecimal);
+
+        String hightS = (combinedChart.getMeasuredHeight() - combinedChart.getViewPortHandler().offsetBottom() - combinedChart.getViewPortHandler().offsetTop()) + "";
+        BigDecimal divB = valueB.multiply(new BigDecimal(hightS)).divide(yChartMaxB, 10, BigDecimal.ROUND_HALF_UP);
+
+        float height = combinedChart.getMeasuredHeight() - divB.floatValue() - combinedChart.getViewPortHandler().offsetBottom();
 
 
         //通过trans得到最低点的屏幕位置
@@ -149,8 +159,17 @@ public class KLineChartRenderer extends CombinedChartRenderer {
 
         float[] minFloat = getMaxFloat(dataSetByIndex.getYVals(), lowestVisibleXIndex, highestVisibleXIndex);//根据数据集获取最低点
 
-        float v = (minFloat[1] / combinedChart.getYChartMax()) * (combinedChart.getMeasuredHeight() - combinedChart.getViewPortHandler().offsetBottom() - combinedChart.getViewPortHandler().offsetTop());
-        float height = combinedChart.getMeasuredHeight() - v - combinedChart.getViewPortHandler().offsetBottom();
+        String yChartMax = combinedChart.getYChartMax() + "";
+        String yChartMin = combinedChart.getYChartMin() + "";
+        String value = minFloat[1] + "";
+        BigDecimal bigDecimal = new BigDecimal(yChartMin);
+        BigDecimal valueB = new BigDecimal(value).subtract(bigDecimal);
+        BigDecimal yChartMaxB = new BigDecimal(yChartMax).subtract(bigDecimal);
+
+        String hightS = (combinedChart.getMeasuredHeight() - combinedChart.getViewPortHandler().offsetBottom() - combinedChart.getViewPortHandler().offsetTop()) + "";
+        BigDecimal divB = valueB.multiply(new BigDecimal(hightS)).divide(yChartMaxB, 10, BigDecimal.ROUND_HALF_UP);
+
+        float height = combinedChart.getMeasuredHeight() - divB.floatValue() - combinedChart.getViewPortHandler().offsetBottom();
 
         float v2 = ((minFloat[0] - lowestVisibleXIndex) / (highestVisibleXIndex - lowestVisibleXIndex)) * (combinedChart.getMeasuredWidth() - combinedChart.getViewPortHandler().offsetRight() - combinedChart.getViewPortHandler().offsetLeft());
         float width = v2 + combinedChart.getViewPortHandler().offsetLeft();

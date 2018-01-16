@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.fivefivelike.mybaselibrary.R;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
@@ -184,6 +185,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         mValueAnimator = ValueAnimator.ofObject(new PointEvaluator(), mLastP, mCurrentP);
         mValueAnimator.addUpdateListener(this);
     }
+
     @Override
     public void applySkin() {
         if (mTabsContainer != null) {
@@ -195,20 +197,24 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         mTextSelectColorId = SkinCompatHelper.checkResourceId(mTextSelectColorId);
         mIndicatorColorId = SkinCompatHelper.checkResourceId(mIndicatorColorId);
         if (mTextSelectColorId != INVALID_ID) {
-            int color = SkinCompatResources.getColor(mContext, mTextSelectColorId);
+            int color = CommonUtils.getColor(mTextSelectColorId);
             mTextSelectColor = color;
         }
         if (mIndicatorColorId != INVALID_ID) {
-            int color = SkinCompatResources.getColor(mContext, mIndicatorColorId);
+            int color = CommonUtils.getColor( mIndicatorColorId);
             mIndicatorColor = color;
         }
         updateTabStyles();
     }
+
     private void obtainAttributes(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CommonTabLayout);
 
         mIndicatorStyle = ta.getInt(R.styleable.CommonTabLayout_tl_indicator_style, 0);
         mIndicatorColor = ta.getColor(R.styleable.CommonTabLayout_tl_indicator_color, Color.parseColor(mIndicatorStyle == STYLE_BLOCK ? "#4B6A87" : "#ffffff"));
+        if (ta.getResourceId(R.styleable.CommonTabLayout_tl_indicator_color, INVALID_ID) != INVALID_ID) {
+            mIndicatorColor = SkinCompatResources.getColor(context, ta.getResourceId(R.styleable.CommonTabLayout_tl_indicator_color, INVALID_ID));
+        }
         mIndicatorHeight = ta.getDimension(R.styleable.CommonTabLayout_tl_indicator_height,
                 dp2px(mIndicatorStyle == STYLE_TRIANGLE ? 4 : (mIndicatorStyle == STYLE_BLOCK ? -1 : 2)));
         mIndicatorWidth = ta.getDimension(R.styleable.CommonTabLayout_tl_indicator_width, dp2px(mIndicatorStyle == STYLE_TRIANGLE ? 10 : -1));
@@ -226,16 +232,28 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
 
 
         mUnderlineColor = ta.getColor(R.styleable.CommonTabLayout_tl_underline_color, Color.parseColor("#ffffff"));
+        if (ta.getResourceId(R.styleable.CommonTabLayout_tl_underline_color, INVALID_ID) != INVALID_ID) {
+            mUnderlineColor =CommonUtils.getColor( ta.getResourceId(R.styleable.CommonTabLayout_tl_underline_color, INVALID_ID));
+        }
         mUnderlineHeight = ta.getDimension(R.styleable.CommonTabLayout_tl_underline_height, dp2px(0));
         mUnderlineGravity = ta.getInt(R.styleable.CommonTabLayout_tl_underline_gravity, Gravity.BOTTOM);
 
         mDividerColor = ta.getColor(R.styleable.CommonTabLayout_tl_divider_color, Color.parseColor("#ffffff"));
+        if (ta.getResourceId(R.styleable.CommonTabLayout_tl_divider_color, INVALID_ID) != INVALID_ID) {
+            mDividerColor = CommonUtils.getColor( ta.getResourceId(R.styleable.CommonTabLayout_tl_divider_color, INVALID_ID));
+        }
         mDividerWidth = ta.getDimension(R.styleable.CommonTabLayout_tl_divider_width, dp2px(0));
         mDividerPadding = ta.getDimension(R.styleable.CommonTabLayout_tl_divider_padding, dp2px(12));
 
         mTextsize = ta.getDimension(R.styleable.CommonTabLayout_tl_textsize, sp2px(13f));
         mTextSelectColor = ta.getColor(R.styleable.CommonTabLayout_tl_textSelectColor, Color.parseColor("#ffffff"));
+        if (ta.getResourceId(R.styleable.CommonTabLayout_tl_textSelectColor, INVALID_ID) != INVALID_ID) {
+            mTextSelectColor = SkinCompatResources.getColor(context, ta.getResourceId(R.styleable.CommonTabLayout_tl_textSelectColor, INVALID_ID));
+        }
         mTextUnselectColor = ta.getColor(R.styleable.CommonTabLayout_tl_textUnselectColor, Color.parseColor("#AAffffff"));
+        if (ta.getResourceId(R.styleable.CommonTabLayout_tl_textUnselectColor, INVALID_ID) != INVALID_ID) {
+            mTextUnselectColor = CommonUtils.getColor( ta.getResourceId(R.styleable.CommonTabLayout_tl_textUnselectColor, INVALID_ID));
+        }
         mTextBold = ta.getInt(R.styleable.CommonTabLayout_tl_textBold, TEXT_BOLD_NONE);
         mTextAllCaps = ta.getBoolean(R.styleable.CommonTabLayout_tl_textAllCaps, false);
 
@@ -249,8 +267,6 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         mTabWidth = ta.getDimension(R.styleable.CommonTabLayout_tl_tab_width, dp2px(-1));
         mTabPadding = ta.getDimension(R.styleable.CommonTabLayout_tl_tab_padding, mTabSpaceEqual || mTabWidth > 0 ? dp2px(0) : dp2px(10));
 
-        mTextSelectColor=SkinCompatResources.getColor(mContext, mTextSelectColorId);
-        mIndicatorColor=SkinCompatResources.getColor(mContext, mTextSelectColorId);
 
         ta.recycle();
     }

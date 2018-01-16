@@ -116,6 +116,14 @@ public class HttpUrl {
      * 获得目前库中最新的Key对
      */
     public String getAllOnlyKeys = getBaseUrl() + dataUrl + "/getAllOnlyKeys";
+    /**
+     * 根据交易所名称获得相关信息
+     */
+    public String getAllMarketByExchange = getBaseUrl() + dataUrl + "/getAllMarketByExchange";
+    /**
+     * 获取K线
+     */
+    public String getKlineByOnlyKey = getBaseUrl() + dataUrl + "/getKlineByOnlyKey";
 
 
 }

@@ -7,7 +7,8 @@ import android.view.View;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.CoinMarketAdapter;
+import com.xiaomiquan.adapter.ExchangeMarketAdapter;
+import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.mvp.activity.market.AddCoinActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
-    CoinMarketAdapter adapter;
+    ExchangeMarketAdapter adapter;
 
     @Override
     protected void bindEvenListener() {
@@ -27,8 +28,8 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     }
 
     private void initList() {
-        List<String> coinData = new ArrayList<>();
-        adapter = new CoinMarketAdapter(getActivity(), coinData);
+        List<ExchangeData> coinData = new ArrayList<>();
+        adapter = new ExchangeMarketAdapter(getActivity(), coinData);
         adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {

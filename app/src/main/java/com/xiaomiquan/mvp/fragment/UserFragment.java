@@ -2,7 +2,6 @@ package com.xiaomiquan.mvp.fragment;
 
 import android.view.View;
 
-import com.circledialog.CircleDialogHelper;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -17,6 +16,7 @@ import com.xiaomiquan.mvp.activity.user.SecurityActivity;
 import com.xiaomiquan.mvp.activity.user.SetActivity;
 import com.xiaomiquan.mvp.databinder.UserBinder;
 import com.xiaomiquan.mvp.delegate.UserDelegate;
+import com.xiaomiquan.widget.CircleDialogHelper;
 
 public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder> {
 
@@ -64,6 +64,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
         switch (v.getId()) {
             case R.id.checkbox_night_model:
                 UserSet.getinstance().setNight(!viewDelegate.viewHolder.checkbox_night_model.isChecked());
+                viewDelegate.viewHolder.fl_toolbar.setVisibility(View.GONE);
                 break;
             case R.id.checkbox_red_sticker:
                 UserSet.getinstance().setRedRise(viewDelegate.viewHolder.checkbox_night_model.isChecked());

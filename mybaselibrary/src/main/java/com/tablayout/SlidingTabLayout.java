@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.R;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.tablayout.listener.OnTabSelectListener;
 import com.tablayout.utils.UnreadMsgUtils;
 import com.tablayout.widget.MsgView;
@@ -140,11 +141,11 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         mTextSelectColorId = SkinCompatHelper.checkResourceId(mTextSelectColorId);
         mIndicatorColorId = SkinCompatHelper.checkResourceId(mIndicatorColorId);
         if (mTextSelectColorId != INVALID_ID) {
-            int color = SkinCompatResources.getColor(mContext, mTextSelectColorId);
+            int color = CommonUtils.getColor( mTextSelectColorId);
             mTextSelectColor = color;
         }
         if (mIndicatorColorId != INVALID_ID) {
-            int color = SkinCompatResources.getColor(mContext, mIndicatorColorId);
+            int color = CommonUtils.getColor(mIndicatorColorId);
             mIndicatorColor = color;
         }
         updateTabStyles();
@@ -204,6 +205,9 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
 
         mIndicatorStyle = ta.getInt(R.styleable.SlidingTabLayout_tl_indicator_style, STYLE_NORMAL);
         mIndicatorColor = ta.getColor(R.styleable.SlidingTabLayout_tl_indicator_color, Color.parseColor(mIndicatorStyle == STYLE_BLOCK ? "#4B6A87" : "#ffffff"));
+        if (ta.getResourceId(R.styleable.SlidingTabLayout_tl_indicator_color, INVALID_ID) != INVALID_ID) {
+            mIndicatorColor = CommonUtils.getColor(ta.getResourceId(R.styleable.SlidingTabLayout_tl_indicator_color, INVALID_ID));
+        }
         mIndicatorColorId = ta.getResourceId(R.styleable.SlidingTabLayout_tl_indicator_color, INVALID_ID);
         mIndicatorHeight = ta.getDimension(R.styleable.SlidingTabLayout_tl_indicator_height,
                 dp2px(mIndicatorStyle == STYLE_TRIANGLE ? 4 : (mIndicatorStyle == STYLE_BLOCK ? -1 : 2)));
@@ -217,17 +221,29 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         mIndicatorWidthEqualTitle = ta.getBoolean(R.styleable.SlidingTabLayout_tl_indicator_width_equal_title, false);
 
         mUnderlineColor = ta.getColor(R.styleable.SlidingTabLayout_tl_underline_color, Color.parseColor("#ffffff"));
+        if (ta.getResourceId(R.styleable.SlidingTabLayout_tl_underline_color, INVALID_ID) != INVALID_ID) {
+            mUnderlineColor = SkinCompatResources.getColor(context, ta.getResourceId(R.styleable.SlidingTabLayout_tl_underline_color, INVALID_ID));
+        }
         mUnderlineHeight = ta.getDimension(R.styleable.SlidingTabLayout_tl_underline_height, dp2px(0));
         mUnderlineGravity = ta.getInt(R.styleable.SlidingTabLayout_tl_underline_gravity, Gravity.BOTTOM);
 
         mDividerColor = ta.getColor(R.styleable.SlidingTabLayout_tl_divider_color, Color.parseColor("#ffffff"));
+        if (ta.getResourceId(R.styleable.SlidingTabLayout_tl_divider_color, INVALID_ID) != INVALID_ID) {
+            mDividerColor = CommonUtils.getColor( ta.getResourceId(R.styleable.SlidingTabLayout_tl_divider_color, INVALID_ID));
+        }
         mDividerWidth = ta.getDimension(R.styleable.SlidingTabLayout_tl_divider_width, dp2px(0));
         mDividerPadding = ta.getDimension(R.styleable.SlidingTabLayout_tl_divider_padding, dp2px(12));
 
         mTextsize = ta.getDimension(R.styleable.SlidingTabLayout_tl_textsize, sp2px(14));
         mTextSelectColor = ta.getColor(R.styleable.SlidingTabLayout_tl_textSelectColor, Color.parseColor("#ffffff"));
+        if (ta.getResourceId(R.styleable.SlidingTabLayout_tl_textSelectColor, INVALID_ID) != INVALID_ID) {
+            mTextSelectColor = SkinCompatResources.getColor(context, ta.getResourceId(R.styleable.SlidingTabLayout_tl_textSelectColor, INVALID_ID));
+        }
         mTextSelectColorId = ta.getResourceId(R.styleable.SlidingTabLayout_tl_textSelectColor, INVALID_ID);
         mTextUnselectColor = ta.getColor(R.styleable.SlidingTabLayout_tl_textUnselectColor, Color.parseColor("#AAffffff"));
+        if (ta.getResourceId(R.styleable.SlidingTabLayout_tl_textUnselectColor, INVALID_ID) != INVALID_ID) {
+            mTextUnselectColor = CommonUtils.getColor( ta.getResourceId(R.styleable.SlidingTabLayout_tl_textUnselectColor, INVALID_ID));
+        }
         mTextBold = ta.getInt(R.styleable.SlidingTabLayout_tl_textBold, TEXT_BOLD_NONE);
         mTextAllCaps = ta.getBoolean(R.styleable.SlidingTabLayout_tl_textAllCaps, false);
 
