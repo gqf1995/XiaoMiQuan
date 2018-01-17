@@ -135,8 +135,8 @@ public class CoinLineDraw {
         lowEntries.add(lowEntry);
         LineDataSet heightLineDataSet = MyUtils.setMaLine(5, mData.getXVals(), heightEntries);
         LineDataSet lowLineDataSet = MyUtils.setMaLine(5, mData.getXVals(), lowEntries);
-        heightLineDataSet.setCircleColor(CommonUtils.getColor(R.color.color_font1));
-        lowLineDataSet.setCircleColor(CommonUtils.getColor(R.color.color_font1));
+        heightLineDataSet.setCircleColor(CommonUtils.getColor(R.color.white));
+        lowLineDataSet.setCircleColor(CommonUtils.getColor(R.color.white));
         heightLineDataSet.setCircleColorHole(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
         lowLineDataSet.setCircleColorHole(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
         heightLineDataSet.setDrawCircleHole(true);

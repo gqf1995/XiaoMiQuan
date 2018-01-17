@@ -298,7 +298,6 @@ public class KlineDraw {
         mChartKline.setMinOffset(0f);
         mChartKline.setExtraOffsets(0f, 0f, 0f, 3f);
 
-
         Legend lineChartLegend = mChartKline.getLegend();
         lineChartLegend.setEnabled(false);//是否绘制 Legend 图例
         lineChartLegend.setForm(Legend.LegendForm.CIRCLE);
@@ -337,7 +336,7 @@ public class KlineDraw {
         mChartKline.setDragDecelerationEnabled(true);
         mChartKline.setDragDecelerationFrictionCoef(0.2f);
 
-        mChartKline.animateXY(2000, 2000);
+        mChartKline.animateX(2000);
     }
 
     /**
@@ -362,7 +361,6 @@ public class KlineDraw {
         //bar x y轴
         xAxisVolume = mChartVolume.getXAxis();
         xAxisVolume.setEnabled(false);
-
         //        xAxisVolume.setDrawLabels(false); //是否显示X坐标轴上的刻度，默认是true
         //        xAxisVolume.setDrawGridLines(false);//是否显示X坐标轴上的刻度竖线，默认是true
         //        xAxisVolume.setDrawAxisLine(false); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
@@ -399,7 +397,7 @@ public class KlineDraw {
         mChartVolume.setDragDecelerationEnabled(true);
         mChartVolume.setDragDecelerationFrictionCoef(0.2f);
 
-        mChartVolume.animateXY(2000, 2000);
+        mChartVolume.animateX(2000);
     }
 
 
@@ -565,7 +563,7 @@ public class KlineDraw {
         final ViewPortHandler viewPortHandlerBar = combinedChart.getViewPortHandler();
         viewPortHandlerBar.setMaximumScaleX(MyUtils.culcMaxscale(mData.getXVals().size()));
         Matrix touchmatrix = viewPortHandlerBar.getMatrixTouch();
-        final float xscale = 3;
+        final float xscale = 20;
         touchmatrix.postScale(xscale, 1f);
     }
 

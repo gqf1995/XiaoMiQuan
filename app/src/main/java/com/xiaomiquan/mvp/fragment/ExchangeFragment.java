@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.github.mikephil.charting.charts.LineChart;
@@ -98,7 +99,12 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
         this.tv_gains = (FontTextview) rootView.findViewById(R.id.tv_gains);
         this.lin_root = (LinearLayout) rootView.findViewById(R.id.lin_root);
         this.linechart = (LineChart) rootView.findViewById(R.id.linechart);
-
+        tv_coin_type.setTextColor(CommonUtils.getColor(R.color.white));
+        tv_coin_name.setTextColor(CommonUtils.getColor(R.color.white));
+        tv_coin_market_value.setTextColor(CommonUtils.getColor(R.color.white));
+        tv_coin_price.setTextColor(CommonUtils.getColor(R.color.white));
+        tv_coin_probably.setTextColor(CommonUtils.getColor(R.color.white));
+        tv_gains.setTextColor(CommonUtils.getColor(R.color.white));
         lin_root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

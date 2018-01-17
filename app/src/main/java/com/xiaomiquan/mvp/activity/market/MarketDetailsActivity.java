@@ -154,14 +154,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         switch (requestCode) {
             case 0x123:
                 List<KLineBean> datas = GsonUtil.getInstance().toList(data, KLineBean.class);
-                if (lineBeans.size() == 0) {
-                    KLineBean kLineBean = datas.get(datas.size() - 1);
-                    List<KLineBean> list = new ArrayList<>();
-                    list.add(kLineBean);
-                    getOffLineData(list);
-                } else {
-                    getOffLineData(datas);
-                }
+                getOffLineData(datas);
                 lineBeans = mData.getKLineDatas();
                 if (timeIndex == -1) {
                     handler.sendEmptyMessageDelayed(1, 1000);
