@@ -2,10 +2,8 @@ package com.xiaomiquan.mvp.fragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.TextUtils;
 import android.view.View;
 
-import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -21,8 +19,6 @@ import com.xiaomiquan.widget.GainsTabView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.xiaomiquan.base.AppConst.CACHE_EXCHANGENAME;
 
 public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, TabViewpageBinder> {
     ArrayList<Fragment> fragments;
@@ -49,11 +45,11 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_Search1));
         initBarClick();
         //网络获取交易所 名称
-        String exchangeNamesStr = CacheUtils.getInstance().getString(CACHE_EXCHANGENAME);
-        if (!TextUtils.isEmpty(exchangeNamesStr)) {
-            exchangeNameList = GsonUtil.getInstance().toList(exchangeNamesStr, ExchangeName.class);
-            initTablelayout(exchangeNameList);
-        }
+//        String exchangeNamesStr = CacheUtils.getInstance().getString(CACHE_EXCHANGENAME);
+//        if (!TextUtils.isEmpty(exchangeNamesStr)) {
+//            exchangeNameList = GsonUtil.getInstance().toList(exchangeNamesStr, ExchangeName.class);
+//            initTablelayout(exchangeNameList);
+//        }
         addRequest(binder.getAllEXchange(this));
 
 
@@ -134,15 +130,24 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
             case 0x123:
                 //保存行情列表
                 List<ExchangeName> exchangeNames = GsonUtil.getInstance().toList(data, ExchangeName.class);
-                if (exchangeNameList == null) {
-                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-                    initTablelayout(exchangeNames);
-                    break;
-                }
-                if (exchangeNameList.size() != exchangeNames.size()) {
-                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-                    initTablelayout(exchangeNames);
-                }
+                initTablelayout(exchangeNames);
+//                if (exchangeNameList == null) {
+//                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
+//                    initTablelayout(exchangeNames);
+//                    break;
+//                }
+//                if (exchangeNameList.size() != exchangeNames.size()) {
+//                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
+//                    initTablelayout(exchangeNames);
+//                } else {
+//                    for (int i = 0; i < exchangeNameList.size(); i++) {
+//                        if (!exchangeNameList.get(i).getEname().equals(exchangeNames.get(i).getEname())) {
+//                            CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
+//                            initTablelayout(exchangeNames);
+//                            break;
+//                        }
+//                    }
+                //}
                 break;
         }
     }

@@ -29,7 +29,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     protected void bindEvenListener() {
         super.bindEvenListener();
         initFragment();
-        initSocket();
+        //initSocket();
     }
 
     private void initSocket() {

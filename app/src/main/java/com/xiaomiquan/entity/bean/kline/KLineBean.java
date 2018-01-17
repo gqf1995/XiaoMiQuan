@@ -11,4 +11,17 @@ public class KLineBean {
     public float high;
     public float low;
     public float volume;
+
+    @Override
+    public String toString() {
+        return "KLineBean{" +
+                "date='" + date + '\'' +
+                ", timestamp=" + timestamp +
+                ", open=" + open +
+                ", close=" + close +
+                ", high=" + high +
+                ", low=" + low +
+                ", volume=" + volume +
+                '}';
+    }
 }

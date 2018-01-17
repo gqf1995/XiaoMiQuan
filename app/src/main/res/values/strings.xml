@@ -227,6 +227,7 @@
     <string name="str_market_value">市值</string>
     <string name="str_global_network">全网</string>
     <string name="str_chart_nodata">数据加载中...</string>
+    <string name="str_amount">额(24H)</string>
 
     <string-array name="sa_select_market">
         <item>自选</item>

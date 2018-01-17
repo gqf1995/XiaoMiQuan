@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.xiaomiquan.base.AppConst.CACHE_KLINE;
@@ -126,7 +127,6 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
             klineDraw = new KlineDraw();
             klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
         } else {
-            klineDraw.updata(mData.getKLineDatas());
         }
     }
 
@@ -134,7 +134,9 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         if (mData == null) {
             mData = new DataParse();
         }
-        mData.parseKLine(lineBeans);
+        if (lineBeans.size() > 0) {
+            mData.parseKLine(lineBeans);
+        }
         if (klineDraw == null) {
             klineDraw = new KlineDraw();
             klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
@@ -154,12 +156,20 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         switch (requestCode) {
             case 0x123:
                 List<KLineBean> datas = GsonUtil.getInstance().toList(data, KLineBean.class);
+                if (lineBeans.size() > 0) {
+                    Iterator<KLineBean> it = datas.iterator();
+                    while (it.hasNext()) {
+                        KLineBean x = it.next();
+                        if (x.timestamp <= lineBeans.get(lineBeans.size() - 1).timestamp) {
+                            it.remove();
+                        }
+                    }
+                }
                 getOffLineData(datas);
                 lineBeans = mData.getKLineDatas();
                 if (timeIndex == -1) {
                     handler.sendEmptyMessageDelayed(1, 1000);
                 }
-                //getOffLineData();
                 break;
         }
     }

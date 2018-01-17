@@ -17,7 +17,6 @@ import skin.support.content.res.SkinCompatResources;
  * 获取Drawable资源{@link #getDrawable(int)}
  * 获取字符串资源{@link #getString(int)}
  * 获取color资源{@link #getColor(int)}
- * 获取dimens资源{@link #getDimens(int)}
  * 获取字符串数组资源{@link #getStringArray(int)}
  */
 public class CommonUtils {

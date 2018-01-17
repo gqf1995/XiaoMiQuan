@@ -118,13 +118,19 @@ public class DataParse {
     }
 
     //得到成交量
-    public void initLineDatas(ArrayList<KLineBean> datas) {
+    public void initLineDatas(List<KLineBean> datas) {
         if (null == datas) {
             return;
         }
-        xVals = new ArrayList<>();//X轴数据
-        barEntries = new ArrayList<>();//成交量数据
-        candleEntries = new ArrayList<>();//K线数据
+        if (xVals == null) {
+            xVals = new ArrayList<>();//X轴数据
+        }
+        if (barEntries == null) {
+            barEntries = new ArrayList<>();//成交量数据
+        }
+        if (candleEntries == null) {
+            candleEntries = new ArrayList<>();//K线数据
+        }
         for (int i = 0, j = 0; i < datas.size(); i++, j++) {
             xVals.add(datas.get(i).date + "");
             barEntries.add(new KlineBarEntry(i, datas.get(i).high, datas.get(i).low, datas.get(i).open, datas.get(i).close, datas.get(i).volume));
@@ -164,19 +170,21 @@ public class DataParse {
     }
 
     public void parseKLine(List<KLineBean> kLineBeans) {
-        if (kLineBeans != null) {
-            int count = kLineBeans.size();
-            for (int i = 0; i < count; i++) {
-                kLineBeans.get(i).date = TimeUtils.millis2String(kLineBeans.get(i).timestamp * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
-                volmax = Math.max(kLineBeans.get(i).volume, volmax);
-                xValuesLabel.put(i, kLineBeans.get(i).date);
+        if (kLineBeans.size() > 0) {
+            if (mKLineBeans == null) {
+                mKLineBeans = new ArrayList<>();
+            }
+            if (kLineBeans != null) {
+                int count = kLineBeans.size();
+                for (int i = 0; i < count; i++) {
+                    kLineBeans.get(i).date = TimeUtils.millis2String(kLineBeans.get(i).timestamp * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+                    volmax = Math.max(kLineBeans.get(i).volume, volmax);
+                    xValuesLabel.put(i, kLineBeans.get(i).date);
+                    mKLineBeans.add(kLineBeans.get(i));
+                    kDatas.add(kLineBeans.get(i));
+                }
             }
         }
-        if (mKLineBeans == null) {
-            mKLineBeans = new ArrayList<>();
-        }
-        mKLineBeans.addAll(kLineBeans);
-        kDatas.addAll(kLineBeans);
     }
 
     /**

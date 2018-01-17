@@ -56,8 +56,8 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         iv_pic.setImageResource(R.drawable.bitcoin);
 
         tv_coin_type.setText(s.getSymbol() + "/" + s.getUnit());
-        tv_coin_name.setText(CommonUtils.getString(R.string.str_global_network) + s.getSymbol());
-        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value));
+        tv_coin_name.setText(s.getExchange() + " " + s.getSymbol());
+        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + s.getVolume());
         tv_coin_price.setText(s.getLast().toString());
 
         tv_coin_probably.setText("≈" + s.getChoicePrice());
@@ -66,9 +66,9 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         tv_coin_probably.setText(s.getChoicePrice());
         if (!TextUtils.isEmpty(s.getChange())) {
             if (new BigDecimal(s.getChange()).compareTo(new BigDecimal("0")) == 1) {
-                tv_gains.setText(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+                tv_gains.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
             } else {
-                tv_gains.setText(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+                tv_gains.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
             }
         }
         tv_gains.setText(s.getChange() + "%");

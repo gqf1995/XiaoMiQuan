@@ -54,8 +54,8 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
     protected void bindEvenListener() {
         super.bindEvenListener();
         exchangeName = getArguments().getParcelable("exchangeName");
-        initList();
     }
+
 
     private void initList() {
         strDatas = new ArrayList<>();
@@ -76,7 +76,6 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         initRecycleViewPull(adapter, adapter.getHeadersCount(), new LinearLayoutManager(getActivity()));
         viewDelegate.setIsLoadMore(false);
-
     }
 
     public FontTextview tv_coin_type;
@@ -142,9 +141,17 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        onRefresh();
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        if (isVisible) {
+            onRefresh();
+        } else {
+            binder.cancelpost();
+        }
+    }
+
+    @Override
+    protected void onFragmentFirstVisible() {
+        initList();
     }
 
     @Override

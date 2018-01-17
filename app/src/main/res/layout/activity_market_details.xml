@@ -378,7 +378,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/trans_65px"
                         android:layout_gravity="center_vertical"
-                        android:background="@color/black_transparent_50"
+                        android:background="@color/black_transparent_25"
                         android:paddingLeft="@dimen/trans_20px"
                         android:paddingRight="@dimen/trans_20px"
                         app:tl_indicator_margin_bottom="0dp"
@@ -386,7 +386,7 @@
                         app:tl_tab_space_equal="true"
                         tl:tl_indicator_color="@color/color_blue"
                         tl:tl_indicator_style="BLOCK"
-                        tl:tl_textSelectColor="@color/color_font1"
+                        tl:tl_textSelectColor="@color/white"
                         tl:tl_textUnselectColor="@color/color_font3"
                         tl:tl_textsize="@dimen/text_trans_28px"
                         tl:tl_underline_color="@color/black_transparent_99"
@@ -437,7 +437,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/trans_45px"
                         android:layout_gravity="bottom"
-                        android:background="@color/black_transparent_50"/>
+                        android:background="@color/black_transparent_25"/>
 
                 </FrameLayout>
 
