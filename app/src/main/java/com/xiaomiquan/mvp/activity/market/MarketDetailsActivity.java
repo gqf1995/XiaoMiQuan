@@ -126,7 +126,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
             klineDraw = new KlineDraw();
             klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
         } else {
-
+            klineDraw.updata(mData.getKLineDatas());
         }
     }
 
@@ -154,7 +154,14 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         switch (requestCode) {
             case 0x123:
                 List<KLineBean> datas = GsonUtil.getInstance().toList(data, KLineBean.class);
-                getOffLineData(datas);
+                if (lineBeans.size() == 0) {
+                    KLineBean kLineBean = datas.get(datas.size() - 1);
+                    List<KLineBean> list = new ArrayList<>();
+                    list.add(kLineBean);
+                    getOffLineData(list);
+                } else {
+                    getOffLineData(datas);
+                }
                 lineBeans = mData.getKLineDatas();
                 if (timeIndex == -1) {
                     handler.sendEmptyMessageDelayed(1, 1000);

@@ -198,8 +198,8 @@ public class KlineDraw {
 
             BarEntry barEntry = dataSetByIndex.getEntryForIndex(dataSetByIndex.getEntryCount() - 1);
 
-            //barData.addEntry(new BarEntry(count, kLineDatas.get(i).high, kLineDatas.get(i).low, kLineDatas.get(i).open, kLineDatas.get(i).close, kLineDatas.get(i).volume), indexLast);
-            barData.addEntry(barEntry, indexLast);
+            barData.addEntry(new BarEntry(kLineDatas.get(i).volume, count), indexLast);
+            //barData.addEntry(barEntry, indexLast);
         }
 
         if (lineData != null) {
