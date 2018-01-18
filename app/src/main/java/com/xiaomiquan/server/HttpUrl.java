@@ -124,6 +124,28 @@ public class HttpUrl {
      * 获取K线
      */
     public String getKlineByOnlyKey = getBaseUrl() + dataUrl + "/getKlineByOnlyKey";
+    /**
+     * 获取汇率
+     */
+    public String getAllPriceRate = getBaseUrl() + dataUrl + "/getAllPriceRate";
+
+
+    /**
+     * 自选
+     */
+    String subsUrl = "/subs/operate";
+    /**
+     * 点击横栏上交易所或币种显示信息
+     */
+    public String show = getBaseUrl() + subsUrl + "/show";
+    /**
+     * 取消订阅
+     */
+    public String unsubs = getBaseUrl() + subsUrl + "/unsubs";
+    /**
+     * 更新订阅信息
+     */
+    public String subs = getBaseUrl() + subsUrl + "/subs";
 
 
 }

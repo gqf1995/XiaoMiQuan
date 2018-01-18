@@ -1,17 +1,25 @@
 package com.xiaomiquan.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.xiaomiquan.R;
+import com.xiaomiquan.base.BigUIUtil;
 import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.utils.UiHeplUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -22,20 +30,17 @@ import java.util.List;
  * Created by 郭青枫 on 2018/1/10 0010.
  */
 
-public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
+public class CoinMarketAdapter extends CommonAdapter<ExchangeData> implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder> {
 
-    int[] bgIds = {R.drawable.ic_value_bg1, R.drawable.ic_value_bg2, R.drawable.ic_value_bg3, R.drawable.ic_value_bg4, R.drawable.ic_value_bg5};
 
-    private RoundedImageView iv_pic;
+    private TextView tv_num;
     private FontTextview tv_coin_type;
-    private FontTextview tv_coin_name;
-    private FontTextview tv_coin_price;
-    private FontTextview tv_coin_probably;
-    private FontTextview tv_gains;
-    private CardView card_root;
     private FontTextview tv_coin_market_value;
-    private RoundedImageView iv_bg;
+    private FontTextview tv_coin_price;
+    private RoundedImageView ic_piv;
+    private FontTextview tv_gains;
     private LinearLayout lin_root;
+    private FrameLayout fl_root;
 
     public CoinMarketAdapter(Context context, List<ExchangeData> datas) {
         super(context, R.layout.adapter_coin_market, datas);
@@ -43,37 +48,47 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
 
     @Override
     protected void convert(ViewHolder holder, ExchangeData s, final int position) {
-        iv_pic = holder.getView(R.id.iv_pic);
         tv_coin_type = holder.getView(R.id.tv_coin_type);
-        tv_coin_name = holder.getView(R.id.tv_coin_name);
         tv_coin_price = holder.getView(R.id.tv_coin_price);
-        tv_coin_probably = holder.getView(R.id.tv_coin_probably);
-        iv_bg = holder.getView(R.id.iv_bg);
         tv_gains = holder.getView(R.id.tv_gains);
-        card_root = holder.getView(R.id.card_root);
+        ic_piv = holder.getView(R.id.ic_piv);
+        fl_root = holder.getView(R.id.fl_root);
+        lin_root = holder.getView(R.id.lin_root);
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
-        iv_bg.setImageResource(bgIds[position % 5]);
-        iv_pic.setImageResource(R.drawable.bitcoin);
+        tv_num = holder.getView(R.id.tv_num);
+        ic_piv.setEnabled(false);
 
+        tv_num.setText(UiHeplUtils.numIntToString(position, 2));
+        tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
         tv_coin_type.setText(s.getSymbol() + "/" + s.getUnit());
-        tv_coin_name.setText(CommonUtils.getString(R.string.str_global_network) + s.getSymbol());
-        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value));
-        tv_coin_price.setText(s.getLast().toString());
+        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  " + s.getVolume() + "/" + s.getAmount());
+        tv_coin_price.setText(BigUIUtil.getinstance().bigPrice(s.getLast()));
 
-        tv_coin_probably.setText("≈" + s.getChoicePrice());
-        tv_coin_probably.setVisibility(TextUtils.isEmpty(s.getChoicePrice()) ? View.GONE : View.VISIBLE);
-
-        tv_coin_probably.setText(s.getChoicePrice());
+        ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
         if (!TextUtils.isEmpty(s.getChange())) {
             if (new BigDecimal(s.getChange()).compareTo(new BigDecimal("0")) == 1) {
-                tv_gains.setText(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+                ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
             } else {
-                tv_gains.setText(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+                ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getDropColor()), 10, 10, 10, 10));
             }
         }
         tv_gains.setText(s.getChange() + "%");
-
-
     }
 
+    @Override
+    public long getHeaderId(int position) {
+        return R.id.fl_root;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_exchange_tool, parent, false);
+        return new RecyclerView.ViewHolder(view) {
+        };
+    }
+
+    @Override
+    public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
 }

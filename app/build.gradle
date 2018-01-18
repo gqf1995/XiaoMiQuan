@@ -101,5 +101,6 @@ dependencies {
     // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
     implementation project(':IMKit')
     implementation project(':IMLib')
-    compile 'com.just.agentweb:agentweb:3.0.0'
+    compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+
 }

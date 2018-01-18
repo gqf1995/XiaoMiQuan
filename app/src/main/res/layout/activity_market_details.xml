@@ -25,8 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/trans_25px"
-                android:text="@string/ic_icon_left"
                 android:rotation="180"
+                android:text="@string/ic_icon_left"
                 android:textColor="@color/color_font1"
                 android:textSize="@dimen/text_trans_24px"
                 />
@@ -54,380 +54,36 @@
 
     </FrameLayout>
 
-    <FrameLayout
+    <com.xiaomiquan.widget.StickyScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        >
 
-        <android.support.v4.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/lin_kline"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:clipChildren="true"
                 android:orientation="vertical">
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/trans_40px">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/iv_pic"
-                            android:layout_width="@dimen/trans_110px"
-                            android:layout_height="@dimen/trans_110px"
-                            android:src="@color/color_blue"
-                            />
-
-                        <com.fivefivelike.mybaselibrary.view.FontTextview
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:text="$14,290.088888"
-                            android:textColor="@color/color_font1"
-                            android:textSize="@dimen/text_trans_64px"
-                            app:TypeFace="SemiBold"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:orientation="horizontal">
-
-                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/ic_Climb"
-                            android:textColor="@color/decreasing_color"
-                            android:textSize="@dimen/text_trans_32px"/>
-
-                        <com.fivefivelike.mybaselibrary.view.FontTextview
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="+1356.31(+3.00%)"
-                            android:textColor="@color/decreasing_color"
-                            android:textSize="@dimen/text_trans_32px"
-                            app:TypeFace="SemiBold"/>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/trans_45px"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/str_total"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"/>
-
-                            <com.fivefivelike.mybaselibrary.view.FontTextview
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:paddingLeft="@dimen/trans_8px"
-                                android:text="-"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"
-                                app:TypeFace="Medium"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/str_cost"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"/>
-
-                            <com.fivefivelike.mybaselibrary.view.FontTextview
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:paddingLeft="@dimen/trans_8px"
-                                android:text="-"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"
-                                app:TypeFace="Medium"/>
-
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/trans_10px"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/str_buy_in"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"/>
-
-                            <com.fivefivelike.mybaselibrary.view.FontTextview
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:paddingLeft="@dimen/trans_8px"
-                                android:text="-"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"
-                                app:TypeFace="Medium"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/str_highest"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"/>
-
-                            <com.fivefivelike.mybaselibrary.view.FontTextview
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:paddingLeft="@dimen/trans_8px"
-                                android:text="-"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"
-                                app:TypeFace="Medium"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/str_opening_quotation"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"/>
-
-                            <com.fivefivelike.mybaselibrary.view.FontTextview
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:paddingLeft="@dimen/trans_8px"
-                                android:text="-"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"
-                                app:TypeFace="Medium"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/trans_10px"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/str_sell_out"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"/>
-
-                            <com.fivefivelike.mybaselibrary.view.FontTextview
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:paddingLeft="@dimen/trans_8px"
-                                android:text="-"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"
-                                app:TypeFace="Medium"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/str_minimum"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"/>
-
-                            <com.fivefivelike.mybaselibrary.view.FontTextview
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:paddingLeft="@dimen/trans_8px"
-                                android:text="-"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"
-                                app:TypeFace="Medium"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/str_closing_quotation"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"/>
-
-                            <com.fivefivelike.mybaselibrary.view.FontTextview
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:paddingLeft="@dimen/trans_8px"
-                                android:text="-"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_24px"
-                                app:TypeFace="Medium"/>
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                <include layout="@layout/layout_market_detail"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipChildren="true"
-                    >
-
-                    <com.tablayout.CommonTabLayout
-                        android:id="@+id/tl_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/trans_65px"
-                        android:layout_gravity="center_vertical"
-                        android:background="@color/black_transparent_25"
-                        android:paddingLeft="@dimen/trans_20px"
-                        android:paddingRight="@dimen/trans_20px"
-                        app:tl_indicator_margin_bottom="0dp"
-                        app:tl_indicator_margin_top="0dp"
-                        app:tl_tab_space_equal="true"
-                        tl:tl_indicator_color="@color/color_blue"
-                        tl:tl_indicator_style="BLOCK"
-                        tl:tl_textSelectColor="@color/white"
-                        tl:tl_textUnselectColor="@color/color_font3"
-                        tl:tl_textsize="@dimen/text_trans_28px"
-                        tl:tl_underline_color="@color/black_transparent_99"
-                        tl:tl_underline_height="0dp"
-                        >
-
-                    </com.tablayout.CommonTabLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/trans_20px"
-                        android:paddingRight="@dimen/trans_20px">
-
-                        <Space
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"/>
-
-                        <com.xiaomiquan.widget.MinutesTabView
-                            android:id="@+id/view_time_tab"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
-
-                        </com.xiaomiquan.widget.MinutesTabView>
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:clipChildren="true">
 
 
                     <com.xiaomiquan.widget.chart.KCombinedChart
                         android:id="@+id/combinedchart"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/trans_410px"
+                        android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/trans_10px"
                         >
 
@@ -441,173 +97,262 @@
 
                 </FrameLayout>
 
+                <LinearLayout
+                    android:id="@+id/lin_ma2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/trans_5px"
+                    android:paddingLeft="@dimen/trans_10px"
+                    android:paddingTop="@dimen/trans_5px">
+
+                    <TextView
+                        android:id="@+id/tv_kvolume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/trans_10px"
+                        android:text="@string/str_kvolume"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_20px"/>
+
+                    <TextView
+                        android:id="@+id/tv_ma5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/trans_10px"
+                        android:text="MA5:"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_20px"/>
+
+                    <TextView
+                        android:id="@+id/tv_ma10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/trans_10px"
+                        android:text="MA10:"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_20px"/>
+
+                </LinearLayout>
+
                 <com.xiaomiquan.widget.chart.KCombinedChart
                     android:id="@+id/barchart"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_240px">
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
 
                 </com.xiaomiquan.widget.chart.KCombinedChart>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_10px"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/shadow_line"
+                    android:rotation="180"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_95px"
+                    android:orientation="horizontal"
+                    android:tag="sticky-nonconstant-hastransparancy">
+
+                    <LinearLayout
+                        android:id="@+id/lin_discuss"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/ic_Chat_Bubble"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_40px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/trans_5px"
+                            android:text="@string/str_discuss"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/trans_1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/trans_25px"
+                        android:layout_marginTop="@dimen/trans_25px"
+                        android:background="@color/color_font3"/>
+
+                    <LinearLayout
+                        android:id="@+id/lin_global_market"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/ic_World"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_40px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/trans_5px"
+                            android:text="@string/str_global_market"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/trans_1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/trans_25px"
+                        android:layout_marginTop="@dimen/trans_25px"
+                        android:background="@color/color_font3"/>
+
+                    <LinearLayout
+                        android:id="@+id/lin_information"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/ic_Document"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_40px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/trans_5px"
+                            android:text="@string/str_information"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/trans_1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/trans_25px"
+                        android:layout_marginTop="@dimen/trans_25px"
+                        android:background="@color/color_font3"/>
+
+
+                    <LinearLayout
+                        android:id="@+id/lin_currency_data"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/ic_Info"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_40px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/trans_5px"
+                            android:text="@string/str_currency_data"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/trans_1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/trans_25px"
+                        android:layout_marginTop="@dimen/trans_25px"
+                        android:background="@color/color_font3"/>
+
+                    <LinearLayout
+                        android:id="@+id/lin_advance_warning"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/ic_Notifications"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_40px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/trans_5px"
+                            android:text="@string/str_advance_warning"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
 
+            <FrameLayout
+                android:id="@+id/fl_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        </android.support.v4.widget.NestedScrollView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/trans_10px"
-            android:layout_gravity="bottom"
-            android:background="@drawable/shadow_line"
-            android:rotation="180"/>
-    </FrameLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/trans_95px"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/lin_information"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/ic_Document"
-                android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_40px"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingLeft="@dimen/trans_5px"
-                android:text="@string/str_information"
-                android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_20px"/>
+            </FrameLayout>
 
         </LinearLayout>
 
-        <View
-            android:layout_width="@dimen/trans_1px"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/trans_25px"
-            android:layout_marginTop="@dimen/trans_25px"
-            android:background="@color/color_font3"/>
+    </com.xiaomiquan.widget.StickyScrollView>
 
-        <LinearLayout
-            android:id="@+id/lin_advance_warning"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/ic_Notifications"
-                android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_40px"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingLeft="@dimen/trans_5px"
-                android:text="@string/str_advance_warning"
-                android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_20px"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="@dimen/trans_1px"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/trans_25px"
-            android:layout_marginTop="@dimen/trans_25px"
-            android:background="@color/color_font3"/>
-
-        <LinearLayout
-            android:id="@+id/lin_currency_data"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/ic_Info"
-                android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_40px"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingLeft="@dimen/trans_5px"
-                android:text="@string/str_currency_data"
-                android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_20px"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="@dimen/trans_1px"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/trans_25px"
-            android:layout_marginTop="@dimen/trans_25px"
-            android:background="@color/color_font3"/>
-
-        <LinearLayout
-            android:id="@+id/lin_global_market"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/ic_World"
-                android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_40px"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingLeft="@dimen/trans_5px"
-                android:text="@string/str_global_market"
-                android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_20px"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 </LinearLayout>

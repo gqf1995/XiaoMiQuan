@@ -16,13 +16,9 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
-import com.xiaomiquan.mpchart.ConstantTest;
 import com.xiaomiquan.mvp.databinder.MarketDetailsBinder;
 import com.xiaomiquan.mvp.delegate.MarketDetailsDelegate;
 import com.xiaomiquan.widget.chart.KlineDraw;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,6 +34,8 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
     int updataTime = 10;//刷新时间
 
+    //    涨幅是这一根k线的【收盘/开盘-1】
+    //    振幅是【（最高-最低）/开盘】
     @Override
     protected Class<MarketDetailsDelegate> getDelegateClass() {
         return MarketDetailsDelegate.class;
@@ -88,11 +86,9 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     }
 
     private void initCache() {
-        //预先请求左右两边 交易所下数据
-
         //缓存数据
         String lastTime;
-        String string = CacheUtils.getInstance().getString(CACHE_KLINE);
+        String string = CacheUtils.getInstance().getString(CACHE_KLINE + exchangeData.getOnlyKey());
         if (TextUtils.isEmpty(string)) {
             lastTime = "";
             lineBeans = new ArrayList<>();
@@ -113,31 +109,14 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         }
     }
 
-    private void getOffLineData() {
-           /*方便测试，加入假数据*/
-        mData = new DataParse();
-        JSONObject object = null;
-        try {
-            object = new JSONObject(ConstantTest.KLINEURL);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        mData.parseKLine(object);
-        if (klineDraw == null) {
-            klineDraw = new KlineDraw();
-            klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
-        } else {
-        }
-    }
-
     private void getOffLineData(List<KLineBean> lineBeans) {
         if (mData == null) {
             mData = new DataParse();
         }
-        if (lineBeans.size() > 0) {
-            mData.parseKLine(lineBeans);
-        }
         if (klineDraw == null) {
+            if (lineBeans.size() > 0) {
+                mData.parseKLine(lineBeans);
+            }
             klineDraw = new KlineDraw();
             klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
         } else {

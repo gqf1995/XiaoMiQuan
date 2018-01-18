@@ -12,7 +12,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
-import com.just.agentweb.ChromeClientCallbackManager;
 import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.mvp.databinder.WebBinder;
 import com.xiaomiquan.mvp.delegate.WebDelegate;
@@ -24,11 +23,6 @@ import java.util.HashMap;
 public class WebFragment extends BaseDataBindFragment<WebDelegate, WebBinder> {
 
 
-    protected ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback() {
-        @Override
-        public void onReceivedTitle(WebView view, String title) {
-        }
-    };
 
     protected WebChromeClient mWebChromeClient = new WebChromeClient() {
         @Override

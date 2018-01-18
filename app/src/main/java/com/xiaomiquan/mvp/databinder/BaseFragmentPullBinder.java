@@ -6,6 +6,7 @@ import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.http.RequestCallback;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.xiaomiquan.server.HttpUrl;
+import com.yanzhenjie.nohttp.rest.CacheMode;
 
 import io.reactivex.disposables.Disposable;
 
@@ -61,5 +62,48 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .RxSendRequest();
 
     }
+
+    /**
+     * 交易所
+     */
+    public Disposable getAllEXchange(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().getAllEXchange)
+                .setShowDialog(false)
+                .setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE)
+                .setRequestName("获得所有库中拥有的交易所列表")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 添加自选页面
+     */
+    public Disposable show(
+            String name,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("name", name);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().show)
+                .setShowDialog(false)
+                .setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE)
+                .setRequestName("获得所有库中拥有的交易所列表")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
 
 }

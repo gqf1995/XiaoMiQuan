@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import com.xiaomiquan.adapter.CoinMarketAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
@@ -52,6 +53,8 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             }
         });
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+        StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(adapter);
+        viewDelegate.viewHolder.pull_recycleview.addItemDecoration(headersDecor);
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsLoadMore(false);
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);

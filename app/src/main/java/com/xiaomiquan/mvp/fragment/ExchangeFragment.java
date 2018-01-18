@@ -7,12 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.github.mikephil.charting.charts.LineChart;
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.ExchangeMarketAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
@@ -22,6 +25,7 @@ import com.xiaomiquan.mpchart.ConstantTest;
 import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
+import com.xiaomiquan.widget.HeaderStickyRecyclerHeadersTouchListener;
 import com.xiaomiquan.widget.chart.CoinLineDraw;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
@@ -38,6 +42,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
     HeaderAndFooterWrapper adapter;
     ExchangeName exchangeName;
     List<ExchangeData> strDatas;
+    StickyRecyclerHeadersDecoration headersDecor;
 
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
@@ -73,37 +78,70 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
         });
         adapter = new HeaderAndFooterWrapper(exchangeMarketAdapter);
         adapter.addHeaderView(initTopView());
+
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+        headersDecor = new StickyRecyclerHeadersDecoration(exchangeMarketAdapter);
+        viewDelegate.viewHolder.pull_recycleview.addItemDecoration(headersDecor);
+
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                headersDecor.invalidateHeaders();
+            }
+        });  //刷新数据的时候回刷新头部
+
+        HeaderStickyRecyclerHeadersTouchListener touchListener =
+                new HeaderStickyRecyclerHeadersTouchListener(viewDelegate.viewHolder.pull_recycleview, headersDecor);
+        touchListener.setStickyRecyclerHeadersAdapter(exchangeMarketAdapter);
+        touchListener.setDefaultClickLinsener(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, int position, Object item) {
+                if(view.getId()==R.id.lin_unit){
+
+                }
+                if(view.getId()==R.id.lin_rise){
+
+                }
+            }
+        });
+        viewDelegate.viewHolder.pull_recycleview.addOnItemTouchListener(touchListener);
+
+
         initRecycleViewPull(adapter, adapter.getHeadersCount(), new LinearLayoutManager(getActivity()));
         viewDelegate.setIsLoadMore(false);
+
+
     }
 
-    public FontTextview tv_coin_type;
-    public FontTextview tv_coin_name;
-    public FontTextview tv_coin_market_value;
-    public FontTextview tv_coin_price;
-    public FontTextview tv_coin_probably;
-    public FontTextview tv_gains;
-    public LinearLayout lin_root;
-    public LineChart linechart;
+    private FontTextview tv_coin_type;
+    private TextView tv_height;
+    private TextView tv_low;
+    private TextView tv_vol;
+    private FontTextview tv_coin_price;
+    private FontTextview tv_coin_probably;
+    private FontTextview tv_gains;
+    private LinearLayout lin_root;
+    private LineChart linechart;
 
     private View initTopView() {
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_coin_market_top, null);
         rootView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         this.tv_coin_type = (FontTextview) rootView.findViewById(R.id.tv_coin_type);
-        this.tv_coin_name = (FontTextview) rootView.findViewById(R.id.tv_coin_name);
-        this.tv_coin_market_value = (FontTextview) rootView.findViewById(R.id.tv_coin_market_value);
         this.tv_coin_price = (FontTextview) rootView.findViewById(R.id.tv_coin_price);
         this.tv_coin_probably = (FontTextview) rootView.findViewById(R.id.tv_coin_probably);
         this.tv_gains = (FontTextview) rootView.findViewById(R.id.tv_gains);
         this.lin_root = (LinearLayout) rootView.findViewById(R.id.lin_root);
         this.linechart = (LineChart) rootView.findViewById(R.id.linechart);
+        this.tv_height = (TextView) rootView.findViewById(R.id.tv_height);
+        this.tv_low = (TextView) rootView.findViewById(R.id.tv_low);
+        this.tv_vol = (TextView) rootView.findViewById(R.id.tv_vol);
+
         tv_coin_type.setTextColor(CommonUtils.getColor(R.color.white));
-        tv_coin_name.setTextColor(CommonUtils.getColor(R.color.white));
-        tv_coin_market_value.setTextColor(CommonUtils.getColor(R.color.white));
         tv_coin_price.setTextColor(CommonUtils.getColor(R.color.white));
         tv_coin_probably.setTextColor(CommonUtils.getColor(R.color.white));
         tv_gains.setTextColor(CommonUtils.getColor(R.color.white));
+
+
         lin_root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,4 +220,5 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
         super.onSaveInstanceState(outState);
         outState.putParcelable("exchangeName", exchangeName);
     }
+
 }

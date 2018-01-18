@@ -127,10 +127,6 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
             } else {
                 serviceDataCallback.onDataError(data, info, status, requestCode);
             }
-            //            String dialog = GsonUtil.getInstance().getValue(jsonData, ResultDialog.DIALOG_KEY, String.class);
-            //            if (TextUtils.isEmpty(dialog) && status != 0) {
-            //                ToastUtil.show(info);
-            //            }
             if (!TextUtils.isEmpty(info)) {
                 ResultDialogEntity resultDialogEntity = ResultDialog.getInstence().ShowResultDialog(activity, info, defaultClickLinsener);
             }
