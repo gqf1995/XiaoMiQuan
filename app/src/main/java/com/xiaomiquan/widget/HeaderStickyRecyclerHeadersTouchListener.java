@@ -1,10 +1,8 @@
 package com.xiaomiquan.widget;
 
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
