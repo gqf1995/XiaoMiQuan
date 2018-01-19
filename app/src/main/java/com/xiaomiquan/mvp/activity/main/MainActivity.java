@@ -12,6 +12,7 @@ import com.xiaomiquan.mvp.fragment.CircleFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
 import com.xiaomiquan.base.ExchangeRateUtil;
+import com.xiaomiquan.server.HttpUrl;
 
 public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> {
 
@@ -30,7 +31,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     protected void bindEvenListener() {
         super.bindEvenListener();
         initFragment();
-        //initSocket();
+        initSocket();
         if (!ExchangeRateUtil.getinstance().IsHavaData()) {
             //获取汇率
             addRequest(binder.getAllPriceRate(this));
@@ -49,6 +50,9 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
 
             }
         });
+        WebSocketRequest.getInstance().setRegisterUrl(HttpUrl.getIntance().registerkeys);
+        WebSocketRequest.getInstance().setUnregisterUrl(HttpUrl.getIntance().unregisterkeys);
+        WebSocketRequest.getInstance().unregister("");
     }
 
     public void initFragment() {
@@ -63,8 +67,8 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         WebSocketRequest.getInstance().onDestory();
+        super.onDestroy();
     }
 
     @Override

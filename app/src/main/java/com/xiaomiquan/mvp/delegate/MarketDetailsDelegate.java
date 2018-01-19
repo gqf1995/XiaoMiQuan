@@ -15,11 +15,10 @@ import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.widget.chart.KCombinedChart;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MarketDetailsDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
@@ -27,6 +26,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
     String[] mTitles;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     LinearLayout linearLayout;
+    ExchangeData mExchangeData;
 
     @Override
     public void initView() {
@@ -47,14 +47,21 @@ public class MarketDetailsDelegate extends BaseDelegate {
         layoutParams.height = AndroidUtil.getScreenW(viewHolder.rootView.getContext(), true) - AndroidUtil.getStatusBarHeight(viewHolder.rootView.getContext()) - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
         viewHolder.lin_kline.setLayoutParams(layoutParams);
 
-        List<String> dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_color));
-        List<String> dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_color));
-        List<String> dataset3 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_color));
-        viewHolder.lin_time.attachDataSource(dataset1);
-        viewHolder.lin_indicators.attachDataSource(dataset2);
-        viewHolder.lin_color.attachDataSource(dataset3);
     }
 
+    public void initData(ExchangeData exchangeData) {
+        mExchangeData = exchangeData;
+        viewHolder.tv_title.setText(exchangeData.getExchange());
+        viewHolder.tv_price.setText(exchangeData.getLast().toString());
+        viewHolder.tv_volume.setText(exchangeData.getVolume().toString());
+        viewHolder.tv_highest.setText(exchangeData.getHigh().toString());
+        viewHolder.tv_minimum.setText(exchangeData.getLow().toString());
+        viewHolder.tv_buy_one.setText(exchangeData.getBid().toString());
+        viewHolder.tv_sell_one.setText(exchangeData.getAsk().toString());
+        viewHolder.tv_rise.setText(exchangeData.getChange().toString());
+
+
+    }
 
     public static class ViewHolder {
         public View rootView;

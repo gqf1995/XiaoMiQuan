@@ -13,7 +13,6 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.ExchangeMarketAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
-import com.xiaomiquan.entity.bean.ExchangeName;
 import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
 import com.xiaomiquan.mvp.databinder.ExchangeBinder;
 import com.xiaomiquan.mvp.delegate.ExchangeDelegate;
@@ -23,10 +22,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, ExchangeBinder> {
+public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, ExchangeBinder> {
 
     ExchangeMarketAdapter exchangeMarketAdapter;
-    ExchangeName exchangeName;
+    String coinName;
     List<ExchangeData> strDatas;
 
     @Override
@@ -43,7 +42,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        exchangeName = getArguments().getParcelable("exchangeName");
+        coinName = getArguments().getString("coinName");
     }
 
 
@@ -116,7 +115,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     protected void onFragmentFirstVisible() {
         strDatas = new ArrayList<>();
         initList(strDatas);
-        WebSocketRequest.getInstance().addCallBack(exchangeName.getEname(), new WebSocketRequest.WebSocketCallBack() {
+        WebSocketRequest.getInstance().addCallBack(coinName, new WebSocketRequest.WebSocketCallBack() {
             @Override
             public void onDataSuccess(String data, String info, int status) {
 
@@ -145,19 +144,19 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
 
     @Override
     public void onDestroy() {
-        WebSocketRequest.getInstance().remoceCallBack(exchangeName.getEname());
+        WebSocketRequest.getInstance().remoceCallBack(coinName);
         super.onDestroy();
     }
 
     protected void onRefresh() {
-        addRequest(binder.getAllMarketByExchange(exchangeName.getEname(), this));
+        addRequest(binder.getAllMarketBySymbol(coinName, this));
     }
 
-    public static ExchangeFragment newInstance(
-            ExchangeName exchangeName) {
-        ExchangeFragment newFragment = new ExchangeFragment();
+    public static CoinExchangeFragment newInstance(
+            String coinName) {
+        CoinExchangeFragment newFragment = new CoinExchangeFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("exchangeName", exchangeName);
+        bundle.putString("coinName", coinName);
         newFragment.setArguments(bundle);
         return newFragment;
     }
@@ -166,15 +165,15 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if ((savedInstanceState != null)
-                && savedInstanceState.containsKey("exchangeName")) {
-            exchangeName = savedInstanceState.getParcelable("exchangeName");
+                && savedInstanceState.containsKey("coinName")) {
+            coinName = savedInstanceState.getString("coinName");
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("exchangeName", exchangeName);
+        outState.putString("coinName", coinName);
     }
 
 }

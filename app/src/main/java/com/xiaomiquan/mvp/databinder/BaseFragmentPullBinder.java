@@ -19,29 +19,6 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
         super(viewDelegate);
     }
 
-    /**
-     * 交易所 数据
-     */
-    public Disposable getAllMarketByExchange(
-            String exchangeName,
-            RequestCallback requestCallback) {
-        getBaseMapWithUid();
-        baseMap.put("exchangeName", exchangeName);
-        return new HttpRequest.Builder()
-                .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().getAllMarketByExchange)
-                .setShowDialog(false)
-                .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("根据交易所名称获得相关信息")
-                .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.Json)
-                .setRequestObj(baseMap)
-                .setRequestCallback(requestCallback)
-                .build()
-                .RxSendRequest();
-
-    }
-
 
     /**
      * 市值
@@ -62,6 +39,8 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .RxSendRequest();
 
     }
+
+
 
     /**
      * 交易所

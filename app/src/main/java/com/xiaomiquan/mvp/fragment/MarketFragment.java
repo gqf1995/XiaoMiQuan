@@ -92,14 +92,25 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         fragments.add(comprehensiveFragment);
         fragments.add(marketValueFragment);
         fragments.add(exchangeNameListFragment);
+        for (int i = 4; i < 8; i++) {
+            fragments.add(CoinExchangeFragment.newInstance(strings.get(i)));
+        }
+
+
         mTitles.add(strings.get(0));
         mTitles.add(strings.get(1));
         mTitles.add(strings.get(2));
         mTitles.add(strings.get(3));
+        mTitles.add(strings.get(4));
+        mTitles.add(strings.get(5));
+        mTitles.add(strings.get(6));
+        mTitles.add(strings.get(7));
+
         for (int i = 0; i < exchangeNames.size(); i++) {
             mTitles.add(exchangeNames.get(i).getEname());
             fragments.add(ExchangeFragment.newInstance(exchangeNames.get(i)));
         }
+
         viewDelegate.viewHolder.vp_sliding.setOffscreenPageLimit(1);
         viewDelegate.viewHolder.tl_2.setViewPager(viewDelegate.viewHolder.vp_sliding,
                 mTitles.toArray(new String[mTitles.size()]), (FragmentActivity) viewDelegate.viewHolder.rootView.getContext(), fragments);
@@ -143,22 +154,13 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
             case 0x123:
                 //保存行情列表
                 List<ExchangeName> exchangeNames = GsonUtil.getInstance().toList(data, ExchangeName.class);
-                initTablelayout(exchangeNames);
                 if (exchangeNameList == null) {
                     CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
                     initTablelayout(exchangeNames);
-                    break;
-                }
-                if (exchangeNameList.size() != exchangeNames.size()) {
-                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-                    initTablelayout(exchangeNames);
                 } else {
-                    for (int i = 0; i < exchangeNameList.size(); i++) {
-                        if (!exchangeNameList.get(i).getEname().equals(exchangeNames.get(i).getEname())) {
-                            CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-                            initTablelayout(exchangeNames);
-                            break;
-                        }
+                    if (exchangeNames.size() != exchangeNameList.size()) {
+                        CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
+                        initTablelayout(exchangeNames);
                     }
                 }
                 break;

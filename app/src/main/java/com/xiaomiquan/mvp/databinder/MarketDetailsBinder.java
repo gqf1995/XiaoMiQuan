@@ -16,10 +16,12 @@ public class MarketDetailsBinder extends BaseDataBind<MarketDetailsDelegate> {
 
     public Disposable getKlineByOnlyKey(
             String onlyKey,
+            String timeType,
             String lastTime,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("onlyKey", onlyKey);
+        baseMap.put("timeType", "kline_"+timeType);
         baseMap.put("lastTime", lastTime);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)

@@ -23,52 +23,37 @@
         android:textSize="@dimen/text_trans_24px"/>
 
 
-    <LinearLayout
-        android:id="@+id/lin_unit"
+    <com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner
+        android:id="@+id/tv_unit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="220"
-        android:orientation="horizontal">
-
-        <com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner
-            android:id="@+id/tv_unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="left"
-            android:orientation="horizontal"
-            android:paddingRight="@dimen/trans_20px"
-            android:text="1天"
-            android:textColor="@color/color_font2"
-            android:textSize="@dimen/text_trans_24px"
-            app:backgroundSelector="@color/transparent"
-            app:hideArrow="true"
-            app:textTint="@color/color_font2"
-            >
-
-        </com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lin_rise"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="110"
-        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="150"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="left"
         android:orientation="horizontal"
+        android:text="1天"
+        android:textColor="@color/color_font2"
+        android:textSize="@dimen/text_trans_24px"
+        app:backgroundSelector="@color/transparent"
+        app:hideArrow="true"
+        app:textTint="@color/color_font2"
         >
 
-        <com.xiaomiquan.widget.GainsTabView
-            android:id="@+id/tv_rise"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="left"
-            />
+    </com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner>
 
 
-    </LinearLayout>
+    <com.xiaomiquan.widget.GainsTabView
+        android:id="@+id/tv_rise"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="190"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="left"
+        android:paddingRight="@dimen/trans_30px"
+        />
+
 
 </skin.support.widget.SkinCompatLinearLayout>

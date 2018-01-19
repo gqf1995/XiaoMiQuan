@@ -102,5 +102,7 @@ dependencies {
     implementation project(':IMKit')
     implementation project(':IMLib')
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+    compile 'com.gavin.com.library:stickyDecoration:1.2.1'
+
 
 }

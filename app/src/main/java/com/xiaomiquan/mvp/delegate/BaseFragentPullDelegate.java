@@ -3,7 +3,7 @@ package com.xiaomiquan.mvp.delegate;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.xiaomiquan.R;
@@ -33,14 +33,14 @@ public class BaseFragentPullDelegate extends BaseMyPullDelegate {
         public RecyclerView pull_recycleview;
         public SwipeRefreshLayout swipeRefreshLayout;
         public RelativeLayout no_data;
-        public FrameLayout fl_pull;
+        public LinearLayout fl_pull;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
             this.no_data = (RelativeLayout) rootView.findViewById(R.id.no_data);
-            this.fl_pull = (FrameLayout) rootView.findViewById(R.id.fl_pull);
+            this.fl_pull = (LinearLayout) rootView.findViewById(R.id.fl_pull);
         }
 
     }

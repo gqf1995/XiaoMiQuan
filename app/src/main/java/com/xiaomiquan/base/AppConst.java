@@ -12,8 +12,9 @@ public class AppConst {
     //public static final String httpBaseUrl = "http://192.168.168.118:8888";
     //public static final String httpBaseUrl = "http://192.168.168.114:8888";
     //public static final String httpBaseUrl = "http://116.62.120.179:82";
-    public static final String httpBaseUrl = "http://192.168.0.24:8080";
-    public static final String httpBaseUrl2 = "http://192.168.0.24:8080";
+    public static final String httpBaseUrl = "http://192.168.0.24:1901";
+    public static final String httpBaseUrl2 = "http://47.97.169.136:1903";
+    //http://192.168.18.190:1903/api/unregisterkeys
     public static final String serviceId = "KEFU151064005015908";
     public static final String rongId = "cpj2xarlc1osn";
     public static final boolean isLog = true;

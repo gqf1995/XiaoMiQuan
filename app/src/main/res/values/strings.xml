@@ -241,6 +241,10 @@
         <item>综合</item>
         <item>市值</item>
         <item>交易所</item>
+        <item>BTC</item>
+        <item>BTH</item>
+        <item>ETH</item>
+        <item>ETC</item>
     </string-array>
     <string-array name="sa_select_time">
         <item>1天</item>
@@ -279,5 +283,36 @@
         <item>亮色</item>
     </string-array>
 
+    <string-array name="sa_select_kline">
+        <item>1分</item>
+        <item>3分</item>
+        <item>5分</item>
+        <item>15分</item>
+        <item>30分</item>
+        <item>1小时</item>
+        <item>2小时</item>
+        <item>4小时</item>
+        <item>6小时</item>
+        <item>12小时</item>
+        <item>1天</item>
+        <item>3天</item>
+        <item>1周</item>
+    </string-array>
+
+    <string-array name="sa_select_kline_value">
+        <item>1m</item>
+        <item>3m</item>
+        <item>5m</item>
+        <item>15m</item>
+        <item>30m</item>
+        <item>1h</item>
+        <item>2h</item>
+        <item>4h</item>
+        <item>6h</item>
+        <item>12h</item>
+        <item>1d</item>
+        <item>3d</item>
+        <item>1w</item>
+    </string-array>
 
 </resources>

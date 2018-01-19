@@ -1,11 +1,7 @@
 package com.xiaomiquan.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,7 +10,6 @@ import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.xiaomiquan.R;
 import com.xiaomiquan.base.BigUIUtil;
 import com.xiaomiquan.base.UserSet;
@@ -30,7 +25,7 @@ import java.util.List;
  * Created by 郭青枫 on 2018/1/10 0010.
  */
 
-public class CoinMarketAdapter extends CommonAdapter<ExchangeData> implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder> {
+public class CoinMarketAdapter extends CommonAdapter<ExchangeData>  {
 
 
     private TextView tv_num;
@@ -75,20 +70,13 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> implements St
         tv_gains.setText(s.getChange() + "%");
     }
 
-    @Override
-    public long getHeaderId(int position) {
-        return R.id.fl_root;
+
+    public void setDatas(List<ExchangeData> datas) {
+        mDatas.clear();
+        mDatas.addAll(datas);
+        this.notifyDataSetChanged();
     }
 
-    @Override
-    public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_exchange_tool, parent, false);
-        return new RecyclerView.ViewHolder(view) {
-        };
-    }
 
-    @Override
-    public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-    }
 }

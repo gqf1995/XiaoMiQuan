@@ -17,6 +17,7 @@ import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -373,6 +374,26 @@ public class NiceSpinner extends AppCompatTextView {
         popupWindow.showAsDropDown(this);
     }
 
+    public void showDropDown(View view) {
+        if (!isArrowHidden) {
+            animateArrow(true);
+        }
+        measurePopUpDimension();
+        popupWindow.showAsDropDown(view);
+    }
+
+    public void showDropDown(int x, int y) {
+        if (!isArrowHidden) {
+            animateArrow(true);
+        }
+        measurePopUpDimension();
+        showPopUp(this, x, y);
+    }
+
+    private void showPopUp(View v, int x, int y) {
+        popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, x, y);
+    }
+
     private void measurePopUpDimension() {
         int widthSpec = MeasureSpec.makeMeasureSpec(getMeasuredWidth(), MeasureSpec.EXACTLY);
         int heightSpec = MeasureSpec.makeMeasureSpec(
@@ -381,6 +402,7 @@ public class NiceSpinner extends AppCompatTextView {
         listView.measure(widthSpec, heightSpec);
         popupWindow.setWidth(listView.getMeasuredWidth());
         popupWindow.setHeight(listView.getMeasuredHeight() - dropDownListPaddingBottom);
+
     }
 
     public void setTintColor(@ColorRes int resId) {
