@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_purple_gradient"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/trans_60px"
+            android:paddingRight="@dimen/trans_60px"
+            >
+
+            <include layout="@layout/layout_coin_market"/>
+
+        </FrameLayout>
+
+        <!--图表-->
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/linechart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/trans_230px"
+            android:layout_marginBottom="@dimen/trans_10px"
+            >
+
+        </com.github.mikephil.charting.charts.LineChart>
+
+    </LinearLayout>
+
+</LinearLayout>

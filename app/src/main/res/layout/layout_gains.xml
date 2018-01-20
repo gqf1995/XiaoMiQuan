@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="@dimen/trans_25px"
+            android:layout_height="@dimen/trans_25px"/>
+
+        <TextView
+            android:id="@+id/tv_tab_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:singleLine="true"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/trans_10px">
+
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:id="@+id/tv_gains_top"
+                android:layout_width="@dimen/trans_15px"
+                android:layout_height="@dimen/trans_15px"
+                android:text="@string/ic_Up"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_15px"
+                />
+
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:id="@+id/tv_gains_up"
+                android:layout_width="@dimen/trans_15px"
+                android:layout_height="@dimen/trans_15px"
+                android:text="@string/ic_Down"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_15px"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <com.tablayout.widget.MsgView
+        xmlns:mv="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rtv_msg_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="11.5sp"
+        android:visibility="gone"
+        mv:mv_backgroundColor="#FD481F"
+        mv:mv_isRadiusHalfHeight="true"
+        mv:mv_strokeColor="#ffffff"
+        mv:mv_strokeWidth="1dp"/>
+
+</RelativeLayout>

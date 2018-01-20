@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_320px"
+                    android:background="@color/base_mask"
+                    android:padding="@dimen/trans_40px"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/lin_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginTop="@dimen/trans_90px"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ic_piv"
+                            android:layout_width="@dimen/trans_100px"
+                            android:layout_height="@dimen/trans_100px"
+                            android:src="@color/color_blue"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:paddingLeft="@dimen/trans_30px">
+
+                            <TextView
+                                android:id="@+id/tv_nick_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/str_nologin"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_32px"/>
+
+                            <TextView
+                                android:id="@+id/tv_subtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:gravity="bottom"
+                                android:text="-"
+                                android:textColor="@color/color_cccccc"
+                                android:textSize="@dimen/text_trans_28px"
+                                android:visibility="gone"/>
+
+                        </LinearLayout>
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/ic_Next"
+                            android:textColor="@color/color_font3"
+                            android:textSize="@dimen/text_trans_30px"
+                            />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/lin_set1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_140px"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_45px"
+                    android:paddingRight="@dimen/trans_30px">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/trans_52px"
+                        android:layout_height="@dimen/trans_52px"
+                        app:srcCompat="@drawable/ic_red_sticker"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/trans_25px"
+                        android:text="@string/str_red_sticker"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/checkbox_red_sticker"
+                        style="@style/SwitchButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        app:kswAnimationDuration="300"
+                        app:kswBackDrawable="@drawable/ios_back_drawable"
+                        app:kswBackMeasureRatio="1.4"
+                        app:kswThumbDrawable="@drawable/ios_thumb_selector"
+                        app:kswThumbMarginBottom="-8dp"
+                        app:kswThumbMarginLeft="-5dp"
+                        app:kswThumbMarginRight="-5dp"
+                        app:kswThumbMarginTop="-2.5dp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_1px"
+                    android:layout_marginLeft="@dimen/trans_45px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:id="@+id/lin_set2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_140px"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_45px"
+                    android:paddingRight="@dimen/trans_30px">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/trans_52px"
+                        android:layout_height="@dimen/trans_52px"
+                        app:srcCompat="@drawable/ic_night_model"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/trans_25px"
+                        android:text="@string/str_night_model"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/checkbox_night_model"
+                        style="@style/SwitchButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        app:kswAnimationDuration="300"
+                        app:kswBackDrawable="@drawable/ios_back_drawable"
+                        app:kswBackMeasureRatio="1.4"
+                        app:kswThumbDrawable="@drawable/ios_thumb_selector"
+                        app:kswThumbMarginBottom="-8dp"
+                        app:kswThumbMarginLeft="-5dp"
+                        app:kswThumbMarginRight="-5dp"
+                        app:kswThumbMarginTop="-2.5dp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_1px"
+                    android:layout_marginLeft="@dimen/trans_45px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:id="@+id/lin_set3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_140px"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_45px"
+                    android:paddingRight="@dimen/trans_30px">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/trans_52px"
+                        android:layout_height="@dimen/trans_52px"
+                        app:srcCompat="@drawable/ic_default_unit"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/trans_25px"
+                        android:text="@string/str_price_model"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <TextView
+                        android:id="@+id/tv_select_price_model"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/trans_40px"
+                        android:text="CNY"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/ic_Next"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_30px"
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_40px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:id="@+id/lin_set4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_140px"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_45px"
+                    android:paddingRight="@dimen/trans_30px">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/trans_52px"
+                        android:layout_height="@dimen/trans_52px"
+                        app:srcCompat="@drawable/ic_customer_service"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/trans_25px"
+                        android:text="@string/str_customer_service"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/ic_Next"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_30px"
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_1px"
+                    android:layout_marginLeft="@dimen/trans_45px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:id="@+id/lin_set5"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_140px"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_45px"
+                    android:paddingRight="@dimen/trans_30px">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/trans_52px"
+                        android:layout_height="@dimen/trans_52px"
+                        app:srcCompat="@drawable/ic_recommend"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/trans_25px"
+                        android:text="@string/str_recommended"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/ic_Next"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_30px"
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_1px"
+                    android:layout_marginLeft="@dimen/trans_45px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:id="@+id/lin_set6"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_140px"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_45px"
+                    android:paddingRight="@dimen/trans_30px">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/trans_52px"
+                        android:layout_height="@dimen/trans_52px"
+                        app:srcCompat="@drawable/ic_language"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/trans_25px"
+                        android:text="@string/str_language"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <TextView
+                        android:id="@+id/tv_select_language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/trans_40px"
+                        android:text="@string/str_language_zhcn"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/ic_Next"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_30px"
+                        />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_40px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:id="@+id/lin_set7"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_140px"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_45px"
+                    android:paddingRight="@dimen/trans_30px">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/trans_52px"
+                        android:layout_height="@dimen/trans_52px"
+                        app:srcCompat="@drawable/ic_security"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/trans_25px"
+                        android:text="@string/str_security"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/ic_Next"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_30px"
+                        />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_1px"
+                    android:layout_marginLeft="@dimen/trans_45px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:id="@+id/lin_set8"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_140px"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_45px"
+                    android:paddingRight="@dimen/trans_30px">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/trans_52px"
+                        android:layout_height="@dimen/trans_52px"
+                        app:srcCompat="@drawable/ic_setting"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/trans_25px"
+                        android:text="@string/str_setting"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/ic_Next"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_30px"
+                        />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_1px"
+                    android:layout_marginLeft="@dimen/trans_45px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:id="@+id/lin_set9"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_140px"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_45px"
+                    android:paddingRight="@dimen/trans_30px">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/trans_52px"
+                        android:layout_height="@dimen/trans_52px"
+                        app:srcCompat="@drawable/ic_logout"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/trans_25px"
+                        android:text="@string/str_logout"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/ic_Next"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_30px"
+                        />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+        <FrameLayout
+            android:id="@+id/fl_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <include layout="@layout/include_toolbar_with_statusbar"/>
+
+        </FrameLayout>
+    </FrameLayout>
+
+
+</LinearLayout>

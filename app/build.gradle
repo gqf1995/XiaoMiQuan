@@ -1,29 +1,108 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
-    compileSdkVersion 26
+    signingConfigs {
+        release {
+            keyAlias 'xmq'
+            keyPassword 'xmq123456'
+            storeFile file('xmq.jks')
+            storePassword 'xmq123456'
+            v2SigningEnabled false
+        }
+
+        debug {
+            keyAlias 'xmq'
+            keyPassword 'xmq123456'
+            storeFile file('xmq.jks')
+            storePassword 'xmq123456'
+            v2SigningEnabled false
+        }
+    }
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
     defaultConfig {
         applicationId "com.xiaomiquan"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //shrinkResources true
         }
+
+    }
+    sourceSets {
+
+        main {
+
+            res.srcDirs = ['src/main/res']
+
+            assets.srcDirs = ['src/main/assets']
+
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+
+            jni.srcDirs = []
+
+            jniLibs.srcDirs = ['src/main/libs']
+
+        }
+
+    }
+    repositories { flatDir { dirs 'libs' } }
+    dataBinding {
+        enabled true
+    }
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
     }
 }
-
+greendao {
+    //版本号，升级时可配置,对应当前数据库版本
+    schemaVersion 1
+    //由GreenDao自动生成代码所在的包名，默认的是在项目包下面新建一个gen
+    daoPackage 'com.xiaomiquan.greenDB'
+    //设置自动生成代码的目录
+    targetGenDir 'src/main/java'
+}
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:design:26.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    api "com.android.support:appcompat-v7:${rootProject.ext.android.VSupportSdk}"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    //框架
+    compile project(':mybaselibrary')
+    //轮播图
+    compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
+    //圆角imageview
+    compile 'com.makeramen:roundedimageview:2.3.0'
+    //通用开关按钮 https://github.com/kyleduo/SwitchButton
+    compile 'com.kyleduo.switchbutton:library:1.4.6'
+    //评分
+    compile 'com.hedgehog.ratingbar:app:1.1.2'
+    //数据库
+    compile 'org.greenrobot:greendao:3.2.2'
+    //
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    //图表
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.5'
+    // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
+    implementation project(':IMKit')
+    implementation project(':IMLib')
+    compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+    compile 'com.gavin.com.library:stickyDecoration:1.2.1'
+
+
 }

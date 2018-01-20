@@ -1,34 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.xiaomiquan.MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tl="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <FrameLayout
+            android:id="@+id/fl_root"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            android:layout_height="match_parent">
 
-    </android.support.design.widget.AppBarLayout>
+        </FrameLayout>
 
-    <include layout="@layout/content_main"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/trans_10px"
+            android:layout_gravity="bottom"
+            android:background="@drawable/shadow_line"
+            android:rotation="180"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email"/>
+    </FrameLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+
+    <com.tablayout.CommonTabLayout
+        android:id="@+id/tl_2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_80px"
+        android:layout_gravity="bottom"
+        android:paddingTop="@dimen/trans_15px"
+        app:tl_indicator_width="@dimen/trans_8px"
+        app:tl_textBold="BOTH"
+        app:tl_underline_gravity="TOP"
+        tl:tl_iconHeight="@dimen/trans_50px"
+        tl:tl_iconWidth="@dimen/trans_50px"
+        tl:tl_indicator_color="@color/color_blue"
+        tl:tl_indicator_height="@dimen/trans_8px"
+        tl:tl_textSelectColor="@color/color_blue"
+        tl:tl_textUnselectColor="@color/color_font3"
+        tl:tl_textsize="@dimen/text_trans_40px"
+        tl:tl_underline_color="@color/black_transparent_99"
+        tl:tl_underline_height="0dp"
+        >
+
+    </com.tablayout.CommonTabLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_20px"
+        />
+
+
+</LinearLayout>

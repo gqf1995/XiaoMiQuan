@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/trans_15px"
+                android:paddingLeft="@dimen/trans_30px"
+                android:paddingRight="@dimen/trans_30px"
+                android:paddingTop="@dimen/trans_15px">
+
+                <View
+                    android:layout_width="@dimen/trans_8px"
+                    android:layout_height="match_parent"
+                    android:background="@color/minute_yellow"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/trans_12px"
+                    android:text="BTC"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/text_trans_28px"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_btc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/trans_15px"
+                android:paddingLeft="@dimen/trans_30px"
+                android:paddingRight="@dimen/trans_30px"
+                android:paddingTop="@dimen/trans_15px">
+
+                <View
+                    android:layout_width="@dimen/trans_8px"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_25A73F"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/trans_12px"
+                    android:text="BCH"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/text_trans_28px"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_bch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/trans_15px"
+                android:paddingLeft="@dimen/trans_30px"
+                android:paddingRight="@dimen/trans_30px"
+                android:paddingTop="@dimen/trans_15px">
+
+                <View
+                    android:layout_width="@dimen/trans_8px"
+                    android:layout_height="match_parent"
+                    android:background="@color/minute_blue"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/trans_12px"
+                    android:text="ETH"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/text_trans_28px"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_eth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

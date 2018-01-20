@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--通用资源-->
+    <color name="colorAccent_night">@color/color_font1</color>
+    <color name="transparent_50_night">#77000000</color>
+    <color name="transparent_80_night">#cc000000</color>
+    <color name="white_transparent_20_night">#ccffffff</color>
+    <color name="black_transparent_20_night">#cc000000</color>
+    <color name="black_transparent_99_night">#99000000</color>
+    <color name="color_light_white_night">#eaebf0</color>
+    <color name="trans_333333_night">#333333</color>
+    <color name="font_grey_night">#999999</color>
+
+    <!--纯色-->
+    <color name="black_night">#000000</color>
+    <color name="blue_night">#0000ff</color>
+    <color name="white_night">#FFFFFF</color>
+    <color name="red_night">#FF0000</color>
+    <color name="grey_night">#dddddd</color>
+    <color name="glod_night">#f3ae2e</color>
+    <color name="redb_night">#BE3E3D</color>
+
+    <color name="color_333333_night">#333333</color>
+    <color name="color_999999_night">#999999</color>
+    <color name="color_cccccc_night">#cccccc</color>
+    <color name="color_e5e5e5_night">#e5e5e5</color>
+    <color name="color_f5f5f5_night">#f5f5f5</color>
+
+    <color name="color_666666_night">#666666</color>
+    <color name="color_555555_night">#555555</color>
+    <color name="color_6A7180_night">#6A7180</color>
+    <color name="color_f45638_night">#f45638</color>
+    <color name="color_f23f1d_night">#f23f1d</color>
+    <color name="color_1b1b1b_night">#1b1b1b</color>
+    <color name="color_959595_night">#959595</color>
+    <color name="color_c9c9c9_night">#c9c9c9</color>
+    <color name="color_e4e4e4_night">#e4e4e4</color>
+    <color name="color_d6d6d6_night">#d6d6d6</color>
+    <color name="color_dcdcdc_night">#dcdcdc</color>
+    <color name="color_8c8c8c_night">#8c8c8c</color>
+    <color name="color_8a8a8a_night">#8a8a8a</color>
+    <color name="color_313131_night">#313131</color>
+    <color name="color_a0a0a0_night">#a0a0a0</color>
+    <color name="color_040404_night">#040404</color>
+    <color name="color_b6b6b6_night">#b6b6b6</color>
+    <color name="color_d0d0d0_night">#d0d0d0</color>
+    <color name="color_d9d9d9_night">#d9d9d9</color>
+    <color name="color_3a3a3a_night">#3a3a3a</color>
+    <color name="color_d2b567_night">#d2b567</color>
+    <color name="color_44c745_night">#44c745</color>
+    <color name="color_f2f2f2_night">#f2f2f2</color>
+    <color name="color_6c6c6c_night">#6c6c6c</color>
+    <color name="color_21282C_night">#21282C</color>
+    <color name="color_fafafa_night">#fafafa</color>
+    <color name="color_24CE91_night">#24CE91</color>
+    <color name="color_25A73F_night">#25a93f</color>
+    <color name="color_F5A623_night">#F5A623</color>
+    <color name="color_ef4bc1_night">#ef4bc1</color>
+
+    <color name="color_blue_night">#2babff</color>
+    <color name="color_blue_more_night">#198cf1</color>
+    <color name="color_blue_dark_night">#0074f6</color>
+    <color name="color_blue_dark_more_night">#0163d1</color>
+
+    <color name="color_purple_night">#782184</color>
+    <color name="color_purple_more_night">#56237c</color>
+    <color name="color_purple_dark_night">#2e266f</color>
+
+
+    <color name="increasing_color_night">#FF6960</color>
+    <color name="decreasing_color_night">#0DCE2B</color>
+
+
+    <color name="black_transparent_10_night">#0a000000</color>
+    <color name="black_transparent_25_night">#19000000</color>
+    <color name="black_transparent_50_night">#32000000</color>
+    <color name="black_transparent_100_night">#64000000</color>
+    <color name="black_transparent_150_night">#96000000</color>
+    <color name="white_transparent_10_night">#0affffff</color>
+    <color name="white_transparent_25_night">#19ffffff</color>
+    <color name="white_transparent_50_night">#32ffffff</color>
+    <color name="white_transparent_100_night">#64ffffff</color>
+    <color name="white_transparent_150_night">#96ffffff</color>
+
+    <!--皮肤包颜色-->
+    <color name="color_Primary_night">#ffffff</color>
+    <color name="colorPrimary_night">#ffffff</color>
+    <color name="colorPrimaryDark_night">#ffffff</color>
+
+    <color name="base_mask_night">@color/black_transparent_50</color>
+    <color name="base_mask_dark_night">@color/white_transparent_50</color>
+
+    <color name="color_font1_night">@color/black_night</color>
+    <color name="color_font2_night">@color/color_6A7180_night</color>
+    <color name="color_font3_night">@color/color_999999_name</color>
+    <color name="color_font4_night">@color/color_cccccc_night</color>
+    <!-- chart -->
+    <color name="marker_bg_night">#1C232E</color>
+    <color name="marker_line_bg_night">#000000</color>
+    <color name="marker_text_bg_night">#000000</color>
+    <color name="border_color_night">#A7ADBC</color>
+    <color name="mine_label_txt_night">#A7ADBC</color>
+    <color name="minute_jizhun_night">#7F9976</color>
+    <color name="minute_blue_night">#00D0FC</color>
+    <color name="minute_yellow_night">#E7B448</color>
+
+    <color name="ma5_night">#823E66</color>
+    <color name="ma10_night">#B99C7A</color>
+    <color name="ma20_night">#3C7193</color>
+    <color name="ma30_night">#7F9976</color>
+
+    <color name="minute_grayLine_night">#2D3945</color>
+    <color name="minute_black_night">#101419</color>
+    <color name="minute_zhoutv_night">#858D93</color>
+
+    <color name="transparent_night">#00000000</color>
+    <color name="toolbar_text_color_night">#000000</color>
+    <color name="basic_wheelview_color_night">#333333</color>
+    <color name="basic_line_night">#e5e5e5</color>
+    <color name="choose_dialog_content_color_night">@color/trans_333333</color>
+
+
+</resources>
