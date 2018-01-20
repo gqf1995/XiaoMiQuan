@@ -126,4 +126,45 @@ public class HttpUrl {
     public String getKlineByOnlyKey = getBaseUrl() + dataUrl + "/getKlineByOnlyKey";
 
 
+    /**
+     * 圈子
+     */
+    String groupUrl = "/group";
+    /**
+     * 获取未加入圈子信息
+     */
+    public String getMoreCircle=getBaseUrl()+groupUrl+"/listMoreGroupByPage";
+    /**
+     * 获取加入圈子信息
+     */
+    public String getMyCircleInfo=getBaseUrl()+groupUrl+"/listGroupByPage";
+    /**
+     * 创建圈子
+     */
+    public String creatCircle=getBaseUrl()+groupUrl+"/saveGroup";
+
+
+    /**
+     * 圈子申请
+     */
+    String groupMemberUrl="/groupMember";
+
+    /**
+     * 申请加入圈子
+     */
+    public String joinCircle=getBaseUrl()+groupMemberUrl+"/applyJoinGroup";
+    /**
+     * 获取待审核入圈申请
+     */
+    public String joinCircleApply=getBaseUrl()+groupMemberUrl+"/applyJoinGroup";
+    /**
+     * 同意审核入圈申请
+     */
+    public String agreeCircleApply=getBaseUrl()+groupMemberUrl+"/agreeJoinApply";
+    /**
+     * 邀请好友入圈
+     */
+    public String getSomeBodyIn=getBaseUrl()+groupMemberUrl+"/getSomeBodyIn";
+
+
 }

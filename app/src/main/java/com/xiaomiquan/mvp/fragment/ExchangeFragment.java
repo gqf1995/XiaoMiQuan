@@ -2,6 +2,7 @@ package com.xiaomiquan.mvp.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -74,7 +75,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
         adapter = new HeaderAndFooterWrapper(exchangeMarketAdapter);
         adapter.addHeaderView(initTopView());
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
-        initRecycleViewPull(adapter, adapter.getHeadersCount(), new LinearLayoutManager(getActivity()));
+        initRecycleViewPull(adapter, adapter.getHeadersCount(),new LinearLayoutManager(getActivity()));
         viewDelegate.setIsLoadMore(false);
     }
 
@@ -89,7 +90,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     private View initTopView() {
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_coin_market_top, null);
-        rootView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        rootView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         this.tv_coin_type = (FontTextview) rootView.findViewById(R.id.tv_coin_type);
         this.tv_coin_name = (FontTextview) rootView.findViewById(R.id.tv_coin_name);
         this.tv_coin_market_value = (FontTextview) rootView.findViewById(R.id.tv_coin_market_value);

@@ -1,7 +1,6 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -10,25 +9,23 @@ import android.widget.RelativeLayout;
 import com.xiaomiquan.R;
 import com.xiaomiquan.base.BaseMyPullDelegate;
 
-
 /**
- * Created by 郭青枫 on 2017/9/26.
+ * Created by Andy on 2018/1/19.
  */
 
-public class BaseFragentPullDelegate extends BaseMyPullDelegate {
+public class CircleContentDelegate extends BaseMyPullDelegate {
     public ViewHolder viewHolder;
 
     @Override
     public void initView() {
-        viewHolder = new ViewHolder(getRootView());
+        viewHolder=new ViewHolder(getRootView());
+
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.public_pull_recycleview;
+        return R.layout.activity_circle_content;
     }
-
-
     public static class ViewHolder {
         public View rootView;
         public RecyclerView pull_recycleview;

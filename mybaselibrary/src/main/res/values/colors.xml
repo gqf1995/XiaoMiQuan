@@ -27,7 +27,7 @@
     <color name="color_e5e5e5">#e5e5e5</color>
     <color name="color_f5f5f5">#f5f5f5</color>
 
-    <color name="color_666666">#666666</color>
+       <color name="color_666666">#666666</color>
     <color name="color_555555">#555555</color>
     <color name="color_6A7180">#6A7180</color>
     <color name="color_f45638">#f45638</color>
@@ -119,6 +119,12 @@
     <color name="basic_wheelview_color">#333333</color>
     <color name="basic_line">#e5e5e5</color>
     <color name="choose_dialog_content_color">@color/trans_333333</color>
+    <color name="color_232323">#232323</color>
+    <color name="color_8290AF">#8290AF</color>
 
+
+    <color name="praise_item_default">#333333</color>
+    <color name="praise_item_selector_default">#cccccc</color>
+    <color name="praise_item">#8290AF</color>
 
 </resources>

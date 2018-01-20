@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/con_head"
+            android:layout_width="@dimen/trans_100px"
+            android:layout_height="@dimen/trans_100px"
+            android:src="@color/color_blue" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/album_dp_10"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.fivefivelike.mybaselibrary.view.FontTextview
+                android:id="@+id/con_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="hahhaha"
+                android:textColor="@color/color_blue"
+                android:textSize="@dimen/album_sp_20" />
+
+            <com.fivefivelike.mybaselibrary.view.FontTextview
+                android:id="@+id/con_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="hahhaha"
+                android:textColor="@color/color_8290AF"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <com.fivefivelike.mybaselibrary.view.FontTextview
+                    android:id="@+id/timeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@string/ic_Box"
+                    android:textSize="12sp" />
+
+                <com.fivefivelike.mybaselibrary.view.FontTextview
+                    android:id="@+id/deleteBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="删除"
+                    android:textColor="@color/color_8290AF"
+                    android:textSize="12sp" />
+
+                <com.fivefivelike.mybaselibrary.view.FontTextview
+                    android:id="@+id/share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="删除"
+                    android:textColor="@color/color_8290AF"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/digCommentBody"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_blue"
+                android:minHeight="10dip"
+                android:orientation="vertical"
+                android:paddingBottom="8dip"
+                android:paddingLeft="12dip"
+                android:paddingRight="12dip"
+                android:paddingTop="12dip">
+
+                <com.xiaomiquan.widget.circle.PraiseListView
+                    android:id="@+id/praiseListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:lineSpacingMultiplier="1.1"
+                    android:textColor="@color/praise_item"
+                    android:textSize="14sp"
+                    app:item_color="@color/praise_item" />
+
+                <View
+                    android:id="@+id/lin_dig"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginBottom="5dip"
+                    android:layout_marginTop="5dip"
+                    android:background="@color/color_light_white" />
+
+                <com.xiaomiquan.widget.circle.CommentListView
+                    android:id="@+id/commentList"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    app:item_color="@color/praise_item" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/ic_Next"
+            android:textColor="@color/color_font3"
+            android:textSize="@dimen/text_trans_30px" />
+    </LinearLayout>
+
+
+</LinearLayout>
