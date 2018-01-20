@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/circle_creat_root"
+        android:layout_width="@dimen/trans_255px"
+        android:layout_height="@dimen/trans_255px"
+        android:background="@drawable/shape_mask_t20radiu"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/trans_20px"
+        android:paddingTop="@dimen/trans_20px"
+        android:layout_marginTop="@dimen/trans_30px"
+        android:layout_marginLeft="@dimen/trans_50px"
+        >
+
+        <com.fivefivelike.mybaselibrary.view.FontTextview
+            android:id="@+id/circle_creat_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="@dimen/trans_5px"
+            android:paddingLeft="@dimen/trans_20px"
+            android:paddingRight="@dimen/trans_20px"
+            android:paddingTop="@dimen/trans_5px"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_24px"
+            app:TypeFace="Regular"/>
+
+        <com.fivefivelike.mybaselibrary.view.FontTextview
+            android:id="@+id/circle_creat_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/album_dp_10"
+            android:gravity="center"
+            android:text="创建圈子"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_35px"/>
+    </LinearLayout>
+</FrameLayout>

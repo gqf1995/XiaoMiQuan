@@ -4,7 +4,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -17,7 +16,6 @@ import com.xiaomiquan.entity.bean.CoinIndex;
 import com.xiaomiquan.mvp.activity.market.CoinIndexActivity;
 import com.xiaomiquan.mvp.databinder.ComprehensiveBinder;
 import com.xiaomiquan.mvp.delegate.ComprehensiveDelegate;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,6 +109,7 @@ public class ComprehensiveFragment extends BaseDataBindFragment<ComprehensiveDel
         viewDelegate.viewHolder.rv_ranking.setAdapter(rankingAdapter);
     }
 
+
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         super.onServiceError(data, info, status, requestCode);
@@ -133,5 +132,6 @@ public class ComprehensiveFragment extends BaseDataBindFragment<ComprehensiveDel
     public ComprehensiveBinder getDataBinder(ComprehensiveDelegate viewDelegate) {
         return new ComprehensiveBinder(viewDelegate);
     }
+
 
 }

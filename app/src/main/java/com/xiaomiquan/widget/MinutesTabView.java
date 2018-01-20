@@ -20,6 +20,8 @@ import skin.support.widget.SkinCompatRelativeLayout;
 
 public class MinutesTabView extends SkinCompatRelativeLayout {
 
+
+
     private TextView tv_tab_title;
     private IconFontTextview tv_gains_top;
     private IconFontTextview tv_gains_up;

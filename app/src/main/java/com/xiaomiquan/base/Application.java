@@ -1,6 +1,7 @@
 package com.xiaomiquan.base;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.biv.BigImageViewer;
 import com.biv.loader.glide.GlideImageLoader;
@@ -36,6 +37,7 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = getApplicationContext();
         //融云初始化
         initRongCloud();
         initClient();
@@ -112,5 +114,9 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
     @Override
     public boolean onReceived(Message message, int i) {
         return false;
+    }
+    private static Context mContext;
+    public static Context getContext(){
+        return mContext;
     }
 }
