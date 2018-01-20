@@ -103,6 +103,8 @@ dependencies {
     implementation project(':IMLib')
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
     compile 'com.gavin.com.library:stickyDecoration:1.2.1'
+    compile 'jp.wasabeef:richeditor-android:1.2.2'
 
 
 }
+

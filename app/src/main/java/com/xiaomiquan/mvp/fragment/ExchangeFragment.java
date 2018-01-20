@@ -178,3 +178,4 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     }
 
 }
+
