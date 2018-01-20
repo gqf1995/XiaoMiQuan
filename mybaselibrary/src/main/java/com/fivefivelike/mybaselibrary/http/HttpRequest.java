@@ -320,12 +320,16 @@ public class HttpRequest {
             @Override
             public void subscribe(ObservableEmitter<Response<String>> e) throws Exception {
                 //同步请求
-                Response<String> response = NoHttp.startRequestSync(mRequest);
                 if (!e.isDisposed()) {
-                    if (response.isSucceed())
-                        e.onNext(response);
-                    else {
-                        e.onError(response.getException());//onError 之后不可可继下游可继续接受 onNext
+                    Response<String> response = NoHttp.startRequestSync(mRequest);
+                    if (response.isSucceed()) {
+                        if (!e.isDisposed()) {
+                            e.onNext(response);
+                        }
+                    } else {
+                        if (!e.isDisposed()) {
+                            e.onError(response.getException());//onError 之后不可可继下游可继续接受 onNext
+                        }
                     }
                     e.onComplete();//onComplete 之后可继下游可继续接受 onNext
                 }
@@ -427,7 +431,7 @@ public class HttpRequest {
         private boolean isShowDialog;
         private String enCoding = "UTF-8";
         private Object requestTag;
-        private CacheMode cacheMode = CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE;
+        private CacheMode cacheMode = CacheMode.ONLY_REQUEST_NETWORK;
         private int requestCode = -1;
         private NetWorkDialog dialog;
         public int connectTimeOut = 10 * 1000;

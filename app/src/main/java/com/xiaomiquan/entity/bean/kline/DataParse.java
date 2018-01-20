@@ -25,12 +25,16 @@ public class DataParse {
     private ArrayList<CandleEntry> candleEntries = new ArrayList<>();//K线数据
 
     private ArrayList<Entry> ma5DataL = new ArrayList<>();
+    private ArrayList<Entry> ma7DataL = new ArrayList<>();
     private ArrayList<Entry> ma10DataL = new ArrayList<>();
+    private ArrayList<Entry> ma15DataL = new ArrayList<>();
     private ArrayList<Entry> ma20DataL = new ArrayList<>();
     private ArrayList<Entry> ma30DataL = new ArrayList<>();
 
     private ArrayList<Entry> ma5DataV = new ArrayList<>();
+    private ArrayList<Entry> ma7DataV = new ArrayList<>();
     private ArrayList<Entry> ma10DataV = new ArrayList<>();
+    private ArrayList<Entry> ma15DataV = new ArrayList<>();
     private ArrayList<Entry> ma20DataV = new ArrayList<>();
     private ArrayList<Entry> ma30DataV = new ArrayList<>();
 
@@ -133,8 +137,8 @@ public class DataParse {
         }
         for (int i = 0, j = 0; i < datas.size(); i++, j++) {
             xVals.add(datas.get(i).date + "");
-            barEntries.add(new KlineBarEntry(i, datas.get(i).high, datas.get(i).low, datas.get(i).open, datas.get(i).close, datas.get(i).volume));
-            candleEntries.add(new CandleEntry(i, datas.get(i).high, datas.get(i).low, datas.get(i).open, datas.get(i).close));
+            barEntries.add(new KlineBarEntry(i, datas.get(i).high.floatValue(), datas.get(i).low.floatValue(), datas.get(i).open.floatValue(), datas.get(i).close.floatValue(), datas.get(i).volume.floatValue()));
+            candleEntries.add(new CandleEntry(i, datas.get(i).high.floatValue(), datas.get(i).low.floatValue(), datas.get(i).open.floatValue(), datas.get(i).close.floatValue()));
         }
     }
 
@@ -144,29 +148,6 @@ public class DataParse {
      * @param obj
      */
     public void parseKLine(JSONObject obj) {
-        ArrayList<KLineBean> kLineBeans = new ArrayList<>();
-        JSONObject data = obj.optJSONObject("data").optJSONObject(code);
-        JSONArray list = data.optJSONArray("day");
-        if (list != null) {
-            int count = list.length();
-            for (int i = 0; i < count; i++) {
-                JSONArray dayData = list.optJSONArray(i);
-                KLineBean kLineData = new KLineBean();
-                kLineData.date = dayData.optString(0);
-                kLineData.open = (float) dayData.optDouble(1);
-                kLineData.close = (float) dayData.optDouble(2);
-                kLineData.high = (float) dayData.optDouble(3);
-                kLineData.low = (float) dayData.optDouble(4);
-                kLineData.volume = (float) dayData.optDouble(5);
-
-
-                kLineBeans.add(kLineData);
-
-                volmax = Math.max(kLineData.volume, volmax);
-                xValuesLabel.put(i, kLineData.date);
-            }
-        }
-        kDatas.addAll(kLineBeans);
     }
 
     public void parseKLine(List<KLineBean> kLineBeans) {
@@ -176,7 +157,7 @@ public class DataParse {
                 int count = kLineBeans.size();
                 for (int i = 0; i < count; i++) {
                     kLineBeans.get(i).date = TimeUtils.millis2String(kLineBeans.get(i).timestamp * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
-                    volmax = Math.max(kLineBeans.get(i).volume, volmax);
+                    volmax = Math.max(kLineBeans.get(i).volume.floatValue(), volmax);
                     xValuesLabel.put(i, kLineBeans.get(i).date);
                     mKLineBeans.add(kLineBeans.get(i));
                     kDatas.add(kLineBeans.get(i));
@@ -238,17 +219,23 @@ public class DataParse {
             return;
         }
         ma5DataL = new ArrayList<>();
+        ma7DataL = new ArrayList<>();
         ma10DataL = new ArrayList<>();
+        ma15DataL = new ArrayList<>();
         ma20DataL = new ArrayList<>();
         ma30DataL = new ArrayList<>();
 
         KMAEntity kmaEntity5 = new KMAEntity(datas, 5);
+        KMAEntity kmaEntity7 = new KMAEntity(datas, 7);
         KMAEntity kmaEntity10 = new KMAEntity(datas, 10);
+        KMAEntity kmaEntity15 = new KMAEntity(datas, 15);
         KMAEntity kmaEntity20 = new KMAEntity(datas, 20);
         KMAEntity kmaEntity30 = new KMAEntity(datas, 30);
         for (int i = 0; i < kmaEntity5.getMAs().size(); i++) {
             ma5DataL.add(new Entry(kmaEntity5.getMAs().get(i), i));
+            ma7DataL.add(new Entry(kmaEntity7.getMAs().get(i), i));
             ma10DataL.add(new Entry(kmaEntity10.getMAs().get(i), i));
+            ma15DataL.add(new Entry(kmaEntity15.getMAs().get(i), i));
             ma20DataL.add(new Entry(kmaEntity20.getMAs().get(i), i));
             ma30DataL.add(new Entry(kmaEntity30.getMAs().get(i), i));
         }
@@ -265,17 +252,23 @@ public class DataParse {
             return;
         }
         ma5DataV = new ArrayList<>();
+        ma7DataV = new ArrayList<>();
         ma10DataV = new ArrayList<>();
+        ma15DataV = new ArrayList<>();
         ma20DataV = new ArrayList<>();
         ma30DataV = new ArrayList<>();
 
         VMAEntity vmaEntity5 = new VMAEntity(datas, 5);
+        VMAEntity vmaEntity7 = new VMAEntity(datas, 7);
         VMAEntity vmaEntity10 = new VMAEntity(datas, 10);
+        VMAEntity vmaEntity15 = new VMAEntity(datas, 15);
         VMAEntity vmaEntity20 = new VMAEntity(datas, 20);
         VMAEntity vmaEntity30 = new VMAEntity(datas, 30);
         for (int i = 0; i < vmaEntity5.getMAs().size(); i++) {
             ma5DataV.add(new Entry(vmaEntity5.getMAs().get(i), i));
+            ma7DataV.add(new Entry(vmaEntity7.getMAs().get(i), i));
             ma10DataV.add(new Entry(vmaEntity10.getMAs().get(i), i));
+            ma15DataV.add(new Entry(vmaEntity15.getMAs().get(i), i));
             ma20DataV.add(new Entry(vmaEntity20.getMAs().get(i), i));
             ma30DataV.add(new Entry(vmaEntity30.getMAs().get(i), i));
         }
@@ -785,5 +778,21 @@ public class DataParse {
 
     public List<Entry> getDmiDataADXR() {
         return dmiDataADXR;
+    }
+
+    public ArrayList<Entry> getMa7DataL() {
+        return ma7DataL;
+    }
+
+    public ArrayList<Entry> getMa15DataL() {
+        return ma15DataL;
+    }
+
+    public ArrayList<Entry> getMa7DataV() {
+        return ma7DataV;
+    }
+
+    public ArrayList<Entry> getMa15DataV() {
+        return ma15DataV;
     }
 }

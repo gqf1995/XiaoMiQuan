@@ -105,6 +105,9 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 klineValue = timeData.get(dataset1.indexOf(s));
                 isChange = true;
                 timeIndex = 0;
+                //清空数据
+                klineDraw.cleanData();
+                //请求新数据
                 request("");
             }
         });
@@ -167,6 +170,13 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         }
         klineDraw = new KlineDraw();
         klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
+        klineDraw.setOnClick(new KlineDraw.OnClick() {
+            @Override
+            public void click(int xPosition) {
+                viewDelegate.setDetailsData(xPosition, klineDraw.getmData());
+            }
+        });
+        viewDelegate.setDetailsData(klineDraw.getmData().getKLineDatas().size() - 1, klineDraw.getmData());
     }
 
     private void updataKline(List<KLineBean> lineBeans) {

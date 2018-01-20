@@ -56,7 +56,7 @@ public class BOLLEntity {
                 ma = closeSum / index;
                 sum = getSum(k, i, ma, kLineBeens);
                 md = (float) Math.sqrt(sum / index);
-                mb = (closeSum - kLineBeens.get(i).close) / index;
+                mb = (closeSum - kLineBeens.get(i).close.floatValue()) / index;
                 up = mb + (2 * md);
                 dn = mb - (2 * md);
 
@@ -82,7 +82,7 @@ public class BOLLEntity {
         float sum = 0.0f;
         for (int i = a; i <= b; i++) {
             kLineBean = kLineBeens.get(i);
-            sum += ((kLineBean.close - ma) * (kLineBean.close - ma));
+            sum += ((kLineBean.close.floatValue() - ma) * (kLineBean.close.floatValue() - ma));
         }
 
         return sum;
@@ -96,7 +96,7 @@ public class BOLLEntity {
         float close = 0.0f;
         for (int i = a; i <= b; i++) {
             kLineBean = kLineBeens.get(i);
-            close += kLineBean.close;
+            close += kLineBean.close.floatValue();
         }
 
         return close;

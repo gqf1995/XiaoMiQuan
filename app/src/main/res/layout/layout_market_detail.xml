@@ -295,6 +295,7 @@
 
             </com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner>
         </FrameLayout>
+
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -320,6 +321,7 @@
 
             </com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner>
         </FrameLayout>
+
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -357,51 +359,81 @@
         android:paddingLeft="@dimen/trans_10px"
         android:paddingTop="@dimen/trans_20px">
 
-        <TextView
-            android:id="@+id/tv_ktime"
+        <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tv_ktime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingRight="@dimen/trans_20px"
             android:text="-"
             android:textColor="@color/color_font4"
             android:textSize="@dimen/text_trans_18px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tv_kopen"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:gravity="center"
             android:text="-"
             android:textColor="@color/color_font4"
             android:textSize="@dimen/text_trans_18px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tv_kheight"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:gravity="center"
             android:text="-"
             android:textColor="@color/color_font4"
             android:textSize="@dimen/text_trans_18px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tv_klow"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:gravity="center"
             android:text="-"
             android:textColor="@color/color_font4"
             android:textSize="@dimen/text_trans_18px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tv_kclose"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:gravity="center"
             android:text="-"
             android:textColor="@color/color_font4"
             android:textSize="@dimen/text_trans_18px"/>
 
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <LinearLayout

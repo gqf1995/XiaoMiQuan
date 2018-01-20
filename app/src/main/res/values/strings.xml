@@ -235,6 +235,7 @@
     <string name="str_buy_one">买一</string>
     <string name="str_sell_one">卖一</string>
     <string name="str_kvolume">量(5,10)</string>
+    <string name="str_no_choose">请选择后再提交</string>
 
     <string-array name="sa_select_market">
         <item>自选</item>

@@ -31,7 +31,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     protected void bindEvenListener() {
         super.bindEvenListener();
         initFragment();
-        initSocket();
+        //initSocket();
         if (!ExchangeRateUtil.getinstance().IsHavaData()) {
             //获取汇率
             addRequest(binder.getAllPriceRate(this));

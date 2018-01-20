@@ -36,15 +36,15 @@ public class KDJEntity {
         if (kLineBeens != null && kLineBeens.size() > 0) {
 
             KLineBean kLineBean = kLineBeens.get(0);
-            float high = kLineBean.high;
-            float low = kLineBean.low;
+            float high = kLineBean.high.floatValue();
+            float low = kLineBean.low.floatValue();
 
             for (int i = 0; i < kLineBeens.size(); i++) {
                 kLineBean = kLineBeens.get(i);
                 if (i > 0) {
                     if (n == 0) {
-                        high = high > kLineBean.high ? high : kLineBean.high;
-                        low = low < kLineBean.low ? low : kLineBean.low;
+                        high = high > kLineBean.high.floatValue() ? high : kLineBean.high.floatValue();
+                        low = low < kLineBean.low.floatValue() ? low : kLineBean.low.floatValue();
                     } else {
                         int t = i - n + 1;
                         Float[] wrs = getHighAndLowByK(t, i, (ArrayList<KLineBean>) kLineBeens);
@@ -53,7 +53,7 @@ public class KDJEntity {
                     }
                 }
                 if (high != low) {
-                    rSV = (kLineBean.close - low) / (high - low) * 100;
+                    rSV = (kLineBean.close.floatValue() - low) / (high - low) * 100;
                 } else {
                     rSV = 0;
                 }
@@ -90,13 +90,13 @@ public class KDJEntity {
             a = 0;
 
         KLineBean kLineBean = kLineBeens.get(a);
-        float high = kLineBean.high;
-        float low = kLineBean.low;
+        float high = kLineBean.high.floatValue();
+        float low = kLineBean.low.floatValue();
         Float[] wrs = new Float[2];
         for (int i = a; i <= b; i++) {
             kLineBean = kLineBeens.get(i);
-            high = high > kLineBean.high ? high : kLineBean.high;
-            low = low < kLineBean.low ? low : kLineBean.low;
+            high = high > kLineBean.high.floatValue() ? high : kLineBean.high.floatValue();
+            low = low < kLineBean.low.floatValue() ? low : kLineBean.low.floatValue();
         }
 
         wrs[0] = high;

@@ -3,8 +3,6 @@ package com.xiaomiquan.entity.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.math.BigDecimal;
-
 /**
  * Created by 郭青枫 on 2018/1/16 0016.
  */
@@ -53,18 +51,19 @@ public class ExchangeData implements Parcelable {
     private String unit;//兑换货币单位 BTC/USD 中的 USD
     private String tradePair;//e.g. BTC/USD symbol/unit
     private String side;//1买2卖
-    private BigDecimal last;//最新价
-    private BigDecimal high;//最高价
-    private BigDecimal low;//最低价
-    private BigDecimal open;//24小时开盘价
-    private BigDecimal close;//24小时收盘价
-    private BigDecimal volume; //24成交量
-    private BigDecimal amount;//24小时成交额
+    private String last;//最新价
+    private String high;//最高价
+    private String low;//最低价
+    private String open;//24小时开盘价
+    private String close;//24小时收盘价
+    private String volume; //24成交量
+    private String amount;//24小时成交额
     private String ask;//卖一
     private String bid;//买一
     private String change;//24小时涨跌幅
     private String timestamp;
     private String onlyKey;//市场的唯一标识 例如：Okex_ETH_BTC "choicePrice": null// 用户选择的市场价格
+
 
     public String getRank() {
         return rank;
@@ -226,59 +225,59 @@ public class ExchangeData implements Parcelable {
         this.side = side;
     }
 
-    public BigDecimal getLast() {
+    public String getLast() {
         return last;
     }
 
-    public void setLast(BigDecimal last) {
+    public void setLast(String last) {
         this.last = last;
     }
 
-    public BigDecimal getHigh() {
+    public String getHigh() {
         return high;
     }
 
-    public void setHigh(BigDecimal high) {
+    public void setHigh(String high) {
         this.high = high;
     }
 
-    public BigDecimal getLow() {
+    public String getLow() {
         return low;
     }
 
-    public void setLow(BigDecimal low) {
+    public void setLow(String low) {
         this.low = low;
     }
 
-    public BigDecimal getOpen() {
+    public String getOpen() {
         return open;
     }
 
-    public void setOpen(BigDecimal open) {
+    public void setOpen(String open) {
         this.open = open;
     }
 
-    public BigDecimal getClose() {
+    public String getClose() {
         return close;
     }
 
-    public void setClose(BigDecimal close) {
+    public void setClose(String close) {
         this.close = close;
     }
 
-    public BigDecimal getVolume() {
+    public String getVolume() {
         return volume;
     }
 
-    public void setVolume(BigDecimal volume) {
+    public void setVolume(String volume) {
         this.volume = volume;
     }
 
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
@@ -349,13 +348,13 @@ public class ExchangeData implements Parcelable {
         dest.writeString(this.unit);
         dest.writeString(this.tradePair);
         dest.writeString(this.side);
-        dest.writeSerializable(this.last);
-        dest.writeSerializable(this.high);
-        dest.writeSerializable(this.low);
-        dest.writeSerializable(this.open);
-        dest.writeSerializable(this.close);
-        dest.writeSerializable(this.volume);
-        dest.writeSerializable(this.amount);
+        dest.writeString(this.last);
+        dest.writeString(this.high);
+        dest.writeString(this.low);
+        dest.writeString(this.open);
+        dest.writeString(this.close);
+        dest.writeString(this.volume);
+        dest.writeString(this.amount);
         dest.writeString(this.ask);
         dest.writeString(this.bid);
         dest.writeString(this.change);
@@ -387,13 +386,13 @@ public class ExchangeData implements Parcelable {
         this.unit = in.readString();
         this.tradePair = in.readString();
         this.side = in.readString();
-        this.last = (BigDecimal) in.readSerializable();
-        this.high = (BigDecimal) in.readSerializable();
-        this.low = (BigDecimal) in.readSerializable();
-        this.open = (BigDecimal) in.readSerializable();
-        this.close = (BigDecimal) in.readSerializable();
-        this.volume = (BigDecimal) in.readSerializable();
-        this.amount = (BigDecimal) in.readSerializable();
+        this.last = in.readString();
+        this.high = in.readString();
+        this.low = in.readString();
+        this.open = in.readString();
+        this.close = in.readString();
+        this.volume = in.readString();
+        this.amount = in.readString();
         this.ask = in.readString();
         this.bid = in.readString();
         this.change = in.readString();

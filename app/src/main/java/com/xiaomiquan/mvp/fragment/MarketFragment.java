@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -17,18 +18,17 @@ import com.xiaomiquan.mvp.activity.market.SearchCoinMarketActivity;
 import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.TabViewpageBinder;
 import com.xiaomiquan.mvp.delegate.TabViewpageDelegate;
-import com.xiaomiquan.widget.GainsTabView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
 import static com.xiaomiquan.base.AppConst.CACHE_EXCHANGENAME;
 
 public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, TabViewpageBinder> {
     ArrayList<Fragment> fragments;
     List<String> mTitles;
-    GainsTabView gainsTabView;
     List<ExchangeName> exchangeNameList;
 
     @Override
@@ -56,21 +56,33 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
             initTablelayout(exchangeNameList);
         }
         addRequest(binder.getAllEXchange(this));
-
-
     }
 
     @Override
     protected void clickRightIv() {
         super.clickRightIv();
         // 排序
-        gotoActivity(SortingUserCoinActivity.class).startAct();
+        gotoActivity(SortingUserCoinActivity.class).fragStartActResult(this, 0x123);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0x123) {
+                //排序 页面 操作后更新自选
+                if (userChooseFragment != null) {
+                    userChooseFragment.refreshData();
+                }
+            }
+        }
     }
 
     @Override
     protected void clickRightIv1() {
         super.clickRightIv1();
         // 通知
+
     }
 
     UserChooseFragment userChooseFragment;
@@ -79,6 +91,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     ExchangeNameListFragment exchangeNameListFragment;
 
     private void initTablelayout(List<ExchangeName> exchangeNames) {
+
         exchangeNameList = exchangeNames;
         fragments = new ArrayList<>();
         mTitles = new ArrayList<>();
@@ -160,7 +173,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 } else {
                     if (exchangeNames.size() != exchangeNameList.size()) {
                         CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-                        initTablelayout(exchangeNames);
+                        //initTablelayout(exchangeNames);
                     }
                 }
                 break;

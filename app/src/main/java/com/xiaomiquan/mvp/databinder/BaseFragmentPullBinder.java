@@ -41,7 +41,6 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
     }
 
 
-
     /**
      * 交易所
      */
@@ -74,8 +73,8 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().show)
                 .setShowDialog(false)
-                .setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE)
-                .setRequestName("获得所有库中拥有的交易所列表")
+                .setCacheMode(CacheMode.ONLY_REQUEST_NETWORK)
+                .setRequestName("添加自选页面")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)
@@ -84,5 +83,24 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .RxSendRequest();
     }
 
+    /**
+     * 订阅数据展示
+     */
+    public Disposable marketdata(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().marketdata)
+                .setShowDialog(false)
+                .setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE)
+                .setRequestName("订阅数据展示")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 
 }

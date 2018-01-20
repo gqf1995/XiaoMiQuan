@@ -6,6 +6,7 @@ import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 
 import static com.xiaomiquan.base.AppConst.httpBaseUrl;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl2;
+import static com.xiaomiquan.base.AppConst.httpBaseUrl3;
 import static com.xiaomiquan.base.AppConst.isEditUrl;
 
 /**
@@ -68,27 +69,27 @@ public class HttpUrl {
     /**
      * 用户注册发送验证码
      */
-    public String sendCodeForRegister = httpBaseUrl + userUrl + "/sendCodeForRegister";
+    public String sendCodeForRegister = httpBaseUrl3 + userUrl + "/sendCodeForRegister";
     /**
      * 用户注册
      */
-    public String saveUser = httpBaseUrl + userUrl + "/saveUser";
+    public String saveUser = httpBaseUrl3 + userUrl + "/saveUser";
     /**
      * 用户登录
      */
-    public String userLogin = httpBaseUrl + userUrl + "/userLogin";
+    public String userLogin = httpBaseUrl3 + userUrl + "/userLogin";
     /**
      * 用户找回密码发送短信
      */
-    public String sendCodeForForgotPassWord = httpBaseUrl + userUrl + "/sendCodeForForgotPassWord";
+    public String sendCodeForForgotPassWord = httpBaseUrl3 + userUrl + "/sendCodeForForgotPassWord";
     /**
      * 用户找回密码
      */
-    public String retrievePassword = httpBaseUrl + userUrl + "/retrievePassword";
+    public String retrievePassword = httpBaseUrl3 + userUrl + "/retrievePassword";
     /**
      * 用户登出
      */
-    public String loginOut = httpBaseUrl + userUrl + "/loginOut";
+    public String loginOut = httpBaseUrl3 + userUrl + "/loginOut";
 
 
     /**
@@ -137,19 +138,24 @@ public class HttpUrl {
     /**
      * 自选
      */
-    String subsUrl = "/subs/operate";
+    String subsUrl = "/subs";
     /**
      * 点击横栏上交易所或币种显示信息
      */
-    public String show = httpBaseUrl + subsUrl + "/show";
+    public String show = httpBaseUrl3 + subsUrl + "/operate/show";
     /**
-     * 取消订阅
+     * 点击横栏上交易所或币种显示信息
      */
-    public String unsubs = httpBaseUrl + subsUrl + "/unsubs";
+    public String subs = httpBaseUrl3 + subsUrl + "/operate/subs";//onlykey
     /**
-     * 更新订阅信息
+     * 点击横栏上交易所或币种显示信息
      */
-    public String subs = httpBaseUrl + subsUrl + "/subs";
+    public String unsubs = httpBaseUrl3 + subsUrl + "/operate/unsubs";
+    /**
+     * 点击横栏上交易所或币种显示信息
+     */
+    public String marketdata = httpBaseUrl3 + subsUrl + "/self/marketdata";
+
 
     /**
      * websocket

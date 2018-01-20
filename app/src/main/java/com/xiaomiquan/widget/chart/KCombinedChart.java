@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
@@ -25,6 +26,11 @@ public class KCombinedChart extends CombinedChart {
     private MyBottomMarkerView myBottomMarkerView;
     private DataParse minuteHelper;
     boolean isDrawHeightAndLow = false;
+    DefaultClickLinsener defaultClickLinsener;
+
+    public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
+        this.defaultClickLinsener = defaultClickLinsener;
+    }
 
     public void setDrawHeightAndLow(boolean drawHeightAndLow) {
         isDrawHeightAndLow = drawHeightAndLow;
@@ -62,6 +68,7 @@ public class KCombinedChart extends CombinedChart {
 
     }
 
+
     @Override
     protected void drawMarkers(Canvas canvas) {
         if (!mDrawMarkerViews || !valuesToHighlight())
@@ -86,9 +93,15 @@ public class KCombinedChart extends CombinedChart {
                 if (!mViewPortHandler.isInBounds(pos[0], pos[1]))
                     continue;
 
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(null, mIndicesToHighlight[i].getXIndex(), mIndicesToHighlight[i]);
+                }
+
                 String yChartMax = this.getYChartMax() + "";
                 String yChartMin = this.getYChartMin() + "";
-                String value = mIndicesToHighlight[i].getValue() + "";
+
+                String value = minuteHelper.getKLineDatas().get(mIndicesToHighlight[i].getXIndex()).close.toString() + "";
+
                 BigDecimal bigDecimal = new BigDecimal(yChartMin);
                 BigDecimal valueB = new BigDecimal(value).subtract(bigDecimal);
                 BigDecimal yChartMaxB = new BigDecimal(yChartMax).subtract(bigDecimal);
@@ -98,10 +111,6 @@ public class KCombinedChart extends CombinedChart {
 
                 float height = this.getMeasuredHeight() - divB.floatValue() - this.getViewPortHandler().offsetBottom();
 
-                //                float v1 = mIndicesToHighlight[i].getValue() - this.getYChartMin();
-                //                float v2 = this.getYChartMax() - this.getYChartMin();
-                //                float v = (mIndicesToHighlight[i].getValue() - this.getYChartMin() / this.getYChartMax() - this.getYChartMin()) * (this.getMeasuredHeight() - this.getViewPortHandler().offsetBottom() - this.getViewPortHandler().offsetTop());
-                //                float height = this.getMeasuredHeight() - v - this.getViewPortHandler().offsetBottom();
 
                 if (null != myMarkerViewH) {
                     myMarkerViewH.refreshContent(e, mIndicesToHighlight[i]);
@@ -155,16 +164,16 @@ public class KCombinedChart extends CombinedChart {
         initRenderer();
     }
 
-    public void initRenderer(){
-//        if (isDrawHeightAndLow) {
-//            //获取屏幕宽度,因为默认是向右延伸显示数字的(如图1),当最值在屏幕右端,屏幕不够显示时要向左延伸(如图2)
-//            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-//            DisplayMetrics metrics = new DisplayMetrics();
-//            wm.getDefaultDisplay().getMetrics(metrics);
-//            //将mRenderer换成自己写的继承自LineChartRenderer的类
-//            mRenderer = new KLineChartRenderer(this, mAnimator, mViewPortHandler, metrics.widthPixels);
-//            mRenderer.initBuffers();
-//        }
+    public void initRenderer() {
+        //        if (isDrawHeightAndLow) {
+        //            //获取屏幕宽度,因为默认是向右延伸显示数字的(如图1),当最值在屏幕右端,屏幕不够显示时要向左延伸(如图2)
+        //            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        //            DisplayMetrics metrics = new DisplayMetrics();
+        //            wm.getDefaultDisplay().getMetrics(metrics);
+        //            //将mRenderer换成自己写的继承自LineChartRenderer的类
+        //            mRenderer = new KLineChartRenderer(this, mAnimator, mViewPortHandler, metrics.widthPixels);
+        //            mRenderer.initBuffers();
+        //        }
     }
 
     @Override

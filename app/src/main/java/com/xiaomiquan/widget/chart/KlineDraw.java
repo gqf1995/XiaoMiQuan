@@ -5,8 +5,10 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.CombinedChart;
@@ -60,6 +62,20 @@ public class KlineDraw {
 
     Context mContext;
 
+    OnClick onClick;
+
+    public DataParse getmData() {
+        return mData;
+    }
+
+    public interface OnClick {
+        void click(int xPosition);
+    }
+
+    public void setOnClick(OnClick onClick) {
+        this.onClick = onClick;
+    }
+
     public void setData(Context context, DataParse data, KCombinedChart chartKline, KCombinedChart chartVolume) {
         mData = data;
         mContext = context;
@@ -85,6 +101,27 @@ public class KlineDraw {
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
 
+        mChartKline.setDefaultClickLinsener(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, int position, Object item) {
+                if (onClick != null) {
+                    onClick.click(position);
+                }
+            }
+        });
+        mChartVolume.setDefaultClickLinsener(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, int position, Object item) {
+                if (onClick != null) {
+                    onClick.click(position);
+                }
+            }
+        });
+    }
+
+    public void cleanData() {
+        mChartKline.clear();
+        mChartVolume.clear();
     }
 
     public void updata(List<KLineBean> lineBeans) {
@@ -147,7 +184,7 @@ public class KlineDraw {
             //count = lastSet.getEntryCount();
             // 位最后一个DataSet添加entry
             KLog.i("chart", kLineBean.toString());
-            CandleEntry candleEntry = new CandleEntry(mData.getKLineDatas().size() - 1, kLineBean.high, kLineBean.low, kLineBean.open, kLineBean.close);
+            CandleEntry candleEntry = new CandleEntry(mData.getKLineDatas().size() - 1, kLineBean.high.floatValue(), kLineBean.low.floatValue(), kLineBean.open.floatValue(), kLineBean.close.floatValue());
             candleData.addEntry(candleEntry, indexLast);
 
             lastSet.getYVals().remove(lastSet.getYVals().size() - 1);
@@ -207,7 +244,7 @@ public class KlineDraw {
             }
 
             lastSet.getYVals().remove(lastSet.getYVals().size() - 1);
-            barData.addEntry(new BarEntry(kLineBean.volume, lastSet.getYVals().size() - 1), indexLast);
+            barData.addEntry(new BarEntry(kLineBean.volume.floatValue(), lastSet.getYVals().size() - 1), indexLast);
         }
 
         if (lineData != null) {
@@ -266,7 +303,7 @@ public class KlineDraw {
 
             KLog.i("chart", kLineBean.toString());
 
-            CandleEntry candleEntry = new CandleEntry(mData.getKLineDatas().size() - index, kLineBean.high, kLineBean.low, kLineBean.open, kLineBean.close);
+            CandleEntry candleEntry = new CandleEntry(mData.getKLineDatas().size() - index, kLineBean.high.floatValue(), kLineBean.low.floatValue(), kLineBean.open.floatValue(), kLineBean.close.floatValue());
             //combinedData.addEntry(candleEntry, indexLast);
             candleData.addEntry(candleEntry, indexLast);
             //candleData.addXValue(xVals);
@@ -324,7 +361,7 @@ public class KlineDraw {
             //count = lastSet.getEntryCount();
             count = i;
             //barData.addEntry(new BarEntry(count, kLineDatas.get(i).high, kLineDatas.get(i).low, kLineDatas.get(i).open, kLineDatas.get(i).close, kLineDatas.get(i).volume), indexLast);
-            barData.addEntry(new BarEntry(mData.getKLineDatas().get(mData.getKLineDatas().size() - index).volume, mData.getKLineDatas().size() - index), indexLast);
+            barData.addEntry(new BarEntry(mData.getKLineDatas().get(mData.getKLineDatas().size() - index).volume.floatValue(), mData.getKLineDatas().size() - index), indexLast);
             //barData.addEntry(mData.getBarEntries().get(mData.getBarEntries().size() - index), indexLast);
             // barData.addXValue(xVals);
         }
@@ -426,6 +463,7 @@ public class KlineDraw {
         mChartKline.setMinOffset(0f);
         mChartKline.setExtraOffsets(0f, 0f, 0f, 0f);
 
+
         Legend lineChartLegend = mChartKline.getLegend();
         lineChartLegend.setEnabled(false);//是否绘制 Legend 图例
         lineChartLegend.setForm(Legend.LegendForm.CIRCLE);
@@ -478,7 +516,6 @@ public class KlineDraw {
         mChartVolume.setScaleYEnabled(false); //是否可以缩放 仅y轴
         mChartVolume.setMinOffset(3f);
         mChartVolume.setExtraOffsets(0f, 0f, 0f, 0f);
-        mChartVolume.setNoDataTextDescription(CommonUtils.getString(R.string.str_chart_nodata));
         mChartVolume.setDrawHighlightArrow(true);
 
         Legend combinedchartLegend = mChartVolume.getLegend(); // 设置比例图标示，就是那个一组y的value的

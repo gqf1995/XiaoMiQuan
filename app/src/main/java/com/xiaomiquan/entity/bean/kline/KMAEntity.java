@@ -48,7 +48,7 @@ public class KMAEntity {
     private static float getSum(Integer a, Integer b, ArrayList<KLineBean> datas) {
         float sum = 0;
         for (int i = a; i <= b; i++) {
-            sum += datas.get(i).close;
+            sum += datas.get(i).close.floatValue();
         }
         return sum;
     }

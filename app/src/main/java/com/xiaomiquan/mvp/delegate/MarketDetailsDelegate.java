@@ -15,7 +15,10 @@ import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
+import com.xiaomiquan.base.BigUIUtil;
 import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.entity.bean.kline.DataParse;
+import com.xiaomiquan.entity.bean.kline.KLineBean;
 import com.xiaomiquan.widget.chart.KCombinedChart;
 
 import java.util.ArrayList;
@@ -49,18 +52,36 @@ public class MarketDetailsDelegate extends BaseDelegate {
 
     }
 
+    public void setDetailsData(int position, DataParse data) {
+        KLineBean kLineBean = data.getKLineDatas().get(position);
+        viewHolder.tv_ktime.setText(kLineBean.date);
+        viewHolder.tv_kopen.setText(CommonUtils.getString(R.string.str_opening_quotation) + kLineBean.open + "");
+        viewHolder.tv_kheight.setText(CommonUtils.getString(R.string.str_highest) + kLineBean.high + "");
+        viewHolder.tv_klow.setText(CommonUtils.getString(R.string.str_minimum) + kLineBean.low + "");
+        viewHolder.tv_kclose.setText(CommonUtils.getString(R.string.str_closing_quotation) + kLineBean.close + "");
+
+        viewHolder.tv_ma7.setText("MA7:" + data.getMa7DataL().get(position).getVal() + "");
+        viewHolder.tv_ma15.setText("MA15:" + data.getMa15DataL().get(position).getVal() + "");
+        viewHolder.tv_ma30.setText("MA30:" + data.getMa30DataL().get(position).getVal() + "");
+
+        viewHolder.tv_krise.setText(((kLineBean.close.floatValue() / kLineBean.open.floatValue()) - 1) + "");
+        viewHolder.tv_kamplitude.setText(((kLineBean.high.floatValue() - kLineBean.low.floatValue()) / kLineBean.open.floatValue()) + "");
+
+        viewHolder.tv_ma5.setText(data.getMa5DataV().get(position).getVal() + "");
+        viewHolder.tv_ma10.setText(data.getMa10DataV().get(position).getVal() + "");
+    }
+
+
     public void initData(ExchangeData exchangeData) {
         mExchangeData = exchangeData;
         viewHolder.tv_title.setText(exchangeData.getExchange());
-        viewHolder.tv_price.setText(exchangeData.getLast().toString());
-        viewHolder.tv_volume.setText(exchangeData.getVolume().toString());
-        viewHolder.tv_highest.setText(exchangeData.getHigh().toString());
-        viewHolder.tv_minimum.setText(exchangeData.getLow().toString());
-        viewHolder.tv_buy_one.setText(exchangeData.getBid().toString());
-        viewHolder.tv_sell_one.setText(exchangeData.getAsk().toString());
+        viewHolder.tv_price.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLast().toString()));
+        viewHolder.tv_volume.setText(BigUIUtil.getinstance().bigAmount(exchangeData.getVolume().toString()));
+        viewHolder.tv_highest.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getHigh().toString()));
+        viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow().toString()));
+        viewHolder.tv_buy_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getBid().toString()));
+        viewHolder.tv_sell_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getAsk().toString()));
         viewHolder.tv_rise.setText(exchangeData.getChange().toString());
-
-
     }
 
     public static class ViewHolder {

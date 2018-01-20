@@ -1,5 +1,7 @@
 package com.xiaomiquan.base;
 
+import android.text.TextUtils;
+
 import java.math.BigDecimal;
 
 /**
@@ -57,53 +59,61 @@ public class BigUIUtil {
     //            1万到1亿的话，显示x.xx万，精确到0.01；
     //
     //    大于一亿的话，显示x.xx亿，精确到0.01；
-    public String bigPrice(BigDecimal bigDecimal) {
+    public String bigPrice(String price) {
+        if (TextUtils.isEmpty(price)) {
+            return "";
+        }
+        BigDecimal bigDecimal = new BigDecimal(price);
         StringBuffer stringBuffer = new StringBuffer();
         if (new BigDecimal("10000").compareTo(bigDecimal) == -1) {
             //大于一万
-            stringBuffer.append(bigDecimal.setScale(0,BigDecimal.ROUND_DOWN).toString());
+            stringBuffer.append(bigDecimal.setScale(0, BigDecimal.ROUND_DOWN).toString());
         } else if (new BigDecimal("1000").compareTo(bigDecimal) == -1) {
-            stringBuffer.append(bigDecimal.setScale(1,BigDecimal.ROUND_DOWN).toString());
+            stringBuffer.append(bigDecimal.setScale(1, BigDecimal.ROUND_DOWN).toString());
         } else if (new BigDecimal("100").compareTo(bigDecimal) == -1) {
-            stringBuffer.append(bigDecimal.setScale(2,BigDecimal.ROUND_DOWN).toString());
+            stringBuffer.append(bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).toString());
         } else if (new BigDecimal("10").compareTo(bigDecimal) == -1) {
-            stringBuffer.append(bigDecimal.setScale(3,BigDecimal.ROUND_DOWN).toString());
+            stringBuffer.append(bigDecimal.setScale(3, BigDecimal.ROUND_DOWN).toString());
         } else if (new BigDecimal("1").compareTo(bigDecimal) == -1) {
-            stringBuffer.append(bigDecimal.setScale(4,BigDecimal.ROUND_DOWN).toString());
-        }else{
-            stringBuffer.append(bigDecimal.setScale(4,BigDecimal.ROUND_DOWN).toString());
+            stringBuffer.append(bigDecimal.setScale(4, BigDecimal.ROUND_DOWN).toString());
+        } else {
+            stringBuffer.append(bigDecimal.setScale(4, BigDecimal.ROUND_DOWN).toString());
         }
-//        if (new BigDecimal("0").compareTo(new BigDecimal(stringBuffer.toString())) == 1) {
-//            return stringBuffer.toString();
-//        } else {
-//            while (true) {
-//                if (stringBuffer.charAt(stringBuffer.length() - 1) == '.') {
-//                    stringBuffer.deleteCharAt(stringBuffer.length() - 1);
-//                    break;
-//                }
-//                if (stringBuffer.charAt(stringBuffer.length() - 1) == '0') {
-//                    stringBuffer.deleteCharAt(stringBuffer.length() - 1);
-//                }
-//            }
-//            return stringBuffer.toString();
-//        }
+        //        if (new BigDecimal("0").compareTo(new BigDecimal(stringBuffer.toString())) == 1) {
+        //            return stringBuffer.toString();
+        //        } else {
+        //            while (true) {
+        //                if (stringBuffer.charAt(stringBuffer.length() - 1) == '.') {
+        //                    stringBuffer.deleteCharAt(stringBuffer.length() - 1);
+        //                    break;
+        //                }
+        //                if (stringBuffer.charAt(stringBuffer.length() - 1) == '0') {
+        //                    stringBuffer.deleteCharAt(stringBuffer.length() - 1);
+        //                }
+        //            }
+        //            return stringBuffer.toString();
+        //        }
         return stringBuffer.toString();
     }
 
-    public String bigAmount(BigDecimal bigDecimal) {
+    public String bigAmount(String amount) {
+        if (TextUtils.isEmpty(amount)) {
+            return "";
+        }
+        BigDecimal bigDecimal = new BigDecimal(amount);
         if (new BigDecimal("100000000").compareTo(bigDecimal) == -1) {
-            return bigDecimal.multiply(new BigDecimal("0.00000001")).setScale(2,BigDecimal.ROUND_DOWN).toString() + "亿";
+            return bigDecimal.multiply(new BigDecimal("0.00000001")).setScale(2, BigDecimal.ROUND_DOWN).toString() + "亿";
         } else if (new BigDecimal("10000").compareTo(bigDecimal) == -1) {
             //大于一万
-            return bigDecimal.multiply(new BigDecimal("0.0001")).setScale(2,BigDecimal.ROUND_DOWN).toString() + "万";
+            return bigDecimal.multiply(new BigDecimal("0.0001")).setScale(2, BigDecimal.ROUND_DOWN).toString() + "万";
         } else if (new BigDecimal("1000").compareTo(bigDecimal) == -1) {
-            return bigDecimal.setScale(1,BigDecimal.ROUND_DOWN).toString();
+            return bigDecimal.setScale(1, BigDecimal.ROUND_DOWN).toString();
         } else if (new BigDecimal("100").compareTo(bigDecimal) == -1) {
-            return bigDecimal.setScale(2,BigDecimal.ROUND_DOWN).toString();
+            return bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).toString();
         } else if (new BigDecimal("10").compareTo(bigDecimal) == -1) {
-            return bigDecimal.setScale(3,BigDecimal.ROUND_DOWN).toString();
+            return bigDecimal.setScale(3, BigDecimal.ROUND_DOWN).toString();
         } else if (new BigDecimal("1").compareTo(bigDecimal) == -1) {
-            return bigDecimal.setScale(4,BigDecimal.ROUND_DOWN).toString();
+            return bigDecimal.setScale(4, BigDecimal.ROUND_DOWN).toString();
         } else {
             return "0";
         }

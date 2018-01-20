@@ -42,7 +42,7 @@ public class ExchangeDelegate extends BaseDelegate {
         viewHolder.tv_coin_probably.setTextColor(CommonUtils.getColor(R.color.white));
         viewHolder.tv_gains.setTextColor(CommonUtils.getColor(R.color.white));
         viewHolder.tv_gains.setText(CommonUtils.getString(R.string.str_rise));
-        getOffLineData();
+
     }
 
     private void getOffLineData() {
