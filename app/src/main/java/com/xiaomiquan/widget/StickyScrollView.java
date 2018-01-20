@@ -15,13 +15,11 @@ import com.xiaomiquan.R;
 
 import java.util.ArrayList;
 
-import skin.support.widget.SkinCompatScrollView;
-
 /**
  * Created by 郭青枫 on 2018/1/13 0013.
  */
 
-public class StickyScrollView extends SkinCompatScrollView {
+public class StickyScrollView extends android.support.v4.widget.NestedScrollView {
 
     /**
      * Tag for views that should stick and have constant drawing. e.g. TextViews, ImageViews etc

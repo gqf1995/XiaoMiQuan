@@ -1,13 +1,15 @@
 package com.fivefivelike.mybaselibrary.http;
 
+import com.blankj.utilcode.util.DeviceUtils;
 import com.dhh.websocket.RxWebSocketUtil;
 import com.dhh.websocket.WebSocketInfo;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
 
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -25,15 +27,34 @@ public class WebSocketRequest {
     private TickerWebsocket client;
     private Disposable mDisposable;
     private WebSocket mWebSocket;
-    //private ConcurrentLinkedQueue<WebSocketCallBack> webSocketCallBacks;
     private String mUrl;
     private String REQUEST_TAG = "request";
     private ConcurrentHashMap<String, WebSocketCallBack> webSocketCallBacks;
+
+    private String oldSend = "";
+    private String uid;
+    boolean isOpen = false;
+
+    String registerUrl;
+    String unregisterUrl;
+    Disposable disposable;
+
+    public void setRegisterUrl(String registerUrl) {
+        this.registerUrl = registerUrl;
+    }
+
+    public void setUnregisterUrl(String unregisterUrl) {
+        this.unregisterUrl = unregisterUrl;
+    }
 
     public interface WebSocketCallBack {
         void onDataSuccess(String data, String info, int status);
 
         void onDataError(String data, String info, int status);
+    }
+
+    private WebSocketRequest() {
+        uid = DeviceUtils.getAndroidID();
     }
 
     private static class Helper {
@@ -44,25 +65,80 @@ public class WebSocketRequest {
         return Helper.webSocketRequest;
     }
 
-
-    public void sendData(String json) {
-        if (mDisposable != null) {
-            mWebSocket.send(json);
-        } else {
-            client.send(json);
+    public void sendData(List<String> keys) {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < keys.size(); i++) {
+            stringBuffer.append(keys.get(i)).append(",");
         }
+        unregister(oldSend);
+        oldSend = stringBuffer.toString();
     }
 
-    public void addCallBack(Class clss, WebSocketCallBack webSocketCallBack) {
+    private void register(String json) {
+        LinkedHashMap baseMap = new LinkedHashMap<>();
+        baseMap.put("uid", uid);
+        baseMap.put("keys", json);
+        disposable = new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(registerUrl)
+                .setShowDialog(false)
+                .setRequestName("注册web")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(new RequestCallback() {
+                    @Override
+                    public void success(int requestCode, String data) {
+
+                    }
+
+                    @Override
+                    public void error(int requestCode, Throwable exThrowable) {
+                    }
+                })
+                .build()
+                .RxSendRequest();
+    }
+
+
+    public void unregister(String json) {
+        LinkedHashMap baseMap = new LinkedHashMap<>();
+        baseMap.put("uid", uid);
+        baseMap.put("keys", "");
+        disposable = new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(unregisterUrl)
+                .setShowDialog(false)
+                .setRequestName("取消注册web")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(new RequestCallback() {
+                    @Override
+                    public void success(int requestCode, String data) {
+                        //取消订阅后 重新订阅新的
+                        register(oldSend);
+                    }
+
+                    @Override
+                    public void error(int requestCode, Throwable exThrowable) {
+
+                    }
+                })
+                .build()
+                .RxSendRequest();
+    }
+
+    public void addCallBack(String clss, WebSocketCallBack webSocketCallBack) {
         if (webSocketCallBacks != null) {
-            webSocketCallBacks.put(clss.getName(), webSocketCallBack);
+            webSocketCallBacks.put(clss, webSocketCallBack);
         }
     }
 
-    public void remoceCallBack(Class clss) {
+    public void remoceCallBack(String clss) {
         if (webSocketCallBacks != null) {
             if (webSocketCallBacks != null) {
-                webSocketCallBacks.remove(clss.getName());
+                webSocketCallBacks.remove(clss);
             }
         }
     }
@@ -103,46 +179,21 @@ public class WebSocketRequest {
                 });
     }
 
-    public void intiWebSocket(String url,String name, WebSocketCallBack webSocketCallBack) {
+    public void intiWebSocket(String url, String name, WebSocketCallBack webSocketCallBack) {
         webSocketCallBacks = new ConcurrentHashMap<>();
         webSocketCallBacks.put(name, webSocketCallBack);
         mUrl = url;
         startSocket();
-
-        //        client = new WebSocketClient(URI.create(url)) {
-        //            @Override
-        //            public void onOpen(ServerHandshake handshakedata) {
-        //                KLog.i(REQUEST_TAG, "onOpen  ");
-        //            }
-        //
-        //            @Override
-        //            public void onMessage(String message) {
-        //                KLog.i(REQUEST_TAG, "onMessage  ");
-        //                serviceSuccess(message);
-        //            }
-        //
-        //            @Override
-        //            public void onClose(int code, String reason, boolean remote) {
-        //                KLog.i(REQUEST_TAG, "onClose  ");
-        //                start();
-        //            }
-        //
-        //            @Override
-        //            public void onError(Exception ex) {
-        //                KLog.i(REQUEST_TAG, "onError  ");
-        //                serviceError(ex);
-        //                start();
-        //            }
-        //        };
-        //        start();
-        //client.connect();
     }
 
     private void startSocket() {
-        client=new TickerWebsocket(mUrl) {
+        isOpen = false;
+        client = new TickerWebsocket(mUrl) {
             @Override
             public void onMessage(String message) {
                 KLog.i(REQUEST_TAG, "success  " + message);
+                isOpen = true;
+                serviceSuccess(message);
             }
 
             @Override
@@ -152,12 +203,7 @@ public class WebSocketRequest {
 
             @Override
             protected void onSchedule(ScheduledExecutorService scheduler) {
-                scheduler.scheduleAtFixedRate(new Runnable() {
-                    @Override
-                    public void run() {
 
-                    }
-                }, 5, 30, TimeUnit.SECONDS);
             }
 
             @Override
@@ -171,11 +217,13 @@ public class WebSocketRequest {
     private void serviceError(Throwable ex) {
         //websocket链接失败
         KLog.i(REQUEST_TAG, "error  " + ex.getMessage());
+        error(ex.getMessage());
     }
 
     private void serviceSuccess(String msg) {
         //服务器获取成功
         KLog.i(REQUEST_TAG, "success  " + msg);
+        success(msg);
     }
 
     private void success(String msg) {
@@ -184,8 +232,8 @@ public class WebSocketRequest {
         while (iter.hasNext()) {
             String key = (String) iter.next();
             KLog.i(REQUEST_TAG, "success 接受名称: " + key + "数据: " + msg);
-            WebSocketRequest webSocketRequest = (WebSocketRequest) webSocketCallBacks.get(key);
-            webSocketRequest.success(msg);
+            WebSocketRequest.WebSocketCallBack webSocketRequest = (WebSocketRequest.WebSocketCallBack) webSocketCallBacks.get(key);
+            webSocketRequest.onDataSuccess(msg, msg, 0);
         }
     }
 
@@ -196,8 +244,8 @@ public class WebSocketRequest {
         while (iter.hasNext()) {
             String key = (String) iter.next();
             KLog.i(REQUEST_TAG, "error 接受名称: " + key + "数据: " + msg);
-            WebSocketRequest webSocketRequest = (WebSocketRequest) webSocketCallBacks.get(key);
-            webSocketRequest.error(msg);
+            WebSocketRequest.WebSocketCallBack webSocketRequest = (WebSocketRequest.WebSocketCallBack) webSocketCallBacks.get(key);
+            webSocketRequest.onDataError(msg, msg, 0);
         }
     }
 

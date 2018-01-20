@@ -74,8 +74,6 @@ greendao {
     targetGenDir 'src/main/java'
 }
 dependencies {
-    implementation 'com.android.support:support-v4:27.0.2'
-    implementation 'com.google.android.gms:play-services-plus:11.8.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -103,7 +101,10 @@ dependencies {
     // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
     implementation project(':IMKit')
     implementation project(':IMLib')
-    compile 'com.just.agentweb:agentweb:3.0.0'
-    //ry kuangjia
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+    compile 'com.gavin.com.library:stickyDecoration:1.2.1'
+    compile 'jp.wasabeef:richeditor-android:1.2.2'
+
+
 }
+

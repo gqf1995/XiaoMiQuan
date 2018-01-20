@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin.support.widget.SkinCompatLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lin_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:foreground="@color/base_mask"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    >
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="424"
+        android:paddingBottom="@dimen/trans_10px"
+        android:paddingLeft="@dimen/trans_30px"
+        android:paddingTop="@dimen/trans_10px"
+        android:text="@string/str_name_of_the"
+        android:textColor="@color/color_font2"
+        android:textSize="@dimen/text_trans_24px"/>
+
+
+    <com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner
+        android:id="@+id/tv_unit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="150"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:text="1天"
+        android:textColor="@color/color_font2"
+        android:textSize="@dimen/text_trans_24px"
+        app:backgroundSelector="@color/transparent"
+        app:hideArrow="true"
+        app:textTint="@color/color_font2"
+        >
+
+    </com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner>
+
+
+    <com.xiaomiquan.widget.GainsTabView
+        android:id="@+id/tv_rise"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="190"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="left"
+        android:paddingRight="@dimen/trans_30px"
+        />
+
+
+</skin.support.widget.SkinCompatLinearLayout>

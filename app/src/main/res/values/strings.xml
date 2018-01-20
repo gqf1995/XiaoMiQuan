@@ -172,6 +172,7 @@
     <string name="str_advance_warning">预警</string>
     <string name="str_currency_data">币种资料</string>
     <string name="str_global_market">全球行情</string>
+    <string name="str_discuss">讨论</string>
 
     <string name="str_total">量\u3000</string>
     <string name="str_cost">费\u3000</string>
@@ -187,6 +188,8 @@
     <string name="str_latest_price">最新价</string>
     <string name="str_volume">成交量</string>
     <string name="str_rise_ranking">涨幅榜</string>
+    <string name="str_rise">涨幅</string>
+    <string name="str_amplitude">震幅</string>
     <string name="str_drop_ranking">跌幅榜</string>
     <string name="str_no_binding">去绑定</string>
     <string name="str_binding">已绑定</string>
@@ -220,6 +223,7 @@
     <string name="str_search_history">搜索历史</string>
     <string name="str_hot_coin">热门币种</string>
     <string name="str_clean">清空</string>
+    <string name="str_circulation">流通</string>
     <string name="str_srot_toast">取消请点击星星,排序请长按拖动</string>
     <string name="str_is_clean_cache">是否清理缓存?</string>
 
@@ -227,12 +231,20 @@
     <string name="str_market_value">市值</string>
     <string name="str_global_network">全网</string>
     <string name="str_chart_nodata">数据加载中...</string>
-    <string name="str_amount">额(24H)</string>
+    <string name="str_amount">量/额</string>
+    <string name="str_buy_one">买一</string>
+    <string name="str_sell_one">卖一</string>
+    <string name="str_kvolume">量(5,10)</string>
 
     <string-array name="sa_select_market">
         <item>自选</item>
         <item>综合</item>
         <item>市值</item>
+        <item>交易所</item>
+        <item>BTC</item>
+        <item>BTH</item>
+        <item>ETH</item>
+        <item>ETC</item>
     </string-array>
     <string-array name="sa_select_time">
         <item>1天</item>
@@ -263,6 +275,44 @@
     <string-array name="sa_select_circle">
         <item>动态</item>
         <item>圈子</item>
+    </string-array>
+
+    <string-array name="sa_select_color">
+        <item>默认</item>
+        <item>暗色</item>
+        <item>亮色</item>
+    </string-array>
+
+    <string-array name="sa_select_kline">
+        <item>1分</item>
+        <item>3分</item>
+        <item>5分</item>
+        <item>15分</item>
+        <item>30分</item>
+        <item>1小时</item>
+        <item>2小时</item>
+        <item>4小时</item>
+        <item>6小时</item>
+        <item>12小时</item>
+        <item>1天</item>
+        <item>3天</item>
+        <item>1周</item>
+    </string-array>
+
+    <string-array name="sa_select_kline_value">
+        <item>1m</item>
+        <item>3m</item>
+        <item>5m</item>
+        <item>15m</item>
+        <item>30m</item>
+        <item>1h</item>
+        <item>2h</item>
+        <item>4h</item>
+        <item>6h</item>
+        <item>12h</item>
+        <item>1d</item>
+        <item>3d</item>
+        <item>1w</item>
     </string-array>
 
 </resources>

@@ -262,7 +262,7 @@ public class HttpRequest {
                 String key = entry.getKey().toString().trim();
                 String value = entry.getValue().toString().trim();
                 KLog.i(REQUEST_TAG, "提交参数: " + key + " = " + value);
-                if (!key.equals("uid") && !key.equals("token") && !key.equals("language") && !key.equals("unit")) {
+                if (!key.equals("token") && !key.equals("language") && !key.equals("unit")) {
                     sb.append(key + "=" + value);
                     sb.append("&");
                     if (!TextUtils.isEmpty(value)) {
@@ -284,11 +284,12 @@ public class HttpRequest {
             setRestUrl();
         }
 
-        if (map.containsKey("uid")) {
-            if (mParameterMode != ParameterMode.Rest) {
-                mRequest.addHeader("uid", map.get("uid").toString());
-            }
-        }
+        //        if (map.containsKey("uid")) {
+        //            if (mParameterMode != ParameterMode.Rest) {
+        //                mRequest.addHeader("uid", map.get("uid").toString());
+        //            }
+        //        }
+
         if (map.containsKey("token")) {
             if (mParameterMode != ParameterMode.Rest) {
                 mRequest.addHeader("token", map.get("token").toString());

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
@@ -16,15 +17,12 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
-import com.xiaomiquan.mpchart.ConstantTest;
 import com.xiaomiquan.mvp.databinder.MarketDetailsBinder;
 import com.xiaomiquan.mvp.delegate.MarketDetailsDelegate;
 import com.xiaomiquan.widget.chart.KlineDraw;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +35,13 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     List<KLineBean> lineBeans;
 
     int updataTime = 10;//刷新时间
+    String klineValue = "1m";//初始k线时间 1分
+    boolean isChange = true;
+    List<String> timeData;//接口 传递 时间 参数 集合
 
+
+    //    涨幅是这一根k线的【收盘/开盘-1】
+    //    振幅是【（最高-最低）/开盘】
     @Override
     protected Class<MarketDetailsDelegate> getDelegateClass() {
         return MarketDetailsDelegate.class;
@@ -59,11 +63,6 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         }
     };
 
-    @Override
-    protected void onDestroy() {
-        handler.removeCallbacksAndMessages(null);
-        super.onDestroy();
-    }
 
     private void updata() {
         if (timeIndex == -1) {
@@ -85,14 +84,36 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
         getIntentData();
         initCache();
+        initView();
+    }
+
+    List<String> dataset1;
+
+    private void initView() {
+        dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline));
+        List<String> dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_color));
+        List<String> dataset3 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_color));
+        viewDelegate.viewHolder.lin_time.attachDataSource(dataset1);
+        viewDelegate.viewHolder.lin_indicators.attachDataSource(dataset2);
+        viewDelegate.viewHolder.lin_color.attachDataSource(dataset3);
+        timeData = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline_value));
+        viewDelegate.viewHolder.lin_time.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //时间 改变
+                String s = dataset1.get(i);
+                klineValue = timeData.get(dataset1.indexOf(s));
+                isChange = true;
+                timeIndex = 0;
+                request("");
+            }
+        });
     }
 
     private void initCache() {
-        //预先请求左右两边 交易所下数据
-
         //缓存数据
         String lastTime;
-        String string = CacheUtils.getInstance().getString(CACHE_KLINE);
+        String string = CacheUtils.getInstance().getString(CACHE_KLINE + exchangeData.getOnlyKey());
         if (TextUtils.isEmpty(string)) {
             lastTime = "";
             lineBeans = new ArrayList<>();
@@ -104,44 +125,11 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         request(lastTime);
     }
 
-
     private void request(String lastTime) {
         if (exchangeData != null) {
             if (!TextUtils.isEmpty(exchangeData.getOnlyKey())) {
-                addRequest(binder.getKlineByOnlyKey(exchangeData.getOnlyKey(), lastTime, this));
+                addRequest(binder.getKlineByOnlyKey(exchangeData.getOnlyKey(), klineValue, lastTime, this));
             }
-        }
-    }
-
-    private void getOffLineData() {
-           /*方便测试，加入假数据*/
-        mData = new DataParse();
-        JSONObject object = null;
-        try {
-            object = new JSONObject(ConstantTest.KLINEURL);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        mData.parseKLine(object);
-        if (klineDraw == null) {
-            klineDraw = new KlineDraw();
-            klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
-        } else {
-        }
-    }
-
-    private void getOffLineData(List<KLineBean> lineBeans) {
-        if (mData == null) {
-            mData = new DataParse();
-        }
-        if (lineBeans.size() > 0) {
-            mData.parseKLine(lineBeans);
-        }
-        if (klineDraw == null) {
-            klineDraw = new KlineDraw();
-            klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
-        } else {
-            klineDraw.updata(lineBeans);
         }
     }
 
@@ -156,22 +144,42 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         switch (requestCode) {
             case 0x123:
                 List<KLineBean> datas = GsonUtil.getInstance().toList(data, KLineBean.class);
-                if (lineBeans.size() > 0) {
-                    Iterator<KLineBean> it = datas.iterator();
-                    while (it.hasNext()) {
-                        KLineBean x = it.next();
-                        if (x.timestamp <= lineBeans.get(lineBeans.size() - 1).timestamp) {
-                            it.remove();
-                        }
-                    }
+                if (isChange) {
+                    //重新加载 k线
+                    getOffLineData(datas);
+                } else {
+                    //更新k线信息
+                    updataKline(datas);
                 }
-                getOffLineData(datas);
                 lineBeans = mData.getKLineDatas();
                 if (timeIndex == -1) {
                     handler.sendEmptyMessageDelayed(1, 1000);
                 }
+                isChange = false;
                 break;
         }
+    }
+
+    private void getOffLineData(List<KLineBean> lineBeans) {
+        mData = new DataParse();
+        if (lineBeans.size() > 0) {
+            mData.parseKLine(lineBeans);
+        }
+        klineDraw = new KlineDraw();
+        klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
+    }
+
+    private void updataKline(List<KLineBean> lineBeans) {
+        if (lineBeans.size() > 0) {
+            Iterator<KLineBean> it = lineBeans.iterator();
+            while (it.hasNext()) {
+                KLineBean x = it.next();
+                if (x.timestamp <= lineBeans.get(lineBeans.size() - 1).timestamp) {
+                    it.remove();
+                }
+            }
+        }
+        klineDraw.updata(lineBeans);
     }
 
     public static void startAct(Activity activity,
@@ -181,10 +189,16 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         activity.startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacksAndMessages(null);
+        super.onDestroy();
+    }
 
     private void getIntentData() {
         Intent intent = getIntent();
         exchangeData = intent.getParcelableExtra("exchangeData");
-        viewDelegate.viewHolder.tv_title.setText(exchangeData.getExchange());
+        viewDelegate.initData(exchangeData);
+
     }
 }

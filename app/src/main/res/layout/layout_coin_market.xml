@@ -26,29 +26,43 @@
             android:textSize="@dimen/text_trans_48px"
             app:TypeFace="SemiBold"/>
 
-        <com.fivefivelike.mybaselibrary.view.FontTextview
-            android:id="@+id/tv_coin_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingBottom="@dimen/trans_10px"
-            android:paddingTop="@dimen/trans_10px"
-            android:text="全网 以太币"
-            android:textColor="@color/color_font2"
-            android:textSize="@dimen/text_trans_24px"
-            app:TypeFace="Medium"/>
+            android:layout_marginTop="@dimen/trans_10px"
+            android:orientation="horizontal">
 
-        <com.fivefivelike.mybaselibrary.view.FontTextview
-            android:id="@+id/tv_coin_market_value"
+            <TextView
+                android:id="@+id/tv_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="高 88888.88"
+                android:textColor="@color/color_cccccc"
+                android:textSize="@dimen/text_trans_20px"/>
+
+            <TextView
+                android:id="@+id/tv_low"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/trans_45px"
+                android:gravity="center"
+                android:text="高 88888.88"
+                android:textColor="@color/color_cccccc"
+                android:textSize="@dimen/text_trans_20px"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_vol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/trans_10px"
             android:gravity="center"
-            android:paddingBottom="@dimen/trans_10px"
-            android:paddingTop="@dimen/trans_10px"
-            android:text="市值$58,497,247,500"
-            android:textColor="@color/color_font2"
-            android:textSize="@dimen/text_trans_24px"
-            app:TypeFace="Medium"/>
+            android:text="高 88888.88"
+            android:textColor="@color/color_cccccc"
+            android:textSize="@dimen/text_trans_20px"/>
 
     </LinearLayout>
 

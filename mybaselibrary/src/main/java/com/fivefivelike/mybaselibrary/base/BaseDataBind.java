@@ -127,10 +127,6 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
             } else {
                 serviceDataCallback.onDataError(data, info, status, requestCode);
             }
-            //            String dialog = GsonUtil.getInstance().getValue(jsonData, ResultDialog.DIALOG_KEY, String.class);
-            //            if (TextUtils.isEmpty(dialog) && status != 0) {
-            //                ToastUtil.show(info);
-            //            }
             if (!TextUtils.isEmpty(info)) {
                 ResultDialogEntity resultDialogEntity = ResultDialog.getInstence().ShowResultDialog(activity, info, defaultClickLinsener);
             }
@@ -148,7 +144,7 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
 
     protected Map<String, Object> getBaseMapWithUid() {
         getBaseMap();
-        baseMap.put("uid", SaveUtil.getInstance().getString("uid"));
+        //baseMap.put("uid", SaveUtil.getInstance().getString("uid"));
         baseMap.put("token", SaveUtil.getInstance().getString("token"));
         String language = SaveUtil.getInstance().getString("language");
         if (TextUtils.isEmpty(language)) {

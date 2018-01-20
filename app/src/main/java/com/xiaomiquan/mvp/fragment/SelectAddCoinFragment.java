@@ -7,20 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
-import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.AddCoinAdapter;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SelectAddCoinFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
     String type;
     AddCoinAdapter addCoinAdapter;
+    List<String> datas;
 
     @Override
     protected void bindEvenListener() {
@@ -29,7 +28,7 @@ public class SelectAddCoinFragment extends BasePullFragment<BaseFragentPullDeleg
     }
 
     private void initList() {
-        List<String> datas = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_market));
+        datas = new ArrayList<>();
         addCoinAdapter = new AddCoinAdapter(getActivity(), datas);
         addCoinAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
@@ -42,8 +41,9 @@ public class SelectAddCoinFragment extends BasePullFragment<BaseFragentPullDeleg
                 return false;
             }
         });
-        viewDelegate.setIsLoadMore(false);
         initRecycleViewPull(addCoinAdapter, new LinearLayoutManager(getActivity()));
+        viewDelegate.setIsLoadMore(false);
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
     }
 
 
@@ -56,7 +56,7 @@ public class SelectAddCoinFragment extends BasePullFragment<BaseFragentPullDeleg
 
     @Override
     protected void refreshData() {
-
+        addRequest(binder.show(type, this));
     }
 
     public static SelectAddCoinFragment newInstance(

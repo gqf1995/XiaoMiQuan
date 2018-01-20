@@ -51,7 +51,6 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
     }
 
-
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         super.onServiceError(data, info, status, requestCode);

@@ -6,7 +6,6 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public abstract class TickerWebsocket extends WebSocketClient {
@@ -20,8 +19,8 @@ public abstract class TickerWebsocket extends WebSocketClient {
     @Override
     public void onOpen(ServerHandshake handshakedata) {
         Log.i("TickerWebsocket","open websocket...");
-        scheduler = Executors.newSingleThreadScheduledExecutor();
-        onSchedule(scheduler);
+       // scheduler = Executors.newSingleThreadScheduledExecutor();
+        //onSchedule(scheduler);
         onSubscribe();
     }
 

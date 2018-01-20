@@ -691,6 +691,7 @@ public class UiHeplUtils {
         String str = String.format("%0" + digits + "d", num);
         return str;
     }
+
     public static String getPrintSize(long size) {
         //如果字节数少于1024，则直接以B为单位，否则先除于1024，后3位因太少无意义
         if (size < 1024) {

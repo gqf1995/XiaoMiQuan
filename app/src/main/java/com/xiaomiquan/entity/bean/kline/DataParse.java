@@ -171,9 +171,7 @@ public class DataParse {
 
     public void parseKLine(List<KLineBean> kLineBeans) {
         if (kLineBeans.size() > 0) {
-            if (mKLineBeans == null) {
-                mKLineBeans = new ArrayList<>();
-            }
+            mKLineBeans = new ArrayList<>();
             if (kLineBeans != null) {
                 int count = kLineBeans.size();
                 for (int i = 0; i < count; i++) {

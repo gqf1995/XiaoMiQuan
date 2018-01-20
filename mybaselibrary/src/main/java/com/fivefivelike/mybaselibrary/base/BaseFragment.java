@@ -89,6 +89,7 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
 
     protected void clickRightTv() {
     }
+
     private boolean isFragmentVisible;
     private boolean isReuseView;
     private boolean isFirstVisible;
@@ -180,7 +181,7 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
     /**
      * 去除setUserVisibleHint()多余的回调场景，保证只有当fragment可见状态发生变化时才回调
      * 回调时机在view创建完后，所以支持ui操作，解决在setUserVisibleHint()里进行ui操作有可能报null异常的问题
-     *
+     * <p>
      * 可在该回调方法里进行一些ui显示与隐藏，比如加载框的显示和隐藏
      *
      * @param isVisible true  不可见 -> 可见

@@ -52,6 +52,14 @@ public class GainsTabView extends SkinCompatRelativeLayout {
         init(context);
     }
 
+    public void setText(String txt) {
+        tv_tab_title.setText(txt);
+    }
+    public void setTextColor(int color) {
+        tv_tab_title.setTextColor(color);
+    }
+
+
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.layout_gains, this);
         tv_tab_title = findViewById(R.id.tv_tab_title);
