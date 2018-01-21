@@ -54,7 +54,16 @@ public class UserTopic {
     private boolean showImage;
     private Object imageList;
     private boolean userPraise;
-    private List<?> commentList;
+
+    public String getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(String commentList) {
+        this.commentList = commentList;
+    }
+
+    private String commentList;
 
     public int getId() {
         return id;
@@ -224,11 +233,5 @@ public class UserTopic {
         this.userPraise = userPraise;
     }
 
-    public List<?> getCommentList() {
-        return commentList;
-    }
 
-    public void setCommentList(List<?> commentList) {
-        this.commentList = commentList;
-    }
 }

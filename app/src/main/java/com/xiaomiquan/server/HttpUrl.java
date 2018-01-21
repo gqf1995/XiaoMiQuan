@@ -221,5 +221,14 @@ public class HttpUrl {
      */
     public String saveUsertopic =httpBaseUrl4 + "/usertopic/save";
 
+    /**
+     * 发表评论
+     */
+    public String saveComment =httpBaseUrl4 + "/comment/save";
+
+    /**
+     * 点赞
+     */
+    public String savePraise =httpBaseUrl4 + "/praise/save";
 
 }

@@ -6,9 +6,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.CircleContentAdapter;
@@ -21,8 +25,10 @@ import com.xiaomiquan.mvp.delegate.CircleContentDelegate;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CircleContentActivity extends BasePullActivity<CircleContentDelegate, CircleContentBinder> {
@@ -43,21 +49,20 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
     }
 
 
-
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        Intent intent=getIntent();
-        userCircle= (UserCircle) intent.getSerializableExtra("userCircle");
+        Intent intent = getIntent();
+        userCircle = (UserCircle) intent.getSerializableExtra("userCircle");
         initToolbar(new ToolbarBuilder().setTitle("币圈神探").setSubTitle("发帖"));
-        addRequest(binder.getCicleContent(userCircle.getId(),1,this));
+        addRequest(binder.getCicleContent(1, 1, this));
     }
 
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
         Intent intent = new Intent();
-        intent.putExtra("groupId",userCircle.getId());
+        intent.putExtra("groupId", userCircle.getId());
         gotoActivity(UserTopicActivity.class).setIntent(intent).startAct();
     }
 
@@ -69,10 +74,14 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
 //                viewDelegate.viewHolder.lin_root.setVisibility(View.VISIBLE);
                 String groupOwner1 = GsonUtil.getInstance().getValue(data, "groupOwner");
-                if (groupOwner1 != null){
-                GroupOwner groupOwner=GsonUtil.getInstance().toObj(groupOwner1,GroupOwner.class);}
-                userTopicList = GsonUtil.getInstance().toList(data,"list",UserTopic.class);
+                if (groupOwner1 != null) {
+                    GroupOwner groupOwner = GsonUtil.getInstance().toObj(groupOwner1, GroupOwner.class);
+                }
+                userTopicList = GsonUtil.getInstance().toList(data, "list", UserTopic.class);
                 initUserTopic(userTopicList);
+                break;
+            case 0x124:
+
                 break;
         }
     }
@@ -82,20 +91,41 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
         circleContentAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                gotoActivity(CreatCircleActivity.class).startActResult(1);
 
             }
+
             @Override
             public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
                 return false;
             }
         });
+
+        circleContentAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, int position, Object item) {
+                if (view.getId() == R.id.pinglun) {
+                    pinglunPosition = position;
+                    CircleDialogHelper.initDefaultInputDialog(CircleContentActivity.this, "评论", "请输入评论", "发布", new OnInputClickListener() {
+                        @Override
+                        public void onClick(String text, View v) {
+                            ToastUtil.show(text);
+
+                            addRequest(binder.saveComment(userCircle.getId(),3,text,CircleContentActivity.this));
+
+                        }
+                    }).show();
+                }
+            }
+        });
         headerAndFooterWrapper = new HeaderAndFooterWrapper(circleContentAdapter);
         headerAndFooterWrapper.addHeaderView(initTopView());
 //        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
-        initRecycleViewPull(headerAndFooterWrapper, headerAndFooterWrapper.getHeadersCount(),new LinearLayoutManager(CircleContentActivity.this));
+        initRecycleViewPull(headerAndFooterWrapper, headerAndFooterWrapper.getHeadersCount(), new LinearLayoutManager(CircleContentActivity.this));
         viewDelegate.setIsLoadMore(false);
     }
 
+    int pinglunPosition = 0;
     public CircleImageView dvp_head;
     public FontTextview dvp_name;
     public FontTextview dvp_creater;
@@ -104,14 +134,14 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
     private View initTopView() {
         View rootView = CircleContentActivity.this.getLayoutInflater().inflate(R.layout.layout_circle_con_top, null);
         rootView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        this.dvp_head=(CircleImageView)rootView.findViewById(R.id.dvp_head);
-        this.dvp_name=(FontTextview)rootView.findViewById(R.id.dvp_name);
-        this.dvp_creater=(FontTextview)rootView.findViewById(R.id.dvp_creater);
-        this.dvp_num=(FontTextview)rootView.findViewById(R.id.dvp_num);
+        this.dvp_head = (CircleImageView) rootView.findViewById(R.id.dvp_head);
+        this.dvp_name = (FontTextview) rootView.findViewById(R.id.dvp_name);
+        this.dvp_creater = (FontTextview) rootView.findViewById(R.id.dvp_creater);
+        this.dvp_num = (FontTextview) rootView.findViewById(R.id.dvp_num);
 
-        dvp_name.setText(userCircle.getName()+"");
-        dvp_creater.setText("User"+userCircle.getUserId());
-        dvp_num.setText(userCircle.getBrief()+"");
+        dvp_name.setText(userCircle.getName() + "");
+        dvp_creater.setText("User" + userCircle.getUserId());
+        dvp_num.setText(userCircle.getBrief() + "");
 
         return rootView;
     }
@@ -120,4 +150,6 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
     protected void refreshData() {
 
     }
+
+
 }
