@@ -52,16 +52,17 @@ public class CircleDvpBinder extends BaseDataBind<CircleDvpDelegate> {
                 .RxSendRequest();
     }
 
-    public Disposable joinCircle() {
+    public Disposable joinCircle(int groupId) {
         getBaseMapWithUid();
+        baseMap.put("groupId",groupId);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().joinCircle)
-                .setShowDialog(false)
+                .setShowDialog(true)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("加入圈子")
                 .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)
                 .setRequestCallback(null)
                 .build()

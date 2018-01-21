@@ -33,7 +33,6 @@ public class CreatCircleDelegate extends BaseDelegate {
     public void init() {
         viewHolder.circle_crate_commit.setOnClickListener(onClickListener);
         initCrate();
-
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {

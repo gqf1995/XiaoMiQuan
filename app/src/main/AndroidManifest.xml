@@ -71,6 +71,8 @@
         </activity>
         <activity android:name=".mvp.activity.circle.CreatCircleActivity" />
         <activity android:name=".mvp.activity.circle.CircleContentActivity" />
+        <activity android:name=".mvp.activity.circle.GetFriendsJoinActivity" />
+        <activity android:name=".mvp.activity.circle.UserTopicActivity" />
     </application>
 
 </manifest>

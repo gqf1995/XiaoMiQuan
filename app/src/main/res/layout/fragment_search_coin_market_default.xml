@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                                            xmlns:tools="http://schemas.android.com/tools"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <LinearLayout
@@ -33,7 +32,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/str_search_history"
                     android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_28px"/>
+                    android:textSize="@dimen/text_trans_28px" />
 
                 <TextView
                     android:id="@+id/tv_clean_history"
@@ -44,7 +43,7 @@
                     android:paddingRight="@dimen/trans_40px"
                     android:text="@string/str_clean"
                     android:textColor="@drawable/color_select_blue"
-                    android:textSize="@dimen/text_trans_28px"/>
+                    android:textSize="@dimen/text_trans_28px" />
 
             </LinearLayout>
 
@@ -54,8 +53,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 app:max_select="-1"
-                app:tag_gravity="left">
-            </com.zhy.view.flowlayout.TagFlowLayout>
+                app:tag_gravity="left"></com.zhy.view.flowlayout.TagFlowLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -73,14 +71,14 @@
                 android:gravity="center_vertical"
                 android:text="@string/str_hot_coin"
                 android:textColor="@color/color_font3"
-                android:textSize="@dimen/text_trans_28px"/>
+                android:textSize="@dimen/text_trans_28px" />
 
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 

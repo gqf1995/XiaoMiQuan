@@ -43,50 +43,48 @@
                 android:textColor="@color/color_8290AF"
                 android:textSize="15sp" />
 
+            <com.fivefivelike.mybaselibrary.view.FontTextview
+                android:id="@+id/con_con"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="hahhaha"
+                android:textColor="@color/color_font1"
+                android:textSize="@dimen/album_sp_20" />
+
+            <!-- 地址、时间 、删除 、点赞、 评论 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
-                <com.fivefivelike.mybaselibrary.view.FontTextview
-                    android:id="@+id/timeTv"
+                <TextView
+                    android:id="@+id/adresTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="@string/ic_Box"
+                    android:text="洛阳"
+                    android:textColor="@color/color_cccccc"
                     android:textSize="12sp" />
 
-                <com.fivefivelike.mybaselibrary.view.FontTextview
-                    android:id="@+id/deleteBtn"
+                <View
+                    android:layout_width="0dip"
+                    android:layout_height="1dip"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/snsBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
-                    android:text="删除"
-                    android:textColor="@color/color_8290AF"
-                    android:textSize="12sp" />
-
-                <com.fivefivelike.mybaselibrary.view.FontTextview
-                    android:id="@+id/share"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
-                    android:text="删除"
-                    android:textColor="@color/color_8290AF"
-                    android:textSize="12sp" />
-
-
+                    android:src="@drawable/im_snsimg" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/digCommentBody"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/color_blue"
+                android:background="@color/color_8c8c8c"
                 android:minHeight="10dip"
                 android:orientation="vertical"
                 android:paddingBottom="8dip"
@@ -123,13 +121,6 @@
 
         </LinearLayout>
 
-        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/ic_Next"
-            android:textColor="@color/color_font3"
-            android:textSize="@dimen/text_trans_30px" />
     </LinearLayout>
 
 

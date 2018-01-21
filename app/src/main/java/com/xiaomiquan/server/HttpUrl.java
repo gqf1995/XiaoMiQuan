@@ -210,5 +210,15 @@ public class HttpUrl {
      */
     public String getSomeBodyIn=getBaseUrl()+groupMemberUrl+"/getSomeBodyIn";
 
+    /**
+     * 获得帖子
+     */
+    public String getUsertopic=getBaseUrl()+"/usertopic/list/group/usertopic";
+
+    /**
+     * 发帖子
+     */
+    public String saveUsertopic=getBaseUrl()+"/usertopic/save";
+
 
 }

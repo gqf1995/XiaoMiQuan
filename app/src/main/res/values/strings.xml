@@ -277,6 +277,7 @@
         <item>动态</item>
         <item>圈子</item>
     </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
 
     <string-array name="sa_select_color">
         <item>默认</item>
