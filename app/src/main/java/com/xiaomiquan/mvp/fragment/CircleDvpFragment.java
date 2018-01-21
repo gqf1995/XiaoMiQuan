@@ -13,8 +13,8 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.CircleAllDvpAdapter;
 import com.xiaomiquan.adapter.CircleCreatAdapter;
+import com.xiaomiquan.entity.bean.circle.CircleContent;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
-import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.circle.CircleContentActivity;
 import com.xiaomiquan.mvp.activity.circle.CreatCircleActivity;
 import com.xiaomiquan.mvp.activity.market.CoinIndexActivity;
@@ -41,6 +41,7 @@ public class CircleDvpFragment extends BaseDataBindFragment<CircleDvpDelegate, C
         super.bindEvenListener();
         addRequest(binder.getCircleMy(1,10,this));
         addRequest(binder.getMyCircleInfo(1,10,this));
+//        initBarClick();
         initRefush();
     }
 
@@ -104,7 +105,7 @@ public class CircleDvpFragment extends BaseDataBindFragment<CircleDvpDelegate, C
             viewDelegate.viewHolder.circledvp_card.setAdapter(circleCreatAdapter);
     }
 
-    private void initVolume(List<UserCircle> userCircles) {
+    private void initVolume(final List<UserCircle> userCircles) {
         circleAllDvpAdapter = new CircleAllDvpAdapter(getActivity(), userCircles);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
             @Override
@@ -114,13 +115,12 @@ public class CircleDvpFragment extends BaseDataBindFragment<CircleDvpDelegate, C
         };
         circleAllDvpAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
                 CircleDialogHelper.initDefaultDialog(getActivity(),"确定加入吗？", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        SingSettingDBUtil.logout();
                         //加入圈子
-                        addRequest(binder.joinCircle());
+                        addRequest(binder.joinCircle(userCircles.get(position).getId()));
                     }
                 }).show();
             }
@@ -158,6 +158,17 @@ public class CircleDvpFragment extends BaseDataBindFragment<CircleDvpDelegate, C
     public CircleDvpBinder getDataBinder(CircleDvpDelegate viewDelegate) {
         return new CircleDvpBinder(viewDelegate);
     }
+
+//    private void initBarClick() {
+//        viewDelegate.getmToolbarBackLin().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //搜索
+//                gotoActivity(SearchFriendsActivity.class).startAct();
+//            }
+//        });
+//    }
+
 
 
 }

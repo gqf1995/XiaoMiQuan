@@ -16,22 +16,25 @@ public class CircleContentBinder extends BaseDataBind<CircleContentDelegate> {
     public CircleContentBinder(CircleContentDelegate viewDelegate) {
         super(viewDelegate);
     }
+
     /**
      * 获取圈子详情信息
      */
-    public Disposable getC(
-            String exchangeName,
+    public Disposable getCicleContent(
+            int userGroupId,
+            int page,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("exchangeName", exchangeName);
+        baseMap.put("userGroupId", userGroupId);
+        baseMap.put("page", page);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().getAllMarketByExchange)
+                .setRequestUrl(HttpUrl.getIntance().getUsertopic)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("获取圈子详情信息")
-                .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestName("获取帖子")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
                 .build()
@@ -39,24 +42,4 @@ public class CircleContentBinder extends BaseDataBind<CircleContentDelegate> {
 
     }
 
-
-    /**
-     * 市值
-     */
-    public Disposable getAllMarketCaps(
-            RequestCallback requestCallback) {
-        getBaseMapWithUid();
-        return new HttpRequest.Builder()
-                .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().getAllMarketCaps)
-                .setShowDialog(false)
-                .setRequestName("获得所有市值信息 未做排序")
-                .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.Json)
-                .setRequestObj(baseMap)
-                .setRequestCallback(requestCallback)
-                .build()
-                .RxSendRequest();
-
-    }
 }

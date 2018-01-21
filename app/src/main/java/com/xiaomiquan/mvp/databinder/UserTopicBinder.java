@@ -2,39 +2,33 @@ package com.xiaomiquan.mvp.databinder;
 
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.http.RequestCallback;
-import com.xiaomiquan.mvp.delegate.CreatCircleDelegate;
+import com.xiaomiquan.mvp.delegate.UserTopicDelegate;
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.xiaomiquan.server.HttpUrl;
 
 import io.reactivex.disposables.Disposable;
 
-/**
- * Creat for Andy
- */
+public class UserTopicBinder extends BaseDataBind<UserTopicDelegate> {
 
-public class CreatCircleBinder extends BaseDataBind<CreatCircleDelegate> {
-
-    public CreatCircleBinder(CreatCircleDelegate viewDelegate) {
+    public UserTopicBinder(UserTopicDelegate viewDelegate) {
         super(viewDelegate);
     }
 
-    public Disposable creatCircle(
-            String name,
-            String brief,
+    public Disposable savetopic(
+            int groupId,
+            String content,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("circlename", name);
-        baseMap.put("circlebrief","");
-        baseMap.put("circlebrief","hah");
-        baseMap.put("circlebrief",brief);
+        baseMap.put("groupId", groupId);
+        baseMap.put("content",content);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().creatCircle)
+                .setRequestUrl(HttpUrl.getIntance().saveUsertopic)
                 .setShowDialog(true)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("创建圈子")
+                .setRequestName("发帖子")
                 .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setParameterMode(HttpRequest.ParameterMode.Rest)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
                 .build()
