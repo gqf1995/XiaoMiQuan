@@ -60,63 +60,61 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/adresTv"
+                    android:id="@+id/zan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="洛阳"
+                    android:text="赞"
                     android:textColor="@color/color_cccccc"
                     android:textSize="12sp" />
 
-                <View
-                    android:layout_width="0dip"
-                    android:layout_height="1dip"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:id="@+id/snsBtn"
+                <TextView
+                    android:id="@+id/zan_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/im_snsimg" />
+                    android:singleLine="true"
+                    android:textColor="@color/color_cccccc"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/pinglun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/album_dp_10"
+                    android:singleLine="true"
+                    android:text="评论"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:textColor="@color/color_cccccc"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/pinglun_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="(10)"
+                    android:textColor="@color/color_blue"
+                    android:textSize="12sp" />
+
+
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/digCommentBody"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/color_8c8c8c"
-                android:minHeight="10dip"
+                android:minHeight="5dip"
                 android:orientation="vertical"
-                android:paddingBottom="8dip"
                 android:paddingLeft="12dip"
                 android:paddingRight="12dip"
-                android:paddingTop="12dip">
-
-                <com.xiaomiquan.widget.circle.PraiseListView
-                    android:id="@+id/praiseListView"
+                >
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/topic_commend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:lineSpacingMultiplier="1.1"
-                    android:textColor="@color/praise_item"
-                    android:textSize="14sp"
-                    app:item_color="@color/praise_item" />
-
-                <View
-                    android:id="@+id/lin_dig"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:layout_marginBottom="5dip"
-                    android:layout_marginTop="5dip"
-                    android:background="@color/color_light_white" />
-
-                <com.xiaomiquan.widget.circle.CommentListView
-                    android:id="@+id/commentList"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical"
-                    app:item_color="@color/praise_item" />
-
+                    android:layout_marginTop="@dimen/album_sp_16"
+                    android:scrollbars="none" />
             </LinearLayout>
 
         </LinearLayout>
