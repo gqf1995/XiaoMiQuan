@@ -1,8 +1,8 @@
 package com.xiaomiquan.adapter;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.TextView;
+
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.Commend;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -25,11 +25,11 @@ public class CommendAdapter extends CommonAdapter<Commend> {
 
     @Override
     protected void convert(ViewHolder holder, Commend commend, int position) {
-        name=holder.getView(R.id.name);
-        con=holder.getView(R.id.con);
-        name.setText(commend.getNickName()+":");
+        name = holder.getView(R.id.name);
+        con = holder.getView(R.id.con);
+
+        name.setText(commend.getNickName() + ":");
         con.setText(commend.getContent());
     }
-
 
 }

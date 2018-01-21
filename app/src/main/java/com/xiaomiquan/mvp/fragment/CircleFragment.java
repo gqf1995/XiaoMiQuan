@@ -1,7 +1,6 @@
 package com.xiaomiquan.mvp.fragment;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
@@ -40,10 +39,10 @@ public class CircleFragment extends BaseDataBindFragment<CircleDelegate, CircleB
         initBarClick();
         mTitles = CommonUtils.getStringArray(R.array.sa_select_circle);
         fragments = new ArrayList<>();
-        fragments.add(new MarketFragment());
+        fragments.add(new SquareFragment());
         fragments.add(new CircleDvpFragment());
         viewDelegate.viewHolder.tl_2.setViewPager(viewDelegate.viewHolder.viewpager,
-                mTitles, (FragmentActivity) viewDelegate.viewHolder.rootView.getContext(), fragments);
+                mTitles, getActivity(), fragments);
 
     }
 

@@ -38,9 +38,9 @@ public class CircleDvpBinder extends BaseDataBind<CircleDvpDelegate> {
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("pageNum", 1);
-        baseMap.put("pageSize",10);
+        baseMap.put("pageSize", 10);
         return new HttpRequest.Builder()
-                .setRequestCode(0x123)
+                .setRequestCode(0x124)
                 .setRequestUrl(HttpUrl.getIntance().getMoreCircle)
                 .setShowDialog(true)
                 .setRequestName("获取已加入圈子信息")
@@ -52,11 +52,12 @@ public class CircleDvpBinder extends BaseDataBind<CircleDvpDelegate> {
                 .RxSendRequest();
     }
 
-    public Disposable joinCircle(int groupId) {
+    public Disposable joinCircle(String groupId,
+                                 RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("groupId",groupId);
+        baseMap.put("groupId", groupId);
         return new HttpRequest.Builder()
-                .setRequestCode(0x123)
+                .setRequestCode(0x125)
                 .setRequestUrl(HttpUrl.getIntance().joinCircle)
                 .setShowDialog(true)
                 .setDialog(viewDelegate.getNetConnectDialog())
@@ -64,7 +65,7 @@ public class CircleDvpBinder extends BaseDataBind<CircleDvpDelegate> {
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)
-                .setRequestCallback(null)
+                .setRequestCallback(requestCallback)
                 .build()
                 .RxSendRequest();
 

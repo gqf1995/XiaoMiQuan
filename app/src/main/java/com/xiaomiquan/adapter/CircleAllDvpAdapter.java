@@ -5,6 +5,7 @@ import android.content.Context;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
+import com.xiaomiquan.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -17,8 +18,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class CircleAllDvpAdapter extends CommonAdapter<UserCircle> {
-    CircleImageView dvp_head;
-    FontTextview dvp_name;
+
+    private CircleImageView dvp_head;
+    private FontTextview dvp_name;
+    private FontTextview dvp_creater;
 
 
     public CircleAllDvpAdapter(Context context, List<UserCircle> datas) {
@@ -27,8 +30,14 @@ public class CircleAllDvpAdapter extends CommonAdapter<UserCircle> {
 
     @Override
     protected void convert(ViewHolder holder, UserCircle userCircle, int position) {
-//        dvp_head=holder.getView(R.id.dvp_head);
-//        dvp_name=holder.getView(R.id.dvp);
+        dvp_head = holder.getView(R.id.dvp_head);
+        dvp_name = holder.getView(R.id.dvp_name);
+        dvp_creater = holder.getView(R.id.dvp_creater);
+
+        dvp_creater.setText(userCircle.getNickName());
+        dvp_name.setText(userCircle.getName());
+
+        GlideUtils.loadImage(userCircle.getAvatar(), dvp_head);
 
     }
 }

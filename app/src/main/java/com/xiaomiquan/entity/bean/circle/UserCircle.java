@@ -23,24 +23,24 @@ public class UserCircle implements Serializable {
      * memberCount : 3
      */
 
-    private int id;
+    private String id;
     private String groupNum;
-    private int userId;
+    private String userId;
     private String name;
     private String avatar;
     private String type;
     private String brief;
-    private int status;
-    private long createTime;
-    private Object updateTime;
-    private Object nickName;
-    private int memberCount;
+    private String status;
+    private String createTime;
+    private String updateTime;
+    private String nickName;
+    private String memberCount;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -52,11 +52,11 @@ public class UserCircle implements Serializable {
         this.groupNum = groupNum;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -92,43 +92,43 @@ public class UserCircle implements Serializable {
         this.brief = brief;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public long getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Object getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Object updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 
-    public Object getNickName() {
+    public String getNickName() {
         return nickName;
     }
 
-    public void setNickName(Object nickName) {
+    public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 
-    public int getMemberCount() {
+    public String getMemberCount() {
         return memberCount;
     }
 
-    public void setMemberCount(int memberCount) {
+    public void setMemberCount(String memberCount) {
         this.memberCount = memberCount;
     }
 }

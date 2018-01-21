@@ -93,7 +93,6 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().marketdata)
                 .setShowDialog(false)
-                .setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE)
                 .setRequestName("订阅数据展示")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
@@ -103,4 +102,25 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .RxSendRequest();
     }
 
+    /**
+     * 文章
+     */
+    public Disposable listArticleByPage(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("platform", "1");
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().listArticleByPage)
+                .setShowDialog(false)
+                .setRequestName("订阅数据展示")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 }

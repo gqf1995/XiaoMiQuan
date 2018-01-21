@@ -284,6 +284,10 @@ public class HttpRequest {
             setRestUrl();
         }
 
+        if (mRequest.getRequestMethod() == RequestMethod.POST) {
+            mRequest.setMultipartFormEnable(true);
+        }
+
         //        if (map.containsKey("uid")) {
         //            if (mParameterMode != ParameterMode.Rest) {
         //                mRequest.addHeader("uid", map.get("uid").toString());

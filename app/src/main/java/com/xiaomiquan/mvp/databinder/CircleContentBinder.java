@@ -1,17 +1,10 @@
 package com.xiaomiquan.mvp.databinder;
 
-import android.support.annotation.NonNull;
-
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.http.RequestCallback;
 import com.xiaomiquan.mvp.delegate.CircleContentDelegate;
 import com.xiaomiquan.server.HttpUrl;
-
-import java.io.File;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
 import io.reactivex.disposables.Disposable;
 
@@ -28,8 +21,8 @@ public class CircleContentBinder extends BaseDataBind<CircleContentDelegate> {
      * 获取圈子详情信息
      */
     public Disposable getCicleContent(
-            int userGroupId,
-            int page,
+            String userGroupId,
+            String page,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("userGroupId", userGroupId);
@@ -48,21 +41,22 @@ public class CircleContentBinder extends BaseDataBind<CircleContentDelegate> {
                 .RxSendRequest();
 
     }
+
     /**
      * 评论
      */
     public Disposable saveComment(
-            int linkId,
-            int linkType,
+            String linkId,
+            String linkType,
             String content,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("linkId", linkId);
         baseMap.put("linkType", linkType);
-        baseMap.put("content",content);
+        baseMap.put("content", content);
 
         return new HttpRequest.Builder()
-                .setRequestCode(0x123)
+                .setRequestCode(0x124)
                 .setRequestUrl(HttpUrl.getIntance().saveComment)
                 .setShowDialog(true)
                 .setDialog(viewDelegate.getNetConnectDialog())
@@ -76,4 +70,53 @@ public class CircleContentBinder extends BaseDataBind<CircleContentDelegate> {
 
     }
 
+    /**
+     * 发帖
+     */
+    public Disposable saveUsertopic(
+            String groupId,
+            String content,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("groupId", groupId);
+        baseMap.put("content", content);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x125)
+                .setRequestUrl(HttpUrl.getIntance().saveUsertopic)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("发帖")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 点赞
+     */
+    public Disposable savePraise(
+            String linkId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("linkId", linkId);
+        baseMap.put("linkType", "3");
+        baseMap.put("type", "1");
+        return new HttpRequest.Builder()
+                .setRequestCode(0x126)
+                .setRequestUrl(HttpUrl.getIntance().savePraise)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("点赞")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:id="@+id/con_head"
             android:layout_width="@dimen/trans_100px"
             android:layout_height="@dimen/trans_100px"
-            android:src="@color/color_blue" />
+            android:src="@color/color_blue"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
                 android:singleLine="true"
                 android:text="hahhaha"
                 android:textColor="@color/color_blue"
-                android:textSize="@dimen/album_sp_20" />
+                android:textSize="@dimen/album_sp_20"/>
 
             <com.fivefivelike.mybaselibrary.view.FontTextview
                 android:id="@+id/con_time"
@@ -41,7 +41,7 @@
                 android:singleLine="true"
                 android:text="hahhaha"
                 android:textColor="@color/color_8290AF"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
 
             <com.fivefivelike.mybaselibrary.view.FontTextview
                 android:id="@+id/con_con"
@@ -50,7 +50,7 @@
                 android:singleLine="true"
                 android:text="hahhaha"
                 android:textColor="@color/color_font1"
-                android:textSize="@dimen/album_sp_20" />
+                android:textSize="@dimen/album_sp_20"/>
 
             <!-- 地址、时间 、删除 、点赞、 评论 -->
             <LinearLayout
@@ -63,10 +63,16 @@
                     android:id="@+id/zan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/trans_20px"
+                    android:paddingLeft="@dimen/trans_20px"
+                    android:paddingRight="@dimen/trans_20px"
+                    android:paddingTop="@dimen/trans_20px"
                     android:singleLine="true"
                     android:text="赞"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:textColor="@color/color_cccccc"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/zan_num"
@@ -74,19 +80,22 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:textColor="@color/color_cccccc"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/pinglun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/album_dp_10"
-                    android:singleLine="true"
-                    android:text="评论"
                     android:clickable="true"
                     android:focusable="true"
+                    android:paddingBottom="@dimen/trans_20px"
+                    android:paddingLeft="@dimen/trans_20px"
+                    android:paddingRight="@dimen/trans_20px"
+                    android:paddingTop="@dimen/trans_20px"
+                    android:singleLine="true"
+                    android:text="评论"
                     android:textColor="@color/color_cccccc"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/pinglun_num"
@@ -95,26 +104,27 @@
                     android:singleLine="true"
                     android:text="(10)"
                     android:textColor="@color/color_blue"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
 
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/color_8c8c8c"
                 android:minHeight="5dip"
                 android:orientation="vertical"
                 android:paddingLeft="12dip"
                 android:paddingRight="12dip"
                 >
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/topic_commend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/album_sp_16"
-                    android:scrollbars="none" />
+                    android:scrollbars="none"/>
             </LinearLayout>
 
         </LinearLayout>

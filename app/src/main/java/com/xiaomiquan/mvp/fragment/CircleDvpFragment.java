@@ -1,6 +1,5 @@
 package com.xiaomiquan.mvp.fragment;
 
-import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,17 +12,13 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.CircleAllDvpAdapter;
 import com.xiaomiquan.adapter.CircleCreatAdapter;
-import com.xiaomiquan.entity.bean.circle.CircleContent;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
-import com.xiaomiquan.mvp.activity.circle.CircleContentActivity;
-import com.xiaomiquan.mvp.activity.circle.CreatCircleActivity;
 import com.xiaomiquan.mvp.activity.market.CoinIndexActivity;
 import com.xiaomiquan.mvp.databinder.CircleDvpBinder;
 import com.xiaomiquan.mvp.delegate.CircleDvpDelegate;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -39,9 +34,9 @@ public class CircleDvpFragment extends BaseDataBindFragment<CircleDvpDelegate, C
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        addRequest(binder.getCircleMy(1,10,this));
-        addRequest(binder.getMyCircleInfo(1,10,this));
-//        initBarClick();
+        addRequest(binder.getCircleMy(1, 10, this));
+        addRequest(binder.getMyCircleInfo(1, 10, this));
+        //        initBarClick();
         initRefush();
     }
 
@@ -50,7 +45,8 @@ public class CircleDvpFragment extends BaseDataBindFragment<CircleDvpDelegate, C
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                addRequest(binder.getMyCircleInfo(1,10,CircleDvpFragment.this));
+                addRequest(binder.getCircleMy(1, 10, CircleDvpFragment.this));
+                addRequest(binder.getMyCircleInfo(1, 10, CircleDvpFragment.this));
             }
         });
     }
@@ -67,42 +63,41 @@ public class CircleDvpFragment extends BaseDataBindFragment<CircleDvpDelegate, C
     }
 
     private void initCoinIndex(final List<UserCircle> userCircles) {
-            UserCircle userCircle=new UserCircle();
-            userCircle.setBrief("创建圈子");
-            userCircles.add(0,userCircle);
-            circleCreatAdapter = new CircleCreatAdapter(getActivity(),userCircles);
-            final List<UserCircle> finalUserCircles = userCircles;
-            circleCreatAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    if (position!=0) {
-                        Intent intent = new Intent();
-                        intent.putExtra("userCircle", (Serializable) userCircles.get(position));
-                        gotoActivity(CircleContentActivity.class).setIntent(intent).startAct();
-//
-                    }else{
-                        gotoActivity(CreatCircleActivity.class).startAct();
-                    }
+        UserCircle userCircle = new UserCircle();
+        userCircle.setBrief("创建圈子");
+        userCircles.add(0, userCircle);
+        circleCreatAdapter = new CircleCreatAdapter(getActivity(), userCircles);
+        final List<UserCircle> finalUserCircles = userCircles;
+        circleCreatAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+//                if (position != 0) {
+//                    Intent intent = new Intent();
+//                    intent.putExtra("userCircle", (Serializable) userCircles.get(position));
+//                    gotoActivity(CircleContentActivity.class).setIntent(intent).startAct();
+//                    //
+//                } else {
+//                    gotoActivity(CreatCircleActivity.class).startAct();
+//                }
+                //                    }
+            }
 
-//                    }
-                }
-
-                @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                    userCircles.remove(position);
-//                    circleCreatAdapter.notifyItemRemoved(position);
-                    return false;
-                }
-            });
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            };
-            viewDelegate.viewHolder.circledvp_card.setLayoutManager(gridLayoutManager);
-            viewDelegate.viewHolder.circledvp_card.setItemAnimator(new DefaultItemAnimator());
-            viewDelegate.viewHolder.circledvp_card.setAdapter(circleCreatAdapter);
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                //                    userCircles.remove(position);
+                //                    circleCreatAdapter.notifyItemRemoved(position);
+                return false;
+            }
+        });
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        viewDelegate.viewHolder.circledvp_card.setLayoutManager(gridLayoutManager);
+        viewDelegate.viewHolder.circledvp_card.setItemAnimator(new DefaultItemAnimator());
+        viewDelegate.viewHolder.circledvp_card.setAdapter(circleCreatAdapter);
     }
 
     private void initVolume(final List<UserCircle> userCircles) {
@@ -116,11 +111,11 @@ public class CircleDvpFragment extends BaseDataBindFragment<CircleDvpDelegate, C
         circleAllDvpAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                CircleDialogHelper.initDefaultDialog(getActivity(),"确定加入吗？", new View.OnClickListener() {
+                CircleDialogHelper.initDefaultDialog(getActivity(), "确定加入吗？", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //加入圈子
-                        addRequest(binder.joinCircle(userCircles.get(position).getId()));
+                        addRequest(binder.joinCircle(userCircles.get(position).getId() + "", CircleDvpFragment.this));
                     }
                 }).show();
             }
@@ -137,13 +132,19 @@ public class CircleDvpFragment extends BaseDataBindFragment<CircleDvpDelegate, C
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
-                viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
-//                viewDelegate.viewHolder.lin_root.setVisibility(View.VISIBLE);
                 List<UserCircle> userCircles = GsonUtil.getInstance().toList(data, UserCircle.class);
                 initCoinIndex(userCircles);
-                initVolume(userCircles);
+                break;
+            case 0x124:
+                List<UserCircle> datas = GsonUtil.getInstance().toList(data, UserCircle.class);
+                initVolume(datas);
+                break;
+            case 0x125:
+                addRequest(binder.getCircleMy(1, 10, this));
+                addRequest(binder.getMyCircleInfo(1, 10, this));
                 break;
         }
     }
@@ -159,16 +160,15 @@ public class CircleDvpFragment extends BaseDataBindFragment<CircleDvpDelegate, C
         return new CircleDvpBinder(viewDelegate);
     }
 
-//    private void initBarClick() {
-//        viewDelegate.getmToolbarBackLin().setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //搜索
-//                gotoActivity(SearchFriendsActivity.class).startAct();
-//            }
-//        });
-//    }
-
+    //    private void initBarClick() {
+    //        viewDelegate.getmToolbarBackLin().setOnClickListener(new View.OnClickListener() {
+    //            @Override
+    //            public void onClick(View view) {
+    //                //搜索
+    //                gotoActivity(SearchFriendsActivity.class).startAct();
+    //            }
+    //        });
+    //    }
 
 
 }

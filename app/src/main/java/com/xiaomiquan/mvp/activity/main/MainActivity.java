@@ -34,7 +34,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         super.bindEvenListener();
         initFragment();
         uid = DeviceUtils.getAndroidID();
-        initSocket();
+        //initSocket();
         if (!ExchangeRateUtil.getinstance().IsHavaData()) {
             //获取汇率
             addRequest(binder.getAllPriceRate(this));
@@ -42,7 +42,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     }
 
     private void initSocket() {
-        WebSocketRequest.getInstance().intiWebSocket("ws://47.97.169.136:1903/ws/" + uid+"99", this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
+        WebSocketRequest.getInstance().intiWebSocket("ws://47.97.169.136:1903/ws/" + uid + "99", this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
             @Override
             public void onDataSuccess(String name, String data, String info, int status) {
 

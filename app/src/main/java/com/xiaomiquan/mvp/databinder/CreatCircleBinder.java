@@ -23,10 +23,9 @@ public class CreatCircleBinder extends BaseDataBind<CreatCircleDelegate> {
             String brief,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("circlename", name);
-        baseMap.put("circlebrief","");
-        baseMap.put("circlebrief","hah");
-        baseMap.put("circlebrief",brief);
+        baseMap.put("name", name);
+        baseMap.put("brief", brief);
+        baseMap.put("type", "");
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().creatCircle)

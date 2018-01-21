@@ -186,7 +186,7 @@ public class HttpUrl {
     /**
      * 创建圈子
      */
-    public String creatCircle = httpBaseUrl4+ groupUrl + "/saveGroup";
+    public String creatCircle = httpBaseUrl4 + groupUrl + "/saveGroup";
 
 
     /**
@@ -219,16 +219,25 @@ public class HttpUrl {
     /**
      * 发帖子
      */
-    public String saveUsertopic =httpBaseUrl4 + "/usertopic/save";
+    public String saveUsertopic = httpBaseUrl4 + "/usertopic/save";
+
+
+    /**
+     * 文章
+     */
+    String articleUrl = "/article";
+    /**
+     * 文章列表
+     */
+    public String listArticleByPage = httpBaseUrl4 + articleUrl + "/listArticleByPage";
 
     /**
      * 发表评论
      */
-    public String saveComment =httpBaseUrl4 + "/comment/save";
-
+    public String saveComment = httpBaseUrl4 + "/comment/save";
     /**
      * 点赞
      */
-    public String savePraise =httpBaseUrl4 + "/praise/save";
+    public String savePraise = httpBaseUrl4 + "/praise/save";
 
 }

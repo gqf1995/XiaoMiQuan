@@ -33,99 +33,90 @@ public class UserTopic {
      * userPraise : false
      */
 
-    private int id;
-    private int groupId;
-    private int userId;
-    private Object images;
-    private int top;
-    private Object type;
-    private int status;
-    private long createTime;
+    private String id;
+    private String groupId;
+    private String userId;
+    private String images;
+    private String top;
+    private String type;
+    private String status;
+    private String createTime;
     private String createTimeStr;
-    private long updateTime;
+    private String updateTime;
     private String content;
     private String nickName;
     private String avatar;
-    private int praiseQty;
-    private int badEggQty;
-    private int commentQty;
-    private Object groupName;
-    private Object praiseStr;
-    private boolean showImage;
-    private Object imageList;
-    private boolean userPraise;
+    private String praiseQty;
+    private String badEggQty;
+    private String commentQty;
+    private String groupName;
+    private String praiseStr;
+    private String showImage;
+    private String imageList;
+    private String userPraise;
+    private List<Commend> commentList;
 
-    public String getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(String commentList) {
-        this.commentList = commentList;
-    }
-
-    private String commentList;
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Object getImages() {
+    public String getImages() {
         return images;
     }
 
-    public void setImages(Object images) {
+    public void setImages(String images) {
         this.images = images;
     }
 
-    public int getTop() {
+    public String getTop() {
         return top;
     }
 
-    public void setTop(int top) {
+    public void setTop(String top) {
         this.top = top;
     }
 
-    public Object getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Object type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public long getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -137,11 +128,11 @@ public class UserTopic {
         this.createTimeStr = createTimeStr;
     }
 
-    public long getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(long updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -169,69 +160,75 @@ public class UserTopic {
         this.avatar = avatar;
     }
 
-    public int getPraiseQty() {
+    public String getPraiseQty() {
         return praiseQty;
     }
 
-    public void setPraiseQty(int praiseQty) {
+    public void setPraiseQty(String praiseQty) {
         this.praiseQty = praiseQty;
     }
 
-    public int getBadEggQty() {
+    public String getBadEggQty() {
         return badEggQty;
     }
 
-    public void setBadEggQty(int badEggQty) {
+    public void setBadEggQty(String badEggQty) {
         this.badEggQty = badEggQty;
     }
 
-    public int getCommentQty() {
+    public String getCommentQty() {
         return commentQty;
     }
 
-    public void setCommentQty(int commentQty) {
+    public void setCommentQty(String commentQty) {
         this.commentQty = commentQty;
     }
 
-    public Object getGroupName() {
+    public String getGroupName() {
         return groupName;
     }
 
-    public void setGroupName(Object groupName) {
+    public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 
-    public Object getPraiseStr() {
+    public String getPraiseStr() {
         return praiseStr;
     }
 
-    public void setPraiseStr(Object praiseStr) {
+    public void setPraiseStr(String praiseStr) {
         this.praiseStr = praiseStr;
     }
 
-    public boolean isShowImage() {
+    public String getShowImage() {
         return showImage;
     }
 
-    public void setShowImage(boolean showImage) {
+    public void setShowImage(String showImage) {
         this.showImage = showImage;
     }
 
-    public Object getImageList() {
+    public String getImageList() {
         return imageList;
     }
 
-    public void setImageList(Object imageList) {
+    public void setImageList(String imageList) {
         this.imageList = imageList;
     }
 
-    public boolean isUserPraise() {
+    public String getUserPraise() {
         return userPraise;
     }
 
-    public void setUserPraise(boolean userPraise) {
+    public void setUserPraise(String userPraise) {
         this.userPraise = userPraise;
     }
 
+    public List<Commend> getCommentList() {
+        return commentList;
+    }
 
+    public void setCommentList(List<Commend> commentList) {
+        this.commentList = commentList;
+    }
 }
