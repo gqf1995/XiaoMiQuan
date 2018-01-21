@@ -16,6 +16,8 @@ import com.xiaomiquan.server.HttpUrl;
 
 public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> {
 
+    String uid;
+
     @Override
     protected Class<MainDelegate> getDelegateClass() {
         return MainDelegate.class;
@@ -31,7 +33,8 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     protected void bindEvenListener() {
         super.bindEvenListener();
         initFragment();
-        //initSocket();
+        uid = DeviceUtils.getAndroidID();
+        initSocket();
         if (!ExchangeRateUtil.getinstance().IsHavaData()) {
             //获取汇率
             addRequest(binder.getAllPriceRate(this));
@@ -39,14 +42,14 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     }
 
     private void initSocket() {
-        WebSocketRequest.getInstance().intiWebSocket("ws://47.97.169.136:1903/ws/" + DeviceUtils.getAndroidID(), this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
+        WebSocketRequest.getInstance().intiWebSocket("ws://47.97.169.136:1903/ws/" + uid+"99", this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
             @Override
-            public void onDataSuccess(String data, String info, int status) {
+            public void onDataSuccess(String name, String data, String info, int status) {
 
             }
 
             @Override
-            public void onDataError(String data, String info, int status) {
+            public void onDataError(String name, String data, String info, int status) {
 
             }
         });
@@ -77,6 +80,9 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         switch (requestCode) {
             case 0x123:
                 ExchangeRateUtil.getinstance().upData(data);
+                break;
+            case 0x124:
+
                 break;
         }
 

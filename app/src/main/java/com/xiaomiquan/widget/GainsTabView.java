@@ -21,7 +21,7 @@ import skin.support.widget.SkinCompatRelativeLayout;
 
 public class GainsTabView extends SkinCompatRelativeLayout {
 
-    boolean isTop = false;
+    int isTop = 0;//默认模式  1涨幅  2跌幅
     private TextView tv_tab_title;
     private IconFontTextview tv_gains_top;
     private IconFontTextview tv_gains_up;
@@ -34,7 +34,7 @@ public class GainsTabView extends SkinCompatRelativeLayout {
     }
 
     public interface OnChange {
-        void onChange(boolean isTop);
+        void onChange(int isTop);
     }
 
     public GainsTabView(Context context) {
@@ -55,6 +55,7 @@ public class GainsTabView extends SkinCompatRelativeLayout {
     public void setText(String txt) {
         tv_tab_title.setText(txt);
     }
+
     public void setTextColor(int color) {
         tv_tab_title.setTextColor(color);
     }
@@ -76,9 +77,22 @@ public class GainsTabView extends SkinCompatRelativeLayout {
     }
 
     public void onClick() {
-        isTop = !isTop;
-        tv_gains_top.setTextColor(isTop ? CommonUtils.getColor(R.color.color_font1) : CommonUtils.getColor(R.color.color_font3));
-        tv_gains_up.setTextColor(!isTop ? CommonUtils.getColor(R.color.color_font1) : CommonUtils.getColor(R.color.color_font3));
+        isTop++;
+        if (isTop > 2) {
+            isTop = 0;
+        }
+        if (isTop == 0) {
+            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_font4));
+            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_font4));
+        }
+        if (isTop == 1) {
+            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_blue));
+            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_font4));
+        }
+        if (isTop == 2) {
+            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_font4));
+            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_blue));
+        }
         if (onChange != null) {
             onChange.onChange(isTop);
         }

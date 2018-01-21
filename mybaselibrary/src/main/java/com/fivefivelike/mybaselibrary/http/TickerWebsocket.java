@@ -10,7 +10,6 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public abstract class TickerWebsocket extends WebSocketClient {
 
-    private ScheduledExecutorService scheduler;
 
     public TickerWebsocket(String serverUri) {
         super(URI.create(serverUri));
@@ -33,9 +32,6 @@ public abstract class TickerWebsocket extends WebSocketClient {
     @Override
     public void onClose(int code, String reason, boolean remote) {
         Log.i("TickerWebsocket","websocket closed , now reconnect... >>" + reason);
-        if (scheduler != null) {
-            scheduler.shutdown();
-        }
         onReconnect();
     }
 

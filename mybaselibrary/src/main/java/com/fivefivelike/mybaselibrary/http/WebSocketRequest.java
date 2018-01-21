@@ -28,7 +28,7 @@ public class WebSocketRequest {
     private Disposable mDisposable;
     private WebSocket mWebSocket;
     private String mUrl;
-    private String REQUEST_TAG = "request";
+    private String REQUEST_TAG = "TickerWebsocket";
     private ConcurrentHashMap<String, WebSocketCallBack> webSocketCallBacks;
 
     private String oldSend = "";
@@ -48,9 +48,9 @@ public class WebSocketRequest {
     }
 
     public interface WebSocketCallBack {
-        void onDataSuccess(String data, String info, int status);
+        void onDataSuccess(String name, String data, String info, int status);
 
-        void onDataError(String data, String info, int status);
+        void onDataError(String name, String data, String info, int status);
     }
 
     private WebSocketRequest() {
@@ -78,6 +78,7 @@ public class WebSocketRequest {
         LinkedHashMap baseMap = new LinkedHashMap<>();
         baseMap.put("uid", uid);
         baseMap.put("keys", json);
+        KLog.i(REQUEST_TAG, "register  " + json);
         disposable = new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(registerUrl)
@@ -89,11 +90,12 @@ public class WebSocketRequest {
                 .setRequestCallback(new RequestCallback() {
                     @Override
                     public void success(int requestCode, String data) {
-
+                        KLog.i(REQUEST_TAG, "success  " + "register");
                     }
 
                     @Override
                     public void error(int requestCode, Throwable exThrowable) {
+
                     }
                 })
                 .build()
@@ -105,6 +107,7 @@ public class WebSocketRequest {
         LinkedHashMap baseMap = new LinkedHashMap<>();
         baseMap.put("uid", uid);
         baseMap.put("keys", "");
+        KLog.i(REQUEST_TAG, "unregister  " + uid);
         disposable = new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(unregisterUrl)
@@ -117,6 +120,7 @@ public class WebSocketRequest {
                     @Override
                     public void success(int requestCode, String data) {
                         //取消订阅后 重新订阅新的
+                        KLog.i(REQUEST_TAG, "success  " + "unregister");
                         register(oldSend);
                     }
 
@@ -130,13 +134,13 @@ public class WebSocketRequest {
     }
 
     public void addCallBack(String clss, WebSocketCallBack webSocketCallBack) {
-        if (webSocketCallBacks != null) {
+        if (webSocketCallBacks != null && !webSocketCallBacks.containsKey(clss)) {
             webSocketCallBacks.put(clss, webSocketCallBack);
         }
     }
 
     public void remoceCallBack(String clss) {
-        if (webSocketCallBacks != null) {
+        if (webSocketCallBacks != null && webSocketCallBacks.containsKey(clss)) {
             if (webSocketCallBacks != null) {
                 webSocketCallBacks.remove(clss);
             }
@@ -233,7 +237,7 @@ public class WebSocketRequest {
             String key = (String) iter.next();
             KLog.i(REQUEST_TAG, "success 接受名称: " + key + "数据: " + msg);
             WebSocketRequest.WebSocketCallBack webSocketRequest = (WebSocketRequest.WebSocketCallBack) webSocketCallBacks.get(key);
-            webSocketRequest.onDataSuccess(msg, msg, 0);
+            webSocketRequest.onDataSuccess(key, msg, msg, 0);
         }
     }
 
@@ -245,7 +249,7 @@ public class WebSocketRequest {
             String key = (String) iter.next();
             KLog.i(REQUEST_TAG, "error 接受名称: " + key + "数据: " + msg);
             WebSocketRequest.WebSocketCallBack webSocketRequest = (WebSocketRequest.WebSocketCallBack) webSocketCallBacks.get(key);
-            webSocketRequest.onDataError(msg, msg, 0);
+            webSocketRequest.onDataError(key, msg, msg, 0);
         }
     }
 
@@ -258,10 +262,12 @@ public class WebSocketRequest {
         } else {
             try {
                 if (null != client) {
-                    client.close();
+                    client.closeBlocking();
                 }
+                KLog.i(REQUEST_TAG, "closeBlocking : ");
             } catch (Exception e) {
                 e.printStackTrace();
+                KLog.i(REQUEST_TAG, "closeBlocking error: ");
             } finally {
                 client = null;
             }

@@ -16,6 +16,8 @@ public class AppConst {
     public static final String httpBaseUrl = "http://47.97.169.136:1901";
     public static final String httpBaseUrl2 = "http://47.97.169.136:1903";
     public static final String httpBaseUrl3 = "http://47.97.169.136:1901";
+    //圈子专用
+    public static final String httpBaseUrl4 = "http://192.168.0.11:8080";
     //http://192.168.18.190:1903/api/unregisterkeys
     public static final String serviceId = "KEFU151064005015908";
     public static final String rongId = "cpj2xarlc1osn";

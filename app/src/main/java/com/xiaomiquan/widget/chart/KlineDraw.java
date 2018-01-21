@@ -190,11 +190,6 @@ public class KlineDraw {
             lastSet.getYVals().remove(lastSet.getYVals().size() - 1);
             candleData.addEntry(candleEntry, indexLast);
 
-
-            //candleData.addXValue(xVals);
-            //mChartKline.setData();
-            //combinedData.addEntry(mData.getCandleEntries().get(mData.getCandleEntries().size() - index - 1), indexLast);
-
         }
 
 
@@ -602,7 +597,6 @@ public class KlineDraw {
 
         setHandler(combinedChart);
     }
-
     private void setVolumeByChart(CombinedChart combinedChart) {
         String unit = MyUtils.getVolUnit(mData.getVolmax());
         String wan = CommonUtils.getString(R.string.wan_unit);

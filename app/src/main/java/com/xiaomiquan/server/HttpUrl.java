@@ -7,6 +7,7 @@ import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl2;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl3;
+import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
 import static com.xiaomiquan.base.AppConst.isEditUrl;
 
 /**
@@ -177,48 +178,48 @@ public class HttpUrl {
     /**
      * 获取未加入圈子信息
      */
-    public String getMoreCircle=getBaseUrl()+groupUrl+"/listMoreGroupByPage";
+    public String getMoreCircle = httpBaseUrl4 + groupUrl + "/listMoreGroupByPage";
     /**
      * 获取加入圈子信息
      */
-    public String getMyCircleInfo=getBaseUrl()+groupUrl+"/listGroupByPage";
+    public String getMyCircleInfo = httpBaseUrl4 + groupUrl + "/listGroupByPage";
     /**
      * 创建圈子
      */
-    public String creatCircle=getBaseUrl()+groupUrl+"/saveGroup";
+    public String creatCircle = httpBaseUrl4+ groupUrl + "/saveGroup";
 
 
     /**
      * 圈子申请
      */
-    String groupMemberUrl="/groupMember";
+    String groupMemberUrl = "/groupMember";
 
     /**
      * 申请加入圈子
      */
-    public String joinCircle=getBaseUrl()+groupMemberUrl+"/applyJoinGroup";
+    public String joinCircle = httpBaseUrl4 + groupMemberUrl + "/applyJoinGroup";
     /**
      * 获取待审核入圈申请
      */
-    public String joinCircleApply=getBaseUrl()+groupMemberUrl+"/applyJoinGroup";
+    public String joinCircleApply = httpBaseUrl4 + groupMemberUrl + "/applyJoinGroup";
     /**
      * 同意审核入圈申请
      */
-    public String agreeCircleApply=getBaseUrl()+groupMemberUrl+"/agreeJoinApply";
+    public String agreeCircleApply = httpBaseUrl4 + groupMemberUrl + "/agreeJoinApply";
     /**
      * 邀请好友入圈
      */
-    public String getSomeBodyIn=getBaseUrl()+groupMemberUrl+"/getSomeBodyIn";
+    public String getSomeBodyIn = httpBaseUrl4 + groupMemberUrl + "/getSomeBodyIn";
 
     /**
      * 获得帖子
      */
-    public String getUsertopic=getBaseUrl()+"/usertopic/list/group/usertopic";
+    public String getUsertopic = httpBaseUrl4 + "/usertopic/list/group/usertopic";
 
     /**
      * 发帖子
      */
-    public String saveUsertopic=getBaseUrl()+"/usertopic/save";
+    public String saveUsertopic =httpBaseUrl4 + "/usertopic/save";
 
 
 }

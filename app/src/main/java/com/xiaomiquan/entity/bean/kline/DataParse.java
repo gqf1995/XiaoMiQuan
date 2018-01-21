@@ -7,7 +7,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.Entry;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -82,45 +81,6 @@ public class DataParse {
 
     List<KLineBean> mKLineBeans;
 
-    public void parseMinutes(JSONObject object) {
-        JSONArray jsonArray = object.optJSONObject("data").optJSONObject(code).optJSONObject("data").optJSONArray("data");
-        String date = object.optJSONObject("data").optJSONObject(code).optJSONObject("data").optString("date");
-        if (date.length() == 0) {
-            return;
-        }
-        /*数据解析依照自己需求来定，如果服务器直接返回百分比数据，则不需要客户端进行计算*/
-        baseValue = (float) object.optJSONObject("data").optJSONObject(code).optJSONObject("qt").optJSONArray(code).optDouble(4);
-        int count = jsonArray.length();
-        for (int i = 0; i < count; i++) {
-            String[] t = jsonArray.optString(i).split(" ");/*  "0930 9.50 4707",*/
-            MinutesBean minutesData = new MinutesBean();
-            minutesData.time = t[0].substring(0, 2) + ":" + t[0].substring(2);
-            minutesData.cjprice = Float.parseFloat(t[1]);
-            if (i != 0) {
-                String[] pre_t = jsonArray.optString(i - 1).split(" ");
-                minutesData.cjnum = Integer.parseInt(t[2]) - Integer.parseInt(pre_t[2]);
-                minutesData.total = minutesData.cjnum * minutesData.cjprice + datas.get(i - 1).total;
-                minutesData.avprice = (minutesData.total) / Integer.parseInt(t[2]);
-            } else {
-                minutesData.cjnum = Integer.parseInt(t[2]);
-                minutesData.avprice = minutesData.cjprice;
-                minutesData.total = minutesData.cjnum * minutesData.cjprice;
-            }
-            minutesData.cha = minutesData.cjprice - baseValue;
-            minutesData.per = (minutesData.cha / baseValue);
-            double cha = minutesData.cjprice - baseValue;
-            if (Math.abs(cha) > permaxmin) {
-                permaxmin = (float) Math.abs(cha);
-            }
-            volmax = Math.max(minutesData.cjnum, volmax);
-            datas.add(minutesData);
-        }
-
-        if (permaxmin == 0) {
-            permaxmin = baseValue * 0.02f;
-        }
-    }
-
     //得到成交量
     public void initLineDatas(List<KLineBean> datas) {
         if (null == datas) {
@@ -152,7 +112,11 @@ public class DataParse {
 
     public void parseKLine(List<KLineBean> kLineBeans) {
         if (kLineBeans.size() > 0) {
-            mKLineBeans = new ArrayList<>();
+            if (mKLineBeans == null) {
+                mKLineBeans = new ArrayList<>();
+            } else {
+                mKLineBeans.clear();
+            }
             if (kLineBeans != null) {
                 int count = kLineBeans.size();
                 for (int i = 0; i < count; i++) {
@@ -164,33 +128,6 @@ public class DataParse {
                 }
             }
         }
-    }
-
-    /**
-     * 转化k线时间 分钟 小时 天 周 月
-     * <p>
-     */
-    public void parseKlineBuyHour() {
-        List<KLineBean> kLineBeans = new ArrayList<>();
-        int index = 0;
-        KLineBean kLineBean = new KLineBean();
-        for (int i = 0; i < mKLineBeans.size(); i++) {
-            String s = TimeUtils.millis2String(mKLineBeans.get(i).timestamp, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
-            String substring = s.substring(s.length() - 2, s.length() - 1);
-            if ("00".equals(substring)) {
-                //整小时
-                kLineBean.open = mKLineBeans.get(i).open;
-            } else if ("59".equals(substring)) {
-                kLineBean.close = mKLineBeans.get(i).close;
-
-
-                //添加 初始化
-                kLineBeans.add(kLineBean);
-                kLineBean = new KLineBean();
-            }
-        }
-        kDatas.clear();
-        kDatas.addAll(kLineBeans);
     }
 
 
@@ -218,13 +155,36 @@ public class DataParse {
         if (null == datas) {
             return;
         }
-        ma5DataL = new ArrayList<>();
-        ma7DataL = new ArrayList<>();
-        ma10DataL = new ArrayList<>();
-        ma15DataL = new ArrayList<>();
-        ma20DataL = new ArrayList<>();
-        ma30DataL = new ArrayList<>();
-
+        if (ma5DataL == null) {
+            ma5DataL = new ArrayList<>();
+        } else {
+            ma5DataL.clear();
+        }
+        if (ma7DataL == null) {
+            ma7DataL = new ArrayList<>();
+        } else {
+            ma7DataL.clear();
+        }
+        if (ma10DataL == null) {
+            ma10DataL = new ArrayList<>();
+        } else {
+            ma10DataL.clear();
+        }
+        if (ma15DataL == null) {
+            ma15DataL = new ArrayList<>();
+        } else {
+            ma15DataL.clear();
+        }
+        if (ma20DataL == null) {
+            ma20DataL = new ArrayList<>();
+        } else {
+            ma20DataL.clear();
+        }
+        if (ma30DataL == null) {
+            ma30DataL = new ArrayList<>();
+        } else {
+            ma30DataL.clear();
+        }
         KMAEntity kmaEntity5 = new KMAEntity(datas, 5);
         KMAEntity kmaEntity7 = new KMAEntity(datas, 7);
         KMAEntity kmaEntity10 = new KMAEntity(datas, 10);
@@ -251,12 +211,36 @@ public class DataParse {
         if (null == datas) {
             return;
         }
-        ma5DataV = new ArrayList<>();
-        ma7DataV = new ArrayList<>();
-        ma10DataV = new ArrayList<>();
-        ma15DataV = new ArrayList<>();
-        ma20DataV = new ArrayList<>();
-        ma30DataV = new ArrayList<>();
+        if (ma5DataV == null) {
+            ma5DataV = new ArrayList<>();
+        } else {
+            ma5DataV.clear();
+        }
+        if (ma7DataV == null) {
+            ma7DataV = new ArrayList<>();
+        } else {
+            ma7DataV.clear();
+        }
+        if (ma10DataV == null) {
+            ma10DataV = new ArrayList<>();
+        } else {
+            ma10DataV.clear();
+        }
+        if (ma15DataV == null) {
+            ma15DataV = new ArrayList<>();
+        } else {
+            ma15DataV.clear();
+        }
+        if (ma20DataV == null) {
+            ma20DataV = new ArrayList<>();
+        } else {
+            ma20DataV.clear();
+        }
+        if (ma30DataV == null) {
+            ma30DataV = new ArrayList<>();
+        } else {
+            ma30DataV.clear();
+        }
 
         VMAEntity vmaEntity5 = new VMAEntity(datas, 5);
         VMAEntity vmaEntity7 = new VMAEntity(datas, 7);
@@ -264,6 +248,7 @@ public class DataParse {
         VMAEntity vmaEntity15 = new VMAEntity(datas, 15);
         VMAEntity vmaEntity20 = new VMAEntity(datas, 20);
         VMAEntity vmaEntity30 = new VMAEntity(datas, 30);
+
         for (int i = 0; i < vmaEntity5.getMAs().size(); i++) {
             ma5DataV.add(new Entry(vmaEntity5.getMAs().get(i), i));
             ma7DataV.add(new Entry(vmaEntity7.getMAs().get(i), i));

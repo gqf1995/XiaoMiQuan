@@ -12,15 +12,18 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.ExchangeMarketAdapter;
+import com.xiaomiquan.entity.RiseChangeSort;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.ExchangeName;
 import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
 import com.xiaomiquan.mvp.databinder.ExchangeBinder;
 import com.xiaomiquan.mvp.delegate.ExchangeDelegate;
+import com.xiaomiquan.widget.GainsTabView;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, ExchangeBinder> {
@@ -28,6 +31,9 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     ExchangeMarketAdapter exchangeMarketAdapter;
     ExchangeName exchangeName;
     List<ExchangeData> strDatas;
+    List<ExchangeData> riseDatas;
+    List<ExchangeData> dropDatas;
+    List<String> sendKeys;
 
     @Override
     protected Class<ExchangeDelegate> getDelegateClass() {
@@ -86,6 +92,18 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                 viewDelegate.viewHolder.tv_rise.onClick();
             }
         });
+        viewDelegate.viewHolder.tv_rise.setOnChange(new GainsTabView.OnChange() {
+            @Override
+            public void onChange(int isTop) {
+                if (isTop == 0) {
+                    exchangeMarketAdapter.setDatas(strDatas);
+                } else if (isTop == 1) {
+                    exchangeMarketAdapter.setDatas(riseDatas);
+                } else if (isTop == 2) {
+                    exchangeMarketAdapter.setDatas(dropDatas);
+                }
+            }
+        });
     }
 
     @Override
@@ -96,7 +114,9 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
                 initList(datas);
-                strDatas = datas;
+                strDatas.addAll(datas);
+                initRise();
+                initDrop();
                 sendWebSocket();
                 break;
         }
@@ -118,23 +138,32 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         initList(strDatas);
         WebSocketRequest.getInstance().addCallBack(exchangeName.getEname(), new WebSocketRequest.WebSocketCallBack() {
             @Override
-            public void onDataSuccess(String data, String info, int status) {
+            public void onDataSuccess(String name, String data, String info, int status) {
+                if (exchangeName.getEname().equals(name)) {
+                    //推送数据
 
+                }
             }
 
             @Override
-            public void onDataError(String data, String info, int status) {
+            public void onDataError(String name, String data, String info, int status) {
 
             }
         });
     }
 
     private void sendWebSocket() {
-        List<String> datas = new ArrayList<>();
-        for (int i = 0; i < strDatas.size(); i++) {
-            datas.add(strDatas.get(i).getOnlyKey());
+        if (exchangeMarketAdapter != null) {
+            if (sendKeys == null) {
+                sendKeys = new ArrayList<>();
+            } else {
+                sendKeys.clear();
+            }
+            for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
+                sendKeys.add(exchangeMarketAdapter.getDatas().get(i).getOnlyKey());
+            }
+            WebSocketRequest.getInstance().sendData(sendKeys);
         }
-        WebSocketRequest.getInstance().sendData(datas);
     }
 
     @Override
@@ -177,5 +206,26 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         outState.putParcelable("exchangeName", exchangeName);
     }
 
+    private void initRise() {
+        if (riseDatas == null) {
+            riseDatas = new ArrayList<>();
+        } else {
+            riseDatas.clear();
+        }
+        RiseChangeSort comparator = new RiseChangeSort();
+        riseDatas.addAll(strDatas);
+        Collections.sort(riseDatas, comparator);
+    }
+
+    private void initDrop() {
+        if (dropDatas == null) {
+            dropDatas = new ArrayList<>();
+        } else {
+            dropDatas.clear();
+        }
+        RiseChangeSort comparator = new RiseChangeSort();
+        dropDatas.addAll(strDatas);
+        Collections.sort(dropDatas, comparator);
+    }
 }
 

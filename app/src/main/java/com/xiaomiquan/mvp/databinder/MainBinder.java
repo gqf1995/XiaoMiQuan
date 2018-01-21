@@ -31,4 +31,23 @@ public class MainBinder extends BaseDataBind<MainDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
+    public Disposable unregisterkeys(
+            String uid,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("uid", uid);
+        baseMap.put("keys", "");
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().unregisterkeys)
+                .setShowDialog(false)
+                .setRequestName("获取汇率")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 }

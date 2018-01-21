@@ -117,12 +117,12 @@ public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate,
         initList(strDatas);
         WebSocketRequest.getInstance().addCallBack(coinName, new WebSocketRequest.WebSocketCallBack() {
             @Override
-            public void onDataSuccess(String data, String info, int status) {
+            public void onDataSuccess(String name,String data, String info, int status) {
 
             }
 
             @Override
-            public void onDataError(String data, String info, int status) {
+            public void onDataError(String name,String data, String info, int status) {
 
             }
         });

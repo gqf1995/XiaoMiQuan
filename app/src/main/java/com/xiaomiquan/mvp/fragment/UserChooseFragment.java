@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
@@ -32,6 +33,8 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     List<ExchangeData> strDatas;
     HeaderAndFooterWrapper headerAndFooterWrapper;
     LinearLayoutManager linearLayoutManager;
+    List<String> sendKeys;
+    ArrayList<String> strings;
 
     @Override
     protected void bindEvenListener() {
@@ -76,7 +79,11 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     public SkinCompatCardView card_root;
 
     private void goChoose() {
-        ArrayList<String> strings = new ArrayList<>();
+        if (strings == null) {
+            strings = new ArrayList<>();
+        } else {
+            strings.clear();
+        }
         for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
             strings.add(exchangeMarketAdapter.getDatas().get(i).getOnlyKey());
         }
@@ -111,9 +118,12 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                 } else {
                     card_root.setVisibility(View.GONE);
                 }
+                //订阅推送
+                sendWebSocket();
                 break;
         }
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -130,15 +140,42 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         addRequest(binder.marketdata(this));
     }
 
+    private void sendWebSocket() {
+        if (exchangeMarketAdapter != null) {
+            if (sendKeys == null) {
+                sendKeys = new ArrayList<>();
+            } else {
+                sendKeys.clear();
+            }
+            for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
+                sendKeys.add(exchangeMarketAdapter.getDatas().get(i).getOnlyKey());
+            }
+            WebSocketRequest.getInstance().sendData(sendKeys);
+        }
+    }
+
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         if (isVisible) {
             onRefresh();
+            WebSocketRequest.getInstance().addCallBack(this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
+                @Override
+                public void onDataSuccess(String name, String data, String info, int status) {
+                    if (this.getClass().getName().equals(name)) {
+                        //推送数据
+
+                    }
+                }
+
+                @Override
+                public void onDataError(String name, String data, String info, int status) {
+
+                }
+            });
         } else {
             binder.cancelpost();
         }
     }
-
 
     @Override
     protected void onFragmentFirstVisible() {
