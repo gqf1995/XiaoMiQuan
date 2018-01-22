@@ -1,9 +1,8 @@
-package com.xiaomiquan.mpchart;
+package com.xiaomiquan.widget.chart;
 
 
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
-import com.xiaomiquan.widget.chart.MyUtils;
 
 import java.text.DecimalFormat;
 

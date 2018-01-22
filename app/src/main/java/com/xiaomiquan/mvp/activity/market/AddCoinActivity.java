@@ -39,6 +39,7 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_add_coin_market)).setSubTitle(CommonUtils.getString(R.string.str_complete)));
+        //从缓存中获取交易所名单
         String exchangeNamesStr = CacheUtils.getInstance().getString(CACHE_EXCHANGENAME);
         getIntentData();
         if (!TextUtils.isEmpty(exchangeNamesStr)) {
@@ -48,6 +49,7 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
         EventBus.getDefault().register(this);
     }
 
+    //初始化交易所fragment
     private void initTablelayout(List<ExchangeName> exchangeNames) {
         if (mTitles == null && fragments == null) {
             fragments = new ArrayList<>();
@@ -91,10 +93,12 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
         commit();
     }
 
+    //提交
     private void commit() {
         addRequest(binder.subs(userSelectKeys, this));
     }
 
+    //选择和取消 操作处理
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onExchangeName(ExchangeData event) {
         if (userSelectKeys.contains(event.getOnlyKey())) {
@@ -113,6 +117,7 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
+                //通知自选页面刷新
                 setResult(RESULT_OK);
                 onBackPressed();
                 break;

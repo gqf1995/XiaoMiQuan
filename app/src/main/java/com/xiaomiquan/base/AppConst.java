@@ -2,6 +2,8 @@ package com.xiaomiquan.base;
 
 /**
  * 全局配置
+ *
+ * 缓存key 保存地
  */
 public class AppConst {
 

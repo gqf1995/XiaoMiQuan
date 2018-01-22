@@ -18,6 +18,9 @@ import com.xiaomiquan.mvp.databinder.UserBinder;
 import com.xiaomiquan.mvp.delegate.UserDelegate;
 import com.xiaomiquan.widget.CircleDialogHelper;
 
+/**
+ * 个人中心
+ */
 public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder> {
 
     UserLogin userLogin;
@@ -63,10 +66,12 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
         super.onClick(v);
         switch (v.getId()) {
             case R.id.checkbox_night_model:
+                //选择夜间模式
                 UserSet.getinstance().setNight(!viewDelegate.viewHolder.checkbox_night_model.isChecked());
                 viewDelegate.viewHolder.fl_toolbar.setVisibility(View.GONE);
                 break;
             case R.id.checkbox_red_sticker:
+                //红涨绿跌
                 UserSet.getinstance().setRedRise(viewDelegate.viewHolder.checkbox_night_model.isChecked());
                 break;
             case R.id.lin_user:

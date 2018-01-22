@@ -15,6 +15,9 @@ import com.xiaomiquan.mvp.activity.main.MainActivity;
 import com.xiaomiquan.mvp.databinder.LoginAndRegisteredBinder;
 import com.xiaomiquan.mvp.delegate.LoginAndRegisteredDelegate;
 
+/**
+ * 登录注册
+ */
 public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndRegisteredDelegate, LoginAndRegisteredBinder> {
 
 

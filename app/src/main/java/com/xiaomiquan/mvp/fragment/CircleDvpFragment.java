@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,12 +14,15 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.CircleAllDvpAdapter;
 import com.xiaomiquan.adapter.CircleCreatAdapter;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
+import com.xiaomiquan.mvp.activity.circle.CircleContentActivity;
+import com.xiaomiquan.mvp.activity.circle.CreatCircleActivity;
 import com.xiaomiquan.mvp.activity.market.CoinIndexActivity;
 import com.xiaomiquan.mvp.databinder.CircleDvpBinder;
 import com.xiaomiquan.mvp.delegate.CircleDvpDelegate;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -71,15 +75,15 @@ public class CircleDvpFragment extends BaseDataBindFragment<CircleDvpDelegate, C
         circleCreatAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                if (position != 0) {
-//                    Intent intent = new Intent();
-//                    intent.putExtra("userCircle", (Serializable) userCircles.get(position));
-//                    gotoActivity(CircleContentActivity.class).setIntent(intent).startAct();
-//                    //
-//                } else {
-//                    gotoActivity(CreatCircleActivity.class).startAct();
-//                }
-                //                    }
+                if (position != 0) {
+                    Intent intent = new Intent();
+                    intent.putExtra("userCircle", (Serializable) userCircles.get(position));
+                    gotoActivity(CircleContentActivity.class).setIntent(intent).startAct();
+                    //
+                } else {
+                    gotoActivity(CreatCircleActivity.class).startAct();
+                }
+
             }
 
             @Override

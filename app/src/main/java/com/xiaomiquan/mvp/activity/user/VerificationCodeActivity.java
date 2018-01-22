@@ -19,6 +19,9 @@ import com.xiaomiquan.mvp.delegate.VerificationCodeDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
 import com.xiaomiquan.widget.editcodeview.EditCodeWatcher;
 
+/**
+ * 获取验证码页面 所有获取验证码走统一页面
+ */
 public class VerificationCodeActivity extends BaseDataBindActivity<VerificationCodeDelegate, VerificationCodeBinder> {
 
 

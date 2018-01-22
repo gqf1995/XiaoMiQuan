@@ -22,6 +22,7 @@ import java.io.IOException;
 
 /**
  * Created by 郭青枫 on 2016/11/29.
+ * 图片加载统一入口
  */
 
 public class GlideUtils {

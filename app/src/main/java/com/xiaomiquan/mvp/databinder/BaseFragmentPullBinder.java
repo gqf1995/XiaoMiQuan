@@ -12,6 +12,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by 郭青枫 on 2017/9/27.
+ * 统一的 fragment列表接口 代理
  */
 
 public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate> {

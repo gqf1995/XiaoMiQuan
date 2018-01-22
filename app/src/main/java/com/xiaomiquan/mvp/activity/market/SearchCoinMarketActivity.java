@@ -17,6 +17,9 @@ import com.xiaomiquan.mvp.delegate.SearchCoinMarketDelegate;
 import com.xiaomiquan.mvp.fragment.SearchCoinMarketDefaultFragment;
 import com.xiaomiquan.mvp.fragment.SearchCoinMarketResultFragment;
 
+/**
+ * 搜索行情 添加自选
+ */
 public class SearchCoinMarketActivity extends BaseDataBindActivity<SearchCoinMarketDelegate, SearchCoinMarketBinder> {
 
     SearchCoinMarketDefaultFragment searchCoinMarketDefaultFragment;

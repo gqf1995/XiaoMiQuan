@@ -9,6 +9,12 @@ import skin.support.SkinCompatManager;
 
 /**
  * Created by 郭青枫 on 2018/1/12 0012.
+ * 用户设置单例
+ * <p>
+ * 红涨绿跌
+ * 夜间模式
+ * 统一默认单位
+ * 语言切换
  */
 
 public class UserSet {

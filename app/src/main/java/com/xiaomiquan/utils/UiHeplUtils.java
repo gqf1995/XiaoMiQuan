@@ -61,6 +61,8 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by 郭青枫 on 2017/8/5.
+ *
+ * ui 处理统一工具
  */
 
 public class UiHeplUtils {

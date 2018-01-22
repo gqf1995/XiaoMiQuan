@@ -34,8 +34,6 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
-import com.xiaomiquan.mpchart.CoupleChartGestureListener;
-import com.xiaomiquan.mpchart.VolFormatter;
 
 import java.util.ArrayList;
 import java.util.List;

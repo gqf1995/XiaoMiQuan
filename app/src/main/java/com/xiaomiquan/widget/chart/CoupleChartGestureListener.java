@@ -1,4 +1,4 @@
-package com.xiaomiquan.mpchart;
+package com.xiaomiquan.widget.chart;
 
 
 import android.graphics.Matrix;

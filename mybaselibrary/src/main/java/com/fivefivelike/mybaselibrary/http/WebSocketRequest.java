@@ -1,6 +1,5 @@
 package com.fivefivelike.mybaselibrary.http;
 
-import com.blankj.utilcode.util.DeviceUtils;
 import com.dhh.websocket.RxWebSocketUtil;
 import com.dhh.websocket.WebSocketInfo;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
@@ -54,7 +53,6 @@ public class WebSocketRequest {
     }
 
     private WebSocketRequest() {
-        uid = DeviceUtils.getAndroidID();
     }
 
     private static class Helper {
@@ -65,10 +63,14 @@ public class WebSocketRequest {
         return Helper.webSocketRequest;
     }
 
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
     public void sendData(List<String> keys) {
         StringBuffer stringBuffer = new StringBuffer();
         for (int i = 0; i < keys.size(); i++) {
-            stringBuffer.append(keys.get(i)).append(",");
+            stringBuffer.append(",").append(keys.get(i));
         }
         unregister(oldSend);
         oldSend = stringBuffer.toString();
@@ -77,7 +79,7 @@ public class WebSocketRequest {
     private void register(String json) {
         LinkedHashMap baseMap = new LinkedHashMap<>();
         baseMap.put("uid", uid);
-        baseMap.put("keys", json);
+        baseMap.put("keys", "{" + json + "}");
         KLog.i(REQUEST_TAG, "register  " + json);
         disposable = new HttpRequest.Builder()
                 .setRequestCode(0x123)

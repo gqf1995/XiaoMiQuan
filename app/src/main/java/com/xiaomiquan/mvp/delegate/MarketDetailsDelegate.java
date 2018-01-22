@@ -55,10 +55,10 @@ public class MarketDetailsDelegate extends BaseDelegate {
     public void setDetailsData(int position, DataParse data) {
         KLineBean kLineBean = data.getKLineDatas().get(position);
         viewHolder.tv_ktime.setText(kLineBean.date);
-        viewHolder.tv_kopen.setText(CommonUtils.getString(R.string.str_opening_quotation) + kLineBean.open + "");
-        viewHolder.tv_kheight.setText(CommonUtils.getString(R.string.str_highest) + kLineBean.high + "");
-        viewHolder.tv_klow.setText(CommonUtils.getString(R.string.str_minimum) + kLineBean.low + "");
-        viewHolder.tv_kclose.setText(CommonUtils.getString(R.string.str_closing_quotation) + kLineBean.close + "");
+        viewHolder.tv_kopen.setText(CommonUtils.getString(R.string.str_opening_quotation) + kLineBean.open.floatValue() + "");
+        viewHolder.tv_kheight.setText(CommonUtils.getString(R.string.str_highest) + kLineBean.high.floatValue() + "");
+        viewHolder.tv_klow.setText(CommonUtils.getString(R.string.str_minimum) + kLineBean.low.floatValue() + "");
+        viewHolder.tv_kclose.setText(CommonUtils.getString(R.string.str_closing_quotation) + kLineBean.close.floatValue() + "");
 
         viewHolder.tv_ma7.setText("MA7:" + data.getMa7DataL().get(position).getVal() + "");
         viewHolder.tv_ma15.setText("MA15:" + data.getMa15DataL().get(position).getVal() + "");

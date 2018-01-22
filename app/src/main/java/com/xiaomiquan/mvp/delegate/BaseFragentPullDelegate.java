@@ -1,18 +1,18 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.BaseMyPullDelegate;
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 
 
 /**
  * Created by 郭青枫 on 2017/9/26.
+ * 同一的 fragment列表页面 代理
  */
 
 public class BaseFragentPullDelegate extends BaseMyPullDelegate {

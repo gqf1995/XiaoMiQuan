@@ -17,6 +17,9 @@ import com.xiaomiquan.mvp.activity.main.MainActivity;
 import com.xiaomiquan.mvp.databinder.InputSetBinder;
 import com.xiaomiquan.mvp.delegate.InputSetDelegate;
 
+/**
+ *
+ */
 public class InputSetActivity extends BaseDataBindActivity<InputSetDelegate, InputSetBinder> {
 
     public static final String FIND_PASSWORD_PHONE = "find_password_phone";

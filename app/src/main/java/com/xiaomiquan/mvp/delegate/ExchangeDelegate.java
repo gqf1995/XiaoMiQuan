@@ -11,13 +11,7 @@ import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner;
 import com.github.mikephil.charting.charts.LineChart;
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.bean.kline.DataParse;
-import com.xiaomiquan.mpchart.ConstantTest;
 import com.xiaomiquan.widget.GainsTabView;
-import com.xiaomiquan.widget.chart.CoinLineDraw;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import skin.support.widget.SkinCompatFrameLayout;
 import skin.support.widget.SkinCompatLinearLayout;
@@ -45,19 +39,6 @@ public class ExchangeDelegate extends BaseDelegate {
 
     }
 
-    private void getOffLineData() {
-           /*方便测试，加入假数据*/
-        DataParse mData = new DataParse();
-        JSONObject object = null;
-        try {
-            object = new JSONObject(ConstantTest.KLINEURL);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        mData.parseKLine(object);
-        CoinLineDraw coinLineDraw = new CoinLineDraw();
-        coinLineDraw.setData(mData, viewHolder.linechart);
-    }
 
     public static class ViewHolder {
         public View rootView;

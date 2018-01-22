@@ -13,6 +13,9 @@ import com.xiaomiquan.mvp.delegate.SetDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
 import com.xiaomiquan.widget.CircleDialogHelper;
 
+/**
+ * 设置页面
+ */
 public class SetActivity extends BaseActivity<SetDelegate> {
 
     @Override

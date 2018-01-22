@@ -18,11 +18,14 @@ import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 统一 选择 设置页面
+ */
 public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDelegate> {
 
 
-    public static final String TYPE_LANGUAGE = "type_language";
-    public static final String TYPE_UNIT = "type_unit";
+    public static final String TYPE_LANGUAGE = "type_language";//切换语言
+    public static final String TYPE_UNIT = "type_unit";//切换单位
 
     String title = "";
 

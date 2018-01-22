@@ -7,7 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.BaseMyPullDelegate;
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 
 /**
  * Created by Andy on 2018/1/19.

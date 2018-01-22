@@ -26,6 +26,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 交易所 列表页面
+ */
 public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, ExchangeBinder> {
 
     ExchangeMarketAdapter exchangeMarketAdapter;

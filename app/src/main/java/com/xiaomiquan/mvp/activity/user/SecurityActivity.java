@@ -8,6 +8,9 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.delegate.SecurityDelegate;
 
+/**
+ * 安全中心
+ */
 public class SecurityActivity extends BaseActivity<SecurityDelegate> {
 
     @Override

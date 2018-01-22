@@ -18,6 +18,7 @@ import static com.xiaomiquan.base.AppConst.serviceId;
 
 /**
  * Created by 郭青枫 on 2017/11/14.
+ * 聊天页面
  */
 public class ConversationActivity extends BaseActivity<CustomerServiceActDelegate> {
 

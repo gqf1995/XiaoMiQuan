@@ -70,27 +70,27 @@ public class HttpUrl {
     /**
      * 用户注册发送验证码
      */
-    public String sendCodeForRegister = httpBaseUrl3 + userUrl + "/sendCodeForRegister";
+    public String sendCodeForRegister = httpBaseUrl4 + userUrl + "/sendCodeForRegister";
     /**
      * 用户注册
      */
-    public String saveUser = httpBaseUrl3 + userUrl + "/saveUser";
+    public String saveUser = httpBaseUrl4 + userUrl + "/saveUser";
     /**
      * 用户登录
      */
-    public String userLogin = httpBaseUrl3 + userUrl + "/userLogin";
+    public String userLogin = httpBaseUrl4 + userUrl + "/userLogin";
     /**
      * 用户找回密码发送短信
      */
-    public String sendCodeForForgotPassWord = httpBaseUrl3 + userUrl + "/sendCodeForForgotPassWord";
+    public String sendCodeForForgotPassWord = httpBaseUrl4 + userUrl + "/sendCodeForForgotPassWord";
     /**
      * 用户找回密码
      */
-    public String retrievePassword = httpBaseUrl3 + userUrl + "/retrievePassword";
+    public String retrievePassword = httpBaseUrl4 + userUrl + "/retrievePassword";
     /**
      * 用户登出
      */
-    public String loginOut = httpBaseUrl3 + userUrl + "/loginOut";
+    public String loginOut = httpBaseUrl4 + userUrl + "/loginOut";
 
 
     /**

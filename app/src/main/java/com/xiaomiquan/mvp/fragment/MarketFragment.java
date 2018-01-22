@@ -26,6 +26,9 @@ import java.util.List;
 import static android.app.Activity.RESULT_OK;
 import static com.xiaomiquan.base.AppConst.CACHE_EXCHANGENAME;
 
+/**
+ *
+ */
 public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, TabViewpageBinder> {
     ArrayList<Fragment> fragments;
     List<String> mTitles;

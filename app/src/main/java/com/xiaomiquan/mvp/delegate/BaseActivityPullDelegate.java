@@ -8,11 +8,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.BaseMyPullDelegate;
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 
 
 /**
  * Created by 郭青枫 on 2017/9/27.
+ * 同一的 activity列表页面 代理
  */
 
 public class BaseActivityPullDelegate extends BaseMyPullDelegate {

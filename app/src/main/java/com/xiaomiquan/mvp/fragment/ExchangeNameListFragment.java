@@ -18,6 +18,9 @@ import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 交易所名称页面
+ */
 public class ExchangeNameListFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
     ArrayList<ExchangeName> exchangeNames;
     ExchangeAdapter adapter;
