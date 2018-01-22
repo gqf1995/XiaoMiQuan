@@ -77,7 +77,6 @@ public class GsonUtil {
      */
     public <T> T toMap(String json, TypeReference<T> reference) {
         String string = toJson(JSON.parseObject(json, reference));
-
         return JSON.parseObject(string, reference);
     }
 

@@ -16,7 +16,7 @@ import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 
 import java.math.BigDecimal;
 import java.util.List;

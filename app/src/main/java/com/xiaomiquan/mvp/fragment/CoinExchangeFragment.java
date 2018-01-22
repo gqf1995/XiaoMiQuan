@@ -45,7 +45,6 @@ public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate,
         coinName = getArguments().getString("coinName");
     }
 
-
     private void initList(List<ExchangeData> strDatas) {
         if (exchangeMarketAdapter == null) {
             exchangeMarketAdapter = new ExchangeMarketAdapter(getActivity(), strDatas);

@@ -83,6 +83,11 @@
     <color name="white_transparent_100">#64ffffff</color>
     <color name="white_transparent_150">#96ffffff</color>
 
+
+
+
+
+
     <!--皮肤包颜色-->
     <color name="color_Primary">#1E1E35</color>
     <color name="colorPrimary">#1E1E35</color>
@@ -126,5 +131,8 @@
     <color name="praise_item_default">#333333</color>
     <color name="praise_item_selector_default">#cccccc</color>
     <color name="praise_item">#8290AF</color>
+
+
+
 
 </resources>

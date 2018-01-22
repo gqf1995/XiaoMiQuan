@@ -321,6 +321,7 @@ public class ExchangeData implements Parcelable {
         this.onlyKey = onlyKey;
     }
 
+
     @Override
     public int describeContents() {
         return 0;

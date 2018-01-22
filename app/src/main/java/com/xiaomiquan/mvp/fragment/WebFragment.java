@@ -12,7 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.mvp.databinder.WebBinder;
 import com.xiaomiquan.mvp.delegate.WebDelegate;
 import com.xiaomiquan.server.HttpUrl;

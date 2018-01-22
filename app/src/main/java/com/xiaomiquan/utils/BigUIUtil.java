@@ -1,10 +1,11 @@
-package com.xiaomiquan.base;
+package com.xiaomiquan.utils;
 
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.xiaomiquan.base.AppConst;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -18,6 +19,7 @@ public class BigUIUtil {
     boolean isHavaData = false;
     Map<String, BigDecimal> usdRate;
     Map<String, BigDecimal> btcRate;
+
 
     private static class helper {
         private static BigUIUtil exchangeRateUtil = new BigUIUtil();
@@ -71,25 +73,63 @@ public class BigUIUtil {
         init();
     }
 
-
-    public String rateByUSD(String name, String unit) {
-        BigDecimal nameBig = usdRate.get(name);
-        BigDecimal unitBig = usdRate.get(unit);
-        if (nameBig == null || unitBig == null) {
+    /**
+     * 汇率转化
+     *
+     * @param price 价格
+     * @param name  单位
+     * @param unit  需要转化的单位
+     * @return
+     */
+    public String rate(String price, String name, String unit) {
+        if (price == null || name == null || unit == null) {
             return "";
         }
-        BigDecimal end = nameBig.multiply(unitBig);
-        return end.toString();
+        BigDecimal bigPrice = new BigDecimal(price);
+        BigDecimal bigDecimal = rateByUSD(name, unit);
+        if (bigDecimal.doubleValue() == 0) {
+            return "";
+        }
+        BigDecimal end = bigPrice.multiply(bigDecimal);
+        String header = "";
+        if (unit.equals("CNY")) {
+            //人民币
+            header = "¥";
+        } else if (unit.equals("USD")) {
+            //对美元
+            header = "$";
+        }
+
+        return header + bigPrice(end.toString());
     }
 
-    public String rateByBTC(String name, String unit) {
+    public BigDecimal rateByUSD(String name, String unit) {
+        BigDecimal nameBig, unitBig;
+        if (usdRate.containsKey(name)) {
+            nameBig = usdRate.get(name);
+        } else {
+            return new BigDecimal("0");
+        }
+        if (usdRate.containsKey(unit)) {
+            unitBig = usdRate.get(unit);
+        } else {
+            return new BigDecimal("0");
+        }
+        if (nameBig == null || unitBig == null) {
+            return new BigDecimal("0");
+        }
+        BigDecimal end = nameBig.multiply(unitBig);
+        return end;
+    }
+
+    public BigDecimal rateByBTC(String name, String unit) {
         BigDecimal nameBig = btcRate.get(name);
         BigDecimal unitBig = btcRate.get(unit);
         if (nameBig == null || unitBig == null) {
-            return "";
+            return new BigDecimal("0");
         }
         BigDecimal end = nameBig.multiply(unitBig);
-        return end.toString();
+        return end;
     }
 
 

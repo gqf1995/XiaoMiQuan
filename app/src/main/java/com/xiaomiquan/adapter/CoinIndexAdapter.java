@@ -6,7 +6,7 @@ import android.widget.LinearLayout;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.entity.bean.CoinIndex;
 import com.xiaomiquan.utils.UiHeplUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;

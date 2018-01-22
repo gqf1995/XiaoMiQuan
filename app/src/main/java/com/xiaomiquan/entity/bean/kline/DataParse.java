@@ -7,8 +7,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.Entry;
 
-import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,61 +15,61 @@ import java.util.List;
  * Created by loro on 2017/2/8.
  */
 public class DataParse {
-    private ArrayList<MinutesBean> datas = new ArrayList<>();
-    private ArrayList<KLineBean> kDatas = new ArrayList<>();
-    private ArrayList<String> xVals = new ArrayList<>();//X轴数据
-    private ArrayList<BarEntry> barEntries = new ArrayList<>();//成交量数据
-    private ArrayList<CandleEntry> candleEntries = new ArrayList<>();//K线数据
+    private ArrayList<MinutesBean> datas;
+    private ArrayList<KLineBean> kDatas;
+    private ArrayList<String> xVals ;//X轴数据
+    private ArrayList<BarEntry> barEntries ;//成交量数据
+    private ArrayList<CandleEntry> candleEntries;//K线数据
 
-    private ArrayList<Entry> ma5DataL = new ArrayList<>();
-    private ArrayList<Entry> ma7DataL = new ArrayList<>();
-    private ArrayList<Entry> ma10DataL = new ArrayList<>();
-    private ArrayList<Entry> ma15DataL = new ArrayList<>();
-    private ArrayList<Entry> ma20DataL = new ArrayList<>();
-    private ArrayList<Entry> ma30DataL = new ArrayList<>();
+    private ArrayList<Entry> ma5DataL;
+    private ArrayList<Entry> ma7DataL;
+    private ArrayList<Entry> ma10DataL;
+    private ArrayList<Entry> ma15DataL;
+    private ArrayList<Entry> ma20DataL;
+    private ArrayList<Entry> ma30DataL;
 
-    private ArrayList<Entry> ma5DataV = new ArrayList<>();
-    private ArrayList<Entry> ma7DataV = new ArrayList<>();
-    private ArrayList<Entry> ma10DataV = new ArrayList<>();
-    private ArrayList<Entry> ma15DataV = new ArrayList<>();
-    private ArrayList<Entry> ma20DataV = new ArrayList<>();
-    private ArrayList<Entry> ma30DataV = new ArrayList<>();
+    private ArrayList<Entry> ma5DataV;
+    private ArrayList<Entry> ma7DataV;
+    private ArrayList<Entry> ma10DataV;
+    private ArrayList<Entry> ma15DataV;
+    private ArrayList<Entry> ma20DataV;
+    private ArrayList<Entry> ma30DataV;
 
-    private List<BarEntry> macdData = new ArrayList<>();
-    private List<Entry> deaData = new ArrayList<>();
-    private List<Entry> difData = new ArrayList<>();
+    private List<BarEntry> macdData;
+    private List<Entry> deaData;
+    private List<Entry> difData;
 
-    private List<BarEntry> barDatasKDJ = new ArrayList<>();
-    private List<Entry> kData = new ArrayList<>();
-    private List<Entry> dData = new ArrayList<>();
-    private List<Entry> jData = new ArrayList<>();
+    private List<BarEntry> barDatasKDJ;
+    private List<Entry> kData;
+    private List<Entry> dData;
+    private List<Entry> jData;
 
-    private List<BarEntry> barDatasWR = new ArrayList<>();
-    private List<Entry> wrData13 = new ArrayList<>();
-    private List<Entry> wrData34 = new ArrayList<>();
-    private List<Entry> wrData89 = new ArrayList<>();
+    private List<BarEntry> barDatasWR;
+    private List<Entry> wrData13;
+    private List<Entry> wrData34;
+    private List<Entry> wrData89;
 
-    private List<BarEntry> barDatasRSI = new ArrayList<>();
-    private List<Entry> rsiData6 = new ArrayList<>();
-    private List<Entry> rsiData12 = new ArrayList<>();
-    private List<Entry> rsiData24 = new ArrayList<>();
+    private List<BarEntry> barDatasRSI;
+    private List<Entry> rsiData6;
+    private List<Entry> rsiData12;
+    private List<Entry> rsiData24;
 
-    private List<BarEntry> barDatasBOLL = new ArrayList<>();
-    private List<Entry> bollDataUP = new ArrayList<>();
-    private List<Entry> bollDataMB = new ArrayList<>();
-    private List<Entry> bollDataDN = new ArrayList<>();
+    private List<BarEntry> barDatasBOLL;
+    private List<Entry> bollDataUP;
+    private List<Entry> bollDataMB;
+    private List<Entry> bollDataDN;
 
-    private List<BarEntry> barDatasEXPMA = new ArrayList<>();
-    private List<Entry> expmaData5 = new ArrayList<>();
-    private List<Entry> expmaData10 = new ArrayList<>();
-    private List<Entry> expmaData20 = new ArrayList<>();
-    private List<Entry> expmaData60 = new ArrayList<>();
+    private List<BarEntry> barDatasEXPMA;
+    private List<Entry> expmaData5;
+    private List<Entry> expmaData10;
+    private List<Entry> expmaData20;
+    private List<Entry> expmaData60;
 
-    private List<BarEntry> barDatasDMI = new ArrayList<>();
-    private List<Entry> dmiDataDI1 = new ArrayList<>();
-    private List<Entry> dmiDataDI2 = new ArrayList<>();
-    private List<Entry> dmiDataADX = new ArrayList<>();
-    private List<Entry> dmiDataADXR = new ArrayList<>();
+    private List<BarEntry> barDatasDMI;
+    private List<Entry> dmiDataDI1;
+    private List<Entry> dmiDataDI2;
+    private List<Entry> dmiDataADX;
+    private List<Entry> dmiDataADXR;
 
     private float baseValue;
     private float permaxmin;
@@ -102,13 +100,7 @@ public class DataParse {
         }
     }
 
-    /**
-     * 将jsonobject转换为K线数据
-     *
-     * @param obj
-     */
-    public void parseKLine(JSONObject obj) {
-    }
+
 
     public void parseKLine(List<KLineBean> kLineBeans) {
         if (kLineBeans.size() > 0) {

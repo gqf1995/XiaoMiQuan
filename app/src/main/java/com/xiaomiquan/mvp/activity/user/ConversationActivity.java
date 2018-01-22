@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 import com.fivefivelike.mybaselibrary.base.BaseActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.mvp.delegate.CustomerServiceActDelegate;
 
 import io.rong.imkit.RongExtension;

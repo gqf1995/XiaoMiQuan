@@ -6,7 +6,7 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;

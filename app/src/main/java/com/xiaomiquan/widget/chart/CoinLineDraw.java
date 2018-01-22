@@ -13,7 +13,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
 

@@ -11,7 +11,7 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.ChangeSetAdapter;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.mvp.delegate.ChangeDefaultSetDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 

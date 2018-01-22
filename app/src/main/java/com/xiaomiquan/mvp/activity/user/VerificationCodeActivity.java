@@ -128,6 +128,7 @@ public class VerificationCodeActivity extends BaseDataBindActivity<VerificationC
         activity.startActivity(intent);
     }
 
+
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         super.onServiceError(data, info, status, requestCode);
@@ -135,7 +136,7 @@ public class VerificationCodeActivity extends BaseDataBindActivity<VerificationC
             case 0x123:
                 //获取验证码
                 viewDelegate.viewHolder.tv_toast.setText(toast);
-                UiHeplUtils.getCode(viewDelegate.viewHolder.tv_get_again, 60);
+                addRequest(UiHeplUtils.getCode(viewDelegate.viewHolder.tv_get_again, 60));
                 break;
             case 0x124:
                 //注册成功

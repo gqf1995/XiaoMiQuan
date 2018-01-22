@@ -15,7 +15,7 @@ import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.BigUIUtil;
+import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;

@@ -23,6 +23,9 @@ public abstract class BasePullFragment<T extends BasePullDelegate, D extends IDa
         viewDelegate.initRecycleviewPull(adapter, layoutManager, this, 0, this);
     }
 
+    /**
+     * 初始化使用 有头部RecycleView的上拉页面
+     */
     protected void initRecycleViewPull(RecyclerView.Adapter adapter, int headerCount, RecyclerView.LayoutManager layoutManager) {
         viewDelegate.initRecycleviewPull(adapter, layoutManager, this, headerCount, this);
     }

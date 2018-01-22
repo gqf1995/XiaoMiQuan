@@ -11,7 +11,7 @@ import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.entity.bean.UserLogin;
 
 import java.util.Arrays;

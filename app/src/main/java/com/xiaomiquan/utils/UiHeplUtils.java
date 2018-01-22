@@ -741,4 +741,6 @@ public class UiHeplUtils {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         return dm.density;
     }
+
+
 }

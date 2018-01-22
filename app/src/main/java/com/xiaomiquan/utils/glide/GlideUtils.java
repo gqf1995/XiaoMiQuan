@@ -41,7 +41,6 @@ public class GlideUtils {
         loadImage(url, icon, errorId, null);
     }
 
-
     public static void loadImage(String url, ImageView icon, int errorId, RequestListener<Drawable> requestListener) {
         if (!TextUtils.isEmpty(url) && !url.startsWith("http") && !new File(url).exists()) {
             url = BASE_URL + "/avatar/" + url;

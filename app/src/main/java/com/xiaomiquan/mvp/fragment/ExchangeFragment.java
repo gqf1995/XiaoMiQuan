@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
@@ -37,7 +38,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     List<ExchangeData> riseDatas;
     List<ExchangeData> dropDatas;
     List<String> sendKeys;
-
+    List<String> unitList;
     @Override
     protected Class<ExchangeDelegate> getDelegateClass() {
         return ExchangeDelegate.class;
@@ -85,14 +86,25 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     }
 
     private void initTool() {
-        List<String> dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
-        viewDelegate.viewHolder.tv_unit.attachDataSource(dataset1);
+        unitList = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
+        viewDelegate.viewHolder.tv_unit.attachDataSource(unitList);
         viewDelegate.viewHolder.tv_rise.setText(CommonUtils.getString(R.string.str_rise));
         viewDelegate.viewHolder.tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
         viewDelegate.viewHolder.tv_rise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 viewDelegate.viewHolder.tv_rise.onClick();
+            }
+        });
+        viewDelegate.viewHolder.tv_unit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
         viewDelegate.viewHolder.tv_rise.setOnChange(new GainsTabView.OnChange() {

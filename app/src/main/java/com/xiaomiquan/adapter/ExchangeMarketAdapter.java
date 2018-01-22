@@ -11,9 +11,9 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.BigUIUtil;
-import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.utils.BigUIUtil;
+import com.xiaomiquan.utils.UserSet;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -39,8 +39,18 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
     private FontTextview tv_name;
     private FontTextview tv_coin_unit;
 
+
+    private String defaultUnit;
+
+    //设置汇率
+    public void setDefaultUnit(String defaultUnit) {
+        this.defaultUnit = defaultUnit;
+        this.notifyDataSetChanged();
+    }
+
     public ExchangeMarketAdapter(Context context, List<ExchangeData> datas) {
         super(context, R.layout.adapter_exchange_coin, datas);
+        defaultUnit = UserSet.getinstance().getUnit();
         setHasStableIds(true);
     }
 
@@ -65,9 +75,17 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + "  " + BigUIUtil.getinstance().bigAmount(s.getVolume()) + "/" + BigUIUtil.getinstance().bigAmount(s.getAmount()));
         tv_coin_price.setText(s.getLast());
 
-        tv_coin_probably.setText("≈" + s.getChoicePrice());
+        if (!"default".equals(defaultUnit)) {
+            String choicePrice = BigUIUtil.getinstance().rate(s.getLast(), s.getSymbol(), defaultUnit);
+            if (!TextUtils.isEmpty(choicePrice)) {
+                tv_coin_probably.setText("≈" + choicePrice);
+            } else {
+                tv_coin_probably.setVisibility(View.GONE);
+            }
+        } else {
+            tv_coin_probably.setVisibility(View.GONE);
+        }
 
-        tv_coin_probably.setVisibility(TextUtils.isEmpty(s.getChoicePrice()) ? View.GONE : View.VISIBLE);
 
         if (!TextUtils.isEmpty(s.getChange())) {
             if (new BigDecimal(s.getChange()).compareTo(new BigDecimal("0")) == 1) {

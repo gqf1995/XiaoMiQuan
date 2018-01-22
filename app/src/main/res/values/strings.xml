@@ -247,6 +247,7 @@
         <item>ETH</item>
         <item>ETC</item>
     </string-array>
+
     <string-array name="sa_select_time">
         <item>1天</item>
         <item>3天</item>

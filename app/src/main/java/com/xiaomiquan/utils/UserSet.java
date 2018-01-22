@@ -1,4 +1,4 @@
-package com.xiaomiquan.base;
+package com.xiaomiquan.utils;
 
 import android.text.TextUtils;
 
@@ -73,5 +73,4 @@ public class UserSet {
             SkinCompatManager.getInstance().loadSkin("night.skin", SkinCompatManager.SKIN_LOADER_STRATEGY_ASSETS);
         }
     }
-
 }
