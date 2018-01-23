@@ -1,6 +1,7 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -19,8 +20,10 @@ import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.chart.KCombinedChart;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class MarketDetailsDelegate extends BaseDelegate {
@@ -64,24 +67,70 @@ public class MarketDetailsDelegate extends BaseDelegate {
         viewHolder.tv_ma15.setText("MA15:" + data.getMa15DataL().get(position).getVal() + "");
         viewHolder.tv_ma30.setText("MA30:" + data.getMa30DataL().get(position).getVal() + "");
 
-        viewHolder.tv_krise.setText(((kLineBean.close.floatValue() / kLineBean.open.floatValue()) - 1) + "");
+        float v = (kLineBean.close.floatValue() / kLineBean.open.floatValue()) - 1;
+        if (v > 0) {
+            viewHolder.tv_krise.setTextColor(UserSet.getinstance().getRiseColor());
+        } else {
+            viewHolder.tv_krise.setTextColor(UserSet.getinstance().getDropColor());
+        }
+
+        viewHolder.tv_krise.setText(v + "");
         viewHolder.tv_kamplitude.setText(((kLineBean.high.floatValue() - kLineBean.low.floatValue()) / kLineBean.open.floatValue()) + "");
 
         viewHolder.tv_ma5.setText(data.getMa5DataV().get(position).getVal() + "");
         viewHolder.tv_ma10.setText(data.getMa10DataV().get(position).getVal() + "");
+
+
     }
 
 
     public void initData(ExchangeData exchangeData) {
         mExchangeData = exchangeData;
         viewHolder.tv_title.setText(exchangeData.getExchange());
-        viewHolder.tv_price.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLast().toString()));
+        String priceStr = BigUIUtil.getinstance().bigPrice(exchangeData.getLast());
+
         viewHolder.tv_volume.setText(BigUIUtil.getinstance().bigAmount(exchangeData.getVolume().toString()));
         viewHolder.tv_highest.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getHigh().toString()));
         viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow().toString()));
         viewHolder.tv_buy_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getBid().toString()));
         viewHolder.tv_sell_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getAsk().toString()));
+
+        //人民币价
+        if (!UserSet.getinstance().isUnitDefalt()) {
+            viewHolder.tv_rate.setText("≈ ¥" + BigUIUtil.getinstance().rate(priceStr, exchangeData.getSymbol(), UserSet.getinstance().getCNYUnit()));
+            viewHolder.tv_rate.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.tv_rate.setVisibility(View.INVISIBLE);
+        }
+
+        //美元价
+        String rateUSD = BigUIUtil.getinstance().rate(priceStr, exchangeData.getSymbol(), UserSet.getinstance().getUSDUnit());
+        viewHolder.tv_price.setText("$" + rateUSD);
+
+        StringBuffer stringBuffer = new StringBuffer();
+        if (!TextUtils.isEmpty(exchangeData.getChange())) {
+            if (new BigDecimal("0").compareTo(new BigDecimal(exchangeData.getChange())) == 1) {
+                //跌
+                stringBuffer.append("- $")
+                        .append(BigUIUtil.getinstance().risePrice(rateUSD, exchangeData.getChange()))
+                        .append("(-")
+                        .append(exchangeData.getChange())
+                        .append(") ")
+                        .append(CommonUtils.getString(R.string.ic_Fall));
+                viewHolder.tv_rise.setTextColor(UserSet.getinstance().getDropColor());
+            } else {
+                //涨
+                stringBuffer.append("+ $")
+                        .append(BigUIUtil.getinstance().risePrice(rateUSD, exchangeData.getChange()))
+                        .append("(+")
+                        .append(exchangeData.getChange())
+                        .append(") ")
+                        .append(CommonUtils.getString(R.string.ic_Climb));
+                viewHolder.tv_rise.setTextColor(UserSet.getinstance().getRiseColor());
+            }
+        }
         viewHolder.tv_rise.setText(exchangeData.getChange().toString());
+
     }
 
     public static class ViewHolder {

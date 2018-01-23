@@ -217,6 +217,7 @@
     <string name="str_change_password">修改密码</string>
     <string name="str_global_index">全球指数</string>
     <string name="str_add_coin_market">添加自选</string>
+    <string name="str_list_sorting">列表排序</string>
     <string name="str_change_coin_market">币行情自选</string>
     <string name="str_search_coin_market">币行情搜索</string>
     <string name="str_search_coin_market_hint">搜索平台、币种</string>
@@ -231,7 +232,7 @@
     <string name="str_market_value">市值</string>
     <string name="str_global_network">全网</string>
     <string name="str_chart_nodata">数据加载中...</string>
-    <string name="str_amount">量/额</string>
+    <string name="str_amount">量</string>
     <string name="str_buy_one">买一</string>
     <string name="str_sell_one">卖一</string>
     <string name="str_kvolume">量(5,10)</string>

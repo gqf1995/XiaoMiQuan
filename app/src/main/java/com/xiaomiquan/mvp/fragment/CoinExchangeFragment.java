@@ -11,7 +11,7 @@ import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.ExchangeMarketAdapter;
+import com.xiaomiquan.adapter.CoinExchangeAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
 import com.xiaomiquan.mvp.databinder.ExchangeBinder;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, ExchangeBinder> {
 
-    ExchangeMarketAdapter exchangeMarketAdapter;
+    CoinExchangeAdapter exchangeMarketAdapter;
     String coinName;
     List<ExchangeData> strDatas;
 
@@ -47,7 +47,7 @@ public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate,
 
     private void initList(List<ExchangeData> strDatas) {
         if (exchangeMarketAdapter == null) {
-            exchangeMarketAdapter = new ExchangeMarketAdapter(getActivity(), strDatas);
+            exchangeMarketAdapter = new CoinExchangeAdapter(getActivity(), strDatas);
             exchangeMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -59,13 +59,8 @@ public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate,
                     return false;
                 }
             });
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
-            viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            });
+            //viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+            viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()) );
             viewDelegate.viewHolder.recycler_view.setAdapter(exchangeMarketAdapter);
             initTool();
         } else {
@@ -88,10 +83,9 @@ public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate,
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
-                viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+                //viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
                 initList(datas);
                 strDatas = datas;

@@ -27,7 +27,7 @@
                 android:padding="@dimen/trans_25px"
                 android:rotation="180"
                 android:text="@string/ic_icon_left"
-                android:textColor="@color/color_font1"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_trans_24px"
                 />
 
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="OKEx"
-                android:textColor="@color/color_font1"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_trans_32px"/>
 
             <com.fivefivelike.mybaselibrary.view.IconFontTextview
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/trans_25px"
                 android:text="@string/ic_icon_right"
-                android:textColor="@color/color_font1"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_trans_24px"
                 />
 
@@ -70,7 +70,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipChildren="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="@dimen/trans_20px">
 
                 <include layout="@layout/layout_market_detail"/>
 
@@ -124,7 +125,7 @@
                         android:gravity="center"
                         android:paddingRight="@dimen/trans_10px"
                         android:text="MA5:"
-                        android:textColor="@color/color_font3"
+                        android:textColor="@color/minute_yellow"
                         android:textSize="@dimen/text_trans_20px"/>
 
                     <TextView
@@ -134,7 +135,7 @@
                         android:gravity="center"
                         android:paddingRight="@dimen/trans_10px"
                         android:text="MA10:"
-                        android:textColor="@color/color_font3"
+                        android:textColor="@color/minute_blue"
                         android:textSize="@dimen/text_trans_20px"/>
 
                 </LinearLayout>

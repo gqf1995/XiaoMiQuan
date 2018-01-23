@@ -42,7 +42,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         ignoreBatteryOptimization(this);
         initFragment();
         uid = DeviceUtils.getAndroidID() + System.currentTimeMillis();
-        initSocket();
+        //initSocket();
         if (!BigUIUtil.getinstance().IsHavaData()) {
             //获取汇率
             addRequest(binder.getAllPriceRate(this));

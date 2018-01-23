@@ -2,6 +2,7 @@ package com.xiaomiquan.mvp.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -39,6 +40,8 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     List<ExchangeData> dropDatas;
     List<String> sendKeys;
     List<String> unitList;
+    int gainsState = 0;
+
     @Override
     protected Class<ExchangeDelegate> getDelegateClass() {
         return ExchangeDelegate.class;
@@ -49,13 +52,11 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         return new ExchangeBinder(viewDelegate);
     }
 
-
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         exchangeName = getArguments().getParcelable("exchangeName");
     }
-
 
     private void initList(List<ExchangeData> strDatas) {
         if (exchangeMarketAdapter == null) {
@@ -72,12 +73,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                 }
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
-            viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            });
+            viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
             viewDelegate.viewHolder.recycler_view.setAdapter(exchangeMarketAdapter);
             initTool();
         } else {
@@ -85,6 +81,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         }
     }
 
+    //切换单位显示 切换涨跌幅排行
     private void initTool() {
         unitList = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
         viewDelegate.viewHolder.tv_unit.attachDataSource(unitList);
@@ -99,7 +96,6 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         viewDelegate.viewHolder.tv_unit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
             }
 
             @Override
@@ -110,20 +106,26 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         viewDelegate.viewHolder.tv_rise.setOnChange(new GainsTabView.OnChange() {
             @Override
             public void onChange(int isTop) {
+                gainsState = isTop;
                 if (isTop == 0) {
-                    exchangeMarketAdapter.setDatas(strDatas);
+                    initList(strDatas);
                 } else if (isTop == 1) {
-                    exchangeMarketAdapter.setDatas(riseDatas);
+                    initList(riseDatas);
                 } else if (isTop == 2) {
-                    exchangeMarketAdapter.setDatas(dropDatas);
+                    initList(dropDatas);
                 }
+            }
+        });
+        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ExchangeFragment.this.onRefresh();
             }
         });
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
@@ -146,6 +148,10 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     @Override
     protected void onFragmentFirstVisible() {
@@ -156,7 +162,8 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
             public void onDataSuccess(String name, String data, String info, int status) {
                 if (exchangeName.getEname().equals(name)) {
                     //推送数据
-
+                    ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
+                    updataNew(exchangeData);
                 }
             }
 
@@ -165,6 +172,42 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
 
             }
         });
+    }
+
+    //新数据推送 更新
+    private void updataNew(ExchangeData data) {
+        int updataPosition = 0;
+        for (int i = 0; i < strDatas.size(); i++) {
+            if (strDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
+                strDatas.remove(i);
+                strDatas.add(i, data);
+                if (gainsState == 0) {
+                    updataPosition = i;
+                }
+                break;
+            }
+        }
+        for (int i = 0; i < riseDatas.size(); i++) {
+            if (riseDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
+                riseDatas.remove(i);
+                riseDatas.add(i, data);
+                if (gainsState == 1) {
+                    updataPosition = i;
+                }
+                break;
+            }
+        }
+        for (int i = 0; i < dropDatas.size(); i++) {
+            if (dropDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
+                dropDatas.remove(i);
+                dropDatas.add(i, data);
+                if (gainsState == 2) {
+                    updataPosition = i;
+                }
+                break;
+            }
+        }
+        exchangeMarketAdapter.updataOne(updataPosition, data);
     }
 
     private void sendWebSocket() {
@@ -179,12 +222,6 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
             }
             WebSocketRequest.getInstance().sendData(sendKeys);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //重新发送
     }
 
     @Override

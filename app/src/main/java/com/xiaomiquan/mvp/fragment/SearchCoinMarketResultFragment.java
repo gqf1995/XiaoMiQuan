@@ -25,14 +25,15 @@ public class SearchCoinMarketResultFragment extends BaseDataBindFragment<SearchC
         return new SearchCoinMarketResultBinder(viewDelegate);
     }
 
-
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         initList();
+        search();
     }
 
     SearchAddCoinAdapter searchAddCoinAdapter;
+    String strSearch;
 
     private void initList() {
         List<String> data = new ArrayList<>();
@@ -56,9 +57,19 @@ public class SearchCoinMarketResultFragment extends BaseDataBindFragment<SearchC
 
     }
 
+    public void searchInput(String txt) {
+        strSearch = txt;
+        if (searchAddCoinAdapter != null) {
+            search();
+        }
+    }
+
+    private void search() {
+        //搜索
+    }
+
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
         }
     }

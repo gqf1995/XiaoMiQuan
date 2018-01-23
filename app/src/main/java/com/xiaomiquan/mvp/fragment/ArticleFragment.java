@@ -41,7 +41,6 @@ public class ArticleFragment extends BasePullFragment<BaseFragentPullDelegate, B
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 List<ArticleData> data1 = GsonUtil.getInstance().toList(data, ArticleData.class);

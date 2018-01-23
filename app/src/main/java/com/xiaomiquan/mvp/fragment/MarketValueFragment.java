@@ -89,7 +89,6 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);

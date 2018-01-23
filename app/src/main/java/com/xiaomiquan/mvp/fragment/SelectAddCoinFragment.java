@@ -73,7 +73,6 @@ public class SelectAddCoinFragment extends BasePullFragment<BaseFragentPullDeleg
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);

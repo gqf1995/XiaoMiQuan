@@ -53,6 +53,14 @@ public class UserSet {
         return TextUtils.isEmpty(unit) ? "default" : unit;
     }
 
+    public String getCNYUnit() {
+        return "CNY";
+    }
+
+    public String getUSDUnit() {
+        return "USD";
+    }
+
     public void setLanguage(String language) {
         SaveUtil.getInstance().saveString("language", language);
     }
@@ -65,12 +73,16 @@ public class UserSet {
         return SaveUtil.getInstance().getBoolean("isNight");
     }
 
+    public boolean isUnitDefalt() {
+        return "default".equals(getUnit());
+    }
+
     public void setNight(boolean isNight) {
         SaveUtil.getInstance().saveBoolean("isNight", isNight);
         if (!isNight) {
             SkinCompatManager.getInstance().restoreDefaultTheme();
         } else {
-            SkinCompatManager.getInstance().loadSkin("night.skin", SkinCompatManager.SKIN_LOADER_STRATEGY_ASSETS);
+            SkinCompatManager.getInstance().loadSkin("light.skin", SkinCompatManager.SKIN_LOADER_STRATEGY_ASSETS);
         }
     }
 }

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
@@ -15,6 +15,7 @@ import com.xiaomiquan.adapter.ExchangeMarketAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.market.AddCoinActivity;
+import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -22,8 +23,6 @@ import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import skin.support.widget.SkinCompatCardView;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -35,6 +34,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     LinearLayoutManager linearLayoutManager;
     List<String> sendKeys;
     ArrayList<String> strings;
+
 
     @Override
     protected void bindEvenListener() {
@@ -55,15 +55,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
             }
         });
         viewDelegate.setNoDataTxt(CommonUtils.getString(R.string.str_add_coin_market));
-        viewDelegate.setNoDataClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //检测登录
-                if (SingSettingDBUtil.isLogin(getActivity())) {
-                    goChoose();
-                }
-            }
-        });
+        viewDelegate.setNoDataClickListener(this);
         headerAndFooterWrapper = new HeaderAndFooterWrapper(exchangeMarketAdapter);
         headerAndFooterWrapper.addFootView(initFootView());
         linearLayoutManager = new LinearLayoutManager(getActivity()) {
@@ -76,7 +68,6 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         viewDelegate.setIsLoadMore(false);
     }
 
-    public SkinCompatCardView card_root;
 
     private void goChoose() {
         if (strings == null) {
@@ -91,19 +82,37 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     }
 
     View rootView;
+    private LinearLayout lin_add_coin_market;
+    private LinearLayout lin_sorting;
+    private LinearLayout lin_root;
 
     private View initFootView() {
         rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_bottom_add, null);
-        this.card_root = (SkinCompatCardView) rootView.findViewById(R.id.card_root);
-        card_root.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        card_root.setVisibility(View.GONE);
-        card_root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goChoose();
-            }
-        });
+        this.lin_root = (LinearLayout) rootView.findViewById(R.id.lin_root);
+        this.lin_add_coin_market = (LinearLayout) rootView.findViewById(R.id.lin_add_coin_market);
+        this.lin_sorting = (LinearLayout) rootView.findViewById(R.id.lin_sorting);
+        lin_add_coin_market.setOnClickListener(this);
+        lin_sorting.setOnClickListener(this);
         return rootView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.lin_add_coin_market:
+            case R.id.ic_nodata:
+                //添加自选
+                //检测登录
+                if (SingSettingDBUtil.isLogin(getActivity())) {
+                    goChoose();
+                }
+                break;
+            case R.id.lin_sorting:
+                //列表排序
+                gotoActivity(SortingUserCoinActivity.class).fragStartActResult(this, 0x123);
+                break;
+        }
     }
 
     @Override
@@ -114,9 +123,10 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                 getDataBack(strDatas, datas, headerAndFooterWrapper);
                 if (datas.size() > 0) {
                     //如果有数据 则底部显示添加自选按钮
-                    card_root.setVisibility(View.VISIBLE);
+                    lin_root.setVisibility(View.VISIBLE);
                 } else {
-                    card_root.setVisibility(View.GONE);
+                    lin_root.setVisibility(View.GONE);
+                    viewDelegate.viewHolder.pull_recycleview.scrollToPosition(headerAndFooterWrapper.getItemCount() - 1);
                 }
                 //订阅推送
                 sendWebSocket();
@@ -192,5 +202,6 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     public BaseFragmentPullBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
         return new BaseFragmentPullBinder(viewDelegate);
     }
+
 
 }

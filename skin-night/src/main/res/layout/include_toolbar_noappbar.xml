@@ -3,162 +3,183 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
+    android:background="#00000000"
     android:layout_width="match_parent"
     android:layout_height="@dimen/trans_90px"
     >
 
-    <LinearLayout
-        android:id="@+id/toolbar_lin_back"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/trans_90px"
-        android:background="?selectableItemBackground"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:visibility="gone">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_90px">
 
-        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-            android:id="@+id/toolbar_back"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="@dimen/trans_90px"
-            android:layout_gravity="left|center_vertical"
-            android:layout_marginLeft="@dimen/trans_40px"
-            android:gravity="center"
-            android:text="@string/ic_Back"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_32px"
-            />
+            android:layout_gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/toolbar_lin_back"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_90px"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/trans_90px"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="@dimen/trans_40px"
+                    android:gravity="center"
+                    android:text="@string/ic_Back"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_32px"
+                    />
+
+                <TextView
+                    android:id="@+id/toolbar_back_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/trans_90px"
+                    android:layout_gravity="left|center_vertical"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_28px"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_content"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/trans_90px"
+                android:layout_weight="1">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_90px"
+                android:layout_gravity="right|center_vertical">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/toolbar_subtitle"
+                    style="@style/toolbar_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/trans_90px"
+                    android:layout_gravity="right|center_vertical"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_30px"
+                    android:visibility="gone"/>
+
+                <View
+                    android:id="@+id/view_subtitle_point"
+                    android:layout_width="@dimen/trans_10px"
+                    android:layout_height="@dimen/trans_10px"
+                    android:layout_margin="@dimen/trans_30px"
+                    android:background="@drawable/shape_red_max_radiu"
+                    android:visibility="gone"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_90px"
+                android:layout_gravity="right|center_vertical">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/toolbar_img2"
+                    style="@style/toolbar_button_style"
+                    android:layout_gravity="right|center_vertical"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_32px"
+                    android:visibility="gone"
+                    />
+
+                <View
+                    android:id="@+id/view_img2_point"
+                    android:layout_width="@dimen/trans_10px"
+                    android:layout_height="@dimen/trans_10px"
+                    android:layout_gravity="right"
+                    android:layout_margin="@dimen/trans_20px"
+                    android:background="@drawable/shape_red_max_radiu"
+                    android:visibility="gone"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_90px"
+                android:layout_gravity="right|center_vertical">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/toolbar_img1"
+                    style="@style/toolbar_button_style"
+                    android:layout_gravity="right|center_vertical"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_32px"
+                    android:visibility="gone"
+                    />
+
+                <View
+                    android:id="@+id/view_img1_point"
+                    android:layout_width="@dimen/trans_10px"
+                    android:layout_height="@dimen/trans_10px"
+                    android:layout_gravity="right"
+                    android:layout_margin="@dimen/trans_20px"
+                    android:background="@drawable/shape_red_max_radiu"
+                    android:visibility="gone"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_90px"
+                android:layout_gravity="right|center_vertical">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/toolbar_img"
+                    style="@style/toolbar_button_style"
+                    android:layout_gravity="right|center_vertical"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_32px"
+                    android:visibility="gone"
+                    />
+
+                <View
+                    android:id="@+id/view_img_point"
+                    android:layout_width="@dimen/trans_10px"
+                    android:layout_height="@dimen/trans_10px"
+                    android:layout_gravity="right"
+                    android:layout_margin="@dimen/trans_20px"
+                    android:background="@drawable/shape_red_max_radiu"
+                    android:visibility="gone"/>
+            </FrameLayout>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/toolbar_back_txt"
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/trans_90px"
-            android:layout_gravity="left|center_vertical"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_trans_28px"
-            android:visibility="gone"/>
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/trans_90px"
-        android:layout_gravity="right|center_vertical">
-
-        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-            android:id="@+id/toolbar_subtitle"
-            style="@style/toolbar_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/trans_90px"
-            android:layout_gravity="right|center_vertical"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="subtitle"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_30px"
-            android:visibility="gone"/>
-
-        <View
-            android:id="@+id/view_subtitle_point"
-            android:layout_width="@dimen/trans_10px"
-            android:layout_height="@dimen/trans_10px"
-            android:layout_margin="@dimen/trans_30px"
-            android:background="@drawable/shape_red_max_radiu"
-            android:visibility="gone"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_trans_32px"/>
     </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/trans_90px"
-        android:layout_gravity="right|center_vertical">
-
-        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-            android:id="@+id/toolbar_img2"
-            style="@style/toolbar_button_style"
-            android:layout_gravity="right|center_vertical"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="subtitle"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_32px"
-            android:visibility="gone"
-            />
-
-        <View
-            android:id="@+id/view_img2_point"
-            android:layout_width="@dimen/trans_10px"
-            android:layout_height="@dimen/trans_10px"
-            android:layout_gravity="right"
-            android:layout_margin="@dimen/trans_20px"
-            android:background="@drawable/shape_red_max_radiu"
-            android:visibility="gone"/>
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/trans_90px"
-        android:layout_gravity="right|center_vertical">
-
-        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-            android:id="@+id/toolbar_img1"
-            style="@style/toolbar_button_style"
-            android:layout_gravity="right|center_vertical"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="subtitle"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_32px"
-            android:visibility="gone"
-            />
-
-        <View
-            android:id="@+id/view_img1_point"
-            android:layout_width="@dimen/trans_10px"
-            android:layout_height="@dimen/trans_10px"
-            android:layout_gravity="right"
-            android:layout_margin="@dimen/trans_20px"
-            android:background="@drawable/shape_red_max_radiu"
-            android:visibility="gone"/>
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/trans_90px"
-        android:layout_gravity="right|center_vertical">
-
-        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-            android:id="@+id/toolbar_img"
-            style="@style/toolbar_button_style"
-            android:layout_gravity="right|center_vertical"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="subtitle"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_32px"
-            android:visibility="gone"
-            />
-
-        <View
-            android:id="@+id/view_img_point"
-            android:layout_width="@dimen/trans_10px"
-            android:layout_height="@dimen/trans_10px"
-            android:layout_gravity="right"
-            android:layout_margin="@dimen/trans_20px"
-            android:background="@drawable/shape_red_max_radiu"
-            android:visibility="gone"/>
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/toolbar_title"
-        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ellipsize="end"
-        android:lines="1"
-        android:scrollHorizontally="true"
-        android:text="title"
-        android:textColor="@color/color_font1"
-        android:textSize="@dimen/text_trans_32px"/>
 </android.support.v7.widget.Toolbar>

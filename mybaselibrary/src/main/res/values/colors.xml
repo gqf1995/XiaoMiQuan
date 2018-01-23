@@ -27,7 +27,7 @@
     <color name="color_e5e5e5">#e5e5e5</color>
     <color name="color_f5f5f5">#f5f5f5</color>
 
-       <color name="color_666666">#666666</color>
+    <color name="color_666666">#666666</color>
     <color name="color_555555">#555555</color>
     <color name="color_6A7180">#6A7180</color>
     <color name="color_f45638">#f45638</color>
@@ -84,10 +84,6 @@
     <color name="white_transparent_150">#96ffffff</color>
 
 
-
-
-
-
     <!--皮肤包颜色-->
     <color name="color_Primary">#1E1E35</color>
     <color name="colorPrimary">#1E1E35</color>
@@ -96,10 +92,16 @@
     <color name="base_mask">#32ffffff</color><!--@color/white_transparent_50-->
     <color name="base_mask_dark">#32000000</color><!--@color/black_transparent_50-->
 
+
+
     <color name="color_font1">#FFFFFF</color><!--@color/white-->
     <color name="color_font2">#cccccc</color><!--@color/color_cccccc-->
     <color name="color_font3">#999999</color><!--@color/color_999999-->
     <color name="color_font4">#6A7180</color><!--@color/color_6A7180-->
+    <color name="color_font1_dark">#000000</color>
+    <color name="color_font2_dark">#6A7180</color>
+    <color name="color_font3_dark">#999999</color>
+    <color name="color_font4_dark">#cccccc</color>
     <!-- chart -->
     <color name="marker_bg">#1C232E</color>
     <color name="marker_line_bg">#000000</color>
@@ -132,7 +134,8 @@
     <color name="praise_item_selector_default">#cccccc</color>
     <color name="praise_item">#8290AF</color>
 
-
+    <!--顶部导航栏背景颜色-->
+    <color name="toolbar_bg">#1E1E35</color>
 
 
 </resources>

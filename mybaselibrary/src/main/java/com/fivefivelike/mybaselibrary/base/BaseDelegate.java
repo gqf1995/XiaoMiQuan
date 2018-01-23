@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,6 +47,9 @@ public abstract class BaseDelegate extends IDelegateImpl {
     private View viewImgPoint;
     private DialogFragment netConnectDialog;
     private LinearLayout layoutTitleBar;
+    private FrameLayout fl_content;
+
+
     private ImageButton mNavButtonView;
     private int cuurentFragmentPosition = -1;
     private int fragmentContainId = -1;
@@ -131,6 +135,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
         viewImg2Point = getViewById(R.id.view_img2_point);
         viewImg1Point = getViewById(R.id.view_img1_point);
         viewImgPoint = getViewById(R.id.view_img_point);
+        fl_content = getViewById(R.id.fl_content);
 
 
         mToolbarBackTxt = getViewById(R.id.toolbar_back_txt);
@@ -140,13 +145,16 @@ public abstract class BaseDelegate extends IDelegateImpl {
 
 
         //标题总背景
-        if (layoutTitleBar != null) {
-            if (builder.getLayoutBarBack() != 0) {
-                layoutTitleBar.setBackgroundResource(builder.getLayoutBarBack());
-            } else {
-                layoutTitleBar.setBackgroundResource(R.color.transparent);
-            }
-        }
+//        if (layoutTitleBar != null) {
+//            if (builder.getLayoutBarBack() != 0) {
+//                layoutTitleBar.setBackgroundResource(builder.getLayoutBarBack());
+//            } else {
+//                layoutTitleBar.setBackgroundResource(R.color.transparent);
+//            }
+//        }
+
+
+
         //状态栏
         initStatus(activity, builder.getStatusBack());
         if (mToolbar != null) {
@@ -427,4 +435,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
         return viewImgPoint;
     }
 
+    public FrameLayout getFl_content() {
+        return fl_content;
+    }
 }

@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="BTC"
-                    android:textColor="@color/color_font1"
+                    android:textColor="@color/color_font3"
                     android:textSize="@dimen/text_trans_28px"
                     app:TypeFace="SemiBold"/>
 
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="BTC"
-                    android:textColor="@color/color_font1"
+                    android:textColor="@color/color_font2"
                     android:textSize="@dimen/text_trans_22px"
                     app:TypeFace="SemiBold"/>
 
@@ -119,6 +119,7 @@
         </LinearLayout>
 
         <FrameLayout
+            android:id="@+id/fl_change"
             android:layout_width="@dimen/trans_144px"
             android:layout_height="@dimen/trans_70px"
             android:layout_gravity="center">

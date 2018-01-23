@@ -23,7 +23,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -39,6 +38,7 @@ import com.tablayout.widget.MsgView;
 import java.util.ArrayList;
 
 import skin.support.content.res.SkinCompatResources;
+import skin.support.widget.SkinCompatFrameLayout;
 import skin.support.widget.SkinCompatHelper;
 import skin.support.widget.SkinCompatSupportable;
 import skin.support.widget.SkinCompatTextView;
@@ -49,7 +49,7 @@ import static skin.support.widget.SkinCompatHelper.INVALID_ID;
 /**
  * 没有继承HorizontalScrollView不能滑动,对于ViewPager无依赖
  */
-public class CommonTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener, SkinCompatSupportable {
+public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnimator.AnimatorUpdateListener, SkinCompatSupportable {
     private Context mContext;
     private ArrayList<CustomTabEntity> mTabEntitys = new ArrayList<>();
     private LinearLayout mTabsContainer;

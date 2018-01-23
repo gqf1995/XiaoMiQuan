@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 
 import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
@@ -48,10 +49,12 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setmRightImg2(CommonUtils.getString(R.string.ic_Notifications)).setmRightImg1(CommonUtils.getString(R.string.ic_Filter2))
+        initToolbar(new ToolbarBuilder().setmRightImg2(CommonUtils.getString(R.string.ic_Filter2)).setmRightImg1(CommonUtils.getString(R.string.ic_Share))
                 .setTitle(CommonUtils.getString(R.string.str_title_market)).setShowBack(true));
-        viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_Search1));
+        viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
+        viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_Notifications));
         initBarClick();
+        initToolBarSearch();
         //网络获取交易所 名称
         String exchangeNamesStr = CacheUtils.getInstance().getString(CACHE_EXCHANGENAME);
         if (!TextUtils.isEmpty(exchangeNamesStr)) {
@@ -61,8 +64,24 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         addRequest(binder.getAllEXchange(this));
     }
 
+
+    //给toolbar添加搜索布局
+    private void initToolBarSearch() {
+        viewDelegate.getFl_content().addView(getActivity().getLayoutInflater().inflate(R.layout.layout_top_search, null));
+        EditText et_search = viewDelegate.getFl_content().findViewById(R.id.et_search);
+        et_search.setFocusable(false);
+        et_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //跳转搜索
+                gotoActivity(SearchCoinMarketActivity.class).startAct();
+                getActivity().overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+            }
+        });
+    }
+
     @Override
-    protected void clickRightIv() {
+    protected void clickRightIv1() {
         super.clickRightIv();
         // 排序
         gotoActivity(SortingUserCoinActivity.class).fragStartActResult(this, 0x123);
@@ -82,9 +101,9 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     }
 
     @Override
-    protected void clickRightIv1() {
+    protected void clickRightIv() {
         super.clickRightIv1();
-        // 通知
+        // 分享
 
     }
 
@@ -150,8 +169,8 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         viewDelegate.getmToolbarBackLin().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //搜索
-                gotoActivity(SearchCoinMarketActivity.class).startAct();
+                //通知
+
             }
         });
     }
@@ -165,7 +184,6 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 //保存行情列表

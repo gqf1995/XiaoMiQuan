@@ -507,15 +507,8 @@
         </android.support.v4.widget.NestedScrollView>
 
 
-        <FrameLayout
-            android:id="@+id/fl_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary">
+        <include layout="@layout/include_toolbar_with_statusbar"/>
 
-            <include layout="@layout/include_toolbar_with_statusbar"/>
-
-        </FrameLayout>
     </FrameLayout>
 
 

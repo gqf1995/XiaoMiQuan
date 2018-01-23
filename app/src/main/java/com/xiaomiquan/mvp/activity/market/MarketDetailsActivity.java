@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
@@ -23,7 +24,6 @@ import com.xiaomiquan.widget.chart.KlineDraw;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import static com.xiaomiquan.base.AppConst.CACHE_KLINE;
@@ -63,7 +63,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         }
     };
 
-
+    //时间更新 每隔1秒更新ui
     private void updata() {
         if (timeIndex == -1) {
             timeIndex = 0;
@@ -87,7 +87,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         initView();
     }
 
-    List<String> dataset1;
+    List<String> dataset1;//选择 时间
 
     private void initView() {
         dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline));
@@ -143,12 +143,11 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 List<KLineBean> datas = GsonUtil.getInstance().toList(data, KLineBean.class);
                 if (isChange) {
-                    //重新加载 k线
+                    //加载 k线
                     getOffLineData(datas);
                 } else {
                     //更新k线信息
@@ -163,6 +162,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         }
     }
 
+    //初始化 k线
     private void getOffLineData(List<KLineBean> lineBeans) {
         mData = new DataParse();
         if (lineBeans.size() > 0) {
@@ -179,17 +179,56 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         viewDelegate.setDetailsData(klineDraw.getmData().getKLineDatas().size() - 1, klineDraw.getmData());
     }
 
+    //更新 k线
     private void updataKline(List<KLineBean> lineBeans) {
-        if (lineBeans.size() > 0) {
-            Iterator<KLineBean> it = lineBeans.iterator();
-            while (it.hasNext()) {
-                KLineBean x = it.next();
-                if (x.timestamp <= lineBeans.get(lineBeans.size() - 1).timestamp) {
-                    it.remove();
+        //        if (lineBeans.size() > 0) {
+        //            Iterator<KLineBean> it = lineBeans.iterator();
+        //            while (it.hasNext()) {
+        //                KLineBean x = it.next();
+        //                if (x.timestamp < lineBeans.get(lineBeans.size() - 1).timestamp) {
+        //                    it.remove();
+        //                }
+        //            }
+        //        }
+        klineDraw.updata(lineBeans);
+    }
+
+    //获取 前一列表所传数据 订阅websocket
+    private void getIntentData() {
+        Intent intent = getIntent();
+        exchangeData = intent.getParcelableExtra("exchangeData");
+        viewDelegate.initData(exchangeData);
+        WebSocketRequest.getInstance().addCallBack(this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
+            @Override
+            public void onDataSuccess(String name, String data, String info, int status) {
+                if (this.getClass().getName().equals(name)) {
+                    //推送数据
+                    exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
+                    viewDelegate.initData(exchangeData);
                 }
             }
+
+            @Override
+            public void onDataError(String name, String data, String info, int status) {
+
+            }
+        });
+        sendWebSocket();
+    }
+
+    List<String> sendKeys;
+
+    //发送 订阅信息
+    private void sendWebSocket() {
+        if (exchangeData != null) {
+            if (sendKeys == null) {
+                sendKeys = new ArrayList<>();
+            } else {
+                sendKeys.clear();
+            }
+            sendKeys.add(exchangeData.getOnlyKey());
+            WebSocketRequest.getInstance().sendData(sendKeys);
         }
-        klineDraw.updata(lineBeans);
     }
 
     public static void startAct(Activity activity,
@@ -202,13 +241,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     @Override
     protected void onDestroy() {
         handler.removeCallbacksAndMessages(null);
+        klineDraw = null;
         super.onDestroy();
-    }
-
-    private void getIntentData() {
-        Intent intent = getIntent();
-        exchangeData = intent.getParcelableExtra("exchangeData");
-        viewDelegate.initData(exchangeData);
-
     }
 }

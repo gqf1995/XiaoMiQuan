@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
 import android.view.WindowManager;
+
 import com.circledialog.CircleDialog;
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.mvp.presenter.ActivityPresenter;
 import com.fivefivelike.mybaselibrary.utils.ActUtil;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.githang.statusbar.StatusBarCompat;
@@ -76,19 +78,21 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
 
     public void setStatusBarLightOrNight(boolean lightStatuBar) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (!lightStatuBar) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorPrimary), false);
-                } else {
-                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorPrimary), false);
-                }
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), true);
-                } else {
-                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.font_grey), false);
-                }
-            }
+            //            if (!lightStatuBar) {
+            //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorPrimary), false);
+            //                } else {
+            //                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorPrimary), false);
+            //                }
+            //            } else {
+            //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), true);
+            //                } else {
+            //                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.font_grey), false);
+            //                }
+            //            }
+            StatusBarCompat.setStatusBarColor(this, CommonUtils.getColor(R.color.toolbar_bg), false);
+
             if (viewDelegate.isNoStatusBarFlag()) {
                 addNoStatusBarFlag();
             } else {

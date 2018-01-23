@@ -30,7 +30,6 @@ public class CoinIndexActivity extends BaseDataBindActivity<CoinIndexDelegate, C
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
         }
     }

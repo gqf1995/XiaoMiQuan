@@ -17,8 +17,8 @@ import java.util.List;
 public class DataParse {
     private ArrayList<MinutesBean> datas;
     private ArrayList<KLineBean> kDatas;
-    private ArrayList<String> xVals ;//X轴数据
-    private ArrayList<BarEntry> barEntries ;//成交量数据
+    private ArrayList<String> xVals;//X轴数据
+    private ArrayList<BarEntry> barEntries;//成交量数据
     private ArrayList<CandleEntry> candleEntries;//K线数据
 
     private ArrayList<Entry> ma5DataL;
@@ -101,13 +101,14 @@ public class DataParse {
     }
 
 
-
     public void parseKLine(List<KLineBean> kLineBeans) {
         if (kLineBeans.size() > 0) {
             if (mKLineBeans == null) {
                 mKLineBeans = new ArrayList<>();
+                kDatas = new ArrayList<>();
             } else {
                 mKLineBeans.clear();
+                kDatas.clear();
             }
             if (kLineBeans != null) {
                 int count = kLineBeans.size();

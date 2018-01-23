@@ -16,7 +16,7 @@ import java.util.Map;
  */
 
 public class BigUIUtil {
-    boolean isHavaData = false;
+    boolean isHavaData = false;//是否有汇率表
     Map<String, BigDecimal> usdRate;
     Map<String, BigDecimal> btcRate;
 
@@ -73,6 +73,20 @@ public class BigUIUtil {
         init();
     }
 
+    //根据涨幅计算 所涨价格
+    public String risePrice(String endPrice, String change) {
+        if (TextUtils.isEmpty(endPrice)) {
+            return "";
+        }
+        if (TextUtils.isEmpty(change)) {
+            return "";
+        }
+        BigDecimal endPriceBig = new BigDecimal(endPrice);
+        BigDecimal changeBig = new BigDecimal(change);
+        BigDecimal subtract = endPriceBig.subtract(endPriceBig.divide(changeBig.add(new BigDecimal("1"))));
+        return bigPrice(subtract.toString());
+    }
+
     /**
      * 汇率转化
      *
@@ -82,7 +96,10 @@ public class BigUIUtil {
      * @return
      */
     public String rate(String price, String name, String unit) {
-        if (price == null || name == null || unit == null) {
+        if (!isHavaData) {
+            return "";
+        }
+        if (TextUtils.isEmpty(price) || TextUtils.isEmpty(name) || TextUtils.isEmpty(unit)) {
             return "";
         }
         BigDecimal bigPrice = new BigDecimal(price);
@@ -91,20 +108,15 @@ public class BigUIUtil {
             return "";
         }
         BigDecimal end = bigPrice.multiply(bigDecimal);
-        String header = "";
-        if (unit.equals("CNY")) {
-            //人民币
-            header = "¥";
-        } else if (unit.equals("USD")) {
-            //对美元
-            header = "$";
-        }
 
-        return header + bigPrice(end.toString());
+        return bigPrice(end.toString());
     }
 
     public BigDecimal rateByUSD(String name, String unit) {
         BigDecimal nameBig, unitBig;
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(unit)) {
+            return new BigDecimal("0");
+        }
         if (usdRate.containsKey(name)) {
             nameBig = usdRate.get(name);
         } else {
@@ -123,6 +135,9 @@ public class BigUIUtil {
     }
 
     public BigDecimal rateByBTC(String name, String unit) {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(unit)) {
+            return new BigDecimal("0");
+        }
         BigDecimal nameBig = btcRate.get(name);
         BigDecimal unitBig = btcRate.get(unit);
         if (nameBig == null || unitBig == null) {

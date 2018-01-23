@@ -127,32 +127,35 @@ public class KlineDraw {
             //mData.initLineDatas(lineBeans);
             kLineDatas = mData.getKLineDatas();
 
-            if (lineBeans.get(0).timestamp == kLineDatas.get(lineBeans.size() - 1).timestamp) {
-                //更新 当前 到数第一根 k线
-                KLineBean kLineBean = lineBeans.get(0);
-                lineBeans.remove(0);
-                kLineDatas.remove(kLineDatas.size() - 1);
-                kLineDatas.add(kLineBean);
-                mData.initKLineMA(kLineDatas);
-                mData.initVlumeMA(kLineDatas);
-                updatLastKline(kLineBean);
-                updatLastVolume(kLineBean);
+            //更新 当前 到数第一根 k线
+            KLineBean kLineBean = kLineDatas.get(kLineDatas.size() - 1);
+            kLineBean.close = lineBeans.get(0).close;
+            if (kLineBean.high.compareTo(lineBeans.get(0).high) == -1) {
+                kLineBean.high = lineBeans.get(0).high;
             }
-
-
-            for (int i = 0; i < lineBeans.size(); i++) {
-                kLineDatas.add(lineBeans.get(i));
-                mData.getXVals().add(lineBeans.get(i).date);
+            if (kLineBean.low.compareTo(lineBeans.get(0).low) == 1) {
+                kLineBean.low = lineBeans.get(0).low;
             }
 
             mData.initKLineMA(kLineDatas);
             mData.initVlumeMA(kLineDatas);
+            updatLastKline(kLineBean);
+            updatLastVolume(kLineBean);
 
-            for (int i = 0; i < lineBeans.size(); i++) {
-                addVolumeData(lineBeans.size() - i);
-                addKlineData(lineBeans.size() - i);
+            if (lineBeans.size() > 1) {
+                for (int i = 1; i < lineBeans.size(); i++) {
+                    kLineDatas.add(lineBeans.get(i));
+                    mData.getXVals().add(lineBeans.get(i).date);
+                }
+
+                mData.initKLineMA(kLineDatas);
+                mData.initVlumeMA(kLineDatas);
+
+                for (int i = 0; i < lineBeans.size(); i++) {
+                    addVolumeData(lineBeans.size() - i);
+                    addKlineData(lineBeans.size() - i);
+                }
             }
-
 
             mChartKline.setAutoScaleMinMaxEnabled(true);
             mChartVolume.setAutoScaleMinMaxEnabled(true);
@@ -183,13 +186,11 @@ public class KlineDraw {
             // 位最后一个DataSet添加entry
             KLog.i("chart", kLineBean.toString());
             CandleEntry candleEntry = new CandleEntry(mData.getKLineDatas().size() - 1, kLineBean.high.floatValue(), kLineBean.low.floatValue(), kLineBean.open.floatValue(), kLineBean.close.floatValue());
-            candleData.addEntry(candleEntry, indexLast);
+            //            candleData.addEntry(candleEntry, indexLast);
 
             lastSet.getYVals().remove(lastSet.getYVals().size() - 1);
             candleData.addEntry(candleEntry, indexLast);
-
         }
-
 
         if (lineData != null) {
             LineDataSet lineDataSet5 = (LineDataSet) lineData.getDataSetByIndex(0);//五日均线;
@@ -595,6 +596,7 @@ public class KlineDraw {
 
         setHandler(combinedChart);
     }
+
     private void setVolumeByChart(CombinedChart combinedChart) {
         String unit = MyUtils.getVolUnit(mData.getVolmax());
         String wan = CommonUtils.getString(R.string.wan_unit);

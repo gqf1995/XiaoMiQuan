@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/trans_20px"
+    android:paddingRight="@dimen/trans_20px"
+    android:paddingTop="@dimen/trans_20px"
+    >
+
+    <LinearLayout
+        android:id="@+id/lin_search_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_mask_dark_maxradiu"
+        android:gravity="center_vertical">
+
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="@dimen/trans_30px"
+            android:text="@string/ic_Search"
+            android:textColor="@color/color_cccccc"
+            android:textSize="@dimen/text_trans_26px"/>
+
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="center_vertical|left"
+            android:hint="@string/str_global_market"
+            android:paddingLeft="@dimen/trans_15px"
+            android:textColor="@color/color_e5e5e5"
+            android:textColorHint="@color/color_cccccc"
+            android:textSize="@dimen/text_trans_26px"/>
+
+    </LinearLayout>
+</FrameLayout>

@@ -369,10 +369,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingRight="@dimen/trans_20px"
             android:text="-"
             android:textColor="@color/color_font4"
-            android:textSize="@dimen/text_trans_18px"/>
+            android:textSize="@dimen/text_trans_16px"/>
 
         <Space
             android:layout_width="0dp"
@@ -386,7 +385,7 @@
             android:gravity="center"
             android:text="-"
             android:textColor="@color/color_font4"
-            android:textSize="@dimen/text_trans_18px"/>
+            android:textSize="@dimen/text_trans_16px"/>
 
         <Space
             android:layout_width="0dp"
@@ -400,7 +399,7 @@
             android:gravity="center"
             android:text="-"
             android:textColor="@color/color_font4"
-            android:textSize="@dimen/text_trans_18px"/>
+            android:textSize="@dimen/text_trans_16px"/>
 
         <Space
             android:layout_width="0dp"
@@ -414,7 +413,7 @@
             android:gravity="center"
             android:text="-"
             android:textColor="@color/color_font4"
-            android:textSize="@dimen/text_trans_18px"/>
+            android:textSize="@dimen/text_trans_16px"/>
 
         <Space
             android:layout_width="0dp"
@@ -428,7 +427,7 @@
             android:gravity="center"
             android:text="-"
             android:textColor="@color/color_font4"
-            android:textSize="@dimen/text_trans_18px"/>
+            android:textSize="@dimen/text_trans_16px"/>
 
         <Space
             android:layout_width="0dp"
@@ -460,7 +459,7 @@
             android:gravity="center"
             android:paddingRight="@dimen/trans_10px"
             android:text="MA15:"
-            android:textColor="@color/color_font3"
+            android:textColor="@color/minute_yellow"
             android:textSize="@dimen/text_trans_20px"/>
 
         <TextView
@@ -470,7 +469,7 @@
             android:gravity="center"
             android:paddingRight="@dimen/trans_10px"
             android:text="MA30:"
-            android:textColor="@color/color_font3"
+            android:textColor="@color/minute_blue"
             android:textSize="@dimen/text_trans_20px"/>
 
     </LinearLayout>
