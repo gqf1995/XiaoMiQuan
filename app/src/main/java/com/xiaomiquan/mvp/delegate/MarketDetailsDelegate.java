@@ -13,18 +13,19 @@ import com.fivefivelike.mybaselibrary.utils.AndroidUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
-import com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
-import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
+import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.UserSet;
+import com.xiaomiquan.widget.DropDownView;
 import com.xiaomiquan.widget.chart.KCombinedChart;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MarketDetailsDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
@@ -75,7 +76,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
         }
 
         viewHolder.tv_krise.setText(v + "");
-        viewHolder.tv_kamplitude.setText(((kLineBean.high.floatValue() - kLineBean.low.floatValue()) / kLineBean.open.floatValue()) + "");
+        viewHolder.tv_kamplitude.setText(BigUIUtil.getinstance().changeAmount(((kLineBean.high.floatValue() - kLineBean.low.floatValue()) / kLineBean.open.floatValue()) + ""));
 
         viewHolder.tv_ma5.setText(data.getMa5DataV().get(position).getVal() + "");
         viewHolder.tv_ma10.setText(data.getMa10DataV().get(position).getVal() + "");
@@ -87,57 +88,65 @@ public class MarketDetailsDelegate extends BaseDelegate {
     public void initData(ExchangeData exchangeData) {
         mExchangeData = exchangeData;
         viewHolder.tv_title.setText(exchangeData.getExchange());
+        viewHolder.tv_subtitle.setText(exchangeData.getSymbol() + "/" + exchangeData.getUnit());
         String priceStr = BigUIUtil.getinstance().bigPrice(exchangeData.getLast());
 
-        viewHolder.tv_volume.setText(BigUIUtil.getinstance().bigAmount(exchangeData.getVolume().toString()));
-        viewHolder.tv_highest.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getHigh().toString()));
-        viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow().toString()));
-        viewHolder.tv_buy_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getBid().toString()));
-        viewHolder.tv_sell_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getAsk().toString()));
+        viewHolder.tv_volume.setText(BigUIUtil.getinstance().bigAmount(exchangeData.getVolume()));
+        viewHolder.tv_highest.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getHigh()));
+        viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow()));
+        viewHolder.tv_buy_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getBid()));
+        viewHolder.tv_sell_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getAsk()));
 
-        //人民币价
-        if (!UserSet.getinstance().isUnitDefalt()) {
-            viewHolder.tv_rate.setText("≈ ¥" + BigUIUtil.getinstance().rate(priceStr, exchangeData.getSymbol(), UserSet.getinstance().getCNYUnit()));
-            viewHolder.tv_rate.setVisibility(View.VISIBLE);
-        } else {
+
+        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(exchangeData.getLast(),exchangeData.getSymbol(), exchangeData.getUnit());
+        viewHolder.tv_price.setText(strings.get(0));
+        viewHolder.tv_rate.setText(strings.get(1));
+        if (TextUtils.isEmpty(strings.get(1))) {
             viewHolder.tv_rate.setVisibility(View.INVISIBLE);
+        } else {
+            viewHolder.tv_rate.setVisibility(View.VISIBLE);
         }
-
-        //美元价
-        String rateUSD = BigUIUtil.getinstance().rate(priceStr, exchangeData.getSymbol(), UserSet.getinstance().getUSDUnit());
-        viewHolder.tv_price.setText("$" + rateUSD);
-
+        String s = strings.get(0);
+        String symbol = "";
+        if (strings.get(0).contains("$") || strings.get(0).contains("¥")) {
+            s = s.substring(1, strings.get(0).length());
+            symbol = s.substring(0, 1);
+        } else {
+            s = exchangeData.getLast();
+        }
         StringBuffer stringBuffer = new StringBuffer();
+        String end = "";
         if (!TextUtils.isEmpty(exchangeData.getChange())) {
             if (new BigDecimal("0").compareTo(new BigDecimal(exchangeData.getChange())) == 1) {
                 //跌
-                stringBuffer.append("- $")
-                        .append(BigUIUtil.getinstance().risePrice(rateUSD, exchangeData.getChange()))
+                stringBuffer.append("- ")
+                        .append(symbol + BigUIUtil.getinstance().risePrice(s, exchangeData.getChange()))
                         .append("(-")
-                        .append(exchangeData.getChange())
-                        .append(") ")
-                        .append(CommonUtils.getString(R.string.ic_Fall));
-                viewHolder.tv_rise.setTextColor(UserSet.getinstance().getDropColor());
+                        .append(BigUIUtil.getinstance().changeAmount(exchangeData.getChange()))
+                        .append("%) ");
+                end = CommonUtils.getString(R.string.ic_Fall);
+                viewHolder.tv_rise.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
             } else {
                 //涨
-                stringBuffer.append("+ $")
-                        .append(BigUIUtil.getinstance().risePrice(rateUSD, exchangeData.getChange()))
+                stringBuffer.append("+ ")
+                        .append(symbol + BigUIUtil.getinstance().risePrice(s, exchangeData.getChange()))
                         .append("(+")
-                        .append(exchangeData.getChange())
-                        .append(") ")
-                        .append(CommonUtils.getString(R.string.ic_Climb));
-                viewHolder.tv_rise.setTextColor(UserSet.getinstance().getRiseColor());
+                        .append(BigUIUtil.getinstance().changeAmount(exchangeData.getChange()))
+                        .append("%) ");
+                end = CommonUtils.getString(R.string.ic_Climb);
+                viewHolder.tv_rise.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
             }
         }
-        viewHolder.tv_rise.setText(exchangeData.getChange().toString());
+
+        viewHolder.tv_rise.setText(stringBuffer.toString() + " " + end);
 
     }
 
+
     public static class ViewHolder {
         public View rootView;
-        public IconFontTextview tv_left;
         public TextView tv_title;
-        public IconFontTextview tv_right;
+        public TextView tv_subtitle;
         public FontTextview tv_price;
         public FontTextview tv_rate;
         public IconFontTextview tv_rise;
@@ -148,9 +157,9 @@ public class MarketDetailsDelegate extends BaseDelegate {
         public TextView tv_sell_one;
         public TextView tv_market_value;
         public TextView tv_circulation;
-        public NiceSpinner lin_time;
-        public NiceSpinner lin_indicators;
-        public NiceSpinner lin_color;
+        public DropDownView lin_time;
+        public DropDownView lin_indicators;
+        public DropDownView lin_color;
         public TextView tv_ktime;
         public TextView tv_kopen;
         public TextView tv_kheight;
@@ -168,19 +177,17 @@ public class MarketDetailsDelegate extends BaseDelegate {
         public TextView tv_ma10;
         public LinearLayout lin_ma2;
         public KCombinedChart barchart;
-        public LinearLayout lin_discuss;
         public LinearLayout lin_global_market;
-        public LinearLayout lin_information;
         public LinearLayout lin_currency_data;
+        public LinearLayout lin_simulation;
         public LinearLayout lin_advance_warning;
         public LinearLayout lin_kline;
         public FrameLayout fl_bottom;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.tv_left = (IconFontTextview) rootView.findViewById(R.id.tv_left);
             this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
-            this.tv_right = (IconFontTextview) rootView.findViewById(R.id.tv_right);
+            this.tv_subtitle = (TextView) rootView.findViewById(R.id.tv_subtitle);
             this.tv_price = (FontTextview) rootView.findViewById(R.id.tv_price);
             this.tv_rate = (FontTextview) rootView.findViewById(R.id.tv_rate);
             this.tv_rise = (IconFontTextview) rootView.findViewById(R.id.tv_rise);
@@ -191,9 +198,9 @@ public class MarketDetailsDelegate extends BaseDelegate {
             this.tv_sell_one = (TextView) rootView.findViewById(R.id.tv_sell_one);
             this.tv_market_value = (TextView) rootView.findViewById(R.id.tv_market_value);
             this.tv_circulation = (TextView) rootView.findViewById(R.id.tv_circulation);
-            this.lin_time = (NiceSpinner) rootView.findViewById(R.id.lin_time);
-            this.lin_indicators = (NiceSpinner) rootView.findViewById(R.id.lin_indicators);
-            this.lin_color = (NiceSpinner) rootView.findViewById(R.id.lin_color);
+            this.lin_time = (DropDownView) rootView.findViewById(R.id.lin_time);
+            this.lin_indicators = (DropDownView) rootView.findViewById(R.id.lin_indicators);
+            this.lin_color = (DropDownView) rootView.findViewById(R.id.lin_color);
             this.tv_ktime = (TextView) rootView.findViewById(R.id.tv_ktime);
             this.tv_kopen = (TextView) rootView.findViewById(R.id.tv_kopen);
             this.tv_kheight = (TextView) rootView.findViewById(R.id.tv_kheight);
@@ -211,10 +218,9 @@ public class MarketDetailsDelegate extends BaseDelegate {
             this.tv_ma10 = (TextView) rootView.findViewById(R.id.tv_ma10);
             this.lin_ma2 = (LinearLayout) rootView.findViewById(R.id.lin_ma2);
             this.barchart = (KCombinedChart) rootView.findViewById(R.id.barchart);
-            this.lin_discuss = (LinearLayout) rootView.findViewById(R.id.lin_discuss);
             this.lin_global_market = (LinearLayout) rootView.findViewById(R.id.lin_global_market);
-            this.lin_information = (LinearLayout) rootView.findViewById(R.id.lin_information);
             this.lin_currency_data = (LinearLayout) rootView.findViewById(R.id.lin_currency_data);
+            this.lin_simulation = (LinearLayout) rootView.findViewById(R.id.lin_simulation);
             this.lin_advance_warning = (LinearLayout) rootView.findViewById(R.id.lin_advance_warning);
             this.lin_kline = (LinearLayout) rootView.findViewById(R.id.lin_kline);
             this.fl_bottom = (FrameLayout) rootView.findViewById(R.id.fl_bottom);

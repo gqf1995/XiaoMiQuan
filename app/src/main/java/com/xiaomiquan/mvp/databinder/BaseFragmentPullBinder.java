@@ -27,7 +27,6 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
     public Disposable getAllMarketCaps(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().getAllMarketCaps)

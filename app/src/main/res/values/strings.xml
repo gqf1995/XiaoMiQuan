@@ -133,6 +133,7 @@
     <string name="ic_Zap">&#xe6c3;</string>
     <string name="ic_icon_right">&#xe61d;</string>
     <string name="ic_icon_left">&#xe61d;</string>
+    <string name="ic_drop_down">&#xe600;</string>
 
 
     <string name="str_login_label_email">邮箱</string>
@@ -169,7 +170,8 @@
     <string name="str_send_code_toast">验证码已发送至注册(%1$s),请查收 </string>
 
     <string name="str_information">资讯</string>
-    <string name="str_advance_warning">预警</string>
+    <string name="str_simulation">模拟交易</string>
+    <string name="str_advance_warning">价格预警</string>
     <string name="str_currency_data">币种资料</string>
     <string name="str_global_market">全球行情</string>
     <string name="str_discuss">讨论</string>
@@ -259,8 +261,15 @@
 
     <string-array name="sa_select_unit">
         <item>默认</item>
-        <item>CNY</item>
-        <item>USD</item>
+        <item>平台价格-CNY价格</item>
+        <item>平台价格-USD价格</item>
+        <item>CNY价格-平台价格</item>
+        <item>USD价格-平台价格</item>
+        <item>USD价格-CNY价格</item>
+        <item>CNY价格-USD价格</item>
+        <item>仅USD价格</item>
+        <item>仅CNY价格</item>
+        <item>仅平台价格</item>
     </string-array>
 
     <string-array name="sa_select_language">

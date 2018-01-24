@@ -35,6 +35,17 @@ public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDeleg
     ChangeSetAdapter changeSetAdapter;
     String defaultSet;
 
+
+    //    平台价格-cny=cny
+    //    平台价格-usd=usd
+    //    cny-平台价格=cny
+    //    usd-平台价格=usd
+    //    usd-cny=usd
+    //    cny-usd=cny
+    //            仅usd=usd
+    //    仅cny=cny
+    //            仅平台价格=usd
+
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
@@ -70,10 +81,6 @@ public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDeleg
                 if (TYPE_LANGUAGE.equals(type)) {
                     UserSet.getinstance().setLanguage(Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language_abbreviations)).get(position));
                 } else if (TYPE_UNIT.equals(type)) {
-                    if (position == 0) {
-                        UserSet.getinstance().setUnit("default");
-                        return;
-                    }
                     UserSet.getinstance().setUnit(data.get(position));
                 }
             }

@@ -56,20 +56,27 @@
 
         </LinearLayout>
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_select"
-            android:layout_width="@dimen/trans_50px"
-            android:layout_height="@dimen/trans_50px"
-            android:background="@color/color_font1"
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:id="@+id/tv_select"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/trans_30px"
+            android:paddingRight="@dimen/trans_30px"
+            android:text="@string/ic_Stick"
+            android:textColor="@color/color_font3"
+            android:textSize="@dimen/trans_40px"
             />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="@dimen/trans_50px"
-            android:layout_height="@dimen/trans_50px"
-            android:layout_marginLeft="@dimen/trans_40px"
-            android:background="@color/color_font1"
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/ic_Move1"
+            android:textColor="@color/color_font3"
+            android:textSize="@dimen/trans_45px"
             />
 
     </LinearLayout>

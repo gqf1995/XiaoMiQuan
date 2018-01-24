@@ -68,12 +68,14 @@ public class WebSocketRequest {
     }
 
     public void sendData(List<String> keys) {
-        StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < keys.size(); i++) {
-            stringBuffer.append(",").append(keys.get(i));
+        if (keys != null) {
+            StringBuffer stringBuffer = new StringBuffer();
+            for (int i = 0; i < keys.size(); i++) {
+                stringBuffer.append(",").append(keys.get(i));
+            }
+            unregister(oldSend);
+            oldSend = stringBuffer.toString();
         }
-        unregister(oldSend);
-        oldSend = stringBuffer.toString();
     }
 
     private void register(String json) {

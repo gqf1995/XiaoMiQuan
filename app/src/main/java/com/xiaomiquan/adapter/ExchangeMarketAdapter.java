@@ -74,17 +74,14 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + BigUIUtil.getinstance().bigAmount(s.getAmount()));
         tv_coin_price.setText(s.getLast());
 
-        if (!"default".equals(defaultUnit)) {
-            String choicePrice = BigUIUtil.getinstance().rate(s.getLast(), s.getSymbol(), defaultUnit);
-            if (!TextUtils.isEmpty(choicePrice)) {
-                tv_coin_probably.setText("≈" + choicePrice);
-            } else {
-                tv_coin_probably.setVisibility(View.GONE);
-            }
-        } else {
+        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(),s.getSymbol(),s.getUnit());
+        tv_coin_price.setText(strings.get(0));
+        tv_coin_probably.setText(strings.get(1));
+        if (TextUtils.isEmpty(strings.get(1))) {
             tv_coin_probably.setVisibility(View.GONE);
+        } else {
+            tv_coin_probably.setVisibility(View.VISIBLE);
         }
-
 
         if (!TextUtils.isEmpty(s.getChange())) {
             if (new BigDecimal(s.getChange()).compareTo(new BigDecimal("0")) == 1) {
@@ -94,7 +91,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
             }
         }
         ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
-        tv_gains.setText(s.getChange() + "%");
+        tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
 
 
     }

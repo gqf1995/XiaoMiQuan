@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
@@ -14,6 +14,7 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.kline.DataParse;
@@ -93,16 +94,16 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline));
         List<String> dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_color));
         List<String> dataset3 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_color));
-        viewDelegate.viewHolder.lin_time.attachDataSource(dataset1);
-        viewDelegate.viewHolder.lin_indicators.attachDataSource(dataset2);
-        viewDelegate.viewHolder.lin_color.attachDataSource(dataset3);
-        timeData = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline_value));
-        viewDelegate.viewHolder.lin_time.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+        viewDelegate.viewHolder.lin_time.setDatas(dataset1, new GridLayoutManager(this, 4) {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public boolean canScrollVertically() {
+                return false;
+            }
+        }).setDefaultClickLinsener(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, int position, Object item) {
                 //时间 改变
-                String s = dataset1.get(i);
-                klineValue = timeData.get(dataset1.indexOf(s));
+                klineValue = timeData.get(position);
                 isChange = true;
                 timeIndex = 0;
                 //清空数据
@@ -111,6 +112,9 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 request("");
             }
         });
+        viewDelegate.viewHolder.lin_indicators.setDatas(dataset2, null);
+        viewDelegate.viewHolder.lin_color.setDatas(dataset3, null);
+        timeData = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline_value));
     }
 
     private void initCache() {
@@ -164,32 +168,27 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
     //初始化 k线
     private void getOffLineData(List<KLineBean> lineBeans) {
-        mData = new DataParse();
-        if (lineBeans.size() > 0) {
-            mData.parseKLine(lineBeans);
-        }
-        klineDraw = new KlineDraw();
-        klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
-        klineDraw.setOnClick(new KlineDraw.OnClick() {
-            @Override
-            public void click(int xPosition) {
-                viewDelegate.setDetailsData(xPosition, klineDraw.getmData());
+        if (lineBeans != null) {
+            if (lineBeans.size() > 0) {
+                mData = new DataParse();
+                if (lineBeans.size() > 0) {
+                    mData.parseKLine(lineBeans);
+                }
+                klineDraw = new KlineDraw();
+                klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
+                klineDraw.setOnClick(new KlineDraw.OnClick() {
+                    @Override
+                    public void click(int xPosition) {
+                        viewDelegate.setDetailsData(xPosition, klineDraw.getmData());
+                    }
+                });
+                viewDelegate.setDetailsData(klineDraw.getmData().getKLineDatas().size() - 1, klineDraw.getmData());
             }
-        });
-        viewDelegate.setDetailsData(klineDraw.getmData().getKLineDatas().size() - 1, klineDraw.getmData());
+        }
     }
 
     //更新 k线
     private void updataKline(List<KLineBean> lineBeans) {
-        //        if (lineBeans.size() > 0) {
-        //            Iterator<KLineBean> it = lineBeans.iterator();
-        //            while (it.hasNext()) {
-        //                KLineBean x = it.next();
-        //                if (x.timestamp < lineBeans.get(lineBeans.size() - 1).timestamp) {
-        //                    it.remove();
-        //                }
-        //            }
-        //        }
         klineDraw.updata(lineBeans);
     }
 

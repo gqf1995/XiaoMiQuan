@@ -122,7 +122,8 @@
             android:id="@+id/fl_change"
             android:layout_width="@dimen/trans_144px"
             android:layout_height="@dimen/trans_70px"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:visibility="gone">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/ic_piv"

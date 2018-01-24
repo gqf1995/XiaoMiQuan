@@ -9,7 +9,6 @@ import com.blankj.utilcode.util.Utils;
 import com.fivefivelike.mybaselibrary.base.BaseApp;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
-import com.squareup.leakcanary.LeakCanary;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -85,12 +84,6 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
             //初始化换肤
             initSkin();
         }
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
     }
 
     @Override
@@ -113,8 +106,10 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
     public boolean onReceived(Message message, int i) {
         return false;
     }
+
     private static Context mContext;
-    public static Context getContext(){
+
+    public static Context getContext() {
         return mContext;
     }
 }

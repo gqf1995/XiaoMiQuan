@@ -495,7 +495,6 @@ public class KlineDraw {
         mChartKline.setDragDecelerationEnabled(true);
         mChartKline.setDragDecelerationFrictionCoef(0.2f);
 
-        mChartKline.animateX(2000);
     }
 
     /**
@@ -547,14 +546,12 @@ public class KlineDraw {
         axisRightVolume.setDrawGridLines(false);
         axisRightVolume.setDrawAxisLine(false);
 
-
         axisRightVolume.setAxisMinValue(0);
         axisLeftVolume.setAxisMinValue(0);
 
         mChartVolume.setDragDecelerationEnabled(true);
         mChartVolume.setDragDecelerationFrictionCoef(0.2f);
 
-        mChartVolume.animateX(2000);
     }
 
     private void setKLineByChart(CombinedChart combinedChart) {

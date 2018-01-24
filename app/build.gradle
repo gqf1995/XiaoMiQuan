@@ -94,8 +94,8 @@ dependencies {
     //数据库
     compile 'org.greenrobot:greendao:3.2.2'
     //
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //图表
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.5'
     // skin-support-constraint-layout ConstraintLayout 控件支持[可选]

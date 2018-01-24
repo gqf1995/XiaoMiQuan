@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -42,15 +44,27 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         ignoreBatteryOptimization(this);
         initFragment();
         uid = DeviceUtils.getAndroidID() + System.currentTimeMillis();
-        //initSocket();
-        if (!BigUIUtil.getinstance().IsHavaData()) {
-            //获取汇率
-            addRequest(binder.getAllPriceRate(this));
+        initSocket();
+        updata();
+    }
+
+    private Handler handler = new Handler() {//进行延时跳转
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    updata();
+                    break;
+            }
         }
+    };
+
+    private void updata() {
+        addRequest(binder.getAllPriceRate(this));
+        handler.sendEmptyMessageDelayed(1, 15000);
     }
 
     private void initSocket() {
-        WebSocketRequest.getInstance().intiWebSocket("ws://47.97.169.136:1903/ws/" + uid, this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
+        WebSocketRequest.getInstance().intiWebSocket("ws://13.231.38.47:1903/ws/" + uid, this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
             @Override
             public void onDataSuccess(String name, String data, String info, int status) {
 

@@ -151,11 +151,6 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
             language = "zh-cn";
         }
         baseMap.put("language", language);
-        String unit = SaveUtil.getInstance().getString("unit");
-        if (TextUtils.isEmpty(unit)) {
-            unit = "default";
-        }
-        baseMap.put("unit", unit);
         return baseMap;
     }
 

@@ -6,7 +6,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
@@ -18,8 +17,10 @@ import com.xiaomiquan.entity.RiseChangeSort;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.ExchangeName;
 import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
+import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.databinder.ExchangeBinder;
 import com.xiaomiquan.mvp.delegate.ExchangeDelegate;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.GainsTabView;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
@@ -42,6 +43,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     List<String> unitList;
     int gainsState = 0;
 
+
     @Override
     protected Class<ExchangeDelegate> getDelegateClass() {
         return ExchangeDelegate.class;
@@ -58,9 +60,11 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         exchangeName = getArguments().getParcelable("exchangeName");
     }
 
+
     private void initList(List<ExchangeData> strDatas) {
         if (exchangeMarketAdapter == null) {
             exchangeMarketAdapter = new ExchangeMarketAdapter(getActivity(), strDatas);
+            exchangeMarketAdapter.setDefaultUnit(UserSet.getinstance().getUnit());
             exchangeMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -84,7 +88,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     //切换单位显示 切换涨跌幅排行
     private void initTool() {
         unitList = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
-        viewDelegate.viewHolder.tv_unit.attachDataSource(unitList);
+        viewDelegate.viewHolder.tv_unit.setText(UserSet.getinstance().getShowUnit());
         viewDelegate.viewHolder.tv_rise.setText(CommonUtils.getString(R.string.str_rise));
         viewDelegate.viewHolder.tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
         viewDelegate.viewHolder.tv_rise.setOnClickListener(new View.OnClickListener() {
@@ -93,14 +97,10 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                 viewDelegate.viewHolder.tv_rise.onClick();
             }
         });
-        viewDelegate.viewHolder.tv_unit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        viewDelegate.viewHolder.tv_unit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onClick(View view) {
+                ChangeDefaultSetActivity.startAct(getActivity(), ChangeDefaultSetActivity.TYPE_UNIT);
             }
         });
         viewDelegate.viewHolder.tv_rise.setOnChange(new GainsTabView.OnChange() {
@@ -151,6 +151,13 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     @Override
     public void onResume() {
         super.onResume();
+        //同步用户所选 单位
+        viewDelegate.viewHolder.tv_unit.setText(UserSet.getinstance().getShowUnit());
+        if (exchangeMarketAdapter != null) {
+            if (exchangeMarketAdapter.getDatas().size() > 0) {
+                exchangeMarketAdapter.setDefaultUnit(UserSet.getinstance().getUnit().replaceAll("-", "\n"));
+            }
+        }
     }
 
     @Override

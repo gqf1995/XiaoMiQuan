@@ -3,22 +3,22 @@ package com.xiaomiquan.mvp.fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.CoinMarketAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.GainsTabView;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import skin.support.widget.SkinCompatLinearLayout;
@@ -36,7 +36,6 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
     public BaseFragmentPullBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
         return new BaseFragmentPullBinder(viewDelegate);
     }
-
 
     @Override
     protected void bindEvenListener() {
@@ -64,18 +63,17 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
         }
     }
 
-    public NiceSpinner tv_unit;
+    public TextView tv_unit;
     public GainsTabView tv_rise;
     public SkinCompatLinearLayout lin_root;
 
     private void initTool() {
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_exchange_tool, null);
-        this.tv_unit = (NiceSpinner) rootView.findViewById(R.id.tv_unit);
+        this.tv_unit = (TextView) rootView.findViewById(R.id.tv_unit);
         this.tv_rise = (GainsTabView) rootView.findViewById(R.id.tv_rise);
         this.lin_root = (SkinCompatLinearLayout) rootView.findViewById(R.id.lin_root);
-        List<String> dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
+        tv_unit.setText(UserSet.getinstance().getUnit());
 
-        tv_unit.attachDataSource(dataset1);
         tv_rise.setText(CommonUtils.getString(R.string.str_rise));
         tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
         tv_rise.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +83,18 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             }
         });
         viewDelegate.viewHolder.fl_pull.addView(rootView, 0);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //同步用户所选 单位
+        tv_unit.setText(UserSet.getinstance().getShowUnit());
+        if (exchangeMarketAdapter != null) {
+            if (exchangeMarketAdapter.getDatas().size() > 0) {
+                exchangeMarketAdapter.setDefaultUnit(UserSet.getinstance().getUnit().replaceAll("-", "\n"));
+            }
+        }
     }
 
     @Override

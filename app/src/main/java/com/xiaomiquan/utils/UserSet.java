@@ -19,6 +19,8 @@ import skin.support.SkinCompatManager;
 
 public class UserSet {
 
+
+
     private static class userSet {
         private static UserSet userSet = new UserSet();
     }
@@ -50,7 +52,12 @@ public class UserSet {
 
     public String getUnit() {
         String unit = SaveUtil.getInstance().getString("unit");
-        return TextUtils.isEmpty(unit) ? "default" : unit;
+        return TextUtils.isEmpty(unit) ? "默认" : unit;
+    }
+
+    public String getShowUnit() {
+        String unit = SaveUtil.getInstance().getString("unit");
+        return TextUtils.isEmpty(unit) ? "默认" : unit;
     }
 
     public String getCNYUnit() {

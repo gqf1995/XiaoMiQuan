@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.github.mikephil.charting.charts.CombinedChart;
@@ -165,15 +167,15 @@ public class KCombinedChart extends CombinedChart {
     }
 
     public void initRenderer() {
-        //        if (isDrawHeightAndLow) {
-        //            //获取屏幕宽度,因为默认是向右延伸显示数字的(如图1),当最值在屏幕右端,屏幕不够显示时要向左延伸(如图2)
-        //            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        //            DisplayMetrics metrics = new DisplayMetrics();
-        //            wm.getDefaultDisplay().getMetrics(metrics);
-        //            //将mRenderer换成自己写的继承自LineChartRenderer的类
-        //            mRenderer = new KLineChartRenderer(this, mAnimator, mViewPortHandler, metrics.widthPixels);
-        //            mRenderer.initBuffers();
-        //        }
+        if (isDrawHeightAndLow) {
+            //获取屏幕宽度,因为默认是向右延伸显示数字的(如图1),当最值在屏幕右端,屏幕不够显示时要向左延伸(如图2)
+            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+            DisplayMetrics metrics = new DisplayMetrics();
+            wm.getDefaultDisplay().getMetrics(metrics);
+            //将mRenderer换成自己写的继承自LineChartRenderer的类
+            mRenderer = new KLineChartRenderer(this, mAnimator, mViewPortHandler, metrics.widthPixels);
+            mRenderer.initBuffers();
+        }
     }
 
     @Override

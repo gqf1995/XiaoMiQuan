@@ -2,6 +2,7 @@ package com.xiaomiquan.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,10 +12,10 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.xiaomiquan.R;
-import com.xiaomiquan.utils.BigUIUtil;
-import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.UiHeplUtils;
+import com.xiaomiquan.utils.UserSet;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -25,7 +26,7 @@ import java.util.List;
  * Created by 郭青枫 on 2018/1/10 0010.
  */
 
-public class CoinMarketAdapter extends CommonAdapter<ExchangeData>  {
+public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
 
 
     private TextView tv_num;
@@ -36,9 +37,18 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData>  {
     private FontTextview tv_gains;
     private LinearLayout lin_root;
     private FrameLayout fl_root;
+    private String defaultUnit;
+    private FontTextview tv_coin_probably;
 
     public CoinMarketAdapter(Context context, List<ExchangeData> datas) {
         super(context, R.layout.adapter_coin_market, datas);
+        defaultUnit = UserSet.getinstance().getUnit();
+    }
+
+    //设置汇率
+    public void setDefaultUnit(String defaultUnit) {
+        this.defaultUnit = defaultUnit;
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -51,13 +61,24 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData>  {
         lin_root = holder.getView(R.id.lin_root);
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
         tv_num = holder.getView(R.id.tv_num);
+        tv_coin_probably = holder.getView(R.id.tv_coin_probably);
         ic_piv.setEnabled(false);
 
-        tv_num.setText(UiHeplUtils.numIntToString(position, 2));
+        tv_num.setText(UiHeplUtils.numIntToString(position + 1, 2));
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
-        tv_coin_type.setText(s.getSymbol() + "/" + s.getUnit());
-        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  " + s.getVolume() + "/" + s.getAmount());
-        tv_coin_price.setText(BigUIUtil.getinstance().bigPrice(s.getLast()));
+        tv_coin_type.setText(s.getExchange());
+
+        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  " + BigUIUtil.getinstance().bigPrice(s.getVolume()));
+
+        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(),s.getSymbol(), s.getUnit());
+        tv_coin_price.setText(strings.get(0));
+        tv_coin_probably.setText(strings.get(1));
+        if (TextUtils.isEmpty(strings.get(1))) {
+            tv_coin_probably.setVisibility(View.GONE);
+        } else {
+            tv_coin_probably.setVisibility(View.VISIBLE);
+        }
+
 
         ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
         if (!TextUtils.isEmpty(s.getChange())) {
@@ -67,7 +88,7 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData>  {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getDropColor()), 10, 10, 10, 10));
             }
         }
-        tv_gains.setText(s.getChange() + "%");
+        tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
     }
 
 
@@ -76,7 +97,6 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData>  {
         mDatas.addAll(datas);
         this.notifyDataSetChanged();
     }
-
 
 
 }

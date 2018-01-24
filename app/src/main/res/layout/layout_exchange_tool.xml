@@ -23,25 +23,22 @@
         android:textSize="@dimen/text_trans_24px"/>
 
 
-    <com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner
+    <TextView
         android:id="@+id/tv_unit"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="150"
         android:clickable="true"
         android:focusable="true"
         android:gravity="left"
         android:orientation="horizontal"
+        android:paddingRight="@dimen/trans_30px"
         android:text="1天"
         android:textColor="@color/color_font2"
         android:textSize="@dimen/text_trans_24px"
-        app:backgroundSelector="@color/transparent"
-        app:hideArrow="true"
-        app:textTint="@color/color_font2"
         >
 
-    </com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner>
+    </TextView>
 
 
     <com.xiaomiquan.widget.GainsTabView
