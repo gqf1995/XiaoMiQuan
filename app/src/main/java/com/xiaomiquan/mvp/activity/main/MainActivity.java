@@ -2,6 +2,7 @@ package com.xiaomiquan.mvp.activity.main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
 import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.utils.BigUIUtil;
+import com.xiaomiquan.utils.PingUtil;
 
 public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> {
 
@@ -44,8 +46,20 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         ignoreBatteryOptimization(this);
         initFragment();
         uid = DeviceUtils.getAndroidID() + System.currentTimeMillis();
-        //initSocket();
+        initSocket();
         updata();
+        netWorkLinsener();
+    }
+
+    PingUtil.NetworkConnectChangedReceiver mNetworkChangeListener;
+
+    private void netWorkLinsener() {
+        mNetworkChangeListener = new PingUtil.NetworkConnectChangedReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        filter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
+        filter.addAction("android.net.wifi.STATE_CHANGE");
+        registerReceiver(mNetworkChangeListener, filter);
     }
 
     private Handler handler = new Handler() {//进行延时跳转
@@ -119,9 +133,13 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
             boolean hasIgnored = powerManager.isIgnoringBatteryOptimizations(activity.getPackageName());
             //  判断当前APP是否有加入电池优化的白名单，如果没有，弹出加入电池优化的白名单的设置对话框。
             if (!hasIgnored) {
-                Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                intent.setData(Uri.parse("package:" + activity.getPackageName()));
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                    intent.setData(Uri.parse("package:" + activity.getPackageName()));
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

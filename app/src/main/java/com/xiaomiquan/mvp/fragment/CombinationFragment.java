@@ -6,27 +6,27 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.xiaomiquan.adapter.LiveAdapter;
+import com.xiaomiquan.adapter.SimulatedTradingAdapter;
 import com.xiaomiquan.entity.bean.LiveData;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
-import com.xiaomiquan.mvp.delegate.LoadMorePullDelegate;
+import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CombinationFragment extends BasePullFragment<LoadMorePullDelegate, BaseFragmentPullBinder> {
-    List<LiveData> strDatas;
-    LiveAdapter adapter;
+public class CombinationFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
+    List<String> strDatas;
+    SimulatedTradingAdapter adapter;
     String type;
 
 
     @Override
-    protected Class<LoadMorePullDelegate> getDelegateClass() {
-        return LoadMorePullDelegate.class;
+    protected Class<BaseFragentPullDelegate> getDelegateClass() {
+        return BaseFragentPullDelegate.class;
     }
 
     @Override
-    public BaseFragmentPullBinder getDataBinder(LoadMorePullDelegate viewDelegate) {
+    public BaseFragmentPullBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
         return new BaseFragmentPullBinder(viewDelegate);
     }
 
@@ -37,8 +37,12 @@ public class CombinationFragment extends BasePullFragment<LoadMorePullDelegate, 
     }
 
 
-    private void initList(List<LiveData> strDatas) {
-        adapter = new LiveAdapter(getActivity(), strDatas);
+    private void initList(List<String> strDatas) {
+        for(int i=0;i<20;i++){
+            strDatas.add("");
+        }
+        adapter = new SimulatedTradingAdapter(getActivity(), strDatas);
+
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
@@ -46,6 +50,8 @@ public class CombinationFragment extends BasePullFragment<LoadMorePullDelegate, 
             }
         });
         viewDelegate.setIsPullDown(false);
+
+
         onRefresh();
     }
 
@@ -77,8 +83,9 @@ public class CombinationFragment extends BasePullFragment<LoadMorePullDelegate, 
 
     @Override
     protected void refreshData() {
-        addRequest(binder.listArticleByPage(this));
+        //addRequest(binder.listArticleByPage(this));
     }
+
 
     public static CombinationFragment newInstance(
             String type) {

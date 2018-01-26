@@ -59,27 +59,27 @@ public class MarketDetailsDelegate extends BaseDelegate {
     public void setDetailsData(int position, DataParse data) {
         KLineBean kLineBean = data.getKLineDatas().get(position);
         viewHolder.tv_ktime.setText(kLineBean.date);
-        viewHolder.tv_kopen.setText(CommonUtils.getString(R.string.str_opening_quotation) + kLineBean.open.floatValue() + "");
-        viewHolder.tv_kheight.setText(CommonUtils.getString(R.string.str_highest) + kLineBean.high.floatValue() + "");
-        viewHolder.tv_klow.setText(CommonUtils.getString(R.string.str_minimum) + kLineBean.low.floatValue() + "");
-        viewHolder.tv_kclose.setText(CommonUtils.getString(R.string.str_closing_quotation) + kLineBean.close.floatValue() + "");
+        viewHolder.tv_kopen.setText(CommonUtils.getString(R.string.str_opening_quotation) + BigUIUtil.getinstance().bigPrice(kLineBean.open.toPlainString()) + "");
+        viewHolder.tv_kheight.setText(CommonUtils.getString(R.string.str_highest) + BigUIUtil.getinstance().bigPrice(kLineBean.high.toPlainString()) + "");
+        viewHolder.tv_klow.setText(CommonUtils.getString(R.string.str_minimum) + BigUIUtil.getinstance().bigPrice(kLineBean.low.toPlainString()) + "");
+        viewHolder.tv_kclose.setText(CommonUtils.getString(R.string.str_closing_quotation) + BigUIUtil.getinstance().bigPrice(kLineBean.close.toPlainString()) + "");
 
-        viewHolder.tv_ma7.setText("MA7:" + data.getMa7DataL().get(position).getVal() + "");
-        viewHolder.tv_ma15.setText("MA15:" + data.getMa15DataL().get(position).getVal() + "");
-        viewHolder.tv_ma30.setText("MA30:" + data.getMa30DataL().get(position).getVal() + "");
+        viewHolder.tv_ma7.setText("MA7:" + BigUIUtil.getinstance().bigPrice(data.getMa7DataL().get(position).getVal() + "") + "");
+        viewHolder.tv_ma15.setText("MA15:" + BigUIUtil.getinstance().bigPrice(data.getMa15DataL().get(position).getVal() + "") + "");
+        viewHolder.tv_ma30.setText("MA30:" + BigUIUtil.getinstance().bigPrice(data.getMa30DataL().get(position).getVal() + "") + "");
 
         float v = (kLineBean.close.floatValue() / kLineBean.open.floatValue()) - 1;
         if (v > 0) {
-            viewHolder.tv_krise.setTextColor(UserSet.getinstance().getRiseColor());
+            viewHolder.tv_krise.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
         } else {
-            viewHolder.tv_krise.setTextColor(UserSet.getinstance().getDropColor());
+            viewHolder.tv_krise.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
         }
 
         viewHolder.tv_krise.setText(v + "");
-        viewHolder.tv_kamplitude.setText(BigUIUtil.getinstance().changeAmount(((kLineBean.high.floatValue() - kLineBean.low.floatValue()) / kLineBean.open.floatValue()) + ""));
+        viewHolder.tv_kamplitude.setText(((kLineBean.high.floatValue() - kLineBean.low.floatValue()) / kLineBean.open.floatValue()) + "");
 
-        viewHolder.tv_ma5.setText(data.getMa5DataV().get(position).getVal() + "");
-        viewHolder.tv_ma10.setText(data.getMa10DataV().get(position).getVal() + "");
+        viewHolder.tv_ma5.setText(BigUIUtil.getinstance().bigPrice(data.getMa5DataV().get(position).getVal() + "") + "");
+        viewHolder.tv_ma10.setText(BigUIUtil.getinstance().bigPrice(data.getMa10DataV().get(position).getVal() + "") + "");
 
 
     }

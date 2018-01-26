@@ -157,4 +157,9 @@ public class KLineBean {
     public void setKey(String key) {
         this.key = key;
     }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

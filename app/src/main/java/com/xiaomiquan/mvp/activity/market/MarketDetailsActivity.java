@@ -100,9 +100,19 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
     private void initCache() {
         //缓存数据
-        String lastTime;
+        String lastTime = "";
         //从数据库中获取
-        lastTime = "";
+        //lastTime = CacheUtils.getInstance().getString(CACHE_KLINE + exchangeData.getOnlyKey() + klineValue);
+//        List<KLineBean> kLineBeans = DaoManager.getInstance().getDaoSession().getKLineBeanDao()
+//                .queryBuilder()
+//                .where(KLineBeanDao.Properties.Key.eq(exchangeData.getOnlyKey() + klineValue))
+//                .orderAsc(KLineBeanDao.Properties.Timestamp)
+//                .list();
+//        if (kLineBeans.size() > 0) {
+//            getOffLineData(kLineBeans);
+//            lastTime = kLineBeans.get(kLineBeans.size() - 1).timestamp + "";
+//            isChange = false;
+//        }
         request(lastTime);
     }
 
@@ -131,6 +141,12 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 if (isChange) {
                     //初始化所有数据
                     getOffLineData(newkLineBeans);
+//                    for (int i = 0; i < mData.getKLineDatas().size(); i++) {
+//                        mData.getKLineDatas().get(i).key = exchangeData.getOnlyKey() + klineValue;
+//                        //添加到数据库
+//                        DaoManager.getInstance().getDaoSession().getKLineBeanDao()
+//                                .save(mData.getKLineDatas().get(i));
+//                    }
                 } else {
                     //更新k线信息
                     updataKline(newkLineBeans);
@@ -140,6 +156,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                     handler.sendEmptyMessageDelayed(1, 1000);
                 }
                 isChange = false;
+
                 break;
         }
     }
@@ -149,7 +166,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         //筛选前180条数据 添加进ui
         List<KLineBean> lineBeans = new ArrayList<>();
         if (datas.size() > uiShowNum) {
-            lineBeans = datas.subList(datas.size() - uiShowNum, datas.size() - 1);
+            lineBeans = datas.subList(datas.size() - uiShowNum, datas.size());
         } else {
             lineBeans.addAll(datas);
         }
@@ -183,6 +200,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         });
         Log.i("KlineDraw", "getOffLineData");
         //绘制时间
+
     }
 
     //更新历史 k线
@@ -200,7 +218,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 it.remove();
             }
         }
-        klineDraw.updata(lineBeans);
+        klineDraw.updata(lineBeans, exchangeData.getOnlyKey() + klineValue);
     }
 
     //获取 前一列表所传数据 订阅websocket

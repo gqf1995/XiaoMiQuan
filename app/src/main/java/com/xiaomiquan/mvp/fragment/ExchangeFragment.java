@@ -1,6 +1,9 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +31,11 @@ import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * 交易所 列表页面
@@ -43,7 +50,45 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     List<String> sendKeys;
     List<String> unitList;
     int gainsState = 0;
+    final int whatIndex = 1024;
 
+    private ConcurrentLinkedQueue<ExchangeData> exchangeDataList;
+
+    private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {//进行延时跳转
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case whatIndex:
+                    if (exchangeDataMap == null) {
+                        return;
+                    }
+                    if (viewDelegate.viewHolder.recycler_view.getScrollState() != 0) {
+                        //recycleView正在滑动
+                    } else {
+                        //更新数据
+                        Iterator iter = exchangeDataMap.entrySet().iterator();
+                        while (iter.hasNext()) {
+                            if (viewDelegate.viewHolder.recycler_view.getScrollState() != 0) {
+                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
+                                return;
+                            }
+                            Map.Entry entry = (Map.Entry) iter.next();
+                            ExchangeData val = (ExchangeData) entry.getValue();
+                            if (val != null) {
+                                updataNew(val);
+                            } else {
+                                break;
+                            }
+                        }
+                        exchangeDataMap.clear();
+                    }
+                    handler.sendEmptyMessageDelayed(whatIndex, 1000);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected Class<ExchangeDelegate> getDelegateClass() {
@@ -171,7 +216,11 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                 if (exchangeName.getEname().equals(name)) {
                     //推送数据
                     ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
-                    updataNew(exchangeData);
+                    if (exchangeDataMap == null) {
+                        exchangeDataMap = new ConcurrentHashMap<>();
+                        handler.sendEmptyMessageDelayed(whatIndex, 1000);
+                    }
+                    exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
                 }
             }
 
@@ -185,10 +234,12 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     //新数据推送 更新
     private void updataNew(ExchangeData data) {
         int updataPosition = 0;
+        if (strDatas == null || riseDatas == null || dropDatas == null) {
+            return;
+        }
         for (int i = 0; i < strDatas.size(); i++) {
             if (strDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
-                strDatas.remove(i);
-                strDatas.add(i, data);
+                strDatas.set(i, data);
                 if (gainsState == 0) {
                     updataPosition = i;
                 }
@@ -197,8 +248,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         }
         for (int i = 0; i < riseDatas.size(); i++) {
             if (riseDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
-                riseDatas.remove(i);
-                riseDatas.add(i, data);
+                riseDatas.set(i, data);
                 if (gainsState == 1) {
                     updataPosition = i;
                 }
@@ -207,8 +257,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         }
         for (int i = 0; i < dropDatas.size(); i++) {
             if (dropDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
-                dropDatas.remove(i);
-                dropDatas.add(i, data);
+                dropDatas.set(i, data);
                 if (gainsState == 2) {
                     updataPosition = i;
                 }

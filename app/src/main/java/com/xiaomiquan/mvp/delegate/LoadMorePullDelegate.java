@@ -9,8 +9,16 @@ import com.xiaomiquan.R;
  */
 
 public class LoadMorePullDelegate extends BaseFragentPullDelegate {
+
+
+    @Override
+    public void initView() {
+        super.initView();
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.ppublic_loadmore_recycleview;
     }
+
 }

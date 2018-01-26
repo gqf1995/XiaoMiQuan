@@ -1,34 +1,32 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
-import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.tablayout.CommonTabLayout;
 import com.xiaomiquan.R;
+import com.xiaomiquan.widget.JudgeNestedScrollView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CombinationDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
 
+    boolean forbidAppBarScroll = false;
+    AppBarLayout appBar;
+
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-        ViewGroup.LayoutParams layoutParams = viewHolder.viewpager.getLayoutParams();
-        layoutParams.height = ScreenUtils.getScreenHeight() - BarUtils.getStatusBarHeight() - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_270px);
-        viewHolder.viewpager.setLayoutParams(layoutParams);
+
+        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table,viewHolder.viewpager,true);
     }
+
 
     @Override
     protected int getLayoutId() {
@@ -53,11 +51,10 @@ public class CombinationDelegate extends BaseDelegate {
         public TextView tv_chart_time;
         public LineChart linechart;
         public LinearLayout lin_top;
-        public CollapsingToolbarLayout collapsing_toolbar_layout;
         public CommonTabLayout tl_2;
-        public AppBarLayout appbar_layout;
+        public LinearLayout lin_table;
         public ViewPager viewpager;
-        public CoordinatorLayout coord_container;
+        public JudgeNestedScrollView nestedScrollView;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -76,11 +73,10 @@ public class CombinationDelegate extends BaseDelegate {
             this.tv_chart_time = (TextView) rootView.findViewById(R.id.tv_chart_time);
             this.linechart = (LineChart) rootView.findViewById(R.id.linechart);
             this.lin_top = (LinearLayout) rootView.findViewById(R.id.lin_top);
-            this.collapsing_toolbar_layout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar_layout);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
-            this.appbar_layout = (AppBarLayout) rootView.findViewById(R.id.appbar_layout);
+            this.lin_table = (LinearLayout) rootView.findViewById(R.id.lin_table);
             this.viewpager = (ViewPager) rootView.findViewById(R.id.viewpager);
-            this.coord_container = (CoordinatorLayout) rootView.findViewById(R.id.coord_container);
+            this.nestedScrollView = (JudgeNestedScrollView) rootView.findViewById(R.id.nestedScrollView);
         }
 
     }

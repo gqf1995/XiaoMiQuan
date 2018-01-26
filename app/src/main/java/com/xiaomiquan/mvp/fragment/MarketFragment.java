@@ -157,7 +157,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 ExchangeName exchangeName = (ExchangeName) item;
                 for (int i = 0; i < exchangeNameList.size(); i++) {
                     if (exchangeNameList.get(i).getEname().equals(exchangeName.getEname())) {
-                        viewDelegate.viewHolder.tl_2.setCurrentTab(i + 4);
+                        viewDelegate.viewHolder.tl_2.setCurrentTab(i + 8);
                         break;
                     }
                 }

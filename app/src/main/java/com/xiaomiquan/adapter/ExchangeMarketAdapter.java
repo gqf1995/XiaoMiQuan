@@ -101,8 +101,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
     }
 
     public void updataOne(int position, ExchangeData data) {
-        mDatas.remove(position);
-        mDatas.add(data);
+        mDatas.set(position, data);
         this.notifyItemChanged(position);
     }
 

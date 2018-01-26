@@ -1,6 +1,5 @@
 package com.xiaomiquan.mvp.activity.tovotefor;
 
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
@@ -18,7 +17,7 @@ import com.xiaomiquan.mvp.fragment.CombinationFragment;
 
 import java.util.ArrayList;
 
-public class CombinationActivity extends BaseDataBindActivity<CombinationDelegate, CombinationBinder> {
+public class CombinationActivity extends BaseDataBindActivity<CombinationDelegate, CombinationBinder>{
     ArrayList<Fragment> fragments;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
@@ -42,9 +41,8 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         for (int i = 0; i < stringArray.length; i++) {
             fragments.add(CombinationFragment.newInstance(stringArray[i]));
             mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
-            //fragments.add(CombinationFragment.newInstance());
         }
-
+        viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
         viewDelegate.viewHolder.viewpager.setAdapter(new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray));
         viewDelegate.viewHolder.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -74,16 +72,6 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
 
             }
         });
-        viewDelegate.viewHolder.appbar_layout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-//                if (verticalOffset >= 0) {
-//                    viewHolder.swipeRefreshLayout.setEnabled(true);
-//                } else {
-//                    viewHolder.swipeRefreshLayout.setEnabled(false);
-//                }
-            }
-        });
     }
 
 
@@ -93,5 +81,5 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         switch (requestCode) {
         }
     }
-
+    
 }
