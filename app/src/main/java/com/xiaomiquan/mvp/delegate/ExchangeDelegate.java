@@ -42,7 +42,6 @@ public class ExchangeDelegate extends BaseDelegate {
         viewHolder.appbar_layout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-
                 if (verticalOffset >= 0) {
                     viewHolder.swipeRefreshLayout.setEnabled(true);
                 } else {

@@ -7,7 +7,6 @@ import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl2;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl3;
-import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
 import static com.xiaomiquan.base.AppConst.isEditUrl;
 
 /**
@@ -35,6 +34,12 @@ public class HttpUrl {
         }
         return baseUrl;
     }
+
+    public static void setBaseUrl(String url) {
+        SaveUtil.getInstance().saveString("baseUrl", url);
+        httpUrl = null;
+    }
+
 
     public void saveUidAndToken(String uid, String token) {
         SaveUtil.getInstance().saveString("uid", uid + "");
@@ -70,27 +75,27 @@ public class HttpUrl {
     /**
      * 用户注册发送验证码
      */
-    public String sendCodeForRegister = httpBaseUrl4 + userUrl + "/sendCodeForRegister";
+    public String sendCodeForRegister = getBaseUrl() + userUrl + "/sendCodeForRegister";
     /**
      * 用户注册
      */
-    public String saveUser = httpBaseUrl4 + userUrl + "/saveUser";
+    public String saveUser = getBaseUrl() + userUrl + "/saveUser";
     /**
      * 用户登录
      */
-    public String userLogin = httpBaseUrl4 + userUrl + "/userLogin";
+    public String userLogin = getBaseUrl() + userUrl + "/userLogin";
     /**
      * 用户找回密码发送短信
      */
-    public String sendCodeForForgotPassWord = httpBaseUrl4 + userUrl + "/sendCodeForForgotPassWord";
+    public String sendCodeForForgotPassWord = getBaseUrl() + userUrl + "/sendCodeForForgotPassWord";
     /**
      * 用户找回密码
      */
-    public String retrievePassword = httpBaseUrl4 + userUrl + "/retrievePassword";
+    public String retrievePassword = getBaseUrl() + userUrl + "/retrievePassword";
     /**
      * 用户登出
      */
-    public String loginOut = httpBaseUrl4 + userUrl + "/loginOut";
+    public String loginOut = getBaseUrl() + userUrl + "/loginOut";
 
 
     /**
@@ -178,15 +183,15 @@ public class HttpUrl {
     /**
      * 获取未加入圈子信息
      */
-    public String getMoreCircle = httpBaseUrl4 + groupUrl + "/listMoreGroupByPage";
+    public String getMoreCircle = getBaseUrl() + groupUrl + "/listMoreGroupByPage";
     /**
      * 获取加入圈子信息
      */
-    public String getMyCircleInfo = httpBaseUrl4 + groupUrl + "/listGroupByPage";
+    public String getMyCircleInfo = getBaseUrl() + groupUrl + "/listGroupByPage";
     /**
      * 创建圈子
      */
-    public String creatCircle = httpBaseUrl4 + groupUrl + "/saveGroup";
+    public String creatCircle = getBaseUrl() + groupUrl + "/saveGroup";
 
 
     /**
@@ -197,29 +202,29 @@ public class HttpUrl {
     /**
      * 申请加入圈子
      */
-    public String joinCircle = httpBaseUrl4 + groupMemberUrl + "/applyJoinGroup";
+    public String joinCircle = getBaseUrl() + groupMemberUrl + "/applyJoinGroup";
     /**
      * 获取待审核入圈申请
      */
-    public String joinCircleApply = httpBaseUrl4 + groupMemberUrl + "/applyJoinGroup";
+    public String joinCircleApply = getBaseUrl() + groupMemberUrl + "/applyJoinGroup";
     /**
      * 同意审核入圈申请
      */
-    public String agreeCircleApply = httpBaseUrl4 + groupMemberUrl + "/agreeJoinApply";
+    public String agreeCircleApply = getBaseUrl() + groupMemberUrl + "/agreeJoinApply";
     /**
      * 邀请好友入圈
      */
-    public String getSomeBodyIn = httpBaseUrl4 + groupMemberUrl + "/getSomeBodyIn";
+    public String getSomeBodyIn = getBaseUrl() + groupMemberUrl + "/getSomeBodyIn";
 
     /**
      * 获得帖子
      */
-    public String getUsertopic = httpBaseUrl4 + "/usertopic/list/group/usertopic";
+    public String getUsertopic = getBaseUrl() + "/usertopic/list/group/usertopic";
 
     /**
      * 发帖子
      */
-    public String saveUsertopic = httpBaseUrl4 + "/usertopic/save";
+    public String saveUsertopic = getBaseUrl() + "/usertopic/save";
 
 
     /**
@@ -229,15 +234,15 @@ public class HttpUrl {
     /**
      * 文章列表
      */
-    public String listArticleByPage = httpBaseUrl4 + articleUrl + "/listArticleByPage";
+    public String listArticleByPage = getBaseUrl() + articleUrl + "/listArticleByPage";
 
     /**
      * 发表评论
      */
-    public String saveComment = httpBaseUrl4 + "/comment/save";
+    public String saveComment = getBaseUrl() + "/comment/save";
     /**
      * 点赞
      */
-    public String savePraise = httpBaseUrl4 + "/praise/save";
+    public String savePraise = getBaseUrl() + "/praise/save";
 
 }

@@ -46,12 +46,16 @@
         </activity>
         <activity android:name=".mvp.activity.user.InputSetActivity">
         </activity>
-        <activity android:name=".mvp.activity.main.MainActivity">
+        <activity
+            android:name=".mvp.activity.main.WelcomActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".mvp.activity.main.MainActivity">
         </activity>
         <activity android:name=".mvp.activity.market.MarketDetailsActivity">
         </activity>
@@ -65,14 +69,15 @@
         <activity android:name=".mvp.activity.market.SortingUserCoinActivity"/>
         <activity android:name=".mvp.activity.main.WebActivityActivity"/>
         <activity android:name=".mvp.activity.market.CoinIndexActivity"/>
-
         <activity android:name=".mvp.activity.RichTextActivity">
+        </activity>
+        <activity android:name=".mvp.activity.circle.CreatCircleActivity"/>
+        <activity android:name=".mvp.activity.circle.CircleContentActivity"/>
+        <activity android:name=".mvp.activity.circle.GetFriendsJoinActivity"/>
+        <activity android:name=".mvp.activity.circle.UserTopicActivity"/>
+        <activity android:name=".mvp.activity.tovotefor.CombinationActivity">
 
         </activity>
-        <activity android:name=".mvp.activity.circle.CreatCircleActivity" />
-        <activity android:name=".mvp.activity.circle.CircleContentActivity" />
-        <activity android:name=".mvp.activity.circle.GetFriendsJoinActivity" />
-        <activity android:name=".mvp.activity.circle.UserTopicActivity" />
     </application>
 
 </manifest>

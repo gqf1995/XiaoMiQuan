@@ -97,7 +97,7 @@
     <color name="color_font1">#FFFFFF</color><!--@color/white-->
     <color name="color_font2">#cccccc</color><!--@color/color_cccccc-->
     <color name="color_font3">#999999</color><!--@color/color_999999-->
-    <color name="color_font4">#6A7180</color><!--@color/color_6A7180-->
+    <color name="color_font4">#777777</color><!--@color/color_6A7180-->
     <color name="color_font1_dark">#000000</color>
     <color name="color_font2_dark">#6A7180</color>
     <color name="color_font3_dark">#999999</color>

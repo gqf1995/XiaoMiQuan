@@ -11,12 +11,12 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.CoinMarketAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
-import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.GainsTabView;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,7 @@ import skin.support.widget.SkinCompatLinearLayout;
 public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
     CoinMarketAdapter exchangeMarketAdapter;
     List<ExchangeData> strDatas;
+    HeaderAndFooterWrapper adapter;
 
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
@@ -49,7 +50,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             exchangeMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
+                    // MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
                 }
 
                 @Override
@@ -89,8 +90,8 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
     public void onResume() {
         super.onResume();
         //同步用户所选 单位
-        tv_unit.setText(UserSet.getinstance().getShowUnit());
         if (exchangeMarketAdapter != null) {
+            tv_unit.setText(UserSet.getinstance().getUnit());
             if (exchangeMarketAdapter.getDatas().size() > 0) {
                 exchangeMarketAdapter.setDefaultUnit(UserSet.getinstance().getUnit().replaceAll("-", "\n"));
             }

@@ -7,17 +7,23 @@
     android:background="@color/base_mask_dark"
     android:orientation="vertical">
 
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-        <FrameLayout
-            android:id="@+id/fl_rcv"
+    <FrameLayout
+        android:id="@+id/fl_rcv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/pull_recycleview"
@@ -26,9 +32,9 @@
                 android:scrollbars="none"
                 />
 
-        </FrameLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </FrameLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
 
     <!--<include layout="@layout/merge_layout_no_data"/>-->
 </skin.support.widget.SkinCompatLinearLayout>

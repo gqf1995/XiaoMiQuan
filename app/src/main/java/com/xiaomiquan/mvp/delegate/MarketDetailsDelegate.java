@@ -98,8 +98,12 @@ public class MarketDetailsDelegate extends BaseDelegate {
         viewHolder.tv_sell_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getAsk()));
 
 
-        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(exchangeData.getLast(),exchangeData.getSymbol(), exchangeData.getUnit());
-        viewHolder.tv_price.setText(strings.get(0));
+        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(exchangeData.getLast(), exchangeData.getSymbol(), exchangeData.getUnit());
+        if (TextUtils.isEmpty(strings.get(0))) {
+            viewHolder.tv_price.setText("--");
+        } else {
+            viewHolder.tv_price.setText(strings.get(0));
+        }
         viewHolder.tv_rate.setText(strings.get(1));
         if (TextUtils.isEmpty(strings.get(1))) {
             viewHolder.tv_rate.setVisibility(View.INVISIBLE);

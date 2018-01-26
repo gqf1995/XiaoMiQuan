@@ -1,98 +1,104 @@
 package com.xiaomiquan.mvp.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
+import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.SearchAddCoinAdapter;
-import com.xiaomiquan.mvp.databinder.SearchCoinMarketDefaultBinder;
-import com.xiaomiquan.mvp.delegate.SearchCoinMarketDefaultDelegate;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
+import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class SearchCoinMarketDefaultFragment extends BaseDataBindFragment<SearchCoinMarketDefaultDelegate, SearchCoinMarketDefaultBinder> {
+public class SearchCoinMarketDefaultFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
-    String[] data = {
-            "btc", "btc21321", "btc123", "btc432",
-            "btc21321", "btc123", "btc432",
-    };
-
+    List<String> strDatas;
     SearchAddCoinAdapter searchAddCoinAdapter;
+    HeaderAndFooterWrapper adapter;
+    private String[] mVals = new String[]
+            {"Hello", "Android", "Weclome Hi ", "Button", "TextView", "Hello",
+                    "Android", "Weclome", "Button ImageView", "TextView", "Helloworld",
+                    "Android", "Weclome Hello", "Button Text", "TextView"};
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initFlowlayout();
-        initList();
+        strDatas = new ArrayList<>();
+        initList(strDatas);
     }
 
-    private void initList() {
-        List<String> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            data.add("");
-        }
-        searchAddCoinAdapter = new SearchAddCoinAdapter(getActivity(), data);
-        searchAddCoinAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                searchAddCoinAdapter.select(position);
-            }
+    public TextView tv_clean_history;
+    public TagFlowLayout id_flowlayout;
+    public LinearLayout lin_history;
+    public LinearLayout lin_hot;
 
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
-        });
-        viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-        viewDelegate.viewHolder.recycler_view.setAdapter(searchAddCoinAdapter);
+    private View initFlowlayout() {
+        View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_default_search_top, null);
+        this.tv_clean_history = (TextView) rootView.findViewById(R.id.tv_clean_history);
+        this.id_flowlayout = (TagFlowLayout) rootView.findViewById(R.id.id_flowlayout);
+        this.lin_history = (LinearLayout) rootView.findViewById(R.id.lin_history);
+        this.lin_hot = (LinearLayout) rootView.findViewById(R.id.lin_hot);
+        lin_hot.setVisibility(View.GONE);
+        //搜索 缓存查找历史记录
 
-    }
-
-    private void initFlowlayout() {
-        viewDelegate.viewHolder.id_flowlayout.setAdapter(new TagAdapter<String>(Arrays.asList(data)) {
+        id_flowlayout.setAdapter(new TagAdapter<String>(mVals) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
-                View view = getActivity().getLayoutInflater().inflate(R.layout.layout_flowtext,
-                        viewDelegate.viewHolder.id_flowlayout, false);
-                ((TextView) view.findViewById(R.id.tv_title)).setText(s);
-                return view;
+                TextView tv = (TextView) getActivity().getLayoutInflater().inflate(R.layout.layout_flowtext,
+                        parent, false);
+                tv.setText(mVals[position]);
+                return tv;
             }
         });
-        viewDelegate.viewHolder.tv_clean_history.setOnClickListener(new View.OnClickListener() {
+        tv_clean_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewDelegate.viewHolder.lin_history.setVisibility(View.GONE);
+                lin_history.setVisibility(View.GONE);
             }
         });
+        return rootView;
+    }
+
+    private void initList(List<String> strDatas) {
+        searchAddCoinAdapter = new SearchAddCoinAdapter(getActivity(), strDatas);
+        adapter = new HeaderAndFooterWrapper(searchAddCoinAdapter);
+        adapter.addHeaderView(initFlowlayout());
+        initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
+        viewDelegate.setIsLoadMore(false);
+        viewDelegate.setIsPullDown(false);
+        onRefresh();
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
+            case 0x123:
+
+                break;
         }
     }
 
     @Override
-    protected Class<SearchCoinMarketDefaultDelegate> getDelegateClass() {
-        return SearchCoinMarketDefaultDelegate.class;
+    protected Class<BaseFragentPullDelegate> getDelegateClass() {
+        return BaseFragentPullDelegate.class;
     }
 
     @Override
-    public SearchCoinMarketDefaultBinder getDataBinder(SearchCoinMarketDefaultDelegate viewDelegate) {
-        return new SearchCoinMarketDefaultBinder(viewDelegate);
+    public BaseFragmentPullBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
+        return new BaseFragmentPullBinder(viewDelegate);
+    }
+
+    @Override
+    protected void refreshData() {
+
     }
 
 }

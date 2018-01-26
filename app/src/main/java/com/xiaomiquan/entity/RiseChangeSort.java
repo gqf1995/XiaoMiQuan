@@ -17,7 +17,7 @@ public class RiseChangeSort implements Comparator<ExchangeData> {
         if (TextUtils.isEmpty(exchangeData.getChange()) || TextUtils.isEmpty(exchangeData.getChange())) {
             return 0;
         }
-        int thislv = new BigDecimal(exchangeData.getChange()).compareTo(new BigDecimal(t1.getChange()));
+        int thislv = new BigDecimal(t1.getChange()).compareTo(new BigDecimal(exchangeData.getChange()));
         return thislv;
     }
 }

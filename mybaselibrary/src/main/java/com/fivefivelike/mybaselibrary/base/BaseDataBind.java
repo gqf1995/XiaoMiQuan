@@ -146,6 +146,7 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
         getBaseMap();
         //baseMap.put("uid", SaveUtil.getInstance().getString("uid"));
         baseMap.put("token", SaveUtil.getInstance().getString("token"));
+        baseMap.put("token", "4a61805a603c3f51641724fb04022b84");
         String language = SaveUtil.getInstance().getString("language");
         if (TextUtils.isEmpty(language)) {
             language = "zh-cn";

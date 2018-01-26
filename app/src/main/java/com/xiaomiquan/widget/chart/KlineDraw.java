@@ -31,9 +31,9 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xiaomiquan.R;
-import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
+import com.xiaomiquan.utils.UserSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +75,8 @@ public class KlineDraw {
     }
 
     public void setData(Context context, DataParse data, KCombinedChart chartKline, KCombinedChart chartVolume) {
+        Log.i("KlineDraw", "setData");
+
         mData = data;
         mContext = context;
         mChartKline = chartKline;
@@ -92,6 +94,7 @@ public class KlineDraw {
 
         setKLineByChart(mChartKline);
         setVolumeByChart(mChartVolume);
+
 
         mChartKline.setAutoScaleMinMaxEnabled(true);
         mChartVolume.setAutoScaleMinMaxEnabled(true);
@@ -128,8 +131,16 @@ public class KlineDraw {
             kLineDatas = mData.getKLineDatas();
 
             //更新 当前 到数第一根 k线
-            KLineBean kLineBean = kLineDatas.get(kLineDatas.size() - 1);
+            KLineBean kLineBean = new KLineBean();
+            kLineBean.date = kLineDatas.get(kLineDatas.size() - 1).date;
+            kLineBean.timestamp = kLineDatas.get(kLineDatas.size() - 1).timestamp;
+            kLineBean.open = kLineDatas.get(kLineDatas.size() - 1).open;
+            kLineBean.close = kLineDatas.get(kLineDatas.size() - 1).close;
+            kLineBean.low = kLineDatas.get(kLineDatas.size() - 1).low;
+            kLineBean.volume = kLineDatas.get(kLineDatas.size() - 1).volume;
+            kLineBean.high = kLineDatas.get(kLineDatas.size() - 1).high;
             kLineBean.close = lineBeans.get(0).close;
+
             if (kLineBean.high.compareTo(lineBeans.get(0).high) == -1) {
                 kLineBean.high = lineBeans.get(0).high;
             }
@@ -137,25 +148,32 @@ public class KlineDraw {
                 kLineBean.low = lineBeans.get(0).low;
             }
 
+            kLineDatas.remove(kLineDatas.size() - 1);
+            kLineDatas.add(kLineBean);
+
             mData.initKLineMA(kLineDatas);
             mData.initVlumeMA(kLineDatas);
+
+
             updatLastKline(kLineBean);
             updatLastVolume(kLineBean);
+
 
             if (lineBeans.size() > 1) {
                 for (int i = 1; i < lineBeans.size(); i++) {
                     kLineDatas.add(lineBeans.get(i));
-                    mData.getXVals().add(lineBeans.get(i).date);
                 }
 
                 mData.initKLineMA(kLineDatas);
                 mData.initVlumeMA(kLineDatas);
 
-                for (int i = 0; i < lineBeans.size(); i++) {
+                for (int i = 1; i < lineBeans.size(); i++) {
                     addVolumeData(lineBeans.size() - i);
                     addKlineData(lineBeans.size() - i);
+                    mData.getXVals().add(lineBeans.get(i).date);
                 }
             }
+
 
             mChartKline.setAutoScaleMinMaxEnabled(true);
             mChartVolume.setAutoScaleMinMaxEnabled(true);
@@ -165,6 +183,8 @@ public class KlineDraw {
 
             mChartKline.invalidate();
             mChartVolume.invalidate();
+
+            setOffset();
 
         }
 
@@ -185,11 +205,14 @@ public class KlineDraw {
             //count = lastSet.getEntryCount();
             // 位最后一个DataSet添加entry
             KLog.i("chart", kLineBean.toString());
-            CandleEntry candleEntry = new CandleEntry(mData.getKLineDatas().size() - 1, kLineBean.high.floatValue(), kLineBean.low.floatValue(), kLineBean.open.floatValue(), kLineBean.close.floatValue());
-            //            candleData.addEntry(candleEntry, indexLast);
-
-            lastSet.getYVals().remove(lastSet.getYVals().size() - 1);
+            CandleEntry candleEntry = new CandleEntry(lastSet.getYVals().size() - 1, kLineBean.high.floatValue(), kLineBean.low.floatValue(), kLineBean.open.floatValue(), kLineBean.close.floatValue());
+            //candleData.addEntry(candleEntry, indexLast);
+            //candleData.removeEntry(mData.getKLineDatas().size() - 1, indexLast);
+            //            lastSet.getYVals().remove(lastSet.getYVals().size() - 1);
+            //            lastSet.getYVals().add(candleEntry);
+            candleData.removeEntry(lastSet.getYVals().size() - 1, indexLast);//lastSet.getYVals().size() - 1, indexLast);
             candleData.addEntry(candleEntry, indexLast);
+            //candleData.addEntry(candleEntry, indexLast);
         }
 
         if (lineData != null) {
@@ -201,25 +224,29 @@ public class KlineDraw {
             if (lineDataSet5 != null) {
                 //mData.getMa5DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 5), count));
                 //lineData.addEntry(mData.getMa5DataL().get(mData.getMa5DataL().size() - index), 0);
-                lineDataSet5.getYVals().remove(lineDataSet5.getYVals().size() - 1);
+                // lineDataSet5.getYVals().remove(lineDataSet5.getYVals().size() - 1);
+                lineData.removeEntry(mData.getMa5DataL().size() - 1, 0);
                 lineData.addEntry(mData.getMa5DataL().get(mData.getMa5DataL().size() - 1), 0);
             }
 
             if (lineDataSet10 != null) {
                 // mData.getMa10DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 10), count));
-                lineDataSet10.getYVals().remove(lineDataSet10.getYVals().size() - 1);
+                //lineDataSet10.getYVals().remove(lineDataSet10.getYVals().size() - 1);
+                lineData.removeEntry(mData.getMa10DataL().size() - 1, 1);
                 lineData.addEntry(mData.getMa10DataL().get(mData.getMa10DataL().size() - 1), 1);
             }
 
             if (lineDataSet20 != null) {
                 //mData.getMa20DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 20), count));
-                lineDataSet20.getYVals().remove(lineDataSet20.getYVals().size() - 1);
+                //lineDataSet20.getYVals().remove(lineDataSet20.getYVals().size() - 1);
+                lineData.removeEntry(mData.getMa20DataL().size() - 1, 2);
                 lineData.addEntry(mData.getMa20DataL().get(mData.getMa20DataL().size() - 1), 2);
             }
 
             if (lineDataSet30 != null) {
                 //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
-                lineDataSet30.getYVals().remove(lineDataSet30.getYVals().size() - 1);
+                //lineDataSet30.getYVals().remove(lineDataSet30.getYVals().size() - 1);
+                lineData.removeEntry(mData.getMa30DataL().size() - 1, 3);
                 lineData.addEntry(mData.getMa30DataL().get(mData.getMa30DataL().size() - 1), 3);
             }
         }
@@ -237,8 +264,12 @@ public class KlineDraw {
                 barData.addDataSet(lastSet);
             }
 
-            lastSet.getYVals().remove(lastSet.getYVals().size() - 1);
-            barData.addEntry(new BarEntry(kLineBean.volume.floatValue(), lastSet.getYVals().size() - 1), indexLast);
+            //lastSet.getYVals().remove(lastSet.getYVals().size() - 1);
+            barData.removeEntry(lastSet.getYVals().size() - 1, indexLast);//astSet.getYVals().size() - 1, indexLast);
+            //lastSet.getYVals().add(new BarEntry(kLineBean.volume.floatValue(), lastSet.getYVals().size()));
+            //barData.addEntry(new BarEntry(kLineBean.volume.floatValue(), lastSet.getYVals().size() - 1), indexLast);
+            barData.addEntry(new BarEntry(kLineBean.volume.floatValue(), barData.getYValCount() - 1), indexLast);
+
         }
 
         if (lineData != null) {
@@ -249,25 +280,29 @@ public class KlineDraw {
 
             if (lineDataSet5 != null) {
                 //mData.getMa5DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 5), count));
-                lineDataSet5.getYVals().remove(lineDataSet5.getYVals().size() - 1);
+                // lineDataSet5.getYVals().remove(lineDataSet5.getYVals().size() - 1);
+                lineData.removeEntry(mData.getMa5DataV().size() - 1, 0);
                 lineData.addEntry(mData.getMa5DataV().get(mData.getMa5DataV().size() - 1), 0);
             }
 
             if (lineDataSet10 != null) {
                 //mData.getMa10DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 10), count));
-                lineDataSet10.getYVals().remove(lineDataSet10.getYVals().size() - 1);
+                //lineDataSet10.getYVals().remove(lineDataSet10.getYVals().size() - 1);
+                lineData.removeEntry(mData.getMa10DataV().size() - 1, 1);
                 lineData.addEntry(mData.getMa10DataV().get(mData.getMa10DataV().size() - 1), 1);
             }
 
             if (lineDataSet20 != null) {
                 //mData.getMa20DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 20), count));
-                lineDataSet20.getYVals().remove(lineDataSet20.getYVals().size() - 1);
+                //lineDataSet20.getYVals().remove(lineDataSet20.getYVals().size() - 1);
+                lineData.removeEntry(mData.getMa20DataV().size() - 1, 2);
                 lineData.addEntry(mData.getMa20DataV().get(mData.getMa20DataV().size() - 1), 2);
             }
 
             if (lineDataSet30 != null) {
                 //mData.getMa30DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 30), count));
-                lineDataSet30.getYVals().remove(lineDataSet30.getYVals().size() - 1);
+                //lineDataSet30.getYVals().remove(lineDataSet30.getYVals().size() - 1);
+                lineData.removeEntry(mData.getMa30DataV().size() - 1, 3);
                 lineData.addEntry(mData.getMa30DataV().get(mData.getMa30DataV().size() - 1), 3);
             }
         }

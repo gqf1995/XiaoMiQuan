@@ -30,6 +30,17 @@ public class KCombinedChart extends CombinedChart {
     boolean isDrawHeightAndLow = false;
     DefaultClickLinsener defaultClickLinsener;
 
+    OnMaxLeftLinsener onMaxLeftLinsener;
+
+    public void setOnMaxLeftLinsener(OnMaxLeftLinsener onMaxLeftLinsener) {
+        this.onMaxLeftLinsener = onMaxLeftLinsener;
+    }
+
+    public interface OnMaxLeftLinsener {
+        void onMaxLeft();
+    }
+
+
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
         this.defaultClickLinsener = defaultClickLinsener;
     }
@@ -73,6 +84,13 @@ public class KCombinedChart extends CombinedChart {
 
     @Override
     protected void drawMarkers(Canvas canvas) {
+        int lowestVisibleXIndex = this.getLowestVisibleXIndex();
+        if (onMaxLeftLinsener != null) {
+            if (lowestVisibleXIndex == 0) {
+                onMaxLeftLinsener.onMaxLeft();
+            }
+        }
+
         if (!mDrawMarkerViews || !valuesToHighlight())
             return;
         for (int i = 0; i < mIndicesToHighlight.length; i++) {

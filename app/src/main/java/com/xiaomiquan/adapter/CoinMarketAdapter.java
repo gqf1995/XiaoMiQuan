@@ -39,6 +39,7 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
     private FrameLayout fl_root;
     private String defaultUnit;
     private FontTextview tv_coin_probably;
+    private FontTextview tv_coin_unit;
 
     public CoinMarketAdapter(Context context, List<ExchangeData> datas) {
         super(context, R.layout.adapter_coin_market, datas);
@@ -59,6 +60,7 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
         ic_piv = holder.getView(R.id.ic_piv);
         fl_root = holder.getView(R.id.fl_root);
         lin_root = holder.getView(R.id.lin_root);
+        tv_coin_unit = holder.getView(R.id.tv_coin_unit);
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
         tv_num = holder.getView(R.id.tv_num);
         tv_coin_probably = holder.getView(R.id.tv_coin_probably);
@@ -66,12 +68,18 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
 
         tv_num.setText(UiHeplUtils.numIntToString(position + 1, 2));
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
-        tv_coin_type.setText(s.getExchange());
+        tv_coin_type.setText(s.getSymbol());
+        tv_coin_unit.setText(s.getId());
+
 
         tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  " + BigUIUtil.getinstance().bigPrice(s.getVolume()));
 
-        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(),s.getSymbol(), s.getUnit());
-        tv_coin_price.setText(strings.get(0));
+        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(), s.getSymbol(), s.getUnit());
+        if(TextUtils.isEmpty(strings.get(0))){
+            tv_coin_price.setText("--");
+        }else {
+            tv_coin_price.setText(strings.get(0));
+        }
         tv_coin_probably.setText(strings.get(1));
         if (TextUtils.isEmpty(strings.get(1))) {
             tv_coin_probably.setVisibility(View.GONE);

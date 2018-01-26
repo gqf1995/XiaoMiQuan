@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
@@ -13,7 +14,6 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.ExchangeMarketAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
-import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.market.AddCoinActivity;
 import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
@@ -89,6 +89,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     private View initFootView() {
         rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_bottom_add, null);
         this.lin_root = (LinearLayout) rootView.findViewById(R.id.lin_root);
+        lin_root.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         this.lin_add_coin_market = (LinearLayout) rootView.findViewById(R.id.lin_add_coin_market);
         this.lin_sorting = (LinearLayout) rootView.findViewById(R.id.lin_sorting);
         lin_add_coin_market.setOnClickListener(this);
@@ -104,9 +105,10 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
             case R.id.ic_nodata:
                 //添加自选
                 //检测登录
-                if (SingSettingDBUtil.isLogin(getActivity())) {
-                    goChoose();
-                }
+                goChoose();
+                //                if (SingSettingDBUtil.isLogin(getActivity())) {
+                //                    goChoose();
+                //                }
                 break;
             case R.id.lin_sorting:
                 //列表排序

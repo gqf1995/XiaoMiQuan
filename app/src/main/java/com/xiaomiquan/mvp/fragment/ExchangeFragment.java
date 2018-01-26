@@ -13,6 +13,7 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.ExchangeMarketAdapter;
+import com.xiaomiquan.entity.DropChangeSort;
 import com.xiaomiquan.entity.RiseChangeSort;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.ExchangeName;
@@ -108,11 +109,11 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
             public void onChange(int isTop) {
                 gainsState = isTop;
                 if (isTop == 0) {
-                    initList(strDatas);
+                    exchangeMarketAdapter.setDatas(strDatas);
                 } else if (isTop == 1) {
-                    initList(riseDatas);
+                    exchangeMarketAdapter.setDatas(riseDatas);
                 } else if (isTop == 2) {
-                    initList(dropDatas);
+                    exchangeMarketAdapter.setDatas(dropDatas);
                 }
             }
         });
@@ -152,8 +153,8 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     public void onResume() {
         super.onResume();
         //同步用户所选 单位
-        viewDelegate.viewHolder.tv_unit.setText(UserSet.getinstance().getShowUnit());
         if (exchangeMarketAdapter != null) {
+            viewDelegate.viewHolder.tv_unit.setText(UserSet.getinstance().getShowUnit());
             if (exchangeMarketAdapter.getDatas().size() > 0) {
                 exchangeMarketAdapter.setDefaultUnit(UserSet.getinstance().getUnit().replaceAll("-", "\n"));
             }
@@ -162,8 +163,8 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
 
     @Override
     protected void onFragmentFirstVisible() {
-        strDatas = new ArrayList<>();
-        initList(strDatas);
+        strDatas = Collections.synchronizedList(new ArrayList());
+        initList(new ArrayList<ExchangeData>());
         WebSocketRequest.getInstance().addCallBack(exchangeName.getEname(), new WebSocketRequest.WebSocketCallBack() {
             @Override
             public void onDataSuccess(String name, String data, String info, int status) {
@@ -267,7 +268,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
 
     private void initRise() {
         if (riseDatas == null) {
-            riseDatas = new ArrayList<>();
+            riseDatas = Collections.synchronizedList(new ArrayList());
         } else {
             riseDatas.clear();
         }
@@ -278,11 +279,11 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
 
     private void initDrop() {
         if (dropDatas == null) {
-            dropDatas = new ArrayList<>();
+            dropDatas = Collections.synchronizedList(new ArrayList());
         } else {
             dropDatas.clear();
         }
-        RiseChangeSort comparator = new RiseChangeSort();
+        DropChangeSort comparator = new DropChangeSort();
         dropDatas.addAll(strDatas);
         Collections.sort(dropDatas, comparator);
     }

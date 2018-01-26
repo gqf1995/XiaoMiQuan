@@ -75,7 +75,11 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         tv_coin_price.setText(s.getLast());
 
         List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(),s.getSymbol(),s.getUnit());
-        tv_coin_price.setText(strings.get(0));
+        if(TextUtils.isEmpty(strings.get(0))){
+            tv_coin_price.setText("--");
+        }else {
+            tv_coin_price.setText(strings.get(0));
+        }
         tv_coin_probably.setText(strings.get(1));
         if (TextUtils.isEmpty(strings.get(1))) {
             tv_coin_probably.setVisibility(View.GONE);
