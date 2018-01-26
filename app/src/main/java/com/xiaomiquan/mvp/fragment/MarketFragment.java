@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
-
 import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -18,6 +17,7 @@ import com.xiaomiquan.mvp.activity.market.SearchCoinMarketActivity;
 import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.TabViewpageBinder;
 import com.xiaomiquan.mvp.delegate.TabViewpageDelegate;
+import com.xiaomiquan.mvp.fragment.group.GroupChangeFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +30,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     ArrayList<Fragment> fragments;
     List<String> mTitles;
     List<ExchangeName> exchangeNameList;
+
 
     @Override
     protected Class<TabViewpageDelegate> getDelegateClass() {
@@ -108,7 +109,6 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         for (int i = 4; i < 8; i++) {
             fragments.add(CoinExchangeFragment.newInstance(strings.get(i)));
         }
-
 
         mTitles.add(strings.get(0));
         mTitles.add(strings.get(1));

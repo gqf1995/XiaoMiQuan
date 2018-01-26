@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <cn.bingoogolapple.bgabanner.BGABanner
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/album_dp_200" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/album_dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="快捷入口"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/trans_40px" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/ry_entrance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="热门资讯"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/trans_40px" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/ry_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/album_dp_200" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/album_dp_2"
+                    android:background="@color/album_FontHint" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/album_dp_10">
+
+                    <View
+                        android:layout_width="@dimen/album_dp_6"
+                        android:layout_height="@dimen/album_dp_15"
+                        android:background="@color/album_FontHint" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/album_dp_6"
+                        android:gravity="center"
+                        android:text="大V直播"
+                        android:textColor="@color/color_font2"
+                        android:textSize="@dimen/trans_32px" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/album_dp_1"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/tv_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="更多>"
+                        android:textColor="@color/color_font2"
+                        android:textSize="@dimen/trans_32px" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/pull_live"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/album_dp_10"
+                    android:scrollbars="none" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/flt_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/album_dp_50"
+            android:backgroundTint="@color/color_blue"
+            android:src="@mipmap/ic_star_fill"
+            app:elevation="@dimen/album_dp_6"
+            app:fabSize="normal"
+            app:rippleColor="@color/color_font1" />
+    </RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -1,12 +1,13 @@
 package com.xiaomiquan.entity.bean.circle;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Andy on 2018/1/19.
  */
 
-public class UserCircle implements Serializable {
+public class UserCircle implements Parcelable {
 
     /**
      * id : 3
@@ -131,4 +132,55 @@ public class UserCircle implements Serializable {
     public void setMemberCount(String memberCount) {
         this.memberCount = memberCount;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.groupNum);
+        dest.writeString(this.userId);
+        dest.writeString(this.name);
+        dest.writeString(this.avatar);
+        dest.writeString(this.type);
+        dest.writeString(this.brief);
+        dest.writeString(this.status);
+        dest.writeString(this.createTime);
+        dest.writeString(this.updateTime);
+        dest.writeString(this.nickName);
+        dest.writeString(this.memberCount);
+    }
+
+    public UserCircle() {
+    }
+
+    protected UserCircle(Parcel in) {
+        this.id = in.readString();
+        this.groupNum = in.readString();
+        this.userId = in.readString();
+        this.name = in.readString();
+        this.avatar = in.readString();
+        this.type = in.readString();
+        this.brief = in.readString();
+        this.status = in.readString();
+        this.createTime = in.readString();
+        this.updateTime = in.readString();
+        this.nickName = in.readString();
+        this.memberCount = in.readString();
+    }
+
+    public static final Parcelable.Creator<UserCircle> CREATOR = new Parcelable.Creator<UserCircle>() {
+        @Override
+        public UserCircle createFromParcel(Parcel source) {
+            return new UserCircle(source);
+        }
+
+        @Override
+        public UserCircle[] newArray(int size) {
+            return new UserCircle[size];
+        }
+    };
 }

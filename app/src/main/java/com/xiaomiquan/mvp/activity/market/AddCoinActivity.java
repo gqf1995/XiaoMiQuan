@@ -45,6 +45,9 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
             exchangeNameList = GsonUtil.getInstance().toList(exchangeNamesStr, ExchangeName.class);
             initTablelayout(exchangeNameList);
         }
+        /**
+         * 注册evenBus
+         */
         EventBus.getDefault().register(this);
     }
 
@@ -95,6 +98,7 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
         addRequest(binder.subs(userSelectKeys, this));
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onExchangeName(ExchangeData event) {
         if (userSelectKeys.contains(event.getOnlyKey())) {
@@ -138,7 +142,6 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
-
     }
 
     @Override

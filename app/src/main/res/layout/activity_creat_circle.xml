@@ -9,8 +9,7 @@
     android:orientation="vertical">
 
 
-
-        <include layout="@layout/include_toolbar_with_statusbar" />
+    <include layout="@layout/include_toolbar_with_statusbar" />
 
     <LinearLayout
         android:id="@+id/lin_input1"
@@ -28,10 +27,10 @@
             android:gravity="center"
             android:text="名字"
             android:textColor="@color/color_font2"
-            android:textSize="@dimen/trans_32px"/>
+            android:textSize="@dimen/trans_32px" />
 
         <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
-            android:id="@+id/circle_creat_name"
+            android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入名字"
@@ -42,8 +41,7 @@
             app:met_primaryColor="@color/color_blue"
             app:met_textColor="@color/color_font2"
             app:met_textColorHint="@color/color_font4"
-            app:met_underlineColor="@color/base_mask"
-            />
+            app:met_underlineColor="@color/base_mask" />
 
 
     </LinearLayout>
@@ -68,7 +66,7 @@
             android:textSize="@dimen/trans_32px" />
 
         <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
-            android:id="@+id/circle_creat_brief"
+            android:id="@+id/et_brief"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入介绍"
@@ -79,8 +77,7 @@
             app:met_primaryColor="@color/color_blue"
             app:met_textColor="@color/color_font2"
             app:met_textColorHint="@color/color_font4"
-            app:met_underlineColor="@color/base_mask"
-            />
+            app:met_underlineColor="@color/base_mask" />
 
     </LinearLayout>
 
@@ -92,8 +89,7 @@
         android:paddingRight="@dimen/trans_40px">
 
         <TextView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/circle_crate_commit"
+            android:id="@+id/tv_commit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/trans_90px"
             android:layout_marginTop="@dimen/trans_45px"
@@ -101,7 +97,7 @@
             android:gravity="center"
             android:text="创建"
             android:textColor="@drawable/color_select_commit"
-            android:textSize="@dimen/text_trans_32px"/>
+            android:textSize="@dimen/text_trans_32px" />
 
     </FrameLayout>
 

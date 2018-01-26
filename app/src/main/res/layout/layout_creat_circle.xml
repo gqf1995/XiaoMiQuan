@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/album_dp_10"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lin_upload"
+        android:layout_width="@dimen/trans_255px"
+        android:layout_height="@dimen/trans_255px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/album_dp_10"
+        android:background="@drawable/shape_mask_t20radiu"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/trans_20px"
+        android:paddingTop="@dimen/trans_20px">
+
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/ic_Photo"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_35px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/album_dp_10"
+            android:gravity="center"
+            android:text="@string/str_tv_upload"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/trans_32px" />
+    </LinearLayout>
+
+    <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/album_dp_15"
+        android:hint="@string/str_et_cirlcename"
+        android:maxLength="25"
+        android:textColorHint="@color/color_font3"
+        android:textSize="@dimen/text_trans_35px"
+        android:textStyle="bold"
+        app:met_baseColor="@color/white"
+        app:met_primaryColor="@color/color_blue"
+        app:met_textColor="@color/color_font1"
+        app:met_textColorHint="@color/color_font4"
+        app:met_underlineColor="@color/base_mask" />
+
+
+    <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
+        android:id="@+id/et_con"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/durban_dp_200"
+        android:layout_marginTop="@dimen/album_dp_10"
+        android:gravity="left|top"
+        android:hint="@string/str_et_circlecon"
+        android:inputType="textImeMultiLine"
+        android:maxLength="140"
+        android:textColorHint="@color/color_font3"
+        android:textSize="@dimen/trans_32px"
+        app:met_baseColor="@color/white"
+        app:met_primaryColor="@color/color_blue"
+        app:met_textColor="@color/color_font2"
+        app:met_textColorHint="@color/color_font4"
+        app:met_underlineColor="@color/base_mask" />
+
+</LinearLayout>

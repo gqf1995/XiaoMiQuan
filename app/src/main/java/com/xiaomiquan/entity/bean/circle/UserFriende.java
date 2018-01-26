@@ -19,23 +19,23 @@ public class UserFriende {
      * updateTime : 1516260051000
      */
 
-    private int id;
+    private String id;
     private String nickName;
     private String password;
-    private Object email;
+    private String email;
     private String phone;
     private String avatar;
-    private Object imToken;
-    private int bigv;
-    private int subscribeCharge;
-    private long createTime;
-    private long updateTime;
+    private String imToken;
+    private String bigv;
+    private String subscribeCharge;
+    private String createTime;
+    private String updateTime;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -55,11 +55,11 @@ public class UserFriende {
         this.password = password;
     }
 
-    public Object getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Object email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -79,43 +79,43 @@ public class UserFriende {
         this.avatar = avatar;
     }
 
-    public Object getImToken() {
+    public String getImToken() {
         return imToken;
     }
 
-    public void setImToken(Object imToken) {
+    public void setImToken(String imToken) {
         this.imToken = imToken;
     }
 
-    public int getBigv() {
+    public String getBigv() {
         return bigv;
     }
 
-    public void setBigv(int bigv) {
+    public void setBigv(String bigv) {
         this.bigv = bigv;
     }
 
-    public int getSubscribeCharge() {
+    public String getSubscribeCharge() {
         return subscribeCharge;
     }
 
-    public void setSubscribeCharge(int subscribeCharge) {
+    public void setSubscribeCharge(String subscribeCharge) {
         this.subscribeCharge = subscribeCharge;
     }
 
-    public long getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public long getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(long updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 }

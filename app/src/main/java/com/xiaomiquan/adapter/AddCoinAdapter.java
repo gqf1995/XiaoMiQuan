@@ -19,7 +19,6 @@ import java.util.List;
 
 public class AddCoinAdapter extends CommonAdapter<ExchangeData> {
 
-
     private FontTextview tv_name;
     private AppCompatImageView iv_select;
     List<String> userSelectKeys;

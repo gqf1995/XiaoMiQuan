@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/circle_creat_root"
+        android:id="@+id/lin_root"
         android:layout_width="@dimen/trans_255px"
         android:layout_height="@dimen/trans_255px"
         android:background="@drawable/shape_mask_t20radiu"
@@ -18,8 +18,8 @@
         android:layout_marginLeft="@dimen/trans_50px"
         >
 
-        <com.fivefivelike.mybaselibrary.view.FontTextview
-            android:id="@+id/circle_creat_name"
+        <TextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -29,10 +29,10 @@
             android:paddingTop="@dimen/trans_5px"
             android:textColor="@color/color_font1"
             android:textSize="@dimen/text_trans_24px"
-            app:TypeFace="Regular"/>
+           />
 
-        <com.fivefivelike.mybaselibrary.view.FontTextview
-            android:id="@+id/circle_creat_title"
+        <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"

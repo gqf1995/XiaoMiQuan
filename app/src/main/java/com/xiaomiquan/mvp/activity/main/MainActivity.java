@@ -8,10 +8,11 @@ import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
-import com.xiaomiquan.mvp.fragment.CircleFragment;
+import com.xiaomiquan.mvp.fragment.circle.CircleFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
 import com.xiaomiquan.base.ExchangeRateUtil;
+import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
 
 public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> {
@@ -62,7 +63,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
         viewDelegate.addFragment(new MarketFragment());
         viewDelegate.addFragment(new CircleFragment());
-        viewDelegate.addFragment(new Fragment());
+        viewDelegate.addFragment(new InvestGroupFragment());
         viewDelegate.addFragment(new UserFragment());
         viewDelegate.showFragment(0);
         doubleClickActList.add(this.getClass().getName());//两次返回act注册
