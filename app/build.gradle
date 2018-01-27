@@ -1,6 +1,29 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 
+//def mainFolder = "src/main"
+//def assetsFolder = mainFolder + "/assets"
+//def resFolder = mainFolder + "/res"
+//def javaFolder = mainFolder + "/java"
+//
+//def examplesFolder = javaFolder + "/com/scichart/examples"
+//def sciChartApp = "SciChartApp.java"
+//
+//def utilsFolder = examplesFolder + "/utils"
+//def componentsFolder = examplesFolder + "/components"
+//def dataFolder = examplesFolder + "/data"
+//def exampleFragmentsFolder = examplesFolder + "/fragments"
+def mainFolder = "src/main"
+def assetsFolder = mainFolder + "/assets"
+def resFolder = mainFolder + "/res"
+def javaFolder = mainFolder + "/java"
+def examplesFolder = javaFolder + "/com/scichart/examples"
+def sciChartApp = "SciChartApp.java"
+def utilsFolder = examplesFolder + "/utils"
+def componentsFolder = examplesFolder + "/components"
+def dataFolder = examplesFolder + "/data"
+def exampleFragmentsFolder = examplesFolder + "/fragments"
+
 android {
     signingConfigs {
         release {
@@ -21,7 +44,10 @@ android {
     }
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
-
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibility
+        targetCompatibility rootProject.ext.sourceCompatibility
+    }
     defaultConfig {
         applicationId "com.xiaomiquan"
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -31,8 +57,25 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
         multiDexEnabled true
+
+        buildConfigField "String", "MAIN_FOLDER", "\"$mainFolder\""
+        buildConfigField "String", "ASSETS_FOLDER", "\"$assetsFolder\""
+        buildConfigField "String", "RES_FOLDER", "\"$resFolder\""
+        buildConfigField "String", "JAVA_FOLDER", "\"$javaFolder\""
+
+        buildConfigField "String", "EXAMPLE_FOLDER", "\"$examplesFolder\""
+        buildConfigField "String", "SCI_CHART_APP", "\"$sciChartApp\""
+
+        buildConfigField "String", "UTILS_FOLDER", "\"$utilsFolder\""
+        buildConfigField "String", "COMPONENTS_FOLDER", "\"$componentsFolder\""
+        buildConfigField "String", "DATA_FOLDER", "\"$dataFolder\""
+        buildConfigField "String", "EXAMPLES_FRAGMENT_FOLDER", "\"$exampleFragmentsFolder\""
+
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -64,7 +107,17 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
     }
+    productFlavors {
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
 }
+
+repositories {
+    maven { url 'https://www.myget.org/F/abtsoftware/maven' }
+}
+
 greendao {
     //版本号，升级时可配置,对应当前数据库版本
     schemaVersion 1
@@ -74,6 +127,12 @@ greendao {
     targetGenDir 'src/main/java'
 }
 dependencies {
+    compile (group: 'com.scichart.library', name: 'core', version: '2.1.0.2131', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.1.0.2131', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.1.0.2131', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.1.0.2131', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'extensions', version: '2.1.0.2131', ext: 'aar')
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -107,4 +166,56 @@ dependencies {
 
 
 }
-
+task cleanExampleAssets(type: Delete) {
+    delete "src/main/assets/app"
+}
+task copySourceSciChartAppToAssets(type: Copy) {
+    from examplesFolder + "/" + sciChartApp
+    into assetsFolder + "/app/" + examplesFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleFragmentsToAssets(type: Copy) {
+    from exampleFragmentsFolder
+    into assetsFolder + "/app/" + exampleFragmentsFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleUtilsToAssets(type: Copy) {
+    from utilsFolder
+    into assetsFolder + "/app/" + utilsFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleDataToAssets(type: Copy) {
+    from dataFolder
+    into assetsFolder + "/app/" + dataFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleComponentsToAssets(type: Copy) {
+    from componentsFolder
+    into assetsFolder + "/app/" + componentsFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copyResourceExamplesToAssets(type: Copy) {
+    from resFolder
+    into assetsFolder + "/app/" + resFolder
+    include '**/example_*.*'
+    include '**/license.xml'
+    include '**/values/*.xml'
+    includeEmptyDirs = false
+    rename { String fileName ->
+        fileName.replace("xml", "xml.txt")
+    }
+}
+project.afterEvaluate {
+    clean.dependsOn cleanExampleAssets
+    preBuild.dependsOn copySourceSciChartAppToAssets, copySourceExampleFragmentsToAssets, copySourceExampleUtilsToAssets, copySourceExampleDataToAssets, copySourceExampleComponentsToAssets, copySourceExampleComponentsToAssets, copyResourceExamplesToAssets
+}

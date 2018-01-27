@@ -34,7 +34,11 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
+import com.xiaomiquan.greenDB.KLineBeanDao;
+import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.utils.UserSet;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -101,8 +105,12 @@ public class KlineDraw {
         mChartKline.setAutoScaleMinMaxEnabled(true);
         mChartVolume.setAutoScaleMinMaxEnabled(true);
         setOffset();
+
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
+
+        mChartKline.invalidate();
+        mChartVolume.invalidate();
 
         mChartKline.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
@@ -164,13 +172,13 @@ public class KlineDraw {
             updatLastKline(kLineBean);
             updatLastVolume(kLineBean);
 
-//            QueryBuilder<KLineBean> qb = DaoManager.getInstance().getDaoSession().getKLineBeanDao().queryBuilder();
-//            qb.where(KLineBeanDao.Properties.Key.eq(key), KLineBeanDao.Properties.Timestamp.eq(kLineBean.timestamp));
-//            List<KLineBean> daoDatas = qb.list();
-//            if (daoDatas.size() > 0) {
-//                kLineBean.setId(daoDatas.get(0).getId());
-//                DaoManager.getInstance().getDaoSession().getKLineBeanDao().update(kLineBean);
-//            }
+            QueryBuilder<KLineBean> qb = DaoManager.getInstance().getDaoSession().getKLineBeanDao().queryBuilder();
+            qb.where(KLineBeanDao.Properties.Key.eq(key), KLineBeanDao.Properties.Timestamp.eq(kLineBean.timestamp));
+            List<KLineBean> daoDatas = qb.list();
+            if (daoDatas.size() > 0) {
+                kLineBean.setId(daoDatas.get(0).getId());
+                DaoManager.getInstance().getDaoSession().getKLineBeanDao().update(kLineBean);
+            }
 
 
             if (lineBeans.size() > 1) {
@@ -186,10 +194,10 @@ public class KlineDraw {
                     addVolumeData(lineBeans.size() - i);
                     addKlineData(lineBeans.size() - i);
 
-//                    KLineBean kLineBean1 = lineBeans.get(i);
-//                    kLineBean1.key = key;
-//                    DaoManager.getInstance().getDaoSession().getKLineBeanDao()
-//                            .save(kLineBean1);
+                    KLineBean kLineBean1 = lineBeans.get(i);
+                    kLineBean1.key = key;
+                    DaoManager.getInstance().getDaoSession().getKLineBeanDao()
+                            .save(kLineBean1);
                 }
             }
 

@@ -480,7 +480,7 @@ public class BigUIUtil {
 
     //价格单位 显示规则
     public String bigPrice(String price) {
-        if (TextUtils.isEmpty(price)) {
+        if (TextUtils.isEmpty(price) || "NaN".equals(price)) {
             return "";
         }
         BigDecimal bigDecimal = new BigDecimal(price);

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
@@ -51,6 +52,8 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     List<String> unitList;
     int gainsState = 0;
     final int whatIndex = 1024;
+
+    String onlyKeys = "";
 
     private ConcurrentLinkedQueue<ExchangeData> exchangeDataList;
 
@@ -176,6 +179,9 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
+                if (datas.size() > 0) {
+                    onlyKeys = datas.get(0).getOnlyKey();
+                }
                 initList(datas);
                 strDatas.addAll(datas);
                 initRise();
@@ -216,11 +222,15 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                 if (exchangeName.getEname().equals(name)) {
                     //推送数据
                     ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
-                    if (exchangeDataMap == null) {
-                        exchangeDataMap = new ConcurrentHashMap<>();
-                        handler.sendEmptyMessageDelayed(whatIndex, 1000);
+                    if (!TextUtils.isEmpty(exchangeData.getOnlyKey())) {
+                        if (exchangeData.getOnlyKey().equals(onlyKeys)) {
+                            if (exchangeDataMap == null) {
+                                exchangeDataMap = new ConcurrentHashMap<>();
+                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
+                            }
+                            exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
+                        }
                     }
-                    exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
                 }
             }
 

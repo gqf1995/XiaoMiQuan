@@ -80,7 +80,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
 
         viewHolder.tv_ma5.setText(BigUIUtil.getinstance().bigPrice(data.getMa5DataV().get(position).getVal() + "") + "");
         viewHolder.tv_ma10.setText(BigUIUtil.getinstance().bigPrice(data.getMa10DataV().get(position).getVal() + "") + "");
-
+        viewHolder.tv_kvolume.setText(CommonUtils.getString(R.string.str_kvolume) + data.getKLineDatas().get(position).volume.toPlainString());
 
     }
 

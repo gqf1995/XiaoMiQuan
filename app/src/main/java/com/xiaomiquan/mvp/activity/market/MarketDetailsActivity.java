@@ -19,6 +19,8 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
+import com.xiaomiquan.greenDB.KLineBeanDao;
+import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.mvp.databinder.MarketDetailsBinder;
 import com.xiaomiquan.mvp.delegate.MarketDetailsDelegate;
 import com.xiaomiquan.widget.chart.KCombinedChart;
@@ -37,6 +39,8 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     int updataTime = 10;//刷新时间
     String klineValue = "1m";//初始k线时间 1分
     boolean isChange = true;
+    boolean isInit = false;//图表是否加载过数据
+    boolean isHavaDao = false;
     List<String> timeData;//接口 传递 时间 参数 集合
     int uiShowNum = 180;//ui显示多少条
     boolean isUpdataHistory = false;//是否正在更新历史k线
@@ -61,6 +65,12 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 case 1:
                     updata();
                     Log.i("updata", "updata");
+                    break;
+                case 2:
+                    if (!isInit) {
+                        isInit = !isInit;
+                        loadDao();
+                    }
                     break;
             }
         }
@@ -87,33 +97,95 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
         getIntentData();
-        initCache();
         initView();
     }
 
     List<String> dataset1;//选择 时间
-    //01-25 17:06:38.717  request 请求
-    //01-25 17:06:40.988  请求到数据 json解析
-    //01-25 17:06:41.061  整理数据
-    //01-25 17:06:41.108  开始绘制
-    //01-25 17:06:42.311  绘制结束
 
-    private void initCache() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //从数据库获取数据 并处理
+        if (!isInit) {
+            isHavaDao = initCache();
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus && isHavaDao) {
+            handler.sendEmptyMessage(2);
+        } else {
+
+        }
+    }
+
+    private void initDao() {
+        isHavaDao = initCache();
+        if (isHavaDao) {
+            loadDao();
+        }
+    }
+
+    String lastTime;
+
+    private void loadDao() {
+        if (klineDraw != null) {
+            klineDraw.setData(this, mData, viewDelegate.viewHolder.combinedchart, viewDelegate.viewHolder.barchart);
+            klineDraw.setOnClick(new KlineDraw.OnClick() {
+                @Override
+                public void click(int xPosition) {
+                    viewDelegate.setDetailsData(xPosition, klineDraw.getmData());
+                }
+            });
+            viewDelegate.setDetailsData(klineDraw.getmData().getKLineDatas().size() - 1, klineDraw.getmData());
+        }
+    }
+
+    private boolean initCache() {
         //缓存数据
-        String lastTime = "";
+        lastTime = "";
         //从数据库中获取
-        //lastTime = CacheUtils.getInstance().getString(CACHE_KLINE + exchangeData.getOnlyKey() + klineValue);
-//        List<KLineBean> kLineBeans = DaoManager.getInstance().getDaoSession().getKLineBeanDao()
-//                .queryBuilder()
-//                .where(KLineBeanDao.Properties.Key.eq(exchangeData.getOnlyKey() + klineValue))
-//                .orderAsc(KLineBeanDao.Properties.Timestamp)
-//                .list();
-//        if (kLineBeans.size() > 0) {
-//            getOffLineData(kLineBeans);
-//            lastTime = kLineBeans.get(kLineBeans.size() - 1).timestamp + "";
-//            isChange = false;
-//        }
-        request(lastTime);
+        List<KLineBean> kLineBeans = DaoManager.getInstance().getDaoSession().getKLineBeanDao()
+                .queryBuilder()
+                .where(KLineBeanDao.Properties.Key.eq(exchangeData.getOnlyKey() + klineValue))
+                .orderAsc(KLineBeanDao.Properties.Timestamp)
+                .list();
+        if (kLineBeans.size() > 0) {
+            List<KLineBean> lineBeans = new ArrayList<>();
+            if (kLineBeans.size() > uiShowNum) {
+                lineBeans = kLineBeans.subList(kLineBeans.size() - uiShowNum, kLineBeans.size());
+            } else {
+                lineBeans.addAll(kLineBeans);
+            }
+            if (lineBeans != null) {
+                if (lineBeans.size() > 0) {
+                    Log.i("KlineDraw", "DataParse");
+                    mData = new DataParse();
+                    if (lineBeans.size() > 0) {
+                        mData.parseKLine(lineBeans);
+                    }
+                    klineDraw = new KlineDraw();
+                }
+            }
+            viewDelegate.viewHolder.combinedchart.setOnMaxLeftLinsener(new KCombinedChart.OnMaxLeftLinsener() {
+                @Override
+                public void onMaxLeft() {
+                    if (!isUpdataHistory && klineDraw.getmData().getKLineDatas().size() % uiShowNum == 0 && updataHistoryNum < 2) {
+                        //更新历史k线
+                        isUpdataHistory = true;
+                        updataHistoryNum++;
+                    }
+                }
+            });
+            lastTime = kLineBeans.get(kLineBeans.size() - 1).timestamp + "";
+            isChange = false;
+            return true;
+        } else {
+            request(lastTime);
+            return false;
+        }
     }
 
 
@@ -141,12 +213,16 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 if (isChange) {
                     //初始化所有数据
                     getOffLineData(newkLineBeans);
-//                    for (int i = 0; i < mData.getKLineDatas().size(); i++) {
-//                        mData.getKLineDatas().get(i).key = exchangeData.getOnlyKey() + klineValue;
-//                        //添加到数据库
-//                        DaoManager.getInstance().getDaoSession().getKLineBeanDao()
-//                                .save(mData.getKLineDatas().get(i));
-//                    }
+                    if (mData != null) {
+                        if (mData.getKLineDatas() != null) {
+                            for (int i = 0; i < mData.getKLineDatas().size(); i++) {
+                                mData.getKLineDatas().get(i).key = exchangeData.getOnlyKey() + klineValue;
+                                //添加到数据库
+                                DaoManager.getInstance().getDaoSession().getKLineBeanDao()
+                                        .save(mData.getKLineDatas().get(i));
+                            }
+                        }
+                    }
                 } else {
                     //更新k线信息
                     updataKline(newkLineBeans);
@@ -161,9 +237,11 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         }
     }
 
+
     //初始化 k线
     private void getOffLineData(List<KLineBean> datas) {
         //筛选前180条数据 添加进ui
+
         List<KLineBean> lineBeans = new ArrayList<>();
         if (datas.size() > uiShowNum) {
             lineBeans = datas.subList(datas.size() - uiShowNum, datas.size());
@@ -231,8 +309,12 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
             public void onDataSuccess(String name, String data, String info, int status) {
                 if (this.getClass().getName().equals(name)) {
                     //推送数据
-                    exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
-                    viewDelegate.initData(exchangeData);
+                    ExchangeData edata = GsonUtil.getInstance().toObj(data, ExchangeData.class);
+                    if (!TextUtils.isEmpty(edata.getOnlyKey())) {
+                        if (exchangeData.getOnlyKey().equals(edata.getOnlyKey())) {
+                            viewDelegate.initData(edata);
+                        }
+                    }
                 }
             }
 
@@ -292,7 +374,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 //清空数据
                 klineDraw.cleanData();
                 //请求新数据
-                initCache();
+                initDao();
             }
         });
         viewDelegate.viewHolder.lin_indicators.setDatas(dataset2, null);

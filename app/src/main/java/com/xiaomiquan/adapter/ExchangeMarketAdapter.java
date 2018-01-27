@@ -71,13 +71,13 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         tv_name.setText(s.getExchange());
         tv_coin_type.setText(s.getSymbol());
         tv_coin_unit.setText(s.getUnit());
-        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + BigUIUtil.getinstance().bigAmount(s.getAmount()));
+        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + BigUIUtil.getinstance().bigAmount(s.getVolume()));
         tv_coin_price.setText(s.getLast());
 
-        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(),s.getSymbol(),s.getUnit());
-        if(TextUtils.isEmpty(strings.get(0))){
+        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(), s.getSymbol(), s.getUnit());
+        if (TextUtils.isEmpty(strings.get(0))) {
             tv_coin_price.setText("--");
-        }else {
+        } else {
             tv_coin_price.setText(strings.get(0));
         }
         tv_coin_probably.setText(strings.get(1));

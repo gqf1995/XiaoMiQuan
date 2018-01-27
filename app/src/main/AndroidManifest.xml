@@ -28,9 +28,9 @@
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <!--允许读取网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <!--允许读取wifi网络状态-->
+    <!-- 允许读取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 允许读取wifi网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
@@ -80,13 +80,12 @@
         <activity android:name=".mvp.activity.circle.GetFriendsJoinActivity"/>
         <activity android:name=".mvp.activity.circle.UserTopicActivity"/>
         <activity android:name=".mvp.activity.tovotefor.CombinationActivity">
-
         </activity>
-
 
         <receiver android:name=".utils.PingUtil$NetworkConnectChangedReceiver">
         </receiver>
 
+        <activity android:name=".mvp.activity.SciChartActivity"/>
     </application>
 
 </manifest>

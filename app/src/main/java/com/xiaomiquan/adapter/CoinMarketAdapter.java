@@ -69,34 +69,31 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
         tv_num.setText(UiHeplUtils.numIntToString(position + 1, 2));
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
         tv_coin_type.setText(s.getSymbol());
-        tv_coin_unit.setText(s.getId());
+        tv_coin_unit.setText(s.getName());
 
 
-        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  " + BigUIUtil.getinstance().bigPrice(s.getVolume()));
 
-        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(), s.getSymbol(), s.getUnit());
-        if(TextUtils.isEmpty(strings.get(0))){
+        String s1 = BigUIUtil.getinstance().rateOnePrice(s.getPriceUsd(), s.getSymbol(), UserSet.getinstance().getUSDUnit());
+        String s2 = BigUIUtil.getinstance().rateOnePrice(s.getMarketCapUsd(), UserSet.getinstance().getUSDUnit(), UserSet.getinstance().getUSDUnit());
+        s2=s2.substring(1,s2.length());
+        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  " + BigUIUtil.getinstance().bigAmount(s2));
+        if (TextUtils.isEmpty(s1)) {
             tv_coin_price.setText("--");
-        }else {
-            tv_coin_price.setText(strings.get(0));
-        }
-        tv_coin_probably.setText(strings.get(1));
-        if (TextUtils.isEmpty(strings.get(1))) {
-            tv_coin_probably.setVisibility(View.GONE);
         } else {
-            tv_coin_probably.setVisibility(View.VISIBLE);
+            tv_coin_price.setText(s1);
         }
+        tv_coin_probably.setVisibility(View.GONE);
 
 
         ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
-        if (!TextUtils.isEmpty(s.getChange())) {
-            if (new BigDecimal(s.getChange()).compareTo(new BigDecimal("0")) == 1) {
+        if (!TextUtils.isEmpty(s.getPercentChange24h())) {
+            if (new BigDecimal(s.getPercentChange24h()).compareTo(new BigDecimal("0")) == 1) {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
             } else {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getDropColor()), 10, 10, 10, 10));
             }
         }
-        tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
+        tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getPercentChange24h()) + "%");
     }
 
 

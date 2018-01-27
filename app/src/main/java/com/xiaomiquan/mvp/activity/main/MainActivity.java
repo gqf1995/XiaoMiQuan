@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
+import com.scichart.extensions.builders.SciChartBuilder;
 import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
@@ -42,6 +43,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        SciChartBuilder.init(this);
         //提示是否电池优化
         ignoreBatteryOptimization(this);
         initFragment();
@@ -111,6 +113,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     @Override
     protected void onDestroy() {
         WebSocketRequest.getInstance().onDestory();
+        SciChartBuilder.dispose();
         super.onDestroy();
     }
 

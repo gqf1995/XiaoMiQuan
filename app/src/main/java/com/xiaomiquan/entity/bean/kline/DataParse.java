@@ -1,11 +1,13 @@
 package com.xiaomiquan.entity.bean.kline;
 
+import android.text.TextUtils;
 import android.util.SparseArray;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.xiaomiquan.widget.scichart.PriceSeries;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.List;
  */
 public class DataParse {
     private ArrayList<MinutesBean> datas;
-    private ArrayList<KLineBean> kDatas;
+    private PriceSeries kDatas;
     private ArrayList<String> xVals;//X轴数据
     private ArrayList<BarEntry> barEntries;//成交量数据
     private ArrayList<CandleEntry> candleEntries;//K线数据
@@ -104,7 +106,7 @@ public class DataParse {
     public void parseKLine(List<KLineBean> kLineBeans) {
         if (kLineBeans.size() > 0) {
             if (kDatas == null) {
-                kDatas = new ArrayList<>();
+                kDatas = new PriceSeries();
             } else {
                 kDatas.clear();
             }
@@ -113,10 +115,14 @@ public class DataParse {
             } else {
                 xValuesLabel.clear();
             }
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             if (kLineBeans != null) {
                 int count = kLineBeans.size();
                 for (int i = 0; i < count; i++) {
-                    kLineBeans.get(i).date = TimeUtils.millis2String(kLineBeans.get(i).timestamp * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+                    if (TextUtils.isEmpty(kLineBeans.get(i).date)) {
+                        kLineBeans.get(i).date = TimeUtils.millis2String(kLineBeans.get(i).timestamp * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+                        kLineBeans.get(i).setNewDate(TimeUtils.string2Date(kLineBeans.get(i).date));
+                    }
                     volmax = Math.max(kLineBeans.get(i).volume.floatValue(), volmax);
                     xValuesLabel.put(i, kLineBeans.get(i).date);
                     kDatas.add(kLineBeans.get(i));
@@ -465,6 +471,10 @@ public class DataParse {
      * @return
      */
     public ArrayList<KLineBean> getKLineDatas() {
+        return kDatas;
+    }
+
+    public PriceSeries getKLine() {
         return kDatas;
     }
 
