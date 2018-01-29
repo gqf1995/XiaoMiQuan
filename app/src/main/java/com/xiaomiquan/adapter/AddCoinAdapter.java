@@ -57,7 +57,7 @@ public class AddCoinAdapter extends CommonAdapter<ExchangeData> {
         iv_select = holder.getView(R.id.iv_select);
         tv_name = holder.getView(R.id.tv_name);
         if (isCoin) {
-            tv_name.setText(s.getExchange());
+            tv_name.setText(s.getExchange() + "/" + s.getUnit());
         } else {
             tv_name.setText(s.getSymbol() + "/" + s.getUnit());
         }

@@ -132,4 +132,6 @@
     <string name="ic_icon_right">&#xe61d;</string>
     <string name="ic_icon_left">&#xe61d;</string>
     <string name="ic_drop_down">&#xe600;</string>
+    <string name="ic_jianshao">&#xe6c6;</string>
+    <string name="ic_jia">&#xe6c5;</string>
 </resources>

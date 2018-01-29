@@ -1,5 +1,7 @@
 package com.xiaomiquan.mvp.activity.market;
 
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,6 +19,9 @@ import com.xiaomiquan.mvp.databinder.SearchCoinMarketBinder;
 import com.xiaomiquan.mvp.delegate.SearchCoinMarketDelegate;
 import com.xiaomiquan.mvp.fragment.SearchCoinMarketDefaultFragment;
 import com.xiaomiquan.mvp.fragment.SearchCoinMarketResultFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 搜索行情 添加自选
@@ -40,6 +45,7 @@ public class SearchCoinMarketActivity extends BaseDataBindActivity<SearchCoinMar
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        getIntentData();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_search_coin_market)).setShowBack(false).setSubTitle(CommonUtils.getString(R.string.str_cancel)));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
         initToolBar();
@@ -92,6 +98,7 @@ public class SearchCoinMarketActivity extends BaseDataBindActivity<SearchCoinMar
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
         searchCoinMarketDefaultFragment = new SearchCoinMarketDefaultFragment();
         searchCoinMarketResultFragment = new SearchCoinMarketResultFragment();
+        searchCoinMarketResultFragment.setUserChooseCoin(userSelectKeys);
         viewDelegate.addFragment(searchCoinMarketDefaultFragment);
         viewDelegate.addFragment(searchCoinMarketResultFragment);
         viewDelegate.showFragment(0);
@@ -116,7 +123,33 @@ public class SearchCoinMarketActivity extends BaseDataBindActivity<SearchCoinMar
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
+            case 0x123:
+
+                break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        setResult(RESULT_OK);
+        super.onDestroy();
+    }
+
+    public static void startAct(FragmentActivity activity,
+                                ArrayList<String> userSelectKeys,
+                                int code
+    ) {
+        Intent intent = new Intent(activity, SearchCoinMarketActivity.class);
+        intent.putStringArrayListExtra("userSelectKeys", userSelectKeys);
+        activity.startActivityForResult(intent, code);
+    }
+
+
+    List<String> userSelectKeys;
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        userSelectKeys = intent.getStringArrayListExtra("userSelectKeys");
     }
 
 }

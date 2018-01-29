@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.xiaomiquan.adapter.SearchAddCoinAdapter;
+import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.mvp.databinder.SearchCoinMarketResultBinder;
 import com.xiaomiquan.mvp.delegate.SearchCoinMarketResultDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -35,10 +36,7 @@ public class SearchfriendsFragment extends BaseDataBindFragment<SearchCoinMarket
     SearchAddCoinAdapter searchAddCoinAdapter;
 
     private void initList() {
-        List<String> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            data.add("");
-        }
+        List<ExchangeData> data = new ArrayList<>();
         searchAddCoinAdapter = new SearchAddCoinAdapter(getActivity(), data);
         searchAddCoinAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override

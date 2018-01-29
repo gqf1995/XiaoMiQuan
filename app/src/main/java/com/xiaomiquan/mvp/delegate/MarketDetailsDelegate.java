@@ -53,6 +53,8 @@ public class MarketDetailsDelegate extends BaseDelegate {
         ViewGroup.LayoutParams layoutParams = viewHolder.lin_kline.getLayoutParams();
         layoutParams.height = AndroidUtil.getScreenW(viewHolder.rootView.getContext(), true) - AndroidUtil.getStatusBarHeight(viewHolder.rootView.getContext()) - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
         viewHolder.lin_kline.setLayoutParams(layoutParams);
+        viewHolder.lin_kbg.setBackgroundColor(UserSet.getinstance().getKBgColor());
+
 
     }
 
@@ -181,6 +183,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
         public TextView tv_ma10;
         public LinearLayout lin_ma2;
         public KCombinedChart barchart;
+        public LinearLayout lin_kbg;
         public LinearLayout lin_global_market;
         public LinearLayout lin_currency_data;
         public LinearLayout lin_simulation;
@@ -222,6 +225,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
             this.tv_ma10 = (TextView) rootView.findViewById(R.id.tv_ma10);
             this.lin_ma2 = (LinearLayout) rootView.findViewById(R.id.lin_ma2);
             this.barchart = (KCombinedChart) rootView.findViewById(R.id.barchart);
+            this.lin_kbg = (LinearLayout) rootView.findViewById(R.id.lin_kbg);
             this.lin_global_market = (LinearLayout) rootView.findViewById(R.id.lin_global_market);
             this.lin_currency_data = (LinearLayout) rootView.findViewById(R.id.lin_currency_data);
             this.lin_simulation = (LinearLayout) rootView.findViewById(R.id.lin_simulation);

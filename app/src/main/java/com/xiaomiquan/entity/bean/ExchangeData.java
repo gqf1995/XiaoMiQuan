@@ -29,6 +29,8 @@ public class ExchangeData implements Parcelable {
     private String bid;//买一
     private String change;//24小时涨跌幅
     private String timestamp;
+
+
     private String onlyKey;//市场的唯一标识 例如：Okex_ETH_BTC "choicePrice": null// 用户选择的市场价格
 
 

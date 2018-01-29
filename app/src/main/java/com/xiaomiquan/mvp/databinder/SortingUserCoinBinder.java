@@ -7,8 +7,6 @@ import com.xiaomiquan.mvp.delegate.SortingUserCoinDelegate;
 import com.xiaomiquan.server.HttpUrl;
 import com.yanzhenjie.nohttp.rest.CacheMode;
 
-import java.util.List;
-
 import io.reactivex.disposables.Disposable;
 
 public class SortingUserCoinBinder extends BaseDataBind<SortingUserCoinDelegate> {
@@ -38,19 +36,19 @@ public class SortingUserCoinBinder extends BaseDataBind<SortingUserCoinDelegate>
     }
 
     /**
-     * 取消订阅
+     * 单独订阅/取消
      */
-    public Disposable unsubs(
-            List<String> onlykey,
+    public Disposable singlesubs(
+            String onlykey,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("onlykey", onlykey);
+        baseMap.put("symbol", "0");
         return new HttpRequest.Builder()
                 .setRequestCode(0x124)
-                .setRequestUrl(HttpUrl.getIntance().unsubs)
+                .setRequestUrl(HttpUrl.getIntance().singlesubs)
                 .setShowDialog(false)
-                .setCacheMode(CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE)
-                .setRequestName("取消订阅")
+                .setRequestName("单独订阅/取消")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)

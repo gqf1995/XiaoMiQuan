@@ -2,6 +2,7 @@ package com.xiaomiquan.utils;
 
 import android.text.TextUtils;
 
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.xiaomiquan.R;
 
@@ -18,7 +19,6 @@ import skin.support.SkinCompatManager;
  */
 
 public class UserSet {
-
 
 
     private static class userSet {
@@ -52,12 +52,12 @@ public class UserSet {
 
     public String getUnit() {
         String unit = SaveUtil.getInstance().getString("unit");
-        return TextUtils.isEmpty(unit) ? "默认" : unit;
+        return TextUtils.isEmpty(unit) ? CommonUtils.getString(R.string.str_default) : unit;
     }
 
     public String getShowUnit() {
         String unit = SaveUtil.getInstance().getString("unit");
-        return TextUtils.isEmpty(unit) ? "默认" : unit;
+        return TextUtils.isEmpty(unit) ? CommonUtils.getString(R.string.str_default) : unit;
     }
 
     public String getCNYUnit() {
@@ -83,6 +83,34 @@ public class UserSet {
     public boolean isUnitDefalt() {
         return "default".equals(getUnit());
     }
+
+    //用户设置k线背景
+    public void setKBg(String kBg) {
+        SaveUtil.getInstance().saveString("kBg", kBg);
+    }
+
+    public int getKBgColor() {
+        String kBg = SaveUtil.getInstance().getString("kBg");
+        if (TextUtils.isEmpty(kBg)) {
+            return CommonUtils.getColor(R.color.colorPrimary);
+        } else {
+            return Integer.parseInt(kBg);
+        }
+    }
+    //用户设置k线缩放级别
+
+    //用户设置k线分钟
+    public void setKTime(String kTime) {
+        SaveUtil.getInstance().saveString("kTime", kTime);
+    }
+
+    public String getKTime() {
+        String kTime = SaveUtil.getInstance().getString("kTime");
+        return TextUtils.isEmpty(kTime) ? "1m" : kTime;
+    }
+
+    //用户设置k线显示数据
+
 
     public void setNight(boolean isNight) {
         SaveUtil.getInstance().saveBoolean("isNight", isNight);

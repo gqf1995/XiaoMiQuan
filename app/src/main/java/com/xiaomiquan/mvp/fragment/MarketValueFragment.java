@@ -10,7 +10,10 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.CoinMarketAdapter;
+import com.xiaomiquan.entity.DropChangeSort;
+import com.xiaomiquan.entity.RiseChangeSort;
 import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.xiaomiquan.utils.UserSet;
@@ -19,13 +22,16 @@ import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import skin.support.widget.SkinCompatLinearLayout;
 
 public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
     CoinMarketAdapter exchangeMarketAdapter;
-    List<ExchangeData> strDatas;
+    List<ExchangeData> defaultDatas;
+    List<ExchangeData> riseDatas;
+    List<ExchangeData> dropDatas;
     HeaderAndFooterWrapper adapter;
 
     @Override
@@ -67,6 +73,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
     public TextView tv_unit;
     public GainsTabView tv_rise;
     public SkinCompatLinearLayout lin_root;
+    int gainsState = 0;
 
     private void initTool() {
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_exchange_tool, null);
@@ -77,25 +84,32 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
 
         tv_rise.setText(CommonUtils.getString(R.string.str_rise));
         tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
+        tv_unit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChangeDefaultSetActivity.startAct(getActivity(), ChangeDefaultSetActivity.TYPE_UNIT);
+            }
+        });
         tv_rise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tv_rise.onClick();
             }
         });
-        viewDelegate.viewHolder.fl_pull.addView(rootView, 0);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //同步用户所选 单位
-        if (exchangeMarketAdapter != null) {
-            tv_unit.setText(UserSet.getinstance().getUnit());
-            if (exchangeMarketAdapter.getDatas().size() > 0) {
-                exchangeMarketAdapter.setDefaultUnit(UserSet.getinstance().getUnit().replaceAll("-", "\n"));
+        tv_rise.setOnChange(new GainsTabView.OnChange() {
+            @Override
+            public void onChange(int isTop) {
+                gainsState = isTop;
+                if (isTop == 0) {
+                    exchangeMarketAdapter.setDatas(defaultDatas);
+                } else if (isTop == 1) {
+                    exchangeMarketAdapter.setDatas(riseDatas);
+                } else if (isTop == 2) {
+                    exchangeMarketAdapter.setDatas(dropDatas);
+                }
             }
-        }
+        });
+        viewDelegate.viewHolder.fl_pull.addView(rootView, 0);
     }
 
     @Override
@@ -103,16 +117,47 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
         switch (requestCode) {
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
-                List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
-                getDataBack(strDatas, datas, exchangeMarketAdapter);
+                defaultDatas = GsonUtil.getInstance().toList(data, ExchangeData.class);
+                getDataBack(exchangeMarketAdapter.getDatas(), defaultDatas, exchangeMarketAdapter);
+                initRise();
+                initDrop();
                 break;
         }
+    }
+
+    private void initRise() {
+        if (riseDatas == null) {
+            riseDatas = Collections.synchronizedList(new ArrayList());
+        } else {
+            riseDatas.clear();
+        }
+        RiseChangeSort comparator = new RiseChangeSort();
+        riseDatas.addAll(defaultDatas);
+        Collections.sort(riseDatas, comparator);
+    }
+
+    private void initDrop() {
+        if (dropDatas == null) {
+            dropDatas = Collections.synchronizedList(new ArrayList());
+        } else {
+            dropDatas.clear();
+        }
+        DropChangeSort comparator = new DropChangeSort();
+        dropDatas.addAll(defaultDatas);
+        Collections.sort(dropDatas, comparator);
     }
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         if (isVisible) {
             onRefresh();
+            //同步用户所选 单位
+            if (exchangeMarketAdapter != null) {
+                tv_unit.setText(UserSet.getinstance().getUnit());
+                if (exchangeMarketAdapter.getDatas().size() > 0) {
+                    exchangeMarketAdapter.notifyDataSetChanged();
+                }
+            }
         } else {
             binder.cancelpost();
         }
@@ -120,8 +165,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
 
     @Override
     protected void onFragmentFirstVisible() {
-        strDatas = new ArrayList<>();
-        initList(strDatas);
+        initList(new ArrayList<ExchangeData>());
     }
 
     @Override

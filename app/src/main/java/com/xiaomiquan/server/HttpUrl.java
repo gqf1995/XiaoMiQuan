@@ -3,6 +3,7 @@ package com.xiaomiquan.server;
 import android.text.TextUtils;
 
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 
 import static com.xiaomiquan.base.AppConst.httpBaseUrl;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl2;
@@ -37,6 +38,7 @@ public class HttpUrl {
 
     public static void setBaseUrl(String url) {
         SaveUtil.getInstance().saveString("baseUrl", url);
+        ToastUtil.show(url);
         httpUrl = null;
     }
 
@@ -75,27 +77,27 @@ public class HttpUrl {
     /**
      * 用户注册发送验证码
      */
-    public String sendCodeForRegister = getBaseUrl() + userUrl + "/sendCodeForRegister";
+    public String sendCodeForRegister = httpBaseUrl3 + userUrl + "/sendCodeForRegister";
     /**
      * 用户注册
      */
-    public String saveUser = getBaseUrl() + userUrl + "/saveUser";
+    public String saveUser = httpBaseUrl3 + userUrl + "/saveUser";
     /**
      * 用户登录
      */
-    public String userLogin = getBaseUrl() + userUrl + "/userLogin";
+    public String userLogin = httpBaseUrl3 + userUrl + "/userLogin";
     /**
      * 用户找回密码发送短信
      */
-    public String sendCodeForForgotPassWord = getBaseUrl() + userUrl + "/sendCodeForForgotPassWord";
+    public String sendCodeForForgotPassWord = httpBaseUrl3 + userUrl + "/sendCodeForForgotPassWord";
     /**
      * 用户找回密码
      */
-    public String retrievePassword = getBaseUrl() + userUrl + "/retrievePassword";
+    public String retrievePassword = httpBaseUrl3 + userUrl + "/retrievePassword";
     /**
      * 用户登出
      */
-    public String loginOut = getBaseUrl() + userUrl + "/loginOut";
+    public String loginOut = httpBaseUrl3 + userUrl + "/loginOut";
 
 
     /**
@@ -139,6 +141,10 @@ public class HttpUrl {
      * 获取汇率
      */
     public String getAllPriceRate = httpBaseUrl + dataUrl + "/getAllPriceRate";
+    /**
+     * 搜索
+     */
+    public String getAllMarketByExchangeOrSymbol = httpBaseUrl + dataUrl + "/getAllMarketByExchangeOrSymbol";
 
 
     /**
@@ -161,6 +167,10 @@ public class HttpUrl {
      * 点击横栏上交易所或币种显示信息
      */
     public String marketdata = httpBaseUrl3 + subsUrl + "/self/marketdata";
+    /**
+     * 单独订阅/取消
+     */
+    public String singlesubs = httpBaseUrl3 + subsUrl + "/operate/singlesubs";
 
 
     /**

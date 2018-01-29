@@ -48,12 +48,10 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
                         sortingAdapter.getDatas().remove(position);
                         sortingAdapter.getDatas().add(0, s);
                         sortingAdapter.notifyDataSetChanged();
-                    } else if (type == R.id.iv_start) {
+                    } else if (type == R.id.tv_star) {
                         ExchangeData exchangeData = strDatas.get(position);
                         //取消自选
-                        List<String> data = new ArrayList<>();
-                        data.add(exchangeData.getOnlyKey());
-                        addRequest(binder.unsubs(data, SortingUserCoinActivity.this));
+                        binder.singlesubs(exchangeData.getOnlyKey(), SortingUserCoinActivity.this);
                         sortingAdapter.getDatas().remove(position);
                         sortingAdapter.notifyDataSetChanged();
                     }

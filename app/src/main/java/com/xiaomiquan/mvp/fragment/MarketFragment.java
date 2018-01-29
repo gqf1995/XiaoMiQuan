@@ -64,6 +64,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         addRequest(binder.getAllEXchange(this));
     }
 
+    ArrayList<String> strings;
 
     //给toolbar添加搜索布局
     private void initToolBarSearch() {
@@ -73,11 +74,27 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         et_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //跳转搜索
-                gotoActivity(SearchCoinMarketActivity.class).startAct();
-                getActivity().overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+                goSearch();
             }
         });
+    }
+
+    private void goSearch() {
+        if (userChooseFragment != null) {
+            if (userChooseFragment.getExchangeMarketAdapter() != null) {
+                //跳转搜索
+                if (strings == null) {
+                    strings = new ArrayList<>();
+                } else {
+                    strings.clear();
+                }
+                for (int i = 0; i < userChooseFragment.getExchangeMarketAdapter().getDatas().size(); i++) {
+                    strings.add(userChooseFragment.getExchangeMarketAdapter().getDatas().get(i).getOnlyKey());
+                }
+                SearchCoinMarketActivity.startAct(getActivity(), (ArrayList) strings,0x123);
+                getActivity().overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+            }
+        }
     }
 
     @Override
@@ -99,6 +116,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
             }
         }
     }
+
 
     @Override
     protected void clickRightIv() {

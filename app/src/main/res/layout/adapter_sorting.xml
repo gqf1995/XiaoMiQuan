@@ -12,18 +12,20 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/trans_35px"
-        android:paddingLeft="@dimen/trans_40px"
         android:paddingRight="@dimen/trans_40px"
         android:paddingTop="@dimen/trans_35px">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_start"
-            android:layout_width="@dimen/trans_50px"
-            android:layout_height="@dimen/trans_50px"
-            android:layout_marginRight="@dimen/trans_20px"
-            android:background="@color/color_font1"
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:id="@+id/tv_star"
+            android:layout_width="@dimen/trans_110px"
+            android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/trans_40px"
+            android:paddingRight="@dimen/trans_20px"
+            android:textColor="@color/color_F5A623"
+            android:textSize="@dimen/trans_36px"
             />
 
         <LinearLayout

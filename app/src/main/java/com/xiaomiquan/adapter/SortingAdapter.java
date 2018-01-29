@@ -1,12 +1,13 @@
 package com.xiaomiquan.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
+import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -22,10 +23,10 @@ import java.util.List;
 public class SortingAdapter extends CommonAdapter<ExchangeData> {
 
 
-    private AppCompatImageView iv_start;
+    private IconFontTextview tv_star;
     private FontTextview tv_name;
     private FontTextview tv_coin;
-    private AppCompatImageView iv_select;
+    private TextView tv_select;
 
     List<ExchangeData> selectData;
     DefaultClickLinsener defaultClickLinsener;
@@ -59,29 +60,29 @@ public class SortingAdapter extends CommonAdapter<ExchangeData> {
 
     @Override
     protected void convert(ViewHolder holder, ExchangeData s, final int position) {
-        iv_start = holder.getView(R.id.iv_start);
+        tv_star = holder.getView(R.id.tv_star);
         tv_name = holder.getView(R.id.tv_name);
         tv_coin = holder.getView(R.id.tv_coin);
-        iv_select = holder.getView(R.id.iv_select);
+        tv_select = holder.getView(R.id.tv_select);
         tv_name.setText(position + "");
 
         tv_name.setText(s.getSymbol() + "/" + s.getUnit());
         tv_coin.setText(s.getExchange());
 
         if (position == 0) {
-            iv_select.setVisibility(View.GONE);
+            tv_select.setVisibility(View.GONE);
         } else {
-            iv_select.setVisibility(View.VISIBLE);
+            tv_select.setVisibility(View.VISIBLE);
         }
 
         if (selectData.contains(s)) {
-            iv_select.setBackgroundColor(CommonUtils.getColor(R.color.color_blue));
+            tv_select.setBackgroundColor(CommonUtils.getColor(R.color.color_blue));
         } else {
-            iv_select.setBackgroundColor(CommonUtils.getColor(R.color.color_font1));
+            tv_select.setBackgroundColor(CommonUtils.getColor(R.color.color_font1));
         }
 
 
-        iv_select.setOnClickListener(new View.OnClickListener() {
+        tv_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (defaultClickLinsener != null) {
@@ -89,11 +90,11 @@ public class SortingAdapter extends CommonAdapter<ExchangeData> {
                 }
             }
         });
-        iv_start.setOnClickListener(new View.OnClickListener() {
+        tv_star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (defaultClickLinsener != null) {
-                    defaultClickLinsener.onClick(view, position, R.id.iv_start);
+                    defaultClickLinsener.onClick(view, position, R.id.tv_star);
                 }
             }
         });

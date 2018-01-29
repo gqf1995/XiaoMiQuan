@@ -32,15 +32,16 @@ public class JudgeNestedScrollView extends NestedScrollView {
         init();
     }
 
-    public void setTabAndPager(View tab, ViewPager viewPager, boolean isHaveToolbar) {
+    public void setTabAndPager(View tab, int viewHeight, ViewPager viewPager, boolean isHaveToolbar) {
         this.view = tab;
-        if (isHaveToolbar) {
-            toolBarPositionY = BarUtils.getStatusBarHeight() + view.getLayoutParams().height + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
-        } else {
-            toolBarPositionY = view.getLayoutParams().height;
-        }
+        toolBarPositionY = viewHeight + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
+        //        if (isHaveToolbar) {
+        //            toolBarPositionY = BarUtils.getStatusBarHeight() + viewHeight + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
+        //        } else {
+        //            toolBarPositionY = viewHeight;
+        //        }
         ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) viewPager.getLayoutParams();
-        layoutParams.height = ScreenUtils.getScreenHeight() - view.getLayoutParams().height - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px) - BarUtils.getStatusBarHeight();
+        layoutParams.height = ScreenUtils.getScreenHeight() - viewHeight - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px) - BarUtils.getStatusBarHeight();
         viewPager.setLayoutParams(layoutParams);
     }
 
@@ -59,15 +60,13 @@ public class JudgeNestedScrollView extends NestedScrollView {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 int[] location = new int[2];
-                if (view != null && toolBarPositionY != 0) {
-                    view.getLocationOnScreen(location);
-                    int xPosition = location[0];
-                    int yPosition = location[1];
-                    if (yPosition < toolBarPositionY) {
-                        setNeedScroll(false);
-                    } else {
-                        setNeedScroll(true);
-                    }
+                view.getLocationOnScreen(location);
+                int xPosition = location[0];
+                int yPosition = location[1];
+                if (yPosition < toolBarPositionY) {
+                    setNeedScroll(false);
+                } else {
+                    setNeedScroll(true);
                 }
             }
         });
@@ -97,11 +96,11 @@ public class JudgeNestedScrollView extends NestedScrollView {
         return super.onInterceptTouchEvent(ev);
     }
 
-            /*
-            改方法用来处理NestedScrollView是否拦截滑动事件
-             */
-
+    /*
+    改方法用来处理NestedScrollView是否拦截滑动事件
+     */
     public void setNeedScroll(boolean isNeedScroll) {
         this.isNeedScroll = isNeedScroll;
     }
+
 }

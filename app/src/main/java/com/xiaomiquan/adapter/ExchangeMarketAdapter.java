@@ -27,17 +27,10 @@ import java.util.List;
 public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
     //implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder>
     int[] bgIds = {R.drawable.ic_value_bg1, R.drawable.ic_value_bg2, R.drawable.ic_value_bg3, R.drawable.ic_value_bg4, R.drawable.ic_value_bg5};
-    private String defaultUnit;
 
-    //设置汇率
-    public void setDefaultUnit(String defaultUnit) {
-        this.defaultUnit = defaultUnit;
-        this.notifyDataSetChanged();
-    }
 
     public ExchangeMarketAdapter(Context context, List<ExchangeData> datas) {
         super(context, R.layout.adapter_exchange_coin, datas);
-        defaultUnit = UserSet.getinstance().getUnit();
     }
 
     @Override

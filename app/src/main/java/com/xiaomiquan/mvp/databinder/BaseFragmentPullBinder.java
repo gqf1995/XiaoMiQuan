@@ -123,4 +123,51 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
+
+    /**
+     * 搜索
+     */
+    public Disposable getAllMarketByExchangeOrSymbol(
+            String name,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("name", name);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().getAllMarketByExchangeOrSymbol)
+                .setShowDialog(false)
+                .setRequestName("搜索")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 单独订阅/取消
+     */
+    public Disposable singlesubs(
+            String onlykey,
+            String symbol,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("onlykey", onlykey);
+        baseMap.put("symbol", symbol);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().singlesubs)
+                .setShowDialog(false)
+                .setRequestName("单独订阅/取消")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
 }

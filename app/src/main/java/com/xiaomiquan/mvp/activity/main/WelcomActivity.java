@@ -6,6 +6,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.fivefivelike.mybaselibrary.base.BaseActivity;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.xiaomiquan.mvp.delegate.WelcomDelegate;
 import com.xiaomiquan.server.HttpUrl;
 
@@ -15,6 +16,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.xiaomiquan.base.AppConst.httpBaseUrl;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
 
 public class WelcomActivity extends BaseActivity<WelcomDelegate> {
@@ -34,6 +36,7 @@ public class WelcomActivity extends BaseActivity<WelcomDelegate> {
     String ipPing1 = "47.90.120.59";
     int time = 100000;
     int pingNum = 2;
+
 
     @Override
     protected void bindEvenListener() {
@@ -70,12 +73,15 @@ public class WelcomActivity extends BaseActivity<WelcomDelegate> {
                         HttpUrl.setBaseUrl(httpBaseUrl4);
                     } else {
                         Log.i("ping", "ipPing1" + ipPing1);
+                        ToastUtil.show(httpBaseUrl);
                     }
                 } else {
                     Log.i("ping", "ipPing1" + ipPing1);
+                    ToastUtil.show(httpBaseUrl);
                 }
             } else {
                 Log.i("ping", "ipPing1" + ipPing1);
+                ToastUtil.show(httpBaseUrl);
             }
         } else {
             //直接用第二个网络

@@ -38,20 +38,12 @@ public class CombinationFragment extends BasePullFragment<BaseFragentPullDelegat
 
 
     private void initList(List<String> strDatas) {
-        for(int i=0;i<20;i++){
+        for (int i = 0; i < 20; i++) {
             strDatas.add("");
         }
         adapter = new SimulatedTradingAdapter(getActivity(), strDatas);
-
-        initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
+        initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsPullDown(false);
-
-
         onRefresh();
     }
 
@@ -85,7 +77,6 @@ public class CombinationFragment extends BasePullFragment<BaseFragentPullDelegat
     protected void refreshData() {
         //addRequest(binder.listArticleByPage(this));
     }
-
 
     public static CombinationFragment newInstance(
             String type) {

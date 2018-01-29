@@ -40,6 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:contentScrim="?attr/colorPrimary"
+                        android:visibility="gone"
                         app:layout_collapseMode="pin"
                         app:popupTheme="@style/AppTheme.PopupOverlay"
                         >

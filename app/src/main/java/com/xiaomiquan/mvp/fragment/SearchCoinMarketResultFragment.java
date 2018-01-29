@@ -1,28 +1,29 @@
 package com.xiaomiquan.mvp.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
+import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.adapter.SearchAddCoinAdapter;
-import com.xiaomiquan.mvp.databinder.SearchCoinMarketResultBinder;
-import com.xiaomiquan.mvp.delegate.SearchCoinMarketResultDelegate;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
+import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchCoinMarketResultFragment extends BaseDataBindFragment<SearchCoinMarketResultDelegate, SearchCoinMarketResultBinder> {
+public class SearchCoinMarketResultFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
     @Override
-    protected Class<SearchCoinMarketResultDelegate> getDelegateClass() {
-        return SearchCoinMarketResultDelegate.class;
+    protected Class<BaseFragentPullDelegate> getDelegateClass() {
+        return BaseFragentPullDelegate.class;
     }
 
     @Override
-    public SearchCoinMarketResultBinder getDataBinder(SearchCoinMarketResultDelegate viewDelegate) {
-        return new SearchCoinMarketResultBinder(viewDelegate);
+    public BaseFragmentPullBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
+        return new BaseFragmentPullBinder(viewDelegate);
     }
 
     @Override
@@ -32,29 +33,38 @@ public class SearchCoinMarketResultFragment extends BaseDataBindFragment<SearchC
         search();
     }
 
+
+    List<String> userChooseCoin;
     SearchAddCoinAdapter searchAddCoinAdapter;
     String strSearch;
+    List<ExchangeData> strDatas;
+
+    public void setUserChooseCoin(List<String> userChooseCoin) {
+        this.userChooseCoin = userChooseCoin;
+    }
 
     private void initList() {
-        List<String> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            data.add("");
-        }
-        searchAddCoinAdapter = new SearchAddCoinAdapter(getActivity(), data);
-        searchAddCoinAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+        strDatas = new ArrayList<>();
+        searchAddCoinAdapter = new SearchAddCoinAdapter(getActivity(), strDatas);
+        searchAddCoinAdapter.setUserSelectKeys(userChooseCoin);
+        searchAddCoinAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                searchAddCoinAdapter.select(position);
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
+            public void onClick(View view, int position, Object item) {
+                if (searchAddCoinAdapter.getUserSelectKeys().contains(searchAddCoinAdapter.getDatas().get(position).getOnlyKey())) {
+                    searchAddCoinAdapter.getUserSelectKeys().remove(searchAddCoinAdapter.getUserSelectKeys().indexOf(searchAddCoinAdapter.getDatas().get(position).getOnlyKey()));
+                    //取消 订阅
+                    binder.singlesubs(searchAddCoinAdapter.getDatas().get(position).getOnlyKey(), "0", null);
+                } else {
+                    searchAddCoinAdapter.getUserSelectKeys().add(searchAddCoinAdapter.getDatas().get(position).getOnlyKey());
+                    //订阅
+                    binder.singlesubs(searchAddCoinAdapter.getDatas().get(position).getOnlyKey(), "1", null);
+                }
+                searchAddCoinAdapter.notifyItemChanged(position);
             }
         });
-        viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
-        viewDelegate.viewHolder.recycler_view.setAdapter(searchAddCoinAdapter);
-
+        initRecycleViewPull(searchAddCoinAdapter, new LinearLayoutManager(getActivity()));
+        viewDelegate.setIsPullDown(false);
+        viewDelegate.setIsLoadMore(false);
     }
 
     public void searchInput(String txt) {
@@ -66,12 +76,22 @@ public class SearchCoinMarketResultFragment extends BaseDataBindFragment<SearchC
 
     private void search() {
         //搜索
+        binder.cancelpost();
+        addRequest(binder.getAllMarketByExchangeOrSymbol(strSearch, this));
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
+            case 0x123:
+                List<ExchangeData> exchangeData = GsonUtil.getInstance().toList(data, ExchangeData.class);
+                getDataBack(strDatas, exchangeData, searchAddCoinAdapter);
+                break;
         }
     }
 
+    @Override
+    protected void refreshData() {
+
+    }
 }

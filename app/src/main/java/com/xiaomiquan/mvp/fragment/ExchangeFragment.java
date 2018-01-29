@@ -53,7 +53,6 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     int gainsState = 0;
     final int whatIndex = 1024;
 
-    String onlyKeys = "";
 
     private ConcurrentLinkedQueue<ExchangeData> exchangeDataList;
 
@@ -113,7 +112,6 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     private void initList(List<ExchangeData> strDatas) {
         if (exchangeMarketAdapter == null) {
             exchangeMarketAdapter = new ExchangeMarketAdapter(getActivity(), strDatas);
-            exchangeMarketAdapter.setDefaultUnit(UserSet.getinstance().getUnit());
             exchangeMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -179,9 +177,6 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
-                if (datas.size() > 0) {
-                    onlyKeys = datas.get(0).getOnlyKey();
-                }
                 initList(datas);
                 strDatas.addAll(datas);
                 initRise();
@@ -195,20 +190,15 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     protected void onFragmentVisibleChange(boolean isVisible) {
         if (isVisible) {
             onRefresh();
+            //同步用户所选 单位
+            if (exchangeMarketAdapter != null) {
+                viewDelegate.viewHolder.tv_unit.setText(UserSet.getinstance().getShowUnit());
+                if (exchangeMarketAdapter.getDatas().size() > 0) {
+                    exchangeMarketAdapter.notifyDataSetChanged();
+                }
+            }
         } else {
             binder.cancelpost();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //同步用户所选 单位
-        if (exchangeMarketAdapter != null) {
-            viewDelegate.viewHolder.tv_unit.setText(UserSet.getinstance().getShowUnit());
-            if (exchangeMarketAdapter.getDatas().size() > 0) {
-                exchangeMarketAdapter.setDefaultUnit(UserSet.getinstance().getUnit().replaceAll("-", "\n"));
-            }
         }
     }
 
@@ -223,13 +213,11 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                     //推送数据
                     ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
                     if (!TextUtils.isEmpty(exchangeData.getOnlyKey())) {
-                        if (exchangeData.getOnlyKey().equals(onlyKeys)) {
-                            if (exchangeDataMap == null) {
-                                exchangeDataMap = new ConcurrentHashMap<>();
-                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
-                            }
-                            exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
+                        if (exchangeDataMap == null) {
+                            exchangeDataMap = new ConcurrentHashMap<>();
+                            handler.sendEmptyMessageDelayed(whatIndex, 1000);
                         }
+                        exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
                     }
                 }
             }

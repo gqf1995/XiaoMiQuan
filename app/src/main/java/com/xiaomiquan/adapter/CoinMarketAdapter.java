@@ -37,20 +37,13 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
     private FontTextview tv_gains;
     private LinearLayout lin_root;
     private FrameLayout fl_root;
-    private String defaultUnit;
     private FontTextview tv_coin_probably;
     private FontTextview tv_coin_unit;
 
     public CoinMarketAdapter(Context context, List<ExchangeData> datas) {
         super(context, R.layout.adapter_coin_market, datas);
-        defaultUnit = UserSet.getinstance().getUnit();
     }
 
-    //设置汇率
-    public void setDefaultUnit(String defaultUnit) {
-        this.defaultUnit = defaultUnit;
-        this.notifyDataSetChanged();
-    }
 
     @Override
     protected void convert(ViewHolder holder, ExchangeData s, final int position) {
