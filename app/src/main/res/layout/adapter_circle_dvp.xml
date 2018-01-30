@@ -19,7 +19,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/dvp_head"
+            android:id="@+id/cv_head"
             android:layout_width="@dimen/trans_100px"
             android:layout_height="@dimen/trans_100px"
             android:src="@color/color_blue" />
@@ -32,13 +32,13 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <com.fivefivelike.mybaselibrary.view.FontTextview
-                android:id="@+id/dvp_name"
+            <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="币圈神探"
-                android:textColor="@color/color_f2f2f2"
+                android:textColor="@color/color_font1"
                 android:textSize="15sp" />
 
             <LinearLayout
@@ -47,13 +47,13 @@
                 android:layout_marginTop="@dimen/album_dp_10"
                 android:orientation="horizontal">
 
-                <com.fivefivelike.mybaselibrary.view.FontTextview
-                    android:id="@+id/dvp_creater"
+                <TextView
+                    android:id="@+id/tv_creator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="谁啊"
-                    android:textColor="@color/color_blue_more"
+                    android:textColor="@color/color_font1"
                     android:textSize="15sp" />
 
                 <TextView
@@ -62,16 +62,17 @@
                     android:layout_marginLeft="@dimen/album_dp_6"
                     android:singleLine="true"
                     android:text="创建"
-                    android:textColor="@color/color_f2f2f2"
+                    android:textColor="@color/color_font1"
                     android:textSize="15sp" />
 
-                <com.fivefivelike.mybaselibrary.view.FontTextview
+                <TextView
+                    android:id="@+id/tv_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/album_dp_15"
                     android:singleLine="true"
                     android:text="200人"
-                    android:textColor="@color/color_f2f2f2"
+                    android:textColor="@color/color_font1"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -82,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="加入"
+            android:text="@string/ic_Plus"
             android:textColor="@color/color_font3"
             android:textSize="@dimen/text_trans_30px" />
     </LinearLayout>

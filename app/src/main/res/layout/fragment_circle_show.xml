@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/lin_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/lin_search_circle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_70px"
+                android:layout_margin="@dimen/trans_30px"
+                android:background="@drawable/shape_mask_t20radiu"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/trans_20px"
+                    android:gravity="center"
+                    android:text="@string/ic_Search"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_30px" />
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:gravity="center_vertical|left"
+                    android:hint="@string/str_search_circle"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:paddingLeft="@dimen/trans_20px"
+                    android:paddingRight="@dimen/trans_20px"
+                    android:textColor="@color/color_font1"
+                    android:textColorHint="@color/color_font3"
+                    android:textSize="@dimen/text_trans_28px" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_mycircle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.tablayout.CommonTabLayout
+                android:id="@+id/tl_2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_79px"
+                android:orientation="horizontal"
+                app:tl_indicator_corner_radius="@dimen/trans_100px"
+                app:tl_indicator_margin_bottom="@dimen/trans_15px"
+                tl:tl_indicator_color="@color/color_font1"
+                tl:tl_indicator_height="@dimen/trans_5px"
+                tl:tl_indicator_width="@dimen/trans_32px"
+                tl:tl_textSelectColor="@color/color_font1"
+                tl:tl_textUnselectColor="@color/color_font3"
+                tl:tl_textsize="@dimen/text_trans_28px"
+                tl:tl_underline_color="#1A000000"
+                tl:tl_underline_height="0dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_10px"
+                    android:background="@drawable/shadow_line" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_sliding"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v4.view.ViewPager>
+            </FrameLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

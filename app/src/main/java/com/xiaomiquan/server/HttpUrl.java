@@ -85,7 +85,7 @@ public class HttpUrl {
     /**
      * 用户登录
      */
-    public String userLogin = httpBaseUrl3 + userUrl + "/userLogin";
+    public String userLogin = httpBaseUrl4 + userUrl + "/userLogin";
     /**
      * 用户找回密码发送短信
      */

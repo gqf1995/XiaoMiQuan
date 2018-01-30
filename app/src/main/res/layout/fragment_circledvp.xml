@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/circledvp_card"
+                android:id="@+id/rv_mycircle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -53,7 +53,7 @@
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/circle_dvp_hot"
+                android:id="@+id/rv_allcircle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
@@ -71,4 +71,6 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <!--<include layout="@layout/merge_layout_no_data"/>-->
 </android.support.v4.widget.SwipeRefreshLayout>

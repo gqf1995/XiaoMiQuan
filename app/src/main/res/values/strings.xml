@@ -37,8 +37,7 @@
     <string name="str_send_code_toast">验证码已发送至注册(%1$s),请查收 </string>
 
     <string name="str_information">资讯</string>
-    <string name="str_simulation">模拟交易</string>
-    <string name="str_advance_warning">价格预警</string>
+    <string name="str_advance_warning">预警</string>
     <string name="str_currency_data">币种资料</string>
     <string name="str_global_market">全球行情</string>
     <string name="str_discuss">讨论</string>
@@ -86,7 +85,6 @@
     <string name="str_change_password">修改密码</string>
     <string name="str_global_index">全球指数</string>
     <string name="str_add_coin_market">添加自选</string>
-    <string name="str_list_sorting">列表排序</string>
     <string name="str_change_coin_market">币行情自选</string>
     <string name="str_search_coin_market">币行情搜索</string>
     <string name="str_search_coin_market_hint">搜索平台、币种</string>
@@ -101,7 +99,7 @@
     <string name="str_market_value">市值</string>
     <string name="str_global_network">全网</string>
     <string name="str_chart_nodata">数据加载中...</string>
-    <string name="str_amount">量</string>
+    <string name="str_amount">量/额</string>
     <string name="str_buy_one">买一</string>
     <string name="str_sell_one">卖一</string>
     <string name="str_kvolume">量(5,10)</string>
@@ -122,6 +120,59 @@
     <string name="str_after_payment">付费后可见</string>
     <string name="str_default">默认</string>
 
+    <string name="str_search_circle">查找圈子</string>
+    <string name="str_input_limit">/140字</string>
+    <string name="str_ck_live">发布到我的直播</string>
+    <string name="str_ck_circle">发布到小密圈</string>
+    <string name="str_crete_hint">创建成功后不可更改圈子属性</string>
+    <string name="str_ck_free">免费</string>
+    <string name="str_ck_charge">收费</string>
+    <string name="str_ck_agree">我已阅读并同意</string>
+    <string name="str_tv_rule">《阅读规则》</string>
+    <string name="str_tv_next">下一步</string>
+    <string name="str_tv_upload">传圈子头</string>
+    <string name="str_et_cirlcename">填写圈子名称</string>
+    <string name="str_et_circlecon">圈子介绍(选填)</string>
+    <string name="str_tv_more">>查看全部</string>
+    <string name="str_tv_jurisdiction">圈子权限</string>
+    <string name="str_tv_member">圈子成员</string>
+    <string name="str_tv_dynamic">接收圈子动态</string>
+    <string name="str_tv_deal">立即交易</string>
+    <string name="str_tv_add_percent">累计收益</string>
+    <string name="str_tv_today_percent">今日收益</string>
+    <string name="str_tv_info">查看</string>
+    <string name="str_tv_group_name">组合名称</string>
+    <string name="str_et_group_title">数字/字母/中文组成，不超过12个字符</string>
+    <string name="str_tv_group_info">组合简介</string>
+    <string name="str_et_group_info">简单介绍下你的组合</string>
+    <string name="str_ck_open">公开组合</string>
+    <string name="str_ck_private">隐藏组合</string>
+    <string name="str_tv_notice">注意</string>
+    <string name="str_tv_notice1">组合名称可以包括中文、英文、数字或下划线，但组合名字不能为纯数字，且字数不能超过12个字母、数字或6个汉字。</string>
+    <string name="str_tv_notice2">公开组合可以被付费订阅了您最新动态的用户查看，如您未设置收费，则可被所有人查看。公开组合创建后不可修改为隐藏，请慎重选择。</string>
+    <string name="str_tv_deal_choose">请选择币种</string>
+    <string name="str_tv_balance">你当前可用余额</string>
+    <string name="str_tv_buy_price">买入价格</string>
+    <string name="str_et_buy_price">输入价格</string>
+    <string name="str_tv_buy_num">买入数量</string>
+    <string name="str_et_buy_num">输入数量</string>
+    <string name="str_tv_sell_price">卖出价格</string>
+    <string name="str_et_sell_price">卖出价格</string>
+    <string name="str_tv_sell_num">卖出数量</string>
+    <string name="str_tv_commit">立即交易</string>
+    <string name="str_tv_type">类型</string>
+    <string name="str_tv_currency">币种</string>
+    <string name="str_tv_state">状态</string>
+    <string name="str_tv_entrust_prase">委托价格</string>
+    <string name="str_tv_num">数量</string>
+    <string name="str_tv_operation">操作</string>
+
+
+    <string-array name="price">
+        <item>限价</item>
+        <item>限价 </item>
+    </string-array>
+
     <string-array name="sa_select_market">
         <item>自选</item>
         <item>综合</item>
@@ -131,6 +182,17 @@
         <item>BTH</item>
         <item>ETH</item>
         <item>ETC</item>
+    </string-array>
+    <string-array name="sa_select_group">
+        <item>全部组合</item>
+        <item>大赛组合</item>
+        <item>我的关注</item>
+        <item>我的组合</item>
+    </string-array>
+    <string-array name="sa_select_deal">
+        <item>未成交</item>
+        <item>成交历史</item>
+        <item>历史委托</item>
     </string-array>
 
     <string-array name="sa_select_time">
@@ -181,6 +243,11 @@
     <string-array name="sa_select_square">
         <item>直播</item>
         <item>文章</item>
+    </string-array>
+
+    <string-array name="sa_select_circle_show">
+        <item>圈子动态</item>
+        <item>发现圈子</item>
     </string-array>
 
     <string-array name="sa_select_kline">

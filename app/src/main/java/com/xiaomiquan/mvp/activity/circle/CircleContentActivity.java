@@ -76,6 +76,14 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
             }
         }).show();
     }
+    private void initEdit(){
+        viewDelegate.viewHolder.lin_my_circle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoActivity(EditCircleActivity.class).startAct();
+            }
+        });
+    }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
@@ -102,7 +110,6 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
         circleContentAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                // gotoActivity(CreatCircleActivity.class).startActResult(1);
 
             }
 
@@ -132,7 +139,6 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
         });
         headerAndFooterWrapper = new HeaderAndFooterWrapper(circleContentAdapter);
         headerAndFooterWrapper.addHeaderView(initTopView());
-        //        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         initRecycleViewPull(headerAndFooterWrapper, headerAndFooterWrapper.getHeadersCount(), new LinearLayoutManager(CircleContentActivity.this));
         viewDelegate.setIsLoadMore(false);
     }

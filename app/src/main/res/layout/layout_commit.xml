@@ -7,7 +7,7 @@
     android:layout_marginTop="@dimen/trans_45px"
     android:background="@drawable/select_commit"
     android:gravity="center"
-    android:text="创建"
+    android:text="@string/str_login"
     android:textColor="@drawable/color_select_commit"
     android:textSize="@dimen/text_trans_32px"/>
 

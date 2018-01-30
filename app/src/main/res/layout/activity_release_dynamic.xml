@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/album_sp_20"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/inc_article"
+            layout="@layout/layout_edit_article" />
+
+        <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
+            android:id="@+id/et_con"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/durban_dp_200"
+            android:layout_marginTop="@dimen/album_dp_10"
+            android:gravity="left|top"
+            android:hint="@string/str_login_et_pass"
+            android:inputType="textImeMultiLine"
+            android:maxLength="140"
+            android:textColorHint="@color/color_font3"
+            android:textSize="@dimen/trans_32px"
+            app:met_baseColor="@color/white"
+            app:met_primaryColor="@color/color_blue"
+            app:met_textColor="@color/color_font2"
+            app:met_textColorHint="@color/color_font4"
+            app:met_underlineColor="@color/base_mask" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/album_dp_1"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_scale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0字"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/trans_32px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/album_dp_15"
+                android:gravity="center"
+                android:text="@string/str_input_limit"
+                android:textColor="@color/color_font1"
+                android:textSize="@dimen/trans_32px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/album_dp_10"
+            android:orientation="horizontal">
+
+            <skin.support.widget.SkinCompatCheckBox
+                android:id="@+id/ck_live"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_ck_live"
+                android:textColor="@color/color_font1" />
+
+            <skin.support.widget.SkinCompatCheckBox
+                android:id="@+id/ck_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/album_sp_20"
+                android:text="@string/str_ck_circle"
+                android:textColor="@color/color_font1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/album_dp_1"
+        android:layout_weight="1" />
+
+    <include layout="@layout/layout_input_bot" />
+
+
+</LinearLayout>

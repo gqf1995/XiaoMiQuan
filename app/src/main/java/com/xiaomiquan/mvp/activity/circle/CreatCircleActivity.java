@@ -3,8 +3,8 @@ package com.xiaomiquan.mvp.activity.circle;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
-import com.xiaomiquan.mvp.databinder.CreatCircleBinder;
-import com.xiaomiquan.mvp.delegate.CreatCircleDelegate;
+import com.xiaomiquan.mvp.databinder.circle.CreatCircleBinder;
+import com.xiaomiquan.mvp.delegate.circle.CreatCircleDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 
 public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegate, CreatCircleBinder> {
@@ -23,12 +23,12 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle("创建圈子"));
-        viewDelegate.viewHolder.circle_crate_commit.setOnClickListener(new View.OnClickListener() {
+        viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addRequest(binder.creatCircle(
-                        viewDelegate.viewHolder.circle_creat_name.getText().toString(),
-                        viewDelegate.viewHolder.circle_creat_brief.getText().toString(),
+                        viewDelegate.viewHolder.et_name.getText().toString(),
+                        viewDelegate.viewHolder.et_brief.getText().toString(),
                         CreatCircleActivity.this
                 ));
             }
@@ -40,9 +40,10 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                //登录成功
-                finish();
+                setResult(RESULT_OK);
+                onDestroy();
                 break;
         }
     }
+
 }

@@ -46,6 +46,9 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
             exchangeNameList = GsonUtil.getInstance().toList(exchangeNamesStr, ExchangeName.class);
             initTablelayout(exchangeNameList);
         }
+        /**
+         * 注册evenBus
+         */
         EventBus.getDefault().register(this);
     }
 

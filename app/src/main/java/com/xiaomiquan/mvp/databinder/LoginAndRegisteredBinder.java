@@ -5,7 +5,6 @@ import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.http.RequestCallback;
 import com.xiaomiquan.mvp.delegate.LoginAndRegisteredDelegate;
 import com.xiaomiquan.server.HttpUrl;
-
 import io.reactivex.disposables.Disposable;
 
 public class LoginAndRegisteredBinder extends BaseDataBind<LoginAndRegisteredDelegate> {
