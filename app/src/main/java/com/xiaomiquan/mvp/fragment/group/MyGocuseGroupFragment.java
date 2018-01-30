@@ -16,6 +16,9 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 我的关注组合
+ */
 public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
 
     GroupAdapter groupAdapter;

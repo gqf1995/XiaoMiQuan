@@ -12,6 +12,9 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 未成交
+ */
 public class GroupNotDealFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
     List<String> strDatas;
     LabelNotDealAdapter adapter;

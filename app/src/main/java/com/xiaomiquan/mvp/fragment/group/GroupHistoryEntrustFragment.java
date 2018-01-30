@@ -12,6 +12,9 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 历史委托
+ */
 public class GroupHistoryEntrustFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
     List<String> strDatas;
     LabelHistoryEntrustAdapter adapter;

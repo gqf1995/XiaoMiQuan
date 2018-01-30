@@ -12,6 +12,9 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 创建组合 未成交
+ */
 public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
 

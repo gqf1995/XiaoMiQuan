@@ -12,6 +12,9 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 创建组合 成交历史
+ */
 public class HistoryTradingFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
     List<String> strDatas;

@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 跟投
+ */
 public class InvestGroupFragment extends BaseDataBindFragment<ComTabViewpageDelegate, ComTabViewpageBinder> {
 
     ArrayList<Fragment> fragments;

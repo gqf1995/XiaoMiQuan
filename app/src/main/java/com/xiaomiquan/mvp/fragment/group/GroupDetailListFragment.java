@@ -1,7 +1,5 @@
 package com.xiaomiquan.mvp.fragment.group;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
@@ -14,6 +12,9 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 持仓明细
+ */
 public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
     List<String> strDatas;
     LabelDetailDealAdapter adapter;

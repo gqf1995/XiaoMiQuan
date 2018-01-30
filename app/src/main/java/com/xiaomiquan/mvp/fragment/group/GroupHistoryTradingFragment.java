@@ -10,6 +10,9 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 历史交易
+ */
 public class GroupHistoryTradingFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
 
     LabelHistoryTradingAdapter groupAdapter;

@@ -16,6 +16,9 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 组合大赛
+ */
 public class CompetitionGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
 
     GroupAdapter groupAdapter;

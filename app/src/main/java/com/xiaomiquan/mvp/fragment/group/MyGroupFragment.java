@@ -16,6 +16,9 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 我的组合
+ */
 public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
 
     GroupAdapter groupAdapter;
