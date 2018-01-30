@@ -1,7 +1,6 @@
 package com.xiaomiquan.mvp.fragment.group;
 
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
@@ -9,15 +8,15 @@ import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.GroupAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.mvp.activity.group.CombinationActivity;
 import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
 import com.xiaomiquan.mvp.databinder.group.GroupChangeBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupChangeFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
+public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
 
     GroupAdapter groupAdapter;
 
@@ -55,6 +54,7 @@ public class GroupChangeFragment extends BasePullFragment<BaseFragentPullDelegat
                     gotoActivity(GroupDealActivity.class).startAct();
                 }
                 if (view.getId() == R.id.tv_look) {
+                    gotoActivity(CombinationActivity.class).startAct();
                 }
             }
         });

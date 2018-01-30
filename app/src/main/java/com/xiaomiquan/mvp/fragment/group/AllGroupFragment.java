@@ -1,11 +1,13 @@
-package com.xiaomiquan.mvp.activity;
+package com.xiaomiquan.mvp.fragment.group;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
-import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.xiaomiquan.mvp.databinder.AllGroupBinder;
+import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.AllGroupDelegate;
 
-public class AllGroupFragment extends BaseDataBindActivity<AllGroupDelegate, AllGroupBinder> {
+/**
+ * 全部组合
+ */
+public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFragmentPullBinder> {
 
     @Override
     protected Class<AllGroupDelegate> getDelegateClass() {
@@ -13,15 +15,14 @@ public class AllGroupFragment extends BaseDataBindActivity<AllGroupDelegate, All
     }
 
     @Override
-    public AllGroupBinder getDataBinder(AllGroupDelegate viewDelegate) {
-        return new AllGroupBinder(viewDelegate);
+    public BaseFragmentPullBinder getDataBinder(AllGroupDelegate viewDelegate) {
+        return new BaseFragmentPullBinder(viewDelegate);
     }
 
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle(""));
 
     }
 
@@ -33,4 +34,8 @@ public class AllGroupFragment extends BaseDataBindActivity<AllGroupDelegate, All
         }
     }
 
+    @Override
+    protected void refreshData() {
+
+    }
 }

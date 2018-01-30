@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.GroupAdapter;
@@ -15,7 +16,7 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
+public class CompetitionGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
 
     GroupAdapter groupAdapter;
 
@@ -42,9 +43,6 @@ public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, G
 
     private void initList() {
         List<ExchangeData> datas = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            datas.add(i, new ExchangeData());
-        }
         groupAdapter = new GroupAdapter(getActivity(), datas);
         groupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
@@ -56,8 +54,10 @@ public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, G
                 }
             }
         });
+        viewDelegate.setNoDataTxt(CommonUtils.getString(R.string.str_competition_group));
         initRecycleViewPull(groupAdapter, new LinearLayoutManager(getActivity()));
-        onRefresh();
+        //viewDelegate.getNoDataText().setTextColor(CommonUtils.getColor(R.color.color_font1));
+        viewDelegate.setIsPullDown(false);
     }
 
     @Override

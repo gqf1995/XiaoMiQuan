@@ -24,7 +24,7 @@ public class CombinationDelegate extends BaseDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_180px), viewHolder.viewpager, true);
+        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_110px), viewHolder.viewpager, true);
 
 //        ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) viewHolder.viewpager.getLayoutParams();
 //        layoutParams.height = ScreenUtils.getScreenHeight()  - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_270px) - BarUtils.getStatusBarHeight();

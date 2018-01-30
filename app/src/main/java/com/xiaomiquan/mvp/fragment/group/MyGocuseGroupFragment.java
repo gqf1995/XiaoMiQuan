@@ -8,6 +8,7 @@ import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.GroupAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.mvp.activity.group.CombinationActivity;
 import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
 import com.xiaomiquan.mvp.databinder.group.GroupChangeBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
@@ -15,7 +16,7 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
+public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
 
     GroupAdapter groupAdapter;
 
@@ -53,6 +54,7 @@ public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, G
                     gotoActivity(GroupDealActivity.class).startAct();
                 }
                 if (view.getId() == R.id.tv_look) {
+                    gotoActivity(CombinationActivity.class).startAct();
                 }
             }
         });

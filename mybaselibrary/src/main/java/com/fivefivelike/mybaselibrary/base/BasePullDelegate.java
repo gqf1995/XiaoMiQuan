@@ -101,7 +101,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
         callbacks = new Paginate.Callbacks() {
             @Override
             public void onLoadMore() {
-                if(mIsLoadMore) {
+                if (mIsLoadMore) {
                     isLoading = true;
                     callback.loadData();
                 }
@@ -160,7 +160,10 @@ public abstract class BasePullDelegate extends BaseDelegate {
         if (noDataClickListener != null) {
             nodata.findViewById(R.id.ic_nodata).setOnClickListener(noDataClickListener);
         }
-        nodata.getLayoutParams().height = mPullRecyclerView.getHeight();
+        ViewGroup.LayoutParams layoutParams = nodata.getLayoutParams();
+        int height = mPullRecyclerView.getHeight();
+        layoutParams.height = height;
+        nodata.setLayoutParams(layoutParams);
         loadLayout.setVisibility(View.GONE);
         nodata.setVisibility(View.GONE);
         loadLayout.addView(loadingView);
@@ -238,7 +241,9 @@ public abstract class BasePullDelegate extends BaseDelegate {
         }
     }
 
-
+    public TextView getNoDataText() {
+        return (TextView) mFootView.findViewById(R.id.no_data);
+    }
 
     /**
      * 设置是否上拉加载

@@ -31,7 +31,6 @@
                     android:id="@+id/collapsing_toolbar_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:expandedTitleMarginStart="10dp"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     >
 

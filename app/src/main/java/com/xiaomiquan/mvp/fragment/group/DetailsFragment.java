@@ -15,7 +15,7 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
+public class DetailsFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
 
     GroupAdapter groupAdapter;
 

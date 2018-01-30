@@ -10,8 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
+import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -23,8 +24,8 @@ import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.ExchangeName;
 import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
-import com.xiaomiquan.mvp.databinder.ExchangeBinder;
-import com.xiaomiquan.mvp.delegate.ExchangeDelegate;
+import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
+import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.GainsTabView;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -38,10 +39,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import skin.support.widget.SkinCompatLinearLayout;
+
 /**
  * 交易所 列表页面
  */
-public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, ExchangeBinder> {
+public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
     ExchangeMarketAdapter exchangeMarketAdapter;
     ExchangeName exchangeName;
@@ -52,7 +55,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     List<String> unitList;
     int gainsState = 0;
     final int whatIndex = 1024;
-
+    String onlyKeys;
 
     private ConcurrentLinkedQueue<ExchangeData> exchangeDataList;
 
@@ -66,13 +69,13 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                     if (exchangeDataMap == null) {
                         return;
                     }
-                    if (viewDelegate.viewHolder.recycler_view.getScrollState() != 0) {
+                    if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
                         //recycleView正在滑动
                     } else {
                         //更新数据
                         Iterator iter = exchangeDataMap.entrySet().iterator();
                         while (iter.hasNext()) {
-                            if (viewDelegate.viewHolder.recycler_view.getScrollState() != 0) {
+                            if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
                                 handler.sendEmptyMessageDelayed(whatIndex, 1000);
                                 return;
                             }
@@ -93,13 +96,13 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
     };
 
     @Override
-    protected Class<ExchangeDelegate> getDelegateClass() {
-        return ExchangeDelegate.class;
+    protected Class<BaseFragentPullDelegate> getDelegateClass() {
+        return BaseFragentPullDelegate.class;
     }
 
     @Override
-    public ExchangeBinder getDataBinder(ExchangeDelegate viewDelegate) {
-        return new ExchangeBinder(viewDelegate);
+    public BaseFragmentPullBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
+        return new BaseFragmentPullBinder(viewDelegate);
     }
 
     @Override
@@ -115,7 +118,9 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
             exchangeMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
+                    if (position > -1) {
+                        MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
+                    }
                 }
 
                 @Override
@@ -124,33 +129,44 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                 }
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
-            viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
-            viewDelegate.viewHolder.recycler_view.setAdapter(exchangeMarketAdapter);
+            initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
+            //viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
+            //viewDelegate.viewHolder.recycler_view.setAdapter(exchangeMarketAdapter);
             initTool();
         } else {
-            exchangeMarketAdapter.setDatas(strDatas);
+            //exchangeMarketAdapter.setDatas(strDatas);
+            getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);
         }
     }
 
+    public TextView tv_unit;
+    public GainsTabView tv_rise;
+    public SkinCompatLinearLayout lin_root;
+
     //切换单位显示 切换涨跌幅排行
     private void initTool() {
+        View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_exchange_tool, null);
+        this.tv_unit = (TextView) rootView.findViewById(R.id.tv_unit);
+        this.tv_rise = (GainsTabView) rootView.findViewById(R.id.tv_rise);
+        this.lin_root = (SkinCompatLinearLayout) rootView.findViewById(R.id.lin_root);
+
         unitList = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
-        viewDelegate.viewHolder.tv_unit.setText(UserSet.getinstance().getShowUnit());
-        viewDelegate.viewHolder.tv_rise.setText(CommonUtils.getString(R.string.str_rise));
-        viewDelegate.viewHolder.tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
-        viewDelegate.viewHolder.tv_rise.setOnClickListener(new View.OnClickListener() {
+        tv_unit.setText(UserSet.getinstance().getShowUnit());
+        tv_rise.setText(CommonUtils.getString(R.string.str_rise));
+        tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
+        tv_rise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewDelegate.viewHolder.tv_rise.onClick();
+                tv_rise.onClick();
             }
         });
-        viewDelegate.viewHolder.tv_unit.setOnClickListener(new View.OnClickListener() {
+        tv_unit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ChangeDefaultSetActivity.startAct(getActivity(), ChangeDefaultSetActivity.TYPE_UNIT);
             }
         });
-        viewDelegate.viewHolder.tv_rise.setOnChange(new GainsTabView.OnChange() {
+        tv_rise.setOnChange(new GainsTabView.OnChange() {
             @Override
             public void onChange(int isTop) {
                 gainsState = isTop;
@@ -169,6 +185,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                 ExchangeFragment.this.onRefresh();
             }
         });
+        viewDelegate.viewHolder.fl_pull.addView(rootView, 0);
     }
 
     @Override
@@ -178,10 +195,15 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
                 initList(datas);
-                strDatas.addAll(datas);
-                initRise();
-                initDrop();
-                sendWebSocket();
+                if (datas != null) {
+                    if (datas.size() > 0) {
+                        strDatas.addAll(datas);
+                        initRise();
+                        initDrop();
+                        sendWebSocket();
+                        onlyKeys = datas.get(0).getOnlyKey();
+                    }
+                }
                 break;
         }
     }
@@ -192,7 +214,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
             onRefresh();
             //同步用户所选 单位
             if (exchangeMarketAdapter != null) {
-                viewDelegate.viewHolder.tv_unit.setText(UserSet.getinstance().getShowUnit());
+                tv_unit.setText(UserSet.getinstance().getShowUnit());
                 if (exchangeMarketAdapter.getDatas().size() > 0) {
                     exchangeMarketAdapter.notifyDataSetChanged();
                 }
@@ -213,11 +235,13 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
                     //推送数据
                     ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
                     if (!TextUtils.isEmpty(exchangeData.getOnlyKey())) {
-                        if (exchangeDataMap == null) {
-                            exchangeDataMap = new ConcurrentHashMap<>();
-                            handler.sendEmptyMessageDelayed(whatIndex, 1000);
+                        if (exchangeData.getOnlyKey().equals(onlyKeys)) {
+                            if (exchangeDataMap == null) {
+                                exchangeDataMap = new ConcurrentHashMap<>();
+                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
+                            }
+                            exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
                         }
-                        exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
                     }
                 }
             }
@@ -285,9 +309,14 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         super.onDestroy();
     }
 
-    protected void onRefresh() {
+    @Override
+    protected void refreshData() {
         addRequest(binder.getAllMarketByExchange(exchangeName.getEname(), this));
     }
+
+    //    protected void onRefresh() {
+    //    }
+
 
     public static ExchangeFragment newInstance(
             ExchangeName exchangeName) {
@@ -334,5 +363,7 @@ public class ExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, Exc
         dropDatas.addAll(strDatas);
         Collections.sort(dropDatas, comparator);
     }
+
+
 }
 

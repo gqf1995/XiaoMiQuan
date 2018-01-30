@@ -27,6 +27,8 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
     public Disposable getAllMarketCaps(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
+        baseMap.put("offset", viewDelegate.page);
+        baseMap.put("limit", viewDelegate.pagesize);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().getAllMarketCaps)
@@ -94,7 +96,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .setRequestUrl(HttpUrl.getIntance().marketdata)
                 .setShowDialog(false)
                 .setRequestName("订阅数据展示")
-                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
@@ -170,4 +172,53 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
 
     }
 
+    /**
+     * 交易所 数据
+     */
+    public Disposable getAllMarketByExchange(
+            String exchangeName,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("exchangeName", exchangeName);
+        baseMap.put("offset", viewDelegate.page);
+        baseMap.put("limit", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().getAllMarketByExchange)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("根据交易所名称获得相关信息")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 交易所 数据
+     */
+    public Disposable getAllMarketBySymbol(
+            String coinName,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("coinName", coinName);
+        baseMap.put("offset", viewDelegate.page);
+        baseMap.put("limit", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().getAllMarketBySymbol)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("根据币种名称获得相关信息")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
 }

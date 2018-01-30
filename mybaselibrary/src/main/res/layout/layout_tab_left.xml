@@ -14,6 +14,14 @@
         android:gravity="center"
         android:orientation="horizontal">
 
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:id="@+id/tv_tab_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:singleLine="true"
+            android:visibility="gone"/>
+
         <skin.support.widget.SkinCompatImageView
             android:id="@+id/iv_tab_icon"
             android:layout_width="wrap_content"
@@ -27,11 +35,11 @@
     </LinearLayout>
 
     <com.tablayout.widget.MsgView
-        android:layout_toRightOf="@+id/ll_tap"
-        android:id="@+id/rtv_msg_tip"
         xmlns:mv="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rtv_msg_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ll_tap"
         android:gravity="center"
         android:textColor="#ffffff"
         android:textSize="11.5sp"

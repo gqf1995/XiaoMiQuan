@@ -13,28 +13,26 @@ import java.util.List;
  * Created by 郭青枫 on 2018/1/10 0010.
  */
 
-public class LabelGroupNotDealAdapter extends CommonAdapter<String> {
+public class LabelDetailDealAdapter extends CommonAdapter<String> {
 
 
-    private TextView tv_type;
     private TextView tv_currency;
-    private TextView tv_state;
-    private TextView tv_entrust_price;
-    private TextView tv_num;
-    private TextView tv_operation;
+    private TextView tv_storage_quantity;
+    private TextView tv_storage_price;
+    private TextView tv_now_price;
+    private TextView tv_earnings_ratio;
 
-    public LabelGroupNotDealAdapter(Context context, List<String> datas) {
-        super(context, R.layout.adapter_label_group_not_deal, datas);
+    public LabelDetailDealAdapter(Context context, List<String> datas) {
+        super(context, R.layout.adapter_label_detail, datas);
     }
 
     @Override
     protected void convert(ViewHolder holder, String s, final int position) {
-        tv_type = holder.getView(R.id.tv_type);
         tv_currency = holder.getView(R.id.tv_currency);
-        tv_state = holder.getView(R.id.tv_state);
-        tv_entrust_price = holder.getView(R.id.tv_entrust_price);
-        tv_num = holder.getView(R.id.tv_num);
-        tv_operation = holder.getView(R.id.tv_operation);
+        tv_storage_quantity = holder.getView(R.id.tv_storage_quantity);
+        tv_storage_price = holder.getView(R.id.tv_storage_price);
+        tv_now_price = holder.getView(R.id.tv_now_price);
+        tv_earnings_ratio = holder.getView(R.id.tv_earnings_ratio);
     }
 
 }

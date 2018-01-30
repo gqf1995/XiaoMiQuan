@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -41,7 +42,6 @@ import skin.support.content.res.SkinCompatResources;
 import skin.support.widget.SkinCompatFrameLayout;
 import skin.support.widget.SkinCompatHelper;
 import skin.support.widget.SkinCompatSupportable;
-import skin.support.widget.SkinCompatTextView;
 
 import static skin.support.widget.SkinCompatHelper.INVALID_ID;
 
@@ -320,8 +320,8 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
      */
 
     private void addTab(final int position, View tabView) {
-        SkinCompatTextView tv_tab_title = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_title);
-        SkinCompatTextView tv_tab_icon = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_icon);
+        TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
+        TextView tv_tab_icon = (TextView) tabView.findViewById(R.id.tv_tab_icon);
         tv_tab_title.setText(mTabEntitys.get(position).getTabTitle());
 
 
@@ -377,7 +377,7 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         for (int i = 0; i < mTabCount; i++) {
             View tabView = mTabsContainer.getChildAt(i);
             tabView.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
-            SkinCompatTextView tv_tab_title = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_title);
+            TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
             tv_tab_title.setTextColor(i == mCurrentTab ? mTextSelectColor : mTextUnselectColor);
             tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextsize);
             //            tv_tab_title.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
@@ -392,7 +392,7 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
             }
 
             ImageView iv_tab_icon = (ImageView) tabView.findViewById(R.id.iv_tab_icon);
-            SkinCompatTextView tv_tab_icon = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_icon);
+            TextView tv_tab_icon = (TextView) tabView.findViewById(R.id.tv_tab_icon);
             if (mTabEntitys.get(i).getTabSelectedIcon() != 0 && mTabEntitys.get(i).getTabUnselectedIcon() == 0) {
 
                 tv_tab_icon.setVisibility(VISIBLE);
@@ -434,8 +434,8 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         for (int i = 0; i < mTabCount; ++i) {
             View tabView = mTabsContainer.getChildAt(i);
             final boolean isSelect = i == position;
-            SkinCompatTextView tab_title = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_title);
-            SkinCompatTextView tab_icon = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_icon);
+            TextView tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
+            TextView tab_icon = (TextView) tabView.findViewById(R.id.tv_tab_icon);
             tab_title.setTextColor(isSelect ? mTextSelectColor : mTextUnselectColor);
             ImageView iv_tab_icon = (ImageView) tabView.findViewById(R.id.iv_tab_icon);
             CustomTabEntity tabEntity = mTabEntitys.get(i);
@@ -944,9 +944,9 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         return iv_tab_icon;
     }
 
-    public SkinCompatTextView getTitleView(int tab) {
+    public TextView getTitleView(int tab) {
         View tabView = mTabsContainer.getChildAt(tab);
-        SkinCompatTextView tv_tab_title = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_title);
+        TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
         return tv_tab_title;
     }
 
@@ -1023,7 +1023,7 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         View tabView = mTabsContainer.getChildAt(position);
         MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
         if (tipView != null) {
-            SkinCompatTextView tv_tab_title = (SkinCompatTextView) tabView.findViewById(R.id.tv_tab_title);
+            TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
             mTextPaint.setTextSize(mTextsize);
             float textWidth = mTextPaint.measureText(tv_tab_title.getText().toString());
             float textHeight = mTextPaint.descent() - mTextPaint.ascent();

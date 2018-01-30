@@ -88,6 +88,7 @@ public class WelcomActivity extends BaseActivity<WelcomDelegate> {
             Log.i("ping", "ipPing2" + ipPing2);
             HttpUrl.setBaseUrl(httpBaseUrl4);
         }
+        HttpUrl.setBaseUrl(httpBaseUrl4);
     }
 
     private void doAct() {

@@ -1,4 +1,4 @@
-package com.xiaomiquan.mvp.fragment;
+package com.xiaomiquan.mvp.fragment.group;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.xiaomiquan.adapter.SimulatedTradingAdapter;
+import com.xiaomiquan.adapter.group.LabelDetailDealAdapter;
 import com.xiaomiquan.entity.bean.LiveData;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
@@ -14,10 +14,9 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CombinationFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
+public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
     List<String> strDatas;
-    SimulatedTradingAdapter adapter;
-    String type;
+    LabelDetailDealAdapter adapter;
 
 
     @Override
@@ -41,7 +40,7 @@ public class CombinationFragment extends BasePullFragment<BaseFragentPullDelegat
         for (int i = 0; i < 20; i++) {
             strDatas.add("");
         }
-        adapter = new SimulatedTradingAdapter(getActivity(), strDatas);
+        adapter = new LabelDetailDealAdapter(getActivity(), strDatas);
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsPullDown(false);
         onRefresh();
@@ -78,29 +77,6 @@ public class CombinationFragment extends BasePullFragment<BaseFragentPullDelegat
         //addRequest(binder.listArticleByPage(this));
     }
 
-    public static CombinationFragment newInstance(
-            String type) {
-        CombinationFragment newFragment = new CombinationFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("type", type);
-        newFragment.setArguments(bundle);
-        return newFragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if ((savedInstanceState != null)
-                && savedInstanceState.containsKey("type")) {
-            type = savedInstanceState.getString("type");
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("type", type);
-    }
 
 }
 

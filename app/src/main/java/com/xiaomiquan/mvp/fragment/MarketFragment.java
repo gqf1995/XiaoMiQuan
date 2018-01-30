@@ -12,6 +12,7 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeName;
@@ -19,6 +20,7 @@ import com.xiaomiquan.mvp.activity.market.SearchCoinMarketActivity;
 import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.TabViewpageBinder;
 import com.xiaomiquan.mvp.delegate.TabViewpageDelegate;
+import com.xiaomiquan.server.HttpUrl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +28,8 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.xiaomiquan.base.AppConst.CACHE_EXCHANGENAME;
+import static com.xiaomiquan.base.AppConst.httpBaseUrl3;
+import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
 
 /**
  *
@@ -91,7 +95,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 for (int i = 0; i < userChooseFragment.getExchangeMarketAdapter().getDatas().size(); i++) {
                     strings.add(userChooseFragment.getExchangeMarketAdapter().getDatas().get(i).getOnlyKey());
                 }
-                SearchCoinMarketActivity.startAct(getActivity(), (ArrayList) strings,0x123);
+                SearchCoinMarketActivity.startAct(getActivity(), (ArrayList) strings, 0x123);
                 getActivity().overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
             }
         }
@@ -122,7 +126,12 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     protected void clickRightIv() {
         super.clickRightIv1();
         // 分享
-
+        if (HttpUrl.getBaseUrl().equals(httpBaseUrl4)) {
+            HttpUrl.setBaseUrl(httpBaseUrl3);
+        } else {
+            HttpUrl.setBaseUrl(httpBaseUrl4);
+        }
+        ToastUtil.show(HttpUrl.getBaseUrl());
     }
 
     UserChooseFragment userChooseFragment;

@@ -76,9 +76,9 @@ public class SortingAdapter extends CommonAdapter<ExchangeData> {
         }
 
         if (selectData.contains(s)) {
-            tv_select.setBackgroundColor(CommonUtils.getColor(R.color.color_blue));
+            tv_star.setTextColor(CommonUtils.getColor(R.color.minute_yellow));
         } else {
-            tv_select.setBackgroundColor(CommonUtils.getColor(R.color.color_font1));
+            tv_star.setTextColor(CommonUtils.getColor(R.color.white));
         }
 
 

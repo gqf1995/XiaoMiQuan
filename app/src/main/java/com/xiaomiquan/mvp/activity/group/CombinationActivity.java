@@ -1,4 +1,4 @@
-package com.xiaomiquan.mvp.activity.tovotefor;
+package com.xiaomiquan.mvp.activity.group;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,11 +13,14 @@ import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.CombinationBinder;
 import com.xiaomiquan.mvp.delegate.CombinationDelegate;
-import com.xiaomiquan.mvp.fragment.CombinationFragment;
+import com.xiaomiquan.mvp.fragment.group.GroupDetailListFragment;
+import com.xiaomiquan.mvp.fragment.group.GroupHistoryEntrustFragment;
+import com.xiaomiquan.mvp.fragment.group.GroupHistoryTradingFragment;
+import com.xiaomiquan.mvp.fragment.group.GroupNotDealFragment;
 
 import java.util.ArrayList;
 
-public class CombinationActivity extends BaseDataBindActivity<CombinationDelegate, CombinationBinder>{
+public class CombinationActivity extends BaseDataBindActivity<CombinationDelegate, CombinationBinder> {
     ArrayList<Fragment> fragments;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
@@ -31,15 +34,25 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         return new CombinationBinder(viewDelegate);
     }
 
+    @Override
+    protected void clickRightTv() {
+        super.clickRightTv();
+        //修改简介
+
+    }
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle(""));
+        initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(CommonUtils.getString(R.string.str_change_introduction)));
         String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_combination);
         fragments = new ArrayList<>();
+        fragments.add(new GroupDetailListFragment());
+        fragments.add(new GroupNotDealFragment());
+        fragments.add(new GroupHistoryTradingFragment());
+        fragments.add(new GroupHistoryEntrustFragment());
+
         for (int i = 0; i < stringArray.length; i++) {
-            fragments.add(CombinationFragment.newInstance(stringArray[i]));
             mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
         }
         viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
@@ -81,5 +94,5 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         switch (requestCode) {
         }
     }
-    
+
 }

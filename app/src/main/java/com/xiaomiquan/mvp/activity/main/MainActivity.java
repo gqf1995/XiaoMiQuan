@@ -18,9 +18,9 @@ import com.scichart.extensions.builders.SciChartBuilder;
 import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
-import com.xiaomiquan.mvp.fragment.CircleFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
+import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.PingUtil;
@@ -48,7 +48,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         ignoreBatteryOptimization(this);
         initFragment();
         uid = DeviceUtils.getAndroidID() + System.currentTimeMillis();
-        initSocket();
+        //initSocket();
         updata();
         netWorkLinsener();
     }
@@ -102,8 +102,8 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         //设置 以哪个FrameLayout 作为展示
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
         viewDelegate.addFragment(new MarketFragment());
-        viewDelegate.addFragment(new CircleFragment());
         viewDelegate.addFragment(new Fragment());
+        viewDelegate.addFragment(new InvestGroupFragment());
         viewDelegate.addFragment(new UserFragment());
         //显示第0个
         viewDelegate.showFragment(0);

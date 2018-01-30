@@ -28,7 +28,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="46"/>
+            android:layout_weight="42"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +41,20 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="114"/>
+            android:layout_weight="62"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_state"
+            android:textColor="@color/color_font3"
+            android:textSize="@dimen/text_trans_24px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="58"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,26 +67,26 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="88"/>
+            android:layout_weight="44"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/str_number"
+            android:text="@string/str_tv_num"
             android:textColor="@color/color_font3"
             android:textSize="@dimen/text_trans_24px"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="102"/>
+            android:layout_weight="96"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/str_deal_time"
+            android:text="@string/str_show_time"
             android:textColor="@color/color_font3"
             android:textSize="@dimen/text_trans_24px"/>
 

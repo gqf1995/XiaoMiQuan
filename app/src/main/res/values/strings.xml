@@ -45,9 +45,11 @@
     <string name="str_total">量\u3000</string>
     <string name="str_cost">费\u3000</string>
     <string name="str_buy_in">买入</string>
+    <string name="str_buy">买</string>
     <string name="str_highest">最高</string>
     <string name="str_opening_quotation">开盘</string>
     <string name="str_sell_out">卖出</string>
+    <string name="str_sell">卖</string>
     <string name="str_minimum">最低</string>
     <string name="str_closing_quotation">收盘</string>
     <string name="str_add">添加</string>
@@ -85,6 +87,7 @@
     <string name="str_change_password">修改密码</string>
     <string name="str_global_index">全球指数</string>
     <string name="str_add_coin_market">添加自选</string>
+    <string name="str_list_sorting">列表排序</string>
     <string name="str_change_coin_market">币行情自选</string>
     <string name="str_search_coin_market">币行情搜索</string>
     <string name="str_search_coin_market_hint">搜索平台、币种</string>
@@ -99,26 +102,37 @@
     <string name="str_market_value">市值</string>
     <string name="str_global_network">全网</string>
     <string name="str_chart_nodata">数据加载中...</string>
-    <string name="str_amount">量/额</string>
+    <string name="str_kline_nodata">暂无数据</string>
+    <string name="str_amount">量</string>
     <string name="str_buy_one">买一</string>
     <string name="str_sell_one">卖一</string>
     <string name="str_kvolume">量(5,10)</string>
     <string name="str_no_choose">请选择后再提交</string>
     <string name="str_currency">币种</string>
+    <string name="str_type">类型</string>
+    <string name="str_state">状态</string>
+    <string name="str_entrust_price">委托价格</string>
     <string name="str_storage_quantity">持仓量</string>
+    <string name="str_show_time">挂单时间</string>
     <string name="str_storage_price">持仓价</string>
     <string name="str_now_price">当前价格</string>
     <string name="str_earnings_ratio">收益率</string>
     <string name="str_today_earnings">今日收益</string>
     <string name="str_daily_operation">日均操作</string>
     <string name="str_number">次</string>
+    <string name="str_num">次</string>
     <string name="str_cumulative_earnings">累计收益</string>
     <string name="str_yesterday_earnings">昨日收益</string>
     <string name="str_week_earnings">周收益</string>
+    <string name="str_last_week_earnings">上周收益</string>
     <string name="str_month_earnings">月收益</string>
     <string name="str_earnings_chart">收益走势</string>
     <string name="str_after_payment">付费后可见</string>
+    <string name="str_simulation">模拟交易</string>
     <string name="str_default">默认</string>
+    <string name="str_edit_introduction">编辑组合简介</string>
+    <string name="str_change_introduction">修改简介</string>
+    <string name="str_competition_group">模拟组合大赛即将开启\n敬请期待</string>
 
     <string name="str_search_circle">查找圈子</string>
     <string name="str_input_limit">/140字</string>
@@ -152,13 +166,13 @@
     <string name="str_tv_notice2">公开组合可以被付费订阅了您最新动态的用户查看，如您未设置收费，则可被所有人查看。公开组合创建后不可修改为隐藏，请慎重选择。</string>
     <string name="str_tv_deal_choose">请选择币种</string>
     <string name="str_tv_balance">你当前可用余额</string>
-    <string name="str_tv_buy_price">买入价格</string>
     <string name="str_et_buy_price">输入价格</string>
-    <string name="str_tv_buy_num">买入数量</string>
     <string name="str_et_buy_num">输入数量</string>
     <string name="str_tv_sell_price">卖出价格</string>
+    <string name="str_tv_buy_price">买入价格</string>
     <string name="str_et_sell_price">卖出价格</string>
     <string name="str_tv_sell_num">卖出数量</string>
+    <string name="str_tv_buy_num">买入数量</string>
     <string name="str_tv_commit">立即交易</string>
     <string name="str_tv_type">类型</string>
     <string name="str_tv_currency">币种</string>
@@ -166,6 +180,15 @@
     <string name="str_tv_entrust_prase">委托价格</string>
     <string name="str_tv_num">数量</string>
     <string name="str_tv_operation">操作</string>
+    <string name="str_delect_order">撤单</string>
+    <string name="str_creat_combination">创建组合</string>
+    <string name="str_investment_combination">投资组合</string>
+    <string name="str_my_group">我的组合</string>
+    <string name="str_hot_group">热门组合</string>
+    <string name="str_group_dynamic">组合动态</string>
+    <string name="str_save">保存</string>
+    <string name="str_fucose">关注</string>
+    <string name="str_deal_time">成交时间</string>
 
 
     <string-array name="price">
@@ -289,4 +312,11 @@
         <item>成交历史</item>
         <item>历史委托</item>
     </string-array>
+
+    <string-array name="sa_select_group_rank">
+        <item>周榜</item>
+        <item>月榜</item>
+        <item>总榜</item>
+    </string-array>
+
 </resources>

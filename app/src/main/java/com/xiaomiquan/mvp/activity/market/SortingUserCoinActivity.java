@@ -20,16 +20,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
+
 public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoinDelegate, SortingUserCoinBinder> {
 
 
     SortingAdapter sortingAdapter;
-
+    Disposable disposable;
+    List<String> onlyKey;
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_change_coin_market)).setSubTitle(CommonUtils.getString(R.string.str_add)));
+        addRequest(binder.marketdata(this));
         strDatas = new ArrayList<>();
         initList(strDatas);
     }
@@ -48,6 +52,7 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
                         sortingAdapter.getDatas().remove(position);
                         sortingAdapter.getDatas().add(0, s);
                         sortingAdapter.notifyDataSetChanged();
+                        sendHttp();
                     } else if (type == R.id.tv_star) {
                         ExchangeData exchangeData = strDatas.get(position);
                         //取消自选
@@ -70,6 +75,13 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
                     // Item被拖拽时，交换数据，并更新adapter。
                     Collections.swap(strDatas, fromPosition, toPosition);
                     sortingAdapter.notifyItemMoved(fromPosition, toPosition);
+                    if (toPosition == 0 || fromPosition == 0) {
+                        if (sortingAdapter.getDatas().size() > 1) {
+                            sortingAdapter.notifyItemChanged(0);
+                            sortingAdapter.notifyItemChanged(1);
+                        }
+                    }
+                    sendHttp();
                     return true;
                 }
 
@@ -86,13 +98,27 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
             sortingAdapter.setData(datas);
             strDatas = sortingAdapter.getDatas();
         }
+    }
 
+    private void sendHttp() {
+        if (disposable != null) {
+            disposable.dispose();
+        }
+        if (onlyKey == null) {
+            onlyKey = new ArrayList<>();
+        } else {
+            onlyKey.clear();
+        }
+        for (int i = 0; i < sortingAdapter.getDatas().size(); i++) {
+            onlyKey.add(sortingAdapter.getDatas().get(i).getOnlyKey());
+        }
+        disposable = binder.order(onlyKey, SortingUserCoinActivity.this);
     }
 
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-        gotoActivity(AddCoinActivity.class).startAct();
+        AddCoinActivity.startAct(this, (ArrayList) onlyKey, 0x123);
     }
 
     @Override

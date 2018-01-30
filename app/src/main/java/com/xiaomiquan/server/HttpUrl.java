@@ -85,7 +85,7 @@ public class HttpUrl {
     /**
      * 用户登录
      */
-    public String userLogin = httpBaseUrl4 + userUrl + "/userLogin";
+    public String userLogin = httpBaseUrl3 + userUrl + "/userLogin";
     /**
      * 用户找回密码发送短信
      */
@@ -108,43 +108,43 @@ public class HttpUrl {
     /**
      * 获得所有库中拥有的交易所列表
      */
-    public String getAllEXchange = httpBaseUrl + dataUrl + "/getAllEXchange";
+    public String getAllEXchange = getBaseUrl() + dataUrl + "/getAllEXchange";
     /**
      * 获得所有市值信息 未做排序
      */
-    public String getAllMarketCaps = httpBaseUrl + dataUrl + "/getAllMarketCaps";
+    public String getAllMarketCaps = getBaseUrl() + dataUrl + "/getAllMarketCaps";
     /**
      * 获得所有市值和24小时价格走势信息 未做排序
      */
-    public String getAllMarketCapVo = httpBaseUrl + dataUrl + "/getAllMarketCapVo";
+    public String getAllMarketCapVo = getBaseUrl() + dataUrl + "/getAllMarketCapVo";
     /**
      * 根据某个币种全称查询币种市值信息
      */
-    public String getMarketCapById = httpBaseUrl + dataUrl + "/getMarketCapById";
+    public String getMarketCapById = getBaseUrl() + dataUrl + "/getMarketCapById";
     /**
      * 获得目前库中最新的Key对
      */
-    public String getAllOnlyKeys = httpBaseUrl + dataUrl + "/getAllOnlyKeys";
+    public String getAllOnlyKeys = getBaseUrl() + dataUrl + "/getAllOnlyKeys";
     /**
      * 根据交易所名称获得相关信息
      */
-    public String getAllMarketByExchange = httpBaseUrl + dataUrl + "/getAllMarketByExchange";
+    public String getAllMarketByExchange = getBaseUrl() + dataUrl + "/getAllMarketByExchange";
     /**
      * 根据币种名称获得相关信息
      */
-    public String getAllMarketBySymbol = httpBaseUrl + dataUrl + "/getAllMarketBySymbol";
+    public String getAllMarketBySymbol = getBaseUrl() + dataUrl + "/getAllMarketBySymbol";
     /**
      * 获取K线
      */
-    public String getKlineByOnlyKey = httpBaseUrl + dataUrl + "/getKlineByOnlyKey";
+    public String getKlineByOnlyKey = getBaseUrl() + dataUrl + "/getKlineByOnlyKey";
     /**
      * 获取汇率
      */
-    public String getAllPriceRate = httpBaseUrl + dataUrl + "/getAllPriceRate";
+    public String getAllPriceRate = getBaseUrl() + dataUrl + "/getAllPriceRate";
     /**
      * 搜索
      */
-    public String getAllMarketByExchangeOrSymbol = httpBaseUrl + dataUrl + "/getAllMarketByExchangeOrSymbol";
+    public String getAllMarketByExchangeOrSymbol = getBaseUrl() + dataUrl + "/getAllMarketByExchangeOrSymbol";
 
 
     /**
@@ -171,6 +171,10 @@ public class HttpUrl {
      * 单独订阅/取消
      */
     public String singlesubs = httpBaseUrl3 + subsUrl + "/operate/singlesubs";
+    /**
+     * 自定义排序
+     */
+    public String order = httpBaseUrl3 + subsUrl + "/operate/order";
 
 
     /**

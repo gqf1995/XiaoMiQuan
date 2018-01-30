@@ -1,10 +1,12 @@
 package com.xiaomiquan.mvp.delegate;
 
-import com.xiaomiquan.R;
-import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import android.view.View;
+import android.widget.EditText;
 
-public class EditIntroductionDelegate extends BaseDelegate{
+import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.xiaomiquan.R;
+
+public class EditIntroductionDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
 
     @Override
@@ -20,10 +22,11 @@ public class EditIntroductionDelegate extends BaseDelegate{
 
     public static class ViewHolder {
         public View rootView;
+        public EditText et_introduction;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-        
+            this.et_introduction = (EditText) rootView.findViewById(R.id.et_introduction);
         }
 
     }

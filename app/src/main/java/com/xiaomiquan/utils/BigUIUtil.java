@@ -14,9 +14,12 @@ import com.xiaomiquan.entity.bean.ExchangeData;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.xiaomiquan.base.AppConst.CACHE_CUSTOM_RATE;
 
 /**
  * Created by 郭青枫 on 2018/1/18 0018.
@@ -88,6 +91,65 @@ public class BigUIUtil {
         isHavaData = true;
         CacheUtils.getInstance().put(AppConst.CACHE_EXCHANGE_RATE, data);
         init(data);
+        if (UserSet.getinstance().isUseCustomRate()) {
+            useCustomRate();
+        }
+    }
+
+    //获取自定义汇率
+    private Map<String, BigDecimal> getCustomRate() {
+        String string = CacheUtils.getInstance().getString(CACHE_CUSTOM_RATE);
+        if (TextUtils.isEmpty(string)) {
+            Map<String, BigDecimal> data = new LinkedHashMap<>();
+            for (Map.Entry<String, BigDecimal> entry : usdRate.entrySet()) {
+                String k = entry.getKey();
+                BigDecimal v = entry.getValue();
+                String[] split = k.split(",");
+                if (split[0].contains("CNY") || split[0].contains("JPY") || split[0].contains("KRW") || split[0].contains("EUR")) {
+                    data.put(k, v);
+                }
+            }
+            CacheUtils.getInstance().put(CACHE_CUSTOM_RATE, GsonUtil.getInstance().toJson(data));
+            return data;
+        } else {
+            return GsonUtil.getInstance().toMap(string, new TypeReference<Map<String, BigDecimal>>() {
+            });
+        }
+    }
+
+    //单个保存 自定义汇率
+    public void putCustomRate(String key, BigDecimal value) {
+        String string = CacheUtils.getInstance().getString(CACHE_CUSTOM_RATE);
+        Map<String, BigDecimal> stringBigDecimalMap = GsonUtil.getInstance().toMap(string, new TypeReference<Map<String, BigDecimal>>() {
+        });
+        stringBigDecimalMap.put(key, value);
+        CacheUtils.getInstance().put(CACHE_CUSTOM_RATE, GsonUtil.getInstance().toJson(stringBigDecimalMap));
+    }
+
+    //保存全部自定义汇率
+    public void putCustomRate(Map<String, BigDecimal> stringBigDecimalMap) {
+        CacheUtils.getInstance().put(CACHE_CUSTOM_RATE, GsonUtil.getInstance().toJson(stringBigDecimalMap));
+    }
+
+    //使用自定义汇率
+    public void useCustomRate() {
+        if (usdRate == null) {
+            usdRate = new ConcurrentHashMap<>();
+        }
+        String string = CacheUtils.getInstance().getString(CACHE_CUSTOM_RATE);
+        //解析汇率
+        Map<String, BigDecimal> data = GsonUtil.getInstance().toMap(string, new TypeReference<Map<String, BigDecimal>>() {
+        });
+        for (Map.Entry<String, BigDecimal> entry : data.entrySet()) {
+            String k = entry.getKey();
+            BigDecimal v = entry.getValue();
+            String[] split = k.split(",");
+            if (split.length == 2) {
+                if ("USD".equals(split[1])) {
+                    usdRate.put(split[0], v);
+                }
+            }
+        }
     }
 
     //根据涨幅计算 所涨价格
@@ -445,86 +507,150 @@ public class BigUIUtil {
 
 
     //    数据显示规则：
-    //
-    //
-    //            >>价格
-    //
-    //    大于1万：取整数；
-    //
-    //    整数部分4位数时：小数点保留1位有效；
-    //    例如1234.001显示为1234；
-    //
-    //    整数部分3位数时：小数点保留2位有效；
-    //    例如123.1234显示为123.12；
-    //
-    //    整数部分2位数时：小数点保留3位有效；
-    //    例如12.1235显示为123.124；
-    //
-    //    整数部分为1为数时，小数点保留4位；
-    //    例如1.123567显示为123.1235；
-    //
-    //
-    //
-    //
-    //            >>量：
-    //
-    //    小于1的话，精确到0.001；四舍五入，量小舍后可为0；
-    //
-    //            1到100的话，精确到0.01；
-    //
-    //            100到10000的话，精确到1；
-    //
-    //            1万到1亿的话，显示x.xx万，精确到0.01；
-    //
-    //    大于一亿的话，显示x.xx亿，精确到0.01；
+
 
     //价格单位 显示规则
+    //    >>>价格
+    //        123456.12
+    //        1234.12
+    //        123.12
+    //        12.1234
+    //        1.1234
+    //        0.1111
+    //        0.01111
+    //        0.001111
+    //        0.0001111
+    //        0.00001111
+    //        0.00000111
+    //        0.00000011
+    //        0.00000001
+    //        0
+    //
+    //
+    //
     public String bigPrice(String price) {
         if (TextUtils.isEmpty(price) || "NaN".equals(price)) {
             return "";
         }
         BigDecimal bigDecimal = new BigDecimal(price);
         StringBuffer stringBuffer = new StringBuffer();
-        if (new BigDecimal("10000").compareTo(bigDecimal) == -1) {
-            //大于一万
-            stringBuffer.append(bigDecimal.setScale(0, BigDecimal.ROUND_DOWN).toPlainString());
-        } else if (new BigDecimal("1000").compareTo(bigDecimal) == -1) {
-            stringBuffer.append(bigDecimal.setScale(1, BigDecimal.ROUND_DOWN).toPlainString());
-        } else if (new BigDecimal("100").compareTo(bigDecimal) == -1) {
+        if (new BigDecimal("100").compareTo(bigDecimal) == -1) {
             stringBuffer.append(bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).toPlainString());
-        } else if (new BigDecimal("10").compareTo(bigDecimal) == -1) {
-            stringBuffer.append(bigDecimal.setScale(3, BigDecimal.ROUND_DOWN).toPlainString());
-        } else if (new BigDecimal("1").compareTo(bigDecimal) == -1) {
+        } else if (new BigDecimal("0.1").compareTo(bigDecimal) == -1) {
             stringBuffer.append(bigDecimal.setScale(4, BigDecimal.ROUND_DOWN).toPlainString());
+        } else if (new BigDecimal("0.01").compareTo(bigDecimal) == -1) {
+            stringBuffer.append(bigDecimal.setScale(5, BigDecimal.ROUND_DOWN).toPlainString());
+        } else if (new BigDecimal("0.001").compareTo(bigDecimal) == -1) {
+            stringBuffer.append(bigDecimal.setScale(6, BigDecimal.ROUND_DOWN).toPlainString());
+        } else if (new BigDecimal("0.00000001").compareTo(bigDecimal) == -1) {
+            stringBuffer.append(bigDecimal.setScale(8, BigDecimal.ROUND_DOWN).toPlainString());
         } else {
-            stringBuffer.append(bigDecimal.setScale(4, BigDecimal.ROUND_DOWN).toPlainString());
+            return "0";
         }
         return stringBuffer.toString();
     }
 
     //量 单位 显示规则
+    //        >>>量
+    //0
+    //        0.0001
+    //        0.0011
+    //        0.011
+    //        0.11
+    //        1.23
+    //        12.35
+    //        123.46
+    //        1235
+    //        1.23万
+    //        12.3万
+    //        123万
+    //        1235万
+    //        1.2亿
+    //        12.3亿
+    //        123亿
+    //        1235亿
+    //
+    //
     public String bigAmount(String amount) {
         if (TextUtils.isEmpty(amount)) {
             return "";
         }
         BigDecimal bigDecimal = new BigDecimal(amount);
-        if (new BigDecimal("100000000").compareTo(bigDecimal) == -1) {
-            return bigDecimal.multiply(new BigDecimal("0.00000001")).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "亿";
+        if (new BigDecimal("10000000000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.000000001")).setScale(0, BigDecimal.ROUND_DOWN).toPlainString() + "亿";
+        } else if (new BigDecimal("100000000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.000000001")).setScale(1, BigDecimal.ROUND_DOWN).toPlainString() + "亿";
+        } else if (new BigDecimal("1000000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.00001")).setScale(0, BigDecimal.ROUND_DOWN).toPlainString() + "万";
+        } else if (new BigDecimal("100000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.00001")).setScale(1, BigDecimal.ROUND_DOWN).toPlainString() + "万";
         } else if (new BigDecimal("10000").compareTo(bigDecimal) == -1) {
-            //大于一万
-            return bigDecimal.multiply(new BigDecimal("0.0001")).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "万";
+            return bigDecimal.multiply(new BigDecimal("0.00001")).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "万";
         } else if (new BigDecimal("1000").compareTo(bigDecimal) == -1) {
-            return bigDecimal.setScale(1, BigDecimal.ROUND_DOWN).toPlainString();
-        } else if (new BigDecimal("100").compareTo(bigDecimal) == -1) {
-            return bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).toPlainString();
-        } else if (new BigDecimal("10").compareTo(bigDecimal) == -1) {
-            return bigDecimal.setScale(3, BigDecimal.ROUND_DOWN).toPlainString();
-        } else if (new BigDecimal("1").compareTo(bigDecimal) == -1) {
-            return bigDecimal.setScale(4, BigDecimal.ROUND_DOWN).toPlainString();
+            return bigDecimal.multiply(new BigDecimal("1")).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
+        } else if (new BigDecimal("0").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("1")).setScale(2, BigDecimal.ROUND_DOWN).toPlainString();
+        } else if (new BigDecimal("0.01").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("1")).setScale(3, BigDecimal.ROUND_DOWN).toPlainString();
+        } else if (new BigDecimal("0.001").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("1")).setScale(4, BigDecimal.ROUND_DOWN).toPlainString();
         } else {
             return "0";
         }
     }
+
+    //  市值
+    //1111万亿
+    //111万亿
+    //11.11万亿
+    //1.1111万亿
+    //1111亿
+    //111亿
+    //11.11亿
+    //1.1111亿
+    //1111万
+    //111万
+    //11.11万
+    //1.1111万
+    //1111
+    //111
+    //11.11
+    //1.1111
+    //0
+    public String bigMarkValue(String amount) {
+        if (TextUtils.isEmpty(amount)) {
+            return "";
+        }
+        BigDecimal bigDecimal = new BigDecimal(amount);
+        if (new BigDecimal("100000000000000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.0000000000001")).setScale(0, BigDecimal.ROUND_DOWN).toPlainString() + "万亿";
+        } else if (new BigDecimal("10000000000000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.0000000000001")).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "万亿";
+        } else if (new BigDecimal("1000000000000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.0000000000001")).setScale(4, BigDecimal.ROUND_DOWN).toPlainString() + "万亿";
+        } else if (new BigDecimal("10000000000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.000000001")).setScale(0, BigDecimal.ROUND_DOWN).toPlainString() + "亿";
+        } else if (new BigDecimal("1000000000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.000000001")).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "亿";
+        } else if (new BigDecimal("100000000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.000000001")).setScale(4, BigDecimal.ROUND_DOWN).toPlainString() + "亿";
+        } else if (new BigDecimal("1000000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.00001")).setScale(0, BigDecimal.ROUND_DOWN).toPlainString() + "万";
+        } else if (new BigDecimal("100000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.00001")).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "万";
+        } else if (new BigDecimal("10000").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("0.00001")).setScale(4, BigDecimal.ROUND_DOWN).toPlainString() + "万";
+        } else if (new BigDecimal("100").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("1")).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
+        } else if (new BigDecimal("10").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("1")).setScale(2, BigDecimal.ROUND_DOWN).toPlainString();
+        } else if (new BigDecimal("1").compareTo(bigDecimal) == -1) {
+            return bigDecimal.multiply(new BigDecimal("1")).setScale(4, BigDecimal.ROUND_DOWN).toPlainString();
+        } else {
+            return "0";
+        }
+    }
+
 
     //百分比显示
     public String changeAmount(String change) {

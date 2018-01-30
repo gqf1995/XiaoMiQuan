@@ -3,6 +3,7 @@ package com.xiaomiquan.mvp.fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
@@ -14,7 +15,10 @@ import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.xiaomiquan.base.AppConst.CACHE_SEARCH_HISTORY;
+
 public class SearchCoinMarketResultFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
+    List<String> searchHistory;
 
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
@@ -29,6 +33,11 @@ public class SearchCoinMarketResultFragment extends BasePullFragment<BaseFragent
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        String string = CacheUtils.getInstance().getString(CACHE_SEARCH_HISTORY);
+        searchHistory = GsonUtil.getInstance().toList(string, String.class);
+        if (searchHistory == null) {
+            searchHistory = new ArrayList<>();
+        }
         initList();
         search();
     }
@@ -58,6 +67,10 @@ public class SearchCoinMarketResultFragment extends BasePullFragment<BaseFragent
                     searchAddCoinAdapter.getUserSelectKeys().add(searchAddCoinAdapter.getDatas().get(position).getOnlyKey());
                     //订阅
                     binder.singlesubs(searchAddCoinAdapter.getDatas().get(position).getOnlyKey(), "1", null);
+                    if (!searchHistory.contains(strSearch)) {
+                        searchHistory.add(strSearch);
+                        CacheUtils.getInstance().put(CACHE_SEARCH_HISTORY, GsonUtil.getInstance().toJson(searchHistory));
+                    }
                 }
                 searchAddCoinAdapter.notifyItemChanged(position);
             }

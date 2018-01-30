@@ -1,12 +1,18 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.CacheUtils;
+import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.SearchAddCoinAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
@@ -20,15 +26,26 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.xiaomiquan.base.AppConst.CACHE_SEARCH_HISTORY;
+
 public class SearchCoinMarketDefaultFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
     List<ExchangeData> strDatas;
     SearchAddCoinAdapter searchAddCoinAdapter;
     HeaderAndFooterWrapper adapter;
-    private String[] mVals = new String[]
-            {"Hello", "Android", "Weclome Hi ", "Button", "TextView", "Hello",
-                    "Android", "Weclome", "Button ImageView", "TextView", "Helloworld",
-                    "Android", "Weclome Hello", "Button Text", "TextView"};
+    List<String> history;
+
+    public interface OnClickHistory {
+        void onClickHistory(String history);
+    }
+
+    OnClickHistory onClickHistory;
+
+    @Override
+    public void onAttach(Activity context) {
+        super.onAttach(context);
+        onClickHistory = (OnClickHistory) context;
+    }
 
     @Override
     protected void bindEvenListener() {
@@ -43,6 +60,7 @@ public class SearchCoinMarketDefaultFragment extends BasePullFragment<BaseFragen
     public LinearLayout lin_hot;
 
     private View initFlowlayout() {
+
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_default_search_top, null);
         rootView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         this.tv_clean_history = (TextView) rootView.findViewById(R.id.tv_clean_history);
@@ -51,30 +69,36 @@ public class SearchCoinMarketDefaultFragment extends BasePullFragment<BaseFragen
         this.lin_hot = (LinearLayout) rootView.findViewById(R.id.lin_hot);
         lin_hot.setVisibility(View.GONE);
         //搜索 缓存查找历史记录
-
-
-        id_flowlayout.setAdapter(new TagAdapter<String>(mVals) {
-            @Override
-            public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) getActivity().getLayoutInflater().inflate(R.layout.layout_flowtext,
-                        parent, false);
-                tv.setText(mVals[position]);
-                return tv;
-            }
-        });
-        id_flowlayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-            @Override
-            public boolean onTagClick(View view, int position, FlowLayout parent) {
-
-                return false;
-            }
-        });
-        tv_clean_history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lin_history.setVisibility(View.GONE);
-            }
-        });
+        String string = CacheUtils.getInstance().getString(CACHE_SEARCH_HISTORY);
+        if (TextUtils.isEmpty(string)) {
+            lin_history.setVisibility(View.GONE);
+        } else {
+            history = GsonUtil.getInstance().toList(string, String.class);
+            id_flowlayout.setAdapter(new TagAdapter<String>(history) {
+                @Override
+                public View getView(FlowLayout parent, int position, String s) {
+                    TextView tv = (TextView) getActivity().getLayoutInflater().inflate(R.layout.layout_flowtext,
+                            parent, false);
+                    tv.setBackground(new RadiuBg(CommonUtils.getColor(R.color.base_mask), 1000, 1000, 1000, 1000));
+                    tv.setText(s);
+                    return tv;
+                }
+            });
+            id_flowlayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+                @Override
+                public boolean onTagClick(View view, int position, FlowLayout parent) {
+                    onClickHistory.onClickHistory(history.get(position));
+                    return false;
+                }
+            });
+            tv_clean_history.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    lin_history.setVisibility(View.GONE);
+                    CacheUtils.getInstance().put(CACHE_SEARCH_HISTORY, "");
+                }
+            });
+        }
         return rootView;
     }
 

@@ -65,14 +65,15 @@
         <activity android:name=".mvp.activity.market.SortingUserCoinActivity"/>
         <activity android:name=".mvp.activity.main.WebActivityActivity"/>
         <activity android:name=".mvp.activity.market.CoinIndexActivity"/>
-
         <activity android:name=".mvp.activity.RichTextActivity">
-
         </activity>
-        <activity android:name=".mvp.activity.circle.CreatCircleActivity" />
-        <activity android:name=".mvp.activity.circle.CircleContentActivity" />
-        <activity android:name=".mvp.activity.circle.GetFriendsJoinActivity" />
-        <activity android:name=".mvp.activity.circle.UserTopicActivity" />
+        <activity android:name=".mvp.activity.circle.CreatCircleActivity"/>
+        <activity android:name=".mvp.activity.circle.GetFriendsJoinActivity"/>
+        <activity android:name=".mvp.activity.circle.UserTopicActivity"/>
+        <activity android:name=".mvp.activity.group.CreatGroupActivity"/>
+        <activity android:name=".mvp.activity.group.GroupDealActivity"/>
+        <activity android:name=".mvp.activity.group.CombinationActivity"/>
+        <activity android:name=".mvp.activity.group.EditIntroductionActivity"/>
     </application>
 
 </manifest>

@@ -53,7 +53,6 @@ public class MarketDetailsDelegate extends BaseDelegate {
         ViewGroup.LayoutParams layoutParams = viewHolder.lin_kline.getLayoutParams();
         layoutParams.height = AndroidUtil.getScreenW(viewHolder.rootView.getContext(), true) - AndroidUtil.getStatusBarHeight(viewHolder.rootView.getContext()) - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
         viewHolder.lin_kline.setLayoutParams(layoutParams);
-        viewHolder.lin_kbg.setBackgroundColor(UserSet.getinstance().getKBgColor());
 
 
     }
@@ -80,9 +79,9 @@ public class MarketDetailsDelegate extends BaseDelegate {
         viewHolder.tv_krise.setText(v + "");
         viewHolder.tv_kamplitude.setText(((kLineBean.high.floatValue() - kLineBean.low.floatValue()) / kLineBean.open.floatValue()) + "");
 
-        viewHolder.tv_ma5.setText(BigUIUtil.getinstance().bigPrice(data.getMa5DataV().get(position).getVal() + "") + "");
-        viewHolder.tv_ma10.setText(BigUIUtil.getinstance().bigPrice(data.getMa10DataV().get(position).getVal() + "") + "");
-        viewHolder.tv_kvolume.setText(CommonUtils.getString(R.string.str_kvolume) + data.getKLineDatas().get(position).volume.toPlainString());
+        viewHolder.tv_ma5.setText(BigUIUtil.getinstance().bigAmount(data.getMa5DataV().get(position).getVal() + "") + "");
+        viewHolder.tv_ma10.setText(BigUIUtil.getinstance().bigAmount(data.getMa10DataV().get(position).getVal() + "") + "");
+        viewHolder.tv_kvolume.setText(CommonUtils.getString(R.string.str_kvolume) + BigUIUtil.getinstance().bigAmount(data.getKLineDatas().get(position).volume.toPlainString()));
 
     }
 

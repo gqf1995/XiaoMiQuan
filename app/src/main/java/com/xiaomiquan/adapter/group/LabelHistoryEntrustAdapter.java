@@ -13,7 +13,7 @@ import java.util.List;
  * Created by 郭青枫 on 2018/1/10 0010.
  */
 
-public class LabelGroupNotDealAdapter extends CommonAdapter<String> {
+public class LabelHistoryEntrustAdapter extends CommonAdapter<String> {
 
 
     private TextView tv_type;
@@ -21,10 +21,10 @@ public class LabelGroupNotDealAdapter extends CommonAdapter<String> {
     private TextView tv_state;
     private TextView tv_entrust_price;
     private TextView tv_num;
-    private TextView tv_operation;
+    private TextView tv_show_time;
 
-    public LabelGroupNotDealAdapter(Context context, List<String> datas) {
-        super(context, R.layout.adapter_label_group_not_deal, datas);
+    public LabelHistoryEntrustAdapter(Context context, List<String> datas) {
+        super(context, R.layout.adapter_label_history_entrust, datas);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class LabelGroupNotDealAdapter extends CommonAdapter<String> {
         tv_state = holder.getView(R.id.tv_state);
         tv_entrust_price = holder.getView(R.id.tv_entrust_price);
         tv_num = holder.getView(R.id.tv_num);
-        tv_operation = holder.getView(R.id.tv_operation);
+        tv_show_time = holder.getView(R.id.tv_show_time);
     }
 
 }

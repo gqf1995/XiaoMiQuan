@@ -14,7 +14,10 @@ import java.util.Comparator;
 public class RiseChangeSort implements Comparator<ExchangeData> {
     @Override
     public int compare(ExchangeData exchangeData, ExchangeData t1) {
-        if (TextUtils.isEmpty(exchangeData.getChange()) || TextUtils.isEmpty(exchangeData.getChange())) {
+        if (exchangeData == null || t1 == null) {
+            return 0;
+        }
+        if (TextUtils.isEmpty(exchangeData.getChange()) || TextUtils.isEmpty(t1.getChange())) {
             return 0;
         }
         int thislv = new BigDecimal(t1.getChange()).compareTo(new BigDecimal(exchangeData.getChange()));

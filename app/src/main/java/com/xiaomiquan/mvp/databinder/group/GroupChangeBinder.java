@@ -1,8 +1,7 @@
 package com.xiaomiquan.mvp.databinder.group;
 
-import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
-import com.xiaomiquan.mvp.delegate.group.GroupChangeDelegate;
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
+import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
 public class GroupChangeBinder extends BaseDataBind<BaseFragentPullDelegate> {
 

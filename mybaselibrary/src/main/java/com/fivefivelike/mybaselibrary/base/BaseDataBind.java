@@ -98,7 +98,7 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
         } else if (exThrowable instanceof JSONException) {
             ToastUtil.show("数据格式错误");
         } else {
-            ToastUtil.show("未知错误");
+            ToastUtil.show("未知错误" + exThrowable.getMessage());
         }
     }
 

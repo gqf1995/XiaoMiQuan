@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * 搜索行情 添加自选
  */
-public class SearchCoinMarketActivity extends BaseDataBindActivity<SearchCoinMarketDelegate, SearchCoinMarketBinder> {
+public class SearchCoinMarketActivity extends BaseDataBindActivity<SearchCoinMarketDelegate, SearchCoinMarketBinder> implements SearchCoinMarketDefaultFragment.OnClickHistory {
 
     SearchCoinMarketDefaultFragment searchCoinMarketDefaultFragment;
     SearchCoinMarketResultFragment searchCoinMarketResultFragment;
@@ -152,4 +152,9 @@ public class SearchCoinMarketActivity extends BaseDataBindActivity<SearchCoinMar
         userSelectKeys = intent.getStringArrayListExtra("userSelectKeys");
     }
 
+    @Override
+    public void onClickHistory(String history) {
+        viewDelegate.showFragment(1);
+        searchCoinMarketResultFragment.searchInput(history);
+    }
 }

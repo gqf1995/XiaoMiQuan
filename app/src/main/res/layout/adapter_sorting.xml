@@ -25,7 +25,8 @@
             android:paddingLeft="@dimen/trans_40px"
             android:paddingRight="@dimen/trans_20px"
             android:textColor="@color/color_F5A623"
-            android:textSize="@dimen/trans_36px"
+            android:textSize="@dimen/trans_50px"
+            android:text="@string/ic_Star1"
             />
 
         <LinearLayout

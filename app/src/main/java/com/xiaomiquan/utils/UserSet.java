@@ -15,7 +15,9 @@ import skin.support.SkinCompatManager;
  * 红涨绿跌
  * 夜间模式
  * 统一默认单位
- * 语言切换
+ * 语言切换]
+ * 开关自定义汇率
+ * k线用户操作保存
  */
 
 public class UserSet {
@@ -85,8 +87,18 @@ public class UserSet {
     }
 
     //用户设置k线背景
-    public void setKBg(String kBg) {
+    public void setKBg(String kBg, int position) {
         SaveUtil.getInstance().saveString("kBg", kBg);
+        SaveUtil.getInstance().saveString("kBgPosition", position + "");
+    }
+
+    public int getKBgSelectPosition() {
+        String position = SaveUtil.getInstance().getString("kBgPosition");
+        int p = 0;
+        if (!TextUtils.isEmpty(position)) {
+            p = Integer.parseInt(position);
+        }
+        return p;
     }
 
     public int getKBgColor() {
@@ -97,7 +109,21 @@ public class UserSet {
             return Integer.parseInt(kBg);
         }
     }
+
     //用户设置k线缩放级别
+    public float getKlineScale() {
+        String KlineScale = SaveUtil.getInstance().getString("KlineScale");
+        if (TextUtils.isEmpty(KlineScale)) {
+            return 1f;
+        } else {
+            return Float.parseFloat(KlineScale);
+        }
+    }
+
+    public void setKlineScale(float KlineScale) {
+        SaveUtil.getInstance().saveString("KlineScale", KlineScale + "");
+    }
+
 
     //用户设置k线分钟
     public void setKTime(String kTime) {
@@ -120,4 +146,18 @@ public class UserSet {
             SkinCompatManager.getInstance().loadSkin("light.skin", SkinCompatManager.SKIN_LOADER_STRATEGY_ASSETS);
         }
     }
+
+    //自定义汇率
+    public void setIsUseCustomRate(boolean isUseCustomRate) {
+        if (isUseCustomRate) {
+            BigUIUtil.getinstance().useCustomRate();
+        }
+        SaveUtil.getInstance().saveBoolean("isUseCustomRate", isUseCustomRate);
+    }
+
+    public boolean isUseCustomRate() {
+        return SaveUtil.getInstance().getBoolean("isUseCustomRate");
+    }
+
+
 }

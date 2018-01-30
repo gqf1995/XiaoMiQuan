@@ -25,6 +25,7 @@ import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.market.AddCoinActivity;
 import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
+import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.xiaomiquan.utils.UserSet;
@@ -53,12 +54,15 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     List<String> sendKeys;
     ArrayList<String> strings;
     UserLogin userLogin;
+    String onlyKeys;
     boolean isOnRefush = false;//第一个页面 使用onFragmentVisibleChange有问题
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         userLogin = SingSettingDBUtil.getUserLogin();
+        strDatas = new ArrayList<>();
+        initList(strDatas);
     }
 
     public ExchangeMarketAdapter getExchangeMarketAdapter() {
@@ -71,6 +75,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
 
     private void initTool() {
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_exchange_tool, null);
+        rootView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         this.tv_unit = (TextView) rootView.findViewById(R.id.tv_unit);
         this.tv_rise = (GainsTabView) rootView.findViewById(R.id.tv_rise);
         tv_unit.setText(UserSet.getinstance().getUnit());
@@ -93,6 +98,12 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                 } else if (isTop == 2) {
                     exchangeMarketAdapter.setDatas(dropDatas);
                 }
+            }
+        });
+        tv_unit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChangeDefaultSetActivity.startAct(getActivity(), ChangeDefaultSetActivity.TYPE_UNIT);
             }
         });
         viewDelegate.viewHolder.fl_pull.addView(rootView, 0);
@@ -153,6 +164,8 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         this.lin_sorting = (LinearLayout) rootView.findViewById(R.id.lin_sorting);
         lin_add_coin_market.setOnClickListener(this);
         lin_sorting.setOnClickListener(this);
+
+
         return rootView;
     }
 
@@ -179,18 +192,23 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
             case 0x123:
                 isOnRefush = false;
                 defaultDatas = GsonUtil.getInstance().toList(data, ExchangeData.class);
-                getDataBack(strDatas, defaultDatas, headerAndFooterWrapper);
-                if (defaultDatas.size() > 0) {
-                    //如果有数据 则底部显示添加自选按钮
-                    lin_root.setVisibility(View.VISIBLE);
-                } else {
-                    lin_root.setVisibility(View.GONE);
-                    viewDelegate.viewHolder.pull_recycleview.scrollToPosition(headerAndFooterWrapper.getItemCount() - 1);
+                if (defaultDatas != null) {
+                    if (defaultDatas.size() > 0) {
+                        getDataBack(strDatas, defaultDatas, headerAndFooterWrapper);
+                        if (defaultDatas.size() > 0) {
+                            //如果有数据 则底部显示添加自选按钮
+                            lin_root.setVisibility(View.VISIBLE);
+                        } else {
+                            lin_root.setVisibility(View.GONE);
+                            viewDelegate.viewHolder.pull_recycleview.scrollToPosition(headerAndFooterWrapper.getItemCount() - 1);
+                        }
+                        initRise();
+                        initDrop();
+                        //订阅推送
+                        sendWebSocket();
+                        onlyKeys = defaultDatas.get(0).getOnlyKey();
+                    }
                 }
-                initRise();
-                initDrop();
-                //订阅推送
-                sendWebSocket();
                 break;
         }
     }
@@ -223,6 +241,8 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         if (userLogin != null) {
             addRequest(binder.marketdata(this));
             isOnRefush = true;
+        } else {
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         }
     }
 
@@ -323,11 +343,13 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                         //推送数据
                         ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
                         if (!TextUtils.isEmpty(exchangeData.getOnlyKey())) {
-                            if (exchangeDataMap == null) {
-                                exchangeDataMap = new ConcurrentHashMap<>();
-                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
+                            if (exchangeData.getOnlyKey().equals(onlyKeys)) {
+                                if (exchangeDataMap == null) {
+                                    exchangeDataMap = new ConcurrentHashMap<>();
+                                    handler.sendEmptyMessageDelayed(whatIndex, 1000);
+                                }
+                                exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
                             }
-                            exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
                         }
                     }
                 }
@@ -351,11 +373,6 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         }
     }
 
-    @Override
-    protected void onFragmentFirstVisible() {
-        strDatas = new ArrayList<>();
-        initList(strDatas);
-    }
 
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {

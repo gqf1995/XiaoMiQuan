@@ -15,7 +15,20 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="48"/>
+            android:layout_weight="32"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_type"
+            android:textColor="@color/color_font3"
+            android:textSize="@dimen/text_trans_24px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="42"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,58 +41,45 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="78"/>
+            android:layout_weight="112"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/str_storage_quantity"
+            android:text="@string/str_state"
             android:textColor="@color/color_font3"
             android:textSize="@dimen/text_trans_24px"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="120"/>
+            android:layout_weight="128"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/str_storage_price"
+            android:text="@string/str_entrust_price"
             android:textColor="@color/color_font3"
             android:textSize="@dimen/text_trans_24px"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="74"/>
+            android:layout_weight="116"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/str_now_price"
+            android:text="@string/str_tv_num"
             android:textColor="@color/color_font3"
             android:textSize="@dimen/text_trans_24px"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="40"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/str_earnings_ratio"
-            android:textColor="@color/color_font3"
-            android:textSize="@dimen/text_trans_24px"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="33"/>
+            android:layout_weight="32"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

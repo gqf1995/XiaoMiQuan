@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <include layout="@layout/include_toolbar_with_statusbar" />
+    <include layout="@layout/include_toolbar_with_statusbar"/>
 
     <com.xiaomiquan.widget.StickyScrollView
         android:layout_width="match_parent"
@@ -31,38 +31,35 @@
                     android:paddingBottom="@dimen/text_trans_20px"
                     android:text="@string/str_tv_group_name"
                     android:textColor="@color/color_font1"
-                    android:textSize="@dimen/trans_34px" />
+                    android:textSize="@dimen/trans_34px"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/text_trans_1px"
-                    android:background="@color/base_mask" />
+                    android:background="@color/base_mask"/>
 
-                <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
+                <EditText
                     android:id="@+id/et_con"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/text_trans_29px"
+                    android:background="@null"
                     android:gravity="left|top"
                     android:hint="@string/str_et_group_title"
                     android:inputType="textImeMultiLine"
                     android:maxLength="12"
                     android:singleLine="true"
+                    android:textColor="@color/color_font1"
                     android:textColorHint="@color/color_font3"
                     android:textSize="@dimen/trans_28px"
-                    app:met_baseColor="@color/white"
-                    app:met_primaryColor="@color/color_blue"
-                    app:met_textColor="@color/color_font2"
-                    app:met_textColorHint="@color/color_font4"
-                    app:met_underlineColor="@color/base_mask" />
-
+                    />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/text_trans_20px"
-                android:background="@color/base_mask" />
+                android:background="@color/base_mask"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,37 +75,32 @@
                     android:paddingBottom="@dimen/text_trans_20px"
                     android:text="@string/str_tv_group_info"
                     android:textColor="@color/color_font1"
-                    android:textSize="@dimen/trans_34px" />
+                    android:textSize="@dimen/trans_34px"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/text_trans_1px"
-                    android:background="@color/base_mask" />
+                    android:background="@color/base_mask"/>
 
-                <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/text_trans_200px"
                     android:layout_marginTop="@dimen/text_trans_29px"
+                    android:background="@null"
                     android:gravity="left|top"
                     android:hint="@string/str_et_group_info"
                     android:inputType="textImeMultiLine"
-                    android:maxLength="12"
-                    android:singleLine="true"
+                    android:textColor="@color/color_font1"
                     android:textColorHint="@color/color_font3"
                     android:textSize="@dimen/trans_28px"
-                    app:met_baseColor="@color/white"
-                    app:met_primaryColor="@color/color_blue"
-                    app:met_textColor="@color/color_font2"
-                    app:met_textColorHint="@color/color_font4"
-                    app:met_underlineColor="@color/base_mask" />
-
+                    />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/text_trans_20px"
-                android:background="@color/base_mask" />
+                android:background="@color/base_mask"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -118,24 +110,28 @@
 
                 <skin.support.widget.SkinCompatCheckBox
                     android:id="@+id/ck_live"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/str_ck_open"
-                    android:textColor="@color/color_font1" />
+                    android:textColor="@color/color_font1"
+                    android:theme="@style/BlueCheckBox"/>
 
                 <skin.support.widget.SkinCompatCheckBox
                     android:id="@+id/ck_circle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/text_trans_160px"
+                    android:layout_marginLeft="@dimen/text_trans_100px"
                     android:text="@string/str_ck_private"
-                    android:textColor="@color/color_font1" />
+                    android:textColor="@color/color_font1"
+                    android:theme="@style/BlueCheckBox"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/text_trans_20px"
-                android:background="@color/base_mask" />
+                android:background="@color/base_mask"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,12 +148,12 @@
                     android:paddingBottom="@dimen/text_trans_20px"
                     android:text="@string/str_tv_notice"
                     android:textColor="@color/color_font1"
-                    android:textSize="@dimen/trans_24px" />
+                    android:textSize="@dimen/trans_24px"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/text_trans_1px"
-                    android:background="@color/base_mask" />
+                    android:background="@color/base_mask"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -170,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:text="1"
                         android:textColor="@color/color_font2"
-                        android:textSize="@dimen/trans_24px" />
+                        android:textSize="@dimen/trans_24px"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -180,7 +176,7 @@
                         android:lineSpacingExtra="@dimen/text_trans_6px"
                         android:text="@string/str_tv_notice1"
                         android:textColor="@color/color_font2"
-                        android:textSize="@dimen/trans_24px" />
+                        android:textSize="@dimen/trans_24px"/>
 
                 </LinearLayout>
 
@@ -195,7 +191,7 @@
                         android:layout_height="wrap_content"
                         android:text="2"
                         android:textColor="@color/color_font2"
-                        android:textSize="@dimen/trans_24px" />
+                        android:textSize="@dimen/trans_24px"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -205,7 +201,7 @@
                         android:lineSpacingExtra="@dimen/text_trans_6px"
                         android:text="@string/str_tv_notice1"
                         android:textColor="@color/color_font2"
-                        android:textSize="@dimen/trans_24px" />
+                        android:textSize="@dimen/trans_24px"/>
 
                 </LinearLayout>
 

@@ -87,7 +87,6 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getDropColor()), 10, 10, 10, 10));
             }
         }
-        ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
         tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
 
 

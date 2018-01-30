@@ -21,7 +21,7 @@
         android:background="@color/toolbar_bg"
         >
 
-        <com.tablayout.SlidingTabLayout
+        <com.tablayout.CommonTabLayout
             android:id="@+id/tl_2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/trans_79px"

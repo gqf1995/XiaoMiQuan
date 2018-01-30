@@ -22,9 +22,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 
     <style name="SwitchButtonStyle">
@@ -34,31 +34,36 @@
         <item name="android:paddingBottom">4dp</item>
     </style>
 
+    <style name="BlueCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/color_font4</item>
+        <item name="colorControlActivated">@color/color_blue</item>
+    </style>
+
     <declare-styleable name="CircleProgressView">
-        <attr name="cpv_progressNormalColor" format="color" />
-        <attr name="cpv_progressReachColor" format="color" />
-        <attr name="cpv_progressTextColor" format="color" />
-        <attr name="cpv_progressTextSize" format="dimension" />
-        <attr name="cpv_progressTextOffset" format="dimension" />
-        <attr name="cpv_progressNormalSize" format="dimension" />
-        <attr name="cpv_progressReachSize" format="dimension" />
-        <attr name="cpv_radius" format="dimension" />
-        <attr name="cpv_progressTextVisible" format="boolean" />
-        <attr name="cpv_progressStartArc" format="integer" />
-        <attr name="cpv_progressTextSkewX" format="dimension" />
-        <attr name="cpv_progressTextPrefix" format="string" />
-        <attr name="cpv_progressTextSuffix" format="string" />
-        <attr name="cpv_innerBackgroundColor" format="color" />
+        <attr name="cpv_progressNormalColor" format="color"/>
+        <attr name="cpv_progressReachColor" format="color"/>
+        <attr name="cpv_progressTextColor" format="color"/>
+        <attr name="cpv_progressTextSize" format="dimension"/>
+        <attr name="cpv_progressTextOffset" format="dimension"/>
+        <attr name="cpv_progressNormalSize" format="dimension"/>
+        <attr name="cpv_progressReachSize" format="dimension"/>
+        <attr name="cpv_radius" format="dimension"/>
+        <attr name="cpv_progressTextVisible" format="boolean"/>
+        <attr name="cpv_progressStartArc" format="integer"/>
+        <attr name="cpv_progressTextSkewX" format="dimension"/>
+        <attr name="cpv_progressTextPrefix" format="string"/>
+        <attr name="cpv_progressTextSuffix" format="string"/>
+        <attr name="cpv_innerBackgroundColor" format="color"/>
         <attr name="cpv_progressStyle" format="enum">
-            <enum name="Normal" value="0" />
-            <enum name="FillInner" value="1" />
-            <enum name="FillInnerArc" value="2" />
+            <enum name="Normal" value="0"/>
+            <enum name="FillInner" value="1"/>
+            <enum name="FillInnerArc" value="2"/>
         </attr>
-        <attr name="cpv_innerProgressColor" format="color" />
-        <attr name="cpv_innerPadding" format="dimension" />
-        <attr name="cpv_outerColor" format="color" />
-        <attr name="cpv_outerSize" format="dimension" />
-        <attr name="cpv_reachCapRound" format="boolean" />
+        <attr name="cpv_innerProgressColor" format="color"/>
+        <attr name="cpv_innerPadding" format="dimension"/>
+        <attr name="cpv_outerColor" format="color"/>
+        <attr name="cpv_outerSize" format="dimension"/>
+        <attr name="cpv_reachCapRound" format="boolean"/>
     </declare-styleable>
 
     <style name="SingleText">
@@ -72,6 +77,7 @@
     </style>
 
     //评论点赞pop
+
     <style name="social_pop_anim" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>
         <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>

@@ -1,11 +1,9 @@
-package com.xiaomiquan.adapter;
+package com.xiaomiquan.adapter.group;
 
 import android.content.Context;
 import android.widget.TextView;
 
-import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.xiaomiquan.R;
-import com.xiaomiquan.utils.UiHeplUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -15,26 +13,28 @@ import java.util.List;
  * Created by 郭青枫 on 2018/1/10 0010.
  */
 
-public class VolumeAdapter extends CommonAdapter<String> {
+public class LabelGroupNotDealAdapter extends CommonAdapter<String> {
 
 
+    private TextView tv_type;
+    private TextView tv_currency;
+    private TextView tv_state;
+    private TextView tv_entrust_price;
     private TextView tv_num;
-    private TextView tv_name;
-    private FontTextview tv_price;
-    private FontTextview tv_volume;
+    private TextView tv_operation;
 
-    public VolumeAdapter(Context context, List<String> datas) {
-        super(context, R.layout.adapter_volume, datas);
+    public LabelGroupNotDealAdapter(Context context, List<String> datas) {
+        super(context, R.layout.adapter_label_group_not_deal, datas);
     }
 
     @Override
     protected void convert(ViewHolder holder, String s, final int position) {
+        tv_type = holder.getView(R.id.tv_type);
+        tv_currency = holder.getView(R.id.tv_currency);
+        tv_state = holder.getView(R.id.tv_state);
+        tv_entrust_price = holder.getView(R.id.tv_entrust_price);
         tv_num = holder.getView(R.id.tv_num);
-        tv_name = holder.getView(R.id.tv_name);
-        tv_price = holder.getView(R.id.tv_price);
-        tv_volume = holder.getView(R.id.tv_volume);
-        tv_num.setText(UiHeplUtils.numIntToString(position, 2));
-
+        tv_operation = holder.getView(R.id.tv_operation);
     }
 
 }

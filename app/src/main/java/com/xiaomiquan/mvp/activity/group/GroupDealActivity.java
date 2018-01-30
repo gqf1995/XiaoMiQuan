@@ -14,13 +14,12 @@ import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.group.GroupDealAdapter;
-import com.xiaomiquan.adapter.group.GroupDealCurrencyAdapyer;
-import com.xiaomiquan.entity.bean.ExchangeData;
-import com.xiaomiquan.entity.bean.group.GroupDeal;
+import com.xiaomiquan.adapter.group.GroupDealCurrencyAdapter;
 import com.xiaomiquan.mvp.databinder.group.GroupDealBinder;
 import com.xiaomiquan.mvp.delegate.group.GroupDealDelegate;
-import com.xiaomiquan.mvp.fragment.group.GroupDealChooseFragment;
+import com.xiaomiquan.mvp.fragment.group.HistoryEntrustFragment;
+import com.xiaomiquan.mvp.fragment.group.HistoryTradingFragment;
+import com.xiaomiquan.mvp.fragment.group.NotDealFragment;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
@@ -32,6 +31,7 @@ import java.util.List;
  */
 
 public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, GroupDealBinder> {
+
     @Override
     public GroupDealBinder getDataBinder(GroupDealDelegate viewDelegate) {
         return new GroupDealBinder(viewDelegate);
@@ -62,8 +62,10 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
     private void initTablelayout() {
         mTitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_deal));
         fragments = new ArrayList<>();
+        fragments.add(new NotDealFragment());
+        fragments.add(new HistoryEntrustFragment());
+        fragments.add(new HistoryTradingFragment());
         for (int i = 0; i < mTitles.size(); i++) {
-            fragments.add(new GroupDealChooseFragment());
             mTabEntities.add(new TabEntity(mTitles.get(i), 0, 0));
         }
         viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
@@ -87,7 +89,6 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         viewDelegate.viewHolder.tl_2.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                viewDelegate.showFragment(position);
                 viewDelegate.viewHolder.vp_sliding.setCurrentItem(position, true);
             }
 
@@ -98,17 +99,18 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         });
     }
 
-    GroupDealCurrencyAdapyer currencyAdapyer;
+    GroupDealCurrencyAdapter currencyAdapyer;
+
     public void initCurrency() {
-        List<ExchangeData> datas = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            datas.add(i, new ExchangeData());
+        List<String> datas = new ArrayList<>();
+        for (int i = 0; i < 15; i++) {
+            datas.add("BTC");
         }
-        currencyAdapyer = new GroupDealCurrencyAdapyer(GroupDealActivity.this, datas);
+        currencyAdapyer = new GroupDealCurrencyAdapter(GroupDealActivity.this, datas);
         currencyAdapyer.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-
+                currencyAdapyer.setSelectPosition(position);
             }
 
             @Override
@@ -116,12 +118,27 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
                 return false;
             }
         });
-        viewDelegate.viewHolder.rv_currency.setLayoutManager(new LinearLayoutManager(GroupDealActivity.this) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
-                return false;
+                return true;
+            }
+        };
+        layoutManager.setSmoothScrollbarEnabled(true);
+        layoutManager.setAutoMeasureEnabled(true);
+
+        viewDelegate.viewHolder.rv_currency.setLayoutManager(layoutManager);
+        viewDelegate.viewHolder.rv_currency.setHasFixedSize(true);
+        viewDelegate.viewHolder.rv_currency.setNestedScrollingEnabled(false);
+        viewDelegate.viewHolder.rv_currency.setAdapter(currencyAdapyer);
+
+        viewDelegate.viewHolder.rv_currency.post(new Runnable() {
+            @Override
+            public void run() {
+                viewDelegate.viewHolder.nestedScrollView.setNoNeedScrollXEnd(viewDelegate.viewHolder.rv_currency.getMeasuredHeight());
             }
         });
-        viewDelegate.viewHolder.rv_currency.setAdapter(currencyAdapyer);
+
     }
+
 }

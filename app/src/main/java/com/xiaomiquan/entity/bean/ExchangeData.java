@@ -388,4 +388,40 @@ public class ExchangeData implements Parcelable {
             return new ExchangeData[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "ExchangeData{" +
+                "id='" + id + '\'' +
+                ", exchange='" + exchange + '\'' +
+                ", name='" + name + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", unit='" + unit + '\'' +
+                ", tradePair='" + tradePair + '\'' +
+                ", side='" + side + '\'' +
+                ", last='" + last + '\'' +
+                ", high='" + high + '\'' +
+                ", low='" + low + '\'' +
+                ", open='" + open + '\'' +
+                ", close='" + close + '\'' +
+                ", volume='" + volume + '\'' +
+                ", amount='" + amount + '\'' +
+                ", ask='" + ask + '\'' +
+                ", bid='" + bid + '\'' +
+                ", change='" + change + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", onlyKey='" + onlyKey + '\'' +
+                ", availableSupply='" + availableSupply + '\'' +
+                ", lastUpdated='" + lastUpdated + '\'' +
+                ", marketCapUsd='" + marketCapUsd + '\'' +
+                ", maxSupply='" + maxSupply + '\'' +
+                ", percentChange1h='" + percentChange1h + '\'' +
+                ", percentChange24h='" + percentChange24h + '\'' +
+                ", percentChange7d='" + percentChange7d + '\'' +
+                ", priceBtc='" + priceBtc + '\'' +
+                ", priceUsd='" + priceUsd + '\'' +
+                ", rank='" + rank + '\'' +
+                ", totalSupply='" + totalSupply + '\'' +
+                '}';
+    }
 }

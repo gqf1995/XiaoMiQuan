@@ -1,6 +1,7 @@
 package com.xiaomiquan.widget;
 
 import android.content.Context;
+import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -25,7 +26,24 @@ public class JudgeNestedScrollView extends NestedScrollView {
     private float xDistance, yDistance, xLast, yLast;
     int toolBarPositionY = 0;
     ViewPager viewPager;
+    View noScollView = null;
+    int[] locationNoScollView = new int[2];
 
+
+    int noWidth = 0;
+    int noHeight = 0;
+
+    public void setNoScollView(View view) {
+        this.noScollView = view;
+        noScollView.post(new Runnable() {
+            @Override
+            public void run() {
+                noWidth = noScollView.getMeasuredWidth();
+                noHeight = noScollView.getMeasuredHeight();
+                noScollView.getLocationOnScreen(locationNoScollView);
+            }
+        });
+    }
 
     public JudgeNestedScrollView(@NonNull Context context) {
         super(context);
@@ -63,14 +81,33 @@ public class JudgeNestedScrollView extends NestedScrollView {
                 view.getLocationOnScreen(location);
                 int xPosition = location[0];
                 int yPosition = location[1];
+
+                if (noScollView != null) {
+                    noScollView.getLocationOnScreen(locationNoScollView);
+                }
+
                 if (yPosition < toolBarPositionY) {
                     setNeedScroll(false);
                 } else {
                     setNeedScroll(true);
                 }
+
             }
         });
     }
+
+    int noNeedScrollXStart = 0;
+    int noNeedScrollXEnd = 0;
+
+    public void setNoNeedScrollXEnd(int noNeedScrollXEnd) {
+        this.noNeedScrollXEnd = noNeedScrollXEnd;
+    }
+
+    public void setNoNeedScrollXStart(int noNeedScrollXStart) {
+        this.noNeedScrollXStart = noNeedScrollXStart;
+    }
+
+    boolean isDo;
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
@@ -87,11 +124,24 @@ public class JudgeNestedScrollView extends NestedScrollView {
                 yDistance += Math.abs(curY - yLast);
                 xLast = curX;
                 yLast = curY;
-                if (xDistance > yDistance) {
-                    return false;
+                if (noScollView != null && locationNoScollView != null && noWidth != 0) {
+                    RectF rectF = new RectF(locationNoScollView[0], locationNoScollView[1], locationNoScollView[0] + noWidth,
+                            locationNoScollView[1] + noHeight);
+                    if (rectF.contains(ev.getRawX(), ev.getY())) {
+                        isDo = false;
+                        return false;
+                    } else {
+                        isDo = true;
+                    }
+                } else {
+                    isDo = true;
                 }
-                return isNeedScroll;
-
+                if (isDo) {
+                    if (xDistance > yDistance) {
+                        return false;
+                    }
+                    return isNeedScroll;
+                }
         }
         return super.onInterceptTouchEvent(ev);
     }

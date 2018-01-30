@@ -1,9 +1,11 @@
 package com.xiaomiquan.mvp.activity.group;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.group.CreatGroupBinder;
 import com.xiaomiquan.mvp.delegate.group.CreatGroupDelegate;
-import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 
 public class CreatGroupActivity extends BaseDataBindActivity<CreatGroupDelegate, CreatGroupBinder> {
 
@@ -21,7 +23,7 @@ public class CreatGroupActivity extends BaseDataBindActivity<CreatGroupDelegate,
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle("创建组合").setSubTitle("保存"));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_creat_combination)).setSubTitle(CommonUtils.getString(R.string.str_save)));
 
     }
 

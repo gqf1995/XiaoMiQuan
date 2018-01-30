@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.activity.market;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -136,6 +137,14 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
         activity.startActivityForResult(intent, code);
     }
 
+    public static void startAct(Activity activity,
+                                ArrayList<String> userSelectKeys,
+                                int code
+    ) {
+        Intent intent = new Intent(activity, AddCoinActivity.class);
+        intent.putStringArrayListExtra("userSelectKeys", userSelectKeys);
+        activity.startActivityForResult(intent, code);
+    }
 
     private void getIntentData() {
         Intent intent = getIntent();

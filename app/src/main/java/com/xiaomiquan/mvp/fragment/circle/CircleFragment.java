@@ -40,7 +40,7 @@ public class CircleFragment extends BaseDataBindFragment<CircleDelegate, CircleB
         mTitles = CommonUtils.getStringArray(R.array.sa_select_circle);
         fragments = new ArrayList<>();
         fragments.add(new SquareFragment());
-        fragments.add(new CircleDvpFragment());
+        fragments.add(new Fragment());
         viewDelegate.viewHolder.tl_2.setViewPager(viewDelegate.viewHolder.viewpager,
                 mTitles, getActivity(), fragments);
 

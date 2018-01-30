@@ -67,6 +67,8 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
             initTool();
+        } else {
+            getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);
         }
     }
 
