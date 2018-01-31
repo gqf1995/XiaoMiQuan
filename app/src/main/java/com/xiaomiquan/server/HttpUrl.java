@@ -259,4 +259,58 @@ public class HttpUrl {
      */
     public String savePraise = getBaseUrl() + "/praise/save";
 
+
+    /**
+     * 组合跟投
+     */
+    String demoUrl = "/demo";
+    /**
+     * 我的组合列表
+     */
+    public String listDemo = httpBaseUrl3 + demoUrl + "/listDemo";
+    /**
+     * 创建组合
+     */
+    public String save = httpBaseUrl3 + demoUrl + "/save";
+    /**
+     * 申请买卖
+     */
+    public String deal = httpBaseUrl3 + demoUrl + "/deal";
+    /**
+     * 成交历史
+     */
+    public String listDeal = httpBaseUrl3 + demoUrl + "/listDeal";
+    /**
+     * 委托历史
+     */
+    public String history = httpBaseUrl3 + demoUrl + "/history";
+    /**
+     * 持仓明细
+     */
+    public String listPosition = httpBaseUrl3 + demoUrl + "/listPosition";
+    /**
+     * 今日收益
+     */
+    public String getTodayInfo = httpBaseUrl3 + demoUrl + "/getTodayInfo";
+    /**
+     * 分期收益
+     */
+    public String adllRate = httpBaseUrl3 + demoUrl + "/adllRate";
+    /**
+     * 币种列表
+     */
+    public String searchCoin = httpBaseUrl3 + demoUrl + "/searchCoin";
+    /**
+     * 收益走势
+     */
+    public String rateTrend = httpBaseUrl3 + demoUrl + "/rateTrend";
+    /**
+     * 日均操作次数
+     */
+    public String getTransCount = httpBaseUrl3 + demoUrl + "/getTransCount";
+    /**
+     * 获取余额
+     */
+    public String getBalance = httpBaseUrl3 + demoUrl + "/getBalance";
+
 }

@@ -74,6 +74,7 @@
         <activity android:name=".mvp.activity.group.GroupDealActivity"/>
         <activity android:name=".mvp.activity.group.CombinationActivity"/>
         <activity android:name=".mvp.activity.group.EditIntroductionActivity"/>
+        <activity android:name=".mvp.activity.CustomRateActivity"/>
     </application>
 
 </manifest>

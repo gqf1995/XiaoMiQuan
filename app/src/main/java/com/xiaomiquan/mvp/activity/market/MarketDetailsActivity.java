@@ -371,7 +371,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         WebSocketRequest.getInstance().addCallBack(this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
             @Override
             public void onDataSuccess(String name, String data, String info, int status) {
-                if (this.getClass().getName().equals(name)) {
+                if (MarketDetailsActivity.this.getClass().getName().equals(name)) {
                     //推送数据
                     ExchangeData edata = GsonUtil.getInstance().toObj(data, ExchangeData.class);
                     if (!TextUtils.isEmpty(edata.getOnlyKey())) {

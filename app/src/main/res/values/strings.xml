@@ -23,6 +23,12 @@
     <string name="str_seconds_resend">重新发送</string>
     <string name="str_nologin">点击登录</string>
     <string name="str_warning_islogout">确定退出登陆吗?</string>
+    <string name="str_warning_issave">确认保存吗?</string>
+    <string name="str_toast_group_name">请输入组合名称</string>
+    <string name="str_toast_group_introduction">请输入组合简介</string>
+    <string name="str_toast_group_type">请选择组合类型</string>
+
+
 
     <string name="str_confirm">确认</string>
     <string name="str_determine">确定</string>
@@ -41,6 +47,7 @@
     <string name="str_currency_data">币种资料</string>
     <string name="str_global_market">全球行情</string>
     <string name="str_discuss">讨论</string>
+
 
     <string name="str_total">量\u3000</string>
     <string name="str_cost">费\u3000</string>
@@ -75,12 +82,15 @@
     <string name="str_night_model">夜间模式</string>
     <string name="str_price_model">默认显示价格</string>
     <string name="str_customer_service">在线客服</string>
+    <string name="str_user_home_page">我的个人主页</string>
     <string name="str_recommended">推荐给朋友</string>
     <string name="str_language">语言切换</string>
     <string name="str_security">安全中心</string>
     <string name="str_setting">设置</string>
     <string name="str_logout">退出登录</string>
     <string name="str_about_us">关于我们</string>
+    <string name="str_custom_rate">自定义汇率</string>
+    <string name="str_set_custom_rate">汇率设置</string>
     <string name="str_clean_cache">清理缓存</string>
     <string name="str_default_unit">默认价格显示</string>
     <string name="str_change_language">切换语言</string>
@@ -92,6 +102,7 @@
     <string name="str_search_coin_market">币行情搜索</string>
     <string name="str_search_coin_market_hint">搜索平台、币种</string>
     <string name="str_search_history">搜索历史</string>
+    <string name="str_search">搜索</string>
     <string name="str_hot_coin">热门币种</string>
     <string name="str_clean">清空</string>
     <string name="str_circulation">流通</string>
@@ -181,6 +192,7 @@
     <string name="str_tv_num">数量</string>
     <string name="str_tv_operation">操作</string>
     <string name="str_delect_order">撤单</string>
+    <string name="str_create_order">下单</string>
     <string name="str_creat_combination">创建组合</string>
     <string name="str_investment_combination">投资组合</string>
     <string name="str_my_group">我的组合</string>
@@ -189,6 +201,8 @@
     <string name="str_save">保存</string>
     <string name="str_fucose">关注</string>
     <string name="str_deal_time">成交时间</string>
+    <string name="str_come_from">来自:  </string>
+    <string name="str_hold_proportion_from">持仓比例从</string>
 
 
     <string-array name="price">
@@ -198,7 +212,6 @@
 
     <string-array name="sa_select_market">
         <item>自选</item>
-        <item>综合</item>
         <item>市值</item>
         <item>交易所</item>
         <item>BTC</item>

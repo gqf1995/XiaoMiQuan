@@ -51,6 +51,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 , R.id.checkbox_night_model
                 , R.id.checkbox_red_sticker
                 , R.id.lin_user
+                , R.id.lin_set0
                 , R.id.lin_set3
                 , R.id.lin_set4
                 , R.id.lin_set5
@@ -78,6 +79,11 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 if (SingSettingDBUtil.isLogin(getActivity())) {
                     //修改用户信息
                 }
+                break;
+            case R.id.lin_set0:
+                //我的个人主页
+
+
                 break;
             case R.id.lin_set3:
                 //显示默认价格

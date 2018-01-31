@@ -83,6 +83,7 @@
                     android:background="@color/base_mask"/>
 
                 <EditText
+                    android:id="@+id/et_content"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/text_trans_200px"
                     android:layout_marginTop="@dimen/text_trans_29px"

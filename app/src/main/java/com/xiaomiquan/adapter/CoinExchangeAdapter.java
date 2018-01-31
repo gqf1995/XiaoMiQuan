@@ -70,17 +70,17 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
 
         tv_coin_type.setText(s.getExchange());
 
-        tv_coin_unit.setText(s.getSymbol());
+        tv_coin_unit.setText(s.getUnit());
 
         tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + BigUIUtil.getinstance().bigAmount(s.getAmount()));
 
 
         tv_name.setText(CommonUtils.getString(R.string.str_rise) + BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
 
-        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(),s.getSymbol(), s.getUnit());
-        if(TextUtils.isEmpty(strings.get(0))){
+        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(), s.getSymbol(), s.getUnit());
+        if (TextUtils.isEmpty(strings.get(0))) {
             tv_coin_price.setText("--");
-        }else {
+        } else {
             tv_coin_price.setText(strings.get(0));
         }
         tv_coin_probably.setText(strings.get(1));
@@ -93,9 +93,10 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
     }
 
     public void updataOne(int position, ExchangeData data) {
-        mDatas.remove(position);
-        mDatas.add(data);
-        this.notifyItemChanged(position);
+        if (mDatas.size() > 0) {
+            mDatas.set(position, data);
+            this.notifyItemChanged(position);
+        }
     }
 
     public void setDatas(List<ExchangeData> datas) {

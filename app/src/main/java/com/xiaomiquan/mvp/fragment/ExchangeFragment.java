@@ -1,6 +1,5 @@
 package com.xiaomiquan.mvp.fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,7 +36,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import skin.support.widget.SkinCompatLinearLayout;
 
@@ -53,41 +51,39 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
     List<ExchangeData> dropDatas;
     List<String> sendKeys;
     List<String> unitList;
-    int gainsState = 0;
-    final int whatIndex = 1024;
+    final int whatIndex = 1025;
     String onlyKeys;
-
-    private ConcurrentLinkedQueue<ExchangeData> exchangeDataList;
-
+    int sortingType = 0;
     private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
 
-    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {//进行延时跳转
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case whatIndex:
-                    if (exchangeDataMap == null) {
-                        return;
-                    }
-                    if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
-                        //recycleView正在滑动
-                    } else {
-                        //更新数据
-                        Iterator iter = exchangeDataMap.entrySet().iterator();
-                        while (iter.hasNext()) {
-                            if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
-                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
-                                return;
-                            }
-                            Map.Entry entry = (Map.Entry) iter.next();
-                            ExchangeData val = (ExchangeData) entry.getValue();
-                            if (val != null) {
-                                updataNew(val);
-                            } else {
-                                break;
+                    if (isVisible) {
+                        if (exchangeDataMap == null) {
+                            return;
+                        }
+                        if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
+                            //recycleView正在滑动
+                        } else {
+                            //更新数据
+                            Iterator iter = exchangeDataMap.entrySet().iterator();
+                            while (iter.hasNext()) {
+                                if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
+                                    handler.sendEmptyMessageDelayed(whatIndex, 1000);
+                                    return;
+                                }
+                                Map.Entry entry = (Map.Entry) iter.next();
+                                ExchangeData val = (ExchangeData) entry.getValue();
+                                String key = (String) entry.getKey();
+                                if (val != null) {
+                                    updataNew(val);
+                                    exchangeDataMap.remove(key);
+                                } else {
+                                }
                             }
                         }
-                        exchangeDataMap.clear();
                     }
                     handler.sendEmptyMessageDelayed(whatIndex, 1000);
                     break;
@@ -115,6 +111,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
     private void initList(List<ExchangeData> strDatas) {
         if (exchangeMarketAdapter == null) {
             exchangeMarketAdapter = new ExchangeMarketAdapter(getActivity(), strDatas);
+            exchangeMarketAdapter.setFirst(true);
             exchangeMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -130,13 +127,12 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
-            //viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
-            //viewDelegate.viewHolder.recycler_view.setAdapter(exchangeMarketAdapter);
             initTool();
         } else {
-            //exchangeMarketAdapter.setDatas(strDatas);
+            exchangeMarketAdapter.setFirst(true);
             getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);
         }
+        exchangeMarketAdapter.setFirst(false);
     }
 
     public TextView tv_unit;
@@ -169,12 +165,14 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
         tv_rise.setOnChange(new GainsTabView.OnChange() {
             @Override
             public void onChange(int isTop) {
-                gainsState = isTop;
+                sortingType = isTop;
                 if (isTop == 0) {
                     exchangeMarketAdapter.setDatas(strDatas);
                 } else if (isTop == 1) {
+                    initRise();
                     exchangeMarketAdapter.setDatas(riseDatas);
                 } else if (isTop == 2) {
+                    initDrop();
                     exchangeMarketAdapter.setDatas(dropDatas);
                 }
             }
@@ -195,11 +193,23 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
                 initList(datas);
-                if (datas != null) {
-                    if (datas.size() > 0) {
-                        strDatas.addAll(datas);
+                strDatas.clear();
+                strDatas.addAll(exchangeMarketAdapter.getDatas());
+                if (strDatas.size() > 0) {
+                    //排序
+                    if (sortingType == 0) {
+                        exchangeMarketAdapter.setDatas(strDatas);
+                    } else if (sortingType == 1) {
                         initRise();
+                        exchangeMarketAdapter.setDatas(riseDatas);
+                    } else if (sortingType == 2) {
                         initDrop();
+                        exchangeMarketAdapter.setDatas(dropDatas);
+                    }
+                }
+                if (datas != null) {
+                    //发送 更新请求
+                    if (datas.size() > 0) {
                         sendWebSocket();
                         onlyKeys = datas.get(0).getOnlyKey();
                     }
@@ -208,8 +218,11 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
         }
     }
 
+    boolean isVisible;
+
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
+        this.isVisible = isVisible;
         if (isVisible) {
             onRefresh();
             //同步用户所选 单位
@@ -226,7 +239,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     @Override
     protected void onFragmentFirstVisible() {
-        strDatas = Collections.synchronizedList(new ArrayList());
+        strDatas = new ArrayList<>();
         initList(new ArrayList<ExchangeData>());
         WebSocketRequest.getInstance().addCallBack(exchangeName.getEname(), new WebSocketRequest.WebSocketCallBack() {
             @Override
@@ -235,13 +248,11 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
                     //推送数据
                     ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
                     if (!TextUtils.isEmpty(exchangeData.getOnlyKey())) {
-                        if (exchangeData.getOnlyKey().equals(onlyKeys)) {
-                            if (exchangeDataMap == null) {
-                                exchangeDataMap = new ConcurrentHashMap<>();
-                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
-                            }
-                            exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
+                        if (exchangeDataMap == null) {
+                            exchangeDataMap = new ConcurrentHashMap<>();
+                            handler.sendEmptyMessageDelayed(whatIndex, 1000);
                         }
+                        exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
                     }
                 }
             }
@@ -256,33 +267,21 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
     //新数据推送 更新
     private void updataNew(ExchangeData data) {
         int updataPosition = 0;
-        if (strDatas == null || riseDatas == null || dropDatas == null) {
+        if (exchangeMarketAdapter == null) {
             return;
+        }
+        for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
+            if (exchangeMarketAdapter.getDatas().get(i).getOnlyKey().equals(data.getOnlyKey())) {
+                //                exchangeMarketAdapter.getDatas().remove(i);
+                //                exchangeMarketAdapter.getDatas().add(i,data);
+                //                exchangeMarketAdapter.notifyDataSetChanged();
+                updataPosition = i;
+                break;
+            }
         }
         for (int i = 0; i < strDatas.size(); i++) {
             if (strDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
                 strDatas.set(i, data);
-                if (gainsState == 0) {
-                    updataPosition = i;
-                }
-                break;
-            }
-        }
-        for (int i = 0; i < riseDatas.size(); i++) {
-            if (riseDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
-                riseDatas.set(i, data);
-                if (gainsState == 1) {
-                    updataPosition = i;
-                }
-                break;
-            }
-        }
-        for (int i = 0; i < dropDatas.size(); i++) {
-            if (dropDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
-                dropDatas.set(i, data);
-                if (gainsState == 2) {
-                    updataPosition = i;
-                }
                 break;
             }
         }
@@ -344,7 +343,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     private void initRise() {
         if (riseDatas == null) {
-            riseDatas = Collections.synchronizedList(new ArrayList());
+            riseDatas = new ArrayList<>();
         } else {
             riseDatas.clear();
         }
@@ -355,7 +354,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     private void initDrop() {
         if (dropDatas == null) {
-            dropDatas = Collections.synchronizedList(new ArrayList());
+            dropDatas = new ArrayList<>();
         } else {
             dropDatas.clear();
         }

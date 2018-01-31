@@ -11,9 +11,13 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.tablayout.CommonTabLayout;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.xiaomiquan.utils.TimeUtils.DEFAULT_FORMAT;
 
 public class CombinationDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
@@ -26,11 +30,20 @@ public class CombinationDelegate extends BaseDelegate {
         viewHolder = new ViewHolder(getRootView());
         viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_110px), viewHolder.viewpager, true);
 
-//        ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) viewHolder.viewpager.getLayoutParams();
-//        layoutParams.height = ScreenUtils.getScreenHeight()  - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_270px) - BarUtils.getStatusBarHeight();
-//        viewHolder.viewpager.setLayoutParams(layoutParams);
+        //        ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) viewHolder.viewpager.getLayoutParams();
+        //        layoutParams.height = ScreenUtils.getScreenHeight()  - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_270px) - BarUtils.getStatusBarHeight();
+        //        viewHolder.viewpager.setLayoutParams(layoutParams);
     }
 
+
+    public void initData(GroupItem groupItem) {
+        GlideUtils.loadImage(groupItem.getAvatar(), viewHolder.ic_pic);
+        viewHolder.tv_name.setText(groupItem.getName());
+        viewHolder.tv_focus_on_num.setText(groupItem.getAttentionCount());
+        viewHolder.tv_label.setText(groupItem.getType());
+        viewHolder.tv_create_time.setText(com.blankj.utilcode.util.TimeUtils.millis2String(groupItem.getCreateTime(), DEFAULT_FORMAT));
+        viewHolder.tv_introduce.setText(groupItem.getBrief());
+    }
 
     @Override
     protected int getLayoutId() {

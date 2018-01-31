@@ -1,7 +1,8 @@
 package com.xiaomiquan.mvp.activity.group;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -9,8 +10,8 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
-import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.mvp.databinder.CombinationBinder;
 import com.xiaomiquan.mvp.delegate.CombinationDelegate;
 import com.xiaomiquan.mvp.fragment.group.GroupDetailListFragment;
@@ -20,6 +21,9 @@ import com.xiaomiquan.mvp.fragment.group.GroupNotDealFragment;
 
 import java.util.ArrayList;
 
+/**
+ * 组合详情
+ */
 public class CombinationActivity extends BaseDataBindActivity<CombinationDelegate, CombinationBinder> {
     ArrayList<Fragment> fragments;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
@@ -38,53 +42,38 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
     protected void clickRightTv() {
         super.clickRightTv();
         //修改简介
-
+        EditIntroductionActivity.startAct(this, groupItem.getId(), groupItem.getBrief());
     }
+
+    public static void startAct(Activity activity,
+                                GroupItem groupItem,
+                                boolean isMy
+    ) {
+        Intent intent = new Intent(activity, CombinationActivity.class);
+        intent.putExtra("groupItem", groupItem);
+        intent.putExtra("isMy", isMy);
+        activity.startActivity(intent);
+    }
+
+    private GroupItem groupItem;
+    boolean isMy;
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        groupItem = intent.getParcelableExtra("groupItem");
+        isMy = intent.getBooleanExtra("isMy", false);
+        viewDelegate.initData(groupItem);
+        addRequest(binder.getTodayInfo(groupItem.getId(), this));
+    }
+
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(CommonUtils.getString(R.string.str_change_introduction)));
-        String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_combination);
-        fragments = new ArrayList<>();
-        fragments.add(new GroupDetailListFragment());
-        fragments.add(new GroupNotDealFragment());
-        fragments.add(new GroupHistoryTradingFragment());
-        fragments.add(new GroupHistoryEntrustFragment());
+        getIntentData();
+        initToolbar(new ToolbarBuilder().setTitle(groupItem.getName()).setSubTitle(isMy ? CommonUtils.getString(R.string.str_change_introduction) : ""));
+        initViews();
 
-        for (int i = 0; i < stringArray.length; i++) {
-            mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
-        }
-        viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
-        viewDelegate.viewHolder.viewpager.setAdapter(new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray));
-        viewDelegate.viewHolder.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                viewDelegate.viewHolder.tl_2.setCurrentTab(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        viewDelegate.viewHolder.tl_2.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                viewDelegate.showFragment(position);
-                viewDelegate.viewHolder.viewpager.setCurrentItem(position, true);
-            }
-
-            @Override
-            public void onTabReselect(int position) {
-
-            }
-        });
     }
 
 
@@ -92,7 +81,34 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+            case 0x123:
+                //今日收益&日均操作次数
+                addRequest(binder.adllRate(groupItem.getId(), this));
+                break;
+            case 0x124:
+                //分期收益
+                addRequest(binder.rateTrend(groupItem.getId(), this));
+                break;
+            case 0x125:
+                //收益走势
+
+                break;
         }
+    }
+
+    private void initViews(){
+        String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_combination);
+        fragments = new ArrayList<>();
+        fragments.add(new GroupDetailListFragment());
+        fragments.add(new GroupNotDealFragment());
+        fragments.add(new GroupHistoryTradingFragment());
+        fragments.add(new GroupHistoryEntrustFragment());
+        for (int i = 0; i < stringArray.length; i++) {
+            mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
+        }
+        viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
+        InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
+        viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter,viewDelegate.viewHolder.viewpager);
     }
 
 }

@@ -82,28 +82,20 @@
         </LinearLayout>
 
 
-        <TextView
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
             android:id="@+id/tv_look"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical|right"
+            android:layout_marginRight="@dimen/trans_20px"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/str_tv_info"
             android:textColor="@color/color_font3"
             android:textSize="@dimen/text_trans_24px"/>
 
-        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/trans_10px"
-            android:layout_marginRight="@dimen/trans_20px"
-            android:text="@string/ic_Next"
-            android:textColor="@color/color_font3"
-            android:textSize="@dimen/text_trans_24px"/>
 
     </LinearLayout>
 

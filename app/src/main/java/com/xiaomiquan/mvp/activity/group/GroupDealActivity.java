@@ -2,9 +2,6 @@ package com.xiaomiquan.mvp.activity.group;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -14,13 +11,12 @@ import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.group.GroupDealCurrencyAdapter;
 import com.xiaomiquan.mvp.databinder.group.GroupDealBinder;
 import com.xiaomiquan.mvp.delegate.group.GroupDealDelegate;
+import com.xiaomiquan.mvp.fragment.group.CurrencyFragment;
 import com.xiaomiquan.mvp.fragment.group.HistoryEntrustFragment;
 import com.xiaomiquan.mvp.fragment.group.HistoryTradingFragment;
 import com.xiaomiquan.mvp.fragment.group.NotDealFragment;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +27,8 @@ import java.util.List;
  */
 
 public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, GroupDealBinder> {
+    CurrencyFragment currencyFragmentBuy;
+    CurrencyFragment currencyFragmentSell;
 
     @Override
     public GroupDealBinder getDataBinder(GroupDealDelegate viewDelegate) {
@@ -99,46 +97,14 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         });
     }
 
-    GroupDealCurrencyAdapter currencyAdapyer;
 
     public void initCurrency() {
-        List<String> datas = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            datas.add("BTC");
-        }
-        currencyAdapyer = new GroupDealCurrencyAdapter(GroupDealActivity.this, datas);
-        currencyAdapyer.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                currencyAdapyer.setSelectPosition(position);
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
-        });
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this) {
-            @Override
-            public boolean canScrollVertically() {
-                return true;
-            }
-        };
-        layoutManager.setSmoothScrollbarEnabled(true);
-        layoutManager.setAutoMeasureEnabled(true);
-
-        viewDelegate.viewHolder.rv_currency.setLayoutManager(layoutManager);
-        viewDelegate.viewHolder.rv_currency.setHasFixedSize(true);
-        viewDelegate.viewHolder.rv_currency.setNestedScrollingEnabled(false);
-        viewDelegate.viewHolder.rv_currency.setAdapter(currencyAdapyer);
-
-        viewDelegate.viewHolder.rv_currency.post(new Runnable() {
-            @Override
-            public void run() {
-                viewDelegate.viewHolder.nestedScrollView.setNoNeedScrollXEnd(viewDelegate.viewHolder.rv_currency.getMeasuredHeight());
-            }
-        });
-
+        currencyFragmentBuy = new CurrencyFragment();
+        currencyFragmentSell = new CurrencyFragment();
+        viewDelegate.initAddFragment(R.id.fl_currency, getSupportFragmentManager());
+        viewDelegate.addFragment(currencyFragmentBuy);
+        viewDelegate.addFragment(currencyFragmentSell);
+        viewDelegate.showFragment(0);
     }
 
 }

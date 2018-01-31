@@ -221,4 +221,75 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .RxSendRequest();
 
     }
+
+    /**
+     * 我的组合
+     */
+    public Disposable listDemo(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().listDemo)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("我的组合")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 币种列表
+     */
+    public Disposable searchCoin(
+            String name,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("name", name);
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().searchCoin)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("币种列表")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 成交历史
+     */
+    public Disposable listDeal(
+            String demoId,
+            String status,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("demoId", demoId);
+        baseMap.put("status", status);// 1：已成交 2：未成交
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().listDeal)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("成交历史")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
 }

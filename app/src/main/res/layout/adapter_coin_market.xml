@@ -33,11 +33,14 @@
 
                 <TextView
                     android:id="@+id/tv_num"
-                    android:layout_width="@dimen/trans_35px"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/trans_35px"
                     android:layout_marginRight="@dimen/trans_15px"
+                    android:minWidth="@dimen/trans_35px"
                     android:background="@drawable/select_commit"
                     android:gravity="center"
+                    android:paddingLeft="@dimen/trans_3px"
+                    android:paddingRight="@dimen/trans_3px"
                     android:text="01"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_trans_20px"/>
@@ -53,8 +56,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="BTC"
                         android:paddingRight="@dimen/trans_10px"
+                        android:text="BTC"
                         android:textColor="@color/color_font1"
                         android:textSize="@dimen/text_trans_48px"
                         app:TypeFace="SemiBold"/>
@@ -63,7 +66,9 @@
                         android:id="@+id/tv_coin_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
                         android:gravity="center"
+                        android:lines="1"
                         android:text="BTC"
                         android:textColor="@color/color_font1"
                         android:textSize="@dimen/text_trans_28px"

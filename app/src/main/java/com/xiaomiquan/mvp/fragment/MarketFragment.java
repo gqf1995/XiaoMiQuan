@@ -39,6 +39,8 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     List<String> mTitles;
     List<ExchangeName> exchangeNameList;
 
+    int defaultLenght;
+
     @Override
     protected Class<TabViewpageDelegate> getDelegateClass() {
         return TabViewpageDelegate.class;
@@ -145,28 +147,23 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         fragments = new ArrayList<>();
         mTitles = new ArrayList<>();
         List<String> strings = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_market));
+        defaultLenght = strings.size();
         userChooseFragment = new UserChooseFragment();
         comprehensiveFragment = new ComprehensiveFragment();
         marketValueFragment = new MarketValueFragment();
         exchangeNameListFragment = ExchangeNameListFragment.newInstance((ArrayList<ExchangeName>) exchangeNames);
 
         fragments.add(userChooseFragment);
-        fragments.add(comprehensiveFragment);
+        //fragments.add(comprehensiveFragment);
         fragments.add(marketValueFragment);
         fragments.add(exchangeNameListFragment);
-        for (int i = 4; i < 8; i++) {
+        for (int i = defaultLenght - 4; i < defaultLenght; i++) {
             fragments.add(CoinExchangeFragment.newInstance(strings.get(i)));
         }
 
-
-        mTitles.add(strings.get(0));
-        mTitles.add(strings.get(1));
-        mTitles.add(strings.get(2));
-        mTitles.add(strings.get(3));
-        mTitles.add(strings.get(4));
-        mTitles.add(strings.get(5));
-        mTitles.add(strings.get(6));
-        mTitles.add(strings.get(7));
+        for (int i = 0; i < defaultLenght; i++) {
+            mTitles.add(strings.get(i));
+        }
 
         for (int i = 0; i < exchangeNames.size(); i++) {
             mTitles.add(exchangeNames.get(i).getEname());
@@ -184,7 +181,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 ExchangeName exchangeName = (ExchangeName) item;
                 for (int i = 0; i < exchangeNameList.size(); i++) {
                     if (exchangeNameList.get(i).getEname().equals(exchangeName.getEname())) {
-                        viewDelegate.viewHolder.tl_2.setCurrentTab(i + 8);
+                        viewDelegate.viewHolder.tl_2.setCurrentTab(i + defaultLenght);
                         break;
                     }
                 }
@@ -221,7 +218,6 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 } else {
                     if (exchangeNames.size() != exchangeNameList.size()) {
                         CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-                        //initTablelayout(exchangeNames);
                     }
                 }
                 break;

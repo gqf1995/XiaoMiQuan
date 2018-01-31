@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.util.TypedValue;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
+import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.tablayout.utils.FragmentChangeManager;
@@ -201,7 +203,7 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
             mTextSelectColor = color;
         }
         if (mIndicatorColorId != INVALID_ID) {
-            int color = CommonUtils.getColor( mIndicatorColorId);
+            int color = CommonUtils.getColor(mIndicatorColorId);
             mIndicatorColor = color;
         }
         updateTabStyles();
@@ -233,14 +235,14 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
 
         mUnderlineColor = ta.getColor(R.styleable.CommonTabLayout_tl_underline_color, Color.parseColor("#ffffff"));
         if (ta.getResourceId(R.styleable.CommonTabLayout_tl_underline_color, INVALID_ID) != INVALID_ID) {
-            mUnderlineColor =CommonUtils.getColor( ta.getResourceId(R.styleable.CommonTabLayout_tl_underline_color, INVALID_ID));
+            mUnderlineColor = CommonUtils.getColor(ta.getResourceId(R.styleable.CommonTabLayout_tl_underline_color, INVALID_ID));
         }
         mUnderlineHeight = ta.getDimension(R.styleable.CommonTabLayout_tl_underline_height, dp2px(0));
         mUnderlineGravity = ta.getInt(R.styleable.CommonTabLayout_tl_underline_gravity, Gravity.BOTTOM);
 
         mDividerColor = ta.getColor(R.styleable.CommonTabLayout_tl_divider_color, Color.parseColor("#ffffff"));
         if (ta.getResourceId(R.styleable.CommonTabLayout_tl_divider_color, INVALID_ID) != INVALID_ID) {
-            mDividerColor = CommonUtils.getColor( ta.getResourceId(R.styleable.CommonTabLayout_tl_divider_color, INVALID_ID));
+            mDividerColor = CommonUtils.getColor(ta.getResourceId(R.styleable.CommonTabLayout_tl_divider_color, INVALID_ID));
         }
         mDividerWidth = ta.getDimension(R.styleable.CommonTabLayout_tl_divider_width, dp2px(0));
         mDividerPadding = ta.getDimension(R.styleable.CommonTabLayout_tl_divider_padding, dp2px(12));
@@ -252,7 +254,7 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
         }
         mTextUnselectColor = ta.getColor(R.styleable.CommonTabLayout_tl_textUnselectColor, Color.parseColor("#AAffffff"));
         if (ta.getResourceId(R.styleable.CommonTabLayout_tl_textUnselectColor, INVALID_ID) != INVALID_ID) {
-            mTextUnselectColor = CommonUtils.getColor( ta.getResourceId(R.styleable.CommonTabLayout_tl_textUnselectColor, INVALID_ID));
+            mTextUnselectColor = CommonUtils.getColor(ta.getResourceId(R.styleable.CommonTabLayout_tl_textUnselectColor, INVALID_ID));
         }
         mTextBold = ta.getInt(R.styleable.CommonTabLayout_tl_textBold, TEXT_BOLD_NONE);
         mTextAllCaps = ta.getBoolean(R.styleable.CommonTabLayout_tl_textAllCaps, false);
@@ -269,6 +271,40 @@ public class CommonTabLayout extends SkinCompatFrameLayout implements ValueAnima
 
 
         ta.recycle();
+    }
+
+    ViewPager mViewPager;
+
+    public void setViewPager(InnerPagerAdapter innerPagerAdapter, ViewPager viewPager) {
+        mViewPager = viewPager;
+        viewPager.setAdapter(innerPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setCurrentTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                mViewPager.setCurrentItem(position, true);
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
     }
 
     public void setTabData(ArrayList<CustomTabEntity> tabEntitys) {

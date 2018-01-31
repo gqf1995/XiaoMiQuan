@@ -6,8 +6,8 @@ import android.view.View;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.group.GroupAdapter;
-import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.adapter.group.MyGroupAdapter;
+import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.mvp.activity.group.CombinationActivity;
 import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
 import com.xiaomiquan.mvp.databinder.group.GroupChangeBinder;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
 
-    GroupAdapter groupAdapter;
+    MyGroupAdapter myGroupAdapter;
 
     @Override
     public GroupChangeBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
@@ -45,12 +45,9 @@ public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDeleg
     }
 
     private void initList() {
-        List<ExchangeData> datas = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            datas.add(i, new ExchangeData());
-        }
-        groupAdapter = new GroupAdapter(getActivity(), datas);
-        groupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+        List<GroupItem> datas = new ArrayList<>();
+        myGroupAdapter = new MyGroupAdapter(getActivity(), datas);
+        myGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
             public void onClick(View view, final int position, Object item) {
                 if (view.getId() == R.id.tv_deal) {
@@ -61,7 +58,7 @@ public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDeleg
                 }
             }
         });
-        initRecycleViewPull(groupAdapter, new LinearLayoutManager(getActivity()));
+        initRecycleViewPull(myGroupAdapter, new LinearLayoutManager(getActivity()));
         onRefresh();
     }
 

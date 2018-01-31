@@ -14,7 +14,6 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.utils.BigUIUtil;
-import com.xiaomiquan.utils.UiHeplUtils;
 import com.xiaomiquan.utils.UserSet;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -59,7 +58,7 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
         tv_coin_probably = holder.getView(R.id.tv_coin_probably);
         ic_piv.setEnabled(false);
 
-        tv_num.setText(UiHeplUtils.numIntToString(position + 1, 2));
+        tv_num.setText(s.getRank());
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
         tv_coin_type.setText(s.getSymbol());
         tv_coin_unit.setText(s.getName());
@@ -85,10 +84,18 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
             } else {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getDropColor()), 10, 10, 10, 10));
             }
+        }else {
+            ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
         }
         tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getPercentChange24h()) + "%");
     }
 
+    public void updataOne(int position, ExchangeData data) {
+        if(mDatas.size()>0) {
+            mDatas.set(position,data);
+            this.notifyItemChanged(position);
+        }
+    }
 
     public void setDatas(List<ExchangeData> datas) {
         mDatas.clear();

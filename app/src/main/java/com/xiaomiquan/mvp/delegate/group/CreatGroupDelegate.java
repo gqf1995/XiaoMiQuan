@@ -18,6 +18,22 @@ public class CreatGroupDelegate extends BaseDelegate {
         viewHolder = new ViewHolder(getRootView());
         viewHolder.ck_circle.setTextColor(CommonUtils.getColor(R.color.color_font1));
         viewHolder.ck_live.setTextColor(CommonUtils.getColor(R.color.color_font1));
+        viewHolder.ck_circle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (viewHolder.ck_circle.isChecked()) {
+                    viewHolder.ck_live.setChecked(false);
+                }
+            }
+        });
+        viewHolder.ck_live.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (viewHolder.ck_live.isChecked()) {
+                    viewHolder.ck_circle.setChecked(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -29,6 +45,7 @@ public class CreatGroupDelegate extends BaseDelegate {
     public static class ViewHolder {
         public View rootView;
         public EditText et_con;
+        public EditText et_content;
         public SkinCompatCheckBox ck_live;
         public SkinCompatCheckBox ck_circle;
         public TextView tv_input_label1;
@@ -36,6 +53,7 @@ public class CreatGroupDelegate extends BaseDelegate {
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.et_con = (EditText) rootView.findViewById(R.id.et_con);
+            this.et_content = (EditText) rootView.findViewById(R.id.et_content);
             this.ck_live = (SkinCompatCheckBox) rootView.findViewById(R.id.ck_live);
             this.ck_circle = (SkinCompatCheckBox) rootView.findViewById(R.id.ck_circle);
             this.tv_input_label1 = (TextView) rootView.findViewById(R.id.tv_input_label1);

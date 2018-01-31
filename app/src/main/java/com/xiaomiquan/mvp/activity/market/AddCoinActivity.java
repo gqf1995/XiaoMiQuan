@@ -61,10 +61,13 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
         }
 
         List<String> strings = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_market));
+
+
+
+        mTitles.add(strings.get(3));
         mTitles.add(strings.get(4));
         mTitles.add(strings.get(5));
         mTitles.add(strings.get(6));
-        mTitles.add(strings.get(7));
 
         for (int i = 0; i < exchangeNames.size(); i++) {
             mTitles.add(exchangeNames.get(i).getEname());
@@ -74,7 +77,7 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
             fragments.add(SelectAddCoinFragment.newInstance(mTitles.get(i)));
         }
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < strings.size()-4; i++) {
             if (fragments.get(i) instanceof SelectAddCoinFragment) {
                 ((SelectAddCoinFragment) fragments.get(i)).setCoin(true);
             }

@@ -1,14 +1,15 @@
 package com.xiaomiquan.mvp.delegate.group;
 
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.view.NoParentsTouchFramelayout;
 import com.tablayout.CommonTabLayout;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -37,6 +38,7 @@ public class GroupDealDelegate extends BaseDelegate {
             @Override
             public void onTabSelect(int position) {
                 changeType(position == 0);
+                showFragment(position);
             }
 
             @Override
@@ -44,13 +46,15 @@ public class GroupDealDelegate extends BaseDelegate {
 
             }
         });
-        viewHolder.nestedScrollView.setNoScollView(viewHolder.rv_currency);
+        viewHolder.nestedScrollView.setNoScollView(viewHolder.fl_currency);
         changeType(true);
+        viewHolder.et_coin_search.setBackground(new RadiuBg(CommonUtils.getColor(R.color.base_mask), 1000, 1000, 1000, 1000));
     }
 
     private void changeType(boolean isBuy) {
         viewHolder.tv_price_label.setText(CommonUtils.getString(isBuy ? R.string.str_tv_buy_price : R.string.str_tv_sell_price));
         viewHolder.tv_num_label.setText(CommonUtils.getString(isBuy ? R.string.str_tv_buy_num : R.string.str_tv_sell_num));
+        viewHolder.et_coin_search.setVisibility(isBuy ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
@@ -71,7 +75,8 @@ public class GroupDealDelegate extends BaseDelegate {
         public View rootView;
         public CommonTabLayout tl_1;
         public TextView tv_input_label1;
-        public RecyclerView rv_currency;
+        public EditText et_coin_search;
+        public NoParentsTouchFramelayout fl_currency;
         public TextView tv_sell_price;
         public LinearLayout lin_sell;
         public TextView tv_buy_price;
@@ -91,7 +96,8 @@ public class GroupDealDelegate extends BaseDelegate {
             this.rootView = rootView;
             this.tl_1 = (CommonTabLayout) rootView.findViewById(R.id.tl_1);
             this.tv_input_label1 = (TextView) rootView.findViewById(R.id.tv_input_label1);
-            this.rv_currency = (RecyclerView) rootView.findViewById(R.id.rv_currency);
+            this.et_coin_search = (EditText) rootView.findViewById(R.id.et_coin_search);
+            this.fl_currency = (NoParentsTouchFramelayout) rootView.findViewById(R.id.fl_currency);
             this.tv_sell_price = (TextView) rootView.findViewById(R.id.tv_sell_price);
             this.lin_sell = (LinearLayout) rootView.findViewById(R.id.lin_sell);
             this.tv_buy_price = (TextView) rootView.findViewById(R.id.tv_buy_price);

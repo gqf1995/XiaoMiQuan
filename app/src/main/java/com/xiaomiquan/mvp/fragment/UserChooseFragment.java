@@ -1,6 +1,5 @@
 package com.xiaomiquan.mvp.fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,7 +44,6 @@ import static com.xiaomiquan.base.AppConst.CACHE_CHOOSE;
 public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
     ExchangeMarketAdapter exchangeMarketAdapter;
-    List<ExchangeData> strDatas;
     List<ExchangeData> defaultDatas;
     List<ExchangeData> riseDatas;
     List<ExchangeData> dropDatas;
@@ -54,15 +52,14 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     List<String> sendKeys;
     ArrayList<String> strings;
     UserLogin userLogin;
-    String onlyKeys;
     boolean isOnRefush = false;//第一个页面 使用onFragmentVisibleChange有问题
+    int sortingType = 0;
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         userLogin = SingSettingDBUtil.getUserLogin();
-        strDatas = new ArrayList<>();
-        initList(strDatas);
+        initList(new ArrayList<ExchangeData>());
     }
 
     public ExchangeMarketAdapter getExchangeMarketAdapter() {
@@ -71,7 +68,6 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
 
     public TextView tv_unit;
     public GainsTabView tv_rise;
-    int gainsState = 0;
 
     private void initTool() {
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_exchange_tool, null);
@@ -90,14 +86,16 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         tv_rise.setOnChange(new GainsTabView.OnChange() {
             @Override
             public void onChange(int isTop) {
-                gainsState = isTop;
                 if (isTop == 0) {
                     exchangeMarketAdapter.setDatas(defaultDatas);
                 } else if (isTop == 1) {
+                    initRise();
                     exchangeMarketAdapter.setDatas(riseDatas);
                 } else if (isTop == 2) {
+                    initDrop();
                     exchangeMarketAdapter.setDatas(dropDatas);
                 }
+                headerAndFooterWrapper.notifyDataSetChanged();
             }
         });
         tv_unit.setOnClickListener(new View.OnClickListener() {
@@ -191,10 +189,24 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         switch (requestCode) {
             case 0x123:
                 isOnRefush = false;
-                defaultDatas = GsonUtil.getInstance().toList(data, ExchangeData.class);
-                if (defaultDatas != null) {
-                    if (defaultDatas.size() > 0) {
-                        getDataBack(strDatas, defaultDatas, headerAndFooterWrapper);
+                List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
+                getDataBack(exchangeMarketAdapter.getDatas(), datas, headerAndFooterWrapper);
+                defaultDatas.clear();
+                defaultDatas.addAll(exchangeMarketAdapter.getDatas());
+                if (defaultDatas.size() > 0) {
+                    if (sortingType == 0) {
+                        exchangeMarketAdapter.setDatas(defaultDatas);
+                    } else if (sortingType == 1) {
+                        initRise();
+                        exchangeMarketAdapter.setDatas(riseDatas);
+                    } else if (sortingType == 2) {
+                        initDrop();
+                        exchangeMarketAdapter.setDatas(dropDatas);
+                    }
+                    headerAndFooterWrapper.notifyDataSetChanged();
+                }
+                if (datas != null) {
+                    if (datas.size() > 0) {
                         if (defaultDatas.size() > 0) {
                             //如果有数据 则底部显示添加自选按钮
                             lin_root.setVisibility(View.VISIBLE);
@@ -202,20 +214,18 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                             lin_root.setVisibility(View.GONE);
                             viewDelegate.viewHolder.pull_recycleview.scrollToPosition(headerAndFooterWrapper.getItemCount() - 1);
                         }
-                        initRise();
-                        initDrop();
                         //订阅推送
                         sendWebSocket();
-                        onlyKeys = defaultDatas.get(0).getOnlyKey();
                     }
                 }
+
                 break;
         }
     }
 
     private void initRise() {
         if (riseDatas == null) {
-            riseDatas = Collections.synchronizedList(new ArrayList());
+            riseDatas = new ArrayList<>();
         } else {
             riseDatas.clear();
         }
@@ -226,7 +236,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
 
     private void initDrop() {
         if (dropDatas == null) {
-            dropDatas = Collections.synchronizedList(new ArrayList());
+            dropDatas = new ArrayList<>();
         } else {
             dropDatas.clear();
         }
@@ -262,7 +272,6 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
 
     private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
     final int whatIndex = 1023;
-    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {//进行延时跳转
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -282,74 +291,62 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                             }
                             Map.Entry entry = (Map.Entry) iter.next();
                             ExchangeData val = (ExchangeData) entry.getValue();
+                            String key = (String) entry.getKey();
                             if (val != null) {
                                 updataNew(val);
+                                exchangeDataMap.remove(key);
                             } else {
-                                break;
                             }
                         }
-                        exchangeDataMap.clear();
                     }
                     handler.sendEmptyMessageDelayed(whatIndex, 1000);
                     break;
             }
         }
     };
+    int updataPosition = 0;
 
     //新数据推送 更新
     private void updataNew(ExchangeData data) {
-        int updataPosition = 0;
-        if (strDatas == null || riseDatas == null || dropDatas == null) {
+        if (exchangeMarketAdapter == null) {
             return;
         }
-        for (int i = 0; i < strDatas.size(); i++) {
-            if (strDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
-                strDatas.set(i, data);
-                if (gainsState == 0) {
-                    updataPosition = i;
-                }
+        for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
+            if (exchangeMarketAdapter.getDatas().get(i).getOnlyKey().equals(data.getOnlyKey())) {
+                updataPosition = i;
                 break;
             }
         }
-        for (int i = 0; i < riseDatas.size(); i++) {
-            if (riseDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
-                riseDatas.set(i, data);
-                if (gainsState == 1) {
-                    updataPosition = i;
-                }
-                break;
-            }
+        if (defaultDatas == null) {
+            return;
         }
-        for (int i = 0; i < dropDatas.size(); i++) {
-            if (dropDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
-                dropDatas.set(i, data);
-                if (gainsState == 2) {
-                    updataPosition = i;
-                }
+        for (int i = 0; i < defaultDatas.size(); i++) {
+            if (defaultDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
+                defaultDatas.set(i, data);
                 break;
             }
         }
         exchangeMarketAdapter.updataOne(updataPosition, data);
+        headerAndFooterWrapper.notifyItemChanged(updataPosition+headerAndFooterWrapper.getHeadersCount());
     }
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         if (isVisible && !isOnRefush) {
+            defaultDatas = new ArrayList<>();
             onRefresh();
             WebSocketRequest.getInstance().addCallBack(this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
                 @Override
                 public void onDataSuccess(String name, String data, String info, int status) {
-                    if (this.getClass().getName().equals(name)) {
+                    if (UserChooseFragment.this.getClass().getName().equals(name)) {
                         //推送数据
                         ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
                         if (!TextUtils.isEmpty(exchangeData.getOnlyKey())) {
-                            if (exchangeData.getOnlyKey().equals(onlyKeys)) {
-                                if (exchangeDataMap == null) {
-                                    exchangeDataMap = new ConcurrentHashMap<>();
-                                    handler.sendEmptyMessageDelayed(whatIndex, 1000);
-                                }
-                                exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
+                            if (exchangeDataMap == null) {
+                                exchangeDataMap = new ConcurrentHashMap<>();
+                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
                             }
+                            exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
                         }
                     }
                 }
@@ -359,8 +356,6 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
 
                 }
             });
-        } else if (isVisible) {
-            //同步用户所选 单位
             if (exchangeMarketAdapter != null) {
                 tv_unit.setText(UserSet.getinstance().getShowUnit());
                 if (exchangeMarketAdapter.getDatas().size() > 0) {
