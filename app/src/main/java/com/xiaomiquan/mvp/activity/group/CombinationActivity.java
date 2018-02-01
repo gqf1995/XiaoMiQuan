@@ -63,7 +63,7 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         groupItem = intent.getParcelableExtra("groupItem");
         isMy = intent.getBooleanExtra("isMy", false);
         viewDelegate.initData(groupItem);
-        addRequest(binder.getTodayInfo(groupItem.getId(), this));
+        //addRequest(binder.getTodayInfo(groupItem.getId(), this));
     }
 
 
@@ -73,9 +73,7 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         getIntentData();
         initToolbar(new ToolbarBuilder().setTitle(groupItem.getName()).setSubTitle(isMy ? CommonUtils.getString(R.string.str_change_introduction) : ""));
         initViews();
-
     }
-
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
@@ -96,19 +94,19 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         }
     }
 
-    private void initViews(){
+    private void initViews() {
         String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_combination);
         fragments = new ArrayList<>();
-        fragments.add(new GroupDetailListFragment());
-        fragments.add(new GroupNotDealFragment());
-        fragments.add(new GroupHistoryTradingFragment());
-        fragments.add(new GroupHistoryEntrustFragment());
+        fragments.add(GroupDetailListFragment.newInstance(groupItem.getId()));
+        fragments.add(GroupNotDealFragment.newInstance(groupItem.getId()));
+        fragments.add(GroupHistoryTradingFragment.newInstance(groupItem.getId()));
+        fragments.add(GroupHistoryEntrustFragment.newInstance(groupItem.getId()));
         for (int i = 0; i < stringArray.length; i++) {
             mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
         }
         viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
         InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
-        viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter,viewDelegate.viewHolder.viewpager);
+        viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
     }
 
 }

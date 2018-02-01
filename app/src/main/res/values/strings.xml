@@ -29,7 +29,6 @@
     <string name="str_toast_group_type">请选择组合类型</string>
 
 
-
     <string name="str_confirm">确认</string>
     <string name="str_determine">确定</string>
     <string name="str_cancel">取消</string>
@@ -41,6 +40,9 @@
 
     <string name="str_set_password">请设置6-20位密码</string>
     <string name="str_send_code_toast">验证码已发送至注册(%1$s),请查收 </string>
+    <string name="str_look_more_msg">点击查看全部(%1$s)115条回复 </string>
+    <string name="str_look_more">点击查看全部 </string>
+    <string name="str_comprehensive_msg">综合信息</string>
 
     <string name="str_information">资讯</string>
     <string name="str_advance_warning">预警</string>
@@ -176,7 +178,8 @@
     <string name="str_tv_notice1">组合名称可以包括中文、英文、数字或下划线，但组合名字不能为纯数字，且字数不能超过12个字母、数字或6个汉字。</string>
     <string name="str_tv_notice2">公开组合可以被付费订阅了您最新动态的用户查看，如您未设置收费，则可被所有人查看。公开组合创建后不可修改为隐藏，请慎重选择。</string>
     <string name="str_tv_deal_choose">请选择币种</string>
-    <string name="str_tv_balance">你当前可用余额</string>
+    <string name="str_tv_balance">您当前可用余额</string>
+    <string name="str_tv_balance_amount">您当前持有数量</string>
     <string name="str_et_buy_price">输入价格</string>
     <string name="str_et_buy_num">输入数量</string>
     <string name="str_tv_sell_price">卖出价格</string>
@@ -200,9 +203,14 @@
     <string name="str_group_dynamic">组合动态</string>
     <string name="str_save">保存</string>
     <string name="str_fucose">关注</string>
+    <string name="str_fucose_people_num">关注人数</string>
     <string name="str_deal_time">成交时间</string>
     <string name="str_come_from">来自:  </string>
     <string name="str_hold_proportion_from">持仓比例从</string>
+    <string name="str_hold_proportion_change">持仓比例变化</string>
+    <string name="str_creater">创建者</string>
+    <string name="str_master">圈主</string>
+    <string name="str_top">置顶</string>
 
 
     <string-array name="price">

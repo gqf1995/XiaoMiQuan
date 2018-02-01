@@ -1,9 +1,9 @@
 package com.xiaomiquan.adapter;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,9 +43,11 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
     FrameLayout fl_root;
     FontTextview tv_name;
     FontTextview tv_coin_unit;
+    DecelerateInterpolator decelerateInterpolator;
 
     public ExchangeMarketAdapter(Context context, List<ExchangeData> datas) {
         super(context, R.layout.adapter_exchange_coin, datas);
+        decelerateInterpolator = new DecelerateInterpolator();
     }
 
 
@@ -92,6 +94,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
             ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
         }
         tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
+
         if (!isFirst) {
             if (exchangeDataMap != null) {
                 ExchangeData oldData = null;
@@ -107,89 +110,10 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                 }
                 if (oldData != null) {
                     if (s.getOnlyKey().equals(oldData.getOnlyKey())) {
-                        boolean isShowAnim = false;
-                        List<String> oldStrings = BigUIUtil.getinstance().rateTwoPrice(oldData.getLast(), oldData.getSymbol(), oldData.getUnit());
-                        final TextView tv_coin_price_color = holder.getView(R.id.tv_coin_price);
-                        final TextView tv_coin_probably_color = holder.getView(R.id.tv_coin_probably);
-                        if (!s.getLast().equals(oldData.getLast())) {
-                            isShowAnim = true;
-                            if (new BigDecimal(s.getLast()).compareTo(new BigDecimal(oldData.getLast())) == 1) {
-                                //老价格大于新价格
-                                tv_coin_price_color.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
-                                tv_coin_probably_color.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
-                                isShowAnim = true;
-                            } else if (new BigDecimal(s.getLast()).compareTo(new BigDecimal(oldData.getLast())) == -1) {
-                                tv_coin_price_color.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
-                                tv_coin_probably_color.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
-                                isShowAnim = true;
-                            }
-                        }
-                        //动画
-                        if (!TextUtils.isEmpty(oldStrings.get(0)) && !TextUtils.isEmpty(strings.get(0))) {
-                            String s1 = oldStrings.get(0);
-                            String s2 = strings.get(0);
-                            s1 = s1.substring(1, s1.length());
-                            s2 = s2.substring(1, s2.length());
-                            //对比价格
-                            if (new BigDecimal(s1).compareTo(new BigDecimal(s2)) == 1) {
-                                //老价格大于新价格
-                                tv_coin_price_color.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
-                                isShowAnim = true;
-                            } else if (new BigDecimal(s1).compareTo(new BigDecimal(s2)) == -1) {
-                                tv_coin_price_color.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
-                                isShowAnim = true;
-                            }
-                        }
-                        if (!TextUtils.isEmpty(oldStrings.get(1)) && !TextUtils.isEmpty(strings.get(1))) {
-                            //对比价格
-                            String s1 = oldStrings.get(1);
-                            String s2 = strings.get(1);
-                            s1 = s1.substring(1, s1.length());
-                            s2 = s2.substring(1, s2.length());
-                            if (new BigDecimal(s1).compareTo(new BigDecimal(s2)) == 1) {
-                                //老价格大于新价格
-                                isShowAnim = true;
-                                tv_coin_probably_color.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
-                            } else if (new BigDecimal(s1).compareTo(new BigDecimal(s2)) == -1) {
-                                tv_coin_probably_color.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
-                                isShowAnim = true;
-                            }
-                            isShowAnim = true;
-                        }
-                        final TextView tv_gains_color = holder.getView(R.id.tv_gains);
-                        tv_gains_color.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                        if (isShowAnim) {
-                            if (animatorMap.containsKey(position)) {
-                                Iterator iter = animatorMap.entrySet().iterator();
-                                while (iter.hasNext()) {
-                                    Map.Entry entry = (Map.Entry) iter.next();
-                                    ValueAnimator val = (ValueAnimator) entry.getValue();
-                                    int key = (int) entry.getKey();
-                                    if (key == position) {
-                                        if (val.isRunning()) {
-                                            val.cancel();
-                                        }
-                                        animatorMap.remove(val);
-                                    }
-                                }
-                            }
-                            ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f);
-                            anim.setDuration(1000);
-                            anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                @Override
-                                public void onAnimationUpdate(ValueAnimator animation) {
-                                    float currentValue = (float) animation.getAnimatedValue();
-                                    if (currentValue == 1f) {
-                                        //动画结束
-                                        tv_coin_price_color.setTextColor(CommonUtils.getColor(R.color.color_font1));
-                                        tv_coin_probably_color.setTextColor(CommonUtils.getColor(R.color.color_font2));
-                                        tv_gains_color.setTextColor(CommonUtils.getColor(R.color.white));
-                                    }
-                                }
-                            });
-                            anim.start();
-                            animatorMap.put(position, anim);
-                        }
+                        TextView tv_coin_price_color = holder.getView(R.id.tv_coin_price);
+                        TextView tv_coin_probably_color = holder.getView(R.id.tv_coin_probably);
+                        BigUIUtil.getinstance().anim(tv_coin_price_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
+                        BigUIUtil.getinstance().anim(tv_coin_probably_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font2), s.getOnlyKey());
                     }
                 }
             }
@@ -197,7 +121,6 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
     }
 
 
-    Map<Integer, ValueAnimator> animatorMap;
     Map<Integer, ExchangeData> exchangeDataMap;
 
     public void setFirst(boolean first) {
@@ -206,9 +129,6 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
 
     public void updataOne(int position, ExchangeData data) {
         if (mDatas.size() > 0) {
-            if (animatorMap == null) {
-                animatorMap = new LinkedHashMap<>();
-            }
             if (exchangeDataMap == null) {
                 exchangeDataMap = new LinkedHashMap<>();
             }
@@ -217,7 +137,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                 return;
             }
             boolean isSameChange = false;
-            boolean isSameLast = false;
+            boolean isSameLast ;
             //涨幅 和 价格 如果为空则不变
             if (TextUtils.isEmpty(data.getChange())) {
                 data.setChange(getDatas().get(position).getChange());

@@ -50,14 +50,12 @@ public class JudgeNestedScrollView extends NestedScrollView {
         init();
     }
 
-    public void setTabAndPager(View tab, int viewHeight, ViewPager viewPager, boolean isHaveToolbar) {
+    public void setTabAndPager(View tab, int viewHeight, View viewPager, boolean isToolbarInside) {
         this.view = tab;
         toolBarPositionY = viewHeight + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
-        //        if (isHaveToolbar) {
-        //            toolBarPositionY = BarUtils.getStatusBarHeight() + viewHeight + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
-        //        } else {
-        //            toolBarPositionY = viewHeight;
-        //        }
+        if (isToolbarInside) {
+            toolBarPositionY = toolBarPositionY + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
+        }
         ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) viewPager.getLayoutParams();
         layoutParams.height = ScreenUtils.getScreenHeight() - viewHeight - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px) - BarUtils.getStatusBarHeight();
         viewPager.setLayoutParams(layoutParams);
@@ -71,6 +69,16 @@ public class JudgeNestedScrollView extends NestedScrollView {
     public JudgeNestedScrollView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
+    }
+
+    public interface OnScrollChangeListener {
+        void onScrollChangeListener(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY);
+    }
+
+    OnScrollChangeListener onScrollChangeListener;
+
+    public void setOnScrollChangeListener(OnScrollChangeListener onScrollChangeListener) {
+        this.onScrollChangeListener = onScrollChangeListener;
     }
 
     private void init() {
@@ -92,6 +100,9 @@ public class JudgeNestedScrollView extends NestedScrollView {
                     setNeedScroll(true);
                 }
 
+                if (onScrollChangeListener != null) {
+                    onScrollChangeListener.onScrollChangeListener(v, scrollX, scrollY, oldScrollX, oldScrollY);
+                }
             }
         });
     }

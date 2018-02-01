@@ -232,6 +232,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
             });
             lastTime = kLineBeans.get(kLineBeans.size() - 1).timestamp + "";
             isChange = false;
+            request(lastTime);
             return true;
         } else {
             request(lastTime);
@@ -305,7 +306,6 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     //初始化 k线
     private void getOffLineData(List<KLineBean> datas) {
         //筛选前180条数据 添加进ui
-
         List<KLineBean> lineBeans = new ArrayList<>();
         if (datas.size() > uiShowNum) {
             lineBeans = datas.subList(datas.size() - uiShowNum, datas.size());
@@ -368,7 +368,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         Intent intent = getIntent();
         exchangeData = intent.getParcelableExtra("exchangeData");
         viewDelegate.initData(exchangeData);
-        WebSocketRequest.getInstance().addCallBack(this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
+        WebSocketRequest.getInstance().addCallBack(MarketDetailsActivity.this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
             @Override
             public void onDataSuccess(String name, String data, String info, int status) {
                 if (MarketDetailsActivity.this.getClass().getName().equals(name)) {
@@ -415,10 +415,12 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
     @Override
     protected void onDestroy() {
-        klineDraw.cleanData();
+        if (klineDraw != null) {
+            klineDraw.cleanData();
+            klineDraw = null;
+        }
         CacheUtils.getInstance().put(CACHE_CHOOSE, GsonUtil.getInstance().toJson(userOnlyKeys));
         handler.removeCallbacksAndMessages(null);
-        klineDraw = null;
         super.onDestroy();
     }
 

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.group.CoinDetail;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -18,7 +19,7 @@ import java.util.List;
  * Created by Andy on 2018/1/26.
  */
 
-public class GroupDealCurrencyAdapter extends CommonAdapter<String> {
+public class GroupDealCurrencyAdapter extends CommonAdapter<CoinDetail> {
     private AppCompatImageView iv_img;
     private TextView tv_type;
     private IconFontTextview icf_check;
@@ -26,7 +27,7 @@ public class GroupDealCurrencyAdapter extends CommonAdapter<String> {
     int selectPosition = 0;
     private LinearLayout lin_root;
 
-    public GroupDealCurrencyAdapter(Context context, List<String> datas) {
+    public GroupDealCurrencyAdapter(Context context, List<CoinDetail> datas) {
         super(context, R.layout.adapter_deal_currency, datas);
     }
 
@@ -42,7 +43,7 @@ public class GroupDealCurrencyAdapter extends CommonAdapter<String> {
     }
 
     @Override
-    protected void convert(ViewHolder holder, String exchangeData, int position) {
+    protected void convert(ViewHolder holder, CoinDetail s, int position) {
         iv_img = holder.getView(R.id.iv_img);
         tv_type = holder.getView(R.id.tv_type);
         icf_check = holder.getView(R.id.icf_check);
@@ -53,6 +54,8 @@ public class GroupDealCurrencyAdapter extends CommonAdapter<String> {
         } else {
             lin_root.setBackground(null);
         }
+
+        tv_type.setText(s.getSymbol());
 
         if (selectPosition == position) {
             icf_check.setVisibility(View.VISIBLE);

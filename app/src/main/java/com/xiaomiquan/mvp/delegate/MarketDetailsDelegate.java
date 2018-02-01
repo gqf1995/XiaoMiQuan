@@ -87,7 +87,6 @@ public class MarketDetailsDelegate extends BaseDelegate {
 
 
     public void initData(ExchangeData exchangeData) {
-        mExchangeData = exchangeData;
         viewHolder.tv_title.setText(exchangeData.getExchange());
         viewHolder.tv_subtitle.setText(exchangeData.getSymbol() + "/" + exchangeData.getUnit());
         String priceStr = BigUIUtil.getinstance().bigPrice(exchangeData.getLast());
@@ -145,6 +144,36 @@ public class MarketDetailsDelegate extends BaseDelegate {
 
         viewHolder.tv_rise.setText(stringBuffer.toString() + " " + end);
 
+
+        viewHolder.tv_volume.setText(BigUIUtil.getinstance().bigAmount(exchangeData.getVolume()));
+        viewHolder.tv_highest.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getHigh()));
+        viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow()));
+        viewHolder.tv_buy_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getBid()));
+        viewHolder.tv_sell_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getAsk()));
+
+        //动画
+        if (mExchangeData != null) {
+            if (!mExchangeData.getHigh().equals(exchangeData.getHigh())) {
+                BigUIUtil.getinstance().anim(viewHolder.tv_highest, mExchangeData.getHigh(), exchangeData.getHigh(), CommonUtils.getColor(R.color.color_font2),exchangeData.getOnlyKey());
+            }
+            if (!mExchangeData.getLow().equals(exchangeData.getLow())) {
+                BigUIUtil.getinstance().anim(viewHolder.tv_minimum, mExchangeData.getLow(), exchangeData.getLow(), CommonUtils.getColor(R.color.color_font2),exchangeData.getOnlyKey());
+            }
+            if (!mExchangeData.getBid().equals(exchangeData.getBid())) {
+                BigUIUtil.getinstance().anim(viewHolder.tv_buy_one, mExchangeData.getBid(), exchangeData.getBid(), CommonUtils.getColor(R.color.color_font2),exchangeData.getOnlyKey());
+            }
+            if (!mExchangeData.getAsk().equals(exchangeData.getAsk())) {
+                BigUIUtil.getinstance().anim(viewHolder.tv_sell_one, mExchangeData.getAsk(), exchangeData.getAsk(), CommonUtils.getColor(R.color.color_font2),exchangeData.getOnlyKey());
+            }
+            List<String> stringsold = BigUIUtil.getinstance().rateTwoPrice(mExchangeData.getLast(), exchangeData.getSymbol(), exchangeData.getUnit());
+            if (!stringsold.get(0).equals(strings.get(0))) {
+                BigUIUtil.getinstance().anim(viewHolder.tv_price, stringsold.get(0), strings.get(0), CommonUtils.getColor(R.color.color_font1),exchangeData.getOnlyKey());
+            }
+            if (!stringsold.get(1).equals(strings.get(1))) {
+                BigUIUtil.getinstance().anim(viewHolder.tv_rate, stringsold.get(1), strings.get(1), CommonUtils.getColor(R.color.color_font3),exchangeData.getOnlyKey());
+            }
+        }
+        mExchangeData = exchangeData;
     }
 
 

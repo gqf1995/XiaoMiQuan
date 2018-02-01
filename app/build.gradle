@@ -219,3 +219,33 @@ project.afterEvaluate {
     clean.dependsOn cleanExampleAssets
     preBuild.dependsOn copySourceSciChartAppToAssets, copySourceExampleFragmentsToAssets, copySourceExampleUtilsToAssets, copySourceExampleDataToAssets, copySourceExampleComponentsToAssets, copySourceExampleComponentsToAssets, copyResourceExamplesToAssets
 }
+//密钥库类型: JKS
+//密钥库提供方: SUN
+//
+//您的密钥库包含 1 个条目
+//
+//别名: xmq
+//创建日期: 2018-1-9
+//条目类型: PrivateKeyEntry
+//证书链长度: 1
+//证书[1]:
+//所有者: CN=xmq, OU=xmq, O=xmq, L=xmq, ST=xmq, C=xmq
+//发布者: CN=xmq, OU=xmq, O=xmq, L=xmq, ST=xmq, C=xmq
+//序列号: 21f1325d
+//有效期开始日期: Tue Jan 09 09:33:51 CST 2018, 截止日期: Sat Jan 03 09:33:51 CST 2043
+//证书指纹:
+//MD5: 62:DD:F0:C0:54:9E:52:94:D9:34:AC:0A:16:37:62:A2
+//SHA1: 31:50:E0:51:37:BD:7E:EF:2F:BE:D9:26:66:C6:9E:AE:9A:A1:B4:C8
+//SHA256: 84:FF:FD:AB:61:CF:BF:BD:88:08:5F:22:F1:FB:36:E1:88:DB:D9:22:4E:73:01:A4:5A:83:79:56:CA:2F:A7:DB
+//签名算法名称: SHA256withRSA
+//版本: 3
+//
+//扩展:
+//
+//#1: ObjectId: 2.5.29.14 Criticality=false
+//SubjectKeyIdentifier [
+//        KeyIdentifier [
+//                0000: BF 12 0C 44 8A 0E 2B 74   B7 B8 92 AF 73 9A 64 73  ...D..+t....s.ds
+//                0010: 38 85 2C 57                                        8.,W
+//                ]
+//        ]

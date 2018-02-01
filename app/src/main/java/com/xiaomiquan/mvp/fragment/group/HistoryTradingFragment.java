@@ -1,9 +1,11 @@
 package com.xiaomiquan.mvp.fragment.group;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.LabelHistoryTradingAdapter;
 import com.xiaomiquan.entity.bean.LiveData;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
@@ -20,7 +22,6 @@ public class HistoryTradingFragment extends BasePullFragment<BaseFragentPullDele
     List<String> strDatas;
     LabelHistoryTradingAdapter adapter;
 
-
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
         return BaseFragentPullDelegate.class;
@@ -35,6 +36,8 @@ public class HistoryTradingFragment extends BasePullFragment<BaseFragentPullDele
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        strDatas = new ArrayList<>();
+        initList(strDatas);
     }
 
 
@@ -46,8 +49,13 @@ public class HistoryTradingFragment extends BasePullFragment<BaseFragentPullDele
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsPullDown(false);
         onRefresh();
+        initTop();
     }
 
+    private void initTop() {
+        View rootView=getActivity().getLayoutInflater().inflate(R.layout.layout_label_history_trading,null);
+        viewDelegate.viewHolder.fl_pull.addView(rootView,0);
+    }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
@@ -68,11 +76,7 @@ public class HistoryTradingFragment extends BasePullFragment<BaseFragentPullDele
         }
     }
 
-    @Override
-    protected void onFragmentFirstVisible() {
-        strDatas = new ArrayList<>();
-        initList(strDatas);
-    }
+
 
     @Override
     protected void refreshData() {

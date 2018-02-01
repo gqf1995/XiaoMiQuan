@@ -43,7 +43,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="114"/>
+            android:layout_weight="34"/>
 
         <TextView
             android:id="@+id/tv_entrust_price"
@@ -57,7 +57,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="88"/>
+            android:layout_weight="38"/>
 
         <TextView
             android:id="@+id/tv_num"
@@ -86,5 +86,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="32"/>
+
+        <TextView
+            android:id="@+id/tv_hold_proportion_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_hold_proportion_change"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_24px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="32"/>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

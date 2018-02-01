@@ -1,7 +1,9 @@
 package com.xiaomiquan.utils;
 
+import android.animation.ValueAnimator;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.CacheUtils;
@@ -14,6 +16,7 @@ import com.xiaomiquan.entity.bean.ExchangeData;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +32,7 @@ public class BigUIUtil {
     boolean isHavaData = false;//是否有汇率表
     ConcurrentHashMap<String, BigDecimal> usdRate;
     ConcurrentHashMap<String, BigDecimal> btcRate;
+    ConcurrentHashMap<String, ValueAnimator> animatorConcurrentHashMap;
 
 
     private static class helper {
@@ -46,6 +50,57 @@ public class BigUIUtil {
         //            init(string);
         //        }
     }
+
+    //动画
+    public void anim(final TextView textView, String oldnum, String newnum, final int endColor, String onlyKey) {
+        if (TextUtils.isEmpty(oldnum) || TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {
+            return;
+        }
+        if (animatorConcurrentHashMap == null) {
+            animatorConcurrentHashMap = new ConcurrentHashMap<>();
+        }
+        Iterator it = animatorConcurrentHashMap.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            ValueAnimator val = (ValueAnimator) entry.getValue();
+            String key = (String) entry.getKey();
+            if (!val.isRunning()) {
+                animatorConcurrentHashMap.remove(key);
+            }
+        }
+        if (oldnum.contains("¥") || oldnum.contains("$")) {
+            oldnum = oldnum.substring(1);
+        }
+        if (newnum.contains("¥") || newnum.contains("$")) {
+            newnum = oldnum.substring(1);
+        }
+        if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == 1) {
+            //降价
+            textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+        } else if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == -1) {
+            //涨价
+            textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+        } else {
+            return;
+        }
+        ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f);
+        anim.setDuration(3000);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float currentValue = (float) animation.getAnimatedValue();
+                if (currentValue == 1f) {
+                    //动画结束
+                    if (textView != null) {
+                        textView.setTextColor(endColor);
+                    }
+                }
+            }
+        });
+        anim.start();
+        animatorConcurrentHashMap.put(textView.getId() + onlyKey, anim);
+    }
+
 
     public boolean IsHavaData() {
         return isHavaData;
@@ -201,11 +256,11 @@ public class BigUIUtil {
     //多价格展示页面调用
     public List<String> rateTwoPrice(String price, String symbol, String itemUnit) {
 
-        if("USDT".equals(itemUnit)){
-            itemUnit="USD";
+        if ("USDT".equals(itemUnit)) {
+            itemUnit = "USD";
         }
-        if("USDT".equals(symbol)){
-            symbol="USD";
+        if ("USDT".equals(symbol)) {
+            symbol = "USD";
         }
         //多价格汇率
         if (rateTwoPrice == null) {
@@ -350,11 +405,11 @@ public class BigUIUtil {
         if (TextUtils.isEmpty(price) || TextUtils.isEmpty(itemUnit)) {
             return price;
         }
-        if("USDT".equals(itemUnit)){
-            itemUnit="USD";
+        if ("USDT".equals(itemUnit)) {
+            itemUnit = "USD";
         }
-        if("USDT".equals(symbol)){
-            symbol="USD";
+        if ("USDT".equals(symbol)) {
+            symbol = "USD";
         }
         //市值页面只显示 单价格
         String unit = UserSet.getinstance().getUnit();
@@ -487,6 +542,9 @@ public class BigUIUtil {
 
         if (usdRate.containsKey(unit)) {
             unitBig = usdRate.get(unit);
+            if (unitBig.compareTo(new BigDecimal("0")) == 0) {
+                return new BigDecimal("0");
+            }
             BigDecimal end = nameBig.divide(unitBig, 8, BigDecimal.ROUND_HALF_DOWN);
             return end;
         } else {

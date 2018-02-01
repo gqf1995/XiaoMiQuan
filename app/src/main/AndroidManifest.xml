@@ -75,6 +75,10 @@
         <activity android:name=".mvp.activity.group.CombinationActivity"/>
         <activity android:name=".mvp.activity.group.EditIntroductionActivity"/>
         <activity android:name=".mvp.activity.CustomRateActivity"/>
+        <activity android:name=".mvp.activity.user.UserHomePageActivity"/>
+        <activity android:name=".mvp.activity.market.CoinDetailActivity"/>
+        <activity android:name=".mvp.activity.market.CoinMarketActivity"/>
+        <activity android:name=".mvp.activity.user.HomePageActivity"/>
     </application>
 
 </manifest>

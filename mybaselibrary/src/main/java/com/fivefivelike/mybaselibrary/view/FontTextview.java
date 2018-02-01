@@ -2,6 +2,7 @@ package com.fivefivelike.mybaselibrary.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 
@@ -18,6 +19,17 @@ public class FontTextview extends SkinCompatTextView {
     OpenHashSet<Typeface> resources;
 
     int type = 0;
+
+    private String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+        this.setTextColor(Color.parseColor(color));
+    }
 
     public FontTextview(Context context) {
         super(context);

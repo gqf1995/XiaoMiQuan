@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.xiaomiquan.widget.JudgeNestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:background="@color/base_mask"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_320px"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_256px"
+                    android:orientation="vertical">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/trans_15px"
+                            android:layout_marginLeft="@dimen/trans_40px"
+                            android:gravity="center"
+                            android:text="--"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_32px"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/trans_25px"
+                            android:layout_marginLeft="@dimen/trans_40px"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/str_creater"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_20px"/>
+
+
+                            <TextView
+                                android:id="@+id/tv_user_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/trans_50px"
+                                android:gravity="center"
+                                android:text="--"
+                                android:textColor="@color/color_blue"
+                                android:textSize="@dimen/text_trans_20px"/>
+
+                            <TextView
+                                android:id="@+id/tv_fucose_people_num"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/str_fucose_people_num"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_20px"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_64px"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_40px"
+                    android:paddingRight="@dimen/trans_40px">
+
+                    <com.xiaomiquan.widget.DropDownView
+                        android:id="@+id/dp_theme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                    </com.xiaomiquan.widget.DropDownView>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <com.xiaomiquan.widget.DropDownView
+                        android:id="@+id/dp_sorting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                    </com.xiaomiquan.widget.DropDownView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_20px"
+                android:background="@color/base_mask"/>
+
+            <View
+                android:id="@+id/view_tab"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_1px"
+                />
+
+
+            <FrameLayout
+                android:id="@+id/fl_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </FrameLayout>
+        </LinearLayout>
+
+    </com.xiaomiquan.widget.JudgeNestedScrollView>
+
+    <include layout="@layout/include_toolbar_with_statusbar"/>
+
+
+</FrameLayout>
+
+

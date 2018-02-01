@@ -1,6 +1,7 @@
 package com.xiaomiquan.mvp.delegate.group;
 
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -15,9 +16,13 @@ import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.group.CoinDetail;
+import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.widget.DropDownView;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +33,9 @@ public class GroupDealDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
 
     private ArrayList<CustomTabEntity> mTabEntitiesTop = new ArrayList<>();
+
+    String buyBalance = "";
+    String sellBalance = "";
 
     private void initTop() {
         viewHolder.tl_1.setIconVisible(false);
@@ -51,16 +59,44 @@ public class GroupDealDelegate extends BaseDelegate {
         viewHolder.et_coin_search.setBackground(new RadiuBg(CommonUtils.getColor(R.color.base_mask), 1000, 1000, 1000, 1000));
     }
 
+    public void onSelectLinsener(CoinDetail coinDetail, GroupItem groupItem) {
+        String cnyPrice = "--";
+        if (!TextUtils.isEmpty(coinDetail.getPriceUsd())) {
+            String rate = BigUIUtil.getinstance().rate("CNY", "USD");
+            cnyPrice = BigUIUtil.getinstance().bigPrice(new BigDecimal(coinDetail.getPriceUsd()).divide(new BigDecimal(rate), 8, BigDecimal.ROUND_HALF_DOWN).toPlainString());
+            viewHolder.tv_buy_price.setText(cnyPrice);
+        }
+        viewHolder.tv_sell_price.setText(coinDetail.getPriceUsd());
+        if (viewHolder.tl_1.getCurrentTab() == 0) {
+            //买
+            buyBalance = CommonUtils.getString(R.string.str_tv_balance) + groupItem.getBalance() + "USD";
+            viewHolder.tv_balance.setText(buyBalance);
+        } else {
+            //卖
+            sellBalance = CommonUtils.getString(R.string.str_tv_balance_amount) + coinDetail.getCount();
+            viewHolder.tv_balance.setText(sellBalance);
+        }
+    }
+
     private void changeType(boolean isBuy) {
         viewHolder.tv_price_label.setText(CommonUtils.getString(isBuy ? R.string.str_tv_buy_price : R.string.str_tv_sell_price));
         viewHolder.tv_num_label.setText(CommonUtils.getString(isBuy ? R.string.str_tv_buy_num : R.string.str_tv_sell_num));
         viewHolder.et_coin_search.setVisibility(isBuy ? View.VISIBLE : View.INVISIBLE);
+        if (isBuy) {
+            if (!TextUtils.isEmpty(buyBalance)) {
+                viewHolder.tv_balance.setText(buyBalance);
+            }
+        } else {
+            if (!TextUtils.isEmpty(sellBalance)) {
+                viewHolder.tv_balance.setText(sellBalance);
+            }
+        }
     }
 
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px), viewHolder.vp_sliding, true);
+        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px), viewHolder.vp_sliding,false);
         initTop();
 
     }

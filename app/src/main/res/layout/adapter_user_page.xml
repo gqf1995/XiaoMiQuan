@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/trans_40px"
+        android:paddingLeft="@dimen/trans_30px"
+        android:paddingRight="@dimen/trans_40px"
+        android:paddingTop="@dimen/trans_40px">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/trans_70px"
+            android:layout_height="@dimen/trans_70px"
+            android:layout_marginRight="@dimen/trans_12px"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/trans_18px"
+                            android:gravity="center"
+                            android:text="--"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_28px"/>
+
+                        <TextView
+                            android:id="@+id/tv_master"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/trans_16px"
+                            android:background="@drawable/select_commit"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/trans_3px"
+                            android:paddingLeft="@dimen/trans_14px"
+                            android:paddingRight="@dimen/trans_14px"
+                            android:paddingTop="@dimen/trans_3px"
+                            android:text="@string/str_master"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_trans_18px"/>
+
+                        <TextView
+                            android:id="@+id/tv_top"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/trans_16px"
+                            android:background="@drawable/select_commit"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/trans_3px"
+                            android:paddingLeft="@dimen/trans_14px"
+                            android:paddingRight="@dimen/trans_14px"
+                            android:paddingTop="@dimen/trans_3px"
+                            android:text="@string/str_top"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_trans_18px"/>
+
+                    </LinearLayout>
+
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/trans_8px"
+                        android:gravity="center"
+                        android:text="59"
+                        android:textColor="@color/color_font4"
+                        android:textSize="@dimen/text_trans_20px"/>
+
+                </LinearLayout>
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/tv_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/trans_60px"
+                    android:gravity="center"
+                    android:text="@string/ic_Dots2"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/text_trans_50px"/>
+
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:id="@+id/fl_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/tv_praise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/trans_20px"
+                    android:paddingTop="@dimen/trans_20px"
+                    android:text="123456"
+                    android:textColor="@color/color_blue"
+                    android:textSize="@dimen/text_trans_24px"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/tv_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/trans_20px"
+                    android:paddingTop="@dimen/trans_20px"
+                    android:text="123456"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/text_trans_24px"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/base_mask"
+                android:orientation="vertical"
+                android:padding="@dimen/trans_20px">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/tv_praise_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/trans_20px"
+                    android:paddingTop="@dimen/trans_20px"
+                    android:text="123456"
+                    android:textColor="@color/color_blue"
+                    android:textSize="@dimen/text_trans_24px"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_look_more_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/trans_20px"
+                    android:paddingTop="@dimen/trans_20px"
+                    android:text="@string/str_look_more_msg"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_20px"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_1px"
+        android:background="@color/base_mask"/>
+
+</LinearLayout>

@@ -1,9 +1,11 @@
 package com.xiaomiquan.mvp.fragment.group;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.LabelNotDealAdapter;
 import com.xiaomiquan.entity.bean.LiveData;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
@@ -47,8 +49,13 @@ public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, B
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsPullDown(false);
         onRefresh();
+        initTop();
     }
 
+    private void initTop() {
+        View rootView=getActivity().getLayoutInflater().inflate(R.layout.layout_label_not_deal,null);
+        viewDelegate.viewHolder.fl_pull.addView(rootView,0);
+    }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {

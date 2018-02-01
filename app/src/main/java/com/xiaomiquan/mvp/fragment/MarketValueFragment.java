@@ -20,6 +20,7 @@ import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
+import com.xiaomiquan.utils.HandlerHelper;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.GainsTabView;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -38,7 +39,6 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
     List<ExchangeData> defaultDatas;
     List<ExchangeData> riseDatas;
     List<ExchangeData> dropDatas;
-    String onlyKeys;
     List<String> sendKeys;
     final int whatIndex = 1024;
     private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
@@ -128,6 +128,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
+            viewDelegate.setIsLoadMore(false);
             initTool();
         } else {
             getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);
@@ -202,7 +203,6 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
                     //发送 更新请求
                     if (datas.size() > 0) {
                         sendWebSocket();
-                        onlyKeys = datas.get(0).getOnlyKey();
                     }
                 }
 
@@ -220,9 +220,44 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
                 sendKeys.add(exchangeMarketAdapter.getDatas().get(i).getOnlyKey());
             }
+            initWebSocketRequest();
             WebSocketRequest.getInstance().sendData(sendKeys);
         }
     }
+
+    private void initWebSocketRequest() {
+        if (exchangeDataMap == null) {
+            exchangeDataMap = new ConcurrentHashMap<>();
+            //handler.sendEmptyMessageDelayed(whatIndex, 1000);
+        }
+        if (viewDelegate != null) {
+            HandlerHelper.getinstance().initHander(MarketValueFragment.this.getClass().getName(), exchangeDataMap, viewDelegate.getPullRecyclerView(), new HandlerHelper.OnUpdataLinsener() {
+                @Override
+                public void onUpdataLinsener(ExchangeData val) {
+                    updataNew(val);
+                }
+            });
+            WebSocketRequest.getInstance().addCallBack(MarketValueFragment.this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
+                @Override
+                public void onDataSuccess(String name, String data, String info, int status) {
+                    if (MarketValueFragment.this.getClass().getName().equals(name)) {
+                        //推送数据
+                        ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
+                        if (!TextUtils.isEmpty(exchangeData.getOnlyKey())) {
+                            HandlerHelper.getinstance().put(exchangeData.getOnlyKey(), exchangeData);
+                            //exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
+                        }
+                    }
+                }
+
+                @Override
+                public void onDataError(String name, String data, String info, int status) {
+
+                }
+            });
+        }
+    }
+
 
     private void initRise() {
         if (riseDatas == null) {
@@ -266,29 +301,6 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
     protected void onFragmentFirstVisible() {
         defaultDatas = new ArrayList<>();
         initList(new ArrayList<ExchangeData>());
-        WebSocketRequest.getInstance().addCallBack(this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
-            @Override
-            public void onDataSuccess(String name, String data, String info, int status) {
-                if (MarketValueFragment.this.getClass().getName().equals(name)) {
-                    //推送数据
-                    ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
-                    if (!TextUtils.isEmpty(exchangeData.getOnlyKey())) {
-                        if (exchangeData.getOnlyKey().equals(onlyKeys)) {
-                            if (exchangeDataMap == null) {
-                                exchangeDataMap = new ConcurrentHashMap<>();
-                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
-                            }
-                            exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onDataError(String name, String data, String info, int status) {
-
-            }
-        });
     }
 
     @Override

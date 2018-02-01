@@ -301,6 +301,10 @@ public class HttpUrl {
      */
     public String searchCoin = httpBaseUrl3 + demoUrl + "/searchCoin";
     /**
+     * 持有币种列表
+     */
+    public String myCoin = httpBaseUrl3 + demoUrl + "/myCoin";
+    /**
      * 收益走势
      */
     public String rateTrend = httpBaseUrl3 + demoUrl + "/rateTrend";

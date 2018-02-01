@@ -23,6 +23,7 @@ import com.xiaomiquan.mvp.fragment.UserFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.utils.BigUIUtil;
+import com.xiaomiquan.utils.HandlerHelper;
 import com.xiaomiquan.utils.PingUtil;
 
 public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> {
@@ -114,6 +115,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     protected void onDestroy() {
         WebSocketRequest.getInstance().onDestory();
         SciChartBuilder.dispose();
+        HandlerHelper.getinstance().onDestory();
         super.onDestroy();
     }
 

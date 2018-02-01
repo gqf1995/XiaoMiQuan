@@ -1,7 +1,5 @@
 package com.xiaomiquan.mvp.fragment;
 
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -27,6 +25,7 @@ import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
+import com.xiaomiquan.utils.HandlerHelper;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.GainsTabView;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -34,9 +33,7 @@ import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.xiaomiquan.base.AppConst.CACHE_CHOOSE;
@@ -132,6 +129,9 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         };
         initRecycleViewPull(headerAndFooterWrapper, headerAndFooterWrapper.getHeadersCount() + headerAndFooterWrapper.getFootersCount(), linearLayoutManager);
         viewDelegate.setIsLoadMore(false);
+        defaultDatas = new ArrayList<>();
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+        onRefresh();
         initTool();
     }
 
@@ -266,44 +266,12 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
             for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
                 sendKeys.add(exchangeMarketAdapter.getDatas().get(i).getOnlyKey());
             }
+            initWebSocketRequest();
             WebSocketRequest.getInstance().sendData(sendKeys);
         }
     }
 
     private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
-    final int whatIndex = 1023;
-    private Handler handler = new Handler() {//进行延时跳转
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case whatIndex:
-                    if (exchangeDataMap == null) {
-                        return;
-                    }
-                    if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
-                        //recycleView正在滑动
-                    } else {
-                        //更新数据
-                        Iterator iter = exchangeDataMap.entrySet().iterator();
-                        while (iter.hasNext()) {
-                            if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
-                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
-                                return;
-                            }
-                            Map.Entry entry = (Map.Entry) iter.next();
-                            ExchangeData val = (ExchangeData) entry.getValue();
-                            String key = (String) entry.getKey();
-                            if (val != null) {
-                                updataNew(val);
-                                exchangeDataMap.remove(key);
-                            } else {
-                            }
-                        }
-                    }
-                    handler.sendEmptyMessageDelayed(whatIndex, 1000);
-                    break;
-            }
-        }
-    };
     int updataPosition = 0;
 
     //新数据推送 更新
@@ -327,26 +295,30 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
             }
         }
         exchangeMarketAdapter.updataOne(updataPosition, data);
-        headerAndFooterWrapper.notifyItemChanged(updataPosition+headerAndFooterWrapper.getHeadersCount());
+        headerAndFooterWrapper.notifyItemChanged(updataPosition + headerAndFooterWrapper.getHeadersCount());
     }
 
-    @Override
-    protected void onFragmentVisibleChange(boolean isVisible) {
-        if (isVisible && !isOnRefush) {
-            defaultDatas = new ArrayList<>();
-            onRefresh();
-            WebSocketRequest.getInstance().addCallBack(this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
+    private void initWebSocketRequest() {
+        if (exchangeDataMap == null) {
+            exchangeDataMap = new ConcurrentHashMap<>();
+            //handler.sendEmptyMessageDelayed(whatIndex, 1000);
+        }
+        if (viewDelegate != null) {
+            HandlerHelper.getinstance().initHander(UserChooseFragment.this.getClass().getName(), exchangeDataMap, viewDelegate.getPullRecyclerView(), new HandlerHelper.OnUpdataLinsener() {
+                @Override
+                public void onUpdataLinsener(ExchangeData val) {
+                    updataNew(val);
+                }
+            });
+            WebSocketRequest.getInstance().addCallBack(UserChooseFragment.this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
                 @Override
                 public void onDataSuccess(String name, String data, String info, int status) {
                     if (UserChooseFragment.this.getClass().getName().equals(name)) {
                         //推送数据
                         ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
                         if (!TextUtils.isEmpty(exchangeData.getOnlyKey())) {
-                            if (exchangeDataMap == null) {
-                                exchangeDataMap = new ConcurrentHashMap<>();
-                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
-                            }
-                            exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
+                            HandlerHelper.getinstance().put(exchangeData.getOnlyKey(), exchangeData);
+                            //exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
                         }
                     }
                 }
@@ -356,6 +328,14 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
 
                 }
             });
+        }
+    }
+
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        if (isVisible && !isOnRefush) {
+            binder.cancelpost();
+            onRefresh();
             if (exchangeMarketAdapter != null) {
                 tv_unit.setText(UserSet.getinstance().getShowUnit());
                 if (exchangeMarketAdapter.getDatas().size() > 0) {

@@ -6,9 +6,6 @@ import com.fivefivelike.mybaselibrary.http.RequestCallback;
 import com.xiaomiquan.mvp.delegate.group.GroupDealDelegate;
 import com.xiaomiquan.server.HttpUrl;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -42,5 +39,7 @@ public class GroupDealBinder extends BaseDataBind<GroupDealDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
+
 
 }
