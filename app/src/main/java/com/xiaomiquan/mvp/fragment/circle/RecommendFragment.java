@@ -10,7 +10,6 @@ import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.BigVListAdapter;
 import com.xiaomiquan.adapter.circle.CircleFindAdapter;
-import com.xiaomiquan.adapter.group.GroupAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.entity.bean.circle.UserFriende;

@@ -3,10 +3,9 @@ package com.xiaomiquan.mvp.delegate.circle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.BaseMyPullDelegate;
 
 import skin.support.widget.SkinCompatLinearLayout;
 

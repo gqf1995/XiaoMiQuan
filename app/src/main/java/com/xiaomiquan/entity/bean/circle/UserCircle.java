@@ -4,7 +4,6 @@ package com.xiaomiquan.entity.bean.circle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -55,6 +54,8 @@ public class UserCircle implements Parcelable{
     private String updateTime;
     private String userId;
     private List<SquareLive> articleTopicVos;
+
+    public UserCircle(){}
 
     protected UserCircle(Parcel in) {
         avatar = in.readString();

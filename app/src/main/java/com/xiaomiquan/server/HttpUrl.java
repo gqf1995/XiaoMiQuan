@@ -3,6 +3,7 @@ package com.xiaomiquan.server;
 import android.text.TextUtils;
 
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 
 import static com.xiaomiquan.base.AppConst.httpBaseUrl;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl2;
@@ -108,39 +109,44 @@ public class HttpUrl {
     /**
      * 获得所有库中拥有的交易所列表
      */
-    public String getAllEXchange = httpBaseUrl + dataUrl + "/getAllEXchange";
+    public String getAllEXchange = getBaseUrl() + dataUrl + "/getAllEXchange";
     /**
      * 获得所有市值信息 未做排序
      */
-    public String getAllMarketCaps = httpBaseUrl + dataUrl + "/getAllMarketCaps";
+    public String getAllMarketCaps = getBaseUrl() + dataUrl + "/getAllMarketCaps";
     /**
      * 获得所有市值和24小时价格走势信息 未做排序
      */
-    public String getAllMarketCapVo = httpBaseUrl + dataUrl + "/getAllMarketCapVo";
+    public String getAllMarketCapVo = getBaseUrl() + dataUrl + "/getAllMarketCapVo";
     /**
      * 根据某个币种全称查询币种市值信息
      */
-    public String getMarketCapById = httpBaseUrl + dataUrl + "/getMarketCapById";
+    public String getMarketCapById = getBaseUrl() + dataUrl + "/getMarketCapById";
     /**
      * 获得目前库中最新的Key对
      */
-    public String getAllOnlyKeys = httpBaseUrl + dataUrl + "/getAllOnlyKeys";
+    public String getAllOnlyKeys = getBaseUrl() + dataUrl + "/getAllOnlyKeys";
     /**
      * 根据交易所名称获得相关信息
      */
-    public String getAllMarketByExchange = httpBaseUrl + dataUrl + "/getAllMarketByExchange";
+    public String getAllMarketByExchange = getBaseUrl() + dataUrl + "/getAllMarketByExchange";
     /**
      * 根据币种名称获得相关信息
      */
-    public String getAllMarketBySymbol = httpBaseUrl + dataUrl + "/getAllMarketBySymbol";
+    public String getAllMarketBySymbol = getBaseUrl() + dataUrl + "/getAllMarketBySymbol";
     /**
      * 获取K线
      */
-    public String getKlineByOnlyKey = httpBaseUrl + dataUrl + "/getKlineByOnlyKey";
+    public String getKlineByOnlyKey = getBaseUrl() + dataUrl + "/getKlineByOnlyKey";
     /**
      * 获取汇率
      */
-    public String getAllPriceRate = httpBaseUrl + dataUrl + "/getAllPriceRate";
+    public String getAllPriceRate = getBaseUrl() + dataUrl + "/getAllPriceRate";
+    /**
+     * 搜索
+     */
+    public String getAllMarketByExchangeOrSymbol = getBaseUrl() + dataUrl + "/getAllMarketByExchangeOrSymbol";
+
 
 
     /**
@@ -271,23 +277,6 @@ public class HttpUrl {
     public String getDetails = httpBaseUrl4 + "/articleTopic/detail";
 
 
-    /**
-     * 文章
-     */
-    String articleUrl = "/article";
-    /**
-     * 文章列表
-     */
-    public String listArticleByPage = httpBaseUrl4 + articleUrl + "/listArticleByPage";
-
-    /**
-     * 发表评论
-     */
-    public String saveComment = httpBaseUrl4 + "/comment/save";
-    /**
-     * 点赞
-     */
-    public String savePraise = getBaseUrl() + "/praise/save";
 
 
     /**
@@ -346,5 +335,56 @@ public class HttpUrl {
      * 获取余额
      */
     public String getBalance = httpBaseUrl3 + demoUrl + "/getBalance";
+    /**
+     * 文章
+     */
+    String articleUrl = "/article";
+    /**
+     * 文章列表
+     */
+    public String listArticleByPage = httpBaseUrl4 + articleUrl + "/listArticleByPage";
 
+    /**
+     * 发表评论
+     */
+    public String saveComment = httpBaseUrl4 + "/comment/saveComment";
+    /**
+     * 点赞
+     */
+    public String savePraise = httpBaseUrl4 + "/praise/praiseOrCancel";
+
+    /**
+     * 获取广场朋友圈
+     */
+    public String getSquareLive = httpBaseUrl4 + "/articleTopic/listByPage";
+    /**
+     * 获取大V
+     */
+    public String getBigVlist = httpBaseUrl4 + "/user/listBigVByPage";
+    /**
+     * 关注
+     */
+    public String attention = httpBaseUrl4 + "/userAttention/save";
+
+
+    /**
+     * 获取文章
+     */
+    public String getArticle = httpBaseUrl4 + "/articleTopic/listArticleByPage";
+    /**
+     * 获取文章
+     */
+    public String getCircleMore = httpBaseUrl4 + "/group/listMoreGroupByPage";
+    /**
+     * 获取用户主页信息
+     */
+    public String getUserInfo = httpBaseUrl4 + "/user/personCenter";
+    /**
+     * 获取粉丝列表
+     */
+    public String getFans = httpBaseUrl4 + "/userAttention/attentionMyList";
+    /**
+     * 获取关注列表
+     */
+    public String getAttention = httpBaseUrl4 + "/user/listMyAttentionByPage";
 }

@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
 
 import com.blankj.utilcode.util.DeviceUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
@@ -20,6 +19,7 @@ import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
+import com.xiaomiquan.mvp.fragment.circle.CircleFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.utils.BigUIUtil;
@@ -103,7 +103,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         //设置 以哪个FrameLayout 作为展示
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
         viewDelegate.addFragment(new MarketFragment());
-        viewDelegate.addFragment(new Fragment());
+        viewDelegate.addFragment(new CircleFragment());
         viewDelegate.addFragment(new InvestGroupFragment());
         viewDelegate.addFragment(new UserFragment());
         //显示第0个

@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.BaseMyPullDelegate;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserInfoDelegate extends BaseMyPullDelegate {
