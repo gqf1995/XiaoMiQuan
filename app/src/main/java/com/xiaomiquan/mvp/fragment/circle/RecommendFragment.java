@@ -9,15 +9,8 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.BigVListAdapter;
-import com.xiaomiquan.adapter.circle.CircleFindAdapter;
-import com.xiaomiquan.adapter.group.GroupAdapter;
-import com.xiaomiquan.entity.bean.ExchangeData;
-import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.entity.bean.circle.UserFriende;
-import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
-import com.xiaomiquan.mvp.activity.mvp.activity.AttentionActivity;
 import com.xiaomiquan.mvp.databinder.circle.RecommendBinder;
-import com.xiaomiquan.mvp.databinder.group.GroupChangeBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 

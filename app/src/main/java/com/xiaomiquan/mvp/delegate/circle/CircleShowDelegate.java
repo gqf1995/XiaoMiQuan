@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.tablayout.CommonTabLayout;
 import com.xiaomiquan.R;
@@ -15,7 +16,7 @@ import com.xiaomiquan.R;
  * Created by Andy on 2018/1/25.
  */
 
-public class CircleShowDelegate extends BaseMyPullDelegate {
+public class CircleShowDelegate extends BaseDelegate {
 
     public ViewHolder viewHolder;
 

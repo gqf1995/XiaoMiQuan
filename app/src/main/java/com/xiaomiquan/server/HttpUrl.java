@@ -3,6 +3,7 @@ package com.xiaomiquan.server;
 import android.text.TextUtils;
 
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 
 import static com.xiaomiquan.base.AppConst.httpBaseUrl;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl2;
@@ -186,14 +187,12 @@ public class HttpUrl {
      */
     public String unregisterkeys = httpBaseUrl2 + apiUrl + "/unregisterkeys";
 
+
     /**
      * 圈子
      */
     String groupUrl = "/group";
-    /**
-     * 获取未加入圈子信息
-     */
-    public String getMoreCircle = httpBaseUrl4 + groupUrl + "/listMoreGroupByPage";
+
     /**
      * 获取加入圈子信息
      */
@@ -226,7 +225,7 @@ public class HttpUrl {
      */
     public String joinCircle = httpBaseUrl4 + groupMemberUrl + "/applyJoinGroup";
     /**
-     * 获取待审核入圈申请
+     * 圈子禁言所有人
      */
     public String Circlebanned = httpBaseUrl4 + "/group/banned";
     /**
@@ -259,7 +258,7 @@ public class HttpUrl {
     /**
      * 获得帖子
      */
-    public String getUsertopic = httpBaseUrl4 + "/usertopic/list/group/usertopic";
+    public String getUsertopic = httpBaseUrl4 + "/articleTopic/listForGroupByPage";
 
     /**
      * 发帖子
@@ -283,68 +282,46 @@ public class HttpUrl {
     /**
      * 发表评论
      */
-    public String saveComment = httpBaseUrl4 + "/comment/save";
+    public String saveComment = httpBaseUrl4 + "/comment/saveComment";
     /**
      * 点赞
      */
-    public String savePraise = getBaseUrl() + "/praise/save";
+    public String savePraise = httpBaseUrl4 + "/praise/praiseOrCancel";
+
+    /**
+     * 获取广场朋友圈
+     */
+    public String getSquareLive = httpBaseUrl4 + "/articleTopic/listByPage";
+    /**
+     * 获取大V
+     */
+    public String getBigVlist = httpBaseUrl4 + "/user/listBigVByPage";
+    /**
+     * 关注
+     */
+    public String attention = httpBaseUrl4 + "/userAttention/save";
 
 
     /**
-     * 组合跟投
+     * 获取文章
      */
-    String demoUrl = "/demo";
+    public String getArticle = httpBaseUrl4 + "/articleTopic/listArticleByPage";
     /**
-     * 我的组合列表
+     * 获取文章
      */
-    public String listDemo = httpBaseUrl3 + demoUrl + "/listDemo";
+    public String getCircleMore = httpBaseUrl4 + "/group/listMoreGroupByPage";
     /**
-     * 创建组合
+     * 获取用户主页信息
      */
-    public String save = httpBaseUrl3 + demoUrl + "/save";
+    public String getUserInfo = httpBaseUrl4 + "/user/personCenter";
     /**
-     * 申请买卖
+     * 获取粉丝列表
      */
-    public String deal = httpBaseUrl3 + demoUrl + "/deal";
+    public String getFans = httpBaseUrl4 + "/userAttention/attentionMyList";
     /**
-     * 成交历史
+     * 获取关注列表
      */
-    public String listDeal = httpBaseUrl3 + demoUrl + "/listDeal";
-    /**
-     * 委托历史
-     */
-    public String history = httpBaseUrl3 + demoUrl + "/history";
-    /**
-     * 持仓明细
-     */
-    public String listPosition = httpBaseUrl3 + demoUrl + "/listPosition";
-    /**
-     * 今日收益
-     */
-    public String getTodayInfo = httpBaseUrl3 + demoUrl + "/getTodayInfo";
-    /**
-     * 分期收益
-     */
-    public String adllRate = httpBaseUrl3 + demoUrl + "/adllRate";
-    /**
-     * 币种列表
-     */
-    public String searchCoin = httpBaseUrl3 + demoUrl + "/searchCoin";
-    /**
-     * 持有币种列表
-     */
-    public String myCoin = httpBaseUrl3 + demoUrl + "/myCoin";
-    /**
-     * 收益走势
-     */
-    public String rateTrend = httpBaseUrl3 + demoUrl + "/rateTrend";
-    /**
-     * 日均操作次数
-     */
-    public String getTransCount = httpBaseUrl3 + demoUrl + "/getTransCount";
-    /**
-     * 获取余额
-     */
-    public String getBalance = httpBaseUrl3 + demoUrl + "/getBalance";
+    public String getAttention = httpBaseUrl4 + "/user/listMyAttentionByPage";
+
 
 }

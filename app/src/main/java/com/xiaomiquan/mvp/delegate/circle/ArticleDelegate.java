@@ -11,7 +11,7 @@ import com.xiaomiquan.base.BaseMyPullDelegate;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ArticleDelegate extends BaseMyPullDelegate {
+public class ArticleDelegate extends BasePullDelegate {
     public ViewHolder viewHolder;
 
     @Override

@@ -14,9 +14,9 @@ public class AppConst {
     //public static final String httpBaseUrl = "http://116.62.120.179:82";
     //public static final String httpBaseUrl = "http://192.168.0.24:1901";
 
-//    public static final String httpBaseUrl = "http://47.97.169.136:1901";
-//    public static final String httpBaseUrl2 = "http://47.97.169.136:1903";
-//    public static final String httpBaseUrl3 = "http://47.97.169.136:1901";
+    public static final String httpBaseUrl = "http://47.97.169.136:1901";
+    public static final String httpBaseUrl2 = "http://47.97.169.136:1903";
+    public static final String httpBaseUrl3 = "http://47.97.169.136:1901";
     //圈子专用
     //public static final String httpBaseUrl4 = "http://47.97.169.136:1901";
 //    public static final String httpBaseUrl4 = "http://hk-topcoin.tokenboxes.com";
