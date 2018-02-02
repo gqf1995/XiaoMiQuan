@@ -4,38 +4,50 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
+import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.ExchangeMarketAdapter;
+import com.xiaomiquan.adapter.CoinExchangeAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
-import com.xiaomiquan.mvp.databinder.ExchangeBinder;
-import com.xiaomiquan.mvp.delegate.ExchangeDelegate;
+import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
+import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
+import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
+import com.xiaomiquan.utils.HandlerHelper;
+import com.xiaomiquan.utils.UserSet;
+import com.xiaomiquan.widget.GainsTabView;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate, ExchangeBinder> {
+import skin.support.widget.SkinCompatLinearLayout;
 
-    ExchangeMarketAdapter exchangeMarketAdapter;
+public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
+
+    CoinExchangeAdapter exchangeMarketAdapter;
     String coinName;
     List<ExchangeData> strDatas;
+    private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
+    final int whatIndex = 1026;
+    List<String> sendKeys;
 
     @Override
-    protected Class<ExchangeDelegate> getDelegateClass() {
-        return ExchangeDelegate.class;
+    protected Class<BaseFragentPullDelegate> getDelegateClass() {
+        return BaseFragentPullDelegate.class;
     }
 
     @Override
-    public ExchangeBinder getDataBinder(ExchangeDelegate viewDelegate) {
-        return new ExchangeBinder(viewDelegate);
+    public BaseFragmentPullBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
+        return new BaseFragmentPullBinder(viewDelegate);
     }
 
 
@@ -45,14 +57,16 @@ public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate,
         coinName = getArguments().getString("coinName");
     }
 
-
     private void initList(List<ExchangeData> strDatas) {
         if (exchangeMarketAdapter == null) {
-            exchangeMarketAdapter = new ExchangeMarketAdapter(getActivity(), strDatas);
+            exchangeMarketAdapter = new CoinExchangeAdapter(getActivity(), strDatas);
+            exchangeMarketAdapter.setDefaultUnit(UserSet.getinstance().getUnit());
             exchangeMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
+                    if (position > -1) {
+                        MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
+                    }
                 }
 
                 @Override
@@ -61,50 +75,78 @@ public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate,
                 }
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
-            viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            });
-            viewDelegate.viewHolder.recycler_view.setAdapter(exchangeMarketAdapter);
+            //viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
+            //viewDelegate.viewHolder.recycler_view.setAdapter(exchangeMarketAdapter);
+            initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
+            viewDelegate.setIsLoadMore(false);
             initTool();
         } else {
-            exchangeMarketAdapter.setDatas(strDatas);
+            //exchangeMarketAdapter.setDatas(strDatas);
+            getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);
         }
     }
 
+    public TextView tv_unit;
+    public GainsTabView tv_rise;
+    public SkinCompatLinearLayout lin_root;
+
     private void initTool() {
+        View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_exchange_tool, null);
+        this.tv_unit = (TextView) rootView.findViewById(R.id.tv_unit);
+        this.tv_rise = (GainsTabView) rootView.findViewById(R.id.tv_rise);
+        this.lin_root = (SkinCompatLinearLayout) rootView.findViewById(R.id.lin_root);
+
         List<String> dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
-        viewDelegate.viewHolder.tv_unit.attachDataSource(dataset1);
-        viewDelegate.viewHolder.tv_rise.setText(CommonUtils.getString(R.string.str_rise));
-        viewDelegate.viewHolder.tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
-        viewDelegate.viewHolder.tv_rise.setOnClickListener(new View.OnClickListener() {
+        tv_unit.setText(UserSet.getinstance().getShowUnit());
+        tv_rise.setText(CommonUtils.getString(R.string.str_rise));
+        tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
+        tv_rise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewDelegate.viewHolder.tv_rise.onClick();
+                tv_rise.onClick();
             }
         });
+        tv_unit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChangeDefaultSetActivity.startAct(getActivity(), ChangeDefaultSetActivity.TYPE_UNIT);
+            }
+        });
+        tv_rise.setVisibility(View.GONE);
+        viewDelegate.viewHolder.fl_pull.addView(rootView, 0);
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
                 initList(datas);
                 strDatas = datas;
-                sendWebSocket();
+                if (datas != null) {
+                    //发送 更新请求
+                    if (datas.size() > 0) {
+                        sendWebSocket();
+                    }
+                }
                 break;
         }
     }
 
+    boolean isVisible;
+
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
+        this.isVisible = isVisible;
         if (isVisible) {
             onRefresh();
+            if (exchangeMarketAdapter != null) {
+                tv_unit.setText(UserSet.getinstance().getShowUnit());
+                if (exchangeMarketAdapter.getDatas().size() > 0) {
+                    exchangeMarketAdapter.notifyDataSetChanged();
+                }
+            }
         } else {
             binder.cancelpost();
         }
@@ -115,31 +157,68 @@ public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate,
     protected void onFragmentFirstVisible() {
         strDatas = new ArrayList<>();
         initList(strDatas);
-        WebSocketRequest.getInstance().addCallBack(coinName, new WebSocketRequest.WebSocketCallBack() {
-            @Override
-            public void onDataSuccess(String name,String data, String info, int status) {
 
+    }
+
+    //新数据推送 更新
+    private void updataNew(ExchangeData data) {
+        int updataPosition = 0;
+        for (int i = 0; i < strDatas.size(); i++) {
+            if (strDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
+                strDatas.set(i, data);
+                updataPosition = i;
+                break;
             }
-
-            @Override
-            public void onDataError(String name,String data, String info, int status) {
-
-            }
-        });
+        }
+        exchangeMarketAdapter.updataOne(updataPosition, data);
     }
 
     private void sendWebSocket() {
-        List<String> datas = new ArrayList<>();
-        for (int i = 0; i < strDatas.size(); i++) {
-            datas.add(strDatas.get(i).getOnlyKey());
+        if (exchangeMarketAdapter != null) {
+            if (sendKeys == null) {
+                sendKeys = new ArrayList<>();
+            } else {
+                sendKeys.clear();
+            }
+            for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
+                sendKeys.add(exchangeMarketAdapter.getDatas().get(i).getOnlyKey());
+            }
+            initWebSocketRequest();
+            WebSocketRequest.getInstance().sendData(sendKeys);
         }
-        WebSocketRequest.getInstance().sendData(datas);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //重新发送
+    private void initWebSocketRequest() {
+        if (exchangeDataMap == null) {
+            exchangeDataMap = new ConcurrentHashMap<>();
+            //handler.sendEmptyMessageDelayed(whatIndex, 1000);
+        }
+        if (viewDelegate != null) {
+            HandlerHelper.getinstance().initHander(coinName, exchangeDataMap, viewDelegate.getPullRecyclerView(), new HandlerHelper.OnUpdataLinsener() {
+                @Override
+                public void onUpdataLinsener(ExchangeData val) {
+                    updataNew(val);
+                }
+            });
+            WebSocketRequest.getInstance().addCallBack(coinName, new WebSocketRequest.WebSocketCallBack() {
+                @Override
+                public void onDataSuccess(String name, String data, String info, int status) {
+                    if (coinName.equals(name)) {
+                        //推送数据
+                        ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
+                        if (!TextUtils.isEmpty(exchangeData.getOnlyKey())) {
+                            HandlerHelper.getinstance().put(exchangeData.getOnlyKey(), exchangeData);
+                            //exchangeDataMap.put(exchangeData.getOnlyKey(), exchangeData);
+                        }
+                    }
+                }
+
+                @Override
+                public void onDataError(String name, String data, String info, int status) {
+
+                }
+            });
+        }
     }
 
     @Override
@@ -148,9 +227,13 @@ public class CoinExchangeFragment extends BaseDataBindFragment<ExchangeDelegate,
         super.onDestroy();
     }
 
-    protected void onRefresh() {
+    @Override
+    protected void refreshData() {
         addRequest(binder.getAllMarketBySymbol(coinName, this));
     }
+    //    protected void onRefresh() {
+    //        addRequest(binder.getAllMarketBySymbol(coinName, this));
+    //    }
 
     public static CoinExchangeFragment newInstance(
             String coinName) {

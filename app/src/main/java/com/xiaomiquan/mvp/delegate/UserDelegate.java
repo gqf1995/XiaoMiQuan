@@ -3,7 +3,6 @@ package com.xiaomiquan.mvp.delegate;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,8 +10,8 @@ import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.UserLogin;
+import com.xiaomiquan.utils.UserSet;
 
 import java.util.Arrays;
 import java.util.List;
@@ -66,7 +65,7 @@ public class UserDelegate extends BaseDelegate {
 
     private void init() {
         height = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_210px);
-        viewHolder.fl_toolbar.getBackground().mutate().setAlpha(0);
+        viewHolder.layout_title_bar.getBackground().mutate().setAlpha(0);
         viewHolder.toolbar_title.setAlpha(0);
         viewHolder.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             // 将透明度声明成局部变量用于判断
@@ -76,20 +75,20 @@ public class UserDelegate extends BaseDelegate {
 
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                viewHolder.fl_toolbar.setVisibility(View.VISIBLE);
+                viewHolder.layout_title_bar.setVisibility(View.VISIBLE);
                 if (scrollY <= height) {
                     scale = (float) scrollY / height;
                     alpha = (int) (255 * scale);
                     // 随着滑动距离改变透明度
                     // Log.e("al=","="+alpha);
-                    viewHolder.fl_toolbar.getBackground().mutate().setAlpha(alpha);
+                    viewHolder.layout_title_bar.getBackground().mutate().setAlpha(alpha);
                     viewHolder.toolbar_title.setAlpha(scale);
 
                 } else {
                     if (alpha < 255) {
                         // 防止频繁重复设置相同的值影响性能
                         alpha = 255;
-                        viewHolder.fl_toolbar.getBackground().mutate().setAlpha(alpha);
+                        viewHolder.layout_title_bar.getBackground().mutate().setAlpha(alpha);
                         viewHolder.toolbar_title.setAlpha(scale);
                     }
                 }
@@ -121,7 +120,7 @@ public class UserDelegate extends BaseDelegate {
         public LinearLayout lin_user;
         public NestedScrollView nestedScrollView;
         public TextView toolbar_title;
-        public FrameLayout fl_toolbar;
+        public LinearLayout layout_title_bar;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -144,7 +143,7 @@ public class UserDelegate extends BaseDelegate {
             this.lin_user = (LinearLayout) rootView.findViewById(R.id.lin_user);
             this.nestedScrollView = (NestedScrollView) rootView.findViewById(R.id.nestedScrollView);
             this.toolbar_title = (TextView) rootView.findViewById(R.id.toolbar_title);
-            this.fl_toolbar = (FrameLayout) rootView.findViewById(R.id.fl_toolbar);
+            this.layout_title_bar = (LinearLayout) rootView.findViewById(R.id.layout_title_bar);
         }
 
     }

@@ -1,5 +1,7 @@
 package com.xiaomiquan.entity;
 
+import android.text.TextUtils;
+
 import com.xiaomiquan.entity.bean.ExchangeData;
 
 import java.math.BigDecimal;
@@ -12,7 +14,13 @@ import java.util.Comparator;
 public class DropChangeSort implements Comparator<ExchangeData> {
     @Override
     public int compare(ExchangeData exchangeData, ExchangeData t1) {
-        int thislv = new BigDecimal(t1.getChange()).compareTo(new BigDecimal(exchangeData.getChange()));
+        if (exchangeData == null || t1 == null) {
+            return 0;
+        }
+        if (TextUtils.isEmpty(exchangeData.getChange()) || TextUtils.isEmpty(t1.getChange())) {
+            return 0;
+        }
+        int thislv = new BigDecimal(exchangeData.getChange()).compareTo(new BigDecimal(t1.getChange()));
         return thislv;
     }
 }

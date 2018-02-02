@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/text_trans_23px"
-        android:paddingRight="@dimen/text_trans_20px"
-        android:paddingTop="@dimen/text_trans_28px">
+        android:paddingBottom="@dimen/trans_20px"
+        android:paddingRight="@dimen/trans_20px"
+        android:paddingTop="@dimen/trans_30px">
 
         <View
-            android:layout_width="@dimen/text_trans_8px"
-            android:layout_height="@dimen/text_trans_96px"
-            android:background="@color/color_blue" />
+            android:layout_width="@dimen/trans_10px"
+            android:layout_height="@dimen/trans_100px"
+            android:background="@color/color_blue"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -29,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="名字"
                 android:textColor="@color/color_font2"
-                android:textSize="@dimen/trans_32px" />
+                android:textSize="@dimen/trans_32px"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -42,7 +43,7 @@
                     android:id="@+id/cv_head"
                     android:layout_width="@dimen/trans_40px"
                     android:layout_height="@dimen/trans_40px"
-                    android:src="@color/color_blue" />
+                    android:src="@color/color_blue"/>
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -51,7 +52,7 @@
                     android:layout_marginLeft="@dimen/trans_16px"
                     android:text="名字"
                     android:textColor="@color/color_font2"
-                    android:textSize="@dimen/trans_24px" />
+                    android:textSize="@dimen/trans_24px"/>
 
                 <TextView
                     android:id="@+id/tv_time"
@@ -60,7 +61,7 @@
                     android:layout_marginLeft="@dimen/trans_16px"
                     android:text="2017/10/12"
                     android:textColor="@color/color_font2"
-                    android:textSize="@dimen/trans_24px" />
+                    android:textSize="@dimen/trans_24px"/>
 
                 <TextView
                     android:id="@+id/tv_num"
@@ -69,60 +70,50 @@
                     android:layout_marginLeft="@dimen/trans_18px"
                     android:text="8888"
                     android:textColor="@color/color_font2"
-                    android:textSize="@dimen/trans_24px" />
+                    android:textSize="@dimen/trans_24px"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="人关注"
                     android:textColor="@color/color_font2"
-                    android:textSize="@dimen/trans_24px" />
+                    android:textSize="@dimen/trans_24px"/>
             </LinearLayout>
         </LinearLayout>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/album_dp_1"
-            android:layout_weight="1" />
 
-        <TextView
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
             android:id="@+id/tv_look"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:gravity="center_vertical|right"
+            android:layout_marginRight="@dimen/trans_20px"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/str_tv_info"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_24px" />
+            android:textColor="@color/color_font3"
+            android:textSize="@dimen/text_trans_24px"/>
 
-        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/text_trans_8px"
-
-            android:text="@string/ic_Next"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_24px" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/text_trans_1px"
-        android:layout_marginLeft="@dimen/text_trans_40px"
-        android:background="@color/color_6c6c6c" />
+        android:layout_height="@dimen/trans_1px"
+        android:layout_marginLeft="@dimen/trans_40px"
+        android:background="@color/base_mask"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/text_trans_35px"
-        android:paddingLeft="@dimen/text_trans_40px"
-        android:paddingRight="@dimen/text_trans_40px"
-        android:paddingTop="@dimen/text_trans_32px">
+        android:paddingBottom="@dimen/trans_35px"
+        android:paddingLeft="@dimen/trans_40px"
+        android:paddingRight="@dimen/trans_40px"
+        android:paddingTop="@dimen/trans_30px">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -135,24 +126,24 @@
                 android:gravity="center"
                 android:text="@string/str_tv_add_percent"
                 android:textColor="@color/color_font2"
-                android:textSize="@dimen/trans_24px" />
+                android:textSize="@dimen/text_trans_24px"/>
 
-            <TextView
+            <com.fivefivelike.mybaselibrary.view.FontTextview
                 android:id="@+id/tv_add_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_trans_9px"
+                android:layout_marginTop="@dimen/trans_10px"
                 android:gravity="center"
                 android:text="+145%"
                 android:textColor="@color/increasing_color"
-                android:textSize="@dimen/trans_48px"
-                android:textStyle="bold" />
+                android:textSize="@dimen/text_trans_50px"
+                app:TypeFace="SemiBold"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/text_trans_78px"
+            android:layout_marginLeft="@dimen/trans_80px"
             android:orientation="vertical">
 
             <TextView
@@ -161,34 +152,45 @@
                 android:gravity="center"
                 android:text="@string/str_tv_today_percent"
                 android:textColor="@color/color_font2"
-                android:textSize="@dimen/trans_24px" />
+                android:textSize="@dimen/text_trans_25px"/>
 
-            <TextView
+            <com.fivefivelike.mybaselibrary.view.FontTextview
                 android:id="@+id/tv_today_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_trans_9px"
+                android:layout_marginTop="@dimen/trans_10px"
                 android:gravity="center"
                 android:text="+145%"
                 android:textColor="@color/increasing_color"
-                android:textSize="@dimen/trans_48px"
-                android:textStyle="bold" />
+                android:textSize="@dimen/text_trans_50px"
+                app:TypeFace="SemiBold"/>
         </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tv_deal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/text_trans_50px"
-            android:background="@color/color_blue"
+            android:layout_marginLeft="@dimen/trans_50px"
+            android:background="@drawable/select_commit"
             android:clickable="true"
             android:focusable="true"
+            android:padding="@dimen/text_trans_20px"
             android:singleLine="true"
-            android:padding="@dimen/text_trans_22px"
             android:text="@string/str_tv_deal"
-            android:textColor="@color/color_fafafa"
-            android:textSize="@dimen/trans_28px" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_trans_28px"/>
     </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_20px"
+        android:background="@color/base_mask"/>
 
 
 </LinearLayout>

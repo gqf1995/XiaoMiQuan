@@ -5,11 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
+
 import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeName;
@@ -17,7 +20,7 @@ import com.xiaomiquan.mvp.activity.market.SearchCoinMarketActivity;
 import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.TabViewpageBinder;
 import com.xiaomiquan.mvp.delegate.TabViewpageDelegate;
-import com.xiaomiquan.mvp.fragment.group.GroupChangeFragment;
+import com.xiaomiquan.server.HttpUrl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,12 +28,18 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.xiaomiquan.base.AppConst.CACHE_EXCHANGENAME;
+import static com.xiaomiquan.base.AppConst.httpBaseUrl3;
+import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
 
+/**
+ *
+ */
 public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, TabViewpageBinder> {
     ArrayList<Fragment> fragments;
     List<String> mTitles;
     List<ExchangeName> exchangeNameList;
 
+    int defaultLenght;
 
     @Override
     protected Class<TabViewpageDelegate> getDelegateClass() {
@@ -46,10 +55,12 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setmRightImg2(CommonUtils.getString(R.string.ic_Notifications)).setmRightImg1(CommonUtils.getString(R.string.ic_Filter2))
+        initToolbar(new ToolbarBuilder().setmRightImg2(CommonUtils.getString(R.string.ic_Filter2)).setmRightImg1(CommonUtils.getString(R.string.ic_Share))
                 .setTitle(CommonUtils.getString(R.string.str_title_market)).setShowBack(true));
-        viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_Search1));
+        viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
+        viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_Notifications));
         initBarClick();
+        initToolBarSearch();
         //网络获取交易所 名称
         String exchangeNamesStr = CacheUtils.getInstance().getString(CACHE_EXCHANGENAME);
         if (!TextUtils.isEmpty(exchangeNamesStr)) {
@@ -59,8 +70,41 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         addRequest(binder.getAllEXchange(this));
     }
 
+    ArrayList<String> strings;
+
+    //给toolbar添加搜索布局
+    private void initToolBarSearch() {
+        viewDelegate.getFl_content().addView(getActivity().getLayoutInflater().inflate(R.layout.layout_top_search, null));
+        EditText et_search = viewDelegate.getFl_content().findViewById(R.id.et_search);
+        et_search.setFocusable(false);
+        et_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goSearch();
+            }
+        });
+    }
+
+    private void goSearch() {
+        if (userChooseFragment != null) {
+            if (userChooseFragment.getExchangeMarketAdapter() != null) {
+                //跳转搜索
+                if (strings == null) {
+                    strings = new ArrayList<>();
+                } else {
+                    strings.clear();
+                }
+                for (int i = 0; i < userChooseFragment.getExchangeMarketAdapter().getDatas().size(); i++) {
+                    strings.add(userChooseFragment.getExchangeMarketAdapter().getDatas().get(i).getOnlyKey());
+                }
+                SearchCoinMarketActivity.startAct(getActivity(), (ArrayList) strings, 0x123);
+                getActivity().overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+            }
+        }
+    }
+
     @Override
-    protected void clickRightIv() {
+    protected void clickRightIv1() {
         super.clickRightIv();
         // 排序
         gotoActivity(SortingUserCoinActivity.class).fragStartActResult(this, 0x123);
@@ -79,11 +123,17 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         }
     }
 
-    @Override
-    protected void clickRightIv1() {
-        super.clickRightIv1();
-        // 通知
 
+    @Override
+    protected void clickRightIv() {
+        super.clickRightIv1();
+        // 分享
+        if (HttpUrl.getBaseUrl().equals(httpBaseUrl4)) {
+            HttpUrl.setBaseUrl(httpBaseUrl3);
+        } else {
+            HttpUrl.setBaseUrl(httpBaseUrl4);
+        }
+        ToastUtil.show(HttpUrl.getBaseUrl());
     }
 
     UserChooseFragment userChooseFragment;
@@ -97,27 +147,23 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         fragments = new ArrayList<>();
         mTitles = new ArrayList<>();
         List<String> strings = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_market));
+        defaultLenght = strings.size();
         userChooseFragment = new UserChooseFragment();
         comprehensiveFragment = new ComprehensiveFragment();
         marketValueFragment = new MarketValueFragment();
         exchangeNameListFragment = ExchangeNameListFragment.newInstance((ArrayList<ExchangeName>) exchangeNames);
 
         fragments.add(userChooseFragment);
-        fragments.add(comprehensiveFragment);
+        //fragments.add(comprehensiveFragment);
         fragments.add(marketValueFragment);
         fragments.add(exchangeNameListFragment);
-        for (int i = 4; i < 8; i++) {
+        for (int i = defaultLenght - 4; i < defaultLenght; i++) {
             fragments.add(CoinExchangeFragment.newInstance(strings.get(i)));
         }
 
-        mTitles.add(strings.get(0));
-        mTitles.add(strings.get(1));
-        mTitles.add(strings.get(2));
-        mTitles.add(strings.get(3));
-        mTitles.add(strings.get(4));
-        mTitles.add(strings.get(5));
-        mTitles.add(strings.get(6));
-        mTitles.add(strings.get(7));
+        for (int i = 0; i < defaultLenght; i++) {
+            mTitles.add(strings.get(i));
+        }
 
         for (int i = 0; i < exchangeNames.size(); i++) {
             mTitles.add(exchangeNames.get(i).getEname());
@@ -135,7 +181,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 ExchangeName exchangeName = (ExchangeName) item;
                 for (int i = 0; i < exchangeNameList.size(); i++) {
                     if (exchangeNameList.get(i).getEname().equals(exchangeName.getEname())) {
-                        viewDelegate.viewHolder.tl_2.setCurrentTab(i + 4);
+                        viewDelegate.viewHolder.tl_2.setCurrentTab(i + defaultLenght);
                         break;
                     }
                 }
@@ -147,8 +193,8 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         viewDelegate.getmToolbarBackLin().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //搜索
-                gotoActivity(SearchCoinMarketActivity.class).startAct();
+                //通知
+
             }
         });
     }
@@ -162,7 +208,6 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 //保存行情列表
@@ -173,7 +218,6 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 } else {
                     if (exchangeNames.size() != exchangeNameList.size()) {
                         CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-                        //initTablelayout(exchangeNames);
                     }
                 }
                 break;

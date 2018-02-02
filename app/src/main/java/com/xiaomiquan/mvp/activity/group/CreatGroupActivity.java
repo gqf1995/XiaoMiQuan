@@ -1,9 +1,16 @@
 package com.xiaomiquan.mvp.activity.group;
 
+import android.text.TextUtils;
+import android.view.View;
+
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.group.CreatGroupBinder;
 import com.xiaomiquan.mvp.delegate.group.CreatGroupDelegate;
-import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.xiaomiquan.widget.CircleDialogHelper;
 
 public class CreatGroupActivity extends BaseDataBindActivity<CreatGroupDelegate, CreatGroupBinder> {
 
@@ -21,19 +28,56 @@ public class CreatGroupActivity extends BaseDataBindActivity<CreatGroupDelegate,
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle("创建组合").setSubTitle("保存"));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_creat_combination)).setSubTitle(CommonUtils.getString(R.string.str_save)));
 
     }
 
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
+        //保存
+        if (!check()) {
+            return;
+        }
+        CircleDialogHelper.initDefaultDialog(this, CommonUtils.getString(R.string.str_warning_issave), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                save();
+            }
+        }).show();
+    }
+
+    private boolean check() {
+        if (TextUtils.isEmpty(viewDelegate.viewHolder.et_con.getText().toString())) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_group_name));
+            return false;
+        }
+        if (TextUtils.isEmpty(viewDelegate.viewHolder.et_content.getText().toString())) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_group_introduction));
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_group_type));
+            return false;
+        }
+        if (!viewDelegate.viewHolder.ck_circle.isChecked() && !viewDelegate.viewHolder.ck_live.isChecked()) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_group_type));
+            return false;
+        }
+        return true;
+    }
+
+    private void save() {
+        addRequest(binder.save(viewDelegate.viewHolder.et_con.getText().toString(),
+                viewDelegate.viewHolder.ck_live.isChecked() ? "1" : "2",
+                viewDelegate.viewHolder.et_content.getText().toString(),
+                this));
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+            case 0x123:
+                onBackPressed();
+                break;
         }
     }
 

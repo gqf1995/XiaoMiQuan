@@ -58,14 +58,16 @@ public class CommonUtils {
     public static Resources getResources() {
         return GlobleContext.getInstance().getApplicationContext().getResources();
     }
+
     public static Context getContext() {
         return GlobleContext.getInstance().getApplicationContext();
     }
+
     /**
      * 获取Drawable资源
      */
     public static Drawable getDrawable(int resId) {
-        return getResources().getDrawable(resId);
+        return SkinCompatResources.getInstance().getDrawable(resId);
     }
 
     /**
@@ -83,11 +85,13 @@ public class CommonUtils {
      * 获取color资源
      */
     public static int getColor(int resId) {
-        return SkinCompatResources.getColor(getContext(),resId);
+        return SkinCompatResources.getColor(getContext(), resId);
     }
+
     public static ColorStateList getColorStateList(int resId) {
-        return SkinCompatResources.getColorStateList(getContext(),resId);
+        return SkinCompatResources.getColorStateList(getContext(), resId);
     }
+
     /**
      * 获取dimens资源
      */

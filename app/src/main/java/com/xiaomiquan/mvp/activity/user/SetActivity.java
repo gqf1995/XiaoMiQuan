@@ -9,10 +9,14 @@ import com.fivefivelike.mybaselibrary.base.BaseActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
+import com.xiaomiquan.mvp.activity.CustomRateActivity;
 import com.xiaomiquan.mvp.delegate.SetDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
 import com.xiaomiquan.widget.CircleDialogHelper;
 
+/**
+ * 设置页面
+ */
 public class SetActivity extends BaseActivity<SetDelegate> {
 
     @Override
@@ -35,20 +39,8 @@ public class SetActivity extends BaseActivity<SetDelegate> {
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_setting)));
-        viewDelegate.setOnClickListener(this, R.id.lin_clean_cache, R.id.lin_about_us);
+        viewDelegate.setOnClickListener(this, R.id.lin_custom_rate, R.id.lin_clean_cache, R.id.lin_about_us);
         getCacheSize();
-        viewDelegate.viewHolder.lin_clean_cache.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CircleDialogHelper.initDefaultDialog(SetActivity.this, CommonUtils.getString(R.string.str_is_clean_cache), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        CacheUtils.getInstance().clear();
-                        getCacheSize();
-                    }
-                }).show();
-            }
-        });
     }
 
     private void getCacheSize() {
@@ -69,8 +61,19 @@ public class SetActivity extends BaseActivity<SetDelegate> {
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
+            case R.id.lin_custom_rate:
+                //自定义汇率
+                gotoActivity(CustomRateActivity.class).startAct();
+                break;
             case R.id.lin_clean_cache:
                 //清理缓存
+                CircleDialogHelper.initDefaultDialog(SetActivity.this, CommonUtils.getString(R.string.str_is_clean_cache), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        CacheUtils.getInstance().clear();
+                        getCacheSize();
+                    }
+                }).show();
                 break;
             case R.id.lin_about_us:
                 //关于我们

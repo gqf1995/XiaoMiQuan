@@ -1,0 +1,466 @@
+<skin.support.widget.SkinCompatLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_mask_dark"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar"/>
+
+    <com.xiaomiquan.widget.JudgeNestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lin_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/ic_pic"
+                        android:layout_width="@dimen/trans_90px"
+                        android:layout_height="@dimen/trans_90px"
+                        android:layout_marginLeft="@dimen/trans_40px"
+                        android:layout_marginRight="@dimen/trans_25px"
+                        android:layout_marginTop="@dimen/trans_35px"
+                        />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingRight="@dimen/trans_40px">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/trans_40px"
+                            android:gravity="top"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="---"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_32px"/>
+
+                            <TextView
+                                android:id="@+id/tv_focus_on_num"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="---"
+                                android:textColor="@color/color_font3"
+                                android:textSize="@dimen/text_trans_24px"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/trans_5px"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/color_25A73F"
+                                android:gravity="center"
+                                android:text="---"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_32px"/>
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/tv_create_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="---"
+                                android:textColor="@color/color_font3"
+                                android:textSize="@dimen/text_trans_24px"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_introduce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/trans_40px"
+                    android:text="-------"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_28px"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_20px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/trans_40px">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/trans_30px"
+                            android:gravity="center"
+                            android:text="@string/str_today_earnings"
+                            android:textColor="@color/color_font4"
+                            android:textSize="@dimen/text_trans_24px"/>
+
+                        <TextView
+                            android:id="@+id/tv_today_earnings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="@color/increasing_color"
+                            android:textSize="@dimen/text_trans_40px"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/trans_40px">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/trans_30px"
+                            android:gravity="center"
+                            android:text="@string/str_daily_operation"
+                            android:textColor="@color/color_font4"
+                            android:textSize="@dimen/text_trans_24px"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_daily_operation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text=""
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_40px"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/str_number"
+                                android:textColor="@color/color_font4"
+                                android:textSize="@dimen/text_trans_24px"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_1px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/trans_20px"
+                        android:paddingTop="@dimen/trans_20px">
+
+                        <TextView
+                            android:id="@+id/tv_cumulative_earnings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="--"
+                            android:textColor="@color/increasing_color"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/trans_15px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/str_cumulative_earnings"
+                            android:textColor="@color/color_font4"
+                            android:textSize="@dimen/text_trans_18px"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/trans_1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/trans_25px"
+                        android:layout_marginTop="@dimen/trans_25px"
+                        android:background="@color/base_mask"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/trans_20px"
+                        android:paddingTop="@dimen/trans_20px">
+
+                        <TextView
+                            android:id="@+id/tv_yesterday_earnings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="--"
+                            android:textColor="@color/increasing_color"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/trans_15px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/str_yesterday_earnings"
+                            android:textColor="@color/color_font4"
+                            android:textSize="@dimen/text_trans_18px"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/trans_1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/trans_25px"
+                        android:layout_marginTop="@dimen/trans_25px"
+                        android:background="@color/base_mask"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/trans_20px"
+                        android:paddingTop="@dimen/trans_20px">
+
+                        <TextView
+                            android:id="@+id/tv_week_earnings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="--"
+                            android:textColor="@color/increasing_color"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/trans_15px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/str_week_earnings"
+                            android:textColor="@color/color_font4"
+                            android:textSize="@dimen/text_trans_18px"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/trans_1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/trans_25px"
+                        android:layout_marginTop="@dimen/trans_25px"
+                        android:background="@color/base_mask"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/trans_20px"
+                        android:paddingTop="@dimen/trans_20px">
+
+                        <TextView
+                            android:id="@+id/tv_month_earnings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="--"
+                            android:textColor="@color/increasing_color"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/trans_15px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/str_month_earnings"
+                            android:textColor="@color/color_font4"
+                            android:textSize="@dimen/text_trans_18px"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_1px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/trans_40px">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/str_earnings_chart"
+                        android:textColor="@color/color_font2"
+                        android:textSize="@dimen/text_trans_30px"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_chart_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="---"
+                        android:textColor="@color/color_font2"
+                        android:textSize="@dimen/text_trans_20px"/>
+
+
+                </LinearLayout>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/linechart"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_280px">
+
+                </com.github.mikephil.charting.charts.LineChart>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_20px"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_20px"
+                    android:background="@color/base_mask"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                app:layout_collapseMode="pin"
+                >
+
+                <skin.support.widget.SkinCompatFrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    >
+
+                    <com.tablayout.CommonTabLayout
+                        android:id="@+id/tl_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_110px"
+                        android:orientation="horizontal"
+                        app:tl_indicator_corner_radius="@dimen/trans_100px"
+                        tl:tl_indicator_color="@color/color_blue"
+                        tl:tl_indicator_height="@dimen/trans_5px"
+                        tl:tl_textSelectColor="@color/color_blue"
+                        tl:tl_textUnselectColor="@color/color_font2"
+                        tl:tl_textsize="@dimen/text_trans_30px"
+                        tl:tl_underline_color="#1A000000"
+                        tl:tl_underline_height="0dp"
+                        />
+                </skin.support.widget.SkinCompatFrameLayout>
+
+
+            </LinearLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </LinearLayout>
+
+    </com.xiaomiquan.widget.JudgeNestedScrollView>
+
+</skin.support.widget.SkinCompatLinearLayout>

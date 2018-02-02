@@ -1,9 +1,9 @@
 package com.xiaomiquan.mvp.delegate.group;
 
+import android.view.View;
+
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.xiaomiquan.R;
-
-import android.view.View;
 
 public class InvestGroupDelegate extends BaseDelegate {
     public ViewHolder viewHolder;

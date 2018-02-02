@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.BaseMyPullDelegate;
 
 /**
  * Created by Andy on 2018/1/19.

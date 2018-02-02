@@ -82,7 +82,6 @@ public class GetFriendsJoinActivity extends BaseDataBindActivity<GetFriendsJoinD
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 List<UserCircle> datas = GsonUtil.getInstance().toList(data, UserCircle.class);

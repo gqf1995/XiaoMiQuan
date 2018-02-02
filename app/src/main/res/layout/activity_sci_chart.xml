@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tl="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/include_toolbar_with_statusbar"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/trans_90px"
+            android:layout_gravity="bottom|center_horizontal"
+            android:gravity="center_horizontal|bottom"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="OKEx"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_trans_32px"/>
+
+            <TextView
+                android:id="@+id/tv_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_trans_24px"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <com.xiaomiquan.widget.StickyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="true"
+            android:orientation="vertical">
+
+            <skin.support.widget.SkinCompatLinearLayout
+                android:id="@+id/lin_kline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="true"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/trans_20px">
+
+                <include layout="@layout/layout_market_detail"/>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_45px"
+                        android:layout_gravity="bottom"
+                        android:background="@color/base_mask"/>
+                    <com.scichart.charting.visuals.SciChartSurface
+                        android:id="@+id/combinedchart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+
+
+                </FrameLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/lin_ma2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/trans_5px"
+                    android:paddingLeft="@dimen/trans_10px"
+                    android:paddingTop="@dimen/trans_5px">
+
+                    <TextView
+                        android:id="@+id/tv_kvolume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/trans_10px"
+                        android:text="@string/str_kvolume"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_20px"/>
+
+                    <TextView
+                        android:id="@+id/tv_ma5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/trans_10px"
+                        android:text="MA5:"
+                        android:textColor="@color/minute_yellow"
+                        android:textSize="@dimen/text_trans_20px"/>
+
+                    <TextView
+                        android:id="@+id/tv_ma10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/trans_10px"
+                        android:text="MA10:"
+                        android:textColor="@color/minute_blue"
+                        android:textSize="@dimen/text_trans_20px"/>
+
+                </LinearLayout>
+                <com.scichart.charting.visuals.SciChartSurface
+                    android:id="@+id/barchart"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_10px"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/shadow_line"
+                    android:rotation="180"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_95px"
+                    android:orientation="horizontal"
+                    android:tag="sticky-nonconstant-hastransparancy">
+
+
+                    <LinearLayout
+                        android:id="@+id/lin_global_market"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/ic_World"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/text_trans_40px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/trans_5px"
+                            android:text="@string/str_global_market"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/trans_1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/trans_25px"
+                        android:layout_marginTop="@dimen/trans_25px"
+                        android:background="@color/color_font3"/>
+
+
+                    <LinearLayout
+                        android:id="@+id/lin_currency_data"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/ic_Info"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/text_trans_40px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/trans_5px"
+                            android:text="@string/str_currency_data"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/trans_1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/trans_25px"
+                        android:layout_marginTop="@dimen/trans_25px"
+                        android:background="@color/color_font3"/>
+
+                    <LinearLayout
+                        android:id="@+id/lin_simulation"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/ic_Climb"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/text_trans_40px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/trans_5px"
+                            android:text="@string/str_simulation"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/trans_1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/trans_25px"
+                        android:layout_marginTop="@dimen/trans_25px"
+                        android:background="@color/color_font3"/>
+
+                    <LinearLayout
+                        android:id="@+id/lin_advance_warning"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/ic_Notifications"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/text_trans_40px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/trans_5px"
+                            android:text="@string/str_advance_warning"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/text_trans_20px"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </skin.support.widget.SkinCompatLinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </com.xiaomiquan.widget.StickyScrollView>
+
+
+</LinearLayout>

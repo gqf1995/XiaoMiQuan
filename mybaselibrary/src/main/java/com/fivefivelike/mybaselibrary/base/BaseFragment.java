@@ -54,15 +54,6 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (viewDelegate.isNoStatusBarFlag()) {
-            addNoStatusBarFlag();
-        } else {
-            clearNoStatusBarFlag();
-        }
-    }
 
     /**
      * 初始化标题
@@ -121,6 +112,17 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
             isFragmentVisible = false;
             onFragmentVisibleChange(false);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (viewDelegate.isNoStatusBarFlag()) {
+            addNoStatusBarFlag();
+        } else {
+            clearNoStatusBarFlag();
+        }
+        onFragmentVisibleChange(isFragmentVisible);
     }
 
     @Override

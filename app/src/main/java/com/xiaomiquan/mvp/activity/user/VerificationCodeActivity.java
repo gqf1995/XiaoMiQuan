@@ -19,6 +19,9 @@ import com.xiaomiquan.mvp.delegate.VerificationCodeDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
 import com.xiaomiquan.widget.editcodeview.EditCodeWatcher;
 
+/**
+ * 获取验证码页面 所有获取验证码走统一页面
+ */
 public class VerificationCodeActivity extends BaseDataBindActivity<VerificationCodeDelegate, VerificationCodeBinder> {
 
 
@@ -125,14 +128,14 @@ public class VerificationCodeActivity extends BaseDataBindActivity<VerificationC
         activity.startActivity(intent);
     }
 
+
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 //获取验证码
                 viewDelegate.viewHolder.tv_toast.setText(toast);
-                UiHeplUtils.getCode(viewDelegate.viewHolder.tv_get_again, 60);
+                addRequest(UiHeplUtils.getCode(viewDelegate.viewHolder.tv_get_again, 60));
                 break;
             case 0x124:
                 //注册成功

@@ -14,6 +14,8 @@ import java.util.List;
 
 /**
  * Created by 郭青枫 on 2017/10/13.
+ * <p>
+ * 获取唯一用户信息 工具
  */
 
 public class SingSettingDBUtil {
@@ -39,6 +41,7 @@ public class SingSettingDBUtil {
     }
 
     public static void logout() {
+        //用户登录信息统一 清除
         delectUserLogin();
         isLogin = "";
         HttpUrl.getIntance().delectUidAndToken();
@@ -50,10 +53,10 @@ public class SingSettingDBUtil {
         //获取到用户基本信息,保存在数据库
         if (userLogin != null) {
             if (!TextUtils.isEmpty(userLogin.getPhone())) {
-//                if (DaoManager.getInstance().getDaoSession().getUserLoginDao().queryBuilder().list().size() != 0) {
-//                    //如果有先删除
-//                    delectUserLogin();
-//                }
+                //                if (DaoManager.getInstance().getDaoSession().getUserLoginDao().queryBuilder().list().size() != 0) {
+                //                    //如果有先删除
+                //                    delectUserLogin();
+                //                }
                 //插入
                 DaoManager.getInstance().getDaoSession().getUserLoginDao().insertOrReplace(userLogin);
                 HttpUrl.getIntance().saveUid(userLogin.getId() + "");

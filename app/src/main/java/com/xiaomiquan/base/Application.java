@@ -6,11 +6,10 @@ import android.content.Context;
 import com.biv.BigImageViewer;
 import com.biv.loader.glide.GlideImageLoader;
 import com.blankj.utilcode.util.Utils;
-import com.dhh.websocket.RxWebSocketUtil;
 import com.fivefivelike.mybaselibrary.base.BaseApp;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
-import com.squareup.leakcanary.LeakCanary;
+import com.scichart.charting.visuals.SciChartSurface;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -18,7 +17,6 @@ import com.yanzhenjie.nohttp.NoHttp;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
-import okhttp3.OkHttpClient;
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCardViewInflater;
 import skin.support.constraint.app.SkinConstraintViewInflater;
@@ -86,13 +84,21 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
             KLog.init(isLog);
             //初始化换肤
             initSkin();
+            String license = "<LicenseContract>" +
+                    "<Customer>gqf1995@qq.com</Customer>" +
+                    "<OrderId>Trial</OrderId>" +
+                    "<LicenseCount>1</LicenseCount>" +
+                    "<IsTrialLicense>true</IsTrialLicense>" +
+                    "<SupportExpires>02/26/2018 00:00:00</SupportExpires>" +
+                    "<ProductCode>SC-ANDROID-2D-ENTERPRISE-SRC</ProductCode>" +
+                    "<KeyCode>ac58819db3418493bf1c4f9c80e95509a912d1debbf004bf2ad277de68c68066dc561c982dff0f20656003cdd4f6b3f52ca7cc71f5f81283b759d2945aa85fd7dee6f17a5149f784645c101e841939555439315dd199c367fe12fe124eefef1c3a84077a860a0b81e63681b00661972d181c3495201bb89fe12e0cf362b7124dcf6632e38b15e7fd0541e28b5933b451cc9fe31dcd394173c3712ea2caa9016249a4056f56e6dda0</KeyCode>" +
+                    "</LicenseContract>";
+            try {
+                SciChartSurface.setRuntimeLicenseKey(license);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
     }
 
     @Override
@@ -115,8 +121,10 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
     public boolean onReceived(Message message, int i) {
         return false;
     }
+
     private static Context mContext;
-    public static Context getContext(){
+
+    public static Context getContext() {
         return mContext;
     }
 }

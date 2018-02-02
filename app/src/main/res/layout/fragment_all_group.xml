@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin.support.widget.SkinCompatLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_pull"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:ignore="NamespaceTypo">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fl_rcv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.xiaomiquan.widget.StickyScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_85px"
+                        android:orientation="vertical"
+                        android:tag="sticky">
+
+                        <skin.support.widget.SkinCompatLinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/trans_40px">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/str_my_group"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_28px"/>
+
+                        </skin.support.widget.SkinCompatLinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_1px"
+                            android:background="@color/base_mask"/>
+
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_my_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_20px"
+                        android:background="@color/base_mask"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_85px"
+                        android:orientation="vertical"
+                        android:tag="sticky">
+
+                        <skin.support.widget.SkinCompatLinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/trans_40px">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="270"
+                                android:text="@string/str_hot_group"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_28px"/>
+
+                            <com.tablayout.CommonTabLayout
+                                android:id="@+id/tl_2"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="400"
+                                app:tl_indicator_width="0dp"
+                                app:tl_textBold="BOTH"
+                                app:tl_underline_gravity="TOP"
+                                tl:tl_indicator_color="@color/color_blue"
+                                tl:tl_indicator_height="0dp"
+                                tl:tl_textSelectColor="@color/color_blue"
+                                tl:tl_textUnselectColor="@color/color_font1"
+                                tl:tl_textsize="@dimen/text_trans_28px"
+                                tl:tl_underline_color="@color/black_transparent_99"
+                                tl:tl_underline_height="0dp"
+                                />
+
+                        </skin.support.widget.SkinCompatLinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_1px"
+                            android:background="@color/base_mask"/>
+
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rcv_hot_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scrollbars="none"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_20px"
+                        android:background="@color/base_mask"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_85px"
+                        android:orientation="vertical"
+                        android:tag="sticky">
+
+                        <skin.support.widget.SkinCompatLinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/trans_40px">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/str_group_dynamic"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_28px"/>
+
+                        </skin.support.widget.SkinCompatLinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_1px"
+                            android:background="@color/base_mask"/>
+
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/pull_recycleview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none"
+                        />
+
+                </LinearLayout>
+
+            </com.xiaomiquan.widget.StickyScrollView>
+        </FrameLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</skin.support.widget.SkinCompatLinearLayout>

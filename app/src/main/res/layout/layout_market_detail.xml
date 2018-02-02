@@ -79,11 +79,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="306"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/trans_20px"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -91,11 +93,13 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/trans_10px"
                         android:gravity="center"
                         android:text="@string/str_highest"
                         android:textColor="@color/color_font4"
@@ -105,7 +109,6 @@
                         android:id="@+id/tv_highest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/trans_5px"
                         android:gravity="center"
                         android:text=""
                         android:textColor="@color/color_font2"
@@ -117,11 +120,13 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/trans_10px"
                         android:gravity="center"
                         android:text="@string/str_minimum"
                         android:textColor="@color/color_font4"
@@ -131,7 +136,6 @@
                         android:id="@+id/tv_minimum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/trans_5px"
                         android:gravity="center"
                         android:text=""
                         android:textColor="@color/color_font2"
@@ -143,6 +147,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/trans_20px"
+
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -150,11 +156,13 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/trans_10px"
                         android:gravity="center"
                         android:text="@string/str_buy_one"
                         android:textColor="@color/color_font4"
@@ -164,7 +172,6 @@
                         android:id="@+id/tv_buy_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/trans_5px"
                         android:gravity="center"
                         android:text="-"
                         android:textColor="@color/color_font2"
@@ -176,11 +183,13 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/trans_10px"
                         android:gravity="center"
                         android:text="@string/str_sell_one"
                         android:textColor="@color/color_font4"
@@ -190,7 +199,6 @@
                         android:id="@+id/tv_sell_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/trans_5px"
                         android:gravity="center"
                         android:text="-"
                         android:textColor="@color/color_font2"
@@ -202,6 +210,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/trans_20px"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -209,11 +218,13 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/trans_10px"
                         android:gravity="center"
                         android:text="@string/str_market_value"
                         android:textColor="@color/color_font4"
@@ -223,7 +234,6 @@
                         android:id="@+id/tv_market_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/trans_5px"
                         android:gravity="center"
                         android:text="-"
                         android:textColor="@color/color_font2"
@@ -235,11 +245,13 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/trans_10px"
                         android:gravity="center"
                         android:text="@string/str_circulation"
                         android:textColor="@color/color_font4"
@@ -249,7 +261,6 @@
                         android:id="@+id/tv_circulation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/trans_5px"
                         android:gravity="center"
                         android:text="-"
                         android:textColor="@color/color_font2"
@@ -270,83 +281,35 @@
         android:paddingLeft="@dimen/trans_20px"
         android:paddingRight="@dimen/trans_20px">
 
-        <FrameLayout
+        <com.xiaomiquan.widget.DropDownView
+            android:id="@+id/lin_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner
-                android:id="@+id/lin_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:drawablePadding="@dimen/trans_5px"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/trans_15px"
-                android:paddingTop="@dimen/trans_15px"
-                android:text="1天"
-                android:textColor="@color/color_font4"
-                android:textSize="@dimen/text_trans_28px"
-                app:backgroundSelector="@color/transparent"
-                app:textTint="@color/color_font4"
-                >
 
-            </com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner>
-        </FrameLayout>
+        </com.xiaomiquan.widget.DropDownView>
 
-        <FrameLayout
+        <com.xiaomiquan.widget.DropDownView
+            android:id="@+id/lin_indicators"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner
-                android:id="@+id/lin_indicators"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:drawablePadding="@dimen/trans_5px"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/trans_15px"
-                android:paddingTop="@dimen/trans_15px"
-                android:text="1天"
-                android:textColor="@color/color_font4"
-                android:textSize="@dimen/text_trans_28px"
-                app:backgroundSelector="@color/transparent"
-                app:textTint="@color/color_font4"
-                >
 
-            </com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner>
-        </FrameLayout>
+        </com.xiaomiquan.widget.DropDownView>
 
-        <FrameLayout
+        <com.xiaomiquan.widget.DropDownView
+            android:id="@+id/lin_color"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner
-                android:id="@+id/lin_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:drawablePadding="@dimen/trans_5px"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/trans_15px"
-                android:paddingTop="@dimen/trans_15px"
-                android:text="1天"
-                android:textColor="@color/color_font4"
-                android:textSize="@dimen/text_trans_28px"
-                app:backgroundSelector="@color/transparent"
-                app:textTint="@color/color_font4"
-                >
 
-            </com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner>
-        </FrameLayout>
+        </com.xiaomiquan.widget.DropDownView>
 
 
     </LinearLayout>
@@ -359,20 +322,16 @@
         android:paddingLeft="@dimen/trans_10px"
         android:paddingTop="@dimen/trans_20px">
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tv_ktime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingRight="@dimen/trans_20px"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="@dimen/trans_10px"
             android:text="-"
             android:textColor="@color/color_font4"
-            android:textSize="@dimen/text_trans_18px"/>
+            android:textSize="@dimen/text_trans_16px"/>
 
         <Space
             android:layout_width="0dp"
@@ -383,10 +342,10 @@
             android:id="@+id/tv_kopen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center_vertical|left"
             android:text="-"
             android:textColor="@color/color_font4"
-            android:textSize="@dimen/text_trans_18px"/>
+            android:textSize="@dimen/text_trans_16px"/>
 
         <Space
             android:layout_width="0dp"
@@ -397,10 +356,10 @@
             android:id="@+id/tv_kheight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center_vertical|left"
             android:text="-"
             android:textColor="@color/color_font4"
-            android:textSize="@dimen/text_trans_18px"/>
+            android:textSize="@dimen/text_trans_16px"/>
 
         <Space
             android:layout_width="0dp"
@@ -411,10 +370,10 @@
             android:id="@+id/tv_klow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center_vertical|left"
             android:text="-"
             android:textColor="@color/color_font4"
-            android:textSize="@dimen/text_trans_18px"/>
+            android:textSize="@dimen/text_trans_16px"/>
 
         <Space
             android:layout_width="0dp"
@@ -425,10 +384,10 @@
             android:id="@+id/tv_kclose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center_vertical|left"
             android:text="-"
             android:textColor="@color/color_font4"
-            android:textSize="@dimen/text_trans_18px"/>
+            android:textSize="@dimen/text_trans_16px"/>
 
         <Space
             android:layout_width="0dp"
@@ -460,7 +419,7 @@
             android:gravity="center"
             android:paddingRight="@dimen/trans_10px"
             android:text="MA15:"
-            android:textColor="@color/color_font3"
+            android:textColor="@color/minute_yellow"
             android:textSize="@dimen/text_trans_20px"/>
 
         <TextView
@@ -470,7 +429,7 @@
             android:gravity="center"
             android:paddingRight="@dimen/trans_10px"
             android:text="MA30:"
-            android:textColor="@color/color_font3"
+            android:textColor="@color/minute_blue"
             android:textSize="@dimen/text_trans_20px"/>
 
     </LinearLayout>

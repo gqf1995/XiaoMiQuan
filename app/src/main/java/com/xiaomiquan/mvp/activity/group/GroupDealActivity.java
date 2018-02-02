@@ -1,10 +1,9 @@
 package com.xiaomiquan.mvp.activity.group;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -14,14 +13,14 @@ import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.group.GroupDealAdapter;
-import com.xiaomiquan.adapter.group.GroupDealCurrencyAdapyer;
-import com.xiaomiquan.entity.bean.ExchangeData;
-import com.xiaomiquan.entity.bean.group.GroupDeal;
+import com.xiaomiquan.entity.bean.group.CoinDetail;
+import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.mvp.databinder.group.GroupDealBinder;
 import com.xiaomiquan.mvp.delegate.group.GroupDealDelegate;
-import com.xiaomiquan.mvp.fragment.group.GroupDealChooseFragment;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+import com.xiaomiquan.mvp.fragment.group.CurrencyFragment;
+import com.xiaomiquan.mvp.fragment.group.HistoryEntrustFragment;
+import com.xiaomiquan.mvp.fragment.group.HistoryTradingFragment;
+import com.xiaomiquan.mvp.fragment.group.NotDealFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +30,10 @@ import java.util.List;
  * Created by Andy on 2018/1/25.
  */
 
-public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, GroupDealBinder> {
+public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, GroupDealBinder> implements CurrencyFragment.OnSelectLinsener {
+    CurrencyFragment currencyFragmentBuy;
+    CurrencyFragment currencyFragmentSell;
+
     @Override
     public GroupDealBinder getDataBinder(GroupDealDelegate viewDelegate) {
         return new GroupDealBinder(viewDelegate);
@@ -45,6 +47,7 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        getIntentData();
         initToolbar(new ToolbarBuilder().setTitle("组合交易"));
         initTablelayout();
         initCurrency();
@@ -62,8 +65,10 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
     private void initTablelayout() {
         mTitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_deal));
         fragments = new ArrayList<>();
+        fragments.add(new NotDealFragment());
+        fragments.add(new HistoryEntrustFragment());
+        fragments.add(new HistoryTradingFragment());
         for (int i = 0; i < mTitles.size(); i++) {
-            fragments.add(new GroupDealChooseFragment());
             mTabEntities.add(new TabEntity(mTitles.get(i), 0, 0));
         }
         viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
@@ -87,7 +92,6 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         viewDelegate.viewHolder.tl_2.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                viewDelegate.showFragment(position);
                 viewDelegate.viewHolder.vp_sliding.setCurrentItem(position, true);
             }
 
@@ -98,30 +102,37 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         });
     }
 
-    GroupDealCurrencyAdapyer currencyAdapyer;
+    public static void startAct(Activity activity,
+                                GroupItem groupItem,
+                                boolean isMy
+    ) {
+        Intent intent = new Intent(activity, GroupDealActivity.class);
+        intent.putExtra("groupItem", groupItem);
+        intent.putExtra("isMy", isMy);
+        activity.startActivity(intent);
+    }
+
+    private GroupItem groupItem;
+    boolean isMy;
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        groupItem = intent.getParcelableExtra("groupItem");
+        isMy = intent.getBooleanExtra("isMy", false);
+    }
+
+
     public void initCurrency() {
-        List<ExchangeData> datas = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            datas.add(i, new ExchangeData());
-        }
-        currencyAdapyer = new GroupDealCurrencyAdapyer(GroupDealActivity.this, datas);
-        currencyAdapyer.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+        currencyFragmentBuy = CurrencyFragment.newInstance(CurrencyFragment.TYPE_CURRENCY_BUY, "");
+        currencyFragmentSell = CurrencyFragment.newInstance(CurrencyFragment.TYPE_CURRENCY_SELL, groupItem.getId());
+        viewDelegate.initAddFragment(R.id.fl_currency, getSupportFragmentManager());
+        viewDelegate.addFragment(currencyFragmentBuy);
+        viewDelegate.addFragment(currencyFragmentSell);
+        viewDelegate.showFragment(0);
+    }
 
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
-        });
-        viewDelegate.viewHolder.rv_currency.setLayoutManager(new LinearLayoutManager(GroupDealActivity.this) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-        viewDelegate.viewHolder.rv_currency.setAdapter(currencyAdapyer);
+    @Override
+    public void onSelectLinsener(CoinDetail coinDetail) {
+        viewDelegate.onSelectLinsener(coinDetail,groupItem);
     }
 }

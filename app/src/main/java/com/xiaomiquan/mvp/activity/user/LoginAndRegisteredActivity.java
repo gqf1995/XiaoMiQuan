@@ -15,6 +15,9 @@ import com.xiaomiquan.mvp.activity.main.MainActivity;
 import com.xiaomiquan.mvp.databinder.LoginAndRegisteredBinder;
 import com.xiaomiquan.mvp.delegate.LoginAndRegisteredDelegate;
 
+/**
+ * 登录注册
+ */
 public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndRegisteredDelegate, LoginAndRegisteredBinder> {
 
 
@@ -74,7 +77,6 @@ public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndReg
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 //登录成功

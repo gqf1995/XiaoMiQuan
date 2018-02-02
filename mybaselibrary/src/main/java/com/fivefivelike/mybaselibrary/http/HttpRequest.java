@@ -461,6 +461,7 @@ public class HttpRequest {
             return this;
         }
 
+        //设置传参模式
         public Builder setParameterMode(ParameterMode parameterMode) {
             this.parameterMode = parameterMode;
             return this;
@@ -588,6 +589,7 @@ public class HttpRequest {
             return this;
         }
 
+        //设置请求模式
         public Builder setRequestMode(RequestMode requestMode) {
             this.requestMode = requestMode;
             return this;

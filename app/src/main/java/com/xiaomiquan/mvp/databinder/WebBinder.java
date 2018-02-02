@@ -1,7 +1,7 @@
 package com.xiaomiquan.mvp.databinder;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.mvp.delegate.WebDelegate;
 
 import java.util.Map;

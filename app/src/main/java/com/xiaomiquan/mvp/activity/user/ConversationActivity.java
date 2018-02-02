@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 import com.fivefivelike.mybaselibrary.base.BaseActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.mvp.delegate.CustomerServiceActDelegate;
 
 import io.rong.imkit.RongExtension;
@@ -18,6 +18,7 @@ import static com.xiaomiquan.base.AppConst.serviceId;
 
 /**
  * Created by 郭青枫 on 2017/11/14.
+ * 聊天页面
  */
 public class ConversationActivity extends BaseActivity<CustomerServiceActDelegate> {
 

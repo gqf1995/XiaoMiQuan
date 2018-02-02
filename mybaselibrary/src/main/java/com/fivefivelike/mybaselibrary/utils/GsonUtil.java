@@ -76,9 +76,8 @@ public class GsonUtil {
      * @return
      */
     public <T> T toMap(String json, TypeReference<T> reference) {
-        String string = toJson(JSON.parseObject(json, reference));
-
-        return JSON.parseObject(string, reference);
+        //String string = toJson(JSON.parseObject(json, reference));
+        return JSON.parseObject(json, reference);
     }
 
     /**
@@ -103,6 +102,11 @@ public class GsonUtil {
      * @return
      */
     public <T> T toObj(String json, Class<T> clazz) {
+        //String string = toJson(JSON.parseObject(json, clazz));//转换一遍  保证空值
+        return JSON.parseObject(json, clazz);
+    }
+
+    public <T> T toObjNoNull(String json, Class<T> clazz) {
         String string = toJson(JSON.parseObject(json, clazz));//转换一遍  保证空值
         return JSON.parseObject(string, clazz);
     }
@@ -120,8 +124,8 @@ public class GsonUtil {
      * @return
      */
     public <T> List<T> toList(String json, Class<T> cls) {
-        String string = toJson(JSON.parseArray(json, cls));//转换一遍  保证空值
-        return JSON.parseArray(string, cls);
+        //String string = toJson(JSON.parseArray(json, cls));//转换一遍  保证空值
+        return JSON.parseArray(json, cls);
     }
 
     /**

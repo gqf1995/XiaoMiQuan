@@ -1,6 +1,29 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 
+//def mainFolder = "src/main"
+//def assetsFolder = mainFolder + "/assets"
+//def resFolder = mainFolder + "/res"
+//def javaFolder = mainFolder + "/java"
+//
+//def examplesFolder = javaFolder + "/com/scichart/examples"
+//def sciChartApp = "SciChartApp.java"
+//
+//def utilsFolder = examplesFolder + "/utils"
+//def componentsFolder = examplesFolder + "/components"
+//def dataFolder = examplesFolder + "/data"
+//def exampleFragmentsFolder = examplesFolder + "/fragments"
+def mainFolder = "src/main"
+def assetsFolder = mainFolder + "/assets"
+def resFolder = mainFolder + "/res"
+def javaFolder = mainFolder + "/java"
+def examplesFolder = javaFolder + "/com/scichart/examples"
+def sciChartApp = "SciChartApp.java"
+def utilsFolder = examplesFolder + "/utils"
+def componentsFolder = examplesFolder + "/components"
+def dataFolder = examplesFolder + "/data"
+def exampleFragmentsFolder = examplesFolder + "/fragments"
+
 android {
     signingConfigs {
         release {
@@ -21,7 +44,10 @@ android {
     }
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
-
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibility
+        targetCompatibility rootProject.ext.sourceCompatibility
+    }
     defaultConfig {
         applicationId "com.xiaomiquan"
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -31,8 +57,25 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
         multiDexEnabled true
+
+        buildConfigField "String", "MAIN_FOLDER", "\"$mainFolder\""
+        buildConfigField "String", "ASSETS_FOLDER", "\"$assetsFolder\""
+        buildConfigField "String", "RES_FOLDER", "\"$resFolder\""
+        buildConfigField "String", "JAVA_FOLDER", "\"$javaFolder\""
+
+        buildConfigField "String", "EXAMPLE_FOLDER", "\"$examplesFolder\""
+        buildConfigField "String", "SCI_CHART_APP", "\"$sciChartApp\""
+
+        buildConfigField "String", "UTILS_FOLDER", "\"$utilsFolder\""
+        buildConfigField "String", "COMPONENTS_FOLDER", "\"$componentsFolder\""
+        buildConfigField "String", "DATA_FOLDER", "\"$dataFolder\""
+        buildConfigField "String", "EXAMPLES_FRAGMENT_FOLDER", "\"$exampleFragmentsFolder\""
+
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -64,7 +107,17 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
     }
+    productFlavors {
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
 }
+
+repositories {
+    maven { url 'https://www.myget.org/F/abtsoftware/maven' }
+}
+
 greendao {
     //版本号，升级时可配置,对应当前数据库版本
     schemaVersion 1
@@ -74,6 +127,12 @@ greendao {
     targetGenDir 'src/main/java'
 }
 dependencies {
+    compile (group: 'com.scichart.library', name: 'core', version: '2.1.0.2131', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.1.0.2131', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.1.0.2131', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.1.0.2131', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'extensions', version: '2.1.0.2131', ext: 'aar')
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -94,8 +153,8 @@ dependencies {
     //数据库
     compile 'org.greenrobot:greendao:3.2.2'
     //
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //图表
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.5'
     // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
@@ -107,4 +166,86 @@ dependencies {
 
 
 }
-
+task cleanExampleAssets(type: Delete) {
+    delete "src/main/assets/app"
+}
+task copySourceSciChartAppToAssets(type: Copy) {
+    from examplesFolder + "/" + sciChartApp
+    into assetsFolder + "/app/" + examplesFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleFragmentsToAssets(type: Copy) {
+    from exampleFragmentsFolder
+    into assetsFolder + "/app/" + exampleFragmentsFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleUtilsToAssets(type: Copy) {
+    from utilsFolder
+    into assetsFolder + "/app/" + utilsFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleDataToAssets(type: Copy) {
+    from dataFolder
+    into assetsFolder + "/app/" + dataFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleComponentsToAssets(type: Copy) {
+    from componentsFolder
+    into assetsFolder + "/app/" + componentsFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copyResourceExamplesToAssets(type: Copy) {
+    from resFolder
+    into assetsFolder + "/app/" + resFolder
+    include '**/example_*.*'
+    include '**/license.xml'
+    include '**/values/*.xml'
+    includeEmptyDirs = false
+    rename { String fileName ->
+        fileName.replace("xml", "xml.txt")
+    }
+}
+project.afterEvaluate {
+    clean.dependsOn cleanExampleAssets
+    preBuild.dependsOn copySourceSciChartAppToAssets, copySourceExampleFragmentsToAssets, copySourceExampleUtilsToAssets, copySourceExampleDataToAssets, copySourceExampleComponentsToAssets, copySourceExampleComponentsToAssets, copyResourceExamplesToAssets
+}
+//密钥库类型: JKS
+//密钥库提供方: SUN
+//
+//您的密钥库包含 1 个条目
+//
+//别名: xmq
+//创建日期: 2018-1-9
+//条目类型: PrivateKeyEntry
+//证书链长度: 1
+//证书[1]:
+//所有者: CN=xmq, OU=xmq, O=xmq, L=xmq, ST=xmq, C=xmq
+//发布者: CN=xmq, OU=xmq, O=xmq, L=xmq, ST=xmq, C=xmq
+//序列号: 21f1325d
+//有效期开始日期: Tue Jan 09 09:33:51 CST 2018, 截止日期: Sat Jan 03 09:33:51 CST 2043
+//证书指纹:
+//MD5: 62:DD:F0:C0:54:9E:52:94:D9:34:AC:0A:16:37:62:A2
+//SHA1: 31:50:E0:51:37:BD:7E:EF:2F:BE:D9:26:66:C6:9E:AE:9A:A1:B4:C8
+//SHA256: 84:FF:FD:AB:61:CF:BF:BD:88:08:5F:22:F1:FB:36:E1:88:DB:D9:22:4E:73:01:A4:5A:83:79:56:CA:2F:A7:DB
+//签名算法名称: SHA256withRSA
+//版本: 3
+//
+//扩展:
+//
+//#1: ObjectId: 2.5.29.14 Criticality=false
+//SubjectKeyIdentifier [
+//        KeyIdentifier [
+//                0000: BF 12 0C 44 8A 0E 2B 74   B7 B8 92 AF 73 9A 64 73  ...D..+t....s.ds
+//                0010: 38 85 2C 57                                        8.,W
+//                ]
+//        ]

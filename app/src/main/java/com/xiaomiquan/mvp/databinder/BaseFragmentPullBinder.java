@@ -12,6 +12,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by 郭青枫 on 2017/9/27.
+ * 统一的 fragment列表接口 代理
  */
 
 public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate> {
@@ -26,6 +27,8 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
     public Disposable getAllMarketCaps(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
+        baseMap.put("offset", viewDelegate.page);
+        baseMap.put("limit", viewDelegate.pagesize);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().getAllMarketCaps)
@@ -37,7 +40,6 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .setRequestCallback(requestCallback)
                 .build()
                 .RxSendRequest();
-
     }
 
 
@@ -94,7 +96,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .setRequestUrl(HttpUrl.getIntance().marketdata)
                 .setShowDialog(false)
                 .setRequestName("订阅数据展示")
-                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
@@ -123,4 +125,219 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
+
+    /**
+     * 搜索
+     */
+    public Disposable getAllMarketByExchangeOrSymbol(
+            String name,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("name", name);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().getAllMarketByExchangeOrSymbol)
+                .setShowDialog(false)
+                .setRequestName("搜索")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 单独订阅/取消
+     */
+    public Disposable singlesubs(
+            String onlykey,
+            String symbol,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("onlykey", onlykey);
+        baseMap.put("symbol", symbol);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().singlesubs)
+                .setShowDialog(false)
+                .setRequestName("单独订阅/取消")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 交易所 数据
+     */
+    public Disposable getAllMarketByExchange(
+            String exchangeName,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("exchangeName", exchangeName);
+        baseMap.put("offset", viewDelegate.page);
+        baseMap.put("limit", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().getAllMarketByExchange)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("根据交易所名称获得相关信息")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 交易所 数据
+     */
+    public Disposable getAllMarketBySymbol(
+            String coinName,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("coinName", coinName);
+        baseMap.put("offset", viewDelegate.page);
+        baseMap.put("limit", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().getAllMarketBySymbol)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("根据币种名称获得相关信息")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 我的组合
+     */
+    public Disposable listDemo(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().listDemo)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("我的组合")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 币种列表
+     */
+    public Disposable searchCoin(
+            String name,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("name", name);//搜索
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().searchCoin)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("币种列表")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 持有币种列表
+     */
+    public Disposable myCoin(
+            String dealId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("dealId", dealId);
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().myCoin)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("持有币种列表")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+
+    /**
+     * 成交历史
+     */
+    public Disposable listDeal(
+            String demoId,
+            String status,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("demoId", demoId);
+        baseMap.put("status", status);// 1：已成交 2：未成交
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().listDeal)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("成交历史")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+    /**
+     * 持仓明细
+     */
+    public Disposable listPosition(
+            String demoId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("demoId", demoId);
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().listPosition)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("持仓明细")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
 }

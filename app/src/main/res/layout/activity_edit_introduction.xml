@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/trans_40px"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/color_font1"
+        android:textSize="@dimen/text_trans_34px"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_1px"
+        android:layout_marginLeft="@dimen/trans_40px"
+        android:background="@color/base_mask"/>
+
+    <EditText
+        android:id="@+id/et_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:gravity="top|left"
+        android:padding="@dimen/trans_40px"
+        android:text=""
+        android:textColor="@color/color_font2"
+        android:textSize="@dimen/text_trans_28px"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_20px"
+        android:background="@color/base_mask"/>
+
+
+</LinearLayout>

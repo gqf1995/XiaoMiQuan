@@ -23,6 +23,9 @@ import java.lang.annotation.RetentionPolicy;
  * Created by 郭青枫 on 2017/12/1 0001.
  */
 
+/**
+ * 图片加载进度框
+ */
 public class CircleProgressView extends ProgressBar {
 
     private int mReachBarSize = DisplayUtil.dip2px(getContext(), 2); // 未完成进度条大小

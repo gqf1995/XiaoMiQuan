@@ -22,6 +22,7 @@ import java.io.IOException;
 
 /**
  * Created by 郭青枫 on 2016/11/29.
+ * 图片加载统一入口
  */
 
 public class GlideUtils {
@@ -39,7 +40,6 @@ public class GlideUtils {
     public static void loadImage(String url, ImageView icon, int errorId) {
         loadImage(url, icon, errorId, null);
     }
-
 
     public static void loadImage(String url, ImageView icon, int errorId, RequestListener<Drawable> requestListener) {
         if (!TextUtils.isEmpty(url) && !url.startsWith("http") && !new File(url).exists()) {

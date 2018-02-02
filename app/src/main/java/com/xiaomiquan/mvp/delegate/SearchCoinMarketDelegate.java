@@ -1,12 +1,15 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
+
+import skin.support.widget.SkinCompatToolbar;
 
 public class SearchCoinMarketDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
@@ -23,14 +26,10 @@ public class SearchCoinMarketDelegate extends BaseDelegate {
 
     public static class ViewHolder {
         public View rootView;
-        public EditText et_search;
-        public TextView tv_commit;
         public FrameLayout fl_root;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.et_search = (EditText) rootView.findViewById(R.id.et_search);
-            this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);
             this.fl_root = (FrameLayout) rootView.findViewById(R.id.fl_root);
         }
 

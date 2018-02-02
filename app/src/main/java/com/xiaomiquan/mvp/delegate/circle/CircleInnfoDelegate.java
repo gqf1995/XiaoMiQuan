@@ -1,6 +1,6 @@
 package com.xiaomiquan.mvp.delegate.circle;
 
-import com.xiaomiquan.base.BaseMyPullDelegate;
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 
 /**
  * Created by Andy on 2018/1/19.

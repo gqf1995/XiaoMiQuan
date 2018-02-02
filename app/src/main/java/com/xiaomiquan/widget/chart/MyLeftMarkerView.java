@@ -7,6 +7,7 @@ import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.xiaomiquan.R;
+import com.xiaomiquan.utils.BigUIUtil;
 
 import java.text.DecimalFormat;
 
@@ -22,21 +23,22 @@ public class MyLeftMarkerView extends MarkerView {
      */
     private TextView markerTv;
     private float num;
-    private DecimalFormat mFormat;
+
     public MyLeftMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
-        mFormat=new DecimalFormat("#0.00");
+
+        //mFormat=new DecimalFormat("#0.00");
         markerTv = (TextView) findViewById(R.id.marker_tv);
         markerTv.setTextSize(10);
     }
 
-    public void setData(float num){
-
-        this.num=num;
+    public void setData(float num) {
+        this.num = num;
     }
+
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        markerTv.setText(mFormat.format(num));
+        markerTv.setText(BigUIUtil.getinstance().bigPrice(num + ""));
     }
 
     @Override

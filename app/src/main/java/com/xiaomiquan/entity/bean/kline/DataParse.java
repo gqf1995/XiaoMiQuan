@@ -1,13 +1,13 @@
 package com.xiaomiquan.entity.bean.kline;
 
+import android.text.TextUtils;
 import android.util.SparseArray;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.Entry;
-
-import org.json.JSONObject;
+import com.xiaomiquan.widget.scichart.PriceSeries;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,71 +17,71 @@ import java.util.List;
  * Created by loro on 2017/2/8.
  */
 public class DataParse {
-    private ArrayList<MinutesBean> datas = new ArrayList<>();
-    private ArrayList<KLineBean> kDatas = new ArrayList<>();
-    private ArrayList<String> xVals = new ArrayList<>();//X轴数据
-    private ArrayList<BarEntry> barEntries = new ArrayList<>();//成交量数据
-    private ArrayList<CandleEntry> candleEntries = new ArrayList<>();//K线数据
+    private ArrayList<MinutesBean> datas;
+    private PriceSeries kDatas;
+    private ArrayList<String> xVals;//X轴数据
+    private ArrayList<BarEntry> barEntries;//成交量数据
+    private ArrayList<CandleEntry> candleEntries;//K线数据
 
-    private ArrayList<Entry> ma5DataL = new ArrayList<>();
-    private ArrayList<Entry> ma7DataL = new ArrayList<>();
-    private ArrayList<Entry> ma10DataL = new ArrayList<>();
-    private ArrayList<Entry> ma15DataL = new ArrayList<>();
-    private ArrayList<Entry> ma20DataL = new ArrayList<>();
-    private ArrayList<Entry> ma30DataL = new ArrayList<>();
+    private ArrayList<Entry> ma5DataL;
+    private ArrayList<Entry> ma7DataL;
+    private ArrayList<Entry> ma10DataL;
+    private ArrayList<Entry> ma15DataL;
+    private ArrayList<Entry> ma20DataL;
+    private ArrayList<Entry> ma30DataL;
 
-    private ArrayList<Entry> ma5DataV = new ArrayList<>();
-    private ArrayList<Entry> ma7DataV = new ArrayList<>();
-    private ArrayList<Entry> ma10DataV = new ArrayList<>();
-    private ArrayList<Entry> ma15DataV = new ArrayList<>();
-    private ArrayList<Entry> ma20DataV = new ArrayList<>();
-    private ArrayList<Entry> ma30DataV = new ArrayList<>();
+    private ArrayList<Entry> ma5DataV;
+    private ArrayList<Entry> ma7DataV;
+    private ArrayList<Entry> ma10DataV;
+    private ArrayList<Entry> ma15DataV;
+    private ArrayList<Entry> ma20DataV;
+    private ArrayList<Entry> ma30DataV;
 
-    private List<BarEntry> macdData = new ArrayList<>();
-    private List<Entry> deaData = new ArrayList<>();
-    private List<Entry> difData = new ArrayList<>();
+    private List<BarEntry> macdData;
+    private List<Entry> deaData;
+    private List<Entry> difData;
 
-    private List<BarEntry> barDatasKDJ = new ArrayList<>();
-    private List<Entry> kData = new ArrayList<>();
-    private List<Entry> dData = new ArrayList<>();
-    private List<Entry> jData = new ArrayList<>();
+    private List<BarEntry> barDatasKDJ;
+    private List<Entry> kData;
+    private List<Entry> dData;
+    private List<Entry> jData;
 
-    private List<BarEntry> barDatasWR = new ArrayList<>();
-    private List<Entry> wrData13 = new ArrayList<>();
-    private List<Entry> wrData34 = new ArrayList<>();
-    private List<Entry> wrData89 = new ArrayList<>();
+    private List<BarEntry> barDatasWR;
+    private List<Entry> wrData13;
+    private List<Entry> wrData34;
+    private List<Entry> wrData89;
 
-    private List<BarEntry> barDatasRSI = new ArrayList<>();
-    private List<Entry> rsiData6 = new ArrayList<>();
-    private List<Entry> rsiData12 = new ArrayList<>();
-    private List<Entry> rsiData24 = new ArrayList<>();
+    private List<BarEntry> barDatasRSI;
+    private List<Entry> rsiData6;
+    private List<Entry> rsiData12;
+    private List<Entry> rsiData24;
 
-    private List<BarEntry> barDatasBOLL = new ArrayList<>();
-    private List<Entry> bollDataUP = new ArrayList<>();
-    private List<Entry> bollDataMB = new ArrayList<>();
-    private List<Entry> bollDataDN = new ArrayList<>();
+    private List<BarEntry> barDatasBOLL;
+    private List<Entry> bollDataUP;
+    private List<Entry> bollDataMB;
+    private List<Entry> bollDataDN;
 
-    private List<BarEntry> barDatasEXPMA = new ArrayList<>();
-    private List<Entry> expmaData5 = new ArrayList<>();
-    private List<Entry> expmaData10 = new ArrayList<>();
-    private List<Entry> expmaData20 = new ArrayList<>();
-    private List<Entry> expmaData60 = new ArrayList<>();
+    private List<BarEntry> barDatasEXPMA;
+    private List<Entry> expmaData5;
+    private List<Entry> expmaData10;
+    private List<Entry> expmaData20;
+    private List<Entry> expmaData60;
 
-    private List<BarEntry> barDatasDMI = new ArrayList<>();
-    private List<Entry> dmiDataDI1 = new ArrayList<>();
-    private List<Entry> dmiDataDI2 = new ArrayList<>();
-    private List<Entry> dmiDataADX = new ArrayList<>();
-    private List<Entry> dmiDataADXR = new ArrayList<>();
+    private List<BarEntry> barDatasDMI;
+    private List<Entry> dmiDataDI1;
+    private List<Entry> dmiDataDI2;
+    private List<Entry> dmiDataADX;
+    private List<Entry> dmiDataADXR;
 
     private float baseValue;
     private float permaxmin;
     private float volmax;
     private String code = "sz002081";
-    private SparseArray<String> xValuesLabel = new SparseArray<>();
+    private SparseArray<String> xValuesLabel;
 
-    List<KLineBean> mKLineBeans;
+    //List<KLineBean> mKLineBeans;
 
-    //得到成交量
+    //得到成交量 只用一次
     public void initLineDatas(List<KLineBean> datas) {
         if (null == datas) {
             return;
@@ -102,28 +102,29 @@ public class DataParse {
         }
     }
 
-    /**
-     * 将jsonobject转换为K线数据
-     *
-     * @param obj
-     */
-    public void parseKLine(JSONObject obj) {
-    }
 
     public void parseKLine(List<KLineBean> kLineBeans) {
         if (kLineBeans.size() > 0) {
-            if (mKLineBeans == null) {
-                mKLineBeans = new ArrayList<>();
+            if (kDatas == null) {
+                kDatas = new PriceSeries();
             } else {
-                mKLineBeans.clear();
+                kDatas.clear();
             }
+            if (xValuesLabel == null) {
+                xValuesLabel = new SparseArray<>();
+            } else {
+                xValuesLabel.clear();
+            }
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             if (kLineBeans != null) {
                 int count = kLineBeans.size();
                 for (int i = 0; i < count; i++) {
-                    kLineBeans.get(i).date = TimeUtils.millis2String(kLineBeans.get(i).timestamp * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+                    if (TextUtils.isEmpty(kLineBeans.get(i).date)) {
+                        kLineBeans.get(i).date = TimeUtils.millis2String(kLineBeans.get(i).timestamp * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+                        kLineBeans.get(i).setNewDate(TimeUtils.string2Date(kLineBeans.get(i).date));
+                    }
                     volmax = Math.max(kLineBeans.get(i).volume.floatValue(), volmax);
                     xValuesLabel.put(i, kLineBeans.get(i).date);
-                    mKLineBeans.add(kLineBeans.get(i));
                     kDatas.add(kLineBeans.get(i));
                 }
             }
@@ -145,6 +146,7 @@ public class DataParse {
     //            candleEntries.add(new CandleEntry(i, datas.get(i).high, datas.get(i).low, datas.get(i).open, datas.get(i).close));
     //        }
     //    }
+
 
     /**
      * 初始化K线图均线
@@ -199,7 +201,6 @@ public class DataParse {
             ma20DataL.add(new Entry(kmaEntity20.getMAs().get(i), i));
             ma30DataL.add(new Entry(kmaEntity30.getMAs().get(i), i));
         }
-
     }
 
     /**
@@ -260,154 +261,154 @@ public class DataParse {
 
     }
 
-    /**
-     * 初始化MACD
-     *
-     * @param datas
-     */
-    public void initMACD(ArrayList<KLineBean> datas) {
-        MACDEntity macdEntity = new MACDEntity(datas);
-
-        macdData = new ArrayList<>();
-        deaData = new ArrayList<>();
-        difData = new ArrayList<>();
-        for (int i = 0; i < macdEntity.getMACD().size(); i++) {
-            macdData.add(new BarEntry(macdEntity.getMACD().get(i), i));
-            deaData.add(new Entry(macdEntity.getDEA().get(i), i));
-            difData.add(new Entry(macdEntity.getDIF().get(i), i));
-        }
-    }
-
-    /**
-     * 初始化KDJ
-     *
-     * @param datas
-     */
-    public void initKDJ(ArrayList<KLineBean> datas) {
-        KDJEntity kdjEntity = new KDJEntity(datas, 9);
-
-        barDatasKDJ = new ArrayList<>();
-        kData = new ArrayList<>();
-        dData = new ArrayList<>();
-        jData = new ArrayList<>();
-        for (int i = 0; i < kdjEntity.getD().size(); i++) {
-            barDatasKDJ.add(new BarEntry(0, i));
-            kData.add(new Entry(kdjEntity.getK().get(i), i));
-            dData.add(new Entry(kdjEntity.getD().get(i), i));
-            jData.add(new Entry(kdjEntity.getJ().get(i), i));
-        }
-    }
-
-    /**
-     * 初始化WR
-     *
-     * @param datas
-     */
-    public void initWR(ArrayList<KLineBean> datas) {
-        WREntity wrEntity13 = new WREntity(datas, 13);
-        WREntity wrEntity34 = new WREntity(datas, 34);
-        WREntity wrEntity89 = new WREntity(datas, 89);
-
-        barDatasWR = new ArrayList<>();
-        wrData13 = new ArrayList<>();
-        wrData34 = new ArrayList<>();
-        wrData89 = new ArrayList<>();
-        for (int i = 0; i < wrEntity13.getWRs().size(); i++) {
-            barDatasWR.add(new BarEntry(0, i));
-            wrData13.add(new Entry(wrEntity13.getWRs().get(i), i));
-            wrData34.add(new Entry(wrEntity34.getWRs().get(i), i));
-            wrData89.add(new Entry(wrEntity89.getWRs().get(i), i));
-        }
-    }
-
-    /**
-     * 初始化RSI
-     *
-     * @param datas
-     */
-    public void initRSI(ArrayList<KLineBean> datas) {
-        RSIEntity rsiEntity6 = new RSIEntity(datas, 6);
-        RSIEntity rsiEntity12 = new RSIEntity(datas, 12);
-        RSIEntity rsiEntity24 = new RSIEntity(datas, 24);
-
-        barDatasRSI = new ArrayList<>();
-        rsiData6 = new ArrayList<>();
-        rsiData12 = new ArrayList<>();
-        rsiData24 = new ArrayList<>();
-        for (int i = 0; i < rsiEntity6.getRSIs().size(); i++) {
-            barDatasRSI.add(new BarEntry(0, i));
-            rsiData6.add(new Entry(rsiEntity6.getRSIs().get(i), i));
-            rsiData12.add(new Entry(rsiEntity12.getRSIs().get(i), i));
-            rsiData24.add(new Entry(rsiEntity24.getRSIs().get(i), i));
-        }
-    }
-
-    /**
-     * 初始化BOLL
-     *
-     * @param datas
-     */
-    public void initBOLL(ArrayList<KLineBean> datas) {
-        BOLLEntity bollEntity = new BOLLEntity(datas, 20);
-
-        barDatasBOLL = new ArrayList<>();
-        bollDataUP = new ArrayList<>();
-        bollDataMB = new ArrayList<>();
-        bollDataDN = new ArrayList<>();
-        for (int i = 0; i < bollEntity.getUPs().size(); i++) {
-            barDatasBOLL.add(new BarEntry(0, i));
-            bollDataUP.add(new Entry(bollEntity.getUPs().get(i), i));
-            bollDataMB.add(new Entry(bollEntity.getMBs().get(i), i));
-            bollDataDN.add(new Entry(bollEntity.getDNs().get(i), i));
-        }
-    }
-
-    /**
-     * 初始化BOLL
-     *
-     * @param datas
-     */
-    public void initEXPMA(ArrayList<KLineBean> datas) {
-        EXPMAEntity expmaEntity5 = new EXPMAEntity(datas, 5);
-        EXPMAEntity expmaEntity10 = new EXPMAEntity(datas, 10);
-        EXPMAEntity expmaEntity20 = new EXPMAEntity(datas, 20);
-        EXPMAEntity expmaEntity60 = new EXPMAEntity(datas, 60);
-
-        barDatasEXPMA = new ArrayList<>();
-        expmaData5 = new ArrayList<>();
-        expmaData10 = new ArrayList<>();
-        expmaData20 = new ArrayList<>();
-        expmaData60 = new ArrayList<>();
-        for (int i = 0; i < expmaEntity5.getEXPMAs().size(); i++) {
-            barDatasEXPMA.add(new BarEntry(0, i));
-            expmaData5.add(new Entry(expmaEntity5.getEXPMAs().get(i), i));
-            expmaData10.add(new Entry(expmaEntity10.getEXPMAs().get(i), i));
-            expmaData20.add(new Entry(expmaEntity20.getEXPMAs().get(i), i));
-            expmaData60.add(new Entry(expmaEntity60.getEXPMAs().get(i), i));
-        }
-    }
-
-    /**
-     * 初始化DMI
-     *
-     * @param datas
-     */
-    public void initDMI(ArrayList<KLineBean> datas) {
-        DMIEntity dmiEntity = new DMIEntity(datas, 12, 7, 6, true);
-
-        barDatasDMI = new ArrayList<>();
-        dmiDataDI1 = new ArrayList<>();
-        dmiDataDI2 = new ArrayList<>();
-        dmiDataADX = new ArrayList<>();
-        dmiDataADXR = new ArrayList<>();
-        for (int i = 0; i < dmiEntity.getDI1s().size(); i++) {
-            barDatasDMI.add(new BarEntry(0, i));
-            dmiDataDI1.add(new Entry(dmiEntity.getDI1s().get(i), i));
-            dmiDataDI2.add(new Entry(dmiEntity.getDI2s().get(i), i));
-            dmiDataADX.add(new Entry(dmiEntity.getADXs().get(i), i));
-            dmiDataADXR.add(new Entry(dmiEntity.getADXRs().get(i), i));
-        }
-    }
+    //    /**
+    //     * 初始化MACD
+    //     *
+    //     * @param datas
+    //     */
+    //    public void initMACD(ArrayList<KLineBean> datas) {
+    //        MACDEntity macdEntity = new MACDEntity(datas);
+    //
+    //        macdData = new ArrayList<>();
+    //        deaData = new ArrayList<>();
+    //        difData = new ArrayList<>();
+    //        for (int i = 0; i < macdEntity.getMACD().size(); i++) {
+    //            macdData.add(new BarEntry(macdEntity.getMACD().get(i), i));
+    //            deaData.add(new Entry(macdEntity.getDEA().get(i), i));
+    //            difData.add(new Entry(macdEntity.getDIF().get(i), i));
+    //        }
+    //    }
+    //
+    //    /**
+    //     * 初始化KDJ
+    //     *
+    //     * @param datas
+    //     */
+    //    public void initKDJ(ArrayList<KLineBean> datas) {
+    //        KDJEntity kdjEntity = new KDJEntity(datas, 9);
+    //
+    //        barDatasKDJ = new ArrayList<>();
+    //        kData = new ArrayList<>();
+    //        dData = new ArrayList<>();
+    //        jData = new ArrayList<>();
+    //        for (int i = 0; i < kdjEntity.getD().size(); i++) {
+    //            barDatasKDJ.add(new BarEntry(0, i));
+    //            kData.add(new Entry(kdjEntity.getK().get(i), i));
+    //            dData.add(new Entry(kdjEntity.getD().get(i), i));
+    //            jData.add(new Entry(kdjEntity.getJ().get(i), i));
+    //        }
+    //    }
+    //
+    //    /**
+    //     * 初始化WR
+    //     *
+    //     * @param datas
+    //     */
+    //    public void initWR(ArrayList<KLineBean> datas) {
+    //        WREntity wrEntity13 = new WREntity(datas, 13);
+    //        WREntity wrEntity34 = new WREntity(datas, 34);
+    //        WREntity wrEntity89 = new WREntity(datas, 89);
+    //
+    //        barDatasWR = new ArrayList<>();
+    //        wrData13 = new ArrayList<>();
+    //        wrData34 = new ArrayList<>();
+    //        wrData89 = new ArrayList<>();
+    //        for (int i = 0; i < wrEntity13.getWRs().size(); i++) {
+    //            barDatasWR.add(new BarEntry(0, i));
+    //            wrData13.add(new Entry(wrEntity13.getWRs().get(i), i));
+    //            wrData34.add(new Entry(wrEntity34.getWRs().get(i), i));
+    //            wrData89.add(new Entry(wrEntity89.getWRs().get(i), i));
+    //        }
+    //    }
+    //
+    //    /**
+    //     * 初始化RSI
+    //     *
+    //     * @param datas
+    //     */
+    //    public void initRSI(ArrayList<KLineBean> datas) {
+    //        RSIEntity rsiEntity6 = new RSIEntity(datas, 6);
+    //        RSIEntity rsiEntity12 = new RSIEntity(datas, 12);
+    //        RSIEntity rsiEntity24 = new RSIEntity(datas, 24);
+    //
+    //        barDatasRSI = new ArrayList<>();
+    //        rsiData6 = new ArrayList<>();
+    //        rsiData12 = new ArrayList<>();
+    //        rsiData24 = new ArrayList<>();
+    //        for (int i = 0; i < rsiEntity6.getRSIs().size(); i++) {
+    //            barDatasRSI.add(new BarEntry(0, i));
+    //            rsiData6.add(new Entry(rsiEntity6.getRSIs().get(i), i));
+    //            rsiData12.add(new Entry(rsiEntity12.getRSIs().get(i), i));
+    //            rsiData24.add(new Entry(rsiEntity24.getRSIs().get(i), i));
+    //        }
+    //    }
+    //
+    //    /**
+    //     * 初始化BOLL
+    //     *
+    //     * @param datas
+    //     */
+    //    public void initBOLL(ArrayList<KLineBean> datas) {
+    //        BOLLEntity bollEntity = new BOLLEntity(datas, 20);
+    //
+    //        barDatasBOLL = new ArrayList<>();
+    //        bollDataUP = new ArrayList<>();
+    //        bollDataMB = new ArrayList<>();
+    //        bollDataDN = new ArrayList<>();
+    //        for (int i = 0; i < bollEntity.getUPs().size(); i++) {
+    //            barDatasBOLL.add(new BarEntry(0, i));
+    //            bollDataUP.add(new Entry(bollEntity.getUPs().get(i), i));
+    //            bollDataMB.add(new Entry(bollEntity.getMBs().get(i), i));
+    //            bollDataDN.add(new Entry(bollEntity.getDNs().get(i), i));
+    //        }
+    //    }
+    //
+    //    /**
+    //     * 初始化BOLL
+    //     *
+    //     * @param datas
+    //     */
+    //    public void initEXPMA(ArrayList<KLineBean> datas) {
+    //        EXPMAEntity expmaEntity5 = new EXPMAEntity(datas, 5);
+    //        EXPMAEntity expmaEntity10 = new EXPMAEntity(datas, 10);
+    //        EXPMAEntity expmaEntity20 = new EXPMAEntity(datas, 20);
+    //        EXPMAEntity expmaEntity60 = new EXPMAEntity(datas, 60);
+    //
+    //        barDatasEXPMA = new ArrayList<>();
+    //        expmaData5 = new ArrayList<>();
+    //        expmaData10 = new ArrayList<>();
+    //        expmaData20 = new ArrayList<>();
+    //        expmaData60 = new ArrayList<>();
+    //        for (int i = 0; i < expmaEntity5.getEXPMAs().size(); i++) {
+    //            barDatasEXPMA.add(new BarEntry(0, i));
+    //            expmaData5.add(new Entry(expmaEntity5.getEXPMAs().get(i), i));
+    //            expmaData10.add(new Entry(expmaEntity10.getEXPMAs().get(i), i));
+    //            expmaData20.add(new Entry(expmaEntity20.getEXPMAs().get(i), i));
+    //            expmaData60.add(new Entry(expmaEntity60.getEXPMAs().get(i), i));
+    //        }
+    //    }
+    //
+    //    /**
+    //     * 初始化DMI
+    //     *
+    //     * @param datas
+    //     */
+    //    public void initDMI(ArrayList<KLineBean> datas) {
+    //        DMIEntity dmiEntity = new DMIEntity(datas, 12, 7, 6, true);
+    //
+    //        barDatasDMI = new ArrayList<>();
+    //        dmiDataDI1 = new ArrayList<>();
+    //        dmiDataDI2 = new ArrayList<>();
+    //        dmiDataADX = new ArrayList<>();
+    //        dmiDataADXR = new ArrayList<>();
+    //        for (int i = 0; i < dmiEntity.getDI1s().size(); i++) {
+    //            barDatasDMI.add(new BarEntry(0, i));
+    //            dmiDataDI1.add(new Entry(dmiEntity.getDI1s().get(i), i));
+    //            dmiDataDI2.add(new Entry(dmiEntity.getDI2s().get(i), i));
+    //            dmiDataADX.add(new Entry(dmiEntity.getADXs().get(i), i));
+    //            dmiDataADXR.add(new Entry(dmiEntity.getADXRs().get(i), i));
+    //        }
+    //    }
 
     /**
      * 得到Y轴最小值
@@ -470,6 +471,10 @@ public class DataParse {
      * @return
      */
     public ArrayList<KLineBean> getKLineDatas() {
+        return kDatas;
+    }
+
+    public PriceSeries getKLine() {
         return kDatas;
     }
 

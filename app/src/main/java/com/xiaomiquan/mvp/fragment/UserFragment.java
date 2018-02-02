@@ -6,18 +6,22 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.activity.user.ConversationActivity;
+import com.xiaomiquan.mvp.activity.user.HomePageActivity;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.xiaomiquan.mvp.activity.user.SecurityActivity;
 import com.xiaomiquan.mvp.activity.user.SetActivity;
 import com.xiaomiquan.mvp.databinder.UserBinder;
 import com.xiaomiquan.mvp.delegate.UserDelegate;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.CircleDialogHelper;
 
+/**
+ * 个人中心
+ */
 public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder> {
 
     UserLogin userLogin;
@@ -48,6 +52,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 , R.id.checkbox_night_model
                 , R.id.checkbox_red_sticker
                 , R.id.lin_user
+                , R.id.lin_set0
                 , R.id.lin_set3
                 , R.id.lin_set4
                 , R.id.lin_set5
@@ -63,16 +68,22 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
         super.onClick(v);
         switch (v.getId()) {
             case R.id.checkbox_night_model:
+                //选择夜间模式
                 UserSet.getinstance().setNight(!viewDelegate.viewHolder.checkbox_night_model.isChecked());
-                viewDelegate.viewHolder.fl_toolbar.setVisibility(View.GONE);
+                viewDelegate.viewHolder.layout_title_bar.setVisibility(View.GONE);
                 break;
             case R.id.checkbox_red_sticker:
+                //红涨绿跌
                 UserSet.getinstance().setRedRise(viewDelegate.viewHolder.checkbox_night_model.isChecked());
                 break;
             case R.id.lin_user:
                 if (SingSettingDBUtil.isLogin(getActivity())) {
                     //修改用户信息
                 }
+                break;
+            case R.id.lin_set0:
+                //我的个人主页
+                gotoActivity(HomePageActivity.class).startAct();
                 break;
             case R.id.lin_set3:
                 //显示默认价格
@@ -124,7 +135,6 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
         }
     }

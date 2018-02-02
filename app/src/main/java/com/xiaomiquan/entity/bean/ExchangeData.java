@@ -10,39 +10,6 @@ import android.os.Parcelable;
 public class ExchangeData implements Parcelable {
 
 
-    /**
-     * id : null
-     * name : 0x
-     * symbol : null
-     * rank : 42
-     * priceUsd : 1.96731
-     * priceBtc : 1.4579E-4
-     * allDayVolumeUsd : 40734600
-     * marketCapUsd : 969429576
-     * availableSupply : 492769099
-     * totalSupply : 1000000000
-     * maxSupply : null
-     * percentChange1h : -1.98
-     * percentChange24h : -14.79
-     * percentChange7d : 34.2
-     * lastUpdated : 0
-     * onlyKey : MarketCap_ZRX
-     */
-
-    private String rank;
-    private String priceUsd;
-    private String priceBtc;
-    private String allDayVolumeUsd;
-    private String marketCapUsd;
-    private String availableSupply;
-    private String totalSupply;
-    private String maxSupply;
-    private String percentChange1h;
-    private String percentChange24h;
-    private String percentChange7d;
-    private String lastUpdated;
-    private String choicePrice;
-
 
     private String id;
     private String exchange; //交易所
@@ -62,112 +29,38 @@ public class ExchangeData implements Parcelable {
     private String bid;//买一
     private String change;//24小时涨跌幅
     private String timestamp;
+
+
     private String onlyKey;//市场的唯一标识 例如：Okex_ETH_BTC "choicePrice": null// 用户选择的市场价格
 
 
-    public String getRank() {
-        return rank;
-    }
+    /**
+     * 24h_volume_usd : 8932820000
+     * availableSupply : 16829075
+     * lastUpdated : 0
+     * marketCapUsd : 188882806170
+     * maxSupply : 21000000
+     * percentChange1h : -0.28
+     * percentChange24h : 3.38
+     * percentChange7d : -10.65
+     * priceBtc : 1
+     * priceUsd : 11223.6
+     * rank : 1
+     * totalSupply : 16829075
+     */
 
-    public void setRank(String rank) {
-        this.rank = rank;
-    }
+    private String availableSupply;
+    private String lastUpdated;
+    private String marketCapUsd;
+    private String maxSupply;
+    private String percentChange1h;
+    private String percentChange24h;
+    private String percentChange7d;
+    private String priceBtc;
+    private String priceUsd;
+    private String rank;
+    private String totalSupply;
 
-    public String getPriceUsd() {
-        return priceUsd;
-    }
-
-    public void setPriceUsd(String priceUsd) {
-        this.priceUsd = priceUsd;
-    }
-
-    public String getPriceBtc() {
-        return priceBtc;
-    }
-
-    public void setPriceBtc(String priceBtc) {
-        this.priceBtc = priceBtc;
-    }
-
-    public String getAllDayVolumeUsd() {
-        return allDayVolumeUsd;
-    }
-
-    public void setAllDayVolumeUsd(String allDayVolumeUsd) {
-        this.allDayVolumeUsd = allDayVolumeUsd;
-    }
-
-    public String getMarketCapUsd() {
-        return marketCapUsd;
-    }
-
-    public void setMarketCapUsd(String marketCapUsd) {
-        this.marketCapUsd = marketCapUsd;
-    }
-
-    public String getAvailableSupply() {
-        return availableSupply;
-    }
-
-    public void setAvailableSupply(String availableSupply) {
-        this.availableSupply = availableSupply;
-    }
-
-    public String getTotalSupply() {
-        return totalSupply;
-    }
-
-    public void setTotalSupply(String totalSupply) {
-        this.totalSupply = totalSupply;
-    }
-
-    public String getMaxSupply() {
-        return maxSupply;
-    }
-
-    public void setMaxSupply(String maxSupply) {
-        this.maxSupply = maxSupply;
-    }
-
-    public String getPercentChange1h() {
-        return percentChange1h;
-    }
-
-    public void setPercentChange1h(String percentChange1h) {
-        this.percentChange1h = percentChange1h;
-    }
-
-    public String getPercentChange24h() {
-        return percentChange24h;
-    }
-
-    public void setPercentChange24h(String percentChange24h) {
-        this.percentChange24h = percentChange24h;
-    }
-
-    public String getPercentChange7d() {
-        return percentChange7d;
-    }
-
-    public void setPercentChange7d(String percentChange7d) {
-        this.percentChange7d = percentChange7d;
-    }
-
-    public String getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(String lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
-    public String getChoicePrice() {
-        return choicePrice;
-    }
-
-    public void setChoicePrice(String choicePrice) {
-        this.choicePrice = choicePrice;
-    }
 
     public String getId() {
         return id;
@@ -321,6 +214,94 @@ public class ExchangeData implements Parcelable {
         this.onlyKey = onlyKey;
     }
 
+    public String getAvailableSupply() {
+        return availableSupply;
+    }
+
+    public void setAvailableSupply(String availableSupply) {
+        this.availableSupply = availableSupply;
+    }
+
+    public String getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(String lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public String getMarketCapUsd() {
+        return marketCapUsd;
+    }
+
+    public void setMarketCapUsd(String marketCapUsd) {
+        this.marketCapUsd = marketCapUsd;
+    }
+
+    public String getMaxSupply() {
+        return maxSupply;
+    }
+
+    public void setMaxSupply(String maxSupply) {
+        this.maxSupply = maxSupply;
+    }
+
+    public String getPercentChange1h() {
+        return percentChange1h;
+    }
+
+    public void setPercentChange1h(String percentChange1h) {
+        this.percentChange1h = percentChange1h;
+    }
+
+    public String getPercentChange24h() {
+        return percentChange24h;
+    }
+
+    public void setPercentChange24h(String percentChange24h) {
+        this.percentChange24h = percentChange24h;
+    }
+
+    public String getPercentChange7d() {
+        return percentChange7d;
+    }
+
+    public void setPercentChange7d(String percentChange7d) {
+        this.percentChange7d = percentChange7d;
+    }
+
+    public String getPriceBtc() {
+        return priceBtc;
+    }
+
+    public void setPriceBtc(String priceBtc) {
+        this.priceBtc = priceBtc;
+    }
+
+    public String getPriceUsd() {
+        return priceUsd;
+    }
+
+    public void setPriceUsd(String priceUsd) {
+        this.priceUsd = priceUsd;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
+    public String getTotalSupply() {
+        return totalSupply;
+    }
+
+    public void setTotalSupply(String totalSupply) {
+        this.totalSupply = totalSupply;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -328,19 +309,6 @@ public class ExchangeData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.rank);
-        dest.writeString(this.priceUsd);
-        dest.writeString(this.priceBtc);
-        dest.writeString(this.allDayVolumeUsd);
-        dest.writeString(this.marketCapUsd);
-        dest.writeString(this.availableSupply);
-        dest.writeString(this.totalSupply);
-        dest.writeString(this.maxSupply);
-        dest.writeString(this.percentChange1h);
-        dest.writeString(this.percentChange24h);
-        dest.writeString(this.percentChange7d);
-        dest.writeString(this.lastUpdated);
-        dest.writeString(this.choicePrice);
         dest.writeString(this.id);
         dest.writeString(this.exchange);
         dest.writeString(this.name);
@@ -360,25 +328,23 @@ public class ExchangeData implements Parcelable {
         dest.writeString(this.change);
         dest.writeString(this.timestamp);
         dest.writeString(this.onlyKey);
+        dest.writeString(this.availableSupply);
+        dest.writeString(this.lastUpdated);
+        dest.writeString(this.marketCapUsd);
+        dest.writeString(this.maxSupply);
+        dest.writeString(this.percentChange1h);
+        dest.writeString(this.percentChange24h);
+        dest.writeString(this.percentChange7d);
+        dest.writeString(this.priceBtc);
+        dest.writeString(this.priceUsd);
+        dest.writeString(this.rank);
+        dest.writeString(this.totalSupply);
     }
 
     public ExchangeData() {
     }
 
     protected ExchangeData(Parcel in) {
-        this.rank = in.readString();
-        this.priceUsd = in.readString();
-        this.priceBtc = in.readString();
-        this.allDayVolumeUsd = in.readString();
-        this.marketCapUsd = in.readString();
-        this.availableSupply = in.readString();
-        this.totalSupply = in.readString();
-        this.maxSupply = in.readString();
-        this.percentChange1h = in.readString();
-        this.percentChange24h = in.readString();
-        this.percentChange7d = in.readString();
-        this.lastUpdated = in.readString();
-        this.choicePrice = in.readString();
         this.id = in.readString();
         this.exchange = in.readString();
         this.name = in.readString();
@@ -398,6 +364,17 @@ public class ExchangeData implements Parcelable {
         this.change = in.readString();
         this.timestamp = in.readString();
         this.onlyKey = in.readString();
+        this.availableSupply = in.readString();
+        this.lastUpdated = in.readString();
+        this.marketCapUsd = in.readString();
+        this.maxSupply = in.readString();
+        this.percentChange1h = in.readString();
+        this.percentChange24h = in.readString();
+        this.percentChange7d = in.readString();
+        this.priceBtc = in.readString();
+        this.priceUsd = in.readString();
+        this.rank = in.readString();
+        this.totalSupply = in.readString();
     }
 
     public static final Parcelable.Creator<ExchangeData> CREATOR = new Parcelable.Creator<ExchangeData>() {
@@ -411,4 +388,40 @@ public class ExchangeData implements Parcelable {
             return new ExchangeData[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "ExchangeData{" +
+                "id='" + id + '\'' +
+                ", exchange='" + exchange + '\'' +
+                ", name='" + name + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", unit='" + unit + '\'' +
+                ", tradePair='" + tradePair + '\'' +
+                ", side='" + side + '\'' +
+                ", last='" + last + '\'' +
+                ", high='" + high + '\'' +
+                ", low='" + low + '\'' +
+                ", open='" + open + '\'' +
+                ", close='" + close + '\'' +
+                ", volume='" + volume + '\'' +
+                ", amount='" + amount + '\'' +
+                ", ask='" + ask + '\'' +
+                ", bid='" + bid + '\'' +
+                ", change='" + change + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", onlyKey='" + onlyKey + '\'' +
+                ", availableSupply='" + availableSupply + '\'' +
+                ", lastUpdated='" + lastUpdated + '\'' +
+                ", marketCapUsd='" + marketCapUsd + '\'' +
+                ", maxSupply='" + maxSupply + '\'' +
+                ", percentChange1h='" + percentChange1h + '\'' +
+                ", percentChange24h='" + percentChange24h + '\'' +
+                ", percentChange7d='" + percentChange7d + '\'' +
+                ", priceBtc='" + priceBtc + '\'' +
+                ", priceUsd='" + priceUsd + '\'' +
+                ", rank='" + rank + '\'' +
+                ", totalSupply='" + totalSupply + '\'' +
+                '}';
+    }
 }

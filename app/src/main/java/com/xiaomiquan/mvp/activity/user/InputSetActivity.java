@@ -17,6 +17,9 @@ import com.xiaomiquan.mvp.activity.main.MainActivity;
 import com.xiaomiquan.mvp.databinder.InputSetBinder;
 import com.xiaomiquan.mvp.delegate.InputSetDelegate;
 
+/**
+ *
+ */
 public class InputSetActivity extends BaseDataBindActivity<InputSetDelegate, InputSetBinder> {
 
     public static final String FIND_PASSWORD_PHONE = "find_password_phone";
@@ -88,7 +91,6 @@ public class InputSetActivity extends BaseDataBindActivity<InputSetDelegate, Inp
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 //设置密码成功

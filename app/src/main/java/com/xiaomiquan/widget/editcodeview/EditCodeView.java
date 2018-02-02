@@ -114,6 +114,7 @@ public class EditCodeView extends SkinCompatView
         underlineFilledColor = ContextCompat.getColor(context, R.color.red);
         underlineCursorColor = ContextCompat.getColor(context, R.color.red);
         underlineSelectedColor = ContextCompat.getColor(context, R.color.black);
+
         textSize = resources.getDimension(R.dimen.text_trans_18px);
         textColor = ContextCompat.getColor(context, R.color.black);
         codeLength = DEFAULT_CODE_LENGTH;

@@ -11,18 +11,21 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.ChangeSetAdapter;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.mvp.delegate.ChangeDefaultSetDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 统一 选择 设置页面
+ */
 public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDelegate> {
 
 
-    public static final String TYPE_LANGUAGE = "type_language";
-    public static final String TYPE_UNIT = "type_unit";
+    public static final String TYPE_LANGUAGE = "type_language";//切换语言
+    public static final String TYPE_UNIT = "type_unit";//切换单位
 
     String title = "";
 
@@ -31,6 +34,17 @@ public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDeleg
 
     ChangeSetAdapter changeSetAdapter;
     String defaultSet;
+
+
+    //    平台价格-cny=cny
+    //    平台价格-usd=usd
+    //    cny-平台价格=cny
+    //    usd-平台价格=usd
+    //    usd-cny=usd
+    //    cny-usd=cny
+    //            仅usd=usd
+    //    仅cny=cny
+    //            仅平台价格=usd
 
     @Override
     protected void bindEvenListener() {
@@ -67,10 +81,6 @@ public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDeleg
                 if (TYPE_LANGUAGE.equals(type)) {
                     UserSet.getinstance().setLanguage(Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language_abbreviations)).get(position));
                 } else if (TYPE_UNIT.equals(type)) {
-                    if (position == 0) {
-                        UserSet.getinstance().setUnit("default");
-                        return;
-                    }
                     UserSet.getinstance().setUnit(data.get(position));
                 }
             }

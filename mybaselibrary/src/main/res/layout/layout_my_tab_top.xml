@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
 
-        <skin.support.widget.SkinCompatTextView
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
             android:id="@+id/tv_tab_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

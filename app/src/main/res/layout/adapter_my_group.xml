@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lin_one_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/trans_30px"
+        android:paddingLeft="@dimen/trans_40px"
+        android:paddingRight="@dimen/trans_24px"
+        android:paddingTop="@dimen/trans_30px">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_my_group_name1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/color_font1"
+                android:textSize="@dimen/text_trans_32px"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/trans_20px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/str_today_earnings"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_20px"/>
+
+                <TextView
+                    android:id="@+id/tv_today_comein1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/trans_10px"
+                    android:paddingRight="@dimen/trans_10px"
+                    android:text="--"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_20px"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/str_cumulative_earnings"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_20px"/>
+
+                <TextView
+                    android:id="@+id/tv_all_comein1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/trans_10px"
+                    android:paddingRight="@dimen/trans_10px"
+                    android:text="--"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_20px"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_my_group_commit1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/select_commit"
+            android:gravity="center"
+            android:paddingBottom="@dimen/trans_10px"
+            android:paddingLeft="@dimen/trans_30px"
+            android:paddingRight="@dimen/trans_30px"
+            android:paddingTop="@dimen/trans_10px"
+            android:text="@string/str_tv_commit"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_trans_28px"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_1px"
+        android:background="@color/base_mask"/>
+
+</LinearLayout>

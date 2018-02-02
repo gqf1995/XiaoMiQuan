@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
@@ -31,12 +32,12 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.UserSet;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
-import com.xiaomiquan.mpchart.CoupleChartGestureListener;
-import com.xiaomiquan.mpchart.VolFormatter;
+import com.xiaomiquan.utils.KlineDaoUtil;
+import com.xiaomiquan.utils.UserSet;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +78,8 @@ public class KlineDraw {
     }
 
     public void setData(Context context, DataParse data, KCombinedChart chartKline, KCombinedChart chartVolume) {
+        Log.i("KlineDraw", "setData");
+
         mData = data;
         mContext = context;
         mChartKline = chartKline;
@@ -95,11 +98,17 @@ public class KlineDraw {
         setKLineByChart(mChartKline);
         setVolumeByChart(mChartVolume);
 
+
         mChartKline.setAutoScaleMinMaxEnabled(true);
         mChartVolume.setAutoScaleMinMaxEnabled(true);
         setOffset();
+
+
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
+
+        mChartKline.invalidate();
+        mChartVolume.invalidate();
 
         mChartKline.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
@@ -117,42 +126,122 @@ public class KlineDraw {
                 }
             }
         });
+
+
+        //        mChartKline.setOnChartGestureListener(new OnChartGestureListener() {
+        //            @Override
+        //            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+        //
+        //            }
+        //
+        //            @Override
+        //            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+        //
+        //            }
+        //
+        //            @Override
+        //            public void onChartLongPressed(MotionEvent me) {
+        //
+        //            }
+        //
+        //            @Override
+        //            public void onChartDoubleTapped(MotionEvent me) {
+        //
+        //            }
+        //
+        //            @Override
+        //            public void onChartSingleTapped(MotionEvent me) {
+        //
+        //            }
+        //
+        //            @Override
+        //            public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+        //
+        //            }
+        //
+        //            @Override
+        //            public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
+        //                Log.i("onChartScale", "scaleX" + scaleX);
+        //                UserSet.getinstance().setKlineScale(scaleX);
+        //            }
+        //
+        //            @Override
+        //            public void onChartTranslate(MotionEvent me, float dX, float dY) {
+        //
+        //            }
+        //        });
     }
 
     public void cleanData() {
-        mChartKline.clear();
-        mChartVolume.clear();
+        if (mData != null) {
+            if (mData.getKLineDatas() != null) {
+                if (mData.getKLineDatas().size() > 0) {
+                    //每次清除前记录缩放级别
+                    float v = mChartKline.getViewPortHandler().getScaleX() / 20;
+                    UserSet.getinstance().setKlineScale(v);
+                    //清除
+                    mChartKline.clear();
+                    mChartVolume.clear();
+                }
+            }
+        }
     }
 
-    public void updata(List<KLineBean> lineBeans) {
+    public void updata(List<KLineBean> lineBeans, String key) {
+        for (int i = 0; i < lineBeans.size(); i++) {
+            lineBeans.get(i).date = TimeUtils.millis2String(lineBeans.get(i).timestamp * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        }
+
         if (lineBeans.size() > 0) {
             //mData.initLineDatas(lineBeans);
             kLineDatas = mData.getKLineDatas();
 
-            if (lineBeans.get(0).timestamp == kLineDatas.get(lineBeans.size() - 1).timestamp) {
-                //更新 当前 到数第一根 k线
-                KLineBean kLineBean = lineBeans.get(0);
-                lineBeans.remove(0);
-                kLineDatas.remove(kLineDatas.size() - 1);
-                kLineDatas.add(kLineBean);
-                mData.initKLineMA(kLineDatas);
-                mData.initVlumeMA(kLineDatas);
-                updatLastKline(kLineBean);
-                updatLastVolume(kLineBean);
-            }
+            //更新 当前 到数第一根 k线
+            KLineBean kLineBean = new KLineBean();
+            kLineBean.date = kLineDatas.get(kLineDatas.size() - 1).date;
+            kLineBean.low = kLineDatas.get(kLineDatas.size() - 1).low;
+            kLineBean.high = kLineDatas.get(kLineDatas.size() - 1).high;
+            kLineBean.open = kLineDatas.get(kLineDatas.size() - 1).open;
+
+            kLineBean.close = lineBeans.get(0).close;
+            kLineBean.volume = lineBeans.get(0).volume;
+            kLineBean.timestamp = lineBeans.get(0).timestamp;
 
 
-            for (int i = 0; i < lineBeans.size(); i++) {
-                kLineDatas.add(lineBeans.get(i));
-                mData.getXVals().add(lineBeans.get(i).date);
+            if (kLineBean.high.compareTo(lineBeans.get(0).high) == -1) {
+                kLineBean.high = lineBeans.get(0).high;
             }
+            if (kLineBean.low.compareTo(lineBeans.get(0).low) == 1) {
+                kLineBean.low = lineBeans.get(0).low;
+            }
+
+            kLineDatas.remove(kLineDatas.size() - 1);
+            kLineDatas.add(kLineBean);
 
             mData.initKLineMA(kLineDatas);
             mData.initVlumeMA(kLineDatas);
 
-            for (int i = 0; i < lineBeans.size(); i++) {
-                addVolumeData(lineBeans.size() - i);
-                addKlineData(lineBeans.size() - i);
+            updatLastKline(kLineBean);
+            updatLastVolume(kLineBean);
+
+            KlineDaoUtil.updataKline(kLineBean, key);
+
+            if (lineBeans.size() > 1) {
+                for (int i = 1; i < lineBeans.size(); i++) {
+                    kLineDatas.add(lineBeans.get(i));
+                    mData.getXVals().add(lineBeans.get(i).date);
+                }
+
+                mData.initKLineMA(kLineDatas);
+                mData.initVlumeMA(kLineDatas);
+
+                for (int i = 1; i < lineBeans.size(); i++) {
+                    addVolumeData(lineBeans.size() - i);
+                    addKlineData(lineBeans.size() - i);
+
+                    KLineBean kLineBean1 = lineBeans.get(i);
+                    KlineDaoUtil.addKline(kLineBean1, key);
+                }
             }
 
 
@@ -164,6 +253,8 @@ public class KlineDraw {
 
             mChartKline.invalidate();
             mChartVolume.invalidate();
+
+            setOffset();
 
         }
 
@@ -184,46 +275,14 @@ public class KlineDraw {
             //count = lastSet.getEntryCount();
             // 位最后一个DataSet添加entry
             KLog.i("chart", kLineBean.toString());
-            CandleEntry candleEntry = new CandleEntry(mData.getKLineDatas().size() - 1, kLineBean.high.floatValue(), kLineBean.low.floatValue(), kLineBean.open.floatValue(), kLineBean.close.floatValue());
-            candleData.addEntry(candleEntry, indexLast);
+            CandleEntry candleEntry = new CandleEntry(lastSet.getYVals().size() - 1, kLineBean.high.floatValue(), kLineBean.low.floatValue(), kLineBean.open.floatValue(), kLineBean.close.floatValue());
 
             lastSet.getYVals().remove(lastSet.getYVals().size() - 1);
-            candleData.addEntry(candleEntry, indexLast);
+            lastSet.getYVals().add(candleEntry);
 
         }
 
 
-        if (lineData != null) {
-            LineDataSet lineDataSet5 = (LineDataSet) lineData.getDataSetByIndex(0);//五日均线;
-            LineDataSet lineDataSet10 = (LineDataSet) lineData.getDataSetByIndex(1);//十日均线;
-            LineDataSet lineDataSet20 = (LineDataSet) lineData.getDataSetByIndex(2);//二十日均线;
-            LineDataSet lineDataSet30 = (LineDataSet) lineData.getDataSetByIndex(3);//三十日均线;
-
-            if (lineDataSet5 != null) {
-                //mData.getMa5DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 5), count));
-                //lineData.addEntry(mData.getMa5DataL().get(mData.getMa5DataL().size() - index), 0);
-                lineDataSet5.getYVals().remove(lineDataSet5.getYVals().size() - 1);
-                lineData.addEntry(mData.getMa5DataL().get(mData.getMa5DataL().size() - 1), 0);
-            }
-
-            if (lineDataSet10 != null) {
-                // mData.getMa10DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 10), count));
-                lineDataSet10.getYVals().remove(lineDataSet10.getYVals().size() - 1);
-                lineData.addEntry(mData.getMa10DataL().get(mData.getMa10DataL().size() - 1), 1);
-            }
-
-            if (lineDataSet20 != null) {
-                //mData.getMa20DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 20), count));
-                lineDataSet20.getYVals().remove(lineDataSet20.getYVals().size() - 1);
-                lineData.addEntry(mData.getMa20DataL().get(mData.getMa20DataL().size() - 1), 2);
-            }
-
-            if (lineDataSet30 != null) {
-                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
-                lineDataSet30.getYVals().remove(lineDataSet30.getYVals().size() - 1);
-                lineData.addEntry(mData.getMa30DataL().get(mData.getMa30DataL().size() - 1), 3);
-            }
-        }
     }
 
     private void updatLastVolume(KLineBean kLineBean) {
@@ -239,40 +298,9 @@ public class KlineDraw {
             }
 
             lastSet.getYVals().remove(lastSet.getYVals().size() - 1);
-            barData.addEntry(new BarEntry(kLineBean.volume.floatValue(), lastSet.getYVals().size() - 1), indexLast);
+            lastSet.getYVals().add(new BarEntry(kLineBean.volume.floatValue(), lastSet.getYVals().size()));
+
         }
-
-        if (lineData != null) {
-            LineDataSet lineDataSet5 = (LineDataSet) lineData.getDataSetByIndex(0);//五日均线;
-            LineDataSet lineDataSet10 = (LineDataSet) lineData.getDataSetByIndex(1);//十日均线;
-            LineDataSet lineDataSet20 = (LineDataSet) lineData.getDataSetByIndex(2);//二十日均线;
-            LineDataSet lineDataSet30 = (LineDataSet) lineData.getDataSetByIndex(3);//三十日均线;
-
-            if (lineDataSet5 != null) {
-                //mData.getMa5DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 5), count));
-                lineDataSet5.getYVals().remove(lineDataSet5.getYVals().size() - 1);
-                lineData.addEntry(mData.getMa5DataV().get(mData.getMa5DataV().size() - 1), 0);
-            }
-
-            if (lineDataSet10 != null) {
-                //mData.getMa10DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 10), count));
-                lineDataSet10.getYVals().remove(lineDataSet10.getYVals().size() - 1);
-                lineData.addEntry(mData.getMa10DataV().get(mData.getMa10DataV().size() - 1), 1);
-            }
-
-            if (lineDataSet20 != null) {
-                //mData.getMa20DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 20), count));
-                lineDataSet20.getYVals().remove(lineDataSet20.getYVals().size() - 1);
-                lineData.addEntry(mData.getMa20DataV().get(mData.getMa20DataV().size() - 1), 2);
-            }
-
-            if (lineDataSet30 != null) {
-                //mData.getMa30DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 30), count));
-                lineDataSet30.getYVals().remove(lineDataSet30.getYVals().size() - 1);
-                lineData.addEntry(mData.getMa30DataV().get(mData.getMa30DataV().size() - 1), 3);
-            }
-        }
-
     }
 
     private void addKlineData(int index) {
@@ -281,6 +309,8 @@ public class KlineDraw {
 
         int count = 0;
         int i = kLineDatas.size() - index;
+        KLineBean kLineBean = kLineDatas.get(i);
+
         String xVals = kLineDatas.get(kLineDatas.size() - index).date;//mData.getXVals().get(mData.getXVals().size() - index);
         if (candleData != null) {
             int indexLast = getLastDataSetIndex(candleData);
@@ -294,13 +324,14 @@ public class KlineDraw {
             count = i;
 
             // 位最后一个DataSet添加entry
-            KLineBean kLineBean = kLineDatas.get(i);
 
             KLog.i("chart", kLineBean.toString());
 
-            CandleEntry candleEntry = new CandleEntry(mData.getKLineDatas().size() - index, kLineBean.high.floatValue(), kLineBean.low.floatValue(), kLineBean.open.floatValue(), kLineBean.close.floatValue());
+            CandleEntry candleEntry = new CandleEntry(candleData.getYValCount(), kLineBean.high.floatValue(), kLineBean.low.floatValue(), kLineBean.open.floatValue(), kLineBean.close.floatValue());
             //combinedData.addEntry(candleEntry, indexLast);
             candleData.addEntry(candleEntry, indexLast);
+
+            //candleData.addXValue(kLineBean.getDate());
             //candleData.addXValue(xVals);
             //mChartKline.setData();
             //combinedData.addEntry(mData.getCandleEntries().get(mData.getCandleEntries().size() - index - 1), indexLast);
@@ -312,6 +343,8 @@ public class KlineDraw {
             LineDataSet lineDataSet10 = (LineDataSet) lineData.getDataSetByIndex(1);//十日均线;
             LineDataSet lineDataSet20 = (LineDataSet) lineData.getDataSetByIndex(2);//二十日均线;
             LineDataSet lineDataSet30 = (LineDataSet) lineData.getDataSetByIndex(3);//三十日均线;
+
+            //lineData.addXValue(kLineBean.getDate());
 
             if (lineDataSet5 != null) {
                 //mData.getMa5DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 5), count));
@@ -344,6 +377,10 @@ public class KlineDraw {
         int count = 0;
 
         int i = kLineDatas.size() - index;
+        KLineBean kLineBean = kLineDatas.get(i);
+
+        BarEntry barEntry = new BarEntry(kLineBean.volume.floatValue(), barData.getYValCount());
+
         String xVals = kLineDatas.get(kLineDatas.size() - index).date;//mData.getXVals().get(mData.getXVals().size() - index);
         if (barData != null) {
             int indexLast = getLastDataSetIndex(barData);
@@ -356,7 +393,9 @@ public class KlineDraw {
             //count = lastSet.getEntryCount();
             count = i;
             //barData.addEntry(new BarEntry(count, kLineDatas.get(i).high, kLineDatas.get(i).low, kLineDatas.get(i).open, kLineDatas.get(i).close, kLineDatas.get(i).volume), indexLast);
-            barData.addEntry(new BarEntry(mData.getKLineDatas().get(mData.getKLineDatas().size() - index).volume.floatValue(), mData.getKLineDatas().size() - index), indexLast);
+            barData.addEntry(barEntry, indexLast);
+            //barData.addXValue(kLineBean.getDate());
+
             //barData.addEntry(mData.getBarEntries().get(mData.getBarEntries().size() - index), indexLast);
             // barData.addXValue(xVals);
         }
@@ -366,6 +405,8 @@ public class KlineDraw {
             LineDataSet lineDataSet10 = (LineDataSet) lineData.getDataSetByIndex(1);//十日均线;
             LineDataSet lineDataSet20 = (LineDataSet) lineData.getDataSetByIndex(2);//二十日均线;
             LineDataSet lineDataSet30 = (LineDataSet) lineData.getDataSetByIndex(3);//三十日均线;
+
+            //lineData.addXValue(kLineBean.getDate());
 
             if (lineDataSet5 != null) {
                 //mData.getMa5DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 5), count));
@@ -496,7 +537,6 @@ public class KlineDraw {
         mChartKline.setDragDecelerationEnabled(true);
         mChartKline.setDragDecelerationFrictionCoef(0.2f);
 
-        mChartKline.animateX(2000);
     }
 
     /**
@@ -548,14 +588,12 @@ public class KlineDraw {
         axisRightVolume.setDrawGridLines(false);
         axisRightVolume.setDrawAxisLine(false);
 
-
         axisRightVolume.setAxisMinValue(0);
         axisLeftVolume.setAxisMinValue(0);
 
         mChartVolume.setDragDecelerationEnabled(true);
         mChartVolume.setDragDecelerationFrictionCoef(0.2f);
 
-        mChartVolume.animateX(2000);
     }
 
     private void setKLineByChart(CombinedChart combinedChart) {
@@ -597,6 +635,7 @@ public class KlineDraw {
 
         setHandler(combinedChart);
     }
+
     private void setVolumeByChart(CombinedChart combinedChart) {
         String unit = MyUtils.getVolUnit(mData.getVolmax());
         String wan = CommonUtils.getString(R.string.wan_unit);
@@ -608,8 +647,6 @@ public class KlineDraw {
             u = 8;
         }
         combinedChart.getAxisLeft().setValueFormatter(new VolFormatter((int) Math.pow(10, u)));
-        //        combinedChart.getAxisLeft().setAxisMaxValue(mData.getVolmax());
-        Log.e("@@@", mData.getVolmax() + "da");
 
         BarDataSet set = new BarDataSet(mData.getBarEntries(), "成交量");
         set.setBarSpacePercent(20); //bar空隙
@@ -654,8 +691,9 @@ public class KlineDraw {
         final ViewPortHandler viewPortHandlerBar = combinedChart.getViewPortHandler();
         viewPortHandlerBar.setMaximumScaleX(MyUtils.culcMaxscale(mData.getXVals().size()));
         Matrix touchmatrix = viewPortHandlerBar.getMatrixTouch();
-        final float xscale = 20;
+        final float xscale = 20 * UserSet.getinstance().getKlineScale();
         touchmatrix.postScale(xscale, 1f);
+
     }
 
     private void setMarkerViewButtom(DataParse mData, KCombinedChart combinedChart) {

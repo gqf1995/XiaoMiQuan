@@ -3,8 +3,8 @@ package com.xiaomiquan.mvp.fragment.group;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
-import com.xiaomiquan.adapter.ExchangeMarketAdapter;
 import com.xiaomiquan.adapter.group.GroupDealAdapter;
 import com.xiaomiquan.entity.bean.group.GroupDeal;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;

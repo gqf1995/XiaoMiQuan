@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.activity.market;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -39,6 +40,7 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_add_coin_market)).setSubTitle(CommonUtils.getString(R.string.str_complete)));
+        //从缓存中获取交易所名单
         String exchangeNamesStr = CacheUtils.getInstance().getString(CACHE_EXCHANGENAME);
         getIntentData();
         if (!TextUtils.isEmpty(exchangeNamesStr)) {
@@ -51,6 +53,7 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
         EventBus.getDefault().register(this);
     }
 
+    //初始化交易所fragment
     private void initTablelayout(List<ExchangeName> exchangeNames) {
         if (mTitles == null && fragments == null) {
             fragments = new ArrayList<>();
@@ -58,10 +61,13 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
         }
 
         List<String> strings = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_market));
+
+
+
+        mTitles.add(strings.get(3));
         mTitles.add(strings.get(4));
         mTitles.add(strings.get(5));
         mTitles.add(strings.get(6));
-        mTitles.add(strings.get(7));
 
         for (int i = 0; i < exchangeNames.size(); i++) {
             mTitles.add(exchangeNames.get(i).getEname());
@@ -71,7 +77,7 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
             fragments.add(SelectAddCoinFragment.newInstance(mTitles.get(i)));
         }
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < strings.size()-4; i++) {
             if (fragments.get(i) instanceof SelectAddCoinFragment) {
                 ((SelectAddCoinFragment) fragments.get(i)).setCoin(true);
             }
@@ -94,11 +100,12 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
         commit();
     }
 
+    //提交
     private void commit() {
         addRequest(binder.subs(userSelectKeys, this));
     }
 
-
+    //选择和取消 操作处理
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onExchangeName(ExchangeData event) {
         if (userSelectKeys.contains(event.getOnlyKey())) {
@@ -117,6 +124,7 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
+                //通知自选页面刷新
                 setResult(RESULT_OK);
                 onBackPressed();
                 break;
@@ -132,6 +140,14 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
         activity.startActivityForResult(intent, code);
     }
 
+    public static void startAct(Activity activity,
+                                ArrayList<String> userSelectKeys,
+                                int code
+    ) {
+        Intent intent = new Intent(activity, AddCoinActivity.class);
+        intent.putStringArrayListExtra("userSelectKeys", userSelectKeys);
+        activity.startActivityForResult(intent, code);
+    }
 
     private void getIntentData() {
         Intent intent = getIntent();
@@ -142,6 +158,7 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+
     }
 
     @Override

@@ -14,7 +14,7 @@ import org.greenrobot.greendao.query.QueryBuilder;
 
 public class DaoManager {
     private static final String TAG = DaoManager.class.getSimpleName();
-    private static final String DB_NAME = "xmq.db";
+    private static final String DB_NAME = "xmq.db";//数据库名
 
     private Context context;
 

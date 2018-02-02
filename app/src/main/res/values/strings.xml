@@ -2,138 +2,6 @@
     <string name="app_name">XiaoMiQuan</string>
     <string name="action_settings">Settings</string>
 
-    <string name="ic_Calendar1">&#xe642;</string>
-    <string name="ic_Back">&#xe643;</string>
-    <string name="ic_Bookmark1">&#xe644;</string>
-    <string name="ic_Close1">&#xe645;</string>
-    <string name="ic_Check1">&#xe646;</string>
-    <string name="ic_Chart1">&#xe647;</string>
-    <string name="ic_Dots1">&#xe648;</string>
-    <string name="ic_Filter2">&#xe649;</string>
-    <string name="ic_Graph1">&#xe64a;</string>
-    <string name="ic_Dots2">&#xe64b;</string>
-    <string name="ic_Filter1">&#xe64c;</string>
-    <string name="ic_Down1">&#xe64d;</string>
-    <string name="ic_List">&#xe64f;</string>
-    <string name="ic_Menu_Left">&#xe650;</string>
-    <string name="ic_Move1">&#xe651;</string>
-    <string name="ic_Next">&#xe652;</string>
-    <string name="ic_Menu_Right">&#xe653;</string>
-    <string name="ic_Minus">&#xe654;</string>
-    <string name="ic_Photo1">&#xe655;</string>
-    <string name="ic_Notifications1">&#xe656;</string>
-    <string name="ic_Pie1">&#xe657;</string>
-    <string name="ic_Plus">&#xe658;</string>
-    <string name="ic_Pull_Left">&#xe659;</string>
-    <string name="ic_Pull_Right">&#xe65a;</string>
-    <string name="ic_Pull_Bottom">&#xe65b;</string>
-    <string name="ic_Pull_Top">&#xe65c;</string>
-    <string name="ic_Search1">&#xe65d;</string>
-    <string name="ic_Scan1">&#xe65e;</string>
-    <string name="ic_Settings1">&#xe65f;</string>
-    <string name="ic_Star1">&#xe660;</string>
-    <string name="ic_Time">&#xe661;</string>
-    <string name="ic_Theme1">&#xe662;</string>
-    <string name="ic_Up1">&#xe663;</string>
-    <string name="ic_Share">&#xe664;</string>
-    <string name="ic_Stick">&#xe665;</string>
-    <string name="ic_Write">&#xe666;</string>
-    <string name="ic_User">&#xe667;</string>
-    <string name="ic_Update1">&#xe668;</string>
-    <string name="ic_At">&#xe669;</string>
-    <string name="ic_Airplay">&#xe66a;</string>
-    <string name="ic_Backspace">&#xe66b;</string>
-    <string name="ic_Block">&#xe66c;</string>
-    <string name="ic_Bookmark">&#xe66d;</string>
-    <string name="ic_Book">&#xe66e;</string>
-    <string name="ic_Box">&#xe66f;</string>
-    <string name="ic_Bottom">&#xe670;</string>
-    <string name="ic_Cancel">&#xe671;</string>
-    <string name="ic_Calendar">&#xe672;</string>
-    <string name="ic_Card">&#xe673;</string>
-    <string name="ic_Chart">&#xe674;</string>
-    <string name="ic_Check">&#xe675;</string>
-    <string name="ic_Chat">&#xe676;</string>
-    <string name="ic_Chat_Bubble">&#xe677;</string>
-    <string name="ic_Case">&#xe678;</string>
-    <string name="ic_Clock">&#xe679;</string>
-    <string name="ic_Climb">&#xe67a;</string>
-    <string name="ic_Clipboard">&#xe67b;</string>
-    <string name="ic_Circle">&#xe67c;</string>
-    <string name="ic_Cloud">&#xe67d;</string>
-    <string name="ic_Close">&#xe67e;</string>
-    <string name="ic_Copy">&#xe67f;</string>
-    <string name="ic_Delete">&#xe680;</string>
-    <string name="ic_Crosshair">&#xe681;</string>
-    <string name="ic_Cog">&#xe682;</string>
-    <string name="ic_Dislike">&#xe683;</string>
-    <string name="ic_Division">&#xe684;</string>
-    <string name="ic_Drop">&#xe685;</string>
-    <string name="ic_Dot">&#xe686;</string>
-    <string name="ic_Download">&#xe687;</string>
-    <string name="ic_Document">&#xe688;</string>
-    <string name="ic_Edit">&#xe689;</string>
-    <string name="ic_Down">&#xe68a;</string>
-    <string name="ic_Eye">&#xe68b;</string>
-    <string name="ic_Exchange2">&#xe68c;</string>
-    <string name="ic_Fall">&#xe68d;</string>
-    <string name="ic_Exchange1">&#xe68e;</string>
-    <string name="ic_Filter">&#xe68f;</string>
-    <string name="ic_Equality">&#xe690;</string>
-    <string name="ic_Folder">&#xe691;</string>
-    <string name="ic_Graph">&#xe692;</string>
-    <string name="ic_Heart">&#xe693;</string>
-    <string name="ic_Home">&#xe694;</string>
-    <string name="ic_Guard">&#xe695;</string>
-    <string name="ic_Group">&#xe696;</string>
-    <string name="ic_Image">&#xe697;</string>
-    <string name="ic_Inbox">&#xe698;</string>
-    <string name="ic_Internet">&#xe699;</string>
-    <string name="ic_Left">&#xe69a;</string>
-    <string name="ic_Layers">&#xe69b;</string>
-    <string name="ic_Info">&#xe69c;</string>
-    <string name="ic_Like">&#xe69d;</string>
-    <string name="ic_List_Details">&#xe69e;</string>
-    <string name="ic_Location">&#xe69f;</string>
-    <string name="ic_Loader">&#xe6a0;</string>
-    <string name="ic_Lock">&#xe6a1;</string>
-    <string name="ic_Message">&#xe6a2;</string>
-    <string name="ic_Map">&#xe6a3;</string>
-    <string name="ic_Monitor">&#xe6a4;</string>
-    <string name="ic_Map_Marker">&#xe6a5;</string>
-    <string name="ic_Mic">&#xe6a6;</string>
-    <string name="ic_Move">&#xe6a7;</string>
-    <string name="ic_Notifications">&#xe6a8;</string>
-    <string name="ic_Night">&#xe6a9;</string>
-    <string name="ic_Persent">&#xe6aa;</string>
-    <string name="ic_Photo">&#xe6ab;</string>
-    <string name="ic_Phone">&#xe6ac;</string>
-    <string name="ic_Pie">&#xe6ad;</string>
-    <string name="ic_Plane">&#xe6ae;</string>
-    <string name="ic_Plus_Minus">&#xe6af;</string>
-    <string name="ic_Print">&#xe6b0;</string>
-    <string name="ic_Refresh">&#xe6b1;</string>
-    <string name="ic_Search">&#xe6b2;</string>
-    <string name="ic_Right">&#xe6b3;</string>
-    <string name="ic_Scan">&#xe6b4;</string>
-    <string name="ic_Share1">&#xe6b5;</string>
-    <string name="ic_Share2">&#xe6b6;</string>
-    <string name="ic_Star">&#xe6b7;</string>
-    <string name="ic_Sun">&#xe6b8;</string>
-    <string name="ic_Support">&#xe6b9;</string>
-    <string name="ic_Tag">&#xe6ba;</string>
-    <string name="ic_Top">&#xe6bb;</string>
-    <string name="ic_Theme">&#xe6bc;</string>
-    <string name="ic_Trash">&#xe6bd;</string>
-    <string name="ic_Up">&#xe6be;</string>
-    <string name="ic_Update">&#xe6bf;</string>
-    <string name="ic_Upload">&#xe6c0;</string>
-    <string name="ic_Wallet">&#xe6c1;</string>
-    <string name="ic_World">&#xe6c2;</string>
-    <string name="ic_Zap">&#xe6c3;</string>
-    <string name="ic_icon_right">&#xe61d;</string>
-    <string name="ic_icon_left">&#xe61d;</string>
-
 
     <string name="str_login_label_email">邮箱</string>
     <string name="str_login_et_email">请输入邮箱</string>
@@ -155,6 +23,11 @@
     <string name="str_seconds_resend">重新发送</string>
     <string name="str_nologin">点击登录</string>
     <string name="str_warning_islogout">确定退出登陆吗?</string>
+    <string name="str_warning_issave">确认保存吗?</string>
+    <string name="str_toast_group_name">请输入组合名称</string>
+    <string name="str_toast_group_introduction">请输入组合简介</string>
+    <string name="str_toast_group_type">请选择组合类型</string>
+
 
     <string name="str_confirm">确认</string>
     <string name="str_determine">确定</string>
@@ -167,6 +40,9 @@
 
     <string name="str_set_password">请设置6-20位密码</string>
     <string name="str_send_code_toast">验证码已发送至注册(%1$s),请查收 </string>
+    <string name="str_look_more_msg">点击查看全部(%1$s)115条回复 </string>
+    <string name="str_look_more">点击查看全部 </string>
+    <string name="str_comprehensive_msg">综合信息</string>
 
     <string name="str_information">资讯</string>
     <string name="str_advance_warning">预警</string>
@@ -174,12 +50,15 @@
     <string name="str_global_market">全球行情</string>
     <string name="str_discuss">讨论</string>
 
+
     <string name="str_total">量\u3000</string>
     <string name="str_cost">费\u3000</string>
     <string name="str_buy_in">买入</string>
+    <string name="str_buy">买</string>
     <string name="str_highest">最高</string>
     <string name="str_opening_quotation">开盘</string>
     <string name="str_sell_out">卖出</string>
+    <string name="str_sell">卖</string>
     <string name="str_minimum">最低</string>
     <string name="str_closing_quotation">收盘</string>
     <string name="str_add">添加</string>
@@ -205,22 +84,27 @@
     <string name="str_night_model">夜间模式</string>
     <string name="str_price_model">默认显示价格</string>
     <string name="str_customer_service">在线客服</string>
+    <string name="str_user_home_page">我的个人主页</string>
     <string name="str_recommended">推荐给朋友</string>
     <string name="str_language">语言切换</string>
     <string name="str_security">安全中心</string>
     <string name="str_setting">设置</string>
     <string name="str_logout">退出登录</string>
     <string name="str_about_us">关于我们</string>
+    <string name="str_custom_rate">自定义汇率</string>
+    <string name="str_set_custom_rate">汇率设置</string>
     <string name="str_clean_cache">清理缓存</string>
     <string name="str_default_unit">默认价格显示</string>
     <string name="str_change_language">切换语言</string>
     <string name="str_change_password">修改密码</string>
     <string name="str_global_index">全球指数</string>
     <string name="str_add_coin_market">添加自选</string>
+    <string name="str_list_sorting">列表排序</string>
     <string name="str_change_coin_market">币行情自选</string>
     <string name="str_search_coin_market">币行情搜索</string>
     <string name="str_search_coin_market_hint">搜索平台、币种</string>
     <string name="str_search_history">搜索历史</string>
+    <string name="str_search">搜索</string>
     <string name="str_hot_coin">热门币种</string>
     <string name="str_clean">清空</string>
     <string name="str_circulation">流通</string>
@@ -231,11 +115,37 @@
     <string name="str_market_value">市值</string>
     <string name="str_global_network">全网</string>
     <string name="str_chart_nodata">数据加载中...</string>
-    <string name="str_amount">量/额</string>
+    <string name="str_kline_nodata">暂无数据</string>
+    <string name="str_amount">量</string>
     <string name="str_buy_one">买一</string>
     <string name="str_sell_one">卖一</string>
     <string name="str_kvolume">量(5,10)</string>
     <string name="str_no_choose">请选择后再提交</string>
+    <string name="str_currency">币种</string>
+    <string name="str_type">类型</string>
+    <string name="str_state">状态</string>
+    <string name="str_entrust_price">委托价格</string>
+    <string name="str_storage_quantity">持仓量</string>
+    <string name="str_show_time">挂单时间</string>
+    <string name="str_storage_price">持仓价</string>
+    <string name="str_now_price">当前价格</string>
+    <string name="str_earnings_ratio">收益率</string>
+    <string name="str_today_earnings">今日收益</string>
+    <string name="str_daily_operation">日均操作</string>
+    <string name="str_number">次</string>
+    <string name="str_num">次</string>
+    <string name="str_cumulative_earnings">累计收益</string>
+    <string name="str_yesterday_earnings">昨日收益</string>
+    <string name="str_week_earnings">周收益</string>
+    <string name="str_last_week_earnings">上周收益</string>
+    <string name="str_month_earnings">月收益</string>
+    <string name="str_earnings_chart">收益走势</string>
+    <string name="str_after_payment">付费后可见</string>
+    <string name="str_simulation">模拟交易</string>
+    <string name="str_default">默认</string>
+    <string name="str_edit_introduction">编辑组合简介</string>
+    <string name="str_change_introduction">修改简介</string>
+    <string name="str_competition_group">模拟组合大赛即将开启\n敬请期待</string>
 
     <string name="str_tv_deal">立即交易</string>
     <string name="str_tv_add_percent">累计收益</string>
@@ -251,14 +161,15 @@
     <string name="str_tv_notice1">组合名称可以包括中文、英文、数字或下划线，但组合名字不能为纯数字，且字数不能超过12个字母、数字或6个汉字。</string>
     <string name="str_tv_notice2">公开组合可以被付费订阅了您最新动态的用户查看，如您未设置收费，则可被所有人查看。公开组合创建后不可修改为隐藏，请慎重选择。</string>
     <string name="str_tv_deal_choose">请选择币种</string>
-    <string name="str_tv_balance">你当前可用余额</string>
-    <string name="str_tv_buy_price">买入价格</string>
+    <string name="str_tv_balance">您当前可用余额</string>
+    <string name="str_tv_balance_amount">您当前持有数量</string>
     <string name="str_et_buy_price">输入价格</string>
-    <string name="str_tv_buy_num">买入数量</string>
     <string name="str_et_buy_num">输入数量</string>
     <string name="str_tv_sell_price">卖出价格</string>
+    <string name="str_tv_buy_price">买入价格</string>
     <string name="str_et_sell_price">卖出价格</string>
     <string name="str_tv_sell_num">卖出数量</string>
+    <string name="str_tv_buy_num">买入数量</string>
     <string name="str_tv_commit">立即交易</string>
     <string name="str_tv_type">类型</string>
     <string name="str_tv_currency">币种</string>
@@ -266,6 +177,23 @@
     <string name="str_tv_entrust_prase">委托价格</string>
     <string name="str_tv_num">数量</string>
     <string name="str_tv_operation">操作</string>
+    <string name="str_delect_order">撤单</string>
+    <string name="str_create_order">下单</string>
+    <string name="str_creat_combination">创建组合</string>
+    <string name="str_investment_combination">投资组合</string>
+    <string name="str_my_group">我的组合</string>
+    <string name="str_hot_group">热门组合</string>
+    <string name="str_group_dynamic">组合动态</string>
+    <string name="str_save">保存</string>
+    <string name="str_fucose">关注</string>
+    <string name="str_fucose_people_num">关注人数</string>
+    <string name="str_deal_time">成交时间</string>
+    <string name="str_come_from">来自:  </string>
+    <string name="str_hold_proportion_from">持仓比例从</string>
+    <string name="str_hold_proportion_change">持仓比例变化</string>
+    <string name="str_creater">创建者</string>
+    <string name="str_master">圈主</string>
+    <string name="str_top">置顶</string>
 
     <string name="str_search_circle">查找圈子</string>
     <string name="str_input_limit">/140字</string>
@@ -299,7 +227,6 @@
 
     <string-array name="sa_select_market">
         <item>自选</item>
-        <item>综合</item>
         <item>市值</item>
         <item>交易所</item>
         <item>BTC</item>
@@ -333,8 +260,15 @@
 
     <string-array name="sa_select_unit">
         <item>默认</item>
-        <item>CNY</item>
-        <item>USD</item>
+        <item>平台价格-CNY价格</item>
+        <item>平台价格-USD价格</item>
+        <item>CNY价格-平台价格</item>
+        <item>USD价格-平台价格</item>
+        <item>USD价格-CNY价格</item>
+        <item>CNY价格-USD价格</item>
+        <item>仅USD价格</item>
+        <item>仅CNY价格</item>
+        <item>仅平台价格</item>
     </string-array>
 
     <string-array name="sa_select_language">
@@ -401,6 +335,20 @@
         <item>1d</item>
         <item>3d</item>
         <item>1w</item>
+    </string-array>
+
+
+    <string-array name="sa_select_combination">
+        <item>持仓明细</item>
+        <item>未成交</item>
+        <item>成交历史</item>
+        <item>历史委托</item>
+    </string-array>
+
+    <string-array name="sa_select_group_rank">
+        <item>周榜</item>
+        <item>月榜</item>
+        <item>总榜</item>
     </string-array>
 
 </resources>

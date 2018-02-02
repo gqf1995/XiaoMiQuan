@@ -28,6 +28,17 @@ public class KCombinedChart extends CombinedChart {
     boolean isDrawHeightAndLow = false;
     DefaultClickLinsener defaultClickLinsener;
 
+    OnMaxLeftLinsener onMaxLeftLinsener;
+
+    public void setOnMaxLeftLinsener(OnMaxLeftLinsener onMaxLeftLinsener) {
+        this.onMaxLeftLinsener = onMaxLeftLinsener;
+    }
+
+    public interface OnMaxLeftLinsener {
+        void onMaxLeft();
+    }
+
+
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
         this.defaultClickLinsener = defaultClickLinsener;
     }
@@ -71,6 +82,13 @@ public class KCombinedChart extends CombinedChart {
 
     @Override
     protected void drawMarkers(Canvas canvas) {
+        int lowestVisibleXIndex = this.getLowestVisibleXIndex();
+        if (onMaxLeftLinsener != null) {
+            if (lowestVisibleXIndex == 0) {
+                onMaxLeftLinsener.onMaxLeft();
+            }
+        }
+
         if (!mDrawMarkerViews || !valuesToHighlight())
             return;
         for (int i = 0; i < mIndicesToHighlight.length; i++) {
@@ -165,7 +183,7 @@ public class KCombinedChart extends CombinedChart {
     }
 
     public void initRenderer() {
-        //        if (isDrawHeightAndLow) {
+//        if (isDrawHeightAndLow) {
         //            //获取屏幕宽度,因为默认是向右延伸显示数字的(如图1),当最值在屏幕右端,屏幕不够显示时要向左延伸(如图2)
         //            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         //            DisplayMetrics metrics = new DisplayMetrics();

@@ -93,7 +93,6 @@ public abstract class BasePullActivity<T extends BasePullDelegate, D extends IDa
 
     @Override
     protected void onServiceError(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         viewDelegate.stopRefresh();
     }
 }
