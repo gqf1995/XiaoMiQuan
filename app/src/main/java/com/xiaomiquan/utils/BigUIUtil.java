@@ -262,13 +262,18 @@ public class BigUIUtil {
         if ("USDT".equals(symbol)) {
             symbol = "USD";
         }
+
+
         //多价格汇率
         if (rateTwoPrice == null) {
             rateTwoPrice = new ArrayList<>();
         } else {
             rateTwoPrice.clear();
         }
-
+        if (usdRate == null) {
+            rateTwoPrice.add("");
+            rateTwoPrice.add("");
+        }
         if (TextUtils.isEmpty(price) || TextUtils.isEmpty(itemUnit)) {
             rateTwoPrice.add(bigPrice(price));
             rateTwoPrice.add("");
