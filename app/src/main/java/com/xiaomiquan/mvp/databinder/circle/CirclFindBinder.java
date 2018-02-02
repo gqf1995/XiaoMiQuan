@@ -35,24 +35,6 @@ public class CirclFindBinder extends BaseDataBind<BaseFragentPullDelegate> {
                 .RxSendRequest();
     }
 
-    public Disposable getCircleMy(
-            int pageNum, int pageSize,
-            RequestCallback requestCallback) {
-        getBaseMapWithUid();
-        baseMap.put("pageNum", 1);
-        baseMap.put("pageSize", 10);
-        return new HttpRequest.Builder()
-                .setRequestCode(0x124)
-                .setRequestUrl(HttpUrl.getIntance().getMoreCircle)
-                .setShowDialog(true)
-                .setRequestName("获取已加入圈子信息")
-                .setRequestMode(HttpRequest.RequestMode.GET)
-                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
-                .setRequestObj(baseMap)
-                .setRequestCallback(requestCallback)
-                .build()
-                .RxSendRequest();
-    }
 
     public Disposable joinCircle(String groupId,
                                  RequestCallback requestCallback) {

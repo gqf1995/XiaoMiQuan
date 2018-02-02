@@ -32,9 +32,8 @@ public class CircleShowDelegate extends BaseMyPullDelegate {
 
     public static class ViewHolder {
         public View rootView;
-        public EditText et_search;
-        public LinearLayout lin_search_circle;
         public RecyclerView rv_mycircle;
+        public RecyclerView rv_circle;
         public CommonTabLayout tl_2;
         public ViewPager vp_sliding;
         public LinearLayout lin_root;
@@ -42,9 +41,8 @@ public class CircleShowDelegate extends BaseMyPullDelegate {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.et_search = (EditText) rootView.findViewById(R.id.et_search);
-            this.lin_search_circle = (LinearLayout) rootView.findViewById(R.id.lin_search_circle);
             this.rv_mycircle = (RecyclerView) rootView.findViewById(R.id.rv_mycircle);
+            this.rv_circle = (RecyclerView) rootView.findViewById(R.id.rv_circle);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
             this.vp_sliding = (ViewPager) rootView.findViewById(R.id.vp_sliding);
             this.lin_root = (LinearLayout) rootView.findViewById(R.id.lin_root);

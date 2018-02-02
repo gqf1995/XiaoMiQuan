@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/trans_490px">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_490px"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/trans_40px"
+        android:orientation="vertical"
+        android:padding="@dimen/trans_50px">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018/03/04"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/trans_28px" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/trans_20px"
+            android:text="名字"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_50px" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/trans_20px"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_head"
+                android:layout_width="@dimen/trans_60px"
+                android:layout_height="@dimen/trans_60px"
+                android:src="@color/color_blue" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/trans_15px"
+                android:text="名字"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/trans_28px" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:id="@+id/tv_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/album_dp_15"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/ic_Chat"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_30px" />
+
+            <TextView
+                android:id="@+id/tv_comment_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/trans_10px"
+                android:layout_marginRight="@dimen/trans_40px"
+                android:singleLine="true"
+                android:text="10"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_28px" />
+
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:id="@+id/tv_praise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="@string/ic_Like"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_30px" />
+
+            <TextView
+                android:id="@+id/tv_praise_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/trans_10px"
+                android:singleLine="true"
+                android:text="0"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_28px" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

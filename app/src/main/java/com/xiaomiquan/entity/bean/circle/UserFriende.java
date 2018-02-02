@@ -5,31 +5,89 @@ package com.xiaomiquan.entity.bean.circle;
  */
 
 public class UserFriende {
+
+
     /**
-     * id : 1
-     * nickName : hyk
-     * password : c4ca4238a0b923820dcc509a6f75849b
-     * email : null
-     * phone : 17633905867
-     * avatar : sdasdasdasd
-     * imToken : null
-     * bigv : 2
-     * subscribeCharge : 0
-     * createTime : 1515414006000
-     * updateTime : 1516260051000
+     * attention : true
+     * attentionId : 4
+     * attentionedCount : 2
+     * avatar : https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg
+     * bigv : 3
+     * createTime : 1516696947000
+     * email :
+     * id : 6
+     * nickName : 李小龙
+     * password :
+     * phone : 11111111116
      */
 
+    private Boolean attention;
+    private String attentionId;
+    private String attentionedCount;
+    private String avatar;
+    private String bigv;
+    private String createTime;
+    private String email;
     private String id;
     private String nickName;
     private String password;
-    private String email;
     private String phone;
-    private String avatar;
-    private String imToken;
-    private String bigv;
-    private String subscribeCharge;
-    private String createTime;
-    private String updateTime;
+
+    public Boolean getAttention() {
+        return attention;
+    }
+
+    public void setAttention(Boolean attention) {
+        this.attention = attention;
+    }
+
+    public String getAttentionId() {
+        return attentionId;
+    }
+
+    public void setAttentionId(String attentionId) {
+        this.attentionId = attentionId;
+    }
+
+    public String getAttentionedCount() {
+        return attentionedCount;
+    }
+
+    public void setAttentionedCount(String attentionedCount) {
+        this.attentionedCount = attentionedCount;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getBigv() {
+        return bigv;
+    }
+
+    public void setBigv(String bigv) {
+        this.bigv = bigv;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getId() {
         return id;
@@ -55,67 +113,11 @@ public class UserFriende {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getImToken() {
-        return imToken;
-    }
-
-    public void setImToken(String imToken) {
-        this.imToken = imToken;
-    }
-
-    public String getBigv() {
-        return bigv;
-    }
-
-    public void setBigv(String bigv) {
-        this.bigv = bigv;
-    }
-
-    public String getSubscribeCharge() {
-        return subscribeCharge;
-    }
-
-    public void setSubscribeCharge(String subscribeCharge) {
-        this.subscribeCharge = subscribeCharge;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
     }
 }

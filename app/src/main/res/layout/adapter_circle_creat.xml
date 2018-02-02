@@ -1,45 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/trans_5px">
 
     <LinearLayout
-        android:id="@+id/lin_root"
-        android:layout_width="@dimen/trans_255px"
-        android:layout_height="@dimen/trans_255px"
-        android:background="@drawable/shape_mask_t20radiu"
-        android:gravity="center_horizontal"
+        android:id="@+id/lin_creat"
+        android:layout_width="@dimen/trans_220px"
+        android:layout_height="@dimen/trans_198px"
+        android:gravity="center"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/trans_20px"
-        android:paddingTop="@dimen/trans_20px"
-        android:layout_marginTop="@dimen/trans_30px"
-        android:layout_marginLeft="@dimen/trans_50px"
-        >
+        android:visibility="gone">
 
-        <TextView
-            android:id="@+id/tv_name"
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingBottom="@dimen/trans_5px"
-            android:paddingLeft="@dimen/trans_20px"
-            android:paddingRight="@dimen/trans_20px"
-            android:paddingTop="@dimen/trans_5px"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_24px"
-           />
+            android:text="@string/ic_Plus"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/text_trans_32px" />
 
         <TextView
-            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="@dimen/album_dp_10"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_trans_8px"
             android:gravity="center"
-            android:text="创建圈子"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_35px"/>
+            android:text="加入或创建"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/text_trans_20px" />
     </LinearLayout>
-</FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/riv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="@dimen/trans_220px"
+            android:layout_height="@dimen/trans_198px"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="@dimen/trans_220px"
+            android:layout_height="@dimen/trans_198px"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="名字"
+                android:textColor="@color/color_font1"
+                android:textSize="@dimen/trans_32px"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ic_Group"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_20px" />
+
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/trans_4px"
+                    android:text="123"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_20px" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/trans_120px"
+                android:layout_height="@dimen/trans_6px"
+                android:layout_marginTop="@dimen/trans_10px"
+                android:background="@color/base_mask" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/trans_10px"
+                android:text="大佬"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_25px" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

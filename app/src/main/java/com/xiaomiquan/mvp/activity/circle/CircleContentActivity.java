@@ -1,30 +1,42 @@
 package com.xiaomiquan.mvp.activity.circle;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleContentAdapter;
+import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
 import com.xiaomiquan.entity.bean.GroupOwner;
+import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.entity.bean.circle.UserTopic;
+import com.xiaomiquan.mvp.activity.mvp.activity.UserInfoActivity;
 import com.xiaomiquan.mvp.databinder.circle.CircleContentBinder;
 import com.xiaomiquan.mvp.delegate.circle.CircleContentDelegate;
+import com.xiaomiquan.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.CircleDialogHelper;
+import com.xiaomiquan.widget.circle.SquarePopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -32,8 +44,9 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
 
     CircleContentAdapter circleContentAdapter;
     HeaderAndFooterWrapper headerAndFooterWrapper;
-    List<UserTopic> userTopicList;
+    List<SquareLive> squareLiveList;
     UserCircle userCircle;
+    public static String groupId;
 
     @Override
     protected Class<CircleContentDelegate> getDelegateClass() {
@@ -49,36 +62,70 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        Intent intent = getIntent();
-        userCircle = (UserCircle) intent.getParcelableExtra("userCircle");
-        initToolbar(new ToolbarBuilder().setTitle("币圈神探").setSubTitle("发帖"));
-        addRequest(binder.getCicleContent(userCircle.getId(), 1 + "", this));
+        getIntentData();
+        floatBtn();
+        initToolbar(new ToolbarBuilder().setTitle("币圈神探").setmRightImg2(CommonUtils.getString(R.string.ic_Notifications)).setSubTitle("+"));
+        groupId = userCircle.getId();
+
+        addRequest(binder.getCicleContent(1 + "", userCircle.getId(), this));
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                addRequest(binder.getCicleContent(userCircle.getId(), 1 + "", CircleContentActivity.this));
+                addRequest(binder.getCicleContent("1", userCircle.getId(), CircleContentActivity.this));
             }
         });
-        userTopicList = new ArrayList<>();
-        initUserTopic(userTopicList);
+
+    }
+
+    @Override
+    protected void clickRightIv1() {
+        super.clickRightIv1();
+        EditCircleActivity.startAct(CircleContentActivity.this, userCircle);
+    }
+
+    @Override
+    protected void clickRightIv2() {
+        super.clickRightIv2();
+        EditCircleActivity.startAct(CircleContentActivity.this, userCircle);
     }
 
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-        CircleDialogHelper.initDefaultInputDialog(CircleContentActivity.this, "发帖", "请输入内容", "发布", new OnInputClickListener() {
-            @Override
-            public void onClick(String text, View v) {
-                ToastUtil.show(text);
-                addRequest(binder.saveUsertopic(userCircle.getId() + "", text, CircleContentActivity.this));
-            }
-        }).show();
+        gotoActivity(CreatCodeActivity.class).startAct();
+
     }
-    private void initEdit(){
-        viewDelegate.viewHolder.lin_my_circle.setOnClickListener(new View.OnClickListener() {
+
+    SquarePopupWindow squarePopupWindow;
+
+    public void floatBtn() {
+        viewDelegate.viewHolder.flt_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gotoActivity(EditCircleActivity.class).startAct();
+                squarePopupWindow = new SquarePopupWindow(CircleContentActivity.this);
+                squarePopupWindow.setOnItemClickListener(new SquarePopupWindow.OnItemClickListener() {
+                    @Override
+                    public void setOnItemClick(View v) {
+                        switch (v.getId()) {
+                            case R.id.lin_dynamic:
+                                ReleaseDynamicActivity.startAct(CircleContentActivity.this, "2", "2");
+                                squarePopupWindow.dismiss();
+                                break;
+                            case R.id.lin_article:
+                                ReleaseArticleActivity.startAct(CircleContentActivity.this, "1", "2");
+                                squarePopupWindow.dismiss();
+                                break;
+                            case R.id.lin_wechat:
+                                break;
+                            case R.id.btn_cancel:
+                                squarePopupWindow.dismiss();
+                                break;
+
+                        }
+                    }
+                });
+                squarePopupWindow.showAtLocation(viewDelegate.viewHolder.pull_recycleview, Gravity.BOTTOM, 0, 0);
+
             }
         });
     }
@@ -88,27 +135,32 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
-                String groupOwner1 = GsonUtil.getInstance().getValue(data, "groupOwner");
-                if (groupOwner1 != null) {
-                    GroupOwner groupOwner = GsonUtil.getInstance().toObj(groupOwner1, GroupOwner.class);
-                }
-                List<UserTopic> datas = GsonUtil.getInstance().toList(data, "list", UserTopic.class);
-                getDataBack(userTopicList, datas, headerAndFooterWrapper);
+                List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
+                initUserTopic(datas);
                 break;
             case 0x124:
+                addRequest(binder.getCicleContent("1", userCircle.getId(), this));
+                break;
             case 0x125:
+                break;
             case 0x126:
-                addRequest(binder.getCicleContent(userCircle.getId(), 1 + "", this));
+                addRequest(binder.getCicleContent("1", userCircle.getId(), this));
                 break;
         }
     }
 
-    private void initUserTopic(List<UserTopic> circleContents) {
-        circleContentAdapter = new CircleContentAdapter(CircleContentActivity.this, circleContents);
+    private void initUserTopic(final List<SquareLive> squareLives) {
+        circleContentAdapter = new CircleContentAdapter(CircleContentActivity.this, squareLives);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CircleContentActivity.this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         circleContentAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-
+                TopicDetailActivity.startAct(CircleContentActivity.this, squareLives.get(position));
             }
 
             @Override
@@ -124,46 +176,46 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
                     CircleDialogHelper.initDefaultInputDialog(CircleContentActivity.this, "评论", "请输入评论", "发布", new OnInputClickListener() {
                         @Override
                         public void onClick(String text, View v) {
-                            addRequest(binder.saveComment(circleContentAdapter.getDatas().get(position - headerAndFooterWrapper.getHeadersCount()).getId() + "", 3 + "", text, CircleContentActivity.this));
+                            addRequest(binder.saveComment(circleContentAdapter.getDatas().get(position).getId(), text, CircleContentActivity.this));
                         }
                     }).show();
                 }
                 if (view.getId() == R.id.tv_praise) {
-                    view.setEnabled(false);
-                    addRequest(binder.savePraise(circleContentAdapter.getDatas().get(position - headerAndFooterWrapper.getHeadersCount()).getId(), CircleContentActivity.this));
+                    addRequest(binder.savePraise(circleContentAdapter.getDatas().get(position).getId(), CircleContentActivity.this));
+                }
+                if (view.getId() == R.id.cv_head) {
+                    UserInfoActivity.startAct(CircleContentActivity.this, squareLives.get(position));
                 }
             }
         });
-        headerAndFooterWrapper = new HeaderAndFooterWrapper(circleContentAdapter);
-        headerAndFooterWrapper.addHeaderView(initTopView());
-        initRecycleViewPull(headerAndFooterWrapper, headerAndFooterWrapper.getHeadersCount(), new LinearLayoutManager(CircleContentActivity.this));
+        viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
+        viewDelegate.viewHolder.pull_recycleview.setAdapter(circleContentAdapter);
         viewDelegate.setIsLoadMore(false);
-    }
-
-    int commentPosition = 0;
-    public CircleImageView cv_head;
-    public TextView tv_name;
-    public TextView tv_creator;
-    public TextView tv_num;
-
-    private View initTopView() {
-        View rootView = CircleContentActivity.this.getLayoutInflater().inflate(R.layout.layout_circle_con_top, null);
-        rootView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        this.cv_head = (CircleImageView) rootView.findViewById(R.id.cv_head);
-        this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);
-        this.tv_creator = (TextView) rootView.findViewById(R.id.tv_creator);
-        this.tv_num = (TextView) rootView.findViewById(R.id.tv_num);
-
-        tv_name.setText(userCircle.getName() + "");
-        tv_creator.setText("User" + userCircle.getUserId());
-        tv_num.setText(userCircle.getBrief() + "");
-
-        return rootView;
     }
 
     @Override
     protected void refreshData() {
 
+    }
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        userCircle = (UserCircle) intent.getParcelableExtra("userCircle");
+        initCircle(userCircle);
+    }
+
+    public static void startAct(Activity activity,
+                                UserCircle userCircle
+    ) {
+        Intent intent = new Intent(activity, CircleContentActivity.class);
+        intent.putExtra("userCircle", userCircle);
+        activity.startActivity(intent);
+    }
+
+    private void initCircle(UserCircle userCircle) {
+        viewDelegate.viewHolder.tv_name.setText(userCircle.getName());
+        viewDelegate.viewHolder.tv_creator.setText(userCircle.getNickName());
+        viewDelegate.viewHolder.tv_num.setText(userCircle.getMemberCount());
     }
 
 

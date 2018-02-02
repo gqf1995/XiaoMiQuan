@@ -11,7 +11,7 @@ import android.view.View;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.adapter.circle.CircleAllDvpAdapter;
-import com.xiaomiquan.adapter.circle.CircleCreatAdapter;
+import com.xiaomiquan.adapter.circle.CircleMyAdapter;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.mvp.activity.circle.CircleContentActivity;
 import com.xiaomiquan.mvp.activity.circle.CreatCircleActivity;
@@ -32,7 +32,7 @@ import static android.app.Activity.RESULT_OK;
 public class CircleDvpFragment extends BasePullFragment<CircleDvpDelegate, CircleDvpBinder> {
 
     CircleAllDvpAdapter circleAllDvpAdapter;
-    CircleCreatAdapter circleCreatAdapter;
+    CircleMyAdapter circleCreatAdapter;
     List<UserCircle> userCircleList;
 
     @Override
@@ -45,7 +45,7 @@ public class CircleDvpFragment extends BasePullFragment<CircleDvpDelegate, Circl
         UserCircle userCircle = new UserCircle();
         userCircle.setBrief("创建圈子");
         userCircles.add(0, userCircle);
-        circleCreatAdapter = new CircleCreatAdapter(getActivity(), userCircles);
+        circleCreatAdapter = new CircleMyAdapter(getActivity(), userCircles);
         final List<UserCircle> finalUserCircles = userCircles;
         circleCreatAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
@@ -118,7 +118,7 @@ public class CircleDvpFragment extends BasePullFragment<CircleDvpDelegate, Circl
                 initAllCircle(datas);
                 break;
             case 0x125:
-                addRequest(binder.getCircleMy(1, 10, this));
+//                addRequest(binder.getCircleMy(1, 10, this));
                 addRequest(binder.getMyCircleInfo(1, 10, this));
                 break;
         }
@@ -158,13 +158,14 @@ public class CircleDvpFragment extends BasePullFragment<CircleDvpDelegate, Circl
     @Override
     protected void onFragmentFirstVisible() {
         userCircleList = new ArrayList<>();
+
         initMyCircle(userCircleList);
         initAllCircle(userCircleList);
     }
 
     @Override
     protected void refreshData() {
-        addRequest(binder.getCircleMy(1, 10, this));
+//        addRequest(binder.getCircleMy(1, 10, this));
         addRequest(binder.getMyCircleInfo(1, 10, this));
     }
 }

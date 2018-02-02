@@ -1,50 +1,71 @@
 package com.xiaomiquan.entity.bean.circle;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by Andy on 2018/1/21.
  */
 
-public class Comment {
+public class Comment implements Parcelable {
+
 
     /**
-     * id : 1
-     * topicId : null
-     * commentUserId : null
-     * content : sdfsdf
-     * reUserId : null
-     * images : null
-     * createTime : 1516511597000
+     * commentUserId : 3
+     * content : 啦啦啦
+     * createTime : 1517313414000
+     * groupOwner : false
+     * id : 11
+     * images :
+     * linkId : 14
+     * nickName : 成龙
+     * reUserId : 0
+     * reUserNickName :
+     * reply : false
      * updateTime : null
-     * nickName : 阿拉斯加
-     * reUserNickName : null
      */
 
-    private String id;
-    private String topicId;
     private String commentUserId;
     private String content;
-    private String reUserId;
-    private String images;
     private String createTime;
-    private String updateTime;
+    private String groupOwner;
+    private String id;
+    private String images;
+    private String linkId;
     private String nickName;
+    private String reUserId;
     private String reUserNickName;
+    private boolean reply;
+    private String updateTime;
 
-    public String getId() {
-        return id;
+    protected Comment(Parcel in) {
+        commentUserId = in.readString();
+        content = in.readString();
+        createTime = in.readString();
+        groupOwner = in.readString();
+        id = in.readString();
+        images = in.readString();
+        linkId = in.readString();
+        nickName = in.readString();
+        reUserId = in.readString();
+        reUserNickName = in.readString();
+        reply = in.readByte() != 0;
+        updateTime = in.readString();
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public static final Creator<Comment> CREATOR = new Creator<Comment>() {
+        @Override
+        public Comment createFromParcel(Parcel in) {
+            return new Comment(in);
+        }
 
-    public String getTopicId() {
-        return topicId;
-    }
-
-    public void setTopicId(String topicId) {
-        this.topicId = topicId;
-    }
+        @Override
+        public Comment[] newArray(int size) {
+            return new Comment[size];
+        }
+    };
 
     public String getCommentUserId() {
         return commentUserId;
@@ -62,12 +83,28 @@ public class Comment {
         this.content = content;
     }
 
-    public String getReUserId() {
-        return reUserId;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setReUserId(String reUserId) {
-        this.reUserId = reUserId;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getGroupOwner() {
+        return groupOwner;
+    }
+
+    public void setGroupOwner(String groupOwner) {
+        this.groupOwner = groupOwner;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getImages() {
@@ -78,20 +115,12 @@ public class Comment {
         this.images = images;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public String getLinkId() {
+        return linkId;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
+    public void setLinkId(String linkId) {
+        this.linkId = linkId;
     }
 
     public String getNickName() {
@@ -102,11 +131,56 @@ public class Comment {
         this.nickName = nickName;
     }
 
+    public String getReUserId() {
+        return reUserId;
+    }
+
+    public void setReUserId(String reUserId) {
+        this.reUserId = reUserId;
+    }
+
     public String getReUserNickName() {
         return reUserNickName;
     }
 
     public void setReUserNickName(String reUserNickName) {
         this.reUserNickName = reUserNickName;
+    }
+
+    public boolean isReply() {
+        return reply;
+    }
+
+    public void setReply(boolean reply) {
+        this.reply = reply;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(commentUserId);
+        parcel.writeString(content);
+        parcel.writeString(createTime);
+        parcel.writeString(groupOwner);
+        parcel.writeString(id);
+        parcel.writeString(images);
+        parcel.writeString(linkId);
+        parcel.writeString(nickName);
+        parcel.writeString(reUserId);
+        parcel.writeString(reUserNickName);
+        parcel.writeByte((byte) (reply ? 1 : 0));
+        parcel.writeString(updateTime);
     }
 }

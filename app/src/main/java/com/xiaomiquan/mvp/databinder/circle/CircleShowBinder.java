@@ -18,12 +18,10 @@ public class CircleShowBinder extends BaseDataBind<CircleShowDelegate> {
         super(viewDelegate);
     }
 
-    public Disposable getMyCircleInfo(
-            int pageNum, int pageSize,
+    public Disposable getMyCircle(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("pageNum", 1);
-        baseMap.put("pageSize", 10);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().getMyCircleInfo)
@@ -37,17 +35,16 @@ public class CircleShowBinder extends BaseDataBind<CircleShowDelegate> {
                 .RxSendRequest();
     }
 
-    public Disposable getCircleMy(
-            int pageNum, int pageSize,
+    public Disposable getCircleTopic(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("pageNum", 1);
-        baseMap.put("pageSize", 10);
+        baseMap.put("platform", 2);
         return new HttpRequest.Builder()
                 .setRequestCode(0x124)
-                .setRequestUrl(HttpUrl.getIntance().getMoreCircle)
+                .setRequestUrl(HttpUrl.getIntance().getCircleTopic)
                 .setShowDialog(true)
-                .setRequestName("获取已加入圈子信息")
+                .setRequestName("获取帖子")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
@@ -56,16 +53,20 @@ public class CircleShowBinder extends BaseDataBind<CircleShowDelegate> {
                 .RxSendRequest();
     }
 
-    public Disposable joinCircle(String groupId,
-                                 RequestCallback requestCallback) {
+    /**
+     * 点赞
+     */
+    public Disposable savePraise(
+            String linkId,
+            RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("groupId", groupId);
+        baseMap.put("linkId", linkId);
         return new HttpRequest.Builder()
-                .setRequestCode(0x125)
-                .setRequestUrl(HttpUrl.getIntance().joinCircle)
+                .setRequestCode(0x127)
+                .setRequestUrl(HttpUrl.getIntance().savePraise)
                 .setShowDialog(true)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("加入圈子")
+                .setRequestName("点赞")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)
@@ -74,6 +75,5 @@ public class CircleShowBinder extends BaseDataBind<CircleShowDelegate> {
                 .RxSendRequest();
 
     }
-
 
 }

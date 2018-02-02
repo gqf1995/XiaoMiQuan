@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar" />
+
+    <com.xiaomiquan.widget.StickyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/trans_24px"
+                android:paddingLeft="@dimen/trans_30px"
+                android:paddingRight="@dimen/trans_40px"
+                android:paddingTop="@dimen/trans_25px">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="名字"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_35px"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/trans_15px"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="由"
+                                android:textColor="@color/color_font2"
+                                android:textSize="@dimen/text_trans_28px" />
+
+                            <TextView
+                                android:id="@+id/tv_creator"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="娃娃"
+                                android:textColor="@color/color_font2"
+                                android:textSize="@dimen/text_trans_28px" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="创建，"
+                                android:textColor="@color/color_font2"
+                                android:textSize="@dimen/text_trans_28px" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="已有"
+                                android:textColor="@color/color_font2"
+                                android:textSize="@dimen/text_trans_28px" />
+
+                            <TextView
+                                android:id="@+id/tv_num"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="111"
+                                android:textColor="@color/color_font2"
+                                android:textSize="@dimen/text_trans_28px" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="人加入"
+                                android:textColor="@color/color_font2"
+                                android:textSize="@dimen/text_trans_28px" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_head"
+                        android:layout_width="@dimen/trans_80px"
+                        android:layout_height="@dimen/trans_80px"
+                        android:layout_marginRight="@dimen/trans_20px"
+                        android:src="@color/color_blue" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_con"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/trans_20px"
+                    android:text="名字"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/text_trans_28px" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/ry_dynamic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/trans_5px"
+                android:text="加入圈子查看完整内容"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/trans_28px" />
+
+            <LinearLayout
+                android:id="@+id/lin_charge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/trans_16px"
+                android:background="@color/base_mask"
+                android:orientation="vertical"
+                android:padding="@dimen/trans_20px"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="付费须知"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/trans_28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/trans_18px"
+                    android:text="该圈子为付费圈子，收费为1ETH每年。如需加入圈子，请点击以下按钮前去付款。"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/trans_28px" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/trans_20px"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/trans_10px">
+
+                    <TextView
+                        android:id="@+id/tv_pay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/color_blue"
+                        android:gravity="center"
+                        android:padding="@dimen/trans_10px"
+                        android:text="付款加入"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/trans_32px" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/tv_code"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/color_blue"
+                        android:gravity="center"
+                        android:padding="@dimen/trans_10px"
+                        android:text="我有加圈码"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/trans_32px" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_free"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/trans_16px"
+                android:background="@color/base_mask"
+                android:orientation="vertical"
+                android:padding="@dimen/trans_20px">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="付费须知"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/trans_28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/trans_18px"
+                    android:text="该圈子为免费圈子，点击加入后可以查看所有内容。"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/trans_28px" />
+
+
+                <TextView
+                    android:id="@+id/tv_free"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/trans_40px"
+                    android:background="@color/color_blue"
+                    android:padding="@dimen/trans_15px"
+                    android:text="立即加入"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </com.xiaomiquan.widget.StickyScrollView>
+
+</LinearLayout>
