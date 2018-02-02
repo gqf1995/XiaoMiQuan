@@ -64,12 +64,55 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tv_con"
+                android:id="@+id/tv_dynamic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/album_dp_6"
+                android:singleLine="true"
                 android:text="hahhaha"
                 android:textColor="@color/color_font1"
-                android:textSize="@dimen/album_sp_20" />
+                android:textSize="@dimen/text_trans_35px" />
+
+            <LinearLayout
+                android:id="@+id/lin_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/base_mask"
+                android:orientation="horizontal"
+                android:padding="@dimen/trans_10px">
+
+                <ImageView
+                    android:id="@+id/cv_article"
+                    android:layout_width="@dimen/trans_70px"
+                    android:layout_height="@dimen/trans_70px" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="文章"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/trans_32px"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_article"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="名字"
+                        android:textColor="@color/color_font2"
+                        android:textSize="@dimen/trans_28px" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
             <!-- 地址、时间 、删除 、点赞、 评论 -->
             <LinearLayout
@@ -84,21 +127,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/trans_20px"
                     android:gravity="center"
                     android:text="@string/ic_Like"
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_30px" />
 
+
                 <TextView
                     android:id="@+id/tv_praise_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/album_dp_4"
+                    android:layout_marginLeft="@dimen/trans_10px"
                     android:singleLine="true"
                     android:text="0"
                     android:textColor="@color/color_font1"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_trans_28px" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
                 <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:id="@+id/tv_comment"
@@ -123,6 +171,11 @@
                     android:textColor="@color/color_font1"
                     android:textSize="12sp" />
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
                 <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -132,6 +185,16 @@
                     android:text="@string/ic_Share"
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_30px" />
+
+                <TextView
+                    android:id="@+id/tv_shared"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/album_dp_4"
+                    android:singleLine="true"
+                    android:text="分享"
+                    android:textColor="@color/color_font1"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout

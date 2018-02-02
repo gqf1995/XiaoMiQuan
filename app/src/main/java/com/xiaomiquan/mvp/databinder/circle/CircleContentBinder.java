@@ -18,15 +18,15 @@ public class CircleContentBinder extends BaseDataBind<CircleContentDelegate> {
     }
 
     /**
-     * 获取圈子详情信息
+     * 获取圈子帖子
      */
     public Disposable getCicleContent(
-            String userGroupId,
-            String page,
+            String pageNum,
+            String groupId,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("userGroupId", userGroupId);
-        baseMap.put("page", page);
+        baseMap.put("pageNum", pageNum);
+        baseMap.put("groupId", groupId);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().getUsertopic)
@@ -47,12 +47,10 @@ public class CircleContentBinder extends BaseDataBind<CircleContentDelegate> {
      */
     public Disposable saveComment(
             String linkId,
-            String linkType,
             String content,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("linkId", linkId);
-        baseMap.put("linkType", linkType);
         baseMap.put("content", content);
 
         return new HttpRequest.Builder()
@@ -69,23 +67,24 @@ public class CircleContentBinder extends BaseDataBind<CircleContentDelegate> {
                 .RxSendRequest();
 
     }
-
     /**
-     * 发帖
+     * 回复
      */
-    public Disposable saveUsertopic(
-            String groupId,
+    public Disposable saveRecomment(
+            String linkId,
             String content,
+            String re_user_id,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("groupId", groupId);
+        baseMap.put("linkId", linkId);
         baseMap.put("content", content);
+        baseMap.put("re_user_id", re_user_id);
         return new HttpRequest.Builder()
-                .setRequestCode(0x125)
-                .setRequestUrl(HttpUrl.getIntance().saveUsertopic)
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().saveComment)
                 .setShowDialog(true)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("发帖")
+                .setRequestName("回复")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
@@ -103,8 +102,6 @@ public class CircleContentBinder extends BaseDataBind<CircleContentDelegate> {
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("linkId", linkId);
-        baseMap.put("linkType", "3");
-        baseMap.put("type", "1");
         return new HttpRequest.Builder()
                 .setRequestCode(0x126)
                 .setRequestUrl(HttpUrl.getIntance().savePraise)

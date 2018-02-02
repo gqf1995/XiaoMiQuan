@@ -1,147 +1,210 @@
-//package com.xiaomiquan.mvp.fragment.circle;
-//
-//import android.content.Intent;
-//import android.os.Parcelable;
-//import android.support.v4.app.Fragment;
-//import android.support.v4.view.ViewPager;
-//import android.support.v7.widget.DefaultItemAnimator;
-//import android.support.v7.widget.GridLayoutManager;
-//import android.support.v7.widget.RecyclerView;
-//import android.view.View;
-//import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
-//import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-//import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
-//import com.tablayout.TabEntity;
-//import com.tablayout.listener.CustomTabEntity;
-//import com.tablayout.listener.OnTabSelectListener;
-//import com.xiaomiquan.R;
-//import com.xiaomiquan.adapter.circle.CircleMyAdapter;
-//import com.xiaomiquan.entity.bean.circle.UserCircle;
-//import com.xiaomiquan.mvp.activity.circle.CreatCircleActivity;
-//import com.xiaomiquan.mvp.databinder.circle.CircleShowBinder;
-//import com.xiaomiquan.mvp.delegate.circle.CircleShowDelegate;
-//import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.List;
-//
-///**
-// * Created by Andy on 2018/1/25.
-// */
-//
-//public class CircleShowFragment extends BaseDataBindFragment<CircleShowDelegate, CircleShowBinder> {
-//
-//    ArrayList<Fragment> fragments;
-//    List<String> mTitles;
-//    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
-//    CircleMyAdapter circleMyAdapter;
-//
-//
-//    @Override
-//    protected void bindEvenListener() {
-//        super.bindEvenListener();
-//        initTablelayout();
-//        initSearch();
-//    }
-//
-//    private void initSearch() {
-//        viewDelegate.viewHolder.lin_search_circle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-//    }
-//
-//    private void initMyCircle(final List<UserCircle> userCircles) {
-//        UserCircle userCircle = new UserCircle();
-//        userCircle.setBrief("创建圈子");
-//        userCircles.add(0, userCircle);
-//        circleMyAdapter = new CircleMyAdapter(getActivity(), userCircles);
-//        final List<UserCircle> finalUserCircles = userCircles;
-//        circleMyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                if (position != 0) {
-//                    Intent intent = new Intent();
-//                    intent.putExtra("userCircle", (Parcelable) userCircles.get(position));
-//                    gotoActivity(CircleContentActivity.class).setIntent(intent).startAct();
-//                } else {
-//                    gotoActivity(CreatCircleActivity.class).startAct();
-//                }
-//            }
-//
-//            @Override
-//            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-//
-//                return false;
-//            }
-//        });
-//        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4) {
-//            @Override
-//            public boolean canScrollVertically() {
-//                return false;
-//            }
-//        };
-//        viewDelegate.viewHolder.rv_mycircle.setLayoutManager(gridLayoutManager);
-//        viewDelegate.viewHolder.rv_mycircle.setItemAnimator(new DefaultItemAnimator());
-//        viewDelegate.viewHolder.rv_mycircle.setAdapter(circleMyAdapter);
-//    }
-//
-//    private void initTablelayout() {
-//        mTitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_circle_show));
-//        fragments = new ArrayList<>();
-//        fragments.add(new CircleDynamicFragment());
-//        fragments.add(new CircleFindFragment());
-//        for (int i = 0; i < mTitles.size(); i++) {
-//            mTabEntities.add(new TabEntity(mTitles.get(i), 0, 0));
-//        }
-//        viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
-//
-//        viewDelegate.viewHolder.vp_sliding.setAdapter(new InnerPagerAdapter(getChildFragmentManager(), fragments, mTitles.toArray(new String[mTitles.size()])));
-//        viewDelegate.viewHolder.vp_sliding.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                viewDelegate.viewHolder.tl_2.setCurrentTab(position);
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
-//        viewDelegate.viewHolder.tl_2.setOnTabSelectListener(new OnTabSelectListener() {
-//            @Override
-//            public void onTabSelect(int position) {
-//                viewDelegate.showFragment(position);
-//                viewDelegate.viewHolder.vp_sliding.setCurrentItem(position, true);
-//            }
-//
-//            @Override
-//            public void onTabReselect(int position) {
-//
-//            }
-//        });
-//    }
-//
-//
-//    @Override
-//    protected Class<CircleShowDelegate> getDelegateClass() {
-//        return CircleShowDelegate.class;
-//    }
-//
-//    @Override
-//    public CircleShowBinder getDataBinder(CircleShowDelegate viewDelegate) {
-//        return new CircleShowBinder(viewDelegate);
-//    }
-//
-//    @Override
-//    protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-//
-//    }
-//}
+package com.xiaomiquan.mvp.fragment.circle;
+
+import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.View;
+
+import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.xiaomiquan.R;
+import com.xiaomiquan.adapter.circle.CircleDynamicAdapter;
+import com.xiaomiquan.adapter.circle.CircleMyAdapter;
+import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.entity.bean.circle.UserCircle;
+import com.xiaomiquan.mvp.activity.circle.CircleContentActivity;
+import com.xiaomiquan.mvp.activity.circle.CreatCircleActivity;
+import com.xiaomiquan.mvp.activity.circle.GetFriendsJoinActivity;
+import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
+import com.xiaomiquan.mvp.activity.mvp.activity.UserInfoActivity;
+import com.xiaomiquan.mvp.databinder.circle.CircleShowBinder;
+import com.xiaomiquan.mvp.delegate.circle.CircleShowDelegate;
+import com.xiaomiquan.widget.circle.JoinPopupWindow;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Andy on 2018/1/25.
+ */
+
+public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, CircleShowBinder> {
+
+    CircleMyAdapter circleMyAdapter;
+    CircleDynamicAdapter circleDynamicAdapter;
+    List<SquareLive> squareLiveList;
+    List<UserCircle> userCircleList;
+
+    @Override
+    protected void bindEvenListener() {
+        super.bindEvenListener();
+        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                addRequest(binder.getCircleTopic(CircleShowFragment.this));
+                addRequest(binder.getMyCircle(CircleShowFragment.this));
+            }
+        });
+    }
+
+    @Override
+    protected Class<CircleShowDelegate> getDelegateClass() {
+        return CircleShowDelegate.class;
+    }
+
+    @Override
+    public CircleShowBinder getDataBinder(CircleShowDelegate viewDelegate) {
+        return new CircleShowBinder(viewDelegate);
+    }
+
+    @Override
+    protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+        switch (requestCode) {
+            case 0x123:
+                List<UserCircle> userCircles = GsonUtil.getInstance().toList(data, UserCircle.class);
+                initMyCircle(userCircles);
+                break;
+            case 0x124:
+                List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
+                initCircleTopic(datas);
+                break;
+            case 0x127:
+                addRequest(binder.getCircleTopic(CircleShowFragment.this));
+                break;
+        }
+
+    }
+
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        if (isVisible) {
+            onRefresh();
+        } else {
+            binder.cancelpost();
+        }
+    }
+
+    @Override
+    protected void onFragmentFirstVisible() {
+        squareLiveList = new ArrayList<>();
+        initCircleTopic(squareLiveList);
+        userCircleList = new ArrayList<>();
+        initMyCircle(userCircleList);
+    }
+
+    @Override
+    protected void refreshData() {
+        addRequest(binder.getCircleTopic(this));
+        addRequest(binder.getMyCircle(this));
+    }
+
+    /**
+     * 已经加入圈子信息
+     *
+     * @param userCircles
+     */
+    private void initMyCircle(final List<UserCircle> userCircles) {
+        UserCircle userCircle = new UserCircle();
+        userCircle.setName("添加圈子");
+        userCircles.add(0, userCircle);
+        circleMyAdapter = new CircleMyAdapter(getActivity(), userCircles);
+        circleMyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                if (position != 0) {
+                    CircleContentActivity.startAct(getActivity(), userCircles.get(position));
+                } else {
+                    initPop();
+                }
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+
+                return false;
+            }
+        });
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        viewDelegate.viewHolder.rv_mycircle.setLayoutManager(gridLayoutManager);
+        viewDelegate.viewHolder.rv_mycircle.setItemAnimator(new DefaultItemAnimator());
+        viewDelegate.viewHolder.rv_mycircle.setAdapter(circleMyAdapter);
+    }
+
+    private void initCircleTopic(final List<SquareLive> squareLives) {
+        circleDynamicAdapter = new CircleDynamicAdapter(getActivity(), squareLives);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        circleDynamicAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
+                TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
+        circleDynamicAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, final int position, Object item) {
+                if (view.getId() == R.id.tv_comment) {
+                    TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+                }
+                if (view.getId() == R.id.tv_praise) {
+                    addRequest(binder.savePraise(circleDynamicAdapter.getDatas().get(position).getId(), CircleShowFragment.this));
+                }
+                if (view.getId() == R.id.cv_head) {
+                    UserInfoActivity.startAct(getActivity(), squareLives.get(position));
+                }
+            }
+        });
+        viewDelegate.viewHolder.rv_circle.setLayoutManager(linearLayoutManager);
+        viewDelegate.viewHolder.rv_circle.setAdapter(circleDynamicAdapter);
+
+    }
+
+
+    JoinPopupWindow joinPopupWindow;
+
+    private void initPop() {
+        joinPopupWindow = new JoinPopupWindow(getActivity());
+        joinPopupWindow.setOnItemClickListener(new JoinPopupWindow.OnItemClickListener() {
+            @Override
+            public void setOnItemClick(View v) {
+                switch (v.getId()) {
+                    case R.id.lin_join:
+                        gotoActivity(GetFriendsJoinActivity.class).startAct();
+                        joinPopupWindow.dismiss();
+                        break;
+                    case R.id.lin_creat:
+                        gotoActivity(CreatCircleActivity.class).startAct();
+                        joinPopupWindow.dismiss();
+                        break;
+                    case R.id.btn_cancel:
+                        joinPopupWindow.dismiss();
+                        break;
+                }
+            }
+        });
+        joinPopupWindow.showAtLocation(viewDelegate.viewHolder.rv_circle, Gravity.BOTTOM, 0, 0);
+    }
+
+}

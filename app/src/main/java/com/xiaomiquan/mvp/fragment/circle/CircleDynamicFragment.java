@@ -39,7 +39,9 @@ public class CircleDynamicFragment extends BasePullFragment<BaseFragentPullDeleg
     }
 
     private void initList(List<UserCircle> strDatas) {
-        adapter = new CircleDynamicAdapter(getActivity(), userCircleList);
+//        adapter = new CircleDynamicAdapter(getActivity(), userCircleList);
+//
+
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         onRefresh();
     }

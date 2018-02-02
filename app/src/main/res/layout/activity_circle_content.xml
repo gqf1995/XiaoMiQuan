@@ -1,188 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/include_toolbar_with_statusbar"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="354dp"
-        tools:layout_editor_absoluteY="541dp" />
+    <include layout="@layout/include_toolbar_with_statusbar" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="354dp"
-        tools:layout_editor_absoluteY="541dp">
+        android:layout_height="match_parent">
 
-        <android.support.v4.widget.NestedScrollView
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="354dp"
+            tools:layout_editor_absoluteY="541dp">
 
-            <LinearLayout
+            <com.xiaomiquan.widget.StickyScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                >
 
                 <LinearLayout
-                    android:id="@+id/lin_my_circle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/album_dp_10">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/cv_head"
-                        android:layout_width="@dimen/trans_100px"
-                        android:layout_height="@dimen/trans_100px"
-                        android:src="@color/color_blue" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/lin_my_circle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/album_dp_10"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:text="币圈神探"
-                            android:textColor="@color/color_font1"
-                            android:textSize="15sp" />
+                        android:orientation="horizontal"
+                        android:padding="@dimen/album_dp_10">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/album_dp_10"
-                            android:orientation="horizontal">
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/album_dp_10"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tv_creator"
+                                android:id="@+id/tv_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
-                                android:text="谁啊"
+                                android:text="币圈神探"
                                 android:textColor="@color/color_font1"
                                 android:textSize="15sp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/album_dp_6"
-                                android:singleLine="true"
-                                android:text="创建"
-                                android:textColor="@color/color_font1"
-                                android:textSize="15sp" />
+                                android:layout_marginTop="@dimen/album_dp_10"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/tv_num"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/album_dp_15"
-                                android:singleLine="true"
-                                android:text="200人"
-                                android:textColor="@color/color_font1"
-                                android:textSize="15sp" />
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:singleLine="true"
+                                    android:text="创建者"
+                                    android:textColor="@color/color_font1"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_creator"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/album_dp_6"
+                                    android:singleLine="true"
+                                    android:text="啊啊"
+                                    android:textColor="@color/color_blue"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/text_trans_50px"
+                                    android:singleLine="true"
+                                    android:text="关注人数"
+                                    android:textColor="@color/color_font1"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_num"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/album_dp_15"
+                                    android:singleLine="true"
+                                    android:text="200"
+                                    android:textColor="@color/color_font1"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
                     </LinearLayout>
 
-                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                        android:layout_width="wrap_content"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/album_dp_10"
+                        android:background="@color/album_FontHint" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_90px"
+                        android:layout_marginLeft="@dimen/album_dp_10"
+                        android:layout_marginRight="@dimen/album_dp_10"
+                        android:orientation="horizontal">
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:id="@+id/tv_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="全部"
+                            android:textColor="@color/decreasing_color"
+                            android:textSize="@dimen/text_trans_32px" />
+
+                        <View
+                            android:layout_width="@dimen/trans_1px"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/trans_20px"
+                            android:layout_marginTop="@dimen/trans_20px"
+                            android:background="@color/base_mask"
+                            android:paddingBottom="@dimen/trans_20px" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/album_dp_1"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/tv_rank"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="回复时间排序"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/trans_32px" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/pull_recycleview"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="@string/ic_Next"
-                        android:textColor="@color/color_font1"
-                        android:textSize="@dimen/text_trans_40px" />
+                        android:layout_marginLeft="@dimen/album_dp_10"
+                        android:layout_marginRight="@dimen/album_dp_10"
+                        android:scrollbars="none" />
+
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/album_dp_10"
-                    android:background="@color/album_FontHint" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_90px"
-                    android:layout_marginLeft="@dimen/album_dp_10"
-                    android:layout_marginRight="@dimen/album_dp_10"
-                    android:orientation="horizontal">
+            </com.xiaomiquan.widget.StickyScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                        android:id="@+id/tv_all"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="全部"
-                        android:textColor="@color/decreasing_color"
-                        android:textSize="@dimen/text_trans_32px" />
-
-                    <View
-                        android:layout_width="@dimen/trans_1px"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="@dimen/trans_20px"
-                        android:layout_marginTop="@dimen/trans_20px"
-                        android:background="@color/base_mask"
-                        android:paddingBottom="@dimen/trans_20px" />
-
-                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                        android:id="@+id/tv_owner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/album_dp_15"
-                        android:gravity="center"
-                        android:text="只看圈主"
-                        android:textColor="@color/color_font3"
-                        android:textSize="@dimen/text_trans_32px" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/album_dp_1"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/tv_rank"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="回复时间排序"
-                        android:textColor="@color/color_font2"
-                        android:textSize="@dimen/trans_32px" />
-                </LinearLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/pull_recycleview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/album_dp_10"
-                    android:layout_marginRight="@dimen/album_dp_10"
-                    android:scrollbars="none" />
-            </LinearLayout>
-
-
-        </android.support.v4.widget.NestedScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/flt_send"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/album_dp_50"
-        android:src="@mipmap/ic_star_fill"
-        android:backgroundTint="@color/color_blue"
-        app:elevation="@dimen/album_dp_6"
-        app:fabSize="normal"
-        app:rippleColor="@color/color_font1" />
-</RelativeLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/flt_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/album_dp_50"
+            app:backgroundTint="@color/color_blue"
+            android:src="@mipmap/ic_star_fill"
+            app:elevation="@dimen/album_dp_6"
+            app:fabSize="normal"
+            app:rippleColor="@color/color_font1" />
+    </RelativeLayout>
+</LinearLayout>

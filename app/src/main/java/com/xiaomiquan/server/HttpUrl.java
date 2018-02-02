@@ -3,11 +3,11 @@ package com.xiaomiquan.server;
 import android.text.TextUtils;
 
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 
 import static com.xiaomiquan.base.AppConst.httpBaseUrl;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl2;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl3;
+import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
 import static com.xiaomiquan.base.AppConst.isEditUrl;
 
 /**
@@ -85,7 +85,7 @@ public class HttpUrl {
     /**
      * 用户登录
      */
-    public String userLogin = httpBaseUrl3 + userUrl + "/userLogin";
+    public String userLogin = httpBaseUrl4 + userUrl + "/userLogin";
     /**
      * 用户找回密码发送短信
      */
@@ -108,43 +108,39 @@ public class HttpUrl {
     /**
      * 获得所有库中拥有的交易所列表
      */
-    public String getAllEXchange = getBaseUrl() + dataUrl + "/getAllEXchange";
+    public String getAllEXchange = httpBaseUrl + dataUrl + "/getAllEXchange";
     /**
      * 获得所有市值信息 未做排序
      */
-    public String getAllMarketCaps = getBaseUrl() + dataUrl + "/getAllMarketCaps";
+    public String getAllMarketCaps = httpBaseUrl + dataUrl + "/getAllMarketCaps";
     /**
      * 获得所有市值和24小时价格走势信息 未做排序
      */
-    public String getAllMarketCapVo = getBaseUrl() + dataUrl + "/getAllMarketCapVo";
+    public String getAllMarketCapVo = httpBaseUrl + dataUrl + "/getAllMarketCapVo";
     /**
      * 根据某个币种全称查询币种市值信息
      */
-    public String getMarketCapById = getBaseUrl() + dataUrl + "/getMarketCapById";
+    public String getMarketCapById = httpBaseUrl + dataUrl + "/getMarketCapById";
     /**
      * 获得目前库中最新的Key对
      */
-    public String getAllOnlyKeys = getBaseUrl() + dataUrl + "/getAllOnlyKeys";
+    public String getAllOnlyKeys = httpBaseUrl + dataUrl + "/getAllOnlyKeys";
     /**
      * 根据交易所名称获得相关信息
      */
-    public String getAllMarketByExchange = getBaseUrl() + dataUrl + "/getAllMarketByExchange";
+    public String getAllMarketByExchange = httpBaseUrl + dataUrl + "/getAllMarketByExchange";
     /**
      * 根据币种名称获得相关信息
      */
-    public String getAllMarketBySymbol = getBaseUrl() + dataUrl + "/getAllMarketBySymbol";
+    public String getAllMarketBySymbol = httpBaseUrl + dataUrl + "/getAllMarketBySymbol";
     /**
      * 获取K线
      */
-    public String getKlineByOnlyKey = getBaseUrl() + dataUrl + "/getKlineByOnlyKey";
+    public String getKlineByOnlyKey = httpBaseUrl + dataUrl + "/getKlineByOnlyKey";
     /**
      * 获取汇率
      */
-    public String getAllPriceRate = getBaseUrl() + dataUrl + "/getAllPriceRate";
-    /**
-     * 搜索
-     */
-    public String getAllMarketByExchangeOrSymbol = getBaseUrl() + dataUrl + "/getAllMarketByExchangeOrSymbol";
+    public String getAllPriceRate = httpBaseUrl + dataUrl + "/getAllPriceRate";
 
 
     /**
@@ -197,15 +193,27 @@ public class HttpUrl {
     /**
      * 获取未加入圈子信息
      */
-    public String getMoreCircle = getBaseUrl() + groupUrl + "/listMoreGroupByPage";
+    public String getMoreCircle = httpBaseUrl4 + groupUrl + "/listMoreGroupByPage";
     /**
      * 获取加入圈子信息
      */
-    public String getMyCircleInfo = getBaseUrl() + groupUrl + "/listGroupByPage";
+    public String getMyCircleInfo = httpBaseUrl4 + groupUrl + "/listGroupByPage";
+    /**
+     * 获取加入圈子信息
+     */
+    public String getCircleTopic = httpBaseUrl4 + "/articleTopic/listByPage";
     /**
      * 创建圈子
      */
-    public String creatCircle = getBaseUrl() + groupUrl + "/saveGroup";
+    public String creatCircle = httpBaseUrl4 + "/group/saveGroup";
+    /**
+     * 修改圈子信息
+     */
+    public String editCircleInfo = httpBaseUrl4 + "/group/editGroup";
+    /**
+     * 生成邀请码
+     */
+    public String creatCircleCode = httpBaseUrl4 + "/group/createInviteCode";
 
 
     /**
@@ -216,29 +224,51 @@ public class HttpUrl {
     /**
      * 申请加入圈子
      */
-    public String joinCircle = getBaseUrl() + groupMemberUrl + "/applyJoinGroup";
+    public String joinCircle = httpBaseUrl4 + groupMemberUrl + "/applyJoinGroup";
     /**
      * 获取待审核入圈申请
      */
-    public String joinCircleApply = getBaseUrl() + groupMemberUrl + "/applyJoinGroup";
+    public String Circlebanned = httpBaseUrl4 + "/group/banned";
+    /**
+     * 解除禁言所有人
+     */
+    public String CircleancelBanned = httpBaseUrl4 + "/group/cancelBanned";
+    /**
+     * 圈子成员
+     */
+    public String findMember = httpBaseUrl4 + "/groupMember/findAllMember";
+    /**
+     * 圈子成员禁言
+     */
+    public String memberBanned = httpBaseUrl4 + "/groupMember/banned";
+    /**
+     * 圈子成员解除禁言
+     */
+    public String memberuUnBanned = httpBaseUrl4 + "/groupMember/unbanned";
+
+
     /**
      * 同意审核入圈申请
      */
-    public String agreeCircleApply = getBaseUrl() + groupMemberUrl + "/agreeJoinApply";
+    public String agreeCircleApply = httpBaseUrl4 + groupMemberUrl + "/agreeJoinApply";
     /**
      * 邀请好友入圈
      */
-    public String getSomeBodyIn = getBaseUrl() + groupMemberUrl + "/getSomeBodyIn";
+    public String getSomeBodyIn = httpBaseUrl4 + groupMemberUrl + "/getSomeBodyIn";
 
     /**
      * 获得帖子
      */
-    public String getUsertopic = getBaseUrl() + "/usertopic/list/group/usertopic";
+    public String getUsertopic = httpBaseUrl4 + "/usertopic/list/group/usertopic";
 
     /**
      * 发帖子
      */
-    public String saveUsertopic = getBaseUrl() + "/usertopic/save";
+    public String saveArticle = httpBaseUrl4 + "/articleTopic/save";
+    /**
+     * 发帖子
+     */
+    public String getDetails = httpBaseUrl4 + "/articleTopic/detail";
 
 
     /**
@@ -248,12 +278,12 @@ public class HttpUrl {
     /**
      * 文章列表
      */
-    public String listArticleByPage = getBaseUrl() + articleUrl + "/listArticleByPage";
+    public String listArticleByPage = httpBaseUrl4 + articleUrl + "/listArticleByPage";
 
     /**
      * 发表评论
      */
-    public String saveComment = getBaseUrl() + "/comment/save";
+    public String saveComment = httpBaseUrl4 + "/comment/save";
     /**
      * 点赞
      */

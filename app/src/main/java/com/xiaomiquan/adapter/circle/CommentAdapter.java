@@ -3,6 +3,7 @@ package com.xiaomiquan.adapter.circle;
 import android.content.Context;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.Comment;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -28,7 +29,8 @@ public class CommentAdapter extends CommonAdapter<Comment> {
         tv_name = holder.getView(R.id.tv_name);
         tv_con = holder.getView(R.id.tv_con);
 
-        tv_name.setText(comment.getNickName() + ":");
+         tv_name.setText(comment.getNickName()  + comment.getReUserNickName() + ":");
+
         tv_con.setText(comment.getContent());
     }
 

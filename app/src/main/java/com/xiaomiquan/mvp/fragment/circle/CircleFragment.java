@@ -32,33 +32,20 @@ public class CircleFragment extends BaseDataBindFragment<CircleDelegate, CircleB
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle("").setmRightImg1(CommonUtils.getString(R.string.ic_Chart)));
+        initToolbar(new ToolbarBuilder().setTitle(""));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
-        viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_Search1));
-        viewDelegate.getViewImgPoint().setVisibility(View.VISIBLE);
-        initBarClick();
         mTitles = CommonUtils.getStringArray(R.array.sa_select_circle);
         fragments = new ArrayList<>();
         fragments.add(new SquareFragment());
-        fragments.add(new Fragment());
+        fragments.add(new CircleShowFragment());
         viewDelegate.viewHolder.tl_2.setViewPager(viewDelegate.viewHolder.viewpager,
                 mTitles, getActivity(), fragments);
 
     }
 
-    private void initBarClick() {
-        viewDelegate.getmToolbarBackLin().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //搜索
-                WebActivityActivity.startAct(getActivity(), "https://www.baidu.com/?tn=47018152_dg");
-            }
-        });
-    }
-
-
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
         }
     }

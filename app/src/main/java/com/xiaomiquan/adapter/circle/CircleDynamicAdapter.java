@@ -1,10 +1,16 @@
 package com.xiaomiquan.adapter.circle;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.bean.circle.UserCircle;
+import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -13,38 +19,123 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by 郭青枫 on 2018/1/10 0010.
+ * Created by 谷乐园
  */
 
-public class CircleDynamicAdapter extends CommonAdapter<UserCircle> {
+public class CircleDynamicAdapter extends CommonAdapter<SquareLive> {
+
+    DefaultClickLinsener defaultClickLinsener;
 
     private CircleImageView cv_head;
     private TextView tv_name;
     private TextView tv_time;
-    private TextView tv_con;
-    private TextView tv_from;
-    private TextView tv_praise;
+    private IconFontTextview tv_praise;
     private TextView tv_praise_num;
-    private TextView tv_comment;
+    private IconFontTextview tv_comment;
     private TextView tv_comment_num;
+    private ImageView iv_article;
+    private ImageView iv_img;
+    private TextView tv_title;
+    private TextView tv_dynamic;
+    private TextView tv_article;
+    private LinearLayout lin_article;
+    public Context context;
 
-    public CircleDynamicAdapter(Context context, List<UserCircle> datas) {
+    public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
+        this.defaultClickLinsener = defaultClickLinsener;
+    }
+
+    public CircleDynamicAdapter(Context context, List<SquareLive> datas) {
         super(context, R.layout.adapter_circle_dynamic, datas);
+        this.context = context;
     }
 
     @Override
-    protected void convert(ViewHolder holder, UserCircle s, final int position) {
+    protected void convert(ViewHolder holder, SquareLive s, final int position) {
         cv_head = holder.getView(R.id.cv_head);
         tv_name = holder.getView(R.id.tv_name);
         tv_time = holder.getView(R.id.tv_time);
-        tv_con = holder.getView(R.id.tv_con);
-        tv_from = holder.getView(R.id.tv_from);
         tv_praise = holder.getView(R.id.tv_praise);
         tv_praise_num = holder.getView(R.id.tv_praise_num);
         tv_comment = holder.getView(R.id.tv_comment);
         tv_comment_num = holder.getView(R.id.tv_comment_num);
+        tv_dynamic = holder.getView(R.id.tv_dynamic);
+        iv_article = holder.getView(R.id.iv_article);
+        tv_title = holder.getView(R.id.tv_title);
+        tv_article = holder.getView(R.id.tv_article);
+        lin_article = holder.getView(R.id.lin_article);
+        iv_img = holder.getView(R.id.iv_img);
 
+        /**
+         * 判断 文章、帖子
+         */
+        if (s.getType().equals("1")) {
+            tv_dynamic.setText("发表了文章");
+            lin_article.setVisibility(View.VISIBLE);
+            iv_img.setVisibility(View.GONE);
+            GlideUtils.loadImage(s.getImg(), iv_article);
+            tv_title.setText(s.getTitle());
+            tv_article.setText(s.getContent());
+        } else {
+            if (s.getImg() == null) {
+                iv_img.setVisibility(View.GONE);
+                tv_dynamic.setText(s.getContent());
+                lin_article.setVisibility(View.GONE);
+            } else {
+                iv_img.setVisibility(View.VISIBLE);
+                tv_dynamic.setText(s.getContent());
+                lin_article.setVisibility(View.GONE);
+                GlideUtils.loadImage(s.getImg(), iv_img);
+
+            }
+
+        }
+        /**
+         * 用户是否点赞
+         */
+        if (s.getUserPraise().equals("false")) {
+            tv_praise.setTextColor(context.getResources().getColor(R.color.color_font1));
+        } else {
+            tv_praise.setTextColor(context.getResources().getColor(R.color.color_blue));
+        }
+
+        /**
+         * 用户信息加载
+         */
+        tv_name.setText(s.getNickName());
+        tv_time.setText(s.getCreateTimeStr());
+        tv_comment_num.setText(s.getCommentCount());
+        tv_praise_num.setText(s.getGoodCount());
+        GlideUtils.loadImage(s.getAvatar(), cv_head);
+
+
+        /**
+         * 点击事件
+         */
+        tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(view, position, null);
+                }
+            }
+        });
+        tv_praise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(view, position, null);
+                }
+            }
+        });
+        cv_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(view, position, null);
+                }
+            }
+        });
 
     }
-
 }

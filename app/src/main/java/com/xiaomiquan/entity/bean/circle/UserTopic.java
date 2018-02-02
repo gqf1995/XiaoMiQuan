@@ -1,12 +1,16 @@
 package com.xiaomiquan.entity.bean.circle;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Andy on 2018/1/21.
  */
 
-public class UserTopic {
+public class UserTopic implements Parcelable{
 
     /**
      * id : 1
@@ -55,6 +59,43 @@ public class UserTopic {
     private String imageList;
     private String userPraise;
     private List<Comment> commentList;
+
+    protected UserTopic(Parcel in) {
+        id = in.readString();
+        groupId = in.readString();
+        userId = in.readString();
+        images = in.readString();
+        top = in.readString();
+        type = in.readString();
+        status = in.readString();
+        createTime = in.readString();
+        createTimeStr = in.readString();
+        updateTime = in.readString();
+        content = in.readString();
+        nickName = in.readString();
+        avatar = in.readString();
+        praiseQty = in.readString();
+        badEggQty = in.readString();
+        commentQty = in.readString();
+        groupName = in.readString();
+        praiseStr = in.readString();
+        showImage = in.readString();
+        imageList = in.readString();
+        userPraise = in.readString();
+        commentList = in.createTypedArrayList(Comment.CREATOR);
+    }
+
+    public static final Creator<UserTopic> CREATOR = new Creator<UserTopic>() {
+        @Override
+        public UserTopic createFromParcel(Parcel in) {
+            return new UserTopic(in);
+        }
+
+        @Override
+        public UserTopic[] newArray(int size) {
+            return new UserTopic[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -230,5 +271,36 @@ public class UserTopic {
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(groupId);
+        parcel.writeString(userId);
+        parcel.writeString(images);
+        parcel.writeString(top);
+        parcel.writeString(type);
+        parcel.writeString(status);
+        parcel.writeString(createTime);
+        parcel.writeString(createTimeStr);
+        parcel.writeString(updateTime);
+        parcel.writeString(content);
+        parcel.writeString(nickName);
+        parcel.writeString(avatar);
+        parcel.writeString(praiseQty);
+        parcel.writeString(badEggQty);
+        parcel.writeString(commentQty);
+        parcel.writeString(groupName);
+        parcel.writeString(praiseStr);
+        parcel.writeString(showImage);
+        parcel.writeString(imageList);
+        parcel.writeString(userPraise);
+        parcel.writeTypedList(commentList);
     }
 }
