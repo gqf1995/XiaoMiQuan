@@ -24,7 +24,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     AllMyGroupAdapter allMyGroupAdapter;
     HotGroupAdapter hotGroupAdapter;
     String[] types = {"1", "2", "3"};
-    int index = -1;
+    int index = 0;
     GroupRank list7;
     GroupRank list30;
     GroupRank listall;
