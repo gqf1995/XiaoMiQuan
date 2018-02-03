@@ -73,7 +73,7 @@ public class RecommendBinder extends BaseDataBind<BaseFragentPullDelegate> {
                 .setRequestUrl(HttpUrl.getIntance().attention)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("获取大V")
+                .setRequestName("关注")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)
@@ -93,7 +93,7 @@ public class RecommendBinder extends BaseDataBind<BaseFragentPullDelegate> {
         baseMap.put("id", id);
         return new HttpRequest.Builder()
                 .setRequestCode(0x126)
-                .setRequestUrl(HttpUrl.getIntance().attention)
+                .setRequestUrl(HttpUrl.getIntance().attentiondelete)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("取消关注")
@@ -105,8 +105,6 @@ public class RecommendBinder extends BaseDataBind<BaseFragentPullDelegate> {
                 .RxSendRequest();
 
     }
-
-
 
 
 }

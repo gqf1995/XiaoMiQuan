@@ -35,6 +35,8 @@ import java.util.List;
 public class BigVListActivity extends BaseDataBindActivity<BigVListDelegate, BigVListBinder> {
 
 
+
+
     @Override
     protected Class<BigVListDelegate> getDelegateClass() {
         return BigVListDelegate.class;

@@ -7,37 +7,25 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleContentAdapter;
-import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
-import com.xiaomiquan.entity.bean.GroupOwner;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
-import com.xiaomiquan.entity.bean.circle.UserTopic;
-import com.xiaomiquan.mvp.activity.mvp.activity.UserInfoActivity;
 import com.xiaomiquan.mvp.databinder.circle.CircleContentBinder;
 import com.xiaomiquan.mvp.delegate.circle.CircleContentDelegate;
-import com.xiaomiquan.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.xiaomiquan.widget.circle.SquarePopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class CircleContentActivity extends BasePullActivity<CircleContentDelegate, CircleContentBinder> {
@@ -99,7 +87,7 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
     SquarePopupWindow squarePopupWindow;
 
     public void floatBtn() {
-        viewDelegate.viewHolder.flt_send.setOnClickListener(new View.OnClickListener() {
+        viewDelegate.viewHolder.civ_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 squarePopupWindow = new SquarePopupWindow(CircleContentActivity.this);
@@ -112,10 +100,12 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
                                 squarePopupWindow.dismiss();
                                 break;
                             case R.id.lin_article:
-                                ReleaseArticleActivity.startAct(CircleContentActivity.this, "1", "2");
+                                ReleaseArticleActivity.startAct(CircleContentActivity.this, "1", "2", "0");
                                 squarePopupWindow.dismiss();
                                 break;
                             case R.id.lin_wechat:
+                                ReleaseArticleActivity.startAct(CircleContentActivity.this, "1", "2", "1");
+                                squarePopupWindow.dismiss();
                                 break;
                             case R.id.btn_cancel:
                                 squarePopupWindow.dismiss();

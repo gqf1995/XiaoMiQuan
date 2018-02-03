@@ -22,8 +22,7 @@
 
             <com.xiaomiquan.widget.StickyScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -162,17 +161,15 @@
             </com.xiaomiquan.widget.StickyScrollView>
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/flt_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/civ_send"
+            android:layout_width="@dimen/trans_92px"
+            android:layout_height="@dimen/trans_92px"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/album_dp_50"
-            app:backgroundTint="@color/color_blue"
-            android:src="@mipmap/ic_star_fill"
-            app:elevation="@dimen/album_dp_6"
-            app:fabSize="normal"
-            app:rippleColor="@color/color_font1" />
+            android:layout_marginBottom="@dimen/trans_300px"
+            android:layout_marginRight="@dimen/trans_80px"
+            app:srcCompat="@drawable/ic_write" />
+
     </RelativeLayout>
 </LinearLayout>

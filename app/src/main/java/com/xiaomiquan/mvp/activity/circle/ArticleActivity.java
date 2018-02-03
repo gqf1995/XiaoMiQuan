@@ -1,12 +1,19 @@
 package com.xiaomiquan.mvp.activity.circle;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.ArtivleAdapter;
+import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.mvp.databinder.circle.ArticleBinder;
 import com.xiaomiquan.mvp.delegate.circle.ArticleDelegate;
@@ -19,6 +26,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
 
     ArtivleAdapter artivleAdapter;
     LinearLayoutManager linearLayoutManager;
+    int index;
 
     @Override
     protected Class<ArticleDelegate> getDelegateClass() {
@@ -33,9 +41,21 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle("热门文章"));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_tv_article)).setSubTitle(CommonUtils.getString(R.string.str_release)));
         addRequest(binder.getArticle(ArticleActivity.this));
+        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                addRequest(binder.getArticle(ArticleActivity.this));
+            }
+        });
 
+    }
+
+    @Override
+    protected void clickRightTv() {
+        super.clickRightTv();
+        ReleaseArticleActivity.startAct(ArticleActivity.this, "1", "1", "0");
     }
 
     public void initArticle(final List<SquareLive> squareLives) {
@@ -44,7 +64,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
         artivleAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                TopicDetailActivity.startAct(ArticleActivity.this, squareLives.get(position));
+                ArticleDetailsActivity.startAct(ArticleActivity.this, squareLives.get(position));
             }
 
             @Override
@@ -52,10 +72,17 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
                 return false;
             }
         });
+        artivleAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, int position, Object item) {
+                index = position;
+                addRequest(binder.savePraise(squareLives.get(position).getId(), ArticleActivity.this));
+            }
+        });
         linearLayoutManager = new LinearLayoutManager(ArticleActivity.this) {
             @Override
             public boolean canScrollVertically() {
-                return true;
+                return false;
             }
         };
         viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
@@ -75,17 +102,23 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
                 List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
                 initArticle(datas);
+                break;
+            case 0x124:
+                Praise praise = GsonUtil.getInstance().toObj(data, Praise.class);
+                artivleAdapter.isPraise.add(index, praise.getIspraise() + "");
+                artivleAdapter.paiseNum.add(index, praise.getPraiseQty());
+                artivleAdapter.notifyItemChanged(index);
                 break;
         }
     }
 
     @Override
     protected void refreshData() {
-
+        addRequest(binder.getArticle(ArticleActivity.this));
     }
 }

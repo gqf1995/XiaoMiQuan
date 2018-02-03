@@ -7,41 +7,56 @@ import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleAllDvpAdapter;
 import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
+import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.mvp.databinder.GetFriendsJoinBinder;
 import com.xiaomiquan.mvp.databinder.circle.LiveBinder;
+import com.xiaomiquan.mvp.databinder.circle.NewsBinder;
 import com.xiaomiquan.mvp.delegate.GetFriendsJoinDelegate;
 import com.xiaomiquan.mvp.delegate.circle.LiveDelegate;
+import com.xiaomiquan.mvp.delegate.circle.NewsDelegate;
+import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class LiveActivity extends BaseDataBindActivity<LiveDelegate, LiveBinder> {
+public class LiveActivity extends BaseDataBindActivity<NewsDelegate, NewsBinder> {
 
     SquareLiveAdapter squareLiveAdapter;
+    int index;
 
     @Override
-    protected Class<LiveDelegate> getDelegateClass() {
-        return LiveDelegate.class;
+    protected Class<NewsDelegate> getDelegateClass() {
+        return NewsDelegate.class;
     }
 
     @Override
-    public LiveBinder getDataBinder(LiveDelegate viewDelegate) {
-        return new LiveBinder(viewDelegate);
+    public NewsBinder getDataBinder(NewsDelegate viewDelegate) {
+        return new NewsBinder(viewDelegate);
     }
 
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle("大V直播"));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_tv_live)).setSubTitle(CommonUtils.getString(R.string.str_release)));
         addRequest(binder.getLive(this));
+    }
+
+    @Override
+    protected void clickRightTv() {
+        super.clickRightTv();
+        ReleaseDynamicActivity.startAct(LiveActivity.this, "2", "1");
+
     }
 
     public void initLive(final List<SquareLive> squareLives) {
@@ -55,9 +70,11 @@ public class LiveActivity extends BaseDataBindActivity<LiveDelegate, LiveBinder>
         squareLiveAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                Intent intent = new Intent(LiveActivity.this, TopicDetailActivity.class);
-                intent.putExtra("userTopic", (Serializable) squareLives.get(position));
-                startActivity(intent);
+                if (squareLives.get(position).getType().equals("1")) {
+                    ArticleDetailsActivity.startAct(LiveActivity.this, squareLives.get(position));
+                } else {
+                    TopicDetailActivity.startAct(LiveActivity.this, squareLives.get(position));
+                }
             }
 
             @Override
@@ -65,9 +82,27 @@ public class LiveActivity extends BaseDataBindActivity<LiveDelegate, LiveBinder>
                 return false;
             }
         });
+        squareLiveAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, final int position, Object item) {
+                if (view.getId() == R.id.tv_comment) {
+                    if (squareLives.get(position).getType().equals("1")) {
+                        ArticleDetailsActivity.startAct(LiveActivity.this, squareLives.get(position));
+                    } else {
+                        TopicDetailActivity.startAct(LiveActivity.this, squareLives.get(position));
+                    }
+                }
+                if (view.getId() == R.id.tv_praise) {
+                    index = position;
+                    addRequest(binder.savePraise(squareLiveAdapter.getDatas().get(position).getId(), LiveActivity.this));
+                }
+                if (view.getId() == R.id.cv_head) {
+                    UserInfoActivity.startAct(LiveActivity.this, squareLives.get(position));
+                }
+            }
+        });
         viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
         viewDelegate.viewHolder.pull_recycleview.setAdapter(squareLiveAdapter);
-
     }
 
 
@@ -81,6 +116,12 @@ public class LiveActivity extends BaseDataBindActivity<LiveDelegate, LiveBinder>
                 break;
             case 0x124:
 
+                break;
+            case 0x127:
+                Praise praise = GsonUtil.getInstance().toObj(data, Praise.class);
+                squareLiveAdapter.isPraise.add(index, praise.getIspraise() + "");
+                squareLiveAdapter.paiseNum.add(index, praise.getPraiseQty());
+                squareLiveAdapter.notifyItemChanged(index);
                 break;
         }
     }

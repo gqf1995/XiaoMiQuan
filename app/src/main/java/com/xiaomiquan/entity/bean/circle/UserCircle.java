@@ -4,14 +4,13 @@ package com.xiaomiquan.entity.bean.circle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Andy on 2018/1/19.
  */
 
-public class UserCircle implements Parcelable{
+public class UserCircle implements Parcelable {
 
 
     /**
@@ -56,39 +55,6 @@ public class UserCircle implements Parcelable{
     private String userId;
     private List<SquareLive> articleTopicVos;
 
-    protected UserCircle(Parcel in) {
-        avatar = in.readString();
-        brief = in.readString();
-        chargeMoney = in.readString();
-        createTime = in.readString();
-        email = in.readString();
-        groupNum = in.readString();
-        id = in.readString();
-        isBanned = in.readByte() != 0;
-        isFree = in.readByte() != 0;
-        memberCount = in.readString();
-        name = in.readString();
-        nickName = in.readString();
-        ownerAvatar = in.readString();
-        phone = in.readString();
-        status = in.readString();
-        type = in.readString();
-        updateTime = in.readString();
-        userId = in.readString();
-        articleTopicVos = in.createTypedArrayList(SquareLive.CREATOR);
-    }
-
-    public static final Creator<UserCircle> CREATOR = new Creator<UserCircle>() {
-        @Override
-        public UserCircle createFromParcel(Parcel in) {
-            return new UserCircle(in);
-        }
-
-        @Override
-        public UserCircle[] newArray(int size) {
-            return new UserCircle[size];
-        }
-    };
 
     public String getAvatar() {
         return avatar;
@@ -248,25 +214,62 @@ public class UserCircle implements Parcelable{
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(avatar);
-        parcel.writeString(brief);
-        parcel.writeString(chargeMoney);
-        parcel.writeString(createTime);
-        parcel.writeString(email);
-        parcel.writeString(groupNum);
-        parcel.writeString(id);
-        parcel.writeByte((byte) (isBanned ? 1 : 0));
-        parcel.writeByte((byte) (isFree ? 1 : 0));
-        parcel.writeString(memberCount);
-        parcel.writeString(name);
-        parcel.writeString(nickName);
-        parcel.writeString(ownerAvatar);
-        parcel.writeString(phone);
-        parcel.writeString(status);
-        parcel.writeString(type);
-        parcel.writeString(updateTime);
-        parcel.writeString(userId);
-        parcel.writeTypedList(articleTopicVos);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.avatar);
+        dest.writeString(this.brief);
+        dest.writeString(this.chargeMoney);
+        dest.writeString(this.createTime);
+        dest.writeString(this.email);
+        dest.writeString(this.groupNum);
+        dest.writeString(this.id);
+        dest.writeByte(this.isBanned ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isFree ? (byte) 1 : (byte) 0);
+        dest.writeString(this.memberCount);
+        dest.writeString(this.name);
+        dest.writeString(this.nickName);
+        dest.writeString(this.ownerAvatar);
+        dest.writeString(this.phone);
+        dest.writeString(this.status);
+        dest.writeString(this.type);
+        dest.writeString(this.updateTime);
+        dest.writeString(this.userId);
+        dest.writeTypedList(this.articleTopicVos);
     }
+
+    public UserCircle() {
+    }
+
+    protected UserCircle(Parcel in) {
+        this.avatar = in.readString();
+        this.brief = in.readString();
+        this.chargeMoney = in.readString();
+        this.createTime = in.readString();
+        this.email = in.readString();
+        this.groupNum = in.readString();
+        this.id = in.readString();
+        this.isBanned = in.readByte() != 0;
+        this.isFree = in.readByte() != 0;
+        this.memberCount = in.readString();
+        this.name = in.readString();
+        this.nickName = in.readString();
+        this.ownerAvatar = in.readString();
+        this.phone = in.readString();
+        this.status = in.readString();
+        this.type = in.readString();
+        this.updateTime = in.readString();
+        this.userId = in.readString();
+        this.articleTopicVos = in.createTypedArrayList(SquareLive.CREATOR);
+    }
+
+    public static final Parcelable.Creator<UserCircle> CREATOR = new Parcelable.Creator<UserCircle>() {
+        @Override
+        public UserCircle createFromParcel(Parcel source) {
+            return new UserCircle(source);
+        }
+
+        @Override
+        public UserCircle[] newArray(int size) {
+            return new UserCircle[size];
+        }
+    };
 }

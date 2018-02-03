@@ -1,9 +1,8 @@
 package com.xiaomiquan.entity.bean.circle;
 
+
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
 
 /**
  * Created by Andy on 2018/1/21.
@@ -14,12 +13,13 @@ public class Comment implements Parcelable {
 
     /**
      * commentUserId : 3
-     * content : 啦啦啦
-     * createTime : 1517313414000
-     * groupOwner : false
-     * id : 11
+     * content : 评论内容
+     * createTime : 1517464604000
+     * createTimeStr : 昨天 13:56
+     * groupOwner : true
+     * id : 13
      * images :
-     * linkId : 14
+     * linkId : 1
      * nickName : 成龙
      * reUserId : 0
      * reUserNickName :
@@ -30,6 +30,7 @@ public class Comment implements Parcelable {
     private String commentUserId;
     private String content;
     private String createTime;
+    private String createTimeStr;
     private String groupOwner;
     private String id;
     private String images;
@@ -39,33 +40,6 @@ public class Comment implements Parcelable {
     private String reUserNickName;
     private boolean reply;
     private String updateTime;
-
-    protected Comment(Parcel in) {
-        commentUserId = in.readString();
-        content = in.readString();
-        createTime = in.readString();
-        groupOwner = in.readString();
-        id = in.readString();
-        images = in.readString();
-        linkId = in.readString();
-        nickName = in.readString();
-        reUserId = in.readString();
-        reUserNickName = in.readString();
-        reply = in.readByte() != 0;
-        updateTime = in.readString();
-    }
-
-    public static final Creator<Comment> CREATOR = new Creator<Comment>() {
-        @Override
-        public Comment createFromParcel(Parcel in) {
-            return new Comment(in);
-        }
-
-        @Override
-        public Comment[] newArray(int size) {
-            return new Comment[size];
-        }
-    };
 
     public String getCommentUserId() {
         return commentUserId;
@@ -89,6 +63,14 @@ public class Comment implements Parcelable {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getCreateTimeStr() {
+        return createTimeStr;
+    }
+
+    public void setCreateTimeStr(String createTimeStr) {
+        this.createTimeStr = createTimeStr;
     }
 
     public String getGroupOwner() {
@@ -169,18 +151,50 @@ public class Comment implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(commentUserId);
-        parcel.writeString(content);
-        parcel.writeString(createTime);
-        parcel.writeString(groupOwner);
-        parcel.writeString(id);
-        parcel.writeString(images);
-        parcel.writeString(linkId);
-        parcel.writeString(nickName);
-        parcel.writeString(reUserId);
-        parcel.writeString(reUserNickName);
-        parcel.writeByte((byte) (reply ? 1 : 0));
-        parcel.writeString(updateTime);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.commentUserId);
+        dest.writeString(this.content);
+        dest.writeString(this.createTime);
+        dest.writeString(this.createTimeStr);
+        dest.writeString(this.groupOwner);
+        dest.writeString(this.id);
+        dest.writeString(this.images);
+        dest.writeString(this.linkId);
+        dest.writeString(this.nickName);
+        dest.writeString(this.reUserId);
+        dest.writeString(this.reUserNickName);
+        dest.writeByte(this.reply ? (byte) 1 : (byte) 0);
+        dest.writeString(this.updateTime);
     }
+
+    public Comment() {
+    }
+
+    protected Comment(Parcel in) {
+        this.commentUserId = in.readString();
+        this.content = in.readString();
+        this.createTime = in.readString();
+        this.createTimeStr = in.readString();
+        this.groupOwner = in.readString();
+        this.id = in.readString();
+        this.images = in.readString();
+        this.linkId = in.readString();
+        this.nickName = in.readString();
+        this.reUserId = in.readString();
+        this.reUserNickName = in.readString();
+        this.reply = in.readByte() != 0;
+        this.updateTime = in.readString();
+    }
+
+    public static final Parcelable.Creator<Comment> CREATOR = new Parcelable.Creator<Comment>() {
+        @Override
+        public Comment createFromParcel(Parcel source) {
+            return new Comment(source);
+        }
+
+        @Override
+        public Comment[] newArray(int size) {
+            return new Comment[size];
+        }
+    };
 }

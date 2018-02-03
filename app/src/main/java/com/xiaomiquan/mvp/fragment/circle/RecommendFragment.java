@@ -36,7 +36,7 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-
+        addRequest(binder.getBigVlist(this));
     }
 
     @Override
@@ -50,10 +50,8 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
                 addRequest(binder.getBigVlist(this));
                 break;
             case 0x125:
-                addRequest(binder.getBigVlist(this));
                 break;
             case 0x126:
-                addRequest(binder.getBigVlist(this));
                 break;
         }
 
@@ -87,11 +85,21 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
             public void onClick(View view, int position, Object item) {
                 switch (view.getId()) {
                     case R.id.tv_attention:
-                        if (userFriendes.get(position).getAttention()) {
+                        UserFriende userFriende = bigVListAdapter.userFriendes.get(position);
+                        if (userFriende.getAttention()) {
                             addRequest(binder.attentiondelete(userFriendes.get(position).getAttentionId(), RecommendFragment.this));
+                            bigVListAdapter.userFriendes.remove(position);
+                            userFriende.setAttention(false);
+                            userFriende.setAttentionedCount(userFriende.getAttentionedCount() - 1);
+                            bigVListAdapter.userFriendes.add(position, userFriende);
                         } else {
-                            addRequest(binder.attention(userFriendes.get(position).getAttentionId(), RecommendFragment.this));
+                            addRequest(binder.attention(userFriendes.get(position).getId(), RecommendFragment.this));
+                            bigVListAdapter.userFriendes.remove(position);
+                            userFriende.setAttention(true);
+                            userFriende.setAttentionedCount(userFriende.getAttentionedCount() + 1);
+                            bigVListAdapter.userFriendes.add(position, userFriende);
                         }
+                        bigVListAdapter.notifyItemChanged(position);
                         break;
                 }
             }

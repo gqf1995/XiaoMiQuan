@@ -46,7 +46,7 @@ public class SquareBinder extends BaseDataBind<SquareDelegate> {
     public Disposable getLive(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("pageNum", 1);
+        baseMap.put("pageNum", viewDelegate.page);
         baseMap.put("platform", 1);
         return new HttpRequest.Builder()
                 .setRequestCode(0x124)
@@ -55,58 +55,6 @@ public class SquareBinder extends BaseDataBind<SquareDelegate> {
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("获取直播")
                 .setRequestMode(HttpRequest.RequestMode.GET)
-                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
-                .setRequestObj(baseMap)
-                .setRequestCallback(requestCallback)
-                .build()
-                .RxSendRequest();
-
-    }
-
-    /**
-     * 评论
-     */
-    public Disposable saveComment(
-            String linkId,
-            String content,
-            RequestCallback requestCallback) {
-        getBaseMapWithUid();
-        baseMap.put("linkId", linkId);
-        baseMap.put("content", content);
-        return new HttpRequest.Builder()
-                .setRequestCode(0x125)
-                .setRequestUrl(HttpUrl.getIntance().saveComment)
-                .setShowDialog(true)
-                .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("评论")
-                .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
-                .setRequestObj(baseMap)
-                .setRequestCallback(requestCallback)
-                .build()
-                .RxSendRequest();
-
-    }
-
-    /**
-     * 回复
-     */
-    public Disposable saveRecomment(
-            String linkId,
-            String content,
-            String re_user_id,
-            RequestCallback requestCallback) {
-        getBaseMapWithUid();
-        baseMap.put("linkId", linkId);
-        baseMap.put("content", content);
-        baseMap.put("re_user_id", re_user_id);
-        return new HttpRequest.Builder()
-                .setRequestCode(0x126)
-                .setRequestUrl(HttpUrl.getIntance().saveComment)
-                .setShowDialog(true)
-                .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("回复")
-                .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
@@ -126,7 +74,7 @@ public class SquareBinder extends BaseDataBind<SquareDelegate> {
         return new HttpRequest.Builder()
                 .setRequestCode(0x127)
                 .setRequestUrl(HttpUrl.getIntance().savePraise)
-                .setShowDialog(true)
+                .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("点赞")
                 .setRequestMode(HttpRequest.RequestMode.POST)

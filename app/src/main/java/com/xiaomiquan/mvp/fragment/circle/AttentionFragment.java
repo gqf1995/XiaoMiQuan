@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.fragment.circle;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,10 +10,13 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.BigVListAdapter;
+import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.circle.UserFriende;
+import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
 import com.xiaomiquan.mvp.databinder.circle.RecommendBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +35,20 @@ public class AttentionFragment extends BasePullFragment<BaseFragentPullDelegate,
         return BaseFragentPullDelegate.class;
     }
 
+    @Override
+    protected void bindEvenListener() {
+        super.bindEvenListener();
+        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                addRequest(binder.getAttention(AttentionFragment.this));
+            }
+        });
+    }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
 
@@ -43,10 +58,8 @@ public class AttentionFragment extends BasePullFragment<BaseFragentPullDelegate,
                 initList(datas);
                 break;
             case 0x125:
-                addRequest(binder.getAttention(this));
                 break;
             case 0x126:
-                addRequest(binder.getAttention(this));
                 break;
         }
 
@@ -80,11 +93,9 @@ public class AttentionFragment extends BasePullFragment<BaseFragentPullDelegate,
             public void onClick(View view, int position, Object item) {
                 switch (view.getId()) {
                     case R.id.tv_attention:
-                        if (userFriendes.get(position).getAttention()) {
-                            addRequest(binder.attentiondelete(userFriendes.get(position).getAttentionId(), AttentionFragment.this));
-                        } else {
-                            addRequest(binder.attention(userFriendes.get(position).getAttentionId(), AttentionFragment.this));
-                        }
+                        addRequest(binder.attentiondelete(userFriendes.get(position).getAttentionId(), AttentionFragment.this));
+                        bigVListAdapter.userFriendes.remove(position);
+                        bigVListAdapter.notifyDataSetChanged();
                         break;
                 }
             }

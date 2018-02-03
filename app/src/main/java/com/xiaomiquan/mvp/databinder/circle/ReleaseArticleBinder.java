@@ -25,7 +25,8 @@ public class ReleaseArticleBinder extends BaseDataBind<ReleaseArticleDelegate> {
 
 
     /**
-     * 发布到广场
+     * 发布
+     *
      * @param title
      * @param content
      * @param type
@@ -34,53 +35,13 @@ public class ReleaseArticleBinder extends BaseDataBind<ReleaseArticleDelegate> {
      * @param requestCallback
      * @return
      */
-    public Disposable releaseDynamic(
+    public Disposable releaseArticle(
             File file,
             String title,
             String content,
             String type,
             String platform,
-            String sync,
-            RequestCallback requestCallback) {
-        getBaseMapWithUid();
-        baseMap.put("title", title);
-        baseMap.put("content", content);
-        baseMap.put("type", type);
-        baseMap.put("platform", platform);
-        baseMap.put("sync", sync);
-        Map<String,Object> map=new HashMap<>();
-        map.put("files",file);
-        return new HttpRequest.Builder()
-                .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().saveArticle)
-                .setShowDialog(true)
-                .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("发布帖子")
-                .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
-                .setRequestObj(baseMap)
-                .setFileMap(map)
-                .setRequestCallback(requestCallback)
-                .build()
-                .RxSendRequest();
-
-    }
-    /**
-     * 发布到圈子
-     * @param title
-     * @param content
-     * @param type
-     * @param platform
-     * @param sync
-     * @param requestCallback
-     * @return
-     */
-    public Disposable releaseDynamicCircle(
-            String title,
-            String content,
-            String type,
-            String platform,
-            String sync,
+            Boolean sync,
             String groupId,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
@@ -90,20 +51,87 @@ public class ReleaseArticleBinder extends BaseDataBind<ReleaseArticleDelegate> {
         baseMap.put("platform", platform);
         baseMap.put("sync", sync);
         baseMap.put("groupId", groupId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("files", file);
         return new HttpRequest.Builder()
-                .setRequestCode(0x124)
+                .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().saveArticle)
                 .setShowDialog(true)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("发布帖子")
+                .setRequestName("发布文章")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
+                .setFileMap(map)
                 .setRequestCallback(requestCallback)
                 .build()
                 .RxSendRequest();
-
     }
 
+    /**
+     * 广场导入文章
+     *
+     * @param sync
+     * @param requestCallback
+     * @return
+     */
+    public Disposable leadSquareArticle(
+            File file,
+            String url,
+            Boolean sync,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("url", url);
+        baseMap.put("sync", sync);
+        Map<String, Object> map = new HashMap<>();
+        map.put("files", file);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().dealSquareArticle)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("导入微信文章")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setFileMap(map)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 圈子导入文章
+     *
+     * @param sync
+     * @param requestCallback
+     * @return
+     */
+    public Disposable leadCircleArticle(
+            File file,
+            String groupId,
+            String url,
+            Boolean sync,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("groupId", groupId);
+        baseMap.put("url", url);
+        baseMap.put("sync", sync);
+        Map<String, Object> map = new HashMap<>();
+        map.put("files", file);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x125)
+                .setRequestUrl(HttpUrl.getIntance().dealCircleArticle)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("导入微信文章")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setFileMap(map)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 
 }

@@ -33,7 +33,7 @@
                     android:layout_height="@dimen/trans_100px"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="+添加封面"
+                    android:text="@string/str_tv_addimg"
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_40px" />
             </RelativeLayout>
@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/album_dp_15"
-                android:hint="输入文章标题"
+                android:hint="@string/str_et_title"
                 android:maxLength="25"
                 android:textColorHint="@color/color_font3"
                 android:textSize="@dimen/text_trans_35px"
@@ -60,7 +60,7 @@
                 android:layout_height="@dimen/durban_dp_200"
                 android:layout_marginTop="@dimen/album_dp_10"
                 android:gravity="left|top"
-                android:hint="输入正文"
+                android:hint="@string/str_et_con"
                 android:inputType="textImeMultiLine"
                 android:maxLength="140"
                 android:textColorHint="@color/color_font3"
@@ -74,35 +74,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/album_dp_1"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/tv_scale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="0字"
-                    android:textColor="@color/color_font2"
-                    android:textSize="@dimen/trans_32px" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/album_dp_15"
-                    android:gravity="center"
-                    android:text="@string/str_input_limit"
-                    android:textColor="@color/color_font1"
-                    android:textSize="@dimen/trans_32px" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/album_dp_10"
                 android:orientation="horizontal">
 
@@ -110,20 +81,18 @@
                     android:id="@+id/ck_live"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/color_font1"
                     android:text="@string/str_ck_live"
                     android:textColor="@color/color_font1"
-                    android:textColorLink="@color/color_font1" />
+                    android:theme="@style/BlueCheckBox" />
 
                 <skin.support.widget.SkinCompatCheckBox
                     android:id="@+id/ck_circle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/album_sp_20"
-                    android:buttonTint="@color/color_font1"
+                    android:layout_marginLeft="@dimen/trans_100px"
                     android:text="@string/str_ck_circle"
                     android:textColor="@color/color_font1"
-                    android:textColorLink="@color/color_font1" />
+                    android:theme="@style/BlueCheckBox" />
             </LinearLayout>
         </LinearLayout>
     </com.xiaomiquan.widget.StickyScrollView>

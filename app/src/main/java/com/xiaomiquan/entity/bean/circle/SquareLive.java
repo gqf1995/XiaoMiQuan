@@ -56,41 +56,15 @@ public class SquareLive implements Parcelable {
     private String userPraise;
     private List<Comment> commentVos;
 
-    protected SquareLive(Parcel in) {
-        id = in.readString();
-        groupId = in.readString();
-        userId = in.readString();
-        title = in.readString();
-        img = in.readString();
-        type = in.readString();
-        status = in.readString();
-        platform = in.readString();
-        createTime = in.readString();
-        updateTime = in.readString();
-        content = in.readString();
-        nickName = in.readString();
-        avatar = in.readString();
-        goodCount = in.readString();
-        badCount = in.readString();
-        commentCount = in.readString();
-        createTimeStr = in.readString();
-        praiseStr = in.readString();
-        groupName = in.readString();
-        groupMaster = in.readString();
-        userPraise = in.readString();
+    public List<String> getImgList() {
+        return imgList;
     }
 
-    public static final Creator<SquareLive> CREATOR = new Creator<SquareLive>() {
-        @Override
-        public SquareLive createFromParcel(Parcel in) {
-            return new SquareLive(in);
-        }
+    public void setImgList(List<String> imgList) {
+        this.imgList = imgList;
+    }
 
-        @Override
-        public SquareLive[] newArray(int size) {
-            return new SquareLive[size];
-        }
-    };
+    private List<String> imgList;
 
     public String getGroupMaster() {
         return groupMaster;
@@ -272,33 +246,76 @@ public class SquareLive implements Parcelable {
     }
 
 
+    public SquareLive() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(groupId);
-        parcel.writeString(userId);
-        parcel.writeString(title);
-        parcel.writeString(img);
-        parcel.writeString(type);
-        parcel.writeString(status);
-        parcel.writeString(platform);
-        parcel.writeString(createTime);
-        parcel.writeString(updateTime);
-        parcel.writeString(content);
-        parcel.writeString(nickName);
-        parcel.writeString(avatar);
-        parcel.writeString(goodCount);
-        parcel.writeString(badCount);
-        parcel.writeString(commentCount);
-        parcel.writeString(createTimeStr);
-        parcel.writeString(praiseStr);
-        parcel.writeString(groupName);
-        parcel.writeString(groupMaster);
-        parcel.writeString(userPraise);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.groupId);
+        dest.writeString(this.userId);
+        dest.writeString(this.title);
+        dest.writeString(this.img);
+        dest.writeString(this.type);
+        dest.writeString(this.status);
+        dest.writeString(this.platform);
+        dest.writeString(this.createTime);
+        dest.writeString(this.updateTime);
+        dest.writeString(this.content);
+        dest.writeString(this.nickName);
+        dest.writeString(this.avatar);
+        dest.writeString(this.goodCount);
+        dest.writeString(this.badCount);
+        dest.writeString(this.commentCount);
+        dest.writeString(this.createTimeStr);
+        dest.writeString(this.praiseStr);
+        dest.writeString(this.groupName);
+        dest.writeString(this.groupMaster);
+        dest.writeString(this.userPraise);
+        dest.writeTypedList(this.commentVos);
+        dest.writeStringList(this.imgList);
     }
+
+    protected SquareLive(Parcel in) {
+        this.id = in.readString();
+        this.groupId = in.readString();
+        this.userId = in.readString();
+        this.title = in.readString();
+        this.img = in.readString();
+        this.type = in.readString();
+        this.status = in.readString();
+        this.platform = in.readString();
+        this.createTime = in.readString();
+        this.updateTime = in.readString();
+        this.content = in.readString();
+        this.nickName = in.readString();
+        this.avatar = in.readString();
+        this.goodCount = in.readString();
+        this.badCount = in.readString();
+        this.commentCount = in.readString();
+        this.createTimeStr = in.readString();
+        this.praiseStr = in.readString();
+        this.groupName = in.readString();
+        this.groupMaster = in.readString();
+        this.userPraise = in.readString();
+        this.commentVos = in.createTypedArrayList(Comment.CREATOR);
+        this.imgList = in.createStringArrayList();
+    }
+
+    public static final Creator<SquareLive> CREATOR = new Creator<SquareLive>() {
+        @Override
+        public SquareLive createFromParcel(Parcel source) {
+            return new SquareLive(source);
+        }
+
+        @Override
+        public SquareLive[] newArray(int size) {
+            return new SquareLive[size];
+        }
+    };
 }

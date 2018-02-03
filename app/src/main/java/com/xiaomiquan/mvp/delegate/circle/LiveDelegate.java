@@ -3,11 +3,13 @@ package com.xiaomiquan.mvp.delegate.circle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.xiaomiquan.R;
+
 import skin.support.widget.SkinCompatLinearLayout;
 
-public class LiveDelegate extends BaseDelegate {
+public class LiveDelegate extends BaseMyPullDelegate {
     public ViewHolder viewHolder;
 
     @Override

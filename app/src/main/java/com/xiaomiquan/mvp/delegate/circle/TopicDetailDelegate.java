@@ -21,6 +21,7 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
     public ViewHolder viewHolder;
 
 
+
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
@@ -51,6 +52,7 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
         public MaterialEditText et_input2;
         public TextView tv_commit;
         public LinearLayout lin_comment;
+        public RecyclerView pull_recycleview;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -66,6 +68,7 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
             this.icf_shared = (IconFontTextview) rootView.findViewById(R.id.icf_shared);
             this.tv_shared = (TextView) rootView.findViewById(R.id.tv_shared);
             this.rv_comment = (RecyclerView) rootView.findViewById(R.id.rv_comment);
+            this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
             this.et_input2 = (MaterialEditText) rootView.findViewById(R.id.et_input2);
             this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);

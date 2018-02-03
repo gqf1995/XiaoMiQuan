@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText;
 import com.xiaomiquan.R;
@@ -19,8 +20,10 @@ public class ReleaseArticleDelegate extends BaseDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-
+        viewHolder.ck_circle.setTextColor(CommonUtils.getColor(R.color.color_font1));
+        viewHolder.ck_live.setTextColor(CommonUtils.getColor(R.color.color_font1));
     }
+
 
     @Override
     protected int getLayoutId() {

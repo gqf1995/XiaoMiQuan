@@ -16,7 +16,7 @@ import com.xiaomiquan.R;
  * Created by Andy on 2018/1/25.
  */
 
-public class CircleShowDelegate extends BaseDelegate {
+public class CircleShowDelegate extends BaseMyPullDelegate {
 
     public ViewHolder viewHolder;
 

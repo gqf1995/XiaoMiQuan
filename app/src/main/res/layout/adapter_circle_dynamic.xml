@@ -170,6 +170,11 @@
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/trans_24px" />
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/album_dp_1"
+                    android:layout_weight="1" />
+
                 <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:id="@+id/tv_comment"
                     android:layout_width="wrap_content"
@@ -209,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/trans_8px"
                     android:singleLine="true"
-                    android:text="分享"
+                    android:text="@string/str_tv_share"
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/trans_24px" />
             </LinearLayout>

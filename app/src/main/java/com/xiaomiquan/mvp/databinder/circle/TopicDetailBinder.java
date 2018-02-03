@@ -51,7 +51,6 @@ public class TopicDetailBinder extends BaseDataBind<TopicDetailDelegate> {
         getBaseMapWithUid();
         baseMap.put("linkId", linkId);
         baseMap.put("content", content);
-
         return new HttpRequest.Builder()
                 .setRequestCode(0x124)
                 .setRequestUrl(HttpUrl.getIntance().saveComment)
@@ -105,11 +104,35 @@ public class TopicDetailBinder extends BaseDataBind<TopicDetailDelegate> {
         return new HttpRequest.Builder()
                 .setRequestCode(0x126)
                 .setRequestUrl(HttpUrl.getIntance().savePraise)
-                .setShowDialog(true)
+                .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("点赞")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 获取评论
+     */
+    public Disposable getComment(
+            String linkId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("linkId", linkId);
+        baseMap.put("page", 1);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x127)
+                .setRequestUrl(HttpUrl.getIntance().getComment)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("获取评论")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
                 .build()

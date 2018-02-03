@@ -241,7 +241,7 @@ public class HttpRequest {
                 binaries.add(bitmapBinary);
             }
         }
-        mRequest.add("file", binaries);//以文件的形式上传
+        mRequest.add("files", binaries);//以文件的形式上传
     }
 
     /**

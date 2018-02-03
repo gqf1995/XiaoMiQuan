@@ -28,8 +28,6 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.xiaomiquan.base.AppConst.CACHE_EXCHANGENAME;
-import static com.xiaomiquan.base.AppConst.httpBaseUrl3;
-import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
 
 /**
  *
@@ -128,11 +126,11 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     protected void clickRightIv() {
         super.clickRightIv1();
         // 分享
-        if (HttpUrl.getBaseUrl().equals(httpBaseUrl4)) {
-            HttpUrl.setBaseUrl(httpBaseUrl3);
-        } else {
-            HttpUrl.setBaseUrl(httpBaseUrl4);
-        }
+//        if (HttpUrl.getBaseUrl().equals(httpBaseUrl4)) {
+//            HttpUrl.setBaseUrl(httpBaseUrl3);
+//        } else {
+//            HttpUrl.setBaseUrl(httpBaseUrl4);
+//        }
         ToastUtil.show(HttpUrl.getBaseUrl());
     }
 

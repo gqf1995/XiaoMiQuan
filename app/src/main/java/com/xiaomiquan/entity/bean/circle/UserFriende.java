@@ -23,7 +23,7 @@ public class UserFriende {
 
     private Boolean attention;
     private String attentionId;
-    private String attentionedCount;
+    private int attentionedCount;
     private String avatar;
     private String bigv;
     private String createTime;
@@ -49,11 +49,11 @@ public class UserFriende {
         this.attentionId = attentionId;
     }
 
-    public String getAttentionedCount() {
+    public int getAttentionedCount() {
         return attentionedCount;
     }
 
-    public void setAttentionedCount(String attentionedCount) {
+    public void setAttentionedCount(int attentionedCount) {
         this.attentionedCount = attentionedCount;
     }
 

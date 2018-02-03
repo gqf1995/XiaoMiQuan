@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
@@ -14,6 +15,7 @@ import com.xiaomiquan.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -40,6 +42,8 @@ public class CircleDynamicAdapter extends CommonAdapter<SquareLive> {
     private TextView tv_article;
     private LinearLayout lin_article;
     public Context context;
+    public List<String> isPraise;
+    public List<String> paiseNum;
 
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
         this.defaultClickLinsener = defaultClickLinsener;
@@ -48,6 +52,8 @@ public class CircleDynamicAdapter extends CommonAdapter<SquareLive> {
     public CircleDynamicAdapter(Context context, List<SquareLive> datas) {
         super(context, R.layout.adapter_circle_dynamic, datas);
         this.context = context;
+        this.isPraise = new ArrayList<>();
+        this.paiseNum = new ArrayList<>();
     }
 
     @Override
@@ -65,6 +71,9 @@ public class CircleDynamicAdapter extends CommonAdapter<SquareLive> {
         tv_article = holder.getView(R.id.tv_article);
         lin_article = holder.getView(R.id.lin_article);
         iv_img = holder.getView(R.id.iv_img);
+
+        isPraise.add(s.getUserPraise());
+        paiseNum.add(s.getGoodCount());
 
         /**
          * 判断 文章、帖子
@@ -93,10 +102,12 @@ public class CircleDynamicAdapter extends CommonAdapter<SquareLive> {
         /**
          * 用户是否点赞
          */
-        if (s.getUserPraise().equals("false")) {
-            tv_praise.setTextColor(context.getResources().getColor(R.color.color_font1));
+        if (isPraise.get(position).equals("false")) {
+            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
         } else {
-            tv_praise.setTextColor(context.getResources().getColor(R.color.color_blue));
+            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
         }
 
         /**
@@ -105,7 +116,7 @@ public class CircleDynamicAdapter extends CommonAdapter<SquareLive> {
         tv_name.setText(s.getNickName());
         tv_time.setText(s.getCreateTimeStr());
         tv_comment_num.setText(s.getCommentCount());
-        tv_praise_num.setText(s.getGoodCount());
+        tv_praise_num.setText(paiseNum.get(position));
         GlideUtils.loadImage(s.getAvatar(), cv_head);
 
 

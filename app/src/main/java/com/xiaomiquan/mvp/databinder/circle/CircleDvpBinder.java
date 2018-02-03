@@ -22,7 +22,7 @@ public class CircleDvpBinder extends BaseDataBind<CircleDvpDelegate> {
         baseMap.put("pageSize", 10);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().getMyCircleInfo)
+                .setRequestUrl(HttpUrl.getIntance().getMyCircle)
                 .setShowDialog(true)
                 .setRequestName("获取已加入圈子信息")
                 .setRequestMode(HttpRequest.RequestMode.GET)

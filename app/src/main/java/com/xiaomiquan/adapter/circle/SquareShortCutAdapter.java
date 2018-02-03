@@ -33,6 +33,7 @@ public class SquareShortCutAdapter extends CommonAdapter<HashMap<String,Object>>
         tv_type = holder.getView(R.id.tv_type);
 
         tv_type.setText(s.get("title")+"");
+        iv_img.setImageResource((Integer) s.get("img"));
     }
 
 }

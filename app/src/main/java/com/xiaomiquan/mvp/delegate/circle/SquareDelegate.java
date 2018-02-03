@@ -1,14 +1,15 @@
 package com.xiaomiquan.mvp.delegate.circle;
 
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.BaseMyPullDelegate;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
 
@@ -31,27 +32,36 @@ public class SquareDelegate extends BaseMyPullDelegate {
         return R.layout.fragment_square;
     }
 
+
     public static class ViewHolder {
         public View rootView;
+        public BGABanner banner_img;
         public RecyclerView ry_entrance;
+        public AppCompatImageView civ_img;
+        public TextView tv_message_time;
+        public LinearLayout lin_news;
         public RecyclerView ry_message;
         public ImageView iv_img;
-        public TextView tv_more;
+        public TextView tv_live_time;
+        public LinearLayout lin_live;
         public RecyclerView ry_live;
-        public FloatingActionButton flt_send;
+        public AppCompatImageView civ_send;
         public SwipeRefreshLayout swipeRefreshLayout;
-        public BGABanner banner_img;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
+            this.banner_img = (BGABanner) rootView.findViewById(R.id.banner_img);
             this.ry_entrance = (RecyclerView) rootView.findViewById(R.id.ry_entrance);
+            this.civ_img = (AppCompatImageView) rootView.findViewById(R.id.civ_img);
+            this.tv_message_time = (TextView) rootView.findViewById(R.id.tv_message_time);
+            this.lin_news = (LinearLayout) rootView.findViewById(R.id.lin_news);
             this.ry_message = (RecyclerView) rootView.findViewById(R.id.ry_message);
             this.iv_img = (ImageView) rootView.findViewById(R.id.iv_img);
-            this.tv_more = (TextView) rootView.findViewById(R.id.tv_more);
+            this.tv_live_time = (TextView) rootView.findViewById(R.id.tv_live_time);
+            this.lin_live = (LinearLayout) rootView.findViewById(R.id.lin_live);
             this.ry_live = (RecyclerView) rootView.findViewById(R.id.ry_live);
-            this.flt_send = (FloatingActionButton) rootView.findViewById(R.id.flt_send);
+            this.civ_send = (AppCompatImageView) rootView.findViewById(R.id.civ_send);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
-            this.banner_img = (BGABanner) rootView.findViewById(R.id.banner_img);
         }
 
     }

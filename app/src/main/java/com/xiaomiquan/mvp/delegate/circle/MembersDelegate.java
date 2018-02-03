@@ -4,12 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.xiaomiquan.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MembersDelegate extends BaseDelegate {
+public class MembersDelegate extends BaseMyPullDelegate {
     public ViewHolder viewHolder;
 
     @Override
