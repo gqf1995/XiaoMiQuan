@@ -9,15 +9,17 @@ import com.xiaomiquan.R;
 public class HomePageDelegate extends BaseActivityPullDelegate {
     int height;
     int mDistance = 0;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_home_page;
     }
 
-    public void initToplinsener() {
-        height = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_210px);
+    public void initToplinsener(int h) {
+        height = h;
         getLayoutTitleBar().getBackground().mutate().setAlpha(0);
         getmToolbarTitle().setAlpha(0);
+        viewHolder.swipeRefreshLayout.setProgressViewEndTarget(false, 2 * (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_110px));
         viewHolder.pull_recycleview.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override

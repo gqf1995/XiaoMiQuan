@@ -105,7 +105,7 @@ public class CircleDialogHelper {
                 .configDialog(new ConfigDialog() {
                     @Override
                     public void onConfig(DialogParams params) {
-                        params.backgroundColor =CommonUtils.getColor(R.color.color_Primary);
+                        params.backgroundColor =CommonUtils.getColor(R.color.transparent);
                     }
                 })
                 .configItems(new ConfigItems() {
@@ -135,7 +135,7 @@ public class CircleDialogHelper {
                 .configDialog(new ConfigDialog() {
                     @Override
                     public void onConfig(DialogParams params) {
-                        params.backgroundColor =CommonUtils.getColor( R.color.color_Primary);
+                        params.backgroundColor =CommonUtils.getColor( R.color.transparent);
                     }
                 })
                 .configTitle(new ConfigTitle() {

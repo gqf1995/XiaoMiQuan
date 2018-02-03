@@ -9,20 +9,21 @@ public class AppConst {
      * 测试
      */
     public static final String httpBaseUrl = "http://exchange.tokenboxes.com";
-    public static final String httpBaseUrl2 = "http://13.231.38.47:1903";
+    public static final String httpBaseUrl2 = "http://47.97.169.136:1903";
     public static final String httpBaseUrl3 = "http://hk-topcoin.tokenboxes.com";
+    //public static final String httpBaseUrl3 = "http://192.168.0.15:8080/";
+    //public static final String httpBaseUrl3 = "http://47.97.169.136:1904/";
 
     public static final String httpBaseUrl5 = "http://topcoin.tokenboxes.com/";
+    public static final String httpBaseUrl7 = "http://192.168.0.15:8080/";
 
     public static final String httpBaseUrl4 = "http://hk-exchange.tokenboxes.com/";
-
+    public static final String httpBaseUrl6 = "http://47.97.169.136:1901/";
 
     public static final String serviceId = "KEFU151064005015908";
-    public static final String rongId = "cpj2xarlc1osn";
+    public static final String rongId = "cpj2xarlc1xsn";
     public static final boolean isLog = true;
-    public static final boolean isSSL = false;
     public static final boolean isEditUrl = true;
-
 
     /**
      * 正式

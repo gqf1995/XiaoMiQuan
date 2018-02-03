@@ -24,6 +24,7 @@ import io.reactivex.disposables.Disposable;
 
 public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoinDelegate, SortingUserCoinBinder> {
 
+    boolean isShow = true;
 
     SortingAdapter sortingAdapter;
     Disposable disposable;
@@ -33,7 +34,6 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_change_coin_market)).setSubTitle(CommonUtils.getString(R.string.str_add)));
-        addRequest(binder.marketdata(this));
         strDatas = new ArrayList<>();
         initList(strDatas);
     }
@@ -124,11 +124,11 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
     @Override
     protected void onResume() {
         super.onResume();
-        refresh();
+        refresh(isShow);
     }
 
-    private void refresh() {
-        addRequest(binder.marketdata(this));
+    private void refresh(boolean isShow) {
+        addRequest(binder.marketdata(isShow, this));
     }
 
     @Override
@@ -136,6 +136,7 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
         switch (requestCode) {
             case 0x123:
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
+                isShow = false;
                 initList(datas);
                 break;
             case 0x124:

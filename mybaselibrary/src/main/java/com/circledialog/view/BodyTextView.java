@@ -36,7 +36,7 @@ class BodyTextView extends ScaleTextView {
 
         //如果标题没有背景色，则使用默认色
         int backgroundColor = textParams.backgroundColor != 0 ? textParams.backgroundColor :
-                CircleColor.bgDialog;
+                CircleColor.getBgDialog();
 
         //有标题没按钮则底部圆角
         if (titleParams != null && negativeParams == null && positiveParams == null) {

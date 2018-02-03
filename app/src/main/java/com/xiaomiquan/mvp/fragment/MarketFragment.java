@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -8,12 +9,13 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.blankj.utilcode.util.CacheUtils;
+import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.fivefivelike.mybaselibrary.view.dialog.LogDialog;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeName;
 import com.xiaomiquan.mvp.activity.market.SearchCoinMarketActivity;
@@ -21,6 +23,7 @@ import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.TabViewpageBinder;
 import com.xiaomiquan.mvp.delegate.TabViewpageDelegate;
 import com.xiaomiquan.server.HttpUrl;
+import com.xiaomiquan.widget.CircleDialogHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,8 +31,6 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.xiaomiquan.base.AppConst.CACHE_EXCHANGENAME;
-import static com.xiaomiquan.base.AppConst.httpBaseUrl3;
-import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
 
 /**
  *
@@ -40,6 +41,18 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     List<ExchangeName> exchangeNameList;
 
     int defaultLenght;
+
+    public interface OnHttpChangeLinsener {
+        void initSocket();
+    }
+
+    OnHttpChangeLinsener onHttpChangeLinsener;
+
+    @Override
+    public void onAttach(Activity context) {
+        super.onAttach(context);
+        onHttpChangeLinsener = (OnHttpChangeLinsener) context;
+    }
 
     @Override
     protected Class<TabViewpageDelegate> getDelegateClass() {
@@ -72,7 +85,25 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
 
     ArrayList<String> strings;
 
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        super.onFragmentVisibleChange(isVisible);
+        if (isVisible) {
+            if (fragments != null) {
+                for (int i = 0; i < fragments.size(); i++) {
+                    if (fragments.get(i) instanceof ExchangeFragment) {
+                        ((ExchangeFragment) fragments.get(i)).checkRedRise();
+                    }
+                    if (fragments.get(i) instanceof MarketValueFragment) {
+                        ((MarketValueFragment) fragments.get(i)).checkRedRise();
+                    }
+                }
+            }
+        }
+    }
+
     //给toolbar添加搜索布局
+
     private void initToolBarSearch() {
         viewDelegate.getFl_content().addView(getActivity().getLayoutInflater().inflate(R.layout.layout_top_search, null));
         EditText et_search = viewDelegate.getFl_content().findViewById(R.id.et_search);
@@ -128,12 +159,13 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     protected void clickRightIv() {
         super.clickRightIv1();
         // 分享
-        if (HttpUrl.getBaseUrl().equals(httpBaseUrl4)) {
-            HttpUrl.setBaseUrl(httpBaseUrl3);
-        } else {
-            HttpUrl.setBaseUrl(httpBaseUrl4);
-        }
-        ToastUtil.show(HttpUrl.getBaseUrl());
+        CircleDialogHelper.initDefaultInputDialog(getActivity(), "修改地址", "", "确定", new OnInputClickListener() {
+            @Override
+            public void onClick(String text, View v) {
+                HttpUrl.setBaseUrl(text);
+                //onHttpChangeLinsener.initSocket();
+            }
+        }).setDefaultInputTxt(HttpUrl.getBaseUrl()).show();
     }
 
     UserChooseFragment userChooseFragment;
@@ -194,7 +226,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
             @Override
             public void onClick(View view) {
                 //通知
-
+                new LogDialog().show(getChildFragmentManager(), "");
             }
         });
     }

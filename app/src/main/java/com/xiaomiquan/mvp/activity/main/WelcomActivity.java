@@ -1,23 +1,19 @@
 package com.xiaomiquan.mvp.activity.main;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
 import com.fivefivelike.mybaselibrary.base.BaseActivity;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.xiaomiquan.mvp.delegate.WelcomDelegate;
 import com.xiaomiquan.server.HttpUrl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.xiaomiquan.base.AppConst.httpBaseUrl;
-import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
+import static com.xiaomiquan.base.AppConst.httpBaseUrl6;
 
 public class WelcomActivity extends BaseActivity<WelcomDelegate> {
 
@@ -37,67 +33,6 @@ public class WelcomActivity extends BaseActivity<WelcomDelegate> {
     int time = 100000;
     int pingNum = 2;
 
-
-    @Override
-    protected void bindEvenListener() {
-        super.bindEvenListener();
-        //viewDelegate.viewHolder.iv_pic.setImageResource(R.drawable.welcom);
-        handler.sendEmptyMessageDelayed(1, 500);
-    }
-
-
-    private void doPing() {
-        ping1Values = new ArrayList<>();
-        ping2Values = new ArrayList<>();
-        boolean ping = ping(ipPing1, ping1Values, pingNum, new StringBuffer());
-        if (ping) {
-            //第一个 ip ping成功
-            float end1 = 0;
-            float end2 = 0;
-            for (int i = 0; i < ping1Values.size(); i++) {
-                end1 = end1 + ping1Values.get(i);
-            }
-            end1 = end1 / ping1Values.size();
-            if (end1 > time) {
-                //第一个 ip 网络延迟 大于1000毫秒
-                boolean ping2 = ping(ipPing2, ping2Values, pingNum, new StringBuffer());
-                if (ping2) {
-                    //第二个网络 ping成功
-                    for (int i = 0; i < ping2Values.size(); i++) {
-                        end2 = end2 + ping2Values.get(i);
-                    }
-                    end2 = end2 / ping2Values.size();
-                    if (end1 > end2) {
-                        //用第二个网络
-                        Log.i("ping", "ipPing2" + ipPing2);
-                        HttpUrl.setBaseUrl(httpBaseUrl4);
-                    } else {
-                        Log.i("ping", "ipPing1" + ipPing1);
-                        ToastUtil.show(httpBaseUrl);
-                    }
-                } else {
-                    Log.i("ping", "ipPing1" + ipPing1);
-                    ToastUtil.show(httpBaseUrl);
-                }
-            } else {
-                Log.i("ping", "ipPing1" + ipPing1);
-                ToastUtil.show(httpBaseUrl);
-            }
-        } else {
-            //直接用第二个网络
-            Log.i("ping", "ipPing2" + ipPing2);
-            HttpUrl.setBaseUrl(httpBaseUrl4);
-        }
-        HttpUrl.setBaseUrl(httpBaseUrl4);
-    }
-
-    private void doAct() {
-        doPing();
-        handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
-        startActivity(new Intent(WelcomActivity.this, MainActivity.class));
-        finish();
-    }
-
     private Handler handler = new Handler() {//进行延时跳转
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -107,6 +42,65 @@ public class WelcomActivity extends BaseActivity<WelcomDelegate> {
             }
         }
     };
+    @Override
+    protected void bindEvenListener() {
+        super.bindEvenListener();
+        //viewDelegate.viewHolder.iv_pic.setImageResource(R.drawable.welcom);
+        handler.sendEmptyMessageDelayed(1, 500);
+        HttpUrl.setBaseUrl(httpBaseUrl6);
+    }
+
+    private void doPing() {
+        //        ping1Values = new ArrayList<>();
+        //        ping2Values = new ArrayList<>();
+        //        boolean ping = ping(ipPing1, ping1Values, pingNum, new StringBuffer());
+        //        if (ping) {
+        //            //第一个 ip ping成功
+        //            float end1 = 0;
+        //            float end2 = 0;
+        //            for (int i = 0; i < ping1Values.size(); i++) {
+        //                end1 = end1 + ping1Values.get(i);
+        //            }
+        //            end1 = end1 / ping1Values.size();
+        //            if (end1 > time) {
+        //                //第一个 ip 网络延迟 大于1000毫秒
+        //                boolean ping2 = ping(ipPing2, ping2Values, pingNum, new StringBuffer());
+        //                if (ping2) {
+        //                    //第二个网络 ping成功
+        //                    for (int i = 0; i < ping2Values.size(); i++) {
+        //                        end2 = end2 + ping2Values.get(i);
+        //                    }
+        //                    end2 = end2 / ping2Values.size();
+        //                    if (end1 > end2) {
+        //                        //用第二个网络
+        //                        Log.i("ping", "ipPing2" + ipPing2);
+        //                        HttpUrl.setBaseUrl(httpBaseUrl4);
+        //                    } else {
+        //                        Log.i("ping", "ipPing1" + ipPing1);
+        //                        ToastUtil.show(httpBaseUrl);
+        //                    }
+        //                } else {
+        //                    Log.i("ping", "ipPing1" + ipPing1);
+        //                    ToastUtil.show(httpBaseUrl);
+        //                }
+        //            } else {
+        //                Log.i("ping", "ipPing1" + ipPing1);
+        //                ToastUtil.show(httpBaseUrl);
+        //            }
+        //        } else {
+        //            //直接用第二个网络
+        //            Log.i("ping", "ipPing2" + ipPing2);
+        //            HttpUrl.setBaseUrl(httpBaseUrl4);
+        //        }
+       //PingUtil.getInstance().pingStart();
+    }
+
+    private void doAct() {
+        doPing();
+        gotoActivity(MainActivity.class).setIsFinish(true).startAct();
+//        startActivity(new Intent(WelcomActivity.this, MainActivity.class));
+//        finish();
+    }
 
     private void append(StringBuffer stringBuffer, String text) {
         if (stringBuffer != null) {

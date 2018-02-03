@@ -86,7 +86,7 @@ public class HttpUrl {
     /**
      * 用户登录
      */
-    public String userLogin = httpBaseUrl4 + userUrl + "/userLogin";
+    public String userLogin = httpBaseUrl3 + userUrl + "/userLogin";
     /**
      * 用户找回密码发送短信
      */
@@ -99,7 +99,10 @@ public class HttpUrl {
      * 用户登出
      */
     public String loginOut = httpBaseUrl3 + userUrl + "/loginOut";
-
+    /**
+     * 用户信息修改
+     */
+    public String editUserInfo = httpBaseUrl3 + userUrl + "/editUserInfo";
 
     /**
      * 行情
@@ -146,6 +149,10 @@ public class HttpUrl {
      * 搜索
      */
     public String getAllMarketByExchangeOrSymbol = getBaseUrl() + dataUrl + "/getAllMarketByExchangeOrSymbol";
+    /**
+     * 币种资料
+     */
+    public String getSymbolInfomation = httpBaseUrl3 + dataUrl + "/getSymbolInfomation";
 
 
 
@@ -287,6 +294,10 @@ public class HttpUrl {
      * 我的组合列表
      */
     public String listDemo = httpBaseUrl3 + demoUrl + "/listDemo";
+    /**
+     * 排行榜
+     */
+    public String top = httpBaseUrl3 + demoUrl + "/top";
     /**
      * 创建组合
      */

@@ -3,11 +3,13 @@ package com.xiaomiquan.mvp.activity.group;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -33,6 +35,7 @@ import java.util.List;
 public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, GroupDealBinder> implements CurrencyFragment.OnSelectLinsener {
     CurrencyFragment currencyFragmentBuy;
     CurrencyFragment currencyFragmentSell;
+    CoinDetail coinDetail;
 
     @Override
     public GroupDealBinder getDataBinder(GroupDealDelegate viewDelegate) {
@@ -51,6 +54,34 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         initToolbar(new ToolbarBuilder().setTitle("组合交易"));
         initTablelayout();
         initCurrency();
+        addRequest(binder.getBalance(groupItem.getId(), this));
+        viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commit();
+            }
+        });
+    }
+
+    private void commit() {
+        if (TextUtils.isEmpty(viewDelegate.viewHolder.et_sell_price.getText().toString())) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_price));
+            return;
+        }
+        if (TextUtils.isEmpty(viewDelegate.viewHolder.et_sell_num.getText().toString())) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_num));
+            return;
+        }
+        if (coinDetail == null) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_no_select_coin));
+            return;
+        }
+        addRequest(binder.deal(groupItem.getId(),
+                viewDelegate.viewHolder.tl_1.getCurrentTab() == 0 ? "1" : "2",
+                coinDetail.getCoinId(),
+                viewDelegate.viewHolder.et_sell_price.getText().toString(),
+                viewDelegate.selectType + "",
+                viewDelegate.viewHolder.et_sell_num.getText().toString(), this));
     }
 
     @Override
@@ -65,34 +96,25 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
     private void initTablelayout() {
         mTitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_deal));
         fragments = new ArrayList<>();
-        fragments.add(new NotDealFragment());
-        fragments.add(new HistoryEntrustFragment());
-        fragments.add(new HistoryTradingFragment());
+        fragments.add(NotDealFragment.newInstance(groupItem.getId()));
+        fragments.add(HistoryEntrustFragment.newInstance(groupItem.getId()));
+        fragments.add(HistoryTradingFragment.newInstance(groupItem.getId()));
         for (int i = 0; i < mTitles.size(); i++) {
             mTabEntities.add(new TabEntity(mTitles.get(i), 0, 0));
         }
         viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
-        viewDelegate.viewHolder.vp_sliding.setAdapter(new InnerPagerAdapter(getSupportFragmentManager(), fragments, mTitles.toArray(new String[mTitles.size()])));
-        viewDelegate.viewHolder.vp_sliding.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                viewDelegate.viewHolder.tl_2.setCurrentTab(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        viewDelegate.viewHolder.tl_2.setOnTabSelectListener(new OnTabSelectListener() {
+        InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, mTitles.toArray(new String[mTitles.size()]));
+        viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.vp_sliding);
+        viewDelegate.viewHolder.tl_1.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                viewDelegate.viewHolder.vp_sliding.setCurrentItem(position, true);
+                viewDelegate.changeType(position == 0);
+                viewDelegate.showFragment(position);
+                if (position == 0) {
+                    currencyFragmentBuy.getSelectPositionData();
+                } else {
+                    currencyFragmentSell.getSelectPositionData();
+                }
             }
 
             @Override
@@ -133,6 +155,7 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
 
     @Override
     public void onSelectLinsener(CoinDetail coinDetail) {
-        viewDelegate.onSelectLinsener(coinDetail,groupItem);
+        this.coinDetail = coinDetail;
+        viewDelegate.onSelectLinsener(coinDetail, groupItem);
     }
 }

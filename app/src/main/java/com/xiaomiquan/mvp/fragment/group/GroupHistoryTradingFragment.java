@@ -8,11 +8,11 @@ import android.view.View;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.LabelHistoryTradingAdapter;
+import com.xiaomiquan.entity.bean.group.HistoryTrading;
 import com.xiaomiquan.mvp.databinder.group.GroupChangeBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 历史交易
@@ -44,11 +44,7 @@ public class GroupHistoryTradingFragment extends BasePullFragment<BaseFragentPul
     }
 
     private void initList() {
-        List<String> datas = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            datas.add("");
-        }
-        groupAdapter = new LabelHistoryTradingAdapter(getActivity(), datas);
+        groupAdapter = new LabelHistoryTradingAdapter(getActivity(), new ArrayList<HistoryTrading>());
         initRecycleViewPull(groupAdapter, new LinearLayoutManager(getActivity()));
         onRefresh();
         initTop();

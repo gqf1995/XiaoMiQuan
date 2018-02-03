@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DimenRes;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -25,6 +26,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -32,8 +34,15 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.PathEntity;
+import com.xiaomiquan.widget.CircleDialogHelper;
+import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.api.widget.Widget;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.PermissionListener;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -61,7 +70,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by 郭青枫 on 2017/8/5.
- *
+ * <p>
  * ui 处理统一工具
  */
 
@@ -736,11 +745,68 @@ public class UiHeplUtils {
         return (int) (pxValue / scale + 0.5f);
     }
 
-    /** 获取手机的密度*/
+    /**
+     * 获取手机的密度
+     */
     public static float getDensity(Context context) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         return dm.density;
     }
 
+    public static void getPhoto(final FragmentActivity fragmentActivity, final com.yanzhenjie.album.Action<String> cameraLinsener, final com.yanzhenjie.album.Action<ArrayList<AlbumFile>> photoLinsener) {
+        AndPermission.with(fragmentActivity)
+                .requestCode(100)
+                .permission(Permission.CAMERA, Permission.STORAGE)
+                .rationale(new RationaleListener() {
+                    @Override
+                    public void showRequestPermissionRationale(int requestCode, Rationale rationale) {
+                        AndPermission.rationaleDialog(fragmentActivity, rationale).show();
+                    }
+                })
+                .callback(new PermissionListener() {
+                    @Override
+                    public void onSucceed(int requestCode, @android.support.annotation.NonNull List<String> grantPermissions) {
+                        showPhotoDialog(fragmentActivity, cameraLinsener, photoLinsener);
+                    }
+
+                    @Override
+                    public void onFailed(int requestCode, @android.support.annotation.NonNull List<String> deniedPermissions) {
+
+                    }
+                })
+                .start();
+    }
+
+    private static void camera(FragmentActivity fragmentActivity, com.yanzhenjie.album.Action<String> a) {
+        Album.camera(fragmentActivity) // 相机功能。
+                .image() // 拍照。
+                .requestCode(0x123)
+                .onResult(a)
+                .start();
+    }
+
+    private static void photo(FragmentActivity fragmentActivity, com.yanzhenjie.album.Action<ArrayList<AlbumFile>> a) {
+        Album.image(fragmentActivity) // 选择图片。
+                .singleChoice()
+                .requestCode(0x123)
+                .camera(true)
+                .columnCount(3)
+                .onResult(a)
+                .start();
+    }
+
+    private static void showPhotoDialog(final FragmentActivity fragmentActivity, final com.yanzhenjie.album.Action<String> cameraLinsener, final com.yanzhenjie.album.Action<ArrayList<AlbumFile>> photoLinsener) {
+        String[] item = CommonUtils.getStringArray(R.array.sa_select_pic);
+        CircleDialogHelper.initDefaultItemDialog(fragmentActivity, item, new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    camera(fragmentActivity, cameraLinsener);
+                } else {
+                    photo(fragmentActivity, photoLinsener);
+                }
+            }
+        }).show();
+    }
 
 }

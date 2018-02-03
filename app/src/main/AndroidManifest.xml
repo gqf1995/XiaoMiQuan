@@ -47,15 +47,20 @@
         <activity android:name=".mvp.activity.user.InputSetActivity">
         </activity>
         <activity android:name=".mvp.activity.main.MainActivity">
+
+        </activity>
+        <activity android:name=".mvp.activity.market.MarketDetailsActivity">
+        </activity>
+        <activity android:name=".mvp.activity.user.ConversationActivity">
+        </activity>
+        <activity android:name=".mvp.activity.main.WelcomActivity"
+                  android:theme="@style/SplashTheme"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".mvp.activity.market.MarketDetailsActivity">
-        </activity>
-        <activity android:name=".mvp.activity.user.ConversationActivity">
         </activity>
         <activity android:name=".mvp.activity.user.SetActivity"/>
         <activity android:name=".mvp.activity.user.ChangeDefaultSetActivity"/>
@@ -69,7 +74,6 @@
         </activity>
         <activity android:name=".mvp.activity.circle.CreatCircleActivity"/>
         <activity android:name=".mvp.activity.circle.GetFriendsJoinActivity"/>
-        <activity android:name=".mvp.activity.circle.UserTopicActivity"/>
         <activity android:name=".mvp.activity.group.CreatGroupActivity"/>
         <activity android:name=".mvp.activity.group.GroupDealActivity"/>
         <activity android:name=".mvp.activity.group.CombinationActivity"/>
@@ -79,6 +83,7 @@
         <activity android:name=".mvp.activity.market.CoinDetailActivity"/>
         <activity android:name=".mvp.activity.market.CoinMarketActivity"/>
         <activity android:name=".mvp.activity.user.HomePageActivity"/>
+        <activity android:name=".mvp.activity.user.ChangeUserInfoActivity"/>
     </application>
 
 </manifest>

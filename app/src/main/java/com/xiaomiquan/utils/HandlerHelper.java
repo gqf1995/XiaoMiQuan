@@ -92,8 +92,6 @@ public class HandlerHelper {
 
     public void onDestory() {
         handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
-        nowExchangeDataMap.clear();
-        nowExchangeDataMap = null;
     }
 
 }

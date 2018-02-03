@@ -23,7 +23,6 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-        initRank();
     }
 
     @Override
@@ -31,23 +30,13 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
         return R.layout.fragment_all_group;
     }
 
-    private void initRank() {
+    public void initRank(OnTabSelectListener onTabSelectListener) {
         String[] string = CommonUtils.getStringArray(R.array.sa_select_group_rank);
         for (int i = 0; i < string.length; i++) {
             mTabEntities.add(new TabEntity(string[i], 0, 0));
         }
         viewHolder.tl_2.setTabData(mTabEntities);
-        viewHolder.tl_2.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-
-            }
-
-            @Override
-            public void onTabReselect(int position) {
-
-            }
-        });
+        viewHolder.tl_2.setOnTabSelectListener(onTabSelectListener);
     }
 
 

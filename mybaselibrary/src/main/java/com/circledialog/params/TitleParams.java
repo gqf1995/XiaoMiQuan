@@ -27,7 +27,7 @@ public class TitleParams implements Parcelable {
     /**
      * 标题字体颜色
      */
-    public int textColor = CircleColor.title;
+    public int textColor = CircleColor.getTitle();
     /**
      * 标题背景颜色
      */

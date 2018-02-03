@@ -196,6 +196,7 @@ public class WebSocketRequest {
 
     private void startSocket() {
         isOpen = false;
+        KLog.i(REQUEST_TAG, "startSocket  " + mUrl);
         client = new TickerWebsocket(mUrl) {
             @Override
             public void onMessage(String message) {
@@ -219,7 +220,13 @@ public class WebSocketRequest {
                 startSocket();
             }
         };
-        client.start();
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                client.start();
+            }
+        });
+        thread.start();
     }
 
     private void serviceError(Throwable ex) {

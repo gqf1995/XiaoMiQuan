@@ -1,6 +1,7 @@
 package com.xiaomiquan.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -44,10 +45,18 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
     FontTextview tv_name;
     FontTextview tv_coin_unit;
     DecelerateInterpolator decelerateInterpolator;
+    boolean isRedRise = false;
 
+    public void checkRedRise(RecyclerView.Adapter adapter) {
+        if (isRedRise != UserSet.getinstance().isRedRise()) {
+            adapter.notifyDataSetChanged();
+        }
+        isRedRise = UserSet.getinstance().isRedRise();
+    }
     public ExchangeMarketAdapter(Context context, List<ExchangeData> datas) {
         super(context, R.layout.adapter_exchange_coin, datas);
         decelerateInterpolator = new DecelerateInterpolator();
+        isRedRise = UserSet.getinstance().isRedRise();
     }
 
 

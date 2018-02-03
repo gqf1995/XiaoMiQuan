@@ -19,7 +19,7 @@ class DividerView extends SkinCompatView {
 
     private void init() {
         setLayoutParams(new LinearLayout.LayoutParams(1, LinearLayout.LayoutParams.MATCH_PARENT));
-        setBackgroundColor(CircleColor.divider);
+        setBackgroundColor(CircleColor.getDivider());
     }
 
     /**

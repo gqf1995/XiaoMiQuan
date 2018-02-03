@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.kyleduo.switchbutton.SwitchButton;
 import com.xiaomiquan.R;
 
 import skin.support.widget.SkinCompatCheckBox;
@@ -48,6 +49,7 @@ public class CreatGroupDelegate extends BaseDelegate {
         public EditText et_content;
         public SkinCompatCheckBox ck_live;
         public SkinCompatCheckBox ck_circle;
+        public SwitchButton checkbox_synchronous;
         public TextView tv_input_label1;
 
         public ViewHolder(View rootView) {
@@ -56,6 +58,7 @@ public class CreatGroupDelegate extends BaseDelegate {
             this.et_content = (EditText) rootView.findViewById(R.id.et_content);
             this.ck_live = (SkinCompatCheckBox) rootView.findViewById(R.id.ck_live);
             this.ck_circle = (SkinCompatCheckBox) rootView.findViewById(R.id.ck_circle);
+            this.checkbox_synchronous = (SwitchButton) rootView.findViewById(R.id.checkbox_synchronous);
             this.tv_input_label1 = (TextView) rootView.findViewById(R.id.tv_input_label1);
         }
 

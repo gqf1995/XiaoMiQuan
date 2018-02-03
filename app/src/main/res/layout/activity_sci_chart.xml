@@ -76,11 +76,6 @@
                         android:layout_height="@dimen/trans_45px"
                         android:layout_gravity="bottom"
                         android:background="@color/base_mask"/>
-                    <com.scichart.charting.visuals.SciChartSurface
-                        android:id="@+id/combinedchart"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        />
 
 
                 </FrameLayout>
@@ -126,11 +121,7 @@
                         android:textSize="@dimen/text_trans_20px"/>
 
                 </LinearLayout>
-                <com.scichart.charting.visuals.SciChartSurface
-                    android:id="@+id/barchart"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+
 
                 <View
                     android:layout_width="match_parent"

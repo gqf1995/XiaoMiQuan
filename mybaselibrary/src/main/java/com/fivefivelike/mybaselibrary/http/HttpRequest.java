@@ -198,6 +198,9 @@ public class HttpRequest {
      */
     private void addFileMap() {
         int i = 0;
+        if (mFileMap == null) {
+            return;
+        }
         for (Map.Entry<String, Object> entry : mFileMap.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();

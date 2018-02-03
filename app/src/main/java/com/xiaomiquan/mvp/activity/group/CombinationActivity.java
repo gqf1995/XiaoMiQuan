@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.group.EarningsMovements;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.mvp.databinder.CombinationBinder;
 import com.xiaomiquan.mvp.delegate.CombinationDelegate;
@@ -63,7 +65,7 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         groupItem = intent.getParcelableExtra("groupItem");
         isMy = intent.getBooleanExtra("isMy", false);
         viewDelegate.initData(groupItem);
-        //addRequest(binder.getTodayInfo(groupItem.getId(), this));
+        addRequest(binder.getTodayInfo(groupItem.getId(), this));
     }
 
 
@@ -81,15 +83,19 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         switch (requestCode) {
             case 0x123:
                 //今日收益&日均操作次数
-                addRequest(binder.adllRate(groupItem.getId(), this));
+                viewDelegate.viewHolder.tv_today_earnings.setText(GsonUtil.getInstance().getValue(data, "todayRate"));
+                viewDelegate.viewHolder.tv_daily_operation.setText(GsonUtil.getInstance().getValue(data, "count"));
+                addRequest(binder.rateTrend(groupItem.getId(), this));
                 break;
             case 0x124:
                 //分期收益
-                addRequest(binder.rateTrend(groupItem.getId(), this));
+
                 break;
             case 0x125:
                 //收益走势
-
+                EarningsMovements earningsMovements = GsonUtil.getInstance().toObj(data, EarningsMovements.class);
+                viewDelegate.initEarningsMovements(earningsMovements);
+                addRequest(binder.adllRate(groupItem.getId(), this));
                 break;
         }
     }

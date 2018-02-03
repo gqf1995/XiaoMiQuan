@@ -37,7 +37,7 @@ class BodyInputView extends ScaleLinearLayout {
 
         //如果标题没有背景色，则使用默认色
         int backgroundColor = inputParams.backgroundColor != 0 ? inputParams.backgroundColor :
-                CircleColor.bgDialog;
+                CircleColor.getBgDialog();
 
         //有标题没按钮则底部圆角
         if (titleParams != null && negativeParams == null && positiveParams == null) {

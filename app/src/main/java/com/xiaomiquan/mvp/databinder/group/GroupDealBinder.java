@@ -40,6 +40,36 @@ public class GroupDealBinder extends BaseDataBind<GroupDealDelegate> {
                 .RxSendRequest();
     }
 
-
+    /**
+     * 申请买卖
+     */
+    public Disposable deal(
+            String demoId,
+            String type,
+            String coinId,
+            String price,
+            String priceType,
+            String count,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("demoId", demoId);
+        baseMap.put("type", type);
+        baseMap.put("coinId", coinId);
+        baseMap.put("price", price);
+        baseMap.put("priceType", priceType);
+        baseMap.put("count", count);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().deal)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("申请买卖")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 
 }

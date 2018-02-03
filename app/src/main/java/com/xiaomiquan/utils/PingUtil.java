@@ -37,18 +37,18 @@ public class PingUtil {
 
     }
 
-    boolean isPing = false;
+    boolean isPing = true;
 
     public void pingStart() {
         if (isPing) {
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    doPing();
-                    isPing = false;
-                }
-            });
-            thread.start();
+//            Thread thread = new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    doPing();
+//                    isPing = false;
+//                }
+//            });
+//            thread.start();
         }
     }
 
