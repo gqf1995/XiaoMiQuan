@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.kyleduo.switchbutton.SwitchButton;
 import com.xiaomiquan.R;
 
 public class EditIntroductionDelegate extends BaseDelegate {
@@ -23,10 +24,12 @@ public class EditIntroductionDelegate extends BaseDelegate {
     public static class ViewHolder {
         public View rootView;
         public EditText et_introduction;
+        public SwitchButton checkbox_synchronous;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.et_introduction = (EditText) rootView.findViewById(R.id.et_introduction);
+            this.checkbox_synchronous = (SwitchButton) rootView.findViewById(R.id.checkbox_synchronous);
         }
 
     }

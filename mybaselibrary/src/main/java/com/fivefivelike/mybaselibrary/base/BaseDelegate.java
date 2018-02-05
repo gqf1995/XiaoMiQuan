@@ -145,14 +145,13 @@ public abstract class BaseDelegate extends IDelegateImpl {
 
 
         //标题总背景
-//        if (layoutTitleBar != null) {
-//            if (builder.getLayoutBarBack() != 0) {
-//                layoutTitleBar.setBackgroundResource(builder.getLayoutBarBack());
-//            } else {
-//                layoutTitleBar.setBackgroundResource(R.color.transparent);
-//            }
-//        }
-
+        //        if (layoutTitleBar != null) {
+        //            if (builder.getLayoutBarBack() != 0) {
+        //                layoutTitleBar.setBackgroundResource(builder.getLayoutBarBack());
+        //            } else {
+        //                layoutTitleBar.setBackgroundResource(R.color.transparent);
+        //            }
+        //        }
 
 
         //状态栏
@@ -283,7 +282,15 @@ public abstract class BaseDelegate extends IDelegateImpl {
     public void initAddFragment(int fragmentContainId, FragmentManager fragmentManager) {
         this.fragmentContainId = fragmentContainId;
         this.fragmentManager = fragmentManager;
-
+        if (this.fragmentManager.getFragments() != null) {
+            if (this.fragmentManager.getFragments().size() != 0) {
+                int backStackCount = this.fragmentManager.getBackStackEntryCount();
+                for (int i = 0; i < backStackCount; i++) {
+                    this.fragmentManager.popBackStack();
+                }
+                fragmentList.clear();
+            }
+        }
     }
 
     /**

@@ -7,9 +7,10 @@ import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.LabelNotDealAdapter;
-import com.xiaomiquan.entity.bean.LiveData;
+import com.xiaomiquan.entity.bean.group.HistoryTrading;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * 未成交
  */
 public class GroupNotDealFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
-    List<String> strDatas;
+
     LabelNotDealAdapter adapter;
 
 
@@ -41,11 +42,15 @@ public class GroupNotDealFragment extends BasePullFragment<BaseFragentPullDelega
     }
 
 
-    private void initList(List<String> strDatas) {
-        for (int i = 0; i < 20; i++) {
-            strDatas.add("");
-        }
+    private void initList(List<HistoryTrading> strDatas) {
+
         adapter = new LabelNotDealAdapter(getActivity(), strDatas);
+        adapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, int position, Object item) {
+                addRequest(binder.cancel(adapter.getDatas().get(position).getDemoId(), GroupNotDealFragment.this));
+            }
+        });
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsPullDown(false);
         onRefresh();
@@ -53,16 +58,16 @@ public class GroupNotDealFragment extends BasePullFragment<BaseFragentPullDelega
     }
 
     private void initTop() {
-        View rootView=getActivity().getLayoutInflater().inflate(R.layout.layout_label_not_deal,null);
-        viewDelegate.viewHolder.fl_pull.addView(rootView,0);
+        View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_label_not_deal, null);
+        viewDelegate.viewHolder.fl_pull.addView(rootView, 0);
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                List<LiveData> data1 = GsonUtil.getInstance().toList(data, LiveData.class);
-                getDataBack(strDatas, data1, adapter);
+                List<HistoryTrading> data1 = GsonUtil.getInstance().toList(data, HistoryTrading.class);
+                getDataBack(adapter.getDatas(), data1, adapter);
                 break;
         }
     }
@@ -78,14 +83,13 @@ public class GroupNotDealFragment extends BasePullFragment<BaseFragentPullDelega
 
     @Override
     protected void onFragmentFirstVisible() {
-        id=getArguments().getString("id");
-        strDatas = new ArrayList<>();
-        initList(strDatas);
+        id = getArguments().getString("id");
+        initList(new ArrayList<HistoryTrading>());
     }
 
     @Override
     protected void refreshData() {
-        //addRequest(binder.listArticleByPage(this));
+        addRequest(binder.listDeal(id, "2", this));
     }
 
     public static GroupNotDealFragment newInstance(
@@ -97,7 +101,9 @@ public class GroupNotDealFragment extends BasePullFragment<BaseFragentPullDelega
         newFragment.setArguments(bundle);
         return newFragment;
     }
+
     String id;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

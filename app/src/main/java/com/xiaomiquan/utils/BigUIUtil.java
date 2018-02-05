@@ -51,6 +51,17 @@ public class BigUIUtil {
         //        }
     }
 
+    //百分比
+    public void rateTextView(double rate, TextView textView) {
+        if (rate > 0) {
+            textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+            textView.setText("+" + rate + "%");
+        } else {
+            textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+            textView.setText(rate + "%");
+        }
+    }
+
     //动画
     public void anim(final TextView textView, String oldnum, String newnum, final int endColor, String onlyKey) {
         if (TextUtils.isEmpty(oldnum) || TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {
@@ -65,6 +76,9 @@ public class BigUIUtil {
             ValueAnimator val = (ValueAnimator) entry.getValue();
             String key = (String) entry.getKey();
             if (!val.isRunning()) {
+                animatorConcurrentHashMap.remove(key);
+            } else if (key.equals(textView.getId() + onlyKey)) {
+                val.cancel();
                 animatorConcurrentHashMap.remove(key);
             }
         }
@@ -647,6 +661,9 @@ public class BigUIUtil {
     //
     public String bigAmount(String amount) {
         if (TextUtils.isEmpty(amount)) {
+            return "";
+        }
+        if ("NaN".equals(amount)) {
             return "";
         }
         BigDecimal bigDecimal = new BigDecimal(amount);

@@ -116,6 +116,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         KlineDaoUtil.delectHistory(exchangeData.getOnlyKey());
         initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
+        viewDelegate.setOnClickListener(this,R.id.lin_global_market,R.id.lin_currency_data,R.id.lin_simulation);
         initCollection();
     }
 
@@ -498,5 +499,23 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 .setSelectPosition(UserSet.getinstance().getKBgSelectPosition())
                 .setDatas(dataset3, null);
         //初始化用户 默认配置
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.lin_global_market:
+                //全球行情
+                break;
+            case R.id.lin_currency_data:
+                //币种资料
+                
+                break;
+            case R.id.lin_simulation:
+                //模拟交易
+                break;
+        }
     }
 }

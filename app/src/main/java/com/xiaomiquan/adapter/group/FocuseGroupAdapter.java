@@ -8,6 +8,7 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -62,9 +63,25 @@ public class FocuseGroupAdapter extends CommonAdapter<GroupItem> {
         tv_name.setText(s.getNickName());
         tv_time.setText(com.blankj.utilcode.util.TimeUtils.millis2String(s.getCreateTime(), DEFAULT_FORMAT));
         tv_num.setText(s.getAttentionCount());
-        tv_add_percent.setText(s.getTotalProfit());
-        tv_today_percent.setText(s.getCurrProfit());
-        tv_deal.setText(CommonUtils.getString(R.string.str_tv_deal));
+
+        BigUIUtil.getinstance().rateTextView(s.getTotalProfit(),tv_add_percent);
+        BigUIUtil.getinstance().rateTextView(s.getCurrProfit(),tv_today_percent);
+
+        if (s.getIsAttention() == 0) {
+            tv_deal.setText(CommonUtils.getString(R.string.str_detail));
+        } else if (s.getIsAttention() == 1) {
+            tv_deal.setText(CommonUtils.getString(R.string.str_focuse));
+        } else if (s.getIsAttention() == 2) {
+            tv_deal.setVisibility(View.GONE);
+        }
+        tv_look.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(v, position, null);
+                }
+            }
+        });
         tv_deal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

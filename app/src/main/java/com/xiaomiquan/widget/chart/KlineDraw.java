@@ -113,8 +113,8 @@ public class KlineDraw {
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
 
-        mChartKline.invalidate();
-        mChartVolume.invalidate();
+        //mChartKline.invalidate();
+        //mChartVolume.invalidate();
 
         mChartKline.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
@@ -360,7 +360,7 @@ public class KlineDraw {
 
             if (lineDataSetMA7 != null) {
                 //mData.getMa5DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 5), count));
-                lineData.addEntry(mData.getMa5DataL().get(mData.getMa7DataL().size() - index), 0);
+                lineData.addEntry(mData.getMa7DataL().get(mData.getMa7DataL().size() - index), 0);
             }
             if (lineDataSetMA30 != null) {
                 //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
@@ -734,7 +734,6 @@ public class KlineDraw {
         Matrix touchmatrix = viewPortHandlerBar.getMatrixTouch();
         final float xscale = 20 * UserSet.getinstance().getKlineScale();
         touchmatrix.postScale(xscale, 1f);
-
     }
 
     private void setMarkerViewButtom(DataParse mData, KCombinedChart combinedChart) {

@@ -31,6 +31,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/lin_my_group"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/trans_85px"
                         android:orientation="vertical"

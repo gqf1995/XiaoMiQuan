@@ -44,7 +44,7 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
     protected void clickRightTv() {
         super.clickRightTv();
         //修改简介
-        EditIntroductionActivity.startAct(this, groupItem.getId(), groupItem.getBrief());
+        EditIntroductionActivity.startAct(this, groupItem.getId(), groupItem.getBrief(), groupItem.getSync(), 0x123);
     }
 
     public static void startAct(Activity activity,
@@ -78,6 +78,21 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0x123) {
+                String brief = data.getStringExtra("brief");
+                String sync = data.getStringExtra("sync");
+                groupItem.setBrief(brief);
+                groupItem.setSync(sync);
+                viewDelegate.initData(groupItem);
+            }
+        }
+    }
+
+
+    @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
@@ -89,13 +104,13 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
                 break;
             case 0x124:
                 //分期收益
-
+                viewDelegate.initRate(data);
                 break;
             case 0x125:
                 //收益走势
                 EarningsMovements earningsMovements = GsonUtil.getInstance().toObj(data, EarningsMovements.class);
                 viewDelegate.initEarningsMovements(earningsMovements);
-                addRequest(binder.adllRate(groupItem.getId(), this));
+                addRequest(binder.allRate(groupItem.getId(), this));
                 break;
         }
     }

@@ -43,6 +43,13 @@ public class InnerPagerAdapter extends FragmentPagerAdapter {
         // super.destroyItem(container, position, object);
     }
 
+
+    public void setDatas(ArrayList<Fragment> datas) {
+        fragments.clear();
+        fragments.addAll(datas);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemPosition(Object object) {
         return PagerAdapter.POSITION_NONE;

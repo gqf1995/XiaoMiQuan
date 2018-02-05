@@ -45,6 +45,8 @@ public class MarketDetailsDelegate extends BaseDelegate {
 
     }
 
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_market_details;

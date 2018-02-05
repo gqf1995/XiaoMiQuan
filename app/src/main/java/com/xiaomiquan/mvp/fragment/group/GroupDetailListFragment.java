@@ -9,7 +9,6 @@ import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.LabelDetailDealAdapter;
-import com.xiaomiquan.entity.bean.LiveData;
 import com.xiaomiquan.entity.bean.group.HoldDetail;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
@@ -21,7 +20,7 @@ import java.util.List;
  * 持仓明细
  */
 public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
-    List<String> strDatas;
+
     LabelDetailDealAdapter adapter;
 
 
@@ -60,8 +59,8 @@ public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDel
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                List<LiveData> data1 = GsonUtil.getInstance().toList(data, LiveData.class);
-                getDataBack(strDatas, data1, adapter);
+                List<HoldDetail> data1 = GsonUtil.getInstance().toList(data, HoldDetail.class);
+                getDataBack(adapter.getDatas(), data1, adapter);
                 break;
         }
     }

@@ -325,7 +325,7 @@ public class HttpUrl {
     /**
      * 分期收益
      */
-    public String adllRate = httpBaseUrl3 + demoUrl + "/adllRate";
+    public String allRate = httpBaseUrl3 + demoUrl + "/allRate";
     /**
      * 币种列表
      */
@@ -346,6 +346,30 @@ public class HttpUrl {
      * 获取余额
      */
     public String getBalance = httpBaseUrl3 + demoUrl + "/getBalance";
+    /**
+     * 撤单
+     */
+    public String cancel = httpBaseUrl3 + demoUrl + "/cancel";
+    /**
+     * 关注组合
+     */
+    public String demoattention = httpBaseUrl3 + demoUrl + "/attention";
+    /**
+     * 取消关注组合
+     */
+    public String cancelAttention = httpBaseUrl3 + demoUrl + "/cancelAttention";
+    /**
+     * 我的关注
+     */
+    public String listAttentionDemo = httpBaseUrl3 + demoUrl + "/listAttentionDemo";
+    /**
+     * 修改组合信息
+     */
+    public String updateDemoBrief = httpBaseUrl3 + demoUrl + "/updateDemoBrief";
+
+
+
+
     /**
      * 文章
      */
@@ -376,6 +400,10 @@ public class HttpUrl {
      * 关注
      */
     public String attention = httpBaseUrl4 + "/userAttention/save";
+    /**
+     * 组合分享
+     */
+    public String articleSave = httpBaseUrl4 + "/save";
 
 
     /**

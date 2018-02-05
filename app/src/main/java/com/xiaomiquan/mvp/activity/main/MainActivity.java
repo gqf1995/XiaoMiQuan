@@ -47,7 +47,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         ignoreBatteryOptimization(this);
         initFragment();
         uid = DeviceUtils.getAndroidID() + System.currentTimeMillis();
-        initSocket();
+        //initSocket();
         updata();
         netWorkLinsener();
     }

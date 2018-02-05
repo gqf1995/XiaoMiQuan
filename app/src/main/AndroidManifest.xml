@@ -47,15 +47,14 @@
         <activity android:name=".mvp.activity.user.InputSetActivity">
         </activity>
         <activity android:name=".mvp.activity.main.MainActivity">
-
         </activity>
         <activity android:name=".mvp.activity.market.MarketDetailsActivity">
         </activity>
         <activity android:name=".mvp.activity.user.ConversationActivity">
         </activity>
-        <activity android:name=".mvp.activity.main.WelcomActivity"
-                  android:theme="@style/SplashTheme"
-            >
+        <activity
+            android:name=".mvp.activity.main.WelcomActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -84,6 +83,7 @@
         <activity android:name=".mvp.activity.market.CoinMarketActivity"/>
         <activity android:name=".mvp.activity.user.HomePageActivity"/>
         <activity android:name=".mvp.activity.user.ChangeUserInfoActivity"/>
+        <activity android:name=".mvp.activity.ShareHistoryTradingActivity"/>
     </application>
 
 </manifest>
