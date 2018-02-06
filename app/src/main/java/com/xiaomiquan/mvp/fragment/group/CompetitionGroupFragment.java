@@ -43,7 +43,11 @@ public class CompetitionGroupFragment extends BasePullFragment<BaseFragentPullDe
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
         return BaseFragentPullDelegate.class;
     }
-
+    public void notifyDataSetChanged() {
+        if (myGroupAdapter != null ) {
+            myGroupAdapter.notifyDataSetChanged();
+        }
+    }
     private void initList() {
         List<GroupItem> datas = new ArrayList<>();
         myGroupAdapter = new MyGroupAdapter(getActivity(), datas);

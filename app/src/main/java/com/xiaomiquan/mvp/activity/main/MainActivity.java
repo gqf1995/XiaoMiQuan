@@ -34,10 +34,11 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 
-public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener,UserFragment.Linsener {
+public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener, UserFragment.Linsener {
 
     String uid;
     UserLogin userLogin;
+    MainEventBusHelper mainEventBusHelper;
 
     @Override
     protected Class<MainDelegate> getDelegateClass() {
@@ -56,6 +57,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         //提示是否电池优化
         ignoreBatteryOptimization(this);
         initFragment();
+        mainEventBusHelper = new MainEventBusHelper(this, viewDelegate, binder);
         uid = DeviceUtils.getAndroidID() + System.currentTimeMillis();
         //initSocket();
         updata();
@@ -120,9 +122,19 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         doubleClickActList.add(this.getClass().getName());//两次返回推出act注册
     }
 
+    public void toPage(int pagePosition, int childPosition) {
+        viewDelegate.showFragment(pagePosition);
+        viewDelegate.viewHolder.tl_2.setCurrentTab(pagePosition);
+        if (pagePosition == 2) {
+            InvestGroupFragment fragment = (InvestGroupFragment) viewDelegate.getFragmentList().get(pagePosition);
+            fragment.toPage(childPosition);
+        }
+    }
+
     @Override
     protected void onDestroy() {
         HandlerHelper.getinstance().onDestory();
+        mainEventBusHelper.onDestroy();
         super.onDestroy();
     }
 
@@ -150,7 +162,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     private void initIm() {
         userLogin = SingSettingDBUtil.getUserLogin();
         if (userLogin != null) {
-            if(!TextUtils.isEmpty(userLogin.getImToken())) {
+            if (!TextUtils.isEmpty(userLogin.getImToken())) {
                 viewDelegate.setImLinsener(imLinsener);
                 binder.connect(userLogin.getImToken());
             }

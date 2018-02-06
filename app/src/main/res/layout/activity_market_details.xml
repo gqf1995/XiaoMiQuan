@@ -269,7 +269,8 @@
                             android:layout_height="0dp"
                             android:layout_marginBottom="@dimen/trans_20px"
                             android:layout_weight="1"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -332,8 +333,8 @@
                 <LinearLayout
                     android:id="@+id/lin_kbg"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/trans_25px"
                     android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/trans_25px"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -465,6 +466,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/trans_10px">
+
                         <TextView
                             android:id="@+id/tv_boll"
                             android:layout_width="wrap_content"
@@ -472,9 +474,10 @@
                             android:gravity="center"
                             android:paddingRight="@dimen/trans_10px"
                             android:text="BOLL(20)"
-                            android:visibility="gone"
                             android:textColor="@color/color_font3"
-                            android:textSize="@dimen/text_trans_20px"/>
+                            android:textSize="@dimen/text_trans_20px"
+                            android:visibility="gone"/>
+
                         <TextView
                             android:id="@+id/tv_ma7"
                             android:layout_width="wrap_content"
@@ -482,9 +485,9 @@
                             android:gravity="center"
                             android:paddingRight="@dimen/trans_10px"
                             android:text="MA7:"
-                            android:visibility="gone"
                             android:textColor="@color/color_font3"
-                            android:textSize="@dimen/text_trans_20px"/>
+                            android:textSize="@dimen/text_trans_20px"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/tv_ma15"
@@ -493,9 +496,9 @@
                             android:gravity="center"
                             android:paddingRight="@dimen/trans_10px"
                             android:text="MA15:"
-                            android:visibility="gone"
                             android:textColor="@color/minute_yellow"
-                            android:textSize="@dimen/text_trans_20px"/>
+                            android:textSize="@dimen/text_trans_20px"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/tv_ma30"
@@ -504,9 +507,9 @@
                             android:gravity="center"
                             android:paddingRight="@dimen/trans_10px"
                             android:text="MA30:"
-                            android:visibility="gone"
                             android:textColor="@color/minute_blue"
-                            android:textSize="@dimen/text_trans_20px"/>
+                            android:textSize="@dimen/text_trans_20px"
+                            android:visibility="gone"/>
 
                     </LinearLayout>
 
@@ -626,6 +629,7 @@
                         android:layout_weight="1">
 
                     </com.xiaomiquan.widget.chart.KCombinedChart>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/trans_10px"
@@ -789,8 +793,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/trans_25px"
                         android:layout_marginTop="@dimen/trans_25px"
-                        android:visibility="gone"
-                        android:background="@color/color_font3"/>
+                        android:background="@color/color_font3"
+                        android:visibility="gone"/>
 
                     <LinearLayout
                         android:id="@+id/lin_advance_warning"
@@ -799,10 +803,10 @@
                         android:layout_weight="1"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
-                        android:visibility="gone"
                         android:focusable="true"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <com.fivefivelike.mybaselibrary.view.IconFontTextview
                             android:layout_width="wrap_content"

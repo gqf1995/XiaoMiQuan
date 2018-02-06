@@ -71,12 +71,20 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
         }
     }
 
+    public void notifyDataSetChanged() {
+        if (allMyGroupAdapter != null && hotGroupAdapter != null && adapter != null) {
+            allMyGroupAdapter.notifyDataSetChanged();
+            hotGroupAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
+        }
+    }
+
     private void initAllMyGroup(List<GroupItem> datas) {
         allMyGroupAdapter = new AllMyGroupAdapter(getActivity(), datas);
         allMyGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
             public void onClick(View view, int position, Object item) {
-                GroupDealActivity.startAct(getActivity(), allMyGroupAdapter.getDatas(),position, true);
+                GroupDealActivity.startAct(getActivity(), allMyGroupAdapter.getDatas(), position, true);
             }
         });
         viewDelegate.viewHolder.rv_my_group.setLayoutManager(new LinearLayoutManager(getActivity()) {

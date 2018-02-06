@@ -113,7 +113,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 break;
             case R.id.lin_set4:
                 //在线客服
-                ConversationActivity.startAct(getActivity(), ConversationActivity.conversation_service,serviceId);
+                ConversationActivity.startAct(getActivity(), ConversationActivity.conversation_service, serviceId);
                 break;
             case R.id.lin_set5:
                 //推荐给朋友
@@ -123,8 +123,10 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 ChangeDefaultSetActivity.startAct(getActivity(), ChangeDefaultSetActivity.TYPE_LANGUAGE);
                 break;
             case R.id.lin_set7:
-                //安全中心
-                gotoActivity(SecurityActivity.class).startAct();
+                //安全中心\
+                if (SingSettingDBUtil.isLogin(getActivity())) {
+                    gotoActivity(SecurityActivity.class).startAct();
+                }
                 break;
             case R.id.lin_set8:
                 //设置

@@ -3,6 +3,7 @@ package com.xiaomiquan.mvp.activity.market;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -35,7 +36,13 @@ public class CoinDetailActivity extends BaseDataBindActivity<CoinDetailDelegate,
         getIntentData();
         initToolbar(new ToolbarBuilder().setTitle(exchangeData.getSymbol()));
         addRequest(binder.getAllMarketBySymbol(exchangeData.getSymbol(), this));
-        addRequest(binder.getSymbolInfomation("DTB", this));
+        addRequest(binder.getSymbolInfomation(exchangeData.getSymbol(), this));
+        viewDelegate.viewHolder.tv_look_more_global_market.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CoinMarketActivity.startAct(CoinDetailActivity.this, exchangeData.getSymbol());
+            }
+        });
     }
 
     public static void startAct(Activity activity,
@@ -47,6 +54,7 @@ public class CoinDetailActivity extends BaseDataBindActivity<CoinDetailDelegate,
 
     ExchangeData exchangeData;
     CoinData coinData;
+
     private void getIntentData() {
         Intent intent = getIntent();
         exchangeData = intent.getParcelableExtra("exchangeData");
@@ -83,7 +91,7 @@ public class CoinDetailActivity extends BaseDataBindActivity<CoinDetailDelegate,
                 break;
             case 0x125:
                 ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
-                viewDelegate.initData(coinData,exchangeData);
+                viewDelegate.initData(coinData, exchangeData);
 
                 break;
         }

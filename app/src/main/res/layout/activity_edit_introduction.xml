@@ -46,7 +46,8 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/trans_45px"
-        android:paddingRight="@dimen/trans_30px">
+        android:paddingRight="@dimen/trans_30px"
+        android:visibility="gone">
 
 
         <TextView

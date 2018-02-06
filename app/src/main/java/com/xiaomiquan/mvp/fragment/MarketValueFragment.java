@@ -14,7 +14,9 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.CoinMarketAdapter;
 import com.xiaomiquan.entity.Drop24ChangeSort;
 import com.xiaomiquan.entity.Rise24ChangeSort;
+import com.xiaomiquan.entity.bean.CoinMarketValue;
 import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.mvp.activity.market.CoinDetailActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
@@ -37,40 +39,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
     List<ExchangeData> riseDatas;
     List<ExchangeData> dropDatas;
     List<String> sendKeys;
-    final int whatIndex = 1024;
     private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
-//    private Handler handler = new Handler() {//进行延时跳转
-//        public void handleMessage(Message msg) {
-//            switch (msg.what) {
-//                case whatIndex:
-//                    if (exchangeDataMap == null) {
-//                        return;
-//                    }
-//                    if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
-//                        //recycleView正在滑动
-//                    } else {
-//                        //更新数据
-//                        Iterator iter = exchangeDataMap.entrySet().iterator();
-//                        while (iter.hasNext()) {
-//                            if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
-//                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
-//                                return;
-//                            }
-//                            Map.Entry entry = (Map.Entry) iter.next();
-//                            ExchangeData val = (ExchangeData) entry.getValue();
-//                            String key = (String) entry.getKey();
-//                            if (val != null) {
-//                                updataNew(val);
-//                                exchangeDataMap.remove(key);
-//                            } else {
-//                            }
-//                        }
-//                    }
-//                    handler.sendEmptyMessageDelayed(whatIndex, 1000);
-//                    break;
-//            }
-//        }
-//    };
 
     //新数据推送 更新
     private void updataNew(ExchangeData data) {
@@ -203,10 +172,10 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
                         sendWebSocket();
                     }
                 }
-
                 break;
         }
     }
+
 
     private void sendWebSocket() {
         if (exchangeMarketAdapter != null) {
@@ -278,10 +247,12 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
         dropDatas.addAll(defaultDatas);
         Collections.sort(dropDatas, comparator);
     }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
     }
+
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         if (isVisible) {
@@ -298,7 +269,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
         }
     }
 
-    public void checkRedRise(){
+    public void checkRedRise() {
         if (exchangeMarketAdapter != null) {
             exchangeMarketAdapter.checkRedRise(exchangeMarketAdapter);
         }

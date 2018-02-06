@@ -8,7 +8,6 @@ import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl2;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl3;
-import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
 import static com.xiaomiquan.base.AppConst.isEditUrl;
 
 /**
@@ -210,27 +209,27 @@ public class HttpUrl {
     /**
      * 获取未加入圈子信息
      */
-    public String getMoreCircle = httpBaseUrl4 + groupUrl + "/listMoreGroupByPage";
+    public String getMoreCircle = httpBaseUrl3 + groupUrl + "/listMoreGroupByPage";
     /**
      * 获取加入圈子信息
      */
-    public String getMyCircleInfo = httpBaseUrl4 + groupUrl + "/listGroupByPage";
+    public String getMyCircleInfo = httpBaseUrl3 + groupUrl + "/listGroupByPage";
     /**
      * 获取加入圈子信息
      */
-    public String getCircleTopic = httpBaseUrl4 + "/articleTopic/listByPage";
+    public String getCircleTopic = httpBaseUrl3 + "/articleTopic/listByPage";
     /**
      * 创建圈子
      */
-    public String creatCircle = httpBaseUrl4 + "/group/saveGroup";
+    public String creatCircle = httpBaseUrl3 + "/group/saveGroup";
     /**
      * 修改圈子信息
      */
-    public String editCircleInfo = httpBaseUrl4 + "/group/editGroup";
+    public String editCircleInfo = httpBaseUrl3 + "/group/editGroup";
     /**
      * 生成邀请码
      */
-    public String creatCircleCode = httpBaseUrl4 + "/group/createInviteCode";
+    public String creatCircleCode = httpBaseUrl3 + "/group/createInviteCode";
 
 
     /**
@@ -241,51 +240,51 @@ public class HttpUrl {
     /**
      * 申请加入圈子
      */
-    public String joinCircle = httpBaseUrl4 + groupMemberUrl + "/applyJoinGroup";
+    public String joinCircle = httpBaseUrl3 + groupMemberUrl + "/applyJoinGroup";
     /**
      * 获取待审核入圈申请
      */
-    public String Circlebanned = httpBaseUrl4 + "/group/banned";
+    public String Circlebanned = httpBaseUrl3 + "/group/banned";
     /**
      * 解除禁言所有人
      */
-    public String CircleancelBanned = httpBaseUrl4 + "/group/cancelBanned";
+    public String CircleancelBanned = httpBaseUrl3 + "/group/cancelBanned";
     /**
      * 圈子成员
      */
-    public String findMember = httpBaseUrl4 + "/groupMember/findAllMember";
+    public String findMember = httpBaseUrl3 + "/groupMember/findAllMember";
     /**
      * 圈子成员禁言
      */
-    public String memberBanned = httpBaseUrl4 + "/groupMember/banned";
+    public String memberBanned = httpBaseUrl3 + "/groupMember/banned";
     /**
      * 圈子成员解除禁言
      */
-    public String memberuUnBanned = httpBaseUrl4 + "/groupMember/unbanned";
+    public String memberuUnBanned = httpBaseUrl3 + "/groupMember/unbanned";
 
 
     /**
      * 同意审核入圈申请
      */
-    public String agreeCircleApply = httpBaseUrl4 + groupMemberUrl + "/agreeJoinApply";
+    public String agreeCircleApply = httpBaseUrl3 + groupMemberUrl + "/agreeJoinApply";
     /**
      * 邀请好友入圈
      */
-    public String getSomeBodyIn = httpBaseUrl4 + groupMemberUrl + "/getSomeBodyIn";
+    public String getSomeBodyIn = httpBaseUrl3 + groupMemberUrl + "/getSomeBodyIn";
 
     /**
      * 获得帖子
      */
-    public String getUsertopic = httpBaseUrl4 + "/usertopic/list/group/usertopic";
+    public String getUsertopic = httpBaseUrl3 + "/usertopic/list/group/usertopic";
 
     /**
      * 发帖子
      */
-    public String saveArticle = httpBaseUrl4 + "/articleTopic/save";
+    public String saveArticle = httpBaseUrl3 + "/articleTopic/save";
     /**
      * 发帖子
      */
-    public String getDetails = httpBaseUrl4 + "/articleTopic/detail";
+    public String getDetails = httpBaseUrl3 + "/articleTopic/detail";
 
 
 
@@ -381,53 +380,53 @@ public class HttpUrl {
     /**
      * 文章列表
      */
-    public String listArticleByPage = httpBaseUrl4 + articleUrl + "/listArticleByPage";
+    public String listArticleByPage = httpBaseUrl3 + articleUrl + "/listArticleByPage";
 
     /**
      * 发表评论
      */
-    public String saveComment = httpBaseUrl4 + "/comment/saveComment";
+    public String saveComment = httpBaseUrl3 + "/comment/saveComment";
     /**
      * 点赞
      */
-    public String savePraise = httpBaseUrl4 + "/praise/praiseOrCancel";
+    public String savePraise = httpBaseUrl3 + "/praise/praiseOrCancel";
 
     /**
      * 获取广场朋友圈
      */
-    public String getSquareLive = httpBaseUrl4 + "/articleTopic/listByPage";
+    public String getSquareLive = httpBaseUrl3 + "/articleTopic/listByPage";
     /**
      * 获取大V
      */
-    public String getBigVlist = httpBaseUrl4 + "/user/listBigVByPage";
+    public String getBigVlist = httpBaseUrl3 + "/user/listBigVByPage";
     /**
      * 关注
      */
-    public String attention = httpBaseUrl4 + "/userAttention/save";
+    public String attention = httpBaseUrl3 + "/userAttention/save";
     /**
      * 组合分享
      */
-    public String articleSave = httpBaseUrl4 + "/save";
+    public String articleSave = httpBaseUrl3 + "/save";
 
 
     /**
      * 获取文章
      */
-    public String getArticle = httpBaseUrl4 + "/articleTopic/listArticleByPage";
+    public String getArticle = httpBaseUrl3 + "/articleTopic/listArticleByPage";
     /**
      * 获取文章
      */
-    public String getCircleMore = httpBaseUrl4 + "/group/listMoreGroupByPage";
+    public String getCircleMore = httpBaseUrl3 + "/group/listMoreGroupByPage";
     /**
      * 获取用户主页信息
      */
-    public String getUserInfo = httpBaseUrl4 + "/user/personCenter";
+    public String getUserInfo = httpBaseUrl3 + "/user/personCenter";
     /**
      * 获取粉丝列表
      */
-    public String getFans = httpBaseUrl4 + "/userAttention/attentionMyList";
+    public String getFans = httpBaseUrl3 + "/userAttention/attentionMyList";
     /**
      * 获取关注列表
      */
-    public String getAttention = httpBaseUrl4 + "/user/listMyAttentionByPage";
+    public String getAttention = httpBaseUrl3 + "/user/listMyAttentionByPage";
 }

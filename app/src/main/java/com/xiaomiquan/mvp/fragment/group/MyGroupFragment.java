@@ -50,7 +50,11 @@ public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, B
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         }
     }
-
+    public void notifyDataSetChanged() {
+        if (myGroupAdapter != null ) {
+            myGroupAdapter.notifyDataSetChanged();
+        }
+    }
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
         return BaseFragentPullDelegate.class;

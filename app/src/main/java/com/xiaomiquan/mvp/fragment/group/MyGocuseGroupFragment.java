@@ -48,7 +48,11 @@ public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDeleg
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
         return BaseFragentPullDelegate.class;
     }
-
+    public void notifyDataSetChanged() {
+        if (myGroupAdapter != null ) {
+            myGroupAdapter.notifyDataSetChanged();
+        }
+    }
     private void initList(List<GroupItem> datas) {
         if (myGroupAdapter == null) {
             myGroupAdapter = new FocuseGroupAdapter(getActivity(), datas);

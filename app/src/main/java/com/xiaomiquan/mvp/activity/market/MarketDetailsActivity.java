@@ -14,6 +14,7 @@ import android.view.View;
 import com.blankj.utilcode.util.CacheUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.entity.ResultDialogEntity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -29,6 +30,8 @@ import com.xiaomiquan.utils.KlineDaoUtil;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.chart.KCombinedChart;
 import com.xiaomiquan.widget.chart.KlineDraw;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -116,7 +119,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         KlineDaoUtil.delectHistory(exchangeData.getOnlyKey());
         initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
-        viewDelegate.setOnClickListener(this,R.id.lin_global_market,R.id.lin_currency_data,R.id.lin_simulation);
+        viewDelegate.setOnClickListener(this, R.id.lin_global_market, R.id.lin_currency_data, R.id.lin_simulation);
         initCollection();
     }
 
@@ -505,16 +508,20 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.lin_global_market:
                 //全球行情
+                CoinMarketActivity.startAct(this, exchangeData.getSymbol());
                 break;
             case R.id.lin_currency_data:
                 //币种资料
-                
+                CoinDetailActivity.startAct(this, exchangeData);
                 break;
             case R.id.lin_simulation:
                 //模拟交易
+                ResultDialogEntity resultDialogEntity = new ResultDialogEntity();
+                resultDialogEntity.setCode("0");
+                EventBus.getDefault().post(resultDialogEntity);
                 break;
         }
     }

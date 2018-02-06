@@ -84,6 +84,18 @@
         <activity android:name=".mvp.activity.user.HomePageActivity"/>
         <activity android:name=".mvp.activity.user.ChangeUserInfoActivity"/>
         <activity android:name=".mvp.activity.ShareHistoryTradingActivity"/>
+        <activity android:name=".mvp.activity.circle.ReleaseDynamicActivity"/>
+        <activity android:name=".mvp.activity.circle.ArticleActivity"/>
+        <activity android:name=".mvp.activity.circle.BigVListActivity"/>
+        <activity android:name=".mvp.activity.circle.CircleContentActivity"/>
+        <activity android:name=".mvp.activity.circle.ReleaseArticleActivity" />
+        <activity android:name=".mvp.activity.circle.MembersActivity" />
+        <activity android:name=".mvp.activity.circle.TopicDetailActivity" />
+        <activity android:name=".mvp.activity.circle.JurisdictionActivity" />
+        <activity android:name=".mvp.activity.circle.LiveActivity" />
+        <activity android:name=".mvp.activity.circle.PayCircleActivity" />
+        <activity android:name=".mvp.activity.circle.CreatCodeActivity" />
+        <activity android:name=".mvp.activity.circle.EditCircleActivity" />
     </application>
 
 </manifest>
