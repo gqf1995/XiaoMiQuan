@@ -64,7 +64,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:singleLine="true"
-                                    android:text="创建者"
+                                    android:text="@string/str_creater"
                                     android:textColor="@color/color_font1"
                                     android:textSize="15sp" />
 
@@ -83,7 +83,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/text_trans_50px"
                                     android:singleLine="true"
-                                    android:text="关注人数"
+                                    android:text="@string/str_fucose_people_num"
                                     android:textColor="@color/color_font1"
                                     android:textSize="15sp" />
 

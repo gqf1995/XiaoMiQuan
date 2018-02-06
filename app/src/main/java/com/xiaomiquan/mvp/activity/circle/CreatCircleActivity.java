@@ -1,17 +1,21 @@
 package com.xiaomiquan.mvp.activity.circle;
 
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 
 import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.circle.CreatCircleBinder;
 import com.xiaomiquan.mvp.delegate.circle.CreatCircleDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.xiaomiquan.widget.CircleDialogHelper;
+import com.xiaomiquan.widget.circle.CreatPopupWindow;
+import com.xiaomiquan.widget.circle.SquarePopupWindow;
 
 public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegate, CreatCircleBinder> {
 
@@ -30,9 +34,8 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle("创建圈子").setSubTitle("完成"));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_create_circle)).setSubTitle(CommonUtils.getString(R.string.str_complete)));
         initView();
-        initRadioGroup();
     }
 
     @Override
@@ -47,7 +50,7 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-        if (isFree.equals("true")) {
+        if (viewDelegate.viewHolder.ck_free.isChecked()) {
             addRequest(binder.creatCircle(
                     viewDelegate.viewHolder.et_name.getText().toString(),
                     viewDelegate.viewHolder.et_brief.getText().toString(),
@@ -56,7 +59,7 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
                     "0",
                     CreatCircleActivity.this
             ));
-        } else {
+        } else if (viewDelegate.viewHolder.ck_charge.isChecked()) {
             CircleDialogHelper.initDefaultInputDialog(CreatCircleActivity.this, "设置入圈费用", "请输入金额", "创建", new OnInputClickListener() {
                 @Override
                 public void onClick(String text, View v) {
@@ -70,40 +73,36 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
                     ));
                 }
             }).show();
+        } else {
+            ToastUtil.show("选择个类型吧");
         }
 
-    }
-
-    private void initRadioGroup() {
-        viewDelegate.viewHolder.rg_choose.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i) {
-                    case R.id.rb_free:
-                        isFree = "true";
-                        break;
-                    case R.id.rb_charge:
-                        isFree = "false";
-                        break;
-                }
-            }
-        });
     }
 
     private void initView() {
         viewDelegate.viewHolder.lin_choose.setVisibility(View.VISIBLE);
         viewDelegate.viewHolder.lin_next.setVisibility(View.GONE);
-
         viewDelegate.viewHolder.tv_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (viewDelegate.viewHolder.ck_agree.isChecked()) {
-                    viewDelegate.viewHolder.lin_choose.setVisibility(View.GONE);
-                    viewDelegate.viewHolder.lin_next.setVisibility(View.VISIBLE);
-                } else {
-                    ToastUtil.show("请阅读用户规范");
-                }
-
+                final CreatPopupWindow creatPopupWindow = new CreatPopupWindow(CreatCircleActivity.this);
+                creatPopupWindow.setOnItemClickListener(new CreatPopupWindow.OnItemClickListener() {
+                    @Override
+                    public void setOnItemClick(View v) {
+                        switch (v.getId()) {
+                            case R.id.tv_next:
+                                if (creatPopupWindow.ck_agree.isChecked()) {
+                                    creatPopupWindow.dismiss();
+                                    viewDelegate.viewHolder.lin_choose.setVisibility(View.GONE);
+                                    viewDelegate.viewHolder.lin_next.setVisibility(View.VISIBLE);
+                                } else {
+                                    ToastUtil.show(CommonUtils.getString(R.string.str_toast_user));
+                                }
+                                break;
+                        }
+                    }
+                });
+                creatPopupWindow.showAtLocation(viewDelegate.viewHolder.ck_free, Gravity.BOTTOM, 0, 0);
             }
         });
     }

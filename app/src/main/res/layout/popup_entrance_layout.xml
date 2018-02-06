@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
         <LinearLayout
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/trans_20px"
                     android:text="@string/str_pop_release_dynamic"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_font1"
                     android:textSize="@dimen/trans_28px" />
             </LinearLayout>
 
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/trans_20px"
                     android:text="@string/str_pop_release_article"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_font1"
                     android:textSize="@dimen/trans_28px" />
             </LinearLayout>
 
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/trans_20px"
                     android:text="@string/str_pop_release_wechat"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_font1"
                     android:textSize="@dimen/trans_28px" />
             </LinearLayout>
 
@@ -96,7 +96,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/trans_4px"
+            android:layout_height="@dimen/trans_2px"
             android:layout_marginTop="@dimen/trans_30px"
             android:background="@color/base_mask" />
 

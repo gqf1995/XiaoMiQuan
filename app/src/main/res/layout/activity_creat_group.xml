@@ -90,7 +90,6 @@
                     android:background="@null"
                     android:gravity="left|top"
                     android:hint="@string/str_et_group_info"
-                    android:inputType="textImeMultiLine"
                     android:textColor="@color/color_font1"
                     android:textColorHint="@color/color_font3"
                     android:textSize="@dimen/trans_28px"

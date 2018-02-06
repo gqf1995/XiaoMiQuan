@@ -25,6 +25,7 @@ import com.xiaomiquan.widget.circle.SquarePopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -52,10 +53,9 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
         super.bindEvenListener();
         getIntentData();
         floatBtn();
-        initToolbar(new ToolbarBuilder().setTitle("币圈神探").setmRightImg2(CommonUtils.getString(R.string.ic_Notifications)).setSubTitle("+"));
+        initUserTopic(new ArrayList<SquareLive>());
+        initToolbar(new ToolbarBuilder().setTitle(userCircle.getName()).setmRightImg2(CommonUtils.getString(R.string.ic_Notifications)).setSubTitle("+"));
         groupId = userCircle.getId();
-
-        addRequest(binder.getCicleContent(1 + "", userCircle.getId(), this));
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -140,52 +140,58 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
     }
 
     private void initUserTopic(final List<SquareLive> squareLives) {
-        circleContentAdapter = new CircleContentAdapter(CircleContentActivity.this, squareLives);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CircleContentActivity.this) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        circleContentAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                TopicDetailActivity.startAct(CircleContentActivity.this, squareLives.get(position));
-            }
+        if (circleContentAdapter == null) {
+            onRefresh();
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+            circleContentAdapter = new CircleContentAdapter(CircleContentActivity.this, squareLives);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CircleContentActivity.this) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            circleContentAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    TopicDetailActivity.startAct(CircleContentActivity.this, squareLives.get(position));
+                }
 
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
-        });
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
 
-        circleContentAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
-            @Override
-            public void onClick(View view, final int position, Object item) {
-                if (view.getId() == R.id.tv_comment) {
-                    CircleDialogHelper.initDefaultInputDialog(CircleContentActivity.this, "评论", "请输入评论", "发布", new OnInputClickListener() {
-                        @Override
-                        public void onClick(String text, View v) {
-                            addRequest(binder.saveComment(circleContentAdapter.getDatas().get(position).getId(), text, CircleContentActivity.this));
-                        }
-                    }).show();
+            circleContentAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, final int position, Object item) {
+                    if (view.getId() == R.id.tv_comment) {
+                        CircleDialogHelper.initDefaultInputDialog(CircleContentActivity.this, "评论", "请输入评论", "发布", new OnInputClickListener() {
+                            @Override
+                            public void onClick(String text, View v) {
+                                addRequest(binder.saveComment(circleContentAdapter.getDatas().get(position).getId(), text, CircleContentActivity.this));
+                            }
+                        }).show();
+                    }
+                    if (view.getId() == R.id.tv_praise) {
+                        addRequest(binder.savePraise(circleContentAdapter.getDatas().get(position).getId(), CircleContentActivity.this));
+                    }
+                    if (view.getId() == R.id.cv_head) {
+                        UserInfoActivity.startAct(CircleContentActivity.this, squareLives.get(position));
+                    }
                 }
-                if (view.getId() == R.id.tv_praise) {
-                    addRequest(binder.savePraise(circleContentAdapter.getDatas().get(position).getId(), CircleContentActivity.this));
-                }
-                if (view.getId() == R.id.cv_head) {
-                    UserInfoActivity.startAct(CircleContentActivity.this, squareLives.get(position));
-                }
-            }
-        });
-        viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
-        viewDelegate.viewHolder.pull_recycleview.setAdapter(circleContentAdapter);
-        viewDelegate.setIsLoadMore(false);
+            });
+            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
+            viewDelegate.viewHolder.pull_recycleview.setAdapter(circleContentAdapter);
+            viewDelegate.setIsLoadMore(false);
+        } else {
+            circleContentAdapter.setDatas(squareLives);
+        }
     }
 
     @Override
     protected void refreshData() {
-
+        addRequest(binder.getCicleContent(1 + "", userCircle.getId(), this));
     }
 
     private void getIntentData() {

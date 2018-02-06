@@ -4,12 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 
-import com.blankj.utilcode.util.SDCardUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -19,11 +16,8 @@ import com.xiaomiquan.mvp.databinder.circle.ReleaseArticleBinder;
 import com.xiaomiquan.mvp.delegate.circle.ReleaseArticleDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
 import com.xiaomiquan.utils.glide.GlideUtils;
-import com.xiaomiquan.widget.circle.PhotoPopupWindow;
 import com.yanzhenjie.album.Action;
-import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
-import com.yanzhenjie.durban.Controller;
 import com.yanzhenjie.durban.Durban;
 
 import java.io.File;

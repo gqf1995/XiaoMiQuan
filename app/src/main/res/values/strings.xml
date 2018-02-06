@@ -240,7 +240,9 @@
     <string name="str_ck_free">免费</string>
     <string name="str_ck_charge">收费</string>
     <string name="str_ck_agree">我已阅读并同意</string>
-    <string name="str_tv_rule">《阅读规则》</string>
+    <string name="str_tv_rule">《圈主规则》</string>
+    <string name="str_tv_to_info">进入详情></string>
+    <string name="str_tv_treaty">包含时政、新闻、盗版、低俗、色情、暴力、引诱等内容的圈子，将会被封停圈子和账号。</string>
     <string name="str_tv_next">下一步</string>
     <string name="str_tv_upload">传圈子头</string>
     <string name="str_et_cirlcename">填写圈子名称</string>
@@ -293,6 +295,17 @@
     <string name="str_tv_sub">评论</string>
     <string name="str_tv_free">免费</string>
     <string name="str_tv_creat">创建</string>
+    <string name="str_tv_recomment">回复</string>
+    <string name="str_title_bigv">推荐大V</string>
+    <string name="str_tv_have">已有</string>
+    <string name="str_tv_reminder">加入圈子查看完整内容</string>
+    <string name="str_tv_pay_title">付费须知</string>
+    <string name="str_tv_free_brief">该圈子为免费圈子，点击加入后可以查看所有内容。</string>
+    <string name="str_tv_pay_brief">该圈子为付费圈子，收费为1ETH每年。如需加入圈子，请点击以下按钮前去付款。</string>
+    <string name="str_tv_join">立即加入</string>
+    <string name="str_tv_code">我有加圈码</string>
+    <string name="str_title_create_circle">创建圈子</string>
+    <string name="str_toast_user">请阅读用户规范</string>
 
 
     <string-array name="price">

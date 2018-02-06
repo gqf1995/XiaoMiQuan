@@ -103,8 +103,8 @@ public class UiHeplUtils {
      */
     public static int[] cacularWidAndHei(Context context, @DimenRes int paddingRes, int viewNum, int relWith, int relHei) {
         int[] size = new int[2];
-        int width=(int)CommonUtils.getDimensionPixelSize(relWith);
-        int hight=(int)CommonUtils.getDimensionPixelSize(relHei);
+        int width = (int) CommonUtils.getDimensionPixelSize(relWith);
+        int hight = (int) CommonUtils.getDimensionPixelSize(relHei);
         int paddingValue = context.getResources().getDimensionPixelSize(paddingRes);
         int screenWidth = getScreenW(context, false);
         int viewWidth = (screenWidth - paddingValue) / viewNum;
@@ -116,8 +116,8 @@ public class UiHeplUtils {
 
     public static int[] cacularWidAndHei(Context context, @DimenRes int widthRes, @DimenRes int paddingRes, int viewNum, int relWith, int relHei) {
         int[] size = new int[2];
-        int width=(int)CommonUtils.getDimensionPixelSize(relWith);
-        int hight=(int)CommonUtils.getDimensionPixelSize(relHei);
+        int width = (int) CommonUtils.getDimensionPixelSize(relWith);
+        int hight = (int) CommonUtils.getDimensionPixelSize(relHei);
         int paddingValue = context.getResources().getDimensionPixelSize(paddingRes);
         int screenWidth = getScreenW(context, false) - context.getResources().getDimensionPixelSize(widthRes);
         int viewWidth = (screenWidth - paddingValue) / viewNum;

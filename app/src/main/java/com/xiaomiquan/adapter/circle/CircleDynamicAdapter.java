@@ -15,6 +15,7 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.CoinIndex;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.utils.glide.GlideUtils;
@@ -63,6 +64,13 @@ public class CircleDynamicAdapter extends CommonAdapter<SquareLive> {
         this.context = context;
         dataBind = baseDataBind;
     }
+
+    public void setDatas(List<SquareLive> datas) {
+        this.mDatas.clear();
+        this.mDatas.addAll(datas);
+        this.notifyDataSetChanged();
+    }
+
 
     @Override
     protected void convert(ViewHolder holder, final SquareLive s, final int position) {

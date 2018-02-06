@@ -51,7 +51,7 @@ public class BigVListActivity extends BaseDataBindActivity<BigVListDelegate, Big
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle("推荐大V"));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_bigv)));
         initTablelayout();
     }
 

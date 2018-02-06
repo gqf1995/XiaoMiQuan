@@ -50,6 +50,12 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
         dataBind = baseDataBind;
     }
 
+    public void setDatas(List<SquareLive> datas) {
+        this.mDatas.clear();
+        this.mDatas.addAll(datas);
+        this.notifyDataSetChanged();
+    }
+
     @Override
     protected void convert(ViewHolder holder, final SquareLive s, final int position) {
         ic_pic = holder.getView(R.id.ic_pic);
@@ -76,8 +82,8 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
 
         tv_time.setText(s.getCreateTimeStr());
         tv_title.setText(s.getTitle());
-        tv_comment_num.setText(s.getCommentCount()+"");
-        tv_praise_num.setText(s.getGoodCount()+"");
+        tv_comment_num.setText(s.getCommentCount() + "");
+        tv_praise_num.setText(s.getGoodCount() + "");
         GlideUtils.loadImage(s.getImg(), ic_pic);
         GlideUtils.loadImage(s.getAvatar(), cv_head);
 

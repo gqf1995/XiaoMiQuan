@@ -18,9 +18,16 @@
         android:textColor="@color/color_font2"
         android:textSize="@dimen/trans_28px" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/pull_recycleview"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none" />
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/pull_recycleview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
