@@ -81,15 +81,6 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
     }
 
     @Override
-    protected void onFragmentVisibleChange(boolean isVisible) {
-        if (isVisible) {
-            onRefresh();
-        } else {
-            binder.cancelpost();
-        }
-    }
-
-    @Override
     protected void onFragmentFirstVisible() {
         squareLiveList = new ArrayList<>();
         initCircleTopic(squareLiveList);
@@ -109,77 +100,89 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
      * @param userCircles
      */
     private void initMyCircle(final List<UserCircle> userCircles) {
-        UserCircle userCircle = new UserCircle();
-        userCircle.setName("添加圈子");
-        userCircles.add(0, userCircle);
-        circleMyAdapter = new CircleMyAdapter(getActivity(), userCircles);
-        circleMyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                if (position != 0) {
-                    CircleContentActivity.startAct(getActivity(), userCircles.get(position));
-                } else {
-                    initPop();
+        if (circleMyAdapter == null) {
+            onRefresh();
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+            UserCircle userCircle = new UserCircle();
+            userCircle.setName("添加圈子");
+            userCircles.add(0, userCircle);
+            circleMyAdapter = new CircleMyAdapter(getActivity(), userCircles);
+            circleMyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    if (position != 0) {
+                        CircleContentActivity.startAct(getActivity(), userCircles.get(position));
+                    } else {
+                        initPop();
+                    }
                 }
-            }
 
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
 
-                return false;
-            }
-        });
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        viewDelegate.viewHolder.rv_mycircle.setLayoutManager(gridLayoutManager);
-        viewDelegate.viewHolder.rv_mycircle.setItemAnimator(new DefaultItemAnimator());
-        viewDelegate.viewHolder.rv_mycircle.setAdapter(circleMyAdapter);
+                    return false;
+                }
+            });
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            viewDelegate.viewHolder.rv_mycircle.setLayoutManager(gridLayoutManager);
+            viewDelegate.viewHolder.rv_mycircle.setItemAnimator(new DefaultItemAnimator());
+            viewDelegate.viewHolder.rv_mycircle.setAdapter(circleMyAdapter);
+        } else {
+            circleMyAdapter.setDatas(userCircles);
+        }
     }
 
     private void initCircleTopic(final List<SquareLive> squareLives) {
-        circleDynamicAdapter = new CircleDynamicAdapter(binder, getActivity(), squareLives);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        circleDynamicAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                if (squareLives.get(position).getType().equals("1")) {
-                    ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
-                } else {
-                    TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+        if (circleDynamicAdapter == null) {
+            onRefresh();
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+            circleDynamicAdapter = new CircleDynamicAdapter(binder, getActivity(), squareLives);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
                 }
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
-        });
-        circleDynamicAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
-            @Override
-            public void onClick(View view, final int position, Object item) {
-                if (view.getId() == R.id.tv_comment) {
+            };
+            circleDynamicAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
                     if (squareLives.get(position).getType().equals("1")) {
                         ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
                     } else {
                         TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
                     }
                 }
-                if (view.getId() == R.id.cv_head) {
-                    UserInfoActivity.startAct(getActivity(), squareLives.get(position));
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
                 }
-            }
-        });
-        viewDelegate.viewHolder.rv_circle.setLayoutManager(linearLayoutManager);
-        viewDelegate.viewHolder.rv_circle.setAdapter(circleDynamicAdapter);
+            });
+            circleDynamicAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, final int position, Object item) {
+                    if (view.getId() == R.id.tv_comment) {
+                        if (squareLives.get(position).getType().equals("1")) {
+                            ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
+                        } else {
+                            TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+                        }
+                    }
+                    if (view.getId() == R.id.cv_head) {
+                        UserInfoActivity.startAct(getActivity(), squareLives.get(position));
+                    }
+                }
+            });
+            viewDelegate.viewHolder.rv_circle.setLayoutManager(linearLayoutManager);
+            viewDelegate.viewHolder.rv_circle.setAdapter(circleDynamicAdapter);
+        } else {
+            circleDynamicAdapter.setDatas(squareLives);
+        }
 
     }
 

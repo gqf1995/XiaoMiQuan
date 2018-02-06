@@ -51,6 +51,8 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_release_dynamic)).setSubTitle(CommonUtils.getString(R.string.str_release)));
         getIntentData();
         initView();
+
+
         if (isFirst) {
             ArrayList<AlbumFile> path = new ArrayList<>();
             initImg(path);
@@ -124,7 +126,7 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                 if (position == 0) {
                     if (releaseDynamicAdapter.albumFiles.size() < 7) {
-                        initPop(7-releaseDynamicAdapter.albumFiles.size());
+                        initPop(7 - releaseDynamicAdapter.albumFiles.size());
                     } else {
                         ToastUtil.show(CommonUtils.getString(R.string.str_rv_img));
                     }

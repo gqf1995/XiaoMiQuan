@@ -35,6 +35,12 @@ public class CommentDetailAdapter extends CommonAdapter<Comment> {
         super(context, R.layout.adapter_details_comment, datas);
     }
 
+    public void setDatas(List<Comment> datas) {
+        this.mDatas.clear();
+        this.mDatas.addAll(datas);
+        this.notifyDataSetChanged();
+    }
+
     @Override
     protected void convert(ViewHolder holder, Comment comment, int position) {
         cv_head = holder.getView(R.id.cv_head);

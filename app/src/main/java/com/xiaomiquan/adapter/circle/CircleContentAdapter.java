@@ -12,6 +12,7 @@ import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.entity.bean.circle.UserFriende;
 import com.xiaomiquan.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -54,6 +55,12 @@ public class CircleContentAdapter extends CommonAdapter<SquareLive> {
     public CircleContentAdapter(Context context, List<SquareLive> datas) {
         super(context, R.layout.adapter_circle_con, datas);
         this.context = context;
+    }
+
+    public void setDatas(List<SquareLive> datas) {
+        this.mDatas.clear();
+        this.mDatas.addAll(datas);
+        this.notifyDataSetChanged();
     }
 
     @Override

@@ -287,10 +287,6 @@ public class HttpUrl {
      * 发帖子
      */
     public String getDetails = httpBaseUrl3 + "/articleTopic/detail";
-    /**
-     * 获取资讯
-     */
-    public String getNews = httpBaseUrl3+ "/articleTopic/getNews";
 
 
 
@@ -454,5 +450,23 @@ public class HttpUrl {
      * 获取关注列表
      */
     public String getAttention = httpBaseUrl3+ "/user/listMyAttentionByPage";
+
+    /**
+     * 获取资讯
+     */
+    public String getNews = httpBaseUrl3+ "/news/list";
+    /**
+     * 利好
+     */
+    public String saveNews = httpBaseUrl3 + "/news/like";
+    /**
+     * 获取评论回复
+     */
+    public String getNewsComment = httpBaseUrl3 + "/news/comment/list";
+    /**
+     * 评论回复
+     */
+    public String reComment = httpBaseUrl3 + "/news/comment/add";
+
 
 }

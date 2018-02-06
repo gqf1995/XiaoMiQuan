@@ -10,27 +10,31 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xiaomiquan.R;
+
+import skin.support.widget.SkinCompatCheckBox;
 
 /**
  * Created by Andy on 2018/1/24.
  */
 
-public class PhotoPopupWindow extends PopupWindow implements View.OnClickListener {
+public class CreatPopupWindow extends PopupWindow implements View.OnClickListener {
 
-    private Button btn_camera,btn_photo,btn_cancel;
     private View mPopView;
     private OnItemClickListener mListener;
+    public SkinCompatCheckBox ck_agree;
+    private TextView tv_rule;
+    private TextView tv_next;
+    private LinearLayout lin_pop;
 
-    public PhotoPopupWindow(Context context) {
+    public CreatPopupWindow(Context context) {
         super(context);
         // TODO Auto-generated constructor stub
         init(context);
         setPopupWindow();
-        btn_camera.setOnClickListener(this);
-        btn_photo.setOnClickListener(this);
-        btn_cancel.setOnClickListener(this);
+        tv_next.setOnClickListener(this);
 
     }
 
@@ -44,10 +48,8 @@ public class PhotoPopupWindow extends PopupWindow implements View.OnClickListene
         LayoutInflater inflater = LayoutInflater.from(context);
         //绑定布局
         mPopView = inflater.inflate(R.layout.popup_photo_layout, null);
-        btn_camera = (Button) mPopView.findViewById(R.id.btn_camera);
-        btn_photo = (Button) mPopView.findViewById(R.id.btn_photo);
-        btn_cancel = (Button) mPopView.findViewById(R.id.btn_cancel);
-
+        ck_agree = (SkinCompatCheckBox) mPopView.findViewById(R.id.ck_agree);
+        tv_next = (TextView) mPopView.findViewById(R.id.tv_next);
     }
 
     /**

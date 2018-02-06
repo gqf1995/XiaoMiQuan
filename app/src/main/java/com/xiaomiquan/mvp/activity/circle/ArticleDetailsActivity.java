@@ -74,13 +74,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
                 break;
             case 0x126:
                 Praise praise = GsonUtil.getInstance().toObj(data, Praise.class);
-                if (praise.getIspraise()) {
-                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                } else {
-                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
-                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
-                }
+
                 viewDelegate.viewHolder.tv_praise_num.setText(praise.getPraiseQty());
                 break;
             case 0x127:
@@ -104,8 +98,8 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
         }
         GlideUtils.loadImage(square.getImg(), viewDelegate.viewHolder.iv_banner);
         GlideUtils.loadImage(square.getAvatar(), viewDelegate.viewHolder.cv_head);
-        viewDelegate.viewHolder.tv_comment_num.setText(square.getCommentCount()+"");
-        viewDelegate.viewHolder.tv_praise_num.setText(square.getGoodCount()+"");
+        viewDelegate.viewHolder.tv_comment_num.setText(square.getCommentCount() + "");
+        viewDelegate.viewHolder.tv_praise_num.setText(square.getGoodCount() + "");
         viewDelegate.viewHolder.tv_time.setText(square.getCreateTimeStr());
         viewDelegate.viewHolder.tv_con.setText(Html.fromHtml(square.getContent()));
         viewDelegate.viewHolder.tv_name.setText(square.getNickName());
@@ -120,25 +114,32 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     CommentDetailAdapter commentAdapter;
 
     private void initComment(final List<Comment> comment) {
-        commentAdapter = new CommentDetailAdapter(mContext, comment);
-        viewDelegate.viewHolder.rv_comment.setLayoutManager(new LinearLayoutManager(mContext) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-        commentAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                initPop(false, comment.get(position).getCommentUserId(), comment.get(position).getNickName());
-            }
 
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
-        });
-        viewDelegate.viewHolder.rv_comment.setAdapter(commentAdapter);
+        if (commentAdapter == null) {
+            onRefresh();
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+            commentAdapter = new CommentDetailAdapter(mContext, comment);
+            viewDelegate.viewHolder.rv_comment.setLayoutManager(new LinearLayoutManager(mContext) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            commentAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
+                    initPop(false, comment.get(position).getCommentUserId(), comment.get(position).getNickName());
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
+            viewDelegate.viewHolder.rv_comment.setAdapter(commentAdapter);
+        } else {
+            commentAdapter.setDatas(comment);
+        }
     }
 
     SquareLive squareLive;
@@ -162,7 +163,19 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_praise:
-                addRequest(binder.savePraise(squareLive.getId(), ArticleDetailsActivity.this));
+                if (squareLive.isUserPraise()) {
+                    squareLive.setUserPraise(false);
+                    squareLive.setGoodCount(squareLive.getGoodCount() - 1);
+                    viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
+                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                } else {
+                    squareLive.setUserPraise(true);
+                    squareLive.setGoodCount(squareLive.getGoodCount() + 1);
+                    viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
+                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                }
                 break;
             case R.id.tv_comment:
                 initPop(true, "", "");
@@ -195,9 +208,9 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
             }
         });
         if (comment) {
-            commentPopupWindow.et_input2.setHint("评论");
+            commentPopupWindow.et_input2.setHint(CommonUtils.getString(R.string.str_tv_sub));
         } else {
-            commentPopupWindow.et_input2.setHint("回复" + reName);
+            commentPopupWindow.et_input2.setHint(CommonUtils.getString(R.string.str_tv_recomment) + reName);
         }
         commentPopupWindow.showAtLocation(viewDelegate.viewHolder.lin_comment, Gravity.BOTTOM, 0, 0);
         //弹出键盘

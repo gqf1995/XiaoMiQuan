@@ -53,13 +53,6 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="由"
-                                android:textColor="@color/color_font2"
-                                android:textSize="@dimen/text_trans_28px" />
-
-                            <TextView
                                 android:id="@+id/tv_creator"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -70,14 +63,15 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="创建，"
+                                android:text="@string/str_tv_creat"
                                 android:textColor="@color/color_font2"
                                 android:textSize="@dimen/text_trans_28px" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="已有"
+                                android:layout_marginLeft="@dimen/trans_20px"
+                                android:text="@string/str_tv_have"
                                 android:textColor="@color/color_font2"
                                 android:textSize="@dimen/text_trans_28px" />
 
@@ -92,7 +86,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="人加入"
+                                android:text="@string/str_tv_peoplenum"
                                 android:textColor="@color/color_font2"
                                 android:textSize="@dimen/text_trans_28px" />
                         </LinearLayout>
@@ -133,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="@dimen/trans_5px"
-                android:text="加入圈子查看完整内容"
+                android:text="@string/str_tv_reminder"
                 android:textColor="@color/color_font3"
                 android:textSize="@dimen/trans_28px" />
 
@@ -145,13 +139,13 @@
                 android:background="@color/base_mask"
                 android:orientation="vertical"
                 android:padding="@dimen/trans_20px"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="付费须知"
+                    android:text="@string/str_tv_pay_title"
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/trans_28px" />
 
@@ -159,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/trans_18px"
-                    android:text="该圈子为付费圈子，收费为1ETH每年。如需加入圈子，请点击以下按钮前去付款。"
+                    android:text="@string/str_tv_pay_brief"
                     android:textColor="@color/color_font2"
                     android:textSize="@dimen/trans_28px" />
 
@@ -178,7 +172,7 @@
                         android:background="@color/color_blue"
                         android:gravity="center"
                         android:padding="@dimen/trans_10px"
-                        android:text="付款加入"
+                        android:text="@string/str_tv_join"
                         android:textColor="@color/white"
                         android:textSize="@dimen/trans_32px" />
 
@@ -195,7 +189,7 @@
                         android:background="@color/color_blue"
                         android:gravity="center"
                         android:padding="@dimen/trans_10px"
-                        android:text="我有加圈码"
+                        android:text="@string/str_tv_code"
                         android:textColor="@color/white"
                         android:textSize="@dimen/trans_32px" />
 
@@ -217,7 +211,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="付费须知"
+                    android:text="@string/str_tv_pay_title"
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/trans_28px" />
 
@@ -225,7 +219,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/trans_18px"
-                    android:text="该圈子为免费圈子，点击加入后可以查看所有内容。"
+                    android:text="@string/str_tv_free_brief"
                     android:textColor="@color/color_font2"
                     android:textSize="@dimen/trans_28px" />
 
@@ -238,7 +232,7 @@
                     android:layout_marginTop="@dimen/trans_40px"
                     android:background="@color/color_blue"
                     android:padding="@dimen/trans_15px"
-                    android:text="立即加入"
+                    android:text="@string/str_tv_join"
                     android:textColor="@color/white" />
             </LinearLayout>
 

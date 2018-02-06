@@ -1,10 +1,10 @@
 package com.xiaomiquan.mvp.delegate.circle;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.xiaomiquan.R;
 
@@ -24,14 +24,16 @@ public class NewsDelegate extends BaseMyPullDelegate {
 
     public static class ViewHolder {
         public View rootView;
+
         public TextView tv_time;
         public RecyclerView pull_recycleview;
+        public SwipeRefreshLayout swipeRefreshLayout;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-
             this.tv_time = (TextView) rootView.findViewById(R.id.tv_time);
             this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
+            this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         }
 
     }
