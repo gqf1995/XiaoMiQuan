@@ -14,9 +14,11 @@ import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleDynamicAdapter;
 import com.xiaomiquan.adapter.circle.CircleMyAdapter;
+import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
 import com.xiaomiquan.mvp.activity.circle.CircleContentActivity;
 import com.xiaomiquan.mvp.activity.circle.CreatCircleActivity;
@@ -41,10 +43,13 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
     CircleDynamicAdapter circleDynamicAdapter;
     List<SquareLive> squareLiveList;
     List<UserCircle> userCircleList;
+    UserLogin userLogin;
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        userLogin = SingSettingDBUtil.getUserLogin();
+
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -90,8 +95,13 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
 
     @Override
     protected void refreshData() {
-        addRequest(binder.getCircleTopic(this));
-        addRequest(binder.getMyCircle(this));
+        if (userLogin != null) {
+            addRequest(binder.getCircleTopic(this));
+            addRequest(binder.getMyCircle(this));
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+        } else {
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     /**

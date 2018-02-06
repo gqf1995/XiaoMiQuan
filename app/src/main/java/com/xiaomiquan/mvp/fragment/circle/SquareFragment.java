@@ -17,8 +17,10 @@ import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
 import com.xiaomiquan.adapter.circle.SquareShortCutAdapter;
+import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.circle.ArticleActivity;
 import com.xiaomiquan.mvp.activity.circle.BigVListActivity;
 import com.xiaomiquan.mvp.activity.circle.LiveActivity;
@@ -42,6 +44,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
     SquareShortCutAdapter squareShortCutAdapter;
     SquareLiveAdapter squareLiveAdapter;
+    UserLogin userLogin;
 
     @Override
     protected Class<SquareDelegate> getDelegateClass() {
@@ -56,6 +59,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        userLogin = SingSettingDBUtil.getUserLogin();
         initShortCut();
         floatBtn();
         viewDelegate.viewHolder.lin_live.setOnClickListener(this);
@@ -89,7 +93,12 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
     @Override
     protected void refreshData() {
-        addRequest(binder.getLive(this));
+        if (userLogin != null) {
+            addRequest(binder.getLive(this));
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+        } else {
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     List<SquareLive> squareLives;

@@ -38,29 +38,6 @@ public class NewsBinder extends BaseDataBind<NewsDelegate> {
     }
 
     /**
-     * 点赞
-     */
-    public Disposable savePraise(
-            String linkId,
-            RequestCallback requestCallback) {
-        getBaseMapWithUid();
-        baseMap.put("linkId", linkId);
-        return new HttpRequest.Builder()
-                .setRequestCode(0x127)
-                .setRequestUrl(HttpUrl.getIntance().savePraise)
-                .setShowDialog(true)
-                .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("点赞")
-                .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.Json)
-                .setRequestObj(baseMap)
-                .setRequestCallback(requestCallback)
-                .build()
-                .RxSendRequest();
-
-    }
-
-    /**
      * 获取资讯
      */
     public Disposable getNews(
@@ -69,7 +46,7 @@ public class NewsBinder extends BaseDataBind<NewsDelegate> {
         baseMap.put("pageNum", viewDelegate.page);
         baseMap.put("pageSize", viewDelegate.pagesize);
         return new HttpRequest.Builder()
-                .setRequestCode(0x123)
+                .setRequestCode(0x124)
                 .setRequestUrl(HttpUrl.getIntance().getNews)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
@@ -83,5 +60,30 @@ public class NewsBinder extends BaseDataBind<NewsDelegate> {
 
     }
 
+    /**
+     * 利好
+     */
+    public Disposable saveLike(
+            String userId,
+            String newsId,
+            String like,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("userId", userId);
+        baseMap.put("newsId", newsId);
+        baseMap.put("like", like);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().saveNews)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("利好")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
 
+    }
 }
