@@ -2,6 +2,7 @@ package com.xiaomiquan.mvp.delegate;
 
 import android.graphics.Matrix;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,10 +45,31 @@ public class CombinationDelegate extends BaseDelegate {
     }
 
     public void initRate(String data) {
-        double monthRate = Double.parseDouble(GsonUtil.getInstance().getValue(data, "monthRate"));
-        double totalRate = Double.parseDouble(GsonUtil.getInstance().getValue(data, "totalRate"));
-        double weekRate = Double.parseDouble(GsonUtil.getInstance().getValue(data, "weekRate"));
-        double yesterdayRate = Double.parseDouble(GsonUtil.getInstance().getValue(data, "yesterdayRate"));
+        String monthRate1 = GsonUtil.getInstance().getValue(data, "monthRate");
+        String weekRate1 = GsonUtil.getInstance().getValue(data, "weekRate");
+        String yesterdayRate1 = GsonUtil.getInstance().getValue(data, "yesterdayRate");
+        String totalRate1 = GsonUtil.getInstance().getValue(data, "totalRate");
+        double monthRate, totalRate, weekRate, yesterdayRate;
+        if (!TextUtils.isEmpty(monthRate1)) {
+            monthRate = Double.parseDouble(monthRate1);
+        } else {
+            monthRate = 0;
+        }
+        if (!TextUtils.isEmpty(totalRate1)) {
+            totalRate = Double.parseDouble(totalRate1);
+        } else {
+            totalRate = 0;
+        }
+        if (!TextUtils.isEmpty(weekRate1)) {
+            weekRate = Double.parseDouble(weekRate1);
+        } else {
+            weekRate = 0;
+        }
+        if (!TextUtils.isEmpty(yesterdayRate1)) {
+            yesterdayRate = Double.parseDouble(yesterdayRate1);
+        } else {
+            yesterdayRate = 0;
+        }
         BigUIUtil.getinstance().rateTextView(monthRate, viewHolder.tv_month_earnings);
         BigUIUtil.getinstance().rateTextView(totalRate, viewHolder.tv_cumulative_earnings);
         BigUIUtil.getinstance().rateTextView(weekRate, viewHolder.tv_week_earnings);

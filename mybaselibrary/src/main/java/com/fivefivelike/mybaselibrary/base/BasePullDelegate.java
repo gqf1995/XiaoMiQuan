@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public abstract class BasePullDelegate extends BaseDelegate {
     private LoadingListItemCreator loadingListItemCreator;
     private int headerCount = 0;//头布局数量
     private View.OnClickListener noDataClickListener;
+
+    private int noDataImgId = 0;
 
     /**
      * 下拉刷新控件
@@ -179,6 +182,9 @@ public abstract class BasePullDelegate extends BaseDelegate {
         if (!TextUtils.isEmpty(noDataTxt)) {
             ((TextView) mFootView.findViewById(R.id.tv_nodata)).setText(noDataTxt);
         }
+        if (noDataImgId != 0) {
+            ((ImageView) mFootView.findViewById(R.id.ic_nodata)).setBackgroundResource(noDataImgId);
+        }
     }
 
     /**
@@ -242,7 +248,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
     }
 
     public TextView getNoDataText() {
-        return (TextView) mFootView.findViewById(R.id.no_data);
+        return (TextView) mFootView.findViewById(R.id.tv_nodata);
     }
 
     /**
@@ -310,5 +316,9 @@ public abstract class BasePullDelegate extends BaseDelegate {
 
     public void setNoDataTxt(String noDataTxt) {
         this.noDataTxt = noDataTxt;
+    }
+
+    public void setNoDataImgId(int noDataImgId) {
+        this.noDataImgId = noDataImgId;
     }
 }

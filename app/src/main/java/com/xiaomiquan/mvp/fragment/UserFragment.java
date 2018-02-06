@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
@@ -22,6 +23,7 @@ import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.CircleDialogHelper;
 
 import static android.app.Activity.RESULT_OK;
+import static com.xiaomiquan.base.AppConst.serviceId;
 
 /**
  * 个人中心
@@ -34,6 +36,18 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
     public void onResume() {
         super.onResume();
 
+    }
+
+    public interface Linsener {
+        void logout();
+    }
+
+    Linsener linsener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        linsener = (Linsener) activity;
     }
 
     @Override
@@ -89,7 +103,9 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 break;
             case R.id.lin_set0:
                 //我的个人主页
-                UserHomePageActivity.startAct(getActivity(), userLogin.getId() + "");
+                if (SingSettingDBUtil.isLogin(getActivity())) {
+                    UserHomePageActivity.startAct(getActivity(), userLogin.getId() + "");
+                }
                 break;
             case R.id.lin_set3:
                 //显示默认价格
@@ -97,7 +113,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 break;
             case R.id.lin_set4:
                 //在线客服
-                gotoActivity(ConversationActivity.class).startAct();
+                ConversationActivity.startAct(getActivity(), ConversationActivity.conversation_service,serviceId);
                 break;
             case R.id.lin_set5:
                 //推荐给朋友
@@ -137,6 +153,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
             @Override
             public void onClick(View v) {
                 SingSettingDBUtil.logout();
+                linsener.logout();
                 //退出登录接口
                 addRequest(binder.loginOut());
                 gotoActivity(LoginAndRegisteredActivity.class).setIsFinish(true).startAct();

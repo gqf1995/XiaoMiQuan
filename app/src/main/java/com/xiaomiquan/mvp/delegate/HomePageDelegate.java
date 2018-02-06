@@ -28,8 +28,10 @@ public class HomePageDelegate extends BaseActivityPullDelegate {
                 mDistance += dy;
                 float scale = mDistance * 1f / height;//百分比
                 int alpha = (int) (scale * 255);
+                if (alpha > 255) {
+                    alpha = 255;
+                }
                 getLayoutTitleBar().setVisibility(View.VISIBLE);
-
                 if (mDistance <= height) {
                     // 随着滑动距离改变透明度
                     // Log.e("al=","="+alpha);

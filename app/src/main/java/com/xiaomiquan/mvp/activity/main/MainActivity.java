@@ -9,12 +9,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.text.TextUtils;
 
 import com.blankj.utilcode.util.DeviceUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.UserLogin;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.databinder.MainBinder;
+import com.xiaomiquan.mvp.delegate.IMDelegate;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
@@ -24,10 +28,16 @@ import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.HandlerHelper;
 import com.xiaomiquan.utils.PingUtil;
+import com.xiaomiquan.utils.glide.GlideUtils;
 
-public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener {
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
+
+public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener,UserFragment.Linsener {
 
     String uid;
+    UserLogin userLogin;
 
     @Override
     protected Class<MainDelegate> getDelegateClass() {
@@ -79,8 +89,8 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     }
 
     public void initSocket() {
-        String ip=HttpUrl.getBaseUrl().substring(5,HttpUrl.getBaseUrl().length()-6);
-        WebSocketRequest.getInstance().intiWebSocket("ws:"+ip+":1903/ws/" + uid, this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
+        String ip = HttpUrl.getBaseUrl().substring(5, HttpUrl.getBaseUrl().length() - 6);
+        WebSocketRequest.getInstance().intiWebSocket("ws:" + ip + ":1903/ws/" + uid, this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
             @Override
             public void onDataSuccess(String name, String data, String info, int status) {
 
@@ -116,6 +126,37 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         super.onDestroy();
     }
 
+    IMDelegate.IMLinsener imLinsener = new IMDelegate.IMLinsener() {
+        @Override
+        public void ImError() {
+
+        }
+
+        @Override
+        public void ImSuccess() {
+            if (userLogin != null) {
+                //添加用户信息 到消息体中
+                RongIM.getInstance().setCurrentUserInfo(new UserInfo(userLogin.getId() + "u", userLogin.getNickName(), Uri.parse(GlideUtils.getBaseUrl() + userLogin.getAvatar())));
+            }
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initIm();
+    }
+
+    private void initIm() {
+        userLogin = SingSettingDBUtil.getUserLogin();
+        if (userLogin != null) {
+            if(!TextUtils.isEmpty(userLogin.getImToken())) {
+                viewDelegate.setImLinsener(imLinsener);
+                binder.connect(userLogin.getImToken());
+            }
+        }
+    }
+
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
@@ -127,6 +168,12 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
 
                 break;
         }
+    }
+
+    @Override
+    public void logout() {
+        RongIMClient.getInstance().logout();
+        RongIM.getInstance().logout();
     }
 
     public void ignoreBatteryOptimization(Activity activity) {

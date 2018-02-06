@@ -9,11 +9,10 @@ import static com.xiaomiquan.base.AppConst.httpBaseUrl;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl2;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl3;
 import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
-import static com.xiaomiquan.base.AppConst.httpBaseUrl6;
 import static com.xiaomiquan.base.AppConst.isEditUrl;
 
 /**
- * *Created by 郭青枫 on 2018/1/10 0010.
+ * Created by 郭青枫 on 2018/1/10 0010.
  */
 
 public class HttpUrl {
@@ -27,7 +26,7 @@ public class HttpUrl {
         return httpUrl;
     }
 
-    public static final String baseUrl = httpBaseUrl6;
+    public static final String baseUrl = httpBaseUrl;
 
     public static String getBaseUrl() {
         if (isEditUrl) {
@@ -79,31 +78,35 @@ public class HttpUrl {
     /**
      * 用户注册发送验证码
      */
-    public String sendCodeForRegister = httpBaseUrl6 + userUrl + "/sendCodeForRegister";
+    public String sendCodeForRegister = httpBaseUrl3 + userUrl + "/sendCodeForRegister";
     /**
      * 用户注册
      */
-    public String saveUser = httpBaseUrl6 + userUrl + "/saveUser";
+    public String saveUser = httpBaseUrl3 + userUrl + "/saveUser";
     /**
      * 用户登录
      */
-    public String userLogin = httpBaseUrl6 + userUrl + "/userLogin";
+    public String userLogin = httpBaseUrl3 + userUrl + "/userLogin";
     /**
      * 用户找回密码发送短信
      */
-    public String sendCodeForForgotPassWord = httpBaseUrl6 + userUrl + "/sendCodeForForgotPassWord";
+    public String sendCodeForForgotPassWord = httpBaseUrl3 + userUrl + "/sendCodeForForgotPassWord";
     /**
      * 用户找回密码
      */
-    public String retrievePassword = httpBaseUrl6 + userUrl + "/retrievePassword";
+    public String retrievePassword = httpBaseUrl3 + userUrl + "/retrievePassword";
     /**
      * 用户登出
      */
-    public String loginOut = httpBaseUrl6 + userUrl + "/loginOut";
+    public String loginOut = httpBaseUrl3 + userUrl + "/loginOut";
     /**
      * 用户信息修改
      */
-    public String editUserInfo = httpBaseUrl6 + userUrl + "/editUserInfo";
+    public String editUserInfo = httpBaseUrl3 + userUrl + "/editUserInfo";
+    /**
+     * 获取用户主页信息
+     */
+    public String personCenter = httpBaseUrl3 + userUrl + "/personCenter";
 
     /**
      * 行情
@@ -153,7 +156,8 @@ public class HttpUrl {
     /**
      * 币种资料
      */
-    public String getSymbolInfomation = httpBaseUrl6 + dataUrl + "/getSymbolInfomation";
+    public String getSymbolInfomation = httpBaseUrl3 + dataUrl + "/getSymbolInfomation";
+
 
 
     /**
@@ -163,27 +167,29 @@ public class HttpUrl {
     /**
      * 点击横栏上交易所或币种显示信息
      */
-    public String show = httpBaseUrl6 + subsUrl + "/operate/show";
+    public String show = httpBaseUrl3 + subsUrl + "/operate/show";
     /**
      * 点击横栏上交易所或币种显示信息
      */
-    public String subs = httpBaseUrl6 + subsUrl + "/operate/subs";//onlykey
+    public String subs = httpBaseUrl3 + subsUrl + "/operate/subs";//onlykey
     /**
      * 点击横栏上交易所或币种显示信息
      */
-    public String unsubs = httpBaseUrl6 + subsUrl + "/operate/unsubs";
+    public String unsubs = httpBaseUrl3 + subsUrl + "/operate/unsubs";
     /**
      * 点击横栏上交易所或币种显示信息
      */
-    public String marketdata = httpBaseUrl6 + subsUrl + "/self/marketdata";
+    public String marketdata = httpBaseUrl3 + subsUrl + "/self/marketdata";
     /**
      * 单独订阅/取消
      */
-    public String singlesubs = httpBaseUrl6 + subsUrl + "/operate/singlesubs";
+    public String singlesubs = httpBaseUrl3 + subsUrl + "/operate/singlesubs";
     /**
      * 自定义排序
      */
-    public String order = httpBaseUrl6 + subsUrl + "/operate/order";
+    public String order = httpBaseUrl3 + subsUrl + "/operate/order";
+
+
     /**
      * websocket
      */
@@ -191,11 +197,98 @@ public class HttpUrl {
     /**
      * 订阅
      */
-    public String registerkeys = httpBaseUrl6 + apiUrl + "/registerkeys";
+    public String registerkeys = httpBaseUrl2 + apiUrl + "/registerkeys";
     /**
      * 取消订阅
      */
-    public String unregisterkeys = httpBaseUrl6 + apiUrl + "/unregisterkeys";
+    public String unregisterkeys = httpBaseUrl2 + apiUrl + "/unregisterkeys";
+
+    /**
+     * 圈子
+     */
+    String groupUrl = "/group";
+    /**
+     * 获取未加入圈子信息
+     */
+    public String getMoreCircle = httpBaseUrl4 + groupUrl + "/listMoreGroupByPage";
+    /**
+     * 获取加入圈子信息
+     */
+    public String getMyCircleInfo = httpBaseUrl4 + groupUrl + "/listGroupByPage";
+    /**
+     * 获取加入圈子信息
+     */
+    public String getCircleTopic = httpBaseUrl4 + "/articleTopic/listByPage";
+    /**
+     * 创建圈子
+     */
+    public String creatCircle = httpBaseUrl4 + "/group/saveGroup";
+    /**
+     * 修改圈子信息
+     */
+    public String editCircleInfo = httpBaseUrl4 + "/group/editGroup";
+    /**
+     * 生成邀请码
+     */
+    public String creatCircleCode = httpBaseUrl4 + "/group/createInviteCode";
+
+
+    /**
+     * 圈子申请
+     */
+    String groupMemberUrl = "/groupMember";
+
+    /**
+     * 申请加入圈子
+     */
+    public String joinCircle = httpBaseUrl4 + groupMemberUrl + "/applyJoinGroup";
+    /**
+     * 获取待审核入圈申请
+     */
+    public String Circlebanned = httpBaseUrl4 + "/group/banned";
+    /**
+     * 解除禁言所有人
+     */
+    public String CircleancelBanned = httpBaseUrl4 + "/group/cancelBanned";
+    /**
+     * 圈子成员
+     */
+    public String findMember = httpBaseUrl4 + "/groupMember/findAllMember";
+    /**
+     * 圈子成员禁言
+     */
+    public String memberBanned = httpBaseUrl4 + "/groupMember/banned";
+    /**
+     * 圈子成员解除禁言
+     */
+    public String memberuUnBanned = httpBaseUrl4 + "/groupMember/unbanned";
+
+
+    /**
+     * 同意审核入圈申请
+     */
+    public String agreeCircleApply = httpBaseUrl4 + groupMemberUrl + "/agreeJoinApply";
+    /**
+     * 邀请好友入圈
+     */
+    public String getSomeBodyIn = httpBaseUrl4 + groupMemberUrl + "/getSomeBodyIn";
+
+    /**
+     * 获得帖子
+     */
+    public String getUsertopic = httpBaseUrl4 + "/usertopic/list/group/usertopic";
+
+    /**
+     * 发帖子
+     */
+    public String saveArticle = httpBaseUrl4 + "/articleTopic/save";
+    /**
+     * 发帖子
+     */
+    public String getDetails = httpBaseUrl4 + "/articleTopic/detail";
+
+
+
 
     /**
      * 组合跟投
@@ -204,80 +297,77 @@ public class HttpUrl {
     /**
      * 我的组合列表
      */
-    public String listDemo = httpBaseUrl6 + demoUrl + "/listDemo";
+    public String listDemo = httpBaseUrl3 + demoUrl + "/listDemo";
     /**
      * 排行榜
      */
-    public String top = httpBaseUrl6 + demoUrl + "/top";
+    public String top = httpBaseUrl3 + demoUrl + "/top";
     /**
      * 创建组合
      */
-    public String save = httpBaseUrl6 + demoUrl + "/save";
+    public String save = httpBaseUrl3 + demoUrl + "/save";
     /**
      * 申请买卖
      */
-    public String deal = httpBaseUrl6 + demoUrl + "/deal";
+    public String deal = httpBaseUrl3 + demoUrl + "/deal";
     /**
      * 成交历史
      */
-    public String listDeal = httpBaseUrl6 + demoUrl + "/listDeal";
+    public String listDeal = httpBaseUrl3 + demoUrl + "/listDeal";
     /**
      * 委托历史
      */
-    public String history = httpBaseUrl6 + demoUrl + "/history";
+    public String history = httpBaseUrl3 + demoUrl + "/history";
     /**
      * 持仓明细
      */
-    public String listPosition = httpBaseUrl6 + demoUrl + "/listPosition";
+    public String listPosition = httpBaseUrl3 + demoUrl + "/listPosition";
     /**
      * 今日收益
      */
-    public String getTodayInfo = httpBaseUrl6 + demoUrl + "/getTodayInfo";
+    public String getTodayInfo = httpBaseUrl3 + demoUrl + "/getTodayInfo";
     /**
      * 分期收益
      */
-    public String adllRate = httpBaseUrl6 + demoUrl + "/adllRate";
+    public String allRate = httpBaseUrl3 + demoUrl + "/allRate";
     /**
      * 币种列表
      */
-    public String searchCoin = httpBaseUrl6 + demoUrl + "/searchCoin";
+    public String searchCoin = httpBaseUrl3 + demoUrl + "/searchCoin";
     /**
      * 持有币种列表
      */
-    public String myCoin = httpBaseUrl6 + demoUrl + "/myCoin";
+    public String myCoin = httpBaseUrl3 + demoUrl + "/myCoin";
     /**
      * 收益走势
      */
-    public String rateTrend = httpBaseUrl6 + demoUrl + "/rateTrend";
+    public String rateTrend = httpBaseUrl3 + demoUrl + "/rateTrend";
     /**
      * 日均操作次数
      */
-    public String getTransCount = httpBaseUrl6 + demoUrl + "/getTransCount";
+    public String getTransCount = httpBaseUrl3 + demoUrl + "/getTransCount";
     /**
      * 获取余额
      */
-    public String getBalance = httpBaseUrl6 + demoUrl + "/getBalance";
-
+    public String getBalance = httpBaseUrl3 + demoUrl + "/getBalance";
     /**
-     * 圈子
+     * 撤单
      */
-    String groupUrl = "/group";
-
+    public String cancel = httpBaseUrl3 + demoUrl + "/cancel";
     /**
-     * 获取用户加入圈子
+     * 关注组合
      */
-    public String getMyCircle = httpBaseUrl6 + groupUrl + "/listGroupByPage";
+    public String demoattention = httpBaseUrl3 + demoUrl + "/attention";
     /**
-     * 获取圈子动态
+     * 取消关注组合
      */
-    public String getCircleTopic = httpBaseUrl6 + "/articleTopic/listByPage";
+    public String cancelAttention = httpBaseUrl3 + demoUrl + "/cancelAttention";
     /**
-     * 获取圈子详情
+     * 我的关注
      */
-    public String getCircleInfo = httpBaseUrl6 + "/group/detail";
-
+    public String listAttentionDemo = httpBaseUrl3 + demoUrl + "/listAttentionDemo";
     /**
-     * 创建圈子
+     * 修改组合信息
      */
     public String creatCircle = httpBaseUrl6 + "/group/saveGroup";
     /**
@@ -383,37 +473,38 @@ public class HttpUrl {
     /**
      * 获取大V
      */
-    public String getBigVlist = httpBaseUrl6 + "/user/listBigVByPage";
+    public String getBigVlist = httpBaseUrl4 + "/user/listBigVByPage";
     /**
      * 关注
      */
-    public String attention = httpBaseUrl6 + "/userAttention/save";
+    public String attention = httpBaseUrl4 + "/userAttention/save";
     /**
-     * 取消关注
+     * 组合分享
      */
-    public String attentiondelete = httpBaseUrl6 + "/userAttention/delete";
+    public String articleSave = httpBaseUrl4 + "/save";
 
 
     /**
      * 获取文章
      */
-    public String getArticle = httpBaseUrl6 + "/articleTopic/listArticleByPage";
+    public String getArticle = httpBaseUrl4 + "/articleTopic/listArticleByPage";
     /**
      * 获取文章
      */
-    public String getCircleMore = httpBaseUrl6 + "/group/listMoreGroupByPage";
+    public String getCircleMore = httpBaseUrl4 + "/group/listMoreGroupByPage";
     /**
      * 获取用户主页信息
      */
-    public String getUserInfo = httpBaseUrl6 + "/user/personCenter";
+    public String getUserInfo = httpBaseUrl4 + "/user/personCenter";
     /**
      * 获取粉丝列表
      */
-    public String getFans = httpBaseUrl6 + "/userAttention/attentionMyList";
+    public String getFans = httpBaseUrl4 + "/userAttention/attentionMyList";
     /**
      * 获取关注列表
      */
-    public String getAttention = httpBaseUrl6 + "/user/listMyAttentionByPage";
+    public String getAttention = httpBaseUrl4 + "/user/listMyAttentionByPage";
+}
 
     /**
      * 获取资讯

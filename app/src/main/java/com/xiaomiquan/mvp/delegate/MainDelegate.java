@@ -3,7 +3,6 @@ package com.xiaomiquan.mvp.delegate;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.tablayout.CommonTabLayout;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -13,7 +12,7 @@ import com.xiaomiquan.utils.UserSet;
 
 import java.util.ArrayList;
 
-public class MainDelegate extends BaseDelegate {
+public class MainDelegate extends IMDelegate {
     public ViewHolder viewHolder;
     private String[] mTitles = {"", "", "", ""};
     private int[] mIconSelectIds = {
@@ -54,6 +53,19 @@ public class MainDelegate extends BaseDelegate {
         });
     }
 
+    @Override
+    public void ImError() {
+        if (imLinsener != null) {
+            imLinsener.ImError();
+        }
+    }
+
+    @Override
+    public void ImSuccess() {
+        if (imLinsener != null) {
+            imLinsener.ImSuccess();
+        }
+    }
     public static class ViewHolder {
         public View rootView;
         public FrameLayout fl_root;

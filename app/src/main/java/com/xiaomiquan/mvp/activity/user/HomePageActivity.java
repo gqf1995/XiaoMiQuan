@@ -9,6 +9,7 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.DynamicAdapter;
+import com.xiaomiquan.adapter.group.MyGroupAdapter;
 import com.xiaomiquan.mvp.databinder.BaseActivityPullBinder;
 import com.xiaomiquan.mvp.delegate.HomePageDelegate;
 import com.xiaomiquan.widget.DropDownView;
@@ -21,7 +22,7 @@ public class HomePageActivity extends BasePullActivity<HomePageDelegate, BaseAct
     DynamicAdapter dynamicAdapter;
 
     HeaderAndFooterWrapper adapter;
-
+    MyGroupAdapter myGroupAdapter;
 
     @Override
     protected Class<HomePageDelegate> getDelegateClass() {
@@ -38,7 +39,7 @@ public class HomePageActivity extends BasePullActivity<HomePageDelegate, BaseAct
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(""));
-        viewDelegate.initToplinsener((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_210px));
+        viewDelegate.initToplinsener((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_150px));
         initList(new ArrayList<String>());
     }
 
@@ -51,6 +52,9 @@ public class HomePageActivity extends BasePullActivity<HomePageDelegate, BaseAct
             adapter = new HeaderAndFooterWrapper(dynamicAdapter);
             adapter.addHeaderView(initTop());
             initRecycleViewPull(adapter, new LinearLayoutManager(this));
+            viewDelegate.setIsLoadMore(false);
+            onRefresh();
+            addRequest(binder.listDemo(this));
         } else {
             getDataBack(dynamicAdapter.getDatas(), datas, adapter);
         }
@@ -72,10 +76,12 @@ public class HomePageActivity extends BasePullActivity<HomePageDelegate, BaseAct
         return rootView;
     }
 
+
+
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+
         }
     }
 

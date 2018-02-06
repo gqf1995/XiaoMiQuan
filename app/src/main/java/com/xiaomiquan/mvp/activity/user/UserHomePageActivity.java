@@ -12,14 +12,24 @@ import android.widget.TextView;
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.DynamicAdapter;
+import com.xiaomiquan.adapter.circle.CircleMyAdapter;
+import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
 import com.xiaomiquan.adapter.group.MyGroupAdapter;
+import com.xiaomiquan.entity.bean.UserHomePage;
 import com.xiaomiquan.entity.bean.UserLogin;
+import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.entity.bean.circle.UserCircle;
+import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
+import com.xiaomiquan.mvp.activity.group.CombinationActivity;
+import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
 import com.xiaomiquan.mvp.databinder.BaseActivityPullBinder;
 import com.xiaomiquan.mvp.delegate.HomePageDelegate;
+import com.xiaomiquan.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
@@ -28,10 +38,11 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, BaseActivityPullBinder> {
-    DynamicAdapter dynamicAdapter;
+    SquareLiveAdapter squareLiveAdapter;
     HeaderAndFooterWrapper adapter;
     UserLogin userLogin;
     MyGroupAdapter myGroupAdapter;
+    CircleMyAdapter circleMyAdapter;
 
     @Override
     protected Class<HomePageDelegate> getDelegateClass() {
@@ -48,21 +59,20 @@ public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, Bas
     protected void bindEvenListener() {
         super.bindEvenListener();
         getIntentData();
-        initToolbar(new ToolbarBuilder().setTitle("郭青枫"));
-        viewDelegate.initToplinsener((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_230px));
+        initToolbar(new ToolbarBuilder().setTitle(""));
+        viewDelegate.initToplinsener((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px));
     }
 
-    private void initList(List<String> datas) {
-        for (int i = 0; i < 20; i++) {
-            datas.add("");
-        }
-        if (dynamicAdapter == null) {
-            dynamicAdapter = new DynamicAdapter(this, datas);
-            adapter = new HeaderAndFooterWrapper(dynamicAdapter);
+    private void initList(List<SquareLive> datas) {
+        if (adapter == null) {
+            squareLiveAdapter = new SquareLiveAdapter(this, datas);
+            adapter = new HeaderAndFooterWrapper(squareLiveAdapter);
             adapter.addHeaderView(initTop());
             initRecycleViewPull(adapter, new LinearLayoutManager(this));
+            onRefresh();
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         } else {
-            getDataBack(dynamicAdapter.getDatas(), datas, adapter);
+            getDataBack(squareLiveAdapter.getDatas(), datas, adapter);
         }
     }
 
@@ -104,16 +114,65 @@ public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, Bas
         return rootView;
     }
 
+    private void initGroupList(List<GroupItem> groupItems) {
+        if (myGroupAdapter == null) {
+            myGroupAdapter = new MyGroupAdapter(this, groupItems);
+            myGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, int position, Object item) {
+                    if (view.getId() == R.id.tv_deal) {
+                        GroupDealActivity.startAct(UserHomePageActivity.this, myGroupAdapter.getDatas(), position, true);
+                    }
+                    if (view.getId() == R.id.tv_look) {
+                        CombinationActivity.startAct(UserHomePageActivity.this, myGroupAdapter.getDatas().get(position), true);
+                    }
+                }
+            });
+            rv_group.setLayoutManager(new LinearLayoutManager(this) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            rv_group.setAdapter(myGroupAdapter);
+        } else {
+            myGroupAdapter.setDatas(groupItems);
+        }
+    }
+
+    private void initCircleList(List<UserCircle> circles) {
+        if (circleMyAdapter == null) {
+            circleMyAdapter = new CircleMyAdapter(this, circles);
+            rv_group.setLayoutManager(new LinearLayoutManager(this) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            rv_circle.setAdapter(circleMyAdapter);
+        } else {
+            circleMyAdapter.setDatas(circles);
+        }
+    }
+
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+            case 0x123:
+                UserHomePage userHomePage = GsonUtil.getInstance().toObj(data, UserHomePage.class);
+                initList(userHomePage.getArticleTopicVos());
+                initCircleList(userHomePage.getGroupVos());
+                initUser(userHomePage);
+            case 0x124:
+                List<GroupItem> groupItems = GsonUtil.getInstance().toList(data, GroupItem.class);
+                initGroupList(groupItems);
+                break;
         }
     }
 
     @Override
     protected void refreshData() {
-
+        addRequest(binder.personCenter(id, this));
     }
 
     public static void startAct(Activity activity,
@@ -129,7 +188,7 @@ public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, Bas
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         userLogin = SingSettingDBUtil.getUserLogin();
-        initList(new ArrayList<String>());
+        initList(new ArrayList<SquareLive>());
         tv_high_quality.setVisibility(View.GONE);
         tv_free_subscription.setVisibility(View.GONE);
         if ((userLogin.getId() + "").equals(id)) {
@@ -137,8 +196,24 @@ public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, Bas
             tv_title_group.setText(CommonUtils.getString(R.string.str_my_group));
             tv_title_live.setText(CommonUtils.getString(R.string.str_my_live));
             tv_title_circle.setText(CommonUtils.getString(R.string.str_my_circle));
+            tv_is_focuse.setVisibility(View.GONE);
             tv_my_subscribe.setVisibility(View.VISIBLE);
         }
     }
+
+    private void initUser(UserHomePage userHomePage) {
+        UserHomePage.UserBean data = userHomePage.getUser();
+        viewDelegate.getmToolbarTitle().setText(data.getNickName());
+        tv_name.setText(data.getNickName());
+        tv_fans_num.setText(userHomePage.getFansCount() + "");
+        tv_focuse_num.setText(userHomePage.getAttentionCount() + "");
+        if (!(userLogin.getId() + "").equals(id)) {
+            tv_high_quality.setVisibility(data.getBigv() > 0 ? View.VISIBLE : View.GONE);
+            tv_free_subscription.setVisibility(data.getSubscribeCharge() == 0 ? View.VISIBLE : View.GONE);
+            tv_is_focuse.setText(userHomePage.isAttention() ? CommonUtils.getString(R.string.str_already_fucose) : CommonUtils.getString(R.string.str_focuse));
+        }
+        GlideUtils.loadImage(data.getAvatar(), ic_pic);
+    }
+
 
 }
