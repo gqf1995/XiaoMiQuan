@@ -65,7 +65,7 @@ public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, Bas
 
     private void initList(List<SquareLive> datas) {
         if (adapter == null) {
-            squareLiveAdapter = new SquareLiveAdapter(this, datas);
+            squareLiveAdapter = new SquareLiveAdapter(binder,this, datas);
             adapter = new HeaderAndFooterWrapper(squareLiveAdapter);
             adapter.addHeaderView(initTop());
             initRecycleViewPull(adapter, new LinearLayoutManager(this));

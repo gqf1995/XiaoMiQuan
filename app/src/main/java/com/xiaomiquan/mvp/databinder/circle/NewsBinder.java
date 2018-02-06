@@ -82,32 +82,32 @@ public class NewsBinder extends BaseDataBind<NewsDelegate> {
 
     }
 
-    /**
-     * 点赞
-     */
-    public Disposable saveLike(
-            String userId,
-            String newsId,
-            String like,
-            RequestCallback requestCallback) {
-        getBaseMapWithUid();
-        baseMap.put("userId", userId);
-        baseMap.put("newsId", newsId);
-        baseMap.put("like", like);
-        return new HttpRequest.Builder()
-                .setRequestCode(0x124)
-                .setRequestUrl(HttpUrl.getIntance().newsLike)
-                .setShowDialog(false)
-                .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("利好")
-                .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.Json)
-                .setRequestObj(baseMap)
-                .setRequestCallback(requestCallback)
-                .build()
-                .RxSendRequest();
-
-    }
+//    /**
+//     * 点赞
+//     */
+//    public Disposable saveLike(
+//            String userId,
+//            String newsId,
+//            String like,
+//            RequestCallback requestCallback) {
+//        getBaseMapWithUid();
+//        baseMap.put("userId", userId);
+//        baseMap.put("newsId", newsId);
+//        baseMap.put("like", like);
+//        return new HttpRequest.Builder()
+//                .setRequestCode(0x124)
+//                .setRequestUrl(HttpUrl.getIntance().newsLike)
+//                .setShowDialog(false)
+//                .setDialog(viewDelegate.getNetConnectDialog())
+//                .setRequestName("利好")
+//                .setRequestMode(HttpRequest.RequestMode.POST)
+//                .setParameterMode(HttpRequest.ParameterMode.Json)
+//                .setRequestObj(baseMap)
+//                .setRequestCallback(requestCallback)
+//                .build()
+//                .RxSendRequest();
+//
+//    }
 
 
 }

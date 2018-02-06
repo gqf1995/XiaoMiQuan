@@ -42,6 +42,10 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
     protected Map<String, Object> baseMap;
     protected CompositeDisposable compositeDisposable;
 
+    public Map<String, Object> getMap(){
+        return baseMap;
+    }
+
     public BaseDataBind(T viewDelegate) {
         this.viewDelegate = viewDelegate;
     }
@@ -142,7 +146,7 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
         return baseMap;
     }
 
-    protected Map<String, Object> getBaseMapWithUid() {
+    public Map<String, Object> getBaseMapWithUid() {
         getBaseMap();
         baseMap.put("token", SaveUtil.getInstance().getString("token"));
         String language = SaveUtil.getInstance().getString("language");
@@ -151,6 +155,13 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
         }
         baseMap.put("language", language);
         return baseMap;
+    }
+
+    public void put(String key,Object val){
+        if(baseMap==null){
+            getBaseMapWithUid();
+        }
+        baseMap.put(key,val);
     }
 
 }

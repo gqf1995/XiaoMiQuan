@@ -230,7 +230,14 @@ public class HttpUrl {
      * 生成邀请码
      */
     public String creatCircleCode = httpBaseUrl3 + "/group/createInviteCode";
-
+    /**
+     * 获取用户加入圈子
+     */
+    public String getMyCircle = httpBaseUrl3 + groupUrl + "/listGroupByPage";
+    /**
+     * 获取圈子详情
+     */
+    public String getCircleInfo = httpBaseUrl3 + "/group/detail";
 
     /**
      * 圈子申请
@@ -276,16 +283,14 @@ public class HttpUrl {
      * 获得帖子
      */
     public String getUsertopic = httpBaseUrl3 + "/usertopic/list/group/usertopic";
-
-    /**
-     * 发帖子
-     */
-    public String saveArticle = httpBaseUrl3 + "/articleTopic/save";
     /**
      * 发帖子
      */
     public String getDetails = httpBaseUrl3 + "/articleTopic/detail";
-
+    /**
+     * 获取资讯
+     */
+    public String getNews = httpBaseUrl3+ "/articleTopic/getNews";
 
 
 
@@ -369,6 +374,10 @@ public class HttpUrl {
      * 修改组合信息
      */
     public String updateDemoBrief = httpBaseUrl3 + demoUrl + "/updateDemoBrief";
+    /**
+     * 组合分享
+     */
+    public String articleSave = httpBaseUrl3 + demoUrl + "/articleSave";
 
 
 
@@ -380,16 +389,32 @@ public class HttpUrl {
     /**
      * 文章列表
      */
-    public String listArticleByPage = httpBaseUrl3 + articleUrl + "/listArticleByPage";
+    public String listArticleByPage = httpBaseUrl3+ articleUrl + "/listArticleByPage";
+    /**
+     * 发文章
+     */
+    public String saveArticle = httpBaseUrl3+ "/articleTopic/save";
+    /**
+     * 广场导入文章
+     */
+    public String dealSquareArticle = httpBaseUrl3+ "/articleTopic/reprintedSquare";
+    /**
+     * 圈子导入文章
+     */
+    public String dealCircleArticle = httpBaseUrl3+ "/articleTopic/reprintedGroup";
 
     /**
      * 发表评论
      */
-    public String saveComment = httpBaseUrl3 + "/comment/saveComment";
+    public String saveComment = httpBaseUrl3+ "/comment/saveComment";
     /**
      * 点赞
      */
-    public String savePraise = httpBaseUrl3 + "/praise/praiseOrCancel";
+    public String savePraise = httpBaseUrl3+ "/praise/praiseOrCancel";
+    /**
+     * 获取评论
+     */
+    public String getComment = httpBaseUrl3 + "/comment/listComment";
 
     /**
      * 获取广场朋友圈
@@ -404,19 +429,19 @@ public class HttpUrl {
      */
     public String attention = httpBaseUrl3 + "/userAttention/save";
     /**
-     * 组合分享
+     * 取消关注
      */
-    public String articleSave = httpBaseUrl3 + "/save";
+    public String attentiondelete = httpBaseUrl3+ "/userAttention/delete";
 
 
     /**
      * 获取文章
      */
-    public String getArticle = httpBaseUrl3 + "/articleTopic/listArticleByPage";
+    public String getArticle = httpBaseUrl3+ "/articleTopic/listArticleByPage";
     /**
      * 获取文章
      */
-    public String getCircleMore = httpBaseUrl3 + "/group/listMoreGroupByPage";
+    public String getCircleMore = httpBaseUrl3+ "/group/listMoreGroupByPage";
     /**
      * 获取用户主页信息
      */
@@ -428,5 +453,6 @@ public class HttpUrl {
     /**
      * 获取关注列表
      */
-    public String getAttention = httpBaseUrl3 + "/user/listMyAttentionByPage";
+    public String getAttention = httpBaseUrl3+ "/user/listMyAttentionByPage";
+
 }

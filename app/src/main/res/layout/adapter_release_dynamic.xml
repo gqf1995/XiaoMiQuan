@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/trans_20px">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:paddingTop="@dimen/trans_20px"
+              android:orientation="vertical">
 
     <com.fivefivelike.mybaselibrary.view.IconFontTextview
         android:id="@+id/icf_plus"
@@ -15,12 +15,12 @@
         android:textColor="@color/color_font1"
         android:textSize="@dimen/text_trans_70px"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <ImageView
         android:id="@+id/iv_img"
         android:layout_width="@dimen/trans_160px"
         android:layout_height="@dimen/trans_160px"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/bg" />
+        app:srcCompat="@drawable/bg"/>
 </LinearLayout>
