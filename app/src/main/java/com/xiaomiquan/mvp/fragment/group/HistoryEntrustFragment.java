@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.LabelHistoryEntrustAdapter;
 import com.xiaomiquan.entity.bean.group.HistoryTrading;
@@ -59,10 +60,7 @@ public class HistoryEntrustFragment extends BasePullFragment<BaseFragentPullDele
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                List<String> data1 = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
-                    data1.add("");
-                }
+                List<HistoryTrading> data1 = GsonUtil.getInstance().toList(data, HistoryTrading.class);
                 getDataBack(adapter.getDatas(), data1, adapter);
                 break;
         }
@@ -80,7 +78,7 @@ public class HistoryEntrustFragment extends BasePullFragment<BaseFragentPullDele
 
     @Override
     protected void refreshData() {
-        addRequest(binder.listDeal(id,"1",this));
+        addRequest(binder.listDeal(id, "1", this));
     }
 
     public static HistoryEntrustFragment newInstance(

@@ -6,8 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.LabelNotDealAdapter;
+import com.xiaomiquan.entity.bean.group.HistoryTrading;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
@@ -37,12 +40,18 @@ public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, B
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initList(new ArrayList<String>());
+        initList(new ArrayList<HistoryTrading>());
     }
 
 
-    private void initList(List<String> strDatas) {
+    private void initList(List<HistoryTrading> strDatas) {
         adapter = new LabelNotDealAdapter(getActivity(), strDatas);
+        adapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, int position, Object item) {
+                addRequest(binder.cancel(adapter.getDatas().get(position).getDemoId(),NotDealFragment.this));
+            }
+        });
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsPullDown(false);
         onRefresh();
@@ -58,11 +67,11 @@ public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, B
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                List<String> data1 = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
-                    data1.add("");
-                }
+                List<HistoryTrading> data1 = GsonUtil.getInstance().toList(data, HistoryTrading.class);
                 getDataBack(adapter.getDatas(), data1, adapter);
+                break;
+            case 0x124:
+                onRefresh();
                 break;
         }
     }

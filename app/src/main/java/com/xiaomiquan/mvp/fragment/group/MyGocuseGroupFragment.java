@@ -4,12 +4,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.group.MyGroupAdapter;
+import com.xiaomiquan.adapter.group.FocuseGroupAdapter;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.mvp.activity.group.CombinationActivity;
-import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
 import com.xiaomiquan.mvp.databinder.group.GroupChangeBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
 
-    MyGroupAdapter myGroupAdapter;
+    FocuseGroupAdapter myGroupAdapter;
 
     @Override
     public GroupChangeBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
@@ -30,13 +30,18 @@ public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDeleg
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-
+        switch (requestCode) {
+            case 0x123:
+                List<GroupItem> datas = GsonUtil.getInstance().toList(data, GroupItem.class);
+                initList(datas);
+                break;
+        }
     }
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initList();
+        initList(new ArrayList<GroupItem>());
     }
 
     @Override
@@ -44,26 +49,40 @@ public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDeleg
         return BaseFragentPullDelegate.class;
     }
 
-    private void initList() {
-        List<GroupItem> datas = new ArrayList<>();
-        myGroupAdapter = new MyGroupAdapter(getActivity(), datas);
-        myGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
-            @Override
-            public void onClick(View view, final int position, Object item) {
-                if (view.getId() == R.id.tv_deal) {
-                    gotoActivity(GroupDealActivity.class).startAct();
+    private void initList(List<GroupItem> datas) {
+        if (myGroupAdapter == null) {
+            myGroupAdapter = new FocuseGroupAdapter(getActivity(), datas);
+            myGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, final int position, Object item) {
+                    if (view.getId() == R.id.tv_deal) {
+                        //取消关注
+                        myGroupAdapter.getDatas().remove(position);
+                        myGroupAdapter.notifyDataSetChanged();
+                        binder.cancelAttention(myGroupAdapter.getDatas().get(position).getId(), null);
+                    }
+                    if (view.getId() == R.id.tv_look) {
+                        CombinationActivity.startAct(getActivity(), myGroupAdapter.getDatas().get(position), false);
+                    }
                 }
-                if (view.getId() == R.id.tv_look) {
-                    gotoActivity(CombinationActivity.class).startAct();
-                }
-            }
-        });
-        initRecycleViewPull(myGroupAdapter, new LinearLayoutManager(getActivity()));
-        onRefresh();
+            });
+            initRecycleViewPull(myGroupAdapter, new LinearLayoutManager(getActivity()));
+        } else {
+            getDataBack(myGroupAdapter.getDatas(), datas, myGroupAdapter);
+        }
+    }
+
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        if (isVisible) {
+            onRefresh();
+        } else {
+            binder.cancelpost();
+        }
     }
 
     @Override
     protected void refreshData() {
-
+        addRequest(binder.listAttentionDemo(this));
     }
 }

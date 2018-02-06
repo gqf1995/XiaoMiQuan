@@ -4,6 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.tablayout.CommonTabLayout;
@@ -23,6 +24,7 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
+        viewHolder.lin_my_group.setVisibility(View.GONE);
     }
 
     @Override
@@ -42,6 +44,7 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
 
     public static class ViewHolder {
         public View rootView;
+        public LinearLayout lin_my_group;
         public RecyclerView rv_my_group;
         public CommonTabLayout tl_2;
         public RecyclerView rcv_hot_group;
@@ -52,6 +55,7 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
+            this.lin_my_group = (LinearLayout) rootView.findViewById(R.id.lin_my_group);
             this.rv_my_group = (RecyclerView) rootView.findViewById(R.id.rv_my_group);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
             this.rcv_hot_group = (RecyclerView) rootView.findViewById(R.id.rcv_hot_group);

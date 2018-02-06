@@ -42,9 +42,16 @@ public class GroupItem implements Parcelable {
     private long updateTime;
     private String nickName;
     private String avatar;
-    private String totalProfit;
-    private String currProfit;
+    private double totalProfit;
+    private double currProfit;
     private String attentionCount;
+    private String sync;
+
+
+    private int isAttention;
+    private int isSelf;
+    private double rate;
+    private int sort;
 
     public String getId() {
         return id;
@@ -158,19 +165,19 @@ public class GroupItem implements Parcelable {
         this.avatar = avatar;
     }
 
-    public String getTotalProfit() {
+    public double getTotalProfit() {
         return totalProfit;
     }
 
-    public void setTotalProfit(String totalProfit) {
+    public void setTotalProfit(double totalProfit) {
         this.totalProfit = totalProfit;
     }
 
-    public String getCurrProfit() {
+    public double getCurrProfit() {
         return currProfit;
     }
 
-    public void setCurrProfit(String currProfit) {
+    public void setCurrProfit(double currProfit) {
         this.currProfit = currProfit;
     }
 
@@ -180,6 +187,46 @@ public class GroupItem implements Parcelable {
 
     public void setAttentionCount(String attentionCount) {
         this.attentionCount = attentionCount;
+    }
+
+    public int getIsAttention() {
+        return isAttention;
+    }
+
+    public void setIsAttention(int isAttention) {
+        this.isAttention = isAttention;
+    }
+
+    public int getIsSelf() {
+        return isSelf;
+    }
+
+    public void setIsSelf(int isSelf) {
+        this.isSelf = isSelf;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
+
+    public String getSync() {
+        return sync;
+    }
+
+    public void setSync(String sync) {
+        this.sync = sync;
     }
 
     @Override
@@ -203,9 +250,14 @@ public class GroupItem implements Parcelable {
         dest.writeLong(this.updateTime);
         dest.writeString(this.nickName);
         dest.writeString(this.avatar);
-        dest.writeString(this.totalProfit);
-        dest.writeString(this.currProfit);
+        dest.writeDouble(this.totalProfit);
+        dest.writeDouble(this.currProfit);
         dest.writeString(this.attentionCount);
+        dest.writeString(this.sync);
+        dest.writeInt(this.isAttention);
+        dest.writeInt(this.isSelf);
+        dest.writeDouble(this.rate);
+        dest.writeInt(this.sort);
     }
 
     public GroupItem() {
@@ -226,9 +278,14 @@ public class GroupItem implements Parcelable {
         this.updateTime = in.readLong();
         this.nickName = in.readString();
         this.avatar = in.readString();
-        this.totalProfit = in.readString();
-        this.currProfit = in.readString();
+        this.totalProfit = in.readDouble();
+        this.currProfit = in.readDouble();
         this.attentionCount = in.readString();
+        this.sync = in.readString();
+        this.isAttention = in.readInt();
+        this.isSelf = in.readInt();
+        this.rate = in.readDouble();
+        this.sort = in.readInt();
     }
 
     public static final Parcelable.Creator<GroupItem> CREATOR = new Parcelable.Creator<GroupItem>() {

@@ -11,6 +11,7 @@ import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.NoParentsTouchFramelayout;
 import com.tablayout.CommonTabLayout;
 import com.tablayout.TabEntity;
@@ -71,10 +72,10 @@ public class GroupDealDelegate extends BaseDelegate {
         String cnyPrice = "--";
         if (!TextUtils.isEmpty(coinDetail.getPriceUsd())) {
             String rate = BigUIUtil.getinstance().rate("CNY", "USD");
-            if(!TextUtils.isEmpty(rate)){
+            if (!TextUtils.isEmpty(rate)) {
                 cnyPrice = BigUIUtil.getinstance().bigPrice(new BigDecimal(coinDetail.getPriceUsd()).divide(new BigDecimal(rate), 8, BigDecimal.ROUND_HALF_DOWN).toPlainString());
                 viewHolder.tv_buy_price.setText(cnyPrice);
-            }else{
+            } else {
                 viewHolder.tv_buy_price.setText(coinDetail.getPriceUsd());
             }
         }
@@ -122,6 +123,9 @@ public class GroupDealDelegate extends BaseDelegate {
 
     public static class ViewHolder {
         public View rootView;
+        public IconFontTextview tv_left;
+        public TextView tv_title;
+        public IconFontTextview tv_right;
         public CommonTabLayout tl_1;
         public TextView tv_input_label1;
         public SkinCompatEditText et_coin_search;
@@ -144,6 +148,9 @@ public class GroupDealDelegate extends BaseDelegate {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
+            this.tv_left = (IconFontTextview) rootView.findViewById(R.id.tv_left);
+            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
+            this.tv_right = (IconFontTextview) rootView.findViewById(R.id.tv_right);
             this.tl_1 = (CommonTabLayout) rootView.findViewById(R.id.tl_1);
             this.tv_input_label1 = (TextView) rootView.findViewById(R.id.tv_input_label1);
             this.et_coin_search = (SkinCompatEditText) rootView.findViewById(R.id.et_coin_search);

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.utils.BigUIUtil;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -43,6 +44,15 @@ public class AllMyGroupAdapter extends CommonAdapter<GroupItem> {
         tv_all_comein1 = holder.getView(R.id.tv_all_comein1);
         tv_my_group_commit1 = holder.getView(R.id.tv_my_group_commit1);
         lin_one_group = holder.getView(R.id.lin_one_group);
+
+        tv_my_group_name1.setText(s.getName());
+
+
+        BigUIUtil.getinstance().rateTextView(s.getCurrProfit(),tv_today_comein1);
+        BigUIUtil.getinstance().rateTextView(s.getTotalProfit(),tv_all_comein1);
+
+
+
         tv_my_group_commit1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -789,6 +789,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/trans_25px"
                         android:layout_marginTop="@dimen/trans_25px"
+                        android:visibility="gone"
                         android:background="@color/color_font3"/>
 
                     <LinearLayout
@@ -798,6 +799,7 @@
                         android:layout_weight="1"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
+                        android:visibility="gone"
                         android:focusable="true"
                         android:gravity="center"
                         android:orientation="vertical">

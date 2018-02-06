@@ -68,6 +68,7 @@ public class CreatGroupActivity extends BaseDataBindActivity<CreatGroupDelegate,
         addRequest(binder.save(viewDelegate.viewHolder.et_con.getText().toString(),
                 viewDelegate.viewHolder.ck_live.isChecked() ? "1" : "2",
                 viewDelegate.viewHolder.et_content.getText().toString(),
+                viewDelegate.viewHolder.checkbox_synchronous.isChecked()?"1":"0",
                 this));
     }
 

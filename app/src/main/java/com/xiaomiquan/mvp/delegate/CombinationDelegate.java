@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.delegate;
 
+import android.graphics.Matrix;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.TimeUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -15,10 +17,12 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.tablayout.CommonTabLayout;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.EarningsMovements;
 import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 import com.xiaomiquan.widget.chart.MyLeftRateMarkerView;
@@ -39,6 +43,17 @@ public class CombinationDelegate extends BaseDelegate {
         viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_110px), viewHolder.viewpager, false);
     }
 
+    public void initRate(String data) {
+        double monthRate = Double.parseDouble(GsonUtil.getInstance().getValue(data, "monthRate"));
+        double totalRate = Double.parseDouble(GsonUtil.getInstance().getValue(data, "totalRate"));
+        double weekRate = Double.parseDouble(GsonUtil.getInstance().getValue(data, "weekRate"));
+        double yesterdayRate = Double.parseDouble(GsonUtil.getInstance().getValue(data, "yesterdayRate"));
+        BigUIUtil.getinstance().rateTextView(monthRate, viewHolder.tv_month_earnings);
+        BigUIUtil.getinstance().rateTextView(totalRate, viewHolder.tv_cumulative_earnings);
+        BigUIUtil.getinstance().rateTextView(weekRate, viewHolder.tv_week_earnings);
+        BigUIUtil.getinstance().rateTextView(yesterdayRate, viewHolder.tv_yesterday_earnings);
+
+    }
 
     public void initData(GroupItem groupItem) {
         GlideUtils.loadImage(groupItem.getAvatar(), viewHolder.ic_pic);
@@ -72,7 +87,7 @@ public class CombinationDelegate extends BaseDelegate {
         mChartKline.setBorderColor(CommonUtils.getColor(R.color.border_color));//边线颜色
         mChartKline.setDescription("");//右下角对图表的描述信息
         mChartKline.setMinOffset(0f);
-        mChartKline.setExtraOffsets(0f, 0f, 0f, 0f);
+        mChartKline.setExtraOffsets(20f, 0f, 30f, 0f);
 
         Legend lineChartLegend = mChartKline.getLegend();
         lineChartLegend.setEnabled(false);//是否绘制 Legend 图例
@@ -115,11 +130,25 @@ public class CombinationDelegate extends BaseDelegate {
             time.add("");
         }
         LineDataSet lineDataSetMA7 = new LineDataSet(lineEntries, "ma");
+        lineDataSetMA7.setDrawValues(false);
+        lineDataSetMA7.setDrawCircles(false);
+        lineDataSetMA7.setDrawCircleHole(false);
+        lineDataSetMA7.setColor(CommonUtils.getColor(R.color.color_blue));
         LineData lineData = new LineData(time, lineDataSetMA7);
         MyLeftRateMarkerView leftMarkerView = new MyLeftRateMarkerView(viewHolder.rootView.getContext(), R.layout.mymarkerview);
         mChartKline.setMarkerView(leftMarkerView);
         mChartKline.setData(lineData);
+        setHandler(mChartKline);
 
+        mChartKline.moveViewToX(lineEntries.size() - 1);
+        mChartKline.invalidate();
+
+    }
+
+    private void setHandler(LineChart combinedChart) {
+        final ViewPortHandler viewPortHandlerBar = combinedChart.getViewPortHandler();
+        Matrix touchmatrix = viewPortHandlerBar.getMatrixTouch();
+        touchmatrix.postScale(1f, 1f);
     }
 
     @Override

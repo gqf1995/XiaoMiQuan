@@ -43,7 +43,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="112"/>
+            android:layout_weight="68"/>
 
         <TextView
             android:id="@+id/tv_state"
@@ -57,7 +57,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="128"/>
+            android:layout_weight="86"/>
 
         <TextView
             android:id="@+id/tv_entrust_price"
@@ -71,7 +71,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="116"/>
+            android:layout_weight="78"/>
 
         <TextView
             android:id="@+id/tv_num"
@@ -80,6 +80,22 @@
             android:gravity="center"
             android:text="@string/str_tv_num"
             android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_24px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="72"/>
+
+        <TextView
+            android:id="@+id/tv_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="@string/str_delect_order"
+            android:textColor="@color/color_blue"
             android:textSize="@dimen/text_trans_24px"/>
 
         <Space

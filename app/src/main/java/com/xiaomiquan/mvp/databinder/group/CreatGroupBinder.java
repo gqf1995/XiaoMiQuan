@@ -19,11 +19,13 @@ public class CreatGroupBinder extends BaseDataBind<CreatGroupDelegate> {
             String name,
             String type,
             String brief,
+            String sync,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("name", name);// 组合名称
         baseMap.put("type", type);// 1:公开组合 2:私有组合 3:活动组合
         baseMap.put("brief", brief);// 组合简介
+        baseMap.put("sync", sync);// 组合简介
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().save)

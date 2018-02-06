@@ -14,12 +14,43 @@
         <include layout="@layout/include_toolbar_with_statusbar"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/trans_90px"
+            android:layout_gravity="bottom"
             android:gravity="bottom|center_horizontal"
             android:orientation="horizontal">
 
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:id="@+id/tv_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="@dimen/trans_25px"
+                android:paddingRight="@dimen/trans_25px"
+                android:text="@string/ic_icon_left"
+                android:rotation="180"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_trans_30px"/>
 
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_trans_32px"/>
+
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:id="@+id/tv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="@dimen/trans_25px"
+                android:paddingRight="@dimen/trans_25px"
+                android:text="@string/ic_icon_right"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_trans_30px"/>
         </LinearLayout>
     </FrameLayout>
 
@@ -168,7 +199,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:gravity="center"
-                                        android:text="@string/ic_Search"
+                                        android:text="$"
                                         android:textColor="@color/color_font3"
                                         android:textSize="@dimen/text_trans_30px"/>
 
@@ -198,7 +229,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:gravity="center"
-                                        android:text="@string/ic_Search"
+                                        android:text="¥"
                                         android:textColor="@color/color_font3"
                                         android:textSize="@dimen/text_trans_24px"/>
 

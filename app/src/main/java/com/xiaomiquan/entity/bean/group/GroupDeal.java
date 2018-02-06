@@ -5,4 +5,5 @@ package com.xiaomiquan.entity.bean.group;
  */
 
 public class GroupDeal {
+
 }

@@ -12,6 +12,7 @@ import android.view.Window;
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.utils.logger.klog.KlogData;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -38,7 +39,14 @@ public class LogDialog extends DialogFragment {
         adapter = new LogsAdapter(getActivity(), logs);
         recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycler_view.setAdapter(adapter);
+        EventBus.getDefault().register(this);
         return v;
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)

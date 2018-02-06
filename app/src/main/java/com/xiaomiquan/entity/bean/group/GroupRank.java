@@ -1,5 +1,6 @@
 package com.xiaomiquan.entity.bean.group;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,14 +11,23 @@ public class GroupRank {
 
 
     /**
-     * code : 1
-     * topName : 7天排行
-     * tops : [{"attentionCount":1,"isAttention":1,"isSelf":0,"name":"旱涝保收","rate":1.1011,"sort":1,"userId":1},{"attentionCount":2,"isAttention":1,"isSelf":0,"name":"吃胡胡","rate":0,"sort":2,"userId":0}]
+     * code : 2
+     * topName : 30天排行
+     * tops : [{"attentionCount":1,"isAttention":0,"isSelf":1,"name":"旱涝保收","rate":1.1211,"sort":1,"userId":1},{"attentionCount":2,"isAttention":0,"isSelf":0,"name":"吃胡胡","rate":0,"sort":2,"userId":2}]
      */
 
     private int code;
     private String topName;
-    private List<TopsBean> tops;
+    private List<GroupItem> tops;
+    public GroupRank() {
+        super();
+    }
+    public GroupRank(int code, String topName, List<GroupItem> tops) {
+        this.code = code;
+        this.topName = topName;
+        this.tops = new ArrayList<>();
+        this.tops.addAll(tops);
+    }
 
     public int getCode() {
         return code;
@@ -35,87 +45,13 @@ public class GroupRank {
         this.topName = topName;
     }
 
-    public List<TopsBean> getTops() {
+    public List<GroupItem> getTops() {
         return tops;
     }
 
-    public void setTops(List<TopsBean> tops) {
+    public void setTops(List<GroupItem> tops) {
         this.tops = tops;
     }
 
-    public static class TopsBean {
-        /**
-         * attentionCount : 1
-         * isAttention : 1
-         * isSelf : 0
-         * name : 旱涝保收
-         * rate : 1.1011
-         * sort : 1
-         * userId : 1
-         */
 
-        private int attentionCount;
-        private int isAttention;
-        private int isSelf;
-        private String name;
-        private double rate;
-        private int sort;
-        private int userId;
-
-        public int getAttentionCount() {
-            return attentionCount;
-        }
-
-        public void setAttentionCount(int attentionCount) {
-            this.attentionCount = attentionCount;
-        }
-
-        public int getIsAttention() {
-            return isAttention;
-        }
-
-        public void setIsAttention(int isAttention) {
-            this.isAttention = isAttention;
-        }
-
-        public int getIsSelf() {
-            return isSelf;
-        }
-
-        public void setIsSelf(int isSelf) {
-            this.isSelf = isSelf;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public double getRate() {
-            return rate;
-        }
-
-        public void setRate(double rate) {
-            this.rate = rate;
-        }
-
-        public int getSort() {
-            return sort;
-        }
-
-        public void setSort(int sort) {
-            this.sort = sort;
-        }
-
-        public int getUserId() {
-            return userId;
-        }
-
-        public void setUserId(int userId) {
-            this.userId = userId;
-        }
-    }
 }

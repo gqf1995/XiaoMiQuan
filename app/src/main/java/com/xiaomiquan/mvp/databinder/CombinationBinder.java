@@ -39,14 +39,14 @@ public class CombinationBinder extends BaseDataBind<CombinationDelegate> {
     /**
      * 分期收益
      */
-    public Disposable adllRate(
+    public Disposable allRate(
             String demoId,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("demoId", demoId);
         return new HttpRequest.Builder()
                 .setRequestCode(0x124)
-                .setRequestUrl(HttpUrl.getIntance().adllRate)
+                .setRequestUrl(HttpUrl.getIntance().allRate)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("分期收益")

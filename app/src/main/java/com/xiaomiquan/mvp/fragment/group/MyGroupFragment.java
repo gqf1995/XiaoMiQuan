@@ -46,6 +46,9 @@ public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, B
     protected void bindEvenListener() {
         super.bindEvenListener();
         userLogin = SingSettingDBUtil.getUserLogin();
+        if (userLogin != null) {
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+        }
     }
 
     @Override
@@ -60,14 +63,13 @@ public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, B
                 @Override
                 public void onClick(View view, final int position, Object item) {
                     if (view.getId() == R.id.tv_deal) {
-                        GroupDealActivity.startAct(getActivity(), myGroupAdapter.getDatas().get(position), true);
+                        GroupDealActivity.startAct(getActivity(), myGroupAdapter.getDatas(),position, true);
                     }
                     if (view.getId() == R.id.tv_look) {
                         CombinationActivity.startAct(getActivity(), myGroupAdapter.getDatas().get(position), true);
                     }
                 }
             });
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             initRecycleViewPull(myGroupAdapter, new LinearLayoutManager(getActivity()));
         } else {
             getDataBack(myGroupAdapter.getDatas(), datas, myGroupAdapter);

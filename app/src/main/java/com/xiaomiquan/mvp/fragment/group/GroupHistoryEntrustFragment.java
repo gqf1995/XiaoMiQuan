@@ -9,7 +9,6 @@ import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.LabelHistoryEntrustAdapter;
-import com.xiaomiquan.entity.bean.LiveData;
 import com.xiaomiquan.entity.bean.group.HistoryTrading;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
@@ -21,7 +20,6 @@ import java.util.List;
  * 历史委托
  */
 public class GroupHistoryEntrustFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
-    List<String> strDatas;
     LabelHistoryEntrustAdapter adapter;
 
 
@@ -59,8 +57,8 @@ public class GroupHistoryEntrustFragment extends BasePullFragment<BaseFragentPul
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                List<LiveData> data1 = GsonUtil.getInstance().toList(data, LiveData.class);
-                getDataBack(strDatas, data1, adapter);
+                List<HistoryTrading> data1 = GsonUtil.getInstance().toList(data, HistoryTrading.class);
+                getDataBack(adapter.getDatas(), data1, adapter);
                 break;
         }
     }

@@ -1,6 +1,5 @@
 package com.xiaomiquan.mvp.fragment.group;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +31,7 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
     public void setSearchOrId(String searchOrId) {
         this.searchOrId = searchOrId;
         if (adapter != null) {
+            binder.cancelpost();
             onRefresh();
         }
     }
@@ -42,10 +42,9 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     OnSelectLinsener onSelectLinsener;
 
-    @Override
-    public void onAttach(Activity context) {
-        super.onAttach(context);
-        onSelectLinsener = (OnSelectLinsener) context;
+
+    public void setOnSelectLinsener(OnSelectLinsener onSelectLinsener) {
+        this.onSelectLinsener = onSelectLinsener;
     }
 
     @Override
@@ -66,6 +65,12 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
         initList(new ArrayList<CoinDetail>());
     }
 
+    public void setNewDatas(String type, String searchOrId) {
+        adapter = null;
+        this.type = type;
+        this.searchOrId = searchOrId;
+        initList(new ArrayList<CoinDetail>());
+    }
 
     private void initList(List<CoinDetail> strDatas) {
         if (adapter == null) {
@@ -106,6 +111,12 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
             onRefresh();
         } else {
             getDataBack(adapter.getDatas(), strDatas, adapter);
+            if (strDatas.size() > 0) {
+                adapter.setSelectPosition(0);
+                onSelectLinsener.onSelectLinsener(adapter.getDatas().get(0));
+            } else {
+                onSelectLinsener.onSelectLinsener(null);
+            }
         }
     }
 
@@ -116,8 +127,6 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
             } else {
                 onSelectLinsener.onSelectLinsener(null);
             }
-        }else {
-            onSelectLinsener.onSelectLinsener(null);
         }
     }
 
