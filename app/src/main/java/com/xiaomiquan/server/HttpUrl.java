@@ -103,6 +103,10 @@ public class HttpUrl {
      * 用户信息修改
      */
     public String editUserInfo = httpBaseUrl3 + userUrl + "/editUserInfo";
+    /**
+     * 获取用户主页信息
+     */
+    public String personCenter = httpBaseUrl3 + userUrl + "/personCenter";
 
     /**
      * 行情

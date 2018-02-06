@@ -23,15 +23,17 @@ public class UserLogin {
     private String phone;
     private String avatar;
     private String email;
+    private String imToken;
     private String nickName;
 
-    @Generated(hash = 957062546)
+    @Generated(hash = 774387590)
     public UserLogin(long id, String phone, String avatar, String email,
-            String nickName) {
+            String imToken, String nickName) {
         this.id = id;
         this.phone = phone;
         this.avatar = avatar;
         this.email = email;
+        this.imToken = imToken;
         this.nickName = nickName;
     }
 
@@ -69,6 +71,14 @@ public class UserLogin {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImToken() {
+        return imToken;
+    }
+
+    public void setImToken(String imToken) {
+        this.imToken = imToken;
     }
 
     public String getNickName() {

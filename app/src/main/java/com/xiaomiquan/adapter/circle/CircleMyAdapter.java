@@ -33,6 +33,12 @@ public class CircleMyAdapter extends CommonAdapter<UserCircle> {
         super(context, R.layout.adapter_circle_creat, datas);
     }
 
+    public void setDatas( List<UserCircle> datas){
+        getDatas().clear();
+        getDatas().addAll(datas);
+        notifyDataSetChanged();
+    }
+
     @Override
     protected void convert(ViewHolder holder, UserCircle userCircle, int position) {
         lin_creat = holder.getView(R.id.lin_creat);

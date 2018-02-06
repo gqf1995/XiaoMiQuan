@@ -49,6 +49,12 @@ public class MyGroupAdapter extends CommonAdapter<GroupItem> {
         this.defaultClickLinsener = defaultClickLinsener;
     }
 
+    public void setDatas(List<GroupItem> datas){
+        getDatas().clear();
+        getDatas().addAll(datas);
+        notifyDataSetChanged();
+    }
+
     @Override
     protected void convert(ViewHolder holder, GroupItem s, final int position) {
         tv_title = holder.getView(R.id.tv_title);

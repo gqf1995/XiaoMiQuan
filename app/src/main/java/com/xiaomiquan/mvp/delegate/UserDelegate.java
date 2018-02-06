@@ -12,6 +12,7 @@ import com.kyleduo.switchbutton.SwitchButton;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.utils.UserSet;
+import com.xiaomiquan.utils.glide.GlideUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,6 +61,7 @@ public class UserDelegate extends BaseDelegate {
         } else if (!TextUtils.isEmpty(userLogin.getPhone())) {
             viewHolder.tv_subtitle.setText(userLogin.getPhone());
         }
+        GlideUtils.loadImage(userLogin.getAvatar(),viewHolder.ic_piv);
 
     }
 

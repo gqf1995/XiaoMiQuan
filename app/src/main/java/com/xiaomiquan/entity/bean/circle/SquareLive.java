@@ -3,7 +3,6 @@ package com.xiaomiquan.entity.bean.circle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -55,7 +54,9 @@ public class SquareLive implements Parcelable {
     private String groupMaster;
     private String userPraise;
     private List<Comment> commentVos;
-
+    public SquareLive() {
+        super();
+    }
     protected SquareLive(Parcel in) {
         id = in.readString();
         groupId = in.readString();

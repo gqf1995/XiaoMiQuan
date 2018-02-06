@@ -180,6 +180,7 @@ public class KlineDraw {
         lineDataSetUB.setVisible(isBOLL);
         lineDataSetBOLL.setVisible(isBOLL);
         lineDataSetLB.setVisible(isBOLL);
+        setOffset();
 
         mChartKline.setAutoScaleMinMaxEnabled(true);
         mChartVolume.setAutoScaleMinMaxEnabled(true);
@@ -190,7 +191,6 @@ public class KlineDraw {
         mChartKline.invalidate();
         mChartVolume.invalidate();
 
-        setOffset();
 
     }
 
@@ -253,6 +253,7 @@ public class KlineDraw {
                 }
             }
 
+            setOffset();
 
             mChartKline.setAutoScaleMinMaxEnabled(true);
             mChartVolume.setAutoScaleMinMaxEnabled(true);
@@ -263,7 +264,6 @@ public class KlineDraw {
             mChartKline.invalidate();
             mChartVolume.invalidate();
 
-            setOffset();
 
         }
 
@@ -713,7 +713,7 @@ public class KlineDraw {
         ArrayList<ILineDataSet> sets = new ArrayList<>();
 
         /******此处修复如果显示的点的个数达不到MA均线的位置所有的点都从0开始计算最小值的问题******************************/
-        sets.add(MyUtils.setMaLine(7, mData.getXVals(), mData.getMa7DataL()));
+        sets.add(MyUtils.setMaLine(7, mData.getXVals(), mData.getMa7DataV()));
         sets.add(MyUtils.setMaLine(10, mData.getXVals(), mData.getMa10DataV()));
 
         LineData lineData = new LineData(mData.getXVals(), sets);

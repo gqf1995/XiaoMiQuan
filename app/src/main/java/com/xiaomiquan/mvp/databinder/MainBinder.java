@@ -9,7 +9,7 @@ import com.yanzhenjie.nohttp.rest.CacheMode;
 
 import io.reactivex.disposables.Disposable;
 
-public class MainBinder extends BaseDataBind<MainDelegate> {
+public class MainBinder extends IMBinder<MainDelegate> {
 
     public MainBinder(MainDelegate viewDelegate) {
         super(viewDelegate);

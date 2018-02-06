@@ -3,8 +3,6 @@ package com.xiaomiquan.entity.bean.circle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 /**
  * Created by Andy on 2018/1/21.
  */
@@ -39,6 +37,10 @@ public class Comment implements Parcelable {
     private String reUserNickName;
     private boolean reply;
     private String updateTime;
+
+    public Comment() {
+        super();
+    }
 
     protected Comment(Parcel in) {
         commentUserId = in.readString();
