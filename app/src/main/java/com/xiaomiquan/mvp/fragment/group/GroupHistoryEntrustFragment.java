@@ -10,6 +10,7 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.LabelHistoryEntrustAdapter;
 import com.xiaomiquan.entity.bean.LiveData;
+import com.xiaomiquan.entity.bean.group.HistoryTrading;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
@@ -41,10 +42,7 @@ public class GroupHistoryEntrustFragment extends BasePullFragment<BaseFragentPul
     }
 
 
-    private void initList(List<String> strDatas) {
-        for (int i = 0; i < 20; i++) {
-            strDatas.add("");
-        }
+    private void initList(List<HistoryTrading> strDatas) {
         adapter = new LabelHistoryEntrustAdapter(getActivity(), strDatas);
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsPullDown(false);
@@ -79,8 +77,7 @@ public class GroupHistoryEntrustFragment extends BasePullFragment<BaseFragentPul
     @Override
     protected void onFragmentFirstVisible() {
         id=getArguments().getString("id");
-        strDatas = new ArrayList<>();
-        initList(strDatas);
+        initList(new ArrayList<HistoryTrading>());
     }
 
     @Override

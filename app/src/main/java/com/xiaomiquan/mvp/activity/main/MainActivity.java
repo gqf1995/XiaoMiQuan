@@ -13,7 +13,6 @@ import android.provider.Settings;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
-import com.scichart.extensions.builders.SciChartBuilder;
 import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
@@ -26,7 +25,7 @@ import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.HandlerHelper;
 import com.xiaomiquan.utils.PingUtil;
 
-public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> {
+public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener {
 
     String uid;
 
@@ -44,12 +43,11 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        SciChartBuilder.init(this);
         //提示是否电池优化
         ignoreBatteryOptimization(this);
         initFragment();
         uid = DeviceUtils.getAndroidID() + System.currentTimeMillis();
-        initSocket();
+        //initSocket();
         updata();
         netWorkLinsener();
     }
@@ -80,8 +78,9 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         handler.sendEmptyMessageDelayed(1, 15000);
     }
 
-    private void initSocket() {
-        WebSocketRequest.getInstance().intiWebSocket("ws://13.231.38.47:1903/ws/" + uid, this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
+    public void initSocket() {
+        String ip=HttpUrl.getBaseUrl().substring(5,HttpUrl.getBaseUrl().length()-6);
+        WebSocketRequest.getInstance().intiWebSocket("ws:"+ip+":1903/ws/" + uid, this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
             @Override
             public void onDataSuccess(String name, String data, String info, int status) {
 
@@ -113,8 +112,6 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
 
     @Override
     protected void onDestroy() {
-        WebSocketRequest.getInstance().onDestory();
-        SciChartBuilder.dispose();
         HandlerHelper.getinstance().onDestory();
         super.onDestroy();
     }

@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
@@ -9,15 +10,18 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
+import com.xiaomiquan.mvp.activity.user.ChangeUserInfoActivity;
 import com.xiaomiquan.mvp.activity.user.ConversationActivity;
-import com.xiaomiquan.mvp.activity.user.HomePageActivity;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.xiaomiquan.mvp.activity.user.SecurityActivity;
 import com.xiaomiquan.mvp.activity.user.SetActivity;
+import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.mvp.databinder.UserBinder;
 import com.xiaomiquan.mvp.delegate.UserDelegate;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.CircleDialogHelper;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * 个人中心
@@ -29,9 +33,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
     @Override
     public void onResume() {
         super.onResume();
-        //更新用户信息
-        userLogin = SingSettingDBUtil.getUserLogin();
-        viewDelegate.initUserMsg(userLogin);
+
     }
 
     @Override
@@ -47,6 +49,9 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        //更新用户信息
+        userLogin = SingSettingDBUtil.getUserLogin();
+        viewDelegate.initUserMsg(userLogin);
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_user)).setShowBack(false).setmRightImg1(CommonUtils.getString(R.string.ic_Chat)));
         viewDelegate.setOnClickListener(this
                 , R.id.checkbox_night_model
@@ -74,16 +79,17 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 break;
             case R.id.checkbox_red_sticker:
                 //红涨绿跌
-                UserSet.getinstance().setRedRise(viewDelegate.viewHolder.checkbox_night_model.isChecked());
+                UserSet.getinstance().setRedRise(viewDelegate.viewHolder.checkbox_red_sticker.isChecked());
                 break;
             case R.id.lin_user:
                 if (SingSettingDBUtil.isLogin(getActivity())) {
                     //修改用户信息
+                    ChangeUserInfoActivity.startAct(this, 0x123);
                 }
                 break;
             case R.id.lin_set0:
                 //我的个人主页
-                gotoActivity(HomePageActivity.class).startAct();
+                UserHomePageActivity.startAct(getActivity(), userLogin.getId() + "");
                 break;
             case R.id.lin_set3:
                 //显示默认价格
@@ -112,6 +118,17 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 //退出登录
                 logout();
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0x123) {
+                userLogin = SingSettingDBUtil.getUserLogin();
+                viewDelegate.initUserMsg(userLogin);
+            }
         }
     }
 

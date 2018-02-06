@@ -3,13 +3,13 @@ package com.xiaomiquan.adapter.circle;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.bean.ArticleData;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -40,6 +40,7 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
     public List<String> paiseNum;
 
     DefaultClickLinsener defaultClickLinsener;
+    private LinearLayout lin_praise;
 
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
         this.defaultClickLinsener = defaultClickLinsener;
@@ -61,6 +62,7 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
         tv_praise = holder.getView(R.id.tv_praise);
         tv_praise_num = holder.getView(R.id.tv_praise_num);
         cv_head = holder.getView(R.id.cv_head);
+        lin_praise = holder.getView(R.id.lin_praise);
 
         isPraise.add(s.getUserPraise());
         paiseNum.add(s.getGoodCount());
@@ -83,7 +85,7 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
         GlideUtils.loadImage(s.getImg(), ic_pic);
         GlideUtils.loadImage(s.getAvatar(), cv_head);
 
-        tv_praise.setOnClickListener(new View.OnClickListener() {
+        lin_praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (defaultClickLinsener != null) {

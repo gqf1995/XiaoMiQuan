@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
 
+import org.greenrobot.eventbus.EventBus;
+
 
 /**
  * Created by zhaokaiqiang on 15/11/18.
@@ -51,6 +53,10 @@ public class BaseLog {
                 Log.wtf(tag, sub);
                 break;
         }
+        KlogData klogData=new KlogData();
+        klogData.setMsg(sub);
+        klogData.setTag(tag);
+        EventBus.getDefault().post(klogData);
     }
 
 }

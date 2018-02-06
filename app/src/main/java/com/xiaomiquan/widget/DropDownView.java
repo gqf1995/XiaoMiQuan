@@ -192,6 +192,12 @@ public class DropDownView extends LinearLayout {
 
     }
 
+    public void setText(String txt) {
+        if (tv_title != null) {
+            tv_title.setText(txt);
+        }
+    }
+
 
     private void showPopu() {
         if (itemWidth == 0) {

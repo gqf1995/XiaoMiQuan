@@ -22,12 +22,13 @@ public class SortingUserCoinBinder extends BaseDataBind<SortingUserCoinDelegate>
      * 订阅数据展示
      */
     public Disposable marketdata(
+            boolean isShow,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().marketdata)
-                .setShowDialog(true)
+                .setShowDialog(isShow)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("订阅数据展示")
                 .setRequestMode(HttpRequest.RequestMode.POST)

@@ -7,12 +7,18 @@ import com.biv.BigImageViewer;
 import com.biv.loader.glide.GlideImageLoader;
 import com.blankj.utilcode.util.Utils;
 import com.fivefivelike.mybaselibrary.base.BaseApp;
+import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
-import com.scichart.charting.visuals.SciChartSurface;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
+import com.xiaomiquan.utils.glide.GlideAlbumLoader;
+import com.yanzhenjie.album.Album;
+import com.yanzhenjie.album.AlbumConfig;
+import com.yanzhenjie.album.task.DefaultAlbumLoader;
 import com.yanzhenjie.nohttp.NoHttp;
+
+import java.util.Locale;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -39,6 +45,13 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
         //融云初始化
         initRongCloud();
         initClient();
+        //设置配置画廊可以加载网络图片
+        Album.initialize(
+                AlbumConfig.newBuilder(this)
+                        .setAlbumLoader(new GlideAlbumLoader()) // 设置Album加载器。
+                        .setLocale(Locale.CHINA) // 比如强制设置在任何语言下都用中文显示。
+                        .build()
+        );
     }
 
     private void initSkin() {
@@ -65,7 +78,6 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
         }
 
         //监听接收到的消息
-        //RongIMClient.setOnReceiveMessageListener(this);
         RongIM.setOnReceiveMessageListener(this);
     }
 
@@ -84,26 +96,13 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
             KLog.init(isLog);
             //初始化换肤
             initSkin();
-            String license = "<LicenseContract>" +
-                    "<Customer>gqf1995@qq.com</Customer>" +
-                    "<OrderId>Trial</OrderId>" +
-                    "<LicenseCount>1</LicenseCount>" +
-                    "<IsTrialLicense>true</IsTrialLicense>" +
-                    "<SupportExpires>02/26/2018 00:00:00</SupportExpires>" +
-                    "<ProductCode>SC-ANDROID-2D-ENTERPRISE-SRC</ProductCode>" +
-                    "<KeyCode>ac58819db3418493bf1c4f9c80e95509a912d1debbf004bf2ad277de68c68066dc561c982dff0f20656003cdd4f6b3f52ca7cc71f5f81283b759d2945aa85fd7dee6f17a5149f784645c101e841939555439315dd199c367fe12fe124eefef1c3a84077a860a0b81e63681b00661972d181c3495201bb89fe12e0cf362b7124dcf6632e38b15e7fd0541e28b5933b451cc9fe31dcd394173c3712ea2caa9016249a4056f56e6dda0</KeyCode>" +
-                    "</LicenseContract>";
-            try {
-                SciChartSurface.setRuntimeLicenseKey(license);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
     @Override
     public void onTerminate() {
         // 程序终止的时候执行
+        WebSocketRequest.getInstance().onDestory();
         super.onTerminate();
     }
 

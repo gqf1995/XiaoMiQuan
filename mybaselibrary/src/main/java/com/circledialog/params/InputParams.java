@@ -45,7 +45,7 @@ public class InputParams implements Parcelable {
     /**
      * 输入框边框线条颜色
      */
-    public int strokeColor = CircleColor.inputStroke;
+    public int strokeColor = CircleColor.getInputStroke();
     /**
      * 输入框的背景
      */
@@ -61,7 +61,7 @@ public class InputParams implements Parcelable {
     /**
      * 输入框字体颜色
      */
-    public int textColor = CircleColor.title;
+    public int textColor = CircleColor.getTitle();
 
     @Override
     public int describeContents() {

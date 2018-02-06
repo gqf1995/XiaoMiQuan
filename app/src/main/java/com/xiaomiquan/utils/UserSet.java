@@ -32,11 +32,15 @@ public class UserSet {
     }
 
     public int getDropColor() {
-        return isRedRise() ? R.color.decreasing_color : R.color.increasing_color;
+        boolean redRise = isRedRise();
+        int i = redRise ? R.color.decreasing_color : R.color.increasing_color;
+        return i;
     }
 
     public int getRiseColor() {
-        return isRedRise() ? R.color.increasing_color : R.color.decreasing_color;
+        boolean redRise = isRedRise();
+        int i = redRise ? R.color.increasing_color : R.color.decreasing_color;
+        return i;
     }
 
     public boolean isRedRise() {
@@ -136,7 +140,14 @@ public class UserSet {
     }
 
     //用户设置k线显示数据
+    public void setKType(String kType) {
+        SaveUtil.getInstance().saveString("kType", kType);
+    }
 
+    public String getKType() {
+        String kType = SaveUtil.getInstance().getString("kType");
+        return TextUtils.isEmpty(kType) ? CommonUtils.getString(R.string.str_average) : kType;
+    }
 
     public void setNight(boolean isNight) {
         SaveUtil.getInstance().saveBoolean("isNight", isNight);

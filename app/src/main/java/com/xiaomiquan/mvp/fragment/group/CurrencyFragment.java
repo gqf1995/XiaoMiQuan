@@ -93,19 +93,33 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
             //设置分页长度
             if (TYPE_CURRENCY_BUY.equals(type)) {
                 viewDelegate.pagesize = 50;
-            } else if (TYPE_CURRENCY_BUY.equals(type)) {
+            } else if (TYPE_CURRENCY_SELL.equals(type)) {
                 viewDelegate.pagesize = 999;
             }
             initRecycleViewPull(adapter, layoutManager);
             viewDelegate.viewHolder.pull_recycleview.setHasFixedSize(true);
             viewDelegate.viewHolder.pull_recycleview.setNestedScrollingEnabled(false);
             viewDelegate.setIsPullDown(false);
+            if (TYPE_CURRENCY_SELL.equals(type)) {
+                viewDelegate.setIsLoadMore(false);
+            }
             onRefresh();
         } else {
             getDataBack(adapter.getDatas(), strDatas, adapter);
         }
     }
 
+    public void getSelectPositionData() {
+        if (onSelectLinsener != null && adapter != null) {
+            if (adapter.getDatas().size() > 0) {
+                onSelectLinsener.onSelectLinsener(adapter.getDatas().get(adapter.getSelectPosition()));
+            } else {
+                onSelectLinsener.onSelectLinsener(null);
+            }
+        }else {
+            onSelectLinsener.onSelectLinsener(null);
+        }
+    }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
@@ -115,7 +129,9 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
                 initList(datas);
                 if (datas != null) {
                     if (datas.size() > 0) {
-                        onSelectLinsener.onSelectLinsener(adapter.getDatas().get(adapter.getSelectPosition()));
+                        if (TYPE_CURRENCY_BUY.equals(type)) {
+                            onSelectLinsener.onSelectLinsener(adapter.getDatas().get(adapter.getSelectPosition()));
+                        }
                     }
                 }
                 break;
@@ -127,7 +143,7 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
     protected void refreshData() {
         if (TYPE_CURRENCY_BUY.equals(type)) {
             addRequest(binder.searchCoin(searchOrId, this));
-        } else if (TYPE_CURRENCY_BUY.equals(type)) {
+        } else if (TYPE_CURRENCY_SELL.equals(type)) {
             addRequest(binder.myCoin(searchOrId, this));
         }
         //addRequest(binder.listArticleByPage(this));

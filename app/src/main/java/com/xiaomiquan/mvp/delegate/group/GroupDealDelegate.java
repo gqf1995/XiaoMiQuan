@@ -10,11 +10,11 @@ import android.widget.TextView;
 import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.NoParentsTouchFramelayout;
 import com.tablayout.CommonTabLayout;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
-import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
 import com.xiaomiquan.entity.bean.group.GroupItem;
@@ -24,6 +24,10 @@ import com.xiaomiquan.widget.JudgeNestedScrollView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import skin.support.widget.SkinCompatEditText;
 
 /**
  * Created by Andy on 2018/1/25.
@@ -36,35 +40,43 @@ public class GroupDealDelegate extends BaseDelegate {
 
     String buyBalance = "";
     String sellBalance = "";
+    public int selectType = 0;
 
     private void initTop() {
         viewHolder.tl_1.setIconVisible(false);
         mTabEntitiesTop.add(new TabEntity(CommonUtils.getString(R.string.str_buy), R.string.ic_Download, 0));
         mTabEntitiesTop.add(new TabEntity(CommonUtils.getString(R.string.str_sell), R.string.ic_Upload, 0));
         viewHolder.tl_1.setTabData(mTabEntitiesTop);
-        viewHolder.tl_1.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                changeType(position == 0);
-                showFragment(position);
-            }
-
-            @Override
-            public void onTabReselect(int position) {
-
-            }
-        });
         viewHolder.nestedScrollView.setNoScollView(viewHolder.fl_currency);
         changeType(true);
         viewHolder.et_coin_search.setBackground(new RadiuBg(CommonUtils.getColor(R.color.base_mask), 1000, 1000, 1000, 1000));
+
+        List<String> dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_price_type));
+        viewHolder.lin_choose.setDefaultClickLinsener(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, int position, Object item) {
+                selectType = position;
+            }
+        }).setDatas(dataset2, null);
     }
 
     public void onSelectLinsener(CoinDetail coinDetail, GroupItem groupItem) {
+        if (coinDetail == null) {
+            viewHolder.tv_buy_price.setText(CommonUtils.getString(R.string.str_now_no_data));
+            viewHolder.tv_balance.setText(CommonUtils.getString(R.string.str_now_no_data));
+            viewHolder.tv_sell_price.setText(CommonUtils.getString(R.string.str_now_no_data));
+            viewHolder.tv_coin_type.setText(CommonUtils.getString(R.string.str_now_no_data));
+            return;
+        }
         String cnyPrice = "--";
         if (!TextUtils.isEmpty(coinDetail.getPriceUsd())) {
             String rate = BigUIUtil.getinstance().rate("CNY", "USD");
-            cnyPrice = BigUIUtil.getinstance().bigPrice(new BigDecimal(coinDetail.getPriceUsd()).divide(new BigDecimal(rate), 8, BigDecimal.ROUND_HALF_DOWN).toPlainString());
-            viewHolder.tv_buy_price.setText(cnyPrice);
+            if(!TextUtils.isEmpty(rate)){
+                cnyPrice = BigUIUtil.getinstance().bigPrice(new BigDecimal(coinDetail.getPriceUsd()).divide(new BigDecimal(rate), 8, BigDecimal.ROUND_HALF_DOWN).toPlainString());
+                viewHolder.tv_buy_price.setText(cnyPrice);
+            }else{
+                viewHolder.tv_buy_price.setText(coinDetail.getPriceUsd());
+            }
         }
         viewHolder.tv_sell_price.setText(coinDetail.getPriceUsd());
         if (viewHolder.tl_1.getCurrentTab() == 0) {
@@ -76,9 +88,10 @@ public class GroupDealDelegate extends BaseDelegate {
             sellBalance = CommonUtils.getString(R.string.str_tv_balance_amount) + coinDetail.getCount();
             viewHolder.tv_balance.setText(sellBalance);
         }
+        viewHolder.tv_coin_type.setText(coinDetail.getSymbol());
     }
 
-    private void changeType(boolean isBuy) {
+    public void changeType(boolean isBuy) {
         viewHolder.tv_price_label.setText(CommonUtils.getString(isBuy ? R.string.str_tv_buy_price : R.string.str_tv_sell_price));
         viewHolder.tv_num_label.setText(CommonUtils.getString(isBuy ? R.string.str_tv_buy_num : R.string.str_tv_sell_num));
         viewHolder.et_coin_search.setVisibility(isBuy ? View.VISIBLE : View.INVISIBLE);
@@ -96,7 +109,7 @@ public class GroupDealDelegate extends BaseDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px), viewHolder.vp_sliding,false);
+        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px), viewHolder.vp_sliding, false);
         initTop();
 
     }
@@ -111,8 +124,9 @@ public class GroupDealDelegate extends BaseDelegate {
         public View rootView;
         public CommonTabLayout tl_1;
         public TextView tv_input_label1;
-        public EditText et_coin_search;
+        public SkinCompatEditText et_coin_search;
         public NoParentsTouchFramelayout fl_currency;
+        public TextView tv_coin_type;
         public TextView tv_sell_price;
         public LinearLayout lin_sell;
         public TextView tv_buy_price;
@@ -132,8 +146,9 @@ public class GroupDealDelegate extends BaseDelegate {
             this.rootView = rootView;
             this.tl_1 = (CommonTabLayout) rootView.findViewById(R.id.tl_1);
             this.tv_input_label1 = (TextView) rootView.findViewById(R.id.tv_input_label1);
-            this.et_coin_search = (EditText) rootView.findViewById(R.id.et_coin_search);
+            this.et_coin_search = (SkinCompatEditText) rootView.findViewById(R.id.et_coin_search);
             this.fl_currency = (NoParentsTouchFramelayout) rootView.findViewById(R.id.fl_currency);
+            this.tv_coin_type = (TextView) rootView.findViewById(R.id.tv_coin_type);
             this.tv_sell_price = (TextView) rootView.findViewById(R.id.tv_sell_price);
             this.lin_sell = (LinearLayout) rootView.findViewById(R.id.lin_sell);
             this.tv_buy_price = (TextView) rootView.findViewById(R.id.tv_buy_price);

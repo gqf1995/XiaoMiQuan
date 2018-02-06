@@ -58,7 +58,7 @@ public class CommentDetailAdapter extends CommonAdapter<Comment> {
         }
 
         tv_time.setText(comment.getCreateTimeStr());
-        GlideUtils.loadImage(comment.getImages(), cv_head);
+        GlideUtils.loadImage(comment.getAvatar(), cv_head);
         tv_name.setText(comment.getNickName());
     }
 

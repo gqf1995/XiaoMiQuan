@@ -32,7 +32,6 @@ import java.util.List;
 public class LiveActivity extends BaseDataBindActivity<NewsDelegate, NewsBinder> {
 
     SquareLiveAdapter squareLiveAdapter;
-    int index;
 
     @Override
     protected Class<NewsDelegate> getDelegateClass() {
@@ -92,9 +91,17 @@ public class LiveActivity extends BaseDataBindActivity<NewsDelegate, NewsBinder>
                         TopicDetailActivity.startAct(LiveActivity.this, squareLives.get(position));
                     }
                 }
-                if (view.getId() == R.id.tv_praise) {
-                    index = position;
-                    addRequest(binder.savePraise(squareLiveAdapter.getDatas().get(position).getId(), LiveActivity.this));
+                if (view.getId() == R.id.lin_praise) {
+                    if (squareLiveAdapter.isPraise.get(position).equals("false")) {
+                        squareLiveAdapter.isPraise.add(position, "true");
+                        squareLiveAdapter.paiseNum.add(position, Integer.parseInt(squareLiveAdapter.paiseNum.get(position)) + 1 + "");
+                        squareLiveAdapter.notifyItemChanged(position);
+                    } else {
+                        squareLiveAdapter.isPraise.add(position, "false");
+                        squareLiveAdapter.paiseNum.add(position, Integer.parseInt(squareLiveAdapter.paiseNum.get(position)) - 1 + "");
+                        squareLiveAdapter.notifyItemChanged(position);
+                    }
+                        addRequest(binder.savePraise(squareLiveAdapter.getDatas().get(position).getId(), LiveActivity.this));
                 }
                 if (view.getId() == R.id.cv_head) {
                     UserInfoActivity.startAct(LiveActivity.this, squareLives.get(position));
@@ -102,6 +109,7 @@ public class LiveActivity extends BaseDataBindActivity<NewsDelegate, NewsBinder>
             }
         });
         viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
+        viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
         viewDelegate.viewHolder.pull_recycleview.setAdapter(squareLiveAdapter);
     }
 
@@ -118,10 +126,7 @@ public class LiveActivity extends BaseDataBindActivity<NewsDelegate, NewsBinder>
 
                 break;
             case 0x127:
-                Praise praise = GsonUtil.getInstance().toObj(data, Praise.class);
-                squareLiveAdapter.isPraise.add(index, praise.getIspraise() + "");
-                squareLiveAdapter.paiseNum.add(index, praise.getPraiseQty());
-                squareLiveAdapter.notifyItemChanged(index);
+
                 break;
         }
     }

@@ -60,7 +60,7 @@ class MultipleButton extends ScaleLinearLayout {
 
         //如果取消按钮没有背景色，则使用默认色
         int backgroundNegative = mNegativeParams.backgroundColor != 0 ? mNegativeParams
-                .backgroundColor : CircleColor.bgDialog;
+                .backgroundColor : CircleColor.getBgDialog();
         //按钮左下方为圆角
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             mNegativeButton.setBackground(new SelectorBtn(backgroundNegative, 0, 0, 0, radius));
@@ -89,7 +89,7 @@ class MultipleButton extends ScaleLinearLayout {
         //如果取消按钮没有背景色，则使用默认色
         int backgroundPositive = mPositiveParams.backgroundColor != 0 ? mPositiveParams
                 .backgroundColor : CircleColor
-                .bgDialog;
+                .getBgDialog();
 
         //取消按钮右下方为圆角
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

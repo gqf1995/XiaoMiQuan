@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
@@ -16,7 +17,10 @@ import com.xiaomiquan.utils.UserSet;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 郭青枫 on 2018/1/10 0010.
@@ -37,6 +41,7 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
     FrameLayout fl_change;
     FontTextview tv_name;
     FontTextview tv_coin_unit;
+    boolean isFirst = false;
 
     //设置汇率
     public void setDefaultUnit(String defaultUnit) {
@@ -90,15 +95,73 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
             tv_coin_probably.setVisibility(View.VISIBLE);
         }
 
-    }
+        if (!isFirst) {
+            if (exchangeDataMap != null) {
+                ExchangeData oldData = null;
+                Iterator it = exchangeDataMap.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry entry = (Map.Entry) it.next();
+                    ExchangeData val = (ExchangeData) entry.getValue();
+                    if (val.getOnlyKey().equals(s.getOnlyKey())) {
+                        oldData = val;
+                        exchangeDataMap.remove(val);
+                        break;
+                    }
+                }
+                if (oldData != null) {
+                    if (s.getOnlyKey().equals(oldData.getOnlyKey())) {
+                        TextView tv_coin_price_color = holder.getView(R.id.tv_coin_price);
+                        TextView tv_coin_probably_color = holder.getView(R.id.tv_coin_probably);
+                        BigUIUtil.getinstance().anim(tv_coin_price_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
+                        BigUIUtil.getinstance().anim(tv_coin_probably_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font2), s.getOnlyKey());
+                    }
+                }
+            }
+        }
 
+    }
+    Map<Integer, ExchangeData> exchangeDataMap;
     public void updataOne(int position, ExchangeData data) {
         if (mDatas.size() > 0) {
-            mDatas.set(position, data);
+            if (exchangeDataMap == null) {
+                exchangeDataMap = new LinkedHashMap<>();
+            }
+            if (!data.getOnlyKey().equals(getDatas()
+                    .get(position).getOnlyKey())) {
+                return;
+            }
+            boolean isSameChange = false;
+            boolean isSameLast ;
+            //涨幅 和 价格 如果为空则不变
+            if (TextUtils.isEmpty(data.getChange())) {
+                data.setChange(getDatas().get(position).getChange());
+                isSameChange = true;
+            } else {
+                if (getDatas().get(position).getChange().equals(data.getChange())) {
+                    isSameChange = true;
+                }
+            }
+            if (TextUtils.isEmpty(data.getLast())) {
+                data.setLast(getDatas().get(position).getLast());
+                isSameLast = true;
+            } else {
+                if (getDatas().get(position).getLast().equals(data.getLast())) {
+                    isSameLast = true;
+                } else {
+                    isSameLast = false;
+                }
+            }
+            if (isSameChange && isSameLast) {
+                return;
+            }
+            exchangeDataMap.put(position, getDatas().get(position));
+            getDatas().set(position, data);
             this.notifyItemChanged(position);
         }
     }
-
+    public void setFirst(boolean first) {
+        isFirst = first;
+    }
     public void setDatas(List<ExchangeData> datas) {
         mDatas.clear();
         mDatas.addAll(datas);

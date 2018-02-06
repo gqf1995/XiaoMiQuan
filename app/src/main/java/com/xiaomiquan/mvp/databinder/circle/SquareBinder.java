@@ -24,7 +24,7 @@ public class SquareBinder extends BaseDataBind<SquareDelegate> {
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("userGroupId", userGroupId);
-        baseMap.put("page", page);
+        baseMap.put("page", viewDelegate.page);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().getUsertopic)

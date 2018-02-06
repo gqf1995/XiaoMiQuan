@@ -127,11 +127,11 @@ greendao {
     targetGenDir 'src/main/java'
 }
 dependencies {
-    compile (group: 'com.scichart.library', name: 'core', version: '2.1.0.2131', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'data', version: '2.1.0.2131', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'drawing', version: '2.1.0.2131', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'charting', version: '2.1.0.2131', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'extensions', version: '2.1.0.2131', ext: 'aar')
+//    compile (group: 'com.scichart.library', name: 'core', version: '2.1.0.2131', ext: 'aar')
+//    compile (group: 'com.scichart.library', name: 'data', version: '2.1.0.2131', ext: 'aar')
+//    compile (group: 'com.scichart.library', name: 'drawing', version: '2.1.0.2131', ext: 'aar')
+//    compile (group: 'com.scichart.library', name: 'charting', version: '2.1.0.2131', ext: 'aar')
+//    compile (group: 'com.scichart.library', name: 'extensions', version: '2.1.0.2131', ext: 'aar')
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

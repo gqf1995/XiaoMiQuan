@@ -49,6 +49,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     boolean isInit = false;//图表是否加载过数据
     boolean isHavaDao = false;
     List<String> timeData;//接口 传递 时间 参数 集合
+    List<String> klineTypeData;//显示k线类型
     int uiShowNum = 180;//ui显示多少条
     boolean isUpdataHistory = false;//是否正在更新历史k线
     int updataHistoryNum = 0;//获取历史记录次数
@@ -153,6 +154,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
     List<String> dataset1;//选择 时间
     List<String> dataset3;//选择 背景样式
+    List<String> dataset2;//k线显示类型
 
     @Override
     protected void onResume() {
@@ -426,8 +428,9 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
     private void initView() {
         timeData = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline_value));
+        klineTypeData = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline_show_type));
         dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline));
-        List<String> dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_color));
+        dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline_type));
         dataset3 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_color));
         //用户选择时间
         String kTime = UserSet.getinstance().getKTime();
@@ -438,23 +441,42 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
             @Override
             public void onClick(View view, int position, Object item) {
                 //时间 改变
-                klineValue = timeData.get(position);
-                UserSet.getinstance().setKTime(klineValue);
-                isChange = true;
-                timeIndex = 0;
-                //清空数据
                 if (klineDraw != null) {
-                    klineDraw.cleanData();
+                    if (klineDraw.getmData() != null) {
+                        klineValue = timeData.get(position);
+                        UserSet.getinstance().setKTime(klineValue);
+                        isChange = true;
+                        timeIndex = 0;
+                        //清空数据
+                        if (klineDraw != null) {
+                            klineDraw.cleanData();
+                        }
+                        //请求新数据
+                        initDao();
+                    }
                 }
-                //请求新数据
-                initDao();
             }
         }).setDatas(dataset1, new GridLayoutManager(this, 4) {
             public boolean canScrollVertically() {
                 return false;
             }
         });
-        viewDelegate.viewHolder.lin_indicators.setDatas(dataset2, null);
+        viewDelegate.viewHolder.lin_indicators
+                .setSelectPosition(klineTypeData.indexOf(UserSet.getinstance().getKType()))
+                .setDefaultClickLinsener(new DefaultClickLinsener() {
+                    @Override
+                    public void onClick(View view, int position, Object item) {
+                        UserSet.getinstance().setKType(klineTypeData.get(position));
+                        if (klineDraw != null) {
+                            if (klineDraw.getmData() != null) {
+                                viewDelegate.setDetailsData(viewDelegate.selectPosition, klineDraw.getmData());
+                                klineDraw.selectType();
+                            }
+                        }
+                    }
+                })
+                .setDatas(dataset2, null);
+        viewDelegate.viewHolder.lin_indicators.setText(UserSet.getinstance().getKType());
         viewDelegate.viewHolder.lin_color
                 .setDefaultClickLinsener(new DefaultClickLinsener() {
                     @Override
@@ -476,6 +498,5 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 .setSelectPosition(UserSet.getinstance().getKBgSelectPosition())
                 .setDatas(dataset3, null);
         //初始化用户 默认配置
-
     }
 }

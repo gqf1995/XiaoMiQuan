@@ -35,7 +35,6 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
 
     CoinExchangeAdapter exchangeMarketAdapter;
     String coinName;
-    List<ExchangeData> strDatas;
     private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
     final int whatIndex = 1026;
     List<String> sendKeys;
@@ -61,6 +60,7 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
         if (exchangeMarketAdapter == null) {
             exchangeMarketAdapter = new CoinExchangeAdapter(getActivity(), strDatas);
             exchangeMarketAdapter.setDefaultUnit(UserSet.getinstance().getUnit());
+            exchangeMarketAdapter.setFirst(true);
             exchangeMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -82,8 +82,10 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
             initTool();
         } else {
             //exchangeMarketAdapter.setDatas(strDatas);
+            exchangeMarketAdapter.setFirst(true);
             getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);
         }
+        exchangeMarketAdapter.setFirst(false);
     }
 
     public TextView tv_unit;
@@ -123,7 +125,6 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
                 initList(datas);
-                strDatas = datas;
                 if (datas != null) {
                     //发送 更新请求
                     if (datas.size() > 0) {
@@ -155,17 +156,14 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
 
     @Override
     protected void onFragmentFirstVisible() {
-        strDatas = new ArrayList<>();
-        initList(strDatas);
-
+        initList(new ArrayList<ExchangeData>());
     }
 
     //新数据推送 更新
     private void updataNew(ExchangeData data) {
         int updataPosition = 0;
-        for (int i = 0; i < strDatas.size(); i++) {
-            if (strDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
-                strDatas.set(i, data);
+        for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
+            if (exchangeMarketAdapter.getDatas().get(i).getOnlyKey().equals(data.getOnlyKey())) {
                 updataPosition = i;
                 break;
             }

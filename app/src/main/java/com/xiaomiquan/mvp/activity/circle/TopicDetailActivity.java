@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -22,6 +23,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleContentAdapter;
 import com.xiaomiquan.adapter.circle.CommentAdapter;
 import com.xiaomiquan.adapter.circle.CommentDetailAdapter;
+import com.xiaomiquan.adapter.circle.DynamicPhotoAdapter;
 import com.xiaomiquan.adapter.circle.PraiseAdapter;
 import com.xiaomiquan.entity.bean.GroupOwner;
 import com.xiaomiquan.entity.bean.circle.Comment;
@@ -36,6 +38,8 @@ import com.xiaomiquan.mvp.delegate.circle.TopicDetailDelegate;
 import com.xiaomiquan.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.xiaomiquan.widget.circle.CommentPopupWindow;
+import com.yanzhenjie.album.Album;
+import com.yanzhenjie.album.api.widget.Widget;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
@@ -166,6 +170,36 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
 
         viewDelegate.viewHolder.tv_name.setText(square.getNickName());
         initComment(square.getCommentVos());
+        initImgs(square.getImgList());
+    }
+
+    private void initImgs(final List<String> stringList) {
+        DynamicPhotoAdapter dynamicPhotoAdapter = new DynamicPhotoAdapter(TopicDetailActivity.this, stringList);
+        dynamicPhotoAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                //图片预览
+                Album.gallery(TopicDetailActivity.this)
+                        .widget(Widget.newDarkBuilder(TopicDetailActivity.this).title(CommonUtils.getString(R.string.str_img_preview)).build())
+                        .checkedList((ArrayList<String>) stringList) // 要浏览的图片列表：ArrayList<String>。
+                        .navigationAlpha(50) // Android5.0+的虚拟导航栏的透明度。
+                        .checkable(false)
+                        .start(); // 千万不要忘记调用start()方法。
+            }
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(TopicDetailActivity.this, 3) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        viewDelegate.viewHolder.pull_recycleview.setLayoutManager(gridLayoutManager);
+        viewDelegate.viewHolder.pull_recycleview.setAdapter(dynamicPhotoAdapter);
+
     }
 
     private void initComment(final List<Comment> comments) {

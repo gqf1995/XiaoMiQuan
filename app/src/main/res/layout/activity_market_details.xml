@@ -465,7 +465,16 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/trans_10px">
-
+                        <TextView
+                            android:id="@+id/tv_boll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingRight="@dimen/trans_10px"
+                            android:text="BOLL(20)"
+                            android:visibility="gone"
+                            android:textColor="@color/color_font3"
+                            android:textSize="@dimen/text_trans_20px"/>
                         <TextView
                             android:id="@+id/tv_ma7"
                             android:layout_width="wrap_content"
@@ -473,6 +482,7 @@
                             android:gravity="center"
                             android:paddingRight="@dimen/trans_10px"
                             android:text="MA7:"
+                            android:visibility="gone"
                             android:textColor="@color/color_font3"
                             android:textSize="@dimen/text_trans_20px"/>
 
@@ -483,6 +493,7 @@
                             android:gravity="center"
                             android:paddingRight="@dimen/trans_10px"
                             android:text="MA15:"
+                            android:visibility="gone"
                             android:textColor="@color/minute_yellow"
                             android:textSize="@dimen/text_trans_20px"/>
 
@@ -493,6 +504,7 @@
                             android:gravity="center"
                             android:paddingRight="@dimen/trans_10px"
                             android:text="MA30:"
+                            android:visibility="gone"
                             android:textColor="@color/minute_blue"
                             android:textSize="@dimen/text_trans_20px"/>
 

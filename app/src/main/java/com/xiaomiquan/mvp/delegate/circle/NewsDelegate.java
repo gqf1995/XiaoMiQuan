@@ -5,9 +5,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.xiaomiquan.R;
 
-public class NewsDelegate extends BaseDelegate {
+public class NewsDelegate extends BaseMyPullDelegate {
     public ViewHolder viewHolder;
 
     @Override

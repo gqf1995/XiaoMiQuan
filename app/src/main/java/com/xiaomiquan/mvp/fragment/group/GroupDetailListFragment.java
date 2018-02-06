@@ -10,6 +10,7 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.LabelDetailDealAdapter;
 import com.xiaomiquan.entity.bean.LiveData;
+import com.xiaomiquan.entity.bean.group.HoldDetail;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
@@ -41,7 +42,7 @@ public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDel
     }
 
 
-    private void initList(List<String> strDatas) {
+    private void initList(List<HoldDetail> strDatas) {
         adapter = new LabelDetailDealAdapter(getActivity(), strDatas);
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsPullDown(false);
@@ -77,8 +78,7 @@ public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDel
     @Override
     protected void onFragmentFirstVisible() {
         id=getArguments().getString("id");
-        strDatas = new ArrayList<>();
-        initList(strDatas);
+        initList(new ArrayList<HoldDetail>());
     }
 
     @Override

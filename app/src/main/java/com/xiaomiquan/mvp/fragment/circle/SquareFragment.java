@@ -42,7 +42,6 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
     SquareShortCutAdapter squareShortCutAdapter;
     SquareLiveAdapter squareLiveAdapter;
-    int index;
 
     @Override
     protected Class<SquareDelegate> getDelegateClass() {
@@ -67,7 +66,6 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                 addRequest(binder.getLive(SquareFragment.this));
             }
         });
-
     }
 
     @Override
@@ -83,10 +81,6 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
             case 0x125:
                 break;
             case 0x127:
-                Praise praise = GsonUtil.getInstance().toObj(data, Praise.class);
-                squareLiveAdapter.isPraise.add(index, praise.getIspraise() + "");
-                squareLiveAdapter.paiseNum.add(index, praise.getPraiseQty());
-                squareLiveAdapter.notifyItemChanged(index);
                 break;
         }
     }
@@ -197,23 +191,31 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         squareLiveAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
             public void onClick(View view, final int position, Object item) {
-                if (view.getId() == R.id.tv_comment) {
+                if (view.getId() == R.id.lin_comment) {
                     if (squareLives.get(position).getType().equals("1")) {
                         ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
                     } else {
                         TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
                     }
                 }
-                if (view.getId() == R.id.tv_praise) {
-                    index = position;
+                if (view.getId() == R.id.lin_praise) {
+                    if (squareLiveAdapter.isPraise.get(position).equals("false")) {
+                        squareLiveAdapter.isPraise.add(position, "true");
+                        squareLiveAdapter.paiseNum.add(position, Integer.parseInt(squareLiveAdapter.paiseNum.get(position)) + 1 + "");
+                        squareLiveAdapter.notifyItemChanged(position);
+                    } else {
+                        squareLiveAdapter.isPraise.add(position, "false");
+                        squareLiveAdapter.paiseNum.add(position, Integer.parseInt(squareLiveAdapter.paiseNum.get(position)) - 1 + "");
+                        squareLiveAdapter.notifyItemChanged(position);
+                    }
                     addRequest(binder.savePraise(squareLiveAdapter.getDatas().get(position).getId(), SquareFragment.this));
                 }
                 if (view.getId() == R.id.cv_head) {
-                    UserInfoActivity.startAct(getActivity(), squareLives.get(position));
                 }
             }
         });
         viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
+        viewDelegate.viewHolder.ry_live.getItemAnimator().setChangeDuration(0);
         viewDelegate.viewHolder.ry_live.setAdapter(squareLiveAdapter);
         viewDelegate.setIsLoadMore(true);
     }
@@ -264,5 +266,13 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                 gotoActivity(LiveActivity.class).startAct();
                 break;
         }
+    }
+
+
+
+    @Override
+    public void loadData() {
+        super.loadData();
+        addRequest(binder.getLive(this));
     }
 }

@@ -1,6 +1,7 @@
 package com.xiaomiquan.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -39,8 +40,18 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
     private FontTextview tv_coin_probably;
     private FontTextview tv_coin_unit;
 
+    boolean isRedRise = false;
+
+    public void checkRedRise(RecyclerView.Adapter adapter) {
+        if (isRedRise != UserSet.getinstance().isRedRise()) {
+            adapter.notifyDataSetChanged();
+        }
+        isRedRise = UserSet.getinstance().isRedRise();
+    }
+
     public CoinMarketAdapter(Context context, List<ExchangeData> datas) {
         super(context, R.layout.adapter_coin_market, datas);
+        isRedRise = UserSet.getinstance().isRedRise();
     }
 
 
@@ -64,11 +75,14 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
         tv_coin_unit.setText(s.getName());
 
 
-
         String s1 = BigUIUtil.getinstance().rateOnePrice(s.getPriceUsd(), s.getSymbol(), UserSet.getinstance().getUSDUnit());
         String s2 = BigUIUtil.getinstance().rateOnePrice(s.getMarketCapUsd(), UserSet.getinstance().getUSDUnit(), UserSet.getinstance().getUSDUnit());
-        s2=s2.substring(1,s2.length());
-        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  " + BigUIUtil.getinstance().bigMarkValue(s2));
+        if (TextUtils.isEmpty(s2)) {
+            tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  ");
+        } else {
+            s2 = s2.substring(1, s2.length());
+            tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  " + BigUIUtil.getinstance().bigMarkValue(s2));
+        }
         if (TextUtils.isEmpty(s1)) {
             tv_coin_price.setText("--");
         } else {
@@ -84,15 +98,15 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
             } else {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getDropColor()), 10, 10, 10, 10));
             }
-        }else {
+        } else {
             ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
         }
         tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getPercentChange24h()) + "%");
     }
 
     public void updataOne(int position, ExchangeData data) {
-        if(mDatas.size()>0) {
-            mDatas.set(position,data);
+        if (mDatas.size() > 0) {
+            mDatas.set(position, data);
             this.notifyItemChanged(position);
         }
     }

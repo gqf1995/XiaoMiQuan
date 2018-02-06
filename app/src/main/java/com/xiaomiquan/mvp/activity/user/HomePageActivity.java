@@ -38,7 +38,7 @@ public class HomePageActivity extends BasePullActivity<HomePageDelegate, BaseAct
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(""));
-        viewDelegate.initToplinsener();
+        viewDelegate.initToplinsener((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_210px));
         initList(new ArrayList<String>());
     }
 
@@ -50,7 +50,6 @@ public class HomePageActivity extends BasePullActivity<HomePageDelegate, BaseAct
             dynamicAdapter = new DynamicAdapter(this, datas);
             adapter = new HeaderAndFooterWrapper(dynamicAdapter);
             adapter.addHeaderView(initTop());
-            viewDelegate.viewHolder.swipeRefreshLayout.setProgressViewEndTarget(false,2* (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_110px));
             initRecycleViewPull(adapter, new LinearLayoutManager(this));
         } else {
             getDataBack(dynamicAdapter.getDatas(), datas, adapter);

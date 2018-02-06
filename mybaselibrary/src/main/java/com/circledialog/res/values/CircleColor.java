@@ -1,5 +1,7 @@
 package com.circledialog.res.values;
 
+import android.graphics.Color;
+
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 
@@ -8,10 +10,8 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
  */
 public class CircleColor {
 
-    /**
-     * 对话框背景色
-     */
-    public static final int bgDialog = CommonUtils.getColor(R.color.colorPrimary);
+
+    //public static final int bgDialog = CommonUtils.getColor(R.color.colorPrimary);
 
     /**
      * 标题颜色
@@ -25,10 +25,7 @@ public class CircleColor {
      * 按钮颜色
      */
     public static final int button = 0xFF007AFF;
-    /**
-     * 线条颜色
-     */
-    public static final int divider = CommonUtils.getColor(R.color.base_mask);// 0xFFD7D7DB;
+
     /**
      * 按钮点击颜色
      */
@@ -36,5 +33,46 @@ public class CircleColor {
     /**
      * 输入框边框颜色
      */
-    public static final int inputStroke = CommonUtils.getColor(R.color.base_mask);
+    //public static final int inputStroke = CommonUtils.getColor(R.color.base_mask);
+
+    /**
+     * 对话框背景色
+     */
+    public static int getBgDialog() {
+        return CommonUtils.getColor(R.color.colorPrimary);
+    }
+
+    public static int getTitle() {
+        return CommonUtils.getColor(R.color.color_font2);
+    }
+
+    public static int getContent() {
+        return content;
+    }
+
+    public static int getButton() {
+        return button;
+    }
+
+    /**
+     * 线条颜色
+     */
+    public static int getDivider() {
+        int color = CommonUtils.getColor(R.color.colorPrimary);
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv); // convert to hsv
+        // make darker
+        hsv[2] = hsv[2] + 0.1f; // less brightness
+        int darkerColor = Color.HSVToColor(hsv);
+        return darkerColor;
+    }
+
+    public static int getButtonPress() {
+        return buttonPress;
+    }
+
+    public static int getInputStroke() {
+        return CommonUtils.getColor(R.color.base_mask);
+    }
+
 }

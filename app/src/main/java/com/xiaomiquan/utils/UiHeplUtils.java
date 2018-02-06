@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DimenRes;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -25,15 +27,26 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SDCardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.PathEntity;
+import com.xiaomiquan.widget.CircleDialogHelper;
+import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.api.widget.Widget;
+import com.yanzhenjie.durban.Controller;
+import com.yanzhenjie.durban.Durban;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.PermissionListener;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -61,7 +74,7 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by 郭青枫 on 2017/8/5.
- *
+ * <p>
  * ui 处理统一工具
  */
 
@@ -736,11 +749,129 @@ public class UiHeplUtils {
         return (int) (pxValue / scale + 0.5f);
     }
 
-    /** 获取手机的密度*/
+    /**
+     * 获取手机的密度
+     */
     public static float getDensity(Context context) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         return dm.density;
     }
 
+    public static void getPhoto(final FragmentActivity fragmentActivity, final com.yanzhenjie.album.Action<String> cameraLinsener, final com.yanzhenjie.album.Action<ArrayList<AlbumFile>> photoLinsener, final int selectNum) {
+        AndPermission.with(fragmentActivity)
+                .requestCode(100)
+                .permission(Permission.CAMERA, Permission.STORAGE)
+                .rationale(new RationaleListener() {
+                    @Override
+                    public void showRequestPermissionRationale(int requestCode, Rationale rationale) {
+                        AndPermission.rationaleDialog(fragmentActivity, rationale).show();
+                    }
+                })
+                .callback(new PermissionListener() {
+                    @Override
+                    public void onSucceed(int requestCode, @android.support.annotation.NonNull List<String> grantPermissions) {
+                        showPhotoDialog(fragmentActivity, cameraLinsener, photoLinsener, selectNum);
+                    }
+
+                    @Override
+                    public void onFailed(int requestCode, @android.support.annotation.NonNull List<String> deniedPermissions) {
+
+                    }
+                })
+                .start();
+    }
+
+    private static void camera(FragmentActivity fragmentActivity, com.yanzhenjie.album.Action<String> a) {
+        Album.camera(fragmentActivity) // 相机功能。
+                .image() // 拍照。
+                .requestCode(0x123)
+                .onResult(a)
+                .start();
+    }
+
+    private static void photo(FragmentActivity fragmentActivity, com.yanzhenjie.album.Action<ArrayList<AlbumFile>> a, int selectNum) {
+        Album.image(fragmentActivity) // 选择图片。
+                .multipleChoice()
+                .requestCode(0x123)
+                .camera(true)
+                .columnCount(3)
+                .selectCount(selectNum)
+                .onResult(a)
+                .start();
+    }
+
+    private static void showPhotoDialog(final FragmentActivity fragmentActivity, final com.yanzhenjie.album.Action<String> cameraLinsener, final com.yanzhenjie.album.Action<ArrayList<AlbumFile>> photoLinsener, final int selectNum) {
+        String[] item = CommonUtils.getStringArray(R.array.sa_select_pic);
+        CircleDialogHelper.initDefaultItemDialog(fragmentActivity, item, new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    camera(fragmentActivity, cameraLinsener);
+                } else {
+                    photo(fragmentActivity, photoLinsener, selectNum);
+                }
+            }
+        }).show();
+    }
+
+    /**
+     * 修剪图片
+     */
+    public static final int CROP_CODE_1 = 101;
+    /**
+     * 图片路径
+     */
+    private String mFilepath = SDCardUtils.getSDCardPaths().get(0) + "/AndroidSamples";
+
+    public static void cropPhoto(Activity activity, String path) {
+        Durban.with(activity)
+                // 裁剪界面的标题。
+                .title("修剪图片")
+                .statusBarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark))
+                .toolBarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+                .navigationBarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark))
+                // 图片路径list或者数组。
+                .inputImagePaths(path)
+                // 图片输出文件夹路径。
+                .outputDirectory(SDCardUtils.getSDCardPaths().get(0) + "/AndroidSamples")
+                // 裁剪图片输出的最大宽高。
+                .maxWidthHeight(500, 500)
+                // 裁剪时的宽高比。
+                .aspectRatio(1, 1)
+                // 图片压缩格式：JPEG、PNG。
+                .compressFormat(Durban.COMPRESS_JPEG)
+                // 图片压缩质量，请参考：Bitmap#compress(Bitmap.CompressFormat, int, OutputStream)
+                .compressQuality(90)
+                // 裁剪时的手势支持：ROTATE, SCALE, ALL, NONE.
+                .gesture(Durban.GESTURE_ALL)
+                .controller(
+                        Controller.newBuilder()
+                                .enable(false) // 是否开启控制面板。
+                                .rotation(true) // 是否有旋转按钮。
+                                .rotationTitle(true) // 旋转控制按钮上面的标题。
+                                .scale(true) // 是否有缩放按钮。
+                                .scaleTitle(true) // 缩放控制按钮上面的标题。
+                                .build()) // 创建控制面板配置。
+                .requestCode(CROP_CODE_1)
+                .start();
+    }
+
+    public static void galleryPhoto(final FragmentActivity fragmentActivity,
+                                    final com.yanzhenjie.album.Action<ArrayList<String>> photoLinsener,
+                                    final com.yanzhenjie.album.Action<String> cancleLinsener,
+                                    final Boolean check,
+                                    final List<String> paths,
+                                    final String title) {
+        // 浏览一般的String路径：
+        Album.gallery(fragmentActivity)
+                .widget(Widget.newDarkBuilder(fragmentActivity).title(title).build())
+                .requestCode(200) // 请求码，会在listener中返回。
+                .checkedList((ArrayList<String>) paths) // 要浏览的图片列表：ArrayList<String>。
+                .navigationAlpha(50) // Android5.0+的虚拟导航栏的透明度。
+                .checkable(check) // 是否有浏览时的选择功能。
+                .onResult(photoLinsener)
+                .onCancel(cancleLinsener)
+                .start(); // 千万不要忘记调用start()方法。
+    }
 
 }

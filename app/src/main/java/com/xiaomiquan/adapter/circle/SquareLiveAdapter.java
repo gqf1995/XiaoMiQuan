@@ -1,6 +1,8 @@
 package com.xiaomiquan.adapter.circle;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,14 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
-import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
 import com.xiaomiquan.utils.glide.GlideUtils;
+import com.yanzhenjie.album.Album;
+import com.yanzhenjie.album.api.widget.Widget;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -40,15 +41,18 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
     private IconFontTextview tv_comment;
     private TextView tv_comment_num;
     private ImageView iv_article;
-    private ImageView iv_img;
+    private RecyclerView iv_img;
     private TextView tv_title;
     private TextView tv_dynamic;
     private TextView tv_article;
     private LinearLayout lin_article;
+    private LinearLayout lin_praise;
+    private LinearLayout lin_comment;
     public Context context;
 
     public List<String> isPraise;
     public List<String> paiseNum;
+
 
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
         this.defaultClickLinsener = defaultClickLinsener;
@@ -58,7 +62,7 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
         super(context, R.layout.adapter_live, datas);
         this.context = context;
         this.isPraise = new ArrayList<>();
-        this.paiseNum=new ArrayList<>();
+        this.paiseNum = new ArrayList<>();
     }
 
     @Override
@@ -76,15 +80,45 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
         tv_article = holder.getView(R.id.tv_article);
         lin_article = holder.getView(R.id.lin_article);
         iv_img = holder.getView(R.id.iv_img);
+        lin_praise = holder.getView(R.id.lin_praise);
+        lin_comment = holder.getView(R.id.lin_comment);
 
         isPraise.add(s.getUserPraise());
         paiseNum.add(s.getGoodCount());
+
+        if (s.getImgList() != null) {
+            DynamicPhotoAdapter dynamicPhotoAdapter = new DynamicPhotoAdapter(context, s.getImgList());
+            dynamicPhotoAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    Album.gallery(context)
+                            .widget(Widget.newDarkBuilder(context).title(CommonUtils.getString(R.string.str_img_preview)).build())
+                            .checkedList((ArrayList<String>) s.getImgList()) // 要浏览的图片列表：ArrayList<String>。
+                            .navigationAlpha(50) // Android5.0+的虚拟导航栏的透明度。
+                            .checkable(false)
+                            .start(); // 千万不要忘记调用start()方法。
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            iv_img.setLayoutManager(gridLayoutManager);
+            iv_img.setAdapter(dynamicPhotoAdapter);
+        }
 
         /**
          * 判断 文章、帖子
          */
         if (s.getType().equals("1")) {
-            tv_dynamic.setText("发表了文章");
+            tv_dynamic.setText(CommonUtils.getString(R.string.str_tv_send_article));
             lin_article.setVisibility(View.VISIBLE);
             iv_img.setVisibility(View.GONE);
             GlideUtils.loadImage(s.getImg(), iv_article);
@@ -99,7 +133,6 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
                 iv_img.setVisibility(View.VISIBLE);
                 tv_dynamic.setText(s.getContent());
                 lin_article.setVisibility(View.GONE);
-                GlideUtils.loadImage(s.getImg(), iv_img);
 
             }
 
@@ -129,7 +162,7 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
         /**
          * 点击事件
          */
-        tv_comment.setOnClickListener(new View.OnClickListener() {
+        lin_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (defaultClickLinsener != null) {
@@ -137,7 +170,7 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
                 }
             }
         });
-        tv_praise.setOnClickListener(new View.OnClickListener() {
+        lin_praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (defaultClickLinsener != null) {

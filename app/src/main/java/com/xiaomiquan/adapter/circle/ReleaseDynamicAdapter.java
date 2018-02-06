@@ -45,11 +45,13 @@ public class ReleaseDynamicAdapter extends CommonAdapter<AlbumFile> {
 
         if (position != 0) {
             icf_plus.setVisibility(View.GONE);
+            iv_img.setVisibility(View.VISIBLE);
             path.add(s.getPath());
             fileList.add(new File(s.getPath()));
             GlideUtils.loadImage(Uri.fromFile(new File(s.getPath())), iv_img);
         } else {
             icf_plus.setVisibility(View.VISIBLE);
+            iv_img.setVisibility(View.GONE);
         }
     }
 

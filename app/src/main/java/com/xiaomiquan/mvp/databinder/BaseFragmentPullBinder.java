@@ -243,6 +243,28 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
     }
 
     /**
+     * 排行榜
+     */
+    public Disposable top(
+            String type,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("type", type);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().top)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("排行榜")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
      * 币种列表
      */
     public Disposable searchCoin(
@@ -316,6 +338,31 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
+
+    /**
+     * 委托历史
+     */
+    public Disposable history(
+            String demoId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("demoId", demoId);
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().history)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("委托历史")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
     /**
      * 持仓明细
      */

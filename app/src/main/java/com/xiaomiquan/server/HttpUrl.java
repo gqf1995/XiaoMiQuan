@@ -13,7 +13,7 @@ import static com.xiaomiquan.base.AppConst.httpBaseUrl6;
 import static com.xiaomiquan.base.AppConst.isEditUrl;
 
 /**
- * Created by 郭青枫 on 2018/1/10 0010.
+ * *Created by 郭青枫 on 2018/1/10 0010.
  */
 
 public class HttpUrl {
@@ -100,7 +100,10 @@ public class HttpUrl {
      * 用户登出
      */
     public String loginOut = httpBaseUrl6 + userUrl + "/loginOut";
-
+    /**
+     * 用户信息修改
+     */
+    public String editUserInfo = httpBaseUrl6 + userUrl + "/editUserInfo";
 
     /**
      * 行情
@@ -147,6 +150,10 @@ public class HttpUrl {
      * 搜索
      */
     public String getAllMarketByExchangeOrSymbol = getBaseUrl() + dataUrl + "/getAllMarketByExchangeOrSymbol";
+    /**
+     * 币种资料
+     */
+    public String getSymbolInfomation = httpBaseUrl6 + dataUrl + "/getSymbolInfomation";
 
 
     /**
@@ -177,8 +184,6 @@ public class HttpUrl {
      * 自定义排序
      */
     public String order = httpBaseUrl6 + subsUrl + "/operate/order";
-
-
     /**
      * websocket
      */
@@ -200,6 +205,10 @@ public class HttpUrl {
      * 我的组合列表
      */
     public String listDemo = httpBaseUrl6 + demoUrl + "/listDemo";
+    /**
+     * 排行榜
+     */
+    public String top = httpBaseUrl6 + demoUrl + "/top";
     /**
      * 创建组合
      */
@@ -406,5 +415,12 @@ public class HttpUrl {
      */
     public String getAttention = httpBaseUrl6 + "/user/listMyAttentionByPage";
 
-
+    /**
+     * 获取资讯
+     */
+    public String getNews = httpBaseUrl6 + "/news/list";
+    /**
+     * 获取资讯
+     */
+    public String newsLike = httpBaseUrl6 + "/news/like";
 }

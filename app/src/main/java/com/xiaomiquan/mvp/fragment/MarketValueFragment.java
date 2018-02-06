@@ -1,7 +1,5 @@
 package com.xiaomiquan.mvp.fragment;
 
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,6 +15,7 @@ import com.xiaomiquan.adapter.CoinMarketAdapter;
 import com.xiaomiquan.entity.Drop24ChangeSort;
 import com.xiaomiquan.entity.Rise24ChangeSort;
 import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.mvp.activity.market.CoinDetailActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
@@ -27,9 +26,7 @@ import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import skin.support.widget.SkinCompatLinearLayout;
@@ -42,38 +39,38 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
     List<String> sendKeys;
     final int whatIndex = 1024;
     private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
-    private Handler handler = new Handler() {//进行延时跳转
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case whatIndex:
-                    if (exchangeDataMap == null) {
-                        return;
-                    }
-                    if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
-                        //recycleView正在滑动
-                    } else {
-                        //更新数据
-                        Iterator iter = exchangeDataMap.entrySet().iterator();
-                        while (iter.hasNext()) {
-                            if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
-                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
-                                return;
-                            }
-                            Map.Entry entry = (Map.Entry) iter.next();
-                            ExchangeData val = (ExchangeData) entry.getValue();
-                            String key = (String) entry.getKey();
-                            if (val != null) {
-                                updataNew(val);
-                                exchangeDataMap.remove(key);
-                            } else {
-                            }
-                        }
-                    }
-                    handler.sendEmptyMessageDelayed(whatIndex, 1000);
-                    break;
-            }
-        }
-    };
+//    private Handler handler = new Handler() {//进行延时跳转
+//        public void handleMessage(Message msg) {
+//            switch (msg.what) {
+//                case whatIndex:
+//                    if (exchangeDataMap == null) {
+//                        return;
+//                    }
+//                    if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
+//                        //recycleView正在滑动
+//                    } else {
+//                        //更新数据
+//                        Iterator iter = exchangeDataMap.entrySet().iterator();
+//                        while (iter.hasNext()) {
+//                            if (viewDelegate.viewHolder.pull_recycleview.getScrollState() != 0) {
+//                                handler.sendEmptyMessageDelayed(whatIndex, 1000);
+//                                return;
+//                            }
+//                            Map.Entry entry = (Map.Entry) iter.next();
+//                            ExchangeData val = (ExchangeData) entry.getValue();
+//                            String key = (String) entry.getKey();
+//                            if (val != null) {
+//                                updataNew(val);
+//                                exchangeDataMap.remove(key);
+//                            } else {
+//                            }
+//                        }
+//                    }
+//                    handler.sendEmptyMessageDelayed(whatIndex, 1000);
+//                    break;
+//            }
+//        }
+//    };
 
     //新数据推送 更新
     private void updataNew(ExchangeData data) {
@@ -119,6 +116,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     // MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
+                    CoinDetailActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
                 }
 
                 @Override
@@ -280,7 +278,10 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
         dropDatas.addAll(defaultDatas);
         Collections.sort(dropDatas, comparator);
     }
-
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         if (isVisible) {
@@ -294,6 +295,12 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             }
         } else {
             binder.cancelpost();
+        }
+    }
+
+    public void checkRedRise(){
+        if (exchangeMarketAdapter != null) {
+            exchangeMarketAdapter.checkRedRise(exchangeMarketAdapter);
         }
     }
 

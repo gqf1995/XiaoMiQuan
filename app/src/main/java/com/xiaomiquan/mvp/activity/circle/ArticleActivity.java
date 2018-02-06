@@ -26,7 +26,6 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
 
     ArtivleAdapter artivleAdapter;
     LinearLayoutManager linearLayoutManager;
-    int index;
 
     @Override
     protected Class<ArticleDelegate> getDelegateClass() {
@@ -42,6 +41,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_tv_article)).setSubTitle(CommonUtils.getString(R.string.str_release)));
+        viewDelegate.initToplinsener((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_230px));
         addRequest(binder.getArticle(ArticleActivity.this));
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -60,6 +60,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
 
     public void initArticle(final List<SquareLive> squareLives) {
         initHeadView(squareLives.get(0));
+        squareLives.remove(0);
         artivleAdapter = new ArtivleAdapter(ArticleActivity.this, squareLives);
         artivleAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
@@ -75,7 +76,15 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
         artivleAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
             public void onClick(View view, int position, Object item) {
-                index = position;
+                if (artivleAdapter.isPraise.get(position).equals("false")) {
+                    artivleAdapter.isPraise.add(position, "true");
+                    artivleAdapter.paiseNum.add(position, Integer.parseInt(artivleAdapter.paiseNum.get(position)) + 1 + "");
+                    artivleAdapter.notifyItemChanged(position);
+                } else {
+                    artivleAdapter.isPraise.add(position, "false");
+                    artivleAdapter.paiseNum.add(position, Integer.parseInt(artivleAdapter.paiseNum.get(position)) - 1 + "");
+                    artivleAdapter.notifyItemChanged(position);
+                }
                 addRequest(binder.savePraise(squareLives.get(position).getId(), ArticleActivity.this));
             }
         });
@@ -86,19 +95,63 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
             }
         };
         viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
+        viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
         viewDelegate.viewHolder.pull_recycleview.setAdapter(artivleAdapter);
 
 
     }
 
-    private void initHeadView(SquareLive squareLive) {
+    private void initHeadView(final SquareLive squareLive) {
+        /**
+         * 用户是否点赞
+         //                 */
+        if (squareLive.getUserPraise().equals("false")) {
+            viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+        } else {
+            viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+            viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+        }
         viewDelegate.viewHolder.tv_time.setText(squareLive.getCreateTimeStr());
         viewDelegate.viewHolder.tv_title.setText(squareLive.getTitle());
-        GlideUtils.loadImage(squareLive.getImg(), viewDelegate.viewHolder.iv_head);
+        GlideUtils.loadImage(squareLive.getAvatar(), viewDelegate.viewHolder.iv_head);
+        GlideUtils.loadImage(squareLive.getImg(), viewDelegate.viewHolder.iv_banner);
         viewDelegate.viewHolder.tv_name.setText(squareLive.getNickName());
         viewDelegate.viewHolder.tv_comment_num.setText(squareLive.getCommentCount());
         viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount());
+        viewDelegate.viewHolder.lin_praise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /**
+                 * 用户是否点赞
+                 //                 */
+                if (squareLive.getUserPraise().equals("false")) {
+                    squareLive.setUserPraise("true");
+                    squareLive.setGoodCount(Integer.parseInt(squareLive.getGoodCount()) + 1 + "");
+                    viewDelegate.viewHolder.tv_praise_num.setText(Integer.parseInt(squareLive.getGoodCount()) + 1 + "");
+                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                } else {
+                    squareLive.setUserPraise("false");
+                    squareLive.setGoodCount(Integer.parseInt(squareLive.getGoodCount()) - 1 + "");
+                    viewDelegate.viewHolder.tv_praise_num.setText(Integer.parseInt(squareLive.getGoodCount()) - 1 + "");
+                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                }
+                addRequest(binder.savePraise(squareLive.getId(), ArticleActivity.this));
+            }
+        });
+
+        viewDelegate.viewHolder.tv_title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArticleDetailsActivity.startAct(ArticleActivity.this, squareLive);
+            }
+        });
+
+
     }
+
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
@@ -109,10 +162,6 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
                 initArticle(datas);
                 break;
             case 0x124:
-                Praise praise = GsonUtil.getInstance().toObj(data, Praise.class);
-                artivleAdapter.isPraise.add(index, praise.getIspraise() + "");
-                artivleAdapter.paiseNum.add(index, praise.getPraiseQty());
-                artivleAdapter.notifyItemChanged(index);
                 break;
         }
     }

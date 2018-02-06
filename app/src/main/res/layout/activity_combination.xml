@@ -381,7 +381,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:text="@string/str_earnings_chart"
                         android:textColor="@color/color_font2"
                         android:textSize="@dimen/text_trans_30px"/>
@@ -405,6 +404,32 @@
                     android:layout_height="@dimen/trans_280px">
 
                 </com.github.mikephil.charting.charts.LineChart>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/trans_10px">
+
+                    <TextView
+                        android:id="@+id/tv_start_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/trans_60px"
+                        android:text=""
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_20px"/>
+
+                    <TextView
+                        android:id="@+id/tv_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/trans_25px"
+                        android:text=""
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_20px"/>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"

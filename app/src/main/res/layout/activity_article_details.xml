@@ -244,6 +244,8 @@
             android:layout_marginRight="@dimen/trans_10px"
             android:background="@color/color_blue"
             android:gravity="center"
+            android:clickable="false"
+            android:focusable="false"
             android:padding="@dimen/album_dp_10"
             android:text="@string/str_tv_sub"
             android:textColor="@color/white"

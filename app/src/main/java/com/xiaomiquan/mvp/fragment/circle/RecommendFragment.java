@@ -111,6 +111,7 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
                 return false;
             }
         });
+        viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
         viewDelegate.viewHolder.pull_recycleview.setAdapter(bigVListAdapter);
 
     }

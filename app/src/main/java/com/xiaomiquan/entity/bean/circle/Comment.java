@@ -41,6 +41,16 @@ public class Comment implements Parcelable {
     private boolean reply;
     private String updateTime;
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    private String avatar;
+
     public String getCommentUserId() {
         return commentUserId;
     }
@@ -145,6 +155,9 @@ public class Comment implements Parcelable {
         this.updateTime = updateTime;
     }
 
+    public Comment() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -165,9 +178,7 @@ public class Comment implements Parcelable {
         dest.writeString(this.reUserNickName);
         dest.writeByte(this.reply ? (byte) 1 : (byte) 0);
         dest.writeString(this.updateTime);
-    }
-
-    public Comment() {
+        dest.writeString(this.avatar);
     }
 
     protected Comment(Parcel in) {
@@ -184,9 +195,10 @@ public class Comment implements Parcelable {
         this.reUserNickName = in.readString();
         this.reply = in.readByte() != 0;
         this.updateTime = in.readString();
+        this.avatar = in.readString();
     }
 
-    public static final Parcelable.Creator<Comment> CREATOR = new Parcelable.Creator<Comment>() {
+    public static final Creator<Comment> CREATOR = new Creator<Comment>() {
         @Override
         public Comment createFromParcel(Parcel source) {
             return new Comment(source);

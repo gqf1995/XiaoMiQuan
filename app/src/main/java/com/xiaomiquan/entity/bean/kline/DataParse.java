@@ -37,6 +37,7 @@ public class DataParse {
     private ArrayList<Entry> ma20DataV;
     private ArrayList<Entry> ma30DataV;
 
+
     private List<BarEntry> macdData;
     private List<Entry> deaData;
     private List<Entry> difData;
@@ -63,8 +64,10 @@ public class DataParse {
 
     private List<BarEntry> barDatasEXPMA;
     private List<Entry> expmaData5;
+    private List<Entry> expmaData7;
     private List<Entry> expmaData10;
     private List<Entry> expmaData20;
+    private List<Entry> expmaData30;
     private List<Entry> expmaData60;
 
     private List<BarEntry> barDatasDMI;
@@ -343,50 +346,101 @@ public class DataParse {
     //        }
     //    }
     //
-    //    /**
-    //     * 初始化BOLL
-    //     *
-    //     * @param datas
-    //     */
-    //    public void initBOLL(ArrayList<KLineBean> datas) {
-    //        BOLLEntity bollEntity = new BOLLEntity(datas, 20);
-    //
-    //        barDatasBOLL = new ArrayList<>();
-    //        bollDataUP = new ArrayList<>();
-    //        bollDataMB = new ArrayList<>();
-    //        bollDataDN = new ArrayList<>();
-    //        for (int i = 0; i < bollEntity.getUPs().size(); i++) {
-    //            barDatasBOLL.add(new BarEntry(0, i));
-    //            bollDataUP.add(new Entry(bollEntity.getUPs().get(i), i));
-    //            bollDataMB.add(new Entry(bollEntity.getMBs().get(i), i));
-    //            bollDataDN.add(new Entry(bollEntity.getDNs().get(i), i));
-    //        }
-    //    }
-    //
-    //    /**
-    //     * 初始化BOLL
-    //     *
-    //     * @param datas
-    //     */
-    //    public void initEXPMA(ArrayList<KLineBean> datas) {
-    //        EXPMAEntity expmaEntity5 = new EXPMAEntity(datas, 5);
-    //        EXPMAEntity expmaEntity10 = new EXPMAEntity(datas, 10);
-    //        EXPMAEntity expmaEntity20 = new EXPMAEntity(datas, 20);
-    //        EXPMAEntity expmaEntity60 = new EXPMAEntity(datas, 60);
-    //
-    //        barDatasEXPMA = new ArrayList<>();
-    //        expmaData5 = new ArrayList<>();
-    //        expmaData10 = new ArrayList<>();
-    //        expmaData20 = new ArrayList<>();
-    //        expmaData60 = new ArrayList<>();
-    //        for (int i = 0; i < expmaEntity5.getEXPMAs().size(); i++) {
-    //            barDatasEXPMA.add(new BarEntry(0, i));
-    //            expmaData5.add(new Entry(expmaEntity5.getEXPMAs().get(i), i));
-    //            expmaData10.add(new Entry(expmaEntity10.getEXPMAs().get(i), i));
-    //            expmaData20.add(new Entry(expmaEntity20.getEXPMAs().get(i), i));
-    //            expmaData60.add(new Entry(expmaEntity60.getEXPMAs().get(i), i));
-    //        }
-    //    }
+
+    /**
+     * 初始化BOLL
+     *
+     * @param datas
+     */
+    public void initBOLL(ArrayList<KLineBean> datas) {
+        BOLLEntity bollEntity = new BOLLEntity(datas, 20);
+
+        if (barDatasBOLL == null) {
+            barDatasBOLL = new ArrayList<>();
+        } else {
+            barDatasBOLL.clear();
+        }
+        if (bollDataUP == null) {
+            bollDataUP = new ArrayList<>();
+        } else {
+            bollDataUP.clear();
+        }
+        if (bollDataMB == null) {
+            bollDataMB = new ArrayList<>();
+        } else {
+            bollDataMB.clear();
+        }
+        if (bollDataDN == null) {
+            bollDataDN = new ArrayList<>();
+        } else {
+            bollDataDN.clear();
+        }
+        for (int i = 0; i < bollEntity.getUPs().size(); i++) {
+            barDatasBOLL.add(new BarEntry(0, i));
+            bollDataUP.add(new Entry(bollEntity.getUPs().get(i), i));
+            bollDataMB.add(new Entry(bollEntity.getMBs().get(i), i));
+            bollDataDN.add(new Entry(bollEntity.getDNs().get(i), i));
+        }
+    }
+
+    /**
+     * 初始化BOLL
+     *
+     * @param datas
+     */
+    public void initEXPMA(ArrayList<KLineBean> datas) {
+        EXPMAEntity expmaEntity5 = new EXPMAEntity(datas, 5);
+        EXPMAEntity expmaEntity7 = new EXPMAEntity(datas, 7);
+        EXPMAEntity expmaEntity10 = new EXPMAEntity(datas, 10);
+        EXPMAEntity expmaEntity20 = new EXPMAEntity(datas, 20);
+        EXPMAEntity expmaEntity30 = new EXPMAEntity(datas, 30);
+        EXPMAEntity expmaEntity60 = new EXPMAEntity(datas, 60);
+
+        if (barDatasEXPMA == null) {
+            barDatasEXPMA = new ArrayList<>();
+        } else {
+            barDatasEXPMA.clear();
+        }
+        if (expmaData7 == null) {
+            expmaData7 = new ArrayList<>();
+        } else {
+            expmaData7.clear();
+        }
+        if (expmaData5 == null) {
+            expmaData5 = new ArrayList<>();
+        } else {
+            expmaData5.clear();
+        }
+        if (expmaData10 == null) {
+            expmaData10 = new ArrayList<>();
+        } else {
+            expmaData10.clear();
+        }
+        if (expmaData20 == null) {
+            expmaData20 = new ArrayList<>();
+        } else {
+            expmaData20.clear();
+        }
+        if (expmaData30 == null) {
+            expmaData30 = new ArrayList<>();
+        } else {
+            expmaData30.clear();
+        }
+        if (expmaData60 == null) {
+            expmaData60 = new ArrayList<>();
+        } else {
+            expmaData60.clear();
+        }
+        for (int i = 0; i < expmaEntity5.getEXPMAs().size(); i++) {
+            barDatasEXPMA.add(new BarEntry(0, i));
+            expmaData5.add(new Entry(expmaEntity5.getEXPMAs().get(i), i));
+            expmaData7.add(new Entry(expmaEntity7.getEXPMAs().get(i), i));
+            expmaData10.add(new Entry(expmaEntity10.getEXPMAs().get(i), i));
+            expmaData20.add(new Entry(expmaEntity20.getEXPMAs().get(i), i));
+            expmaData30.add(new Entry(expmaEntity30.getEXPMAs().get(i), i));
+            expmaData60.add(new Entry(expmaEntity60.getEXPMAs().get(i), i));
+        }
+    }
     //
     //    /**
     //     * 初始化DMI
@@ -738,12 +792,20 @@ public class DataParse {
         return expmaData5;
     }
 
+    public List<Entry> getExpmaData7() {
+        return expmaData7;
+    }
+
     public List<Entry> getExpmaData10() {
         return expmaData10;
     }
 
     public List<Entry> getExpmaData20() {
         return expmaData20;
+    }
+
+    public List<Entry> getExpmaData30() {
+        return expmaData30;
     }
 
     public List<Entry> getExpmaData60() {

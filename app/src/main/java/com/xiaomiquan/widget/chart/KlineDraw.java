@@ -39,6 +39,7 @@ import com.xiaomiquan.utils.UserSet;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -64,6 +65,11 @@ public class KlineDraw {
     Context mContext;
 
     OnClick onClick;
+    List<String> klineTypeData;
+
+    public KlineDraw() {
+        klineTypeData = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline_show_type));
+    }
 
     public DataParse getmData() {
         return mData;
@@ -126,50 +132,6 @@ public class KlineDraw {
                 }
             }
         });
-
-
-        //        mChartKline.setOnChartGestureListener(new OnChartGestureListener() {
-        //            @Override
-        //            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-        //
-        //            }
-        //
-        //            @Override
-        //            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-        //
-        //            }
-        //
-        //            @Override
-        //            public void onChartLongPressed(MotionEvent me) {
-        //
-        //            }
-        //
-        //            @Override
-        //            public void onChartDoubleTapped(MotionEvent me) {
-        //
-        //            }
-        //
-        //            @Override
-        //            public void onChartSingleTapped(MotionEvent me) {
-        //
-        //            }
-        //
-        //            @Override
-        //            public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-        //
-        //            }
-        //
-        //            @Override
-        //            public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
-        //                Log.i("onChartScale", "scaleX" + scaleX);
-        //                UserSet.getinstance().setKlineScale(scaleX);
-        //            }
-        //
-        //            @Override
-        //            public void onChartTranslate(MotionEvent me, float dX, float dY) {
-        //
-        //            }
-        //        });
     }
 
     public void cleanData() {
@@ -185,6 +147,51 @@ public class KlineDraw {
                 }
             }
         }
+    }
+
+    public void selectType() {
+        LineData lineData = mChartKline.getLineData();
+        LineDataSet lineDataSetMA7 = (LineDataSet) lineData.getDataSetByIndex(0);//五日均线;
+        LineDataSet lineDataSetMA30 = (LineDataSet) lineData.getDataSetByIndex(1);//十日均线;
+        LineDataSet lineDataSetEMA7 = (LineDataSet) lineData.getDataSetByIndex(2);
+        LineDataSet lineDataSetEMA30 = (LineDataSet) lineData.getDataSetByIndex(3);
+        LineDataSet lineDataSetUB = (LineDataSet) lineData.getDataSetByIndex(4);//UP 上轨 UB
+        LineDataSet lineDataSetBOLL = (LineDataSet) lineData.getDataSetByIndex(5);//MB 中轨 BOLL
+        LineDataSet lineDataSetLB = (LineDataSet) lineData.getDataSetByIndex(6);//DN 下轨 LB
+        boolean isMA = false;
+        boolean isEMA = false;
+        boolean isBOLL = false;
+        if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 0) {
+            //MA
+            isMA = true;
+        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 1) {
+            //EMA
+            isEMA = true;
+        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 2) {
+            //BOLL
+            isBOLL = true;
+        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 3) {
+            //均线
+        }
+        lineDataSetMA7.setVisible(isMA);
+        lineDataSetMA30.setVisible(isMA);
+        lineDataSetEMA7.setVisible(isEMA);
+        lineDataSetEMA30.setVisible(isEMA);
+        lineDataSetUB.setVisible(isBOLL);
+        lineDataSetBOLL.setVisible(isBOLL);
+        lineDataSetLB.setVisible(isBOLL);
+
+        mChartKline.setAutoScaleMinMaxEnabled(true);
+        mChartVolume.setAutoScaleMinMaxEnabled(true);
+
+        mChartKline.notifyDataSetChanged();
+        mChartVolume.notifyDataSetChanged();
+
+        mChartKline.invalidate();
+        mChartVolume.invalidate();
+
+        setOffset();
+
     }
 
     public void updata(List<KLineBean> lineBeans, String key) {
@@ -234,6 +241,8 @@ public class KlineDraw {
 
                 mData.initKLineMA(kLineDatas);
                 mData.initVlumeMA(kLineDatas);
+                mData.initBOLL(kLineDatas);
+                mData.initEXPMA(kLineDatas);
 
                 for (int i = 1; i < lineBeans.size(); i++) {
                     addVolumeData(lineBeans.size() - i);
@@ -339,35 +348,45 @@ public class KlineDraw {
         }
 
         if (lineData != null) {
-            LineDataSet lineDataSet5 = (LineDataSet) lineData.getDataSetByIndex(0);//五日均线;
-            LineDataSet lineDataSet10 = (LineDataSet) lineData.getDataSetByIndex(1);//十日均线;
-            LineDataSet lineDataSet20 = (LineDataSet) lineData.getDataSetByIndex(2);//二十日均线;
-            LineDataSet lineDataSet30 = (LineDataSet) lineData.getDataSetByIndex(3);//三十日均线;
+            LineDataSet lineDataSetMA7 = (LineDataSet) lineData.getDataSetByIndex(0);//五日均线;
+            LineDataSet lineDataSetMA30 = (LineDataSet) lineData.getDataSetByIndex(1);//十日均线;
+            LineDataSet lineDataSetEMA7 = (LineDataSet) lineData.getDataSetByIndex(2);
+            LineDataSet lineDataSetEMA30 = (LineDataSet) lineData.getDataSetByIndex(3);
+            LineDataSet lineDataSetUB = (LineDataSet) lineData.getDataSetByIndex(4);//UP 上轨 UB
+            LineDataSet lineDataSetBOLL = (LineDataSet) lineData.getDataSetByIndex(5);//MB 中轨 BOLL
+            LineDataSet lineDataSetLB = (LineDataSet) lineData.getDataSetByIndex(6);//DN 下轨 LB
 
             //lineData.addXValue(kLineBean.getDate());
 
-            if (lineDataSet5 != null) {
+            if (lineDataSetMA7 != null) {
                 //mData.getMa5DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 5), count));
-                lineData.addEntry(mData.getMa5DataL().get(mData.getMa5DataL().size() - index), 0);
+                lineData.addEntry(mData.getMa5DataL().get(mData.getMa7DataL().size() - index), 0);
             }
-
-            if (lineDataSet10 != null) {
-                // mData.getMa10DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 10), count));
-                lineData.addEntry(mData.getMa10DataL().get(mData.getMa10DataL().size() - index), 1);
-            }
-
-            if (lineDataSet20 != null) {
-                //mData.getMa20DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 20), count));
-                lineData.addEntry(mData.getMa20DataL().get(mData.getMa20DataL().size() - index), 2);
-            }
-
-            if (lineDataSet30 != null) {
+            if (lineDataSetMA30 != null) {
                 //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
                 lineData.addEntry(mData.getMa30DataL().get(mData.getMa30DataL().size() - index), 3);
             }
+            if (lineDataSetEMA7 != null) {
+                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
+                lineData.addEntry(mData.getExpmaData7().get(mData.getExpmaData7().size() - index), 3);
+            }
+            if (lineDataSetEMA30 != null) {
+                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
+                lineData.addEntry(mData.getExpmaData30().get(mData.getExpmaData30().size() - index), 3);
+            }
+            if (lineDataSetUB != null) {
+                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
+                lineData.addEntry(mData.getBollDataUP().get(mData.getBollDataUP().size() - index), 3);
+            }
+            if (lineDataSetBOLL != null) {
+                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
+                lineData.addEntry(mData.getBollDataMB().get(mData.getBollDataMB().size() - index), 3);
+            }
+            if (lineDataSetLB != null) {
+                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
+                lineData.addEntry(mData.getBollDataDN().get(mData.getBollDataDN().size() - index), 3);
+            }
         }
-
-
     }
 
     private void addVolumeData(int index) {
@@ -401,16 +420,14 @@ public class KlineDraw {
         }
 
         if (lineData != null) {
-            LineDataSet lineDataSet5 = (LineDataSet) lineData.getDataSetByIndex(0);//五日均线;
+            LineDataSet lineDataSet7 = (LineDataSet) lineData.getDataSetByIndex(0);//五日均线;
             LineDataSet lineDataSet10 = (LineDataSet) lineData.getDataSetByIndex(1);//十日均线;
-            LineDataSet lineDataSet20 = (LineDataSet) lineData.getDataSetByIndex(2);//二十日均线;
-            LineDataSet lineDataSet30 = (LineDataSet) lineData.getDataSetByIndex(3);//三十日均线;
 
             //lineData.addXValue(kLineBean.getDate());
 
-            if (lineDataSet5 != null) {
+            if (lineDataSet7 != null) {
                 //mData.getMa5DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 5), count));
-                lineData.addEntry(mData.getMa5DataV().get(mData.getMa5DataV().size() - index), 0);
+                lineData.addEntry(mData.getMa7DataV().get(mData.getMa7DataV().size() - index), 0);
             }
 
             if (lineDataSet10 != null) {
@@ -418,15 +435,7 @@ public class KlineDraw {
                 lineData.addEntry(mData.getMa10DataV().get(mData.getMa10DataV().size() - index), 1);
             }
 
-            if (lineDataSet20 != null) {
-                //mData.getMa20DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 20), count));
-                lineData.addEntry(mData.getMa20DataV().get(mData.getMa20DataV().size() - index), 2);
-            }
 
-            if (lineDataSet30 != null) {
-                //mData.getMa30DataV().add(new Entry(VMAEntity.getLastMA(kLineDatas, 30), count));
-                lineData.addEntry(mData.getMa30DataV().get(mData.getMa30DataV().size() - index), 3);
-            }
         }
 
 
@@ -601,7 +610,7 @@ public class KlineDraw {
         set.setDrawHorizontalHighlightIndicator(false);
         set.setHighlightEnabled(true);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set.setShadowWidth(1f);
+        set.setShadowWidth(0.2f);
         set.setValueTextSize(10f);
         set.setDecreasingColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));//设置开盘价高于收盘价的颜色
         set.setDecreasingPaintStyle(Paint.Style.FILL);
@@ -616,13 +625,47 @@ public class KlineDraw {
         CandleData candleData = new CandleData(mData.getXVals(), set);
 
         mData.initKLineMA(kLineDatas);
+        mData.initBOLL(kLineDatas);
+        mData.initEXPMA(kLineDatas);
         ArrayList<ILineDataSet> sets = new ArrayList<>();
         /******此处修复如果显示的点的个数达不到MA均线的位置所有的点都从0开始计算最小值的问题******************************/
-        sets.add(MyUtils.setMaLine(5, mData.getXVals(), mData.getMa5DataL()));
-        sets.add(MyUtils.setMaLine(10, mData.getXVals(), mData.getMa10DataL()));
-        sets.add(MyUtils.setMaLine(20, mData.getXVals(), mData.getMa20DataL()));
-        sets.add(MyUtils.setMaLine(30, mData.getXVals(), mData.getMa30DataL()));
+        LineDataSet lineDataSetMA7 = MyUtils.setMaLine(7, mData.getXVals(), mData.getMa7DataL());
+        LineDataSet lineDataSetMA30 = MyUtils.setMaLine(30, mData.getXVals(), mData.getMa30DataL());
+        LineDataSet lineDataSetEMA7 = setKDJMaLine(3, mData.getXVals(), (ArrayList<Entry>) mData.getExpmaData7());
+        LineDataSet lineDataSetEMA30 = setKDJMaLine(1, mData.getXVals(), (ArrayList<Entry>) mData.getExpmaData30());
+        LineDataSet lineDataSetUB = setKDJMaLine(1, mData.getXVals(), (ArrayList<Entry>) mData.getBollDataUP());//UP 上轨 UB
+        LineDataSet lineDataSetBOLL = setKDJMaLine(3, mData.getXVals(), (ArrayList<Entry>) mData.getBollDataMB());//MB 中轨 BOLL
+        LineDataSet lineDataSetLB = setKDJMaLine(0, mData.getXVals(), (ArrayList<Entry>) mData.getBollDataDN());//DN 下轨 LB
 
+        boolean isMA = false;
+        boolean isEMA = false;
+        boolean isBOLL = false;
+        if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 0) {
+            //MA
+            isMA = true;
+        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 1) {
+            //EMA
+            isEMA = true;
+        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 2) {
+            //BOLL
+            isBOLL = true;
+        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 3) {
+            //均线
+        }
+        lineDataSetMA7.setVisible(isMA);
+        lineDataSetMA30.setVisible(isMA);
+        lineDataSetEMA7.setVisible(isEMA);
+        lineDataSetEMA30.setVisible(isEMA);
+        lineDataSetUB.setVisible(isBOLL);
+        lineDataSetBOLL.setVisible(isBOLL);
+        lineDataSetLB.setVisible(isBOLL);
+        sets.add(lineDataSetMA7);
+        sets.add(lineDataSetMA30);
+        sets.add(lineDataSetEMA7);
+        sets.add(lineDataSetEMA30);
+        sets.add(lineDataSetUB);
+        sets.add(lineDataSetBOLL);
+        sets.add(lineDataSetLB);
 
         LineData lineData = new LineData(mData.getXVals(), sets);
 
@@ -635,6 +678,7 @@ public class KlineDraw {
 
         setHandler(combinedChart);
     }
+
 
     private void setVolumeByChart(CombinedChart combinedChart) {
         String unit = MyUtils.getVolUnit(mData.getVolmax());
@@ -665,20 +709,17 @@ public class KlineDraw {
 
         mData.initVlumeMA(kLineDatas);
 
+
         ArrayList<ILineDataSet> sets = new ArrayList<>();
 
         /******此处修复如果显示的点的个数达不到MA均线的位置所有的点都从0开始计算最小值的问题******************************/
-        sets.add(MyUtils.setMaLine(5, mData.getXVals(), mData.getMa5DataV()));
+        sets.add(MyUtils.setMaLine(7, mData.getXVals(), mData.getMa7DataL()));
         sets.add(MyUtils.setMaLine(10, mData.getXVals(), mData.getMa10DataV()));
-        sets.add(MyUtils.setMaLine(20, mData.getXVals(), mData.getMa20DataV()));
-        sets.add(MyUtils.setMaLine(30, mData.getXVals(), mData.getMa30DataV()));
 
         LineData lineData = new LineData(mData.getXVals(), sets);
-
         CombinedData combinedData = new CombinedData(mData.getXVals());
         combinedData.setData(barData);
         combinedData.setData(lineData);
-
 
         combinedChart.setData(combinedData);
         combinedChart.setDrawHighlightArrow(true);

@@ -43,6 +43,7 @@ public abstract class TickerWebsocket extends WebSocketClient {
             boolean connected = connectBlocking();
             Log.i("TickerWebsocket", this.getClass().getSimpleName() + " 连接".concat(connected ? "成功" : "失败"));
         } catch (InterruptedException e) {
+            e.printStackTrace();
             Log.i("TickerWebsocket", "启动失败" + e.getMessage());
         }
     }
