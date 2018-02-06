@@ -12,7 +12,8 @@
         android:id="@+id/iv_img"
         android:layout_width="@dimen/trans_26px"
         android:layout_height="@dimen/trans_26px"
-        app:srcCompat="@drawable/dogecoin"/>
+        app:srcCompat="@drawable/dogecoin"
+        />
 
     <TextView
         android:id="@+id/tv_type"

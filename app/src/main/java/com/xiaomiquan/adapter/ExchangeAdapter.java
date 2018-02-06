@@ -29,7 +29,7 @@ public class ExchangeAdapter extends CommonAdapter<ExchangeName> {
     protected void convert(ViewHolder holder, ExchangeName s, final int position) {
         iv_pic = holder.getView(R.id.iv_pic);
         tv_name = holder.getView(R.id.tv_name);
-        iv_pic.setImageResource(R.drawable.bitcoin);
+        iv_pic.setImageResource(R.drawable.dogecoin);
         tv_name.setText(s.getEname());
 
     }

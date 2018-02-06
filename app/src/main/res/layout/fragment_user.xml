@@ -24,7 +24,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/trans_320px"
-                    android:background="@color/base_mask"
+                    android:background="@drawable/user_bg_dark"
                     android:padding="@dimen/trans_40px"
                     >
 

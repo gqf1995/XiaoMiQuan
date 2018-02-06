@@ -167,7 +167,8 @@
                             <android.support.v7.widget.AppCompatImageView
                                 android:layout_width="@dimen/trans_65px"
                                 android:layout_height="@dimen/trans_65px"
-                                app:srcCompat="@drawable/dogecoin"/>
+                                app:srcCompat="@drawable/dogecoin"
+                                />
 
                             <TextView
                                 android:id="@+id/tv_coin_type"
