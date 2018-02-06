@@ -62,6 +62,7 @@ public class GlideUtils {
                 .into(icon);
     }
 
+
     public static File saveBitmap(Context context, String name, Bitmap bitmap) {
         // 创建一个位于SD卡上的文件
         File file = new File(FileUtil.getIamgePath(context),
@@ -90,4 +91,6 @@ public class GlideUtils {
         }
         return null;
     }
+
+
 }

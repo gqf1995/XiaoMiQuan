@@ -3,14 +3,13 @@ package com.xiaomiquan.entity.bean.circle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Andy on 2018/1/21.
  */
 
-public class UserTopic implements Parcelable{
+public class UserTopic implements Parcelable {
 
     /**
      * id : 1
@@ -60,42 +59,6 @@ public class UserTopic implements Parcelable{
     private String userPraise;
     private List<Comment> commentList;
 
-    protected UserTopic(Parcel in) {
-        id = in.readString();
-        groupId = in.readString();
-        userId = in.readString();
-        images = in.readString();
-        top = in.readString();
-        type = in.readString();
-        status = in.readString();
-        createTime = in.readString();
-        createTimeStr = in.readString();
-        updateTime = in.readString();
-        content = in.readString();
-        nickName = in.readString();
-        avatar = in.readString();
-        praiseQty = in.readString();
-        badEggQty = in.readString();
-        commentQty = in.readString();
-        groupName = in.readString();
-        praiseStr = in.readString();
-        showImage = in.readString();
-        imageList = in.readString();
-        userPraise = in.readString();
-        commentList = in.createTypedArrayList(Comment.CREATOR);
-    }
-
-    public static final Creator<UserTopic> CREATOR = new Creator<UserTopic>() {
-        @Override
-        public UserTopic createFromParcel(Parcel in) {
-            return new UserTopic(in);
-        }
-
-        @Override
-        public UserTopic[] newArray(int size) {
-            return new UserTopic[size];
-        }
-    };
 
     public String getId() {
         return id;
@@ -279,28 +242,68 @@ public class UserTopic implements Parcelable{
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(groupId);
-        parcel.writeString(userId);
-        parcel.writeString(images);
-        parcel.writeString(top);
-        parcel.writeString(type);
-        parcel.writeString(status);
-        parcel.writeString(createTime);
-        parcel.writeString(createTimeStr);
-        parcel.writeString(updateTime);
-        parcel.writeString(content);
-        parcel.writeString(nickName);
-        parcel.writeString(avatar);
-        parcel.writeString(praiseQty);
-        parcel.writeString(badEggQty);
-        parcel.writeString(commentQty);
-        parcel.writeString(groupName);
-        parcel.writeString(praiseStr);
-        parcel.writeString(showImage);
-        parcel.writeString(imageList);
-        parcel.writeString(userPraise);
-        parcel.writeTypedList(commentList);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.groupId);
+        dest.writeString(this.userId);
+        dest.writeString(this.images);
+        dest.writeString(this.top);
+        dest.writeString(this.type);
+        dest.writeString(this.status);
+        dest.writeString(this.createTime);
+        dest.writeString(this.createTimeStr);
+        dest.writeString(this.updateTime);
+        dest.writeString(this.content);
+        dest.writeString(this.nickName);
+        dest.writeString(this.avatar);
+        dest.writeString(this.praiseQty);
+        dest.writeString(this.badEggQty);
+        dest.writeString(this.commentQty);
+        dest.writeString(this.groupName);
+        dest.writeString(this.praiseStr);
+        dest.writeString(this.showImage);
+        dest.writeString(this.imageList);
+        dest.writeString(this.userPraise);
+        dest.writeTypedList(this.commentList);
     }
+
+    public UserTopic() {
+    }
+
+    protected UserTopic(Parcel in) {
+        this.id = in.readString();
+        this.groupId = in.readString();
+        this.userId = in.readString();
+        this.images = in.readString();
+        this.top = in.readString();
+        this.type = in.readString();
+        this.status = in.readString();
+        this.createTime = in.readString();
+        this.createTimeStr = in.readString();
+        this.updateTime = in.readString();
+        this.content = in.readString();
+        this.nickName = in.readString();
+        this.avatar = in.readString();
+        this.praiseQty = in.readString();
+        this.badEggQty = in.readString();
+        this.commentQty = in.readString();
+        this.groupName = in.readString();
+        this.praiseStr = in.readString();
+        this.showImage = in.readString();
+        this.imageList = in.readString();
+        this.userPraise = in.readString();
+        this.commentList = in.createTypedArrayList(Comment.CREATOR);
+    }
+
+    public static final Parcelable.Creator<UserTopic> CREATOR = new Parcelable.Creator<UserTopic>() {
+        @Override
+        public UserTopic createFromParcel(Parcel source) {
+            return new UserTopic(source);
+        }
+
+        @Override
+        public UserTopic[] newArray(int size) {
+            return new UserTopic[size];
+        }
+    };
 }

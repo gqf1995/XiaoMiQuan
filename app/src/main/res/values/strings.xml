@@ -231,6 +231,7 @@
     <string name="str_master">圈主</string>
     <string name="str_top">置顶</string>
 
+
     <string name="str_search_circle">查找圈子</string>
     <string name="str_input_limit">/140字</string>
     <string name="str_ck_live">发布到我的直播</string>
@@ -255,6 +256,43 @@
     <string name="str_tv_peoplenum">人加入</string>
     <string name="str_tv_edit">编辑资料</string>
     <string name="str_average">均线</string>
+
+    <string name="str_release_article">发布文章</string>
+    <string name="str_deal_article">导入文章</string>
+    <string name="str_release">发布</string>
+    <string name="str_toast_article_name">请输入文章名称</string>
+    <string name="str_toast_article_con">请输入内容</string>
+    <string name="str_toast_img">为文章配一张图吧</string>
+    <string name="str_et_con">输入正文</string>
+    <string name="str_et_url">粘贴文章网址</string>
+    <string name="str_et_title">输入标题</string>
+    <string name="str_tv_addimg">+添加封面</string>
+
+
+    <string name="str_release_dynamic">发布动态</string>
+    <string name="str_et_hint">点这里输入动态，最多不超过140个字符</string>
+    <string name="str_rv_img">最多选择六张图片</string>
+    <string name="str_img_title">选择图片</string>
+    <string name="str_img_preview">预览图片</string>
+    <string name="str_tv_send_article">发表了文章</string>
+
+    <string name="str_pop_release_dynamic">发动态</string>
+    <string name="str_pop_release_article">发长文</string>
+    <string name="str_pop_release_wechat">导入微信文章</string>
+    <string name="str_pop_cancle">取消</string>
+
+    <string name="str_tv_news">热门资讯</string>
+    <string name="str_tv_live">快讯直播</string>
+    <string name="str_tv_article">精选文章</string>
+    <string name="str_tv_like">利好</string>
+    <string name="str_tv_dislike">利空</string>
+    <string name="str_tv_share">分享</string>
+    <string name="str_tv_attention">关注</string>
+    <string name="str_title_article">文章详情</string>
+    <string name="str_title_news">资讯详情</string>
+    <string name="str_tv_sub">评论</string>
+    <string name="str_tv_free">免费</string>
+    <string name="str_tv_creat">创建</string>
 
 
     <string-array name="price">
@@ -333,8 +371,11 @@
     </string-array>
 
     <string-array name="sa_select_square">
-        <item>直播</item>
-        <item>文章</item>
+        <item>大v直播</item>
+        <item>热门快讯 </item>
+        <item>热门组合 </item>
+        <item>推荐大v </item>
+        <item>精选文章 </item>
     </string-array>
     <string-array name="sa_select_pic">
         <item>拍照</item>

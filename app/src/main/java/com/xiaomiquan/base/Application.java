@@ -12,7 +12,13 @@ import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
+import com.xiaomiquan.utils.glide.GlideAlbumLoader;
+import com.yanzhenjie.album.Album;
+import com.yanzhenjie.album.AlbumConfig;
+import com.yanzhenjie.album.task.DefaultAlbumLoader;
 import com.yanzhenjie.nohttp.NoHttp;
+
+import java.util.Locale;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -39,6 +45,13 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
         //融云初始化
         initRongCloud();
         initClient();
+        //设置配置画廊可以加载网络图片
+        Album.initialize(
+                AlbumConfig.newBuilder(this)
+                        .setAlbumLoader(new GlideAlbumLoader()) // 设置Album加载器。
+                        .setLocale(Locale.CHINA) // 比如强制设置在任何语言下都用中文显示。
+                        .build()
+        );
     }
 
     private void initSkin() {

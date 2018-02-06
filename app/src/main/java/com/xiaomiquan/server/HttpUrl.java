@@ -369,9 +369,67 @@ public class HttpUrl {
     /**
      * 修改组合信息
      */
-    public String updateDemoBrief = httpBaseUrl3 + demoUrl + "/updateDemoBrief";
+    public String creatCircle = httpBaseUrl6 + "/group/saveGroup";
+    /**
+     * 修改圈子信息
+     */
+    public String editCircleInfo = httpBaseUrl6 + "/group/editGroup";
+    /**
+     * 生成邀请码
+     */
+    public String creatCircleCode = httpBaseUrl6 + "/group/createInviteCode";
 
 
+    /**
+     * 圈子申请
+     */
+    String groupMemberUrl = "/groupMember";
+
+    /**
+     * 申请加入圈子
+     */
+    public String joinCircle = httpBaseUrl6 + "/groupMember/applyJoinGroup";
+    /**
+     * 圈子禁言所有人
+     */
+    public String Circlebanned = httpBaseUrl6 + "/group/banned";
+    /**
+     * 解除禁言所有人
+     */
+    public String CircleancelBanned = httpBaseUrl6 + "/group/cancelBanned";
+    /**
+     * 圈子成员
+     */
+    public String findMember = httpBaseUrl6 + "/groupMember/findAllMember";
+    /**
+     * 圈子成员禁言
+     */
+    public String memberBanned = httpBaseUrl6 + "/groupMember/banned";
+    /**
+     * 圈子成员解除禁言
+     */
+    public String memberuUnBanned = httpBaseUrl6 + "/groupMember/unbanned";
+
+
+    /**
+     * 同意审核入圈申请
+     */
+    public String agreeCircleApply = httpBaseUrl6 + groupMemberUrl + "/agreeJoinApply";
+    /**
+     * 邀请好友入圈
+     */
+    public String getSomeBodyIn = httpBaseUrl6 + groupMemberUrl + "/getSomeBodyIn";
+
+    /**
+     * 获得帖子
+     */
+    public String getUsertopic = httpBaseUrl6 + "/articleTopic/listForGroupByPage";
+
+
+    /**
+     * 发帖子
+     */
+    public String getDetails = httpBaseUrl6 + "/articleTopic/detail";
 
 
     /**
@@ -381,21 +439,37 @@ public class HttpUrl {
     /**
      * 文章列表
      */
-    public String listArticleByPage = httpBaseUrl4 + articleUrl + "/listArticleByPage";
+    public String listArticleByPage = httpBaseUrl6 + articleUrl + "/listArticleByPage";
+    /**
+     * 发文章
+     */
+    public String saveArticle = httpBaseUrl6 + "/articleTopic/save";
+    /**
+     * 广场导入文章
+     */
+    public String dealSquareArticle = httpBaseUrl6 + "/articleTopic/reprintedSquare";
+    /**
+     * 圈子导入文章
+     */
+    public String dealCircleArticle = httpBaseUrl6 + "/articleTopic/reprintedGroup";
 
     /**
      * 发表评论
      */
-    public String saveComment = httpBaseUrl4 + "/comment/saveComment";
+    public String saveComment = httpBaseUrl6 + "/comment/saveComment";
     /**
      * 点赞
      */
-    public String savePraise = httpBaseUrl4 + "/praise/praiseOrCancel";
+    public String savePraise = httpBaseUrl6 + "/praise/praiseOrCancel";
+    /**
+     * 获取评论
+     */
+    public String getComment = httpBaseUrl6 + "/comment/listComment";
 
     /**
      * 获取广场朋友圈
      */
-    public String getSquareLive = httpBaseUrl4 + "/articleTopic/listByPage";
+    public String getSquareLive = httpBaseUrl6 + "/articleTopic/listByPage";
     /**
      * 获取大V
      */
@@ -430,4 +504,14 @@ public class HttpUrl {
      * 获取关注列表
      */
     public String getAttention = httpBaseUrl4 + "/user/listMyAttentionByPage";
+}
+
+    /**
+     * 获取资讯
+     */
+    public String getNews = httpBaseUrl6 + "/news/list";
+    /**
+     * 获取资讯
+     */
+    public String newsLike = httpBaseUrl6 + "/news/like";
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.tablayout.CommonTabLayout;
 import com.xiaomiquan.R;

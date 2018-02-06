@@ -22,6 +22,16 @@ public class Praise {
     private String badEggQty;
     private String praiseStr;
 
+    public Boolean getIspraise() {
+        return ispraise;
+    }
+
+    public void setIspraise(Boolean ispraise) {
+        this.ispraise = ispraise;
+    }
+
+    private Boolean ispraise;
+
     public String getLinkId() {
         return linkId;
     }

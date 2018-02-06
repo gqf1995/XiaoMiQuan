@@ -66,7 +66,7 @@ public class PhotoPopupWindow extends PopupWindow implements View.OnClickListene
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
-                int height = mPopView.findViewById(R.id.id_pop_layout).getTop();
+                int height = mPopView.findViewById(R.id.lin_pop).getTop();
                 int y = (int) event.getY();
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (y < height) {

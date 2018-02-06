@@ -22,7 +22,7 @@ public class CirclePayBinder extends BaseDataBind<CirclePayDelegate> {
         baseMap.put("pageSize", 10);
         return new HttpRequest.Builder()
                 .setRequestCode(0x124)
-                .setRequestUrl(HttpUrl.getIntance().getMyCircleInfo)
+                .setRequestUrl(HttpUrl.getIntance().joinCircle)
                 .setShowDialog(true)
                 .setRequestName("加入收费圈子")
                 .setRequestMode(HttpRequest.RequestMode.GET)

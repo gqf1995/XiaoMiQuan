@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black_transparent_50"
@@ -31,24 +32,10 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="@dimen/trans_64px"
-                        android:layout_height="@dimen/trans_64px"
-                        android:src="@color/color_blue" />
-
-                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/ic_Chat_Bubble"
-                        android:textColor="@color/color_light_white"
-                        android:textSize="@dimen/text_trans_32px" />
-
-                </RelativeLayout>
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/trans_92px"
+                    android:layout_height="@dimen/trans_92px"
+                    app:srcCompat="@drawable/ic_join_circle" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -56,7 +43,7 @@
                     android:layout_marginTop="@dimen/trans_20px"
                     android:text="创建圈子"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/trans_32px" />
+                    android:textSize="@dimen/trans_28px" />
             </LinearLayout>
 
             <LinearLayout
@@ -68,24 +55,10 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="@dimen/trans_64px"
-                        android:layout_height="@dimen/trans_64px"
-                        android:src="@color/glod" />
-
-                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/ic_Box"
-                        android:textColor="@color/color_light_white"
-                        android:textSize="@dimen/text_trans_32px" />
-
-                </RelativeLayout>
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/trans_92px"
+                    android:layout_height="@dimen/trans_92px"
+                    app:srcCompat="@drawable/ic_creat_circle" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -93,7 +66,7 @@
                     android:layout_marginTop="@dimen/trans_20px"
                     android:text="加入圈子"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/trans_32px" />
+                    android:textSize="@dimen/trans_28px" />
             </LinearLayout>
 
         </LinearLayout>

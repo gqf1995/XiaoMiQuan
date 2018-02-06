@@ -3,6 +3,8 @@ package com.xiaomiquan.entity.bean.circle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by Andy on 2018/1/21.
  */
@@ -165,6 +167,9 @@ public class Comment implements Parcelable {
         this.updateTime = updateTime;
     }
 
+    public Comment() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -185,4 +190,33 @@ public class Comment implements Parcelable {
         parcel.writeByte((byte) (reply ? 1 : 0));
         parcel.writeString(updateTime);
     }
+
+    protected Comment(Parcel in) {
+        this.commentUserId = in.readString();
+        this.content = in.readString();
+        this.createTime = in.readString();
+        this.createTimeStr = in.readString();
+        this.groupOwner = in.readString();
+        this.id = in.readString();
+        this.images = in.readString();
+        this.linkId = in.readString();
+        this.nickName = in.readString();
+        this.reUserId = in.readString();
+        this.reUserNickName = in.readString();
+        this.reply = in.readByte() != 0;
+        this.updateTime = in.readString();
+        this.avatar = in.readString();
+    }
+
+    public static final Creator<Comment> CREATOR = new Creator<Comment>() {
+        @Override
+        public Comment createFromParcel(Parcel source) {
+            return new Comment(source);
+        }
+
+        @Override
+        public Comment[] newArray(int size) {
+            return new Comment[size];
+        }
+    };
 }

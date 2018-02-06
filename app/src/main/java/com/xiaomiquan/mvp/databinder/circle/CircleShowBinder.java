@@ -18,15 +18,21 @@ public class CircleShowBinder extends BaseDataBind<CircleShowDelegate> {
         super(viewDelegate);
     }
 
+    /**
+     * 获取已加入的圈子
+     *
+     * @param requestCallback
+     * @return
+     */
     public Disposable getMyCircle(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("pageNum", 1);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().getMyCircleInfo)
-                .setShowDialog(true)
-                .setRequestName("获取已加入圈子信息")
+                .setRequestUrl(HttpUrl.getIntance().getMyCircle)
+                .setShowDialog(false)
+                .setRequestName("获取已加入圈子")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
@@ -35,6 +41,12 @@ public class CircleShowBinder extends BaseDataBind<CircleShowDelegate> {
                 .RxSendRequest();
     }
 
+    /**
+     * 获取圈子动态
+     *
+     * @param requestCallback
+     * @return
+     */
     public Disposable getCircleTopic(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
@@ -43,8 +55,8 @@ public class CircleShowBinder extends BaseDataBind<CircleShowDelegate> {
         return new HttpRequest.Builder()
                 .setRequestCode(0x124)
                 .setRequestUrl(HttpUrl.getIntance().getCircleTopic)
-                .setShowDialog(true)
-                .setRequestName("获取帖子")
+                .setShowDialog(false)
+                .setRequestName("获取动态")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
@@ -62,9 +74,9 @@ public class CircleShowBinder extends BaseDataBind<CircleShowDelegate> {
         getBaseMapWithUid();
         baseMap.put("linkId", linkId);
         return new HttpRequest.Builder()
-                .setRequestCode(0x127)
+                .setRequestCode(0x125)
                 .setRequestUrl(HttpUrl.getIntance().savePraise)
-                .setShowDialog(true)
+                .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("点赞")
                 .setRequestMode(HttpRequest.RequestMode.POST)
@@ -73,7 +85,6 @@ public class CircleShowBinder extends BaseDataBind<CircleShowDelegate> {
                 .setRequestCallback(requestCallback)
                 .build()
                 .RxSendRequest();
-
     }
 
 }

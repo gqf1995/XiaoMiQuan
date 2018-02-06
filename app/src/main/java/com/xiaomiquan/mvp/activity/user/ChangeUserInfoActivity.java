@@ -66,7 +66,7 @@ public class ChangeUserInfoActivity extends BaseDataBindActivity<ChangeUserInfoD
             public void onAction(int requestCode, @NonNull ArrayList<AlbumFile> result) {
                 showPic(result.get(0).getPath());
             }
-        });
+        },1);
     }
 
     File pictureFile;

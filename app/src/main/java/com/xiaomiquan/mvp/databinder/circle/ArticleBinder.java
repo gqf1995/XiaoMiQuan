@@ -37,5 +37,27 @@ public class ArticleBinder extends BaseDataBind<ArticleDelegate> {
                 .RxSendRequest();
 
     }
+    /**
+     * 点赞
+     */
+    public Disposable savePraise(
+            String linkId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("linkId", linkId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().savePraise)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("点赞")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
 
 }

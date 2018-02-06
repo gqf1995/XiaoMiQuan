@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/trans_5px">
+    android:padding="@dimen/trans_20px">
 
     <LinearLayout
         android:id="@+id/lin_creat"
@@ -53,12 +53,13 @@
                 android:layout_height="wrap_content"
                 android:text="名字"
                 android:textColor="@color/color_font1"
-                android:textSize="@dimen/trans_32px"
+                android:textSize="@dimen/trans_28px"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/trans_20px"
                 android:orientation="horizontal">
 
                 <com.fivefivelike.mybaselibrary.view.IconFontTextview
@@ -80,9 +81,9 @@
 
             <View
                 android:layout_width="@dimen/trans_120px"
-                android:layout_height="@dimen/trans_6px"
+                android:layout_height="@dimen/trans_3px"
                 android:layout_marginTop="@dimen/trans_10px"
-                android:background="@color/base_mask" />
+                android:background="@color/white" />
 
             <TextView
                 android:id="@+id/tv_name"

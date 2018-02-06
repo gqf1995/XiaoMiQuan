@@ -7,6 +7,9 @@ import com.xiaomiquan.mvp.delegate.circle.CreatCircleDelegate;
 import com.xiaomiquan.mvp.delegate.circle.ReleaseDynamicDelegate;
 import com.xiaomiquan.server.HttpUrl;
 
+import java.io.File;
+import java.util.List;
+
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -20,6 +23,7 @@ public class ReleaseDynamicBinder extends BaseDataBind<ReleaseDynamicDelegate> {
     }
 
     public Disposable releaseDynamic(
+            List<File> files,
             String content,
             String type,
             String platform,
@@ -39,6 +43,7 @@ public class ReleaseDynamicBinder extends BaseDataBind<ReleaseDynamicDelegate> {
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
+                .setFileList(files)
                 .setRequestCallback(requestCallback)
                 .build()
                 .RxSendRequest();
@@ -46,6 +51,7 @@ public class ReleaseDynamicBinder extends BaseDataBind<ReleaseDynamicDelegate> {
     }
 
     public Disposable releaseDynamicCircle(
+            List<File> files,
             String content,
             String type,
             String platform,
@@ -67,6 +73,7 @@ public class ReleaseDynamicBinder extends BaseDataBind<ReleaseDynamicDelegate> {
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
+                .setFileList(files)
                 .setRequestCallback(requestCallback)
                 .build()
                 .RxSendRequest();
