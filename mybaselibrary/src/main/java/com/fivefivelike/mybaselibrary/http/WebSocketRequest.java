@@ -196,7 +196,7 @@ public class WebSocketRequest {
 
     private void startSocket() {
         isOpen = false;
-        KLog.i(REQUEST_TAG, "startSocket  " + mUrl);
+//        KLog.i(REQUEST_TAG, "startSocket  " + mUrl);
         client = new TickerWebsocket(mUrl) {
             @Override
             public void onMessage(String message) {

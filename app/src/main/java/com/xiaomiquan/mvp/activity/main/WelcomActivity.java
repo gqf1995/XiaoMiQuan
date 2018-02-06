@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import static com.xiaomiquan.base.AppConst.httpBaseUrl6;
 
 public class WelcomActivity extends BaseActivity<WelcomDelegate> {
 
@@ -47,7 +46,7 @@ public class WelcomActivity extends BaseActivity<WelcomDelegate> {
         super.bindEvenListener();
         //viewDelegate.viewHolder.iv_pic.setImageResource(R.drawable.welcom);
         handler.sendEmptyMessageDelayed(1, 500);
-        HttpUrl.setBaseUrl(httpBaseUrl6);
+//        HttpUrl.setBaseUrl(httpBaseUrl4);
     }
 
     private void doPing() {

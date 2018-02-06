@@ -3,8 +3,6 @@ package com.xiaomiquan.entity.bean.circle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 /**
  * Created by Andy on 2018/1/30.
  */
@@ -37,31 +35,6 @@ public class User implements Parcelable {
     private String createTime;
     private String updateTime;
 
-    protected User(Parcel in) {
-        id = in.readString();
-        nickName = in.readString();
-        password = in.readString();
-        email = in.readString();
-        phone = in.readString();
-        avatar = in.readString();
-        imToken = in.readString();
-        bigv = in.readString();
-        subscribeCharge = in.readString();
-        createTime = in.readString();
-        updateTime = in.readString();
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 
     public String getId() {
         return id;
@@ -135,21 +108,6 @@ public class User implements Parcelable {
         this.subscribeCharge = subscribeCharge;
     }
 
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
 
     @Override
     public int describeContents() {
@@ -157,17 +115,46 @@ public class User implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(nickName);
-        parcel.writeString(password);
-        parcel.writeString(email);
-        parcel.writeString(phone);
-        parcel.writeString(avatar);
-        parcel.writeString(imToken);
-        parcel.writeString(bigv);
-        parcel.writeString(subscribeCharge);
-        parcel.writeString(createTime);
-        parcel.writeString(updateTime);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.nickName);
+        dest.writeString(this.password);
+        dest.writeString(this.email);
+        dest.writeString(this.phone);
+        dest.writeString(this.avatar);
+        dest.writeString(this.imToken);
+        dest.writeString(this.bigv);
+        dest.writeString(this.subscribeCharge);
+        dest.writeString(this.createTime);
+        dest.writeString(this.updateTime);
     }
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        this.id = in.readString();
+        this.nickName = in.readString();
+        this.password = in.readString();
+        this.email = in.readString();
+        this.phone = in.readString();
+        this.avatar = in.readString();
+        this.imToken = in.readString();
+        this.bigv = in.readString();
+        this.subscribeCharge = in.readString();
+        this.createTime = in.readString();
+        this.updateTime = in.readString();
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

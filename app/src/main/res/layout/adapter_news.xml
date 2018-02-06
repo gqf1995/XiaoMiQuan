@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/trans_40px">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="41"
+            android:textColor="@color/color_font3"
+            android:textSize="@dimen/trans_24px" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_start1"
+            android:layout_width="@dimen/trans_34px"
+            android:layout_height="@dimen/trans_34px"
+            android:layout_marginLeft="@dimen/trans_10px"
+            app:srcCompat="@drawable/ic_start_no" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_start2"
+            android:layout_width="@dimen/trans_34px"
+            android:layout_height="@dimen/trans_34px"
+            app:srcCompat="@drawable/ic_start_no" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_start3"
+            android:layout_width="@dimen/trans_34px"
+            android:layout_height="@dimen/trans_34px"
+            app:srcCompat="@drawable/ic_start_no" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_start4"
+            android:layout_width="@dimen/trans_34px"
+            android:layout_height="@dimen/trans_34px"
+            app:srcCompat="@drawable/ic_start_no" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_start5"
+            android:layout_width="@dimen/trans_34px"
+            android:layout_height="@dimen/trans_34px"
+            app:srcCompat="@drawable/ic_start_no" />
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:id="@+id/icf_shared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/trans_65px"
+            android:text="@string/ic_Share"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_32px" />
+
+        <TextView
+            android:id="@+id/tv_shared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/trans_8px"
+            android:singleLine="true"
+            android:text="@string/str_tv_share"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/trans_24px" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_con"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:text="名字"
+        android:textColor="@color/color_font1"
+        android:textSize="@dimen/trans_32px" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/trans_30px"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_tv_like"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/text_trans_24px" />
+
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:id="@+id/tv_praise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ic_Like"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/text_trans_24px" />
+
+        <TextView
+            android:id="@+id/tv_praise_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/trans_8px"
+            android:singleLine="true"
+            android:text="0"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/trans_24px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="人"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/trans_24px" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+
+        <TextView
+            android:id="@+id/tv_dislike_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/trans_8px"
+            android:singleLine="true"
+            android:text="0"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/trans_24px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/trans_8px"
+            android:text="人"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/trans_24px" />
+
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:id="@+id/tv_dislike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ic_Dislike"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/text_trans_24px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/trans_8px"
+            android:text="@string/str_tv_dislike"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/text_trans_24px" />
+
+    </LinearLayout>
+
+</LinearLayout>

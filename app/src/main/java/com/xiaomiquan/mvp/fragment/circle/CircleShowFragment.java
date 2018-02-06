@@ -1,6 +1,5 @@
 package com.xiaomiquan.mvp.fragment.circle;
 
-import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,19 +14,20 @@ import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleDynamicAdapter;
 import com.xiaomiquan.adapter.circle.CircleMyAdapter;
+import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
+import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
 import com.xiaomiquan.mvp.activity.circle.CircleContentActivity;
 import com.xiaomiquan.mvp.activity.circle.CreatCircleActivity;
 import com.xiaomiquan.mvp.activity.circle.GetFriendsJoinActivity;
 import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
-import com.xiaomiquan.mvp.activity.mvp.activity.UserInfoActivity;
+import com.xiaomiquan.mvp.activity.circle.UserInfoActivity;
 import com.xiaomiquan.mvp.databinder.circle.CircleShowBinder;
 import com.xiaomiquan.mvp.delegate.circle.CircleShowDelegate;
 import com.xiaomiquan.widget.circle.JoinPopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,9 +75,6 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
             case 0x124:
                 List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
                 initCircleTopic(datas);
-                break;
-            case 0x127:
-                addRequest(binder.getCircleTopic(CircleShowFragment.this));
                 break;
         }
 
@@ -144,7 +141,7 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
     }
 
     private void initCircleTopic(final List<SquareLive> squareLives) {
-        circleDynamicAdapter = new CircleDynamicAdapter(getActivity(), squareLives);
+        circleDynamicAdapter = new CircleDynamicAdapter(binder, getActivity(), squareLives);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
@@ -154,7 +151,11 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
         circleDynamicAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+                if (squareLives.get(position).getType().equals("1")) {
+                    ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
+                } else {
+                    TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+                }
             }
 
             @Override
@@ -166,10 +167,11 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
             @Override
             public void onClick(View view, final int position, Object item) {
                 if (view.getId() == R.id.tv_comment) {
-                    TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
-                }
-                if (view.getId() == R.id.tv_praise) {
-                    addRequest(binder.savePraise(circleDynamicAdapter.getDatas().get(position).getId(), CircleShowFragment.this));
+                    if (squareLives.get(position).getType().equals("1")) {
+                        ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
+                    } else {
+                        TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+                    }
                 }
                 if (view.getId() == R.id.cv_head) {
                     UserInfoActivity.startAct(getActivity(), squareLives.get(position));
@@ -180,7 +182,6 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
         viewDelegate.viewHolder.rv_circle.setAdapter(circleDynamicAdapter);
 
     }
-
 
     JoinPopupWindow joinPopupWindow;
 

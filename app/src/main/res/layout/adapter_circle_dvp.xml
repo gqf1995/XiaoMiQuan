@@ -10,13 +10,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/trans_20px">
 
         <ImageView
             android:id="@+id/cv_head"
-            android:layout_width="@dimen/trans_100px"
-            android:layout_height="@dimen/trans_100px"
+            android:layout_width="@dimen/trans_120px"
+            android:layout_height="@dimen/trans_120px"
             android:src="@color/color_blue" />
 
         <LinearLayout
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/trans_15px"
-                    android:text="免费"
+                    android:text="@string/str_tv_free"
                     android:textColor="@color/color_font3"
                     android:textSize="@dimen/trans_28px" />
 
@@ -60,7 +60,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="赵三创建"
+                    android:text="赵三"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/trans_28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/str_tv_creat"
                     android:textColor="@color/color_font2"
                     android:textSize="@dimen/trans_28px" />
             </LinearLayout>

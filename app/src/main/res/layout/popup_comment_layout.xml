@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:id="@+id/lin_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/trans_10px">
+
+        <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
+            android:id="@+id/et_input2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/trans_10px"
+            android:layout_marginRight="@dimen/trans_20px"
+            android:layout_weight="1"
+            android:background="@color/base_mask"
+            android:backgroundTint="@color/base_mask"
+            android:hint="@string/str_tv_sub"
+            android:padding="@dimen/trans_10px"
+            android:textColorHint="@color/color_font3"
+            android:textSize="@dimen/trans_32px"
+            app:met_baseColor="@color/white"
+            app:met_primaryColor="@color/color_blue"
+            app:met_textColor="@color/color_font2"
+            app:met_textColorHint="@color/color_font4"
+            app:met_underlineColor="@color/base_mask" />
+
+        <TextView
+            android:id="@+id/tv_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/trans_10px"
+            android:background="@color/color_blue"
+            android:gravity="center"
+            android:padding="@dimen/album_dp_10"
+            android:text="@string/str_tv_sub"
+            android:textColor="@color/white"
+            android:textSize="@dimen/trans_32px" />
+    </LinearLayout>
+
+</RelativeLayout>

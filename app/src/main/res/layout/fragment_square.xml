@@ -37,9 +37,18 @@
                         android:layout_height="wrap_content"
                         android:scrollbars="none" />
 
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_1px"
+                        android:background="@color/base_mask" />
+
                     <LinearLayout
+                        android:id="@+id/lin_news"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/trans_80px"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/trans_40px"
@@ -49,14 +58,14 @@
                             android:id="@+id/civ_img"
                             android:layout_width="@dimen/trans_40px"
                             android:layout_height="@dimen/trans_40px"
-                            app:srcCompat="@drawable/ic_language" />
+                            app:srcCompat="@drawable/icon_news" />
 
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/trans_16px"
-                            android:text="热门资讯"
+                            android:text="@string/str_tv_news"
                             android:textColor="@color/color_font1"
                             android:textSize="@dimen/text_trans_28px" />
 
@@ -64,6 +73,14 @@
                             android:layout_width="0dp"
                             android:layout_height="1dp"
                             android:layout_weight="1" />
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/trans_8px"
+                            android:text="@string/ic_Calendar"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/text_trans_30px" />
 
                         <TextView
                             android:id="@+id/tv_message_time"
@@ -85,7 +102,13 @@
                         android:layout_height="wrap_content"
                         android:scrollbars="none" />
 
+
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_20px"
+                    android:background="@color/base_mask" />
 
                 <ImageView
                     android:id="@+id/iv_img"
@@ -101,8 +124,11 @@
                     android:background="@color/base_mask" />
 
                 <LinearLayout
+                    android:id="@+id/lin_live"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/trans_80px"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/trans_40px"
@@ -111,14 +137,13 @@
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_40px"
                         android:layout_height="@dimen/trans_40px"
-                        app:srcCompat="@drawable/ic_language" />
-
+                        app:srcCompat="@drawable/icon_live" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/trans_16px"
-                        android:text="大V直播"
+                        android:text="@string/str_tv_live"
                         android:textColor="@color/color_font1"
                         android:textSize="@dimen/text_trans_28px" />
 
@@ -126,6 +151,14 @@
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_weight="1" />
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/trans_8px"
+                        android:text="@string/ic_Calendar"
+                        android:textColor="@color/color_font2"
+                        android:textSize="@dimen/text_trans_30px" />
 
                     <TextView
                         android:id="@+id/tv_live_time"
@@ -152,16 +185,15 @@
             </LinearLayout>
         </com.xiaomiquan.widget.StickyScrollView>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/flt_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/civ_send"
+            android:layout_width="@dimen/trans_92px"
+            android:layout_height="@dimen/trans_92px"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/album_dp_50"
-            app:backgroundTint="@color/color_blue"
-            app:fabSize="normal"
-            app:rippleColor="@color/color_font1"
+            android:layout_marginBottom="@dimen/trans_150px"
+            android:layout_marginRight="@dimen/trans_80px"
             app:srcCompat="@drawable/ic_write" />
+
     </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

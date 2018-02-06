@@ -2,6 +2,7 @@ package com.xiaomiquan.mvp.delegate.circle;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -40,7 +41,7 @@ public class CircleContentDelegate extends BaseMyPullDelegate {
         public TextView tv_rank;
         public RecyclerView pull_recycleview;
         public SwipeRefreshLayout swipeRefreshLayout;
-        public FloatingActionButton flt_send;
+        public AppCompatImageView civ_send;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -52,7 +53,7 @@ public class CircleContentDelegate extends BaseMyPullDelegate {
             this.tv_rank = (TextView) rootView.findViewById(R.id.tv_rank);
             this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
-            this.flt_send = (FloatingActionButton) rootView.findViewById(R.id.flt_send);
+            this.civ_send = (AppCompatImageView) rootView.findViewById(R.id.civ_send);
         }
 
     }
