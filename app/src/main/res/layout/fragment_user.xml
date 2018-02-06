@@ -57,7 +57,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="@string/str_nologin"
-                                android:textColor="@color/color_font1"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_32px"/>
 
                             <TextView

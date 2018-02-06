@@ -14,8 +14,8 @@ public class AppConst {
     //public static final String httpBaseUrl3 = "http://hk-topcoin.tokenboxes.com";
     //public static final String httpBaseUrl3 = "http://192.168.0.15:8080/";
     //public static final String httpBaseUrl3 = "http://120.55.45.178:1904";
-//    public static final String httpBaseUrl3 = "http://120.55.45.178:1904";
-    public static final String httpBaseUrl3 = "http://192.168.31.191:8080";
+    public static final String httpBaseUrl3 = "http://120.55.45.178:1904";
+   // public static final String httpBaseUrl3 = "http://192.168.31.191:8080";
 
     public static final String httpBaseUrl5 = "http://topcoin.tokenboxes.com/";
     public static final String httpBaseUrl7 = "http://192.168.0.15:8080/";

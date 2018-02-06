@@ -82,9 +82,12 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         String exchangeNamesStr = CacheUtils.getInstance().getString(CACHE_EXCHANGENAME);
         if (!TextUtils.isEmpty(exchangeNamesStr)) {
             exchangeNameList = GsonUtil.getInstance().toList(exchangeNamesStr, ExchangeName.class);
-            initTablelayout(exchangeNameList);
+        } else {
+            String datas = CommonUtils.getString(R.string.str_eNames);
+            CacheUtils.getInstance().put(CACHE_EXCHANGENAME, datas);
+            exchangeNameList = GsonUtil.getInstance().toList(datas, ExchangeName.class);
         }
-        addRequest(binder.getAllEXchange(this));
+        initTablelayout(exchangeNameList);
     }
 
     ArrayList<String> strings;
@@ -142,7 +145,9 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     protected void clickRightIv1() {
         super.clickRightIv();
         // 排序
-        gotoActivity(SortingUserCoinActivity.class).fragStartActResult(this, 0x123);
+        if (SingSettingDBUtil.isLogin(getActivity())) {
+            gotoActivity(SortingUserCoinActivity.class).fragStartActResult(this, 0x123);
+        }
     }
 
     @Override

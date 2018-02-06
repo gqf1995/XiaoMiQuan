@@ -90,12 +90,8 @@
         <activity android:name=".mvp.activity.circle.CircleContentActivity"/>
         <activity android:name=".mvp.activity.circle.ReleaseArticleActivity" />
         <activity android:name=".mvp.activity.circle.MembersActivity" />
-        <activity android:name=".mvp.activity.circle.ReleaseDynamicActivity" />
         <activity android:name=".mvp.activity.circle.TopicDetailActivity" />
-        <activity android:name=".mvp.activity.circle.ArticleActivity" />
-        <activity android:name=".mvp.activity.circle.CircleContentActivity" />
         <activity android:name=".mvp.activity.circle.JurisdictionActivity" />
-        <activity android:name=".mvp.activity.circle.BigVListActivity" />
         <activity android:name=".mvp.activity.circle.LiveActivity" />
         <activity android:name=".mvp.activity.circle.PayCircleActivity" />
         <activity android:name=".mvp.activity.circle.CreatCodeActivity" />
@@ -104,15 +100,6 @@
         <activity android:name=".mvp.activity.circle.UserInfoActivity" />
         <activity android:name=".mvp.activity.circle.ArticleDetailsActivity" />
         <activity android:name=".mvp.activity.circle.NewsDetailActivity" />
-        <activity
-            android:name=".mvp.activity.main.WelcomActivity"
-            android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
     </application>
 
