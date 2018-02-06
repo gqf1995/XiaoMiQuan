@@ -9,11 +9,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.base.BaseDataBind;
+import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.utils.glide.GlideUtils;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.api.widget.Widget;
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Andy on 2018/1/26.
@@ -49,20 +53,16 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
     private LinearLayout lin_praise;
     private LinearLayout lin_comment;
     public Context context;
-
-    public List<String> isPraise;
-    public List<String> paiseNum;
-
+    BaseDataBind dataBind;
 
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
         this.defaultClickLinsener = defaultClickLinsener;
     }
 
-    public SquareLiveAdapter(Context context, List<SquareLive> datas) {
+    public SquareLiveAdapter(BaseDataBind baseDataBind, Context context, List<SquareLive> datas) {
         super(context, R.layout.adapter_live, datas);
         this.context = context;
-        this.isPraise = new ArrayList<>();
-        this.paiseNum = new ArrayList<>();
+        dataBind = baseDataBind;
     }
 
     @Override
@@ -82,9 +82,6 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
         iv_img = holder.getView(R.id.iv_img);
         lin_praise = holder.getView(R.id.lin_praise);
         lin_comment = holder.getView(R.id.lin_comment);
-
-        isPraise.add(s.getUserPraise());
-        paiseNum.add(s.getGoodCount());
 
         if (s.getImgList() != null) {
             DynamicPhotoAdapter dynamicPhotoAdapter = new DynamicPhotoAdapter(context, s.getImgList());
@@ -140,12 +137,13 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
         /**
          * 用户是否点赞
          */
-        if (isPraise.get(position).equals("false")) {
-            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
-            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
-        } else {
+        if (s.isUserPraise()) {
+
             tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
             tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+        } else {
+            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
         }
 
 
@@ -153,9 +151,9 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
          * 用户信息加载
          */
         tv_name.setText(s.getNickName());
-        tv_time.setText(s.getCreateTimeStr());
-        tv_comment_num.setText(s.getCommentCount());
-        tv_praise_num.setText(paiseNum.get(position));
+        tv_time.setText(s.getHourMinute());
+        tv_comment_num.setText(s.getCommentCount() + "");
+        tv_praise_num.setText(s.getGoodCount() + "");
         GlideUtils.loadImage(s.getAvatar(), cv_head);
 
 
@@ -173,11 +171,19 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
         lin_praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (defaultClickLinsener != null) {
-                    defaultClickLinsener.onClick(view, position, null);
+                if (s.isUserPraise()) {
+                    s.setUserPraise(false);
+                    s.setGoodCount(s.getGoodCount() - 1);
+
+                } else {
+                    s.setUserPraise(true);
+                    s.setGoodCount(s.getGoodCount() + 1);
                 }
+                dataBind.addRequest(savePraise(dataBind, s.getId()));
+                notifyItemChanged(position);
             }
         });
+
         cv_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,6 +193,27 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
             }
         });
 
+    }
+
+    /**
+     * 点赞
+     */
+    private Disposable savePraise(BaseDataBind baseDataBind,
+                                  String linkId
+    ) {
+        baseDataBind.getBaseMapWithUid();
+        baseDataBind.put("linkId", linkId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().savePraise)
+                .setShowDialog(false)
+                .setRequestName("点赞")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseDataBind.getMap())
+                .setRequestCallback(null)
+                .build()
+                .RxSendRequest();
     }
 
 }

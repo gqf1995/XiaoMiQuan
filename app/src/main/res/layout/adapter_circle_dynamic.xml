@@ -86,13 +86,12 @@
                 android:textColor="@color/color_font1"
                 android:textSize="@dimen/text_trans_28px" />
 
-            <ImageView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/iv_img"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/trans_256px"
                 android:layout_marginTop="@dimen/trans_20px"
-                android:scaleType="fitXY"
-                android:src="@drawable/bg" />
+                android:layout_height="wrap_content"
+                android:scrollbars="none" />
 
             <LinearLayout
                 android:id="@+id/lin_article"
@@ -151,24 +150,31 @@
                 android:paddingBottom="@dimen/trans_30px"
                 android:paddingTop="@dimen/trans_30px">
 
-                <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                    android:id="@+id/tv_praise"
+                <LinearLayout
+                    android:id="@+id/lin_praise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/trans_20px"
-                    android:text="@string/ic_Like"
-                    android:textColor="@color/color_font1"
-                    android:textSize="@dimen/text_trans_32px" />
+                    android:orientation="horizontal"
+                    android:paddingRight="@dimen/trans_20px">
 
-                <TextView
-                    android:id="@+id/tv_praise_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/trans_8px"
-                    android:singleLine="true"
-                    android:text="0"
-                    android:textColor="@color/color_font1"
-                    android:textSize="@dimen/trans_24px" />
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:id="@+id/tv_praise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ic_Like"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_32px" />
+
+                    <TextView
+                        android:id="@+id/tv_praise_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/trans_8px"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/trans_24px" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="0dp"

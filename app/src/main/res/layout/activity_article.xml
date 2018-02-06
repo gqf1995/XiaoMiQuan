@@ -45,7 +45,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2018/03/04"
-                            android:textColor="@color/color_font2"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/trans_28px" />
 
                         <TextView
@@ -54,7 +54,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/trans_20px"
                             android:text="名字"
-                            android:textColor="@color/color_font1"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/text_trans_50px" />
 
                         <LinearLayout
@@ -76,7 +76,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/trans_15px"
                                 android:text="名字"
-                                android:textColor="@color/color_font3"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/trans_28px" />
 
                             <View
@@ -94,7 +94,7 @@
                                 android:focusable="true"
                                 android:gravity="center"
                                 android:text="@string/ic_Chat"
-                                android:textColor="@color/color_font2"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_30px" />
 
                             <TextView
@@ -105,7 +105,7 @@
                                 android:layout_marginRight="@dimen/trans_40px"
                                 android:singleLine="true"
                                 android:text="10"
-                                android:textColor="@color/color_font2"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_28px" />
 
                             <LinearLayout
@@ -123,7 +123,7 @@
                                     android:layout_gravity="center_vertical"
                                     android:gravity="center"
                                     android:text="@string/ic_Like"
-                                    android:textColor="@color/color_font2"
+                                    android:textColor="@color/white"
                                     android:textSize="@dimen/text_trans_30px" />
 
                                 <TextView
@@ -133,7 +133,7 @@
                                     android:layout_marginLeft="@dimen/trans_10px"
                                     android:singleLine="true"
                                     android:text="0"
-                                    android:textColor="@color/color_font2"
+                                    android:textColor="@color/white"
                                     android:textSize="@dimen/text_trans_28px" />
                             </LinearLayout>
 

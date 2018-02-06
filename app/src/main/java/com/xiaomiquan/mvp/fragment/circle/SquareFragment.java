@@ -76,6 +76,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                 break;
             case 0x124:
                 List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
+                viewDelegate.viewHolder.tv_live_time.setText(datas.get(0).getYearMonthDay());
                 initLive(datas);
                 break;
             case 0x125:
@@ -165,59 +166,47 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
 
     public void initLive(final List<SquareLive> squareLives) {
-        squareLiveAdapter = new SquareLiveAdapter(getActivity(), squareLives);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        squareLiveAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                if (squareLives.get(position).getType().equals("1")) {
-                    ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
-                } else {
-                    TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+            squareLiveAdapter = new SquareLiveAdapter(binder, getActivity(), squareLives);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
                 }
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
-        });
-
-        squareLiveAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
-            @Override
-            public void onClick(View view, final int position, Object item) {
-                if (view.getId() == R.id.lin_comment) {
+            };
+            squareLiveAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
                     if (squareLives.get(position).getType().equals("1")) {
                         ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
                     } else {
                         TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
                     }
                 }
-                if (view.getId() == R.id.lin_praise) {
-                    if (squareLiveAdapter.isPraise.get(position).equals("false")) {
-                        squareLiveAdapter.isPraise.add(position, "true");
-                        squareLiveAdapter.paiseNum.add(position, Integer.parseInt(squareLiveAdapter.paiseNum.get(position)) + 1 + "");
-                        squareLiveAdapter.notifyItemChanged(position);
-                    } else {
-                        squareLiveAdapter.isPraise.add(position, "false");
-                        squareLiveAdapter.paiseNum.add(position, Integer.parseInt(squareLiveAdapter.paiseNum.get(position)) - 1 + "");
-                        squareLiveAdapter.notifyItemChanged(position);
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
+            squareLiveAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, final int position, Object item) {
+                    if (view.getId() == R.id.lin_comment) {
+                        if (squareLives.get(position).getType().equals("1")) {
+                            ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
+                        } else {
+                            TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+                        }
                     }
-                    addRequest(binder.savePraise(squareLiveAdapter.getDatas().get(position).getId(), SquareFragment.this));
+                    if (view.getId() == R.id.cv_head) {
+                    }
                 }
-                if (view.getId() == R.id.cv_head) {
-                }
-            }
-        });
-        viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
-        viewDelegate.viewHolder.ry_live.getItemAnimator().setChangeDuration(0);
-        viewDelegate.viewHolder.ry_live.setAdapter(squareLiveAdapter);
-        viewDelegate.setIsLoadMore(true);
+            });
+            viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
+            viewDelegate.viewHolder.ry_live.getItemAnimator().setChangeDuration(0);
+            viewDelegate.viewHolder.ry_live.setAdapter(squareLiveAdapter);
+            viewDelegate.setIsLoadMore(true);
+
     }
 
     SquarePopupWindow squarePopupWindow;
@@ -267,7 +256,6 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                 break;
         }
     }
-
 
 
     @Override

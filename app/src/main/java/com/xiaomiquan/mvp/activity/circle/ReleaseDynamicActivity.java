@@ -123,8 +123,8 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                 if (position == 0) {
-                    if (releaseDynamicAdapter.albumFiles.size() < 10) {
-                        initPop(10-releaseDynamicAdapter.albumFiles.size());
+                    if (releaseDynamicAdapter.albumFiles.size() < 7) {
+                        initPop(7-releaseDynamicAdapter.albumFiles.size());
                     } else {
                         ToastUtil.show(CommonUtils.getString(R.string.str_rv_img));
                     }

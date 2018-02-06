@@ -59,7 +59,8 @@ public class LiveActivity extends BaseDataBindActivity<NewsDelegate, NewsBinder>
     }
 
     public void initLive(final List<SquareLive> squareLives) {
-        squareLiveAdapter = new SquareLiveAdapter(LiveActivity.this, squareLives);
+        viewDelegate.viewHolder.tv_time.setText(squareLives.get(0).getYearMonthDay());
+        squareLiveAdapter = new SquareLiveAdapter(binder, LiveActivity.this, squareLives);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(LiveActivity.this) {
             @Override
             public boolean canScrollVertically() {
@@ -90,18 +91,6 @@ public class LiveActivity extends BaseDataBindActivity<NewsDelegate, NewsBinder>
                     } else {
                         TopicDetailActivity.startAct(LiveActivity.this, squareLives.get(position));
                     }
-                }
-                if (view.getId() == R.id.lin_praise) {
-                    if (squareLiveAdapter.isPraise.get(position).equals("false")) {
-                        squareLiveAdapter.isPraise.add(position, "true");
-                        squareLiveAdapter.paiseNum.add(position, Integer.parseInt(squareLiveAdapter.paiseNum.get(position)) + 1 + "");
-                        squareLiveAdapter.notifyItemChanged(position);
-                    } else {
-                        squareLiveAdapter.isPraise.add(position, "false");
-                        squareLiveAdapter.paiseNum.add(position, Integer.parseInt(squareLiveAdapter.paiseNum.get(position)) - 1 + "");
-                        squareLiveAdapter.notifyItemChanged(position);
-                    }
-                        addRequest(binder.savePraise(squareLiveAdapter.getDatas().get(position).getId(), LiveActivity.this));
                 }
                 if (view.getId() == R.id.cv_head) {
                     UserInfoActivity.startAct(LiveActivity.this, squareLives.get(position));

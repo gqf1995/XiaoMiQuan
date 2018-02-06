@@ -61,7 +61,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
     public void initArticle(final List<SquareLive> squareLives) {
         initHeadView(squareLives.get(0));
         squareLives.remove(0);
-        artivleAdapter = new ArtivleAdapter(ArticleActivity.this, squareLives);
+        artivleAdapter = new ArtivleAdapter(binder, ArticleActivity.this, squareLives);
         artivleAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
@@ -73,21 +73,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
                 return false;
             }
         });
-        artivleAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
-            @Override
-            public void onClick(View view, int position, Object item) {
-                if (artivleAdapter.isPraise.get(position).equals("false")) {
-                    artivleAdapter.isPraise.add(position, "true");
-                    artivleAdapter.paiseNum.add(position, Integer.parseInt(artivleAdapter.paiseNum.get(position)) + 1 + "");
-                    artivleAdapter.notifyItemChanged(position);
-                } else {
-                    artivleAdapter.isPraise.add(position, "false");
-                    artivleAdapter.paiseNum.add(position, Integer.parseInt(artivleAdapter.paiseNum.get(position)) - 1 + "");
-                    artivleAdapter.notifyItemChanged(position);
-                }
-                addRequest(binder.savePraise(squareLives.get(position).getId(), ArticleActivity.this));
-            }
-        });
+
         linearLayoutManager = new LinearLayoutManager(ArticleActivity.this) {
             @Override
             public boolean canScrollVertically() {
@@ -105,38 +91,40 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
         /**
          * 用户是否点赞
          //                 */
-        if (squareLive.getUserPraise().equals("false")) {
-            viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
-            viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
-        } else {
+        if (squareLive.isUserPraise()) {
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
             viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+        } else {
+            viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
         }
         viewDelegate.viewHolder.tv_time.setText(squareLive.getCreateTimeStr());
         viewDelegate.viewHolder.tv_title.setText(squareLive.getTitle());
         GlideUtils.loadImage(squareLive.getAvatar(), viewDelegate.viewHolder.iv_head);
         GlideUtils.loadImage(squareLive.getImg(), viewDelegate.viewHolder.iv_banner);
         viewDelegate.viewHolder.tv_name.setText(squareLive.getNickName());
-        viewDelegate.viewHolder.tv_comment_num.setText(squareLive.getCommentCount());
-        viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount());
+        viewDelegate.viewHolder.tv_comment_num.setText(squareLive.getCommentCount()+"");
+        viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount()+"");
         viewDelegate.viewHolder.lin_praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /**
                  * 用户是否点赞
                  //                 */
-                if (squareLive.getUserPraise().equals("false")) {
-                    squareLive.setUserPraise("true");
-                    squareLive.setGoodCount(Integer.parseInt(squareLive.getGoodCount()) + 1 + "");
-                    viewDelegate.viewHolder.tv_praise_num.setText(Integer.parseInt(squareLive.getGoodCount()) + 1 + "");
-                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                } else {
-                    squareLive.setUserPraise("false");
-                    squareLive.setGoodCount(Integer.parseInt(squareLive.getGoodCount()) - 1 + "");
-                    viewDelegate.viewHolder.tv_praise_num.setText(Integer.parseInt(squareLive.getGoodCount()) - 1 + "");
+                if (squareLive.isUserPraise()) {
+                    squareLive.setUserPraise(false);
+                    squareLive.setGoodCount(squareLive.getGoodCount() - 1);
+                    viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
                     viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
                     viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+
+                } else {
+                    squareLive.setUserPraise(true);
+                    squareLive.setGoodCount(squareLive.getGoodCount() + 1);
+                    viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
+                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+
                 }
                 addRequest(binder.savePraise(squareLive.getId(), ArticleActivity.this));
             }

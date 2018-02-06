@@ -1,13 +1,10 @@
 package com.xiaomiquan.entity.bean.circle;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by Andy on 2018/2/5.
  */
 
-public class News implements Parcelable {
+public class News {
 
 
     /**
@@ -24,8 +21,8 @@ public class News implements Parcelable {
     private String id;
     private String content;
     private String level;
-    private String goodNum;
-    private String badNum;
+    private Integer goodNum;
+    private Integer badNum;
     private String link;
     private String from;
     private String createTime;
@@ -54,19 +51,19 @@ public class News implements Parcelable {
         this.level = level;
     }
 
-    public String getGoodNum() {
+    public Integer getGoodNum() {
         return goodNum;
     }
 
-    public void setGoodNum(String goodNum) {
+    public void setGoodNum(Integer goodNum) {
         this.goodNum = goodNum;
     }
 
-    public String getBadNum() {
+    public Integer getBadNum() {
         return badNum;
     }
 
-    public void setBadNum(String badNum) {
+    public void setBadNum(Integer badNum) {
         this.badNum = badNum;
     }
 
@@ -93,47 +90,4 @@ public class News implements Parcelable {
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.content);
-        dest.writeString(this.level);
-        dest.writeString(this.goodNum);
-        dest.writeString(this.badNum);
-        dest.writeString(this.link);
-        dest.writeString(this.from);
-        dest.writeString(this.createTime);
-    }
-
-    public News() {
-    }
-
-    protected News(Parcel in) {
-        this.id = in.readString();
-        this.content = in.readString();
-        this.level = in.readString();
-        this.goodNum = in.readString();
-        this.badNum = in.readString();
-        this.link = in.readString();
-        this.from = in.readString();
-        this.createTime = in.readString();
-    }
-
-    public static final Parcelable.Creator<News> CREATOR = new Parcelable.Creator<News>() {
-        @Override
-        public News createFromParcel(Parcel source) {
-            return new News(source);
-        }
-
-        @Override
-        public News[] newArray(int size) {
-            return new News[size];
-        }
-    };
 }

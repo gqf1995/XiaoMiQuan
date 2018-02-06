@@ -266,7 +266,7 @@
 
     <string name="str_release_dynamic">发布动态</string>
     <string name="str_et_hint">点这里输入动态，最多不超过140个字符</string>
-    <string name="str_rv_img">最多选择九张图片</string>
+    <string name="str_rv_img">最多选择六张图片</string>
     <string name="str_img_title">选择图片</string>
     <string name="str_img_preview">预览图片</string>
     <string name="str_tv_send_article">发表了文章</string>

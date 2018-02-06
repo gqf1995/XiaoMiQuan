@@ -41,7 +41,6 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
     CircleDynamicAdapter circleDynamicAdapter;
     List<SquareLive> squareLiveList;
     List<UserCircle> userCircleList;
-    int index;
 
     @Override
     protected void bindEvenListener() {
@@ -76,12 +75,6 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
             case 0x124:
                 List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
                 initCircleTopic(datas);
-                break;
-            case 0x125:
-                Praise praise = GsonUtil.getInstance().toObj(data, Praise.class);
-                circleDynamicAdapter.isPraise.add(index, praise.getIspraise() + "");
-                circleDynamicAdapter.paiseNum.add(index, praise.getPraiseQty());
-                circleDynamicAdapter.notifyItemChanged(index);
                 break;
         }
 
@@ -148,7 +141,7 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
     }
 
     private void initCircleTopic(final List<SquareLive> squareLives) {
-        circleDynamicAdapter = new CircleDynamicAdapter(getActivity(), squareLives);
+        circleDynamicAdapter = new CircleDynamicAdapter(binder, getActivity(), squareLives);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
@@ -179,10 +172,6 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
                     } else {
                         TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
                     }
-                }
-                if (view.getId() == R.id.tv_praise) {
-                    index = position;
-                    addRequest(binder.savePraise(circleDynamicAdapter.getDatas().get(position).getId(), CircleShowFragment.this));
                 }
                 if (view.getId() == R.id.cv_head) {
                     UserInfoActivity.startAct(getActivity(), squareLives.get(position));

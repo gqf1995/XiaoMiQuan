@@ -79,10 +79,10 @@ public class CircleContentAdapter extends CommonAdapter<SquareLive> {
         tv_comment_num.setText(squareLive.getCommentCount());
         GlideUtils.loadImage(squareLive.getAvatar(), cv_head);
 
-        if (squareLive.getUserPraise().equals("false")) {
-            tv_praise.setTextColor(context.getResources().getColor(R.color.color_font1));
-        } else {
+        if (squareLive.isUserPraise()) {
             tv_praise.setTextColor(context.getResources().getColor(R.color.color_blue));
+        } else {
+            tv_praise.setTextColor(context.getResources().getColor(R.color.color_font1));
         }
 
         if (squareLive.getType().equals("1")) {

@@ -93,7 +93,7 @@ public class UserInfoActivity extends BasePullActivity<UserInfoDelegate, UserInf
     }
 
     public void initLive(final List<SquareLive> squareLives) {
-        squareLiveAdapter = new SquareLiveAdapter(UserInfoActivity.this, squareLives);
+        squareLiveAdapter = new SquareLiveAdapter(binder,UserInfoActivity.this, squareLives);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(UserInfoActivity.this) {
             @Override
             public boolean canScrollVertically() {
