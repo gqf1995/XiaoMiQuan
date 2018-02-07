@@ -77,7 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="@dimen/trans_30px">
+                android:padding="@dimen/trans_30px"
+                android:visibility="gone">
 
                 <skin.support.widget.SkinCompatCheckBox
                     android:id="@+id/ck_live"

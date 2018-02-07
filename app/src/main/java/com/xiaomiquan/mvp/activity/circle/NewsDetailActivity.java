@@ -144,8 +144,8 @@ public class NewsDetailActivity extends BasePullActivity<TopicDetailDelegate, To
         }
 
         GlideUtils.loadImage(square.getAvatar(), viewDelegate.viewHolder.cv_head);
-        viewDelegate.viewHolder.tv_comment_num.setText(square.getCommentCount()+"");
-        viewDelegate.viewHolder.tv_praise_num.setText(square.getGoodCount()+"");
+        viewDelegate.viewHolder.tv_comment_num.setText(square.getCommentCount() + "");
+        viewDelegate.viewHolder.tv_praise_num.setText(square.getGoodCount() + "");
         viewDelegate.viewHolder.tv_time.setText(square.getCreateTimeStr());
         viewDelegate.viewHolder.tv_con.setText(Html.fromHtml(square.getContent()));
 

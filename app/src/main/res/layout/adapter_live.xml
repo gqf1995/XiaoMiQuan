@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +34,7 @@
 
                 <View
                     android:id="@+id/v_line"
-                    android:layout_width="@dimen/trans_2px"
+                    android:layout_width="@dimen/trans_1px"
                     android:layout_height="@dimen/trans_58px"
                     android:background="@color/base_mask" />
 
@@ -45,7 +44,7 @@
                     android:src="@color/color_blue" />
 
                 <View
-                    android:layout_width="@dimen/trans_2px"
+                    android:layout_width="@dimen/trans_1px"
                     android:layout_height="match_parent"
                     android:background="@color/base_mask" />
             </LinearLayout>
@@ -266,7 +265,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/trans_2px"
+        android:layout_height="@dimen/trans_1px"
         android:background="@color/base_mask" />
 
 

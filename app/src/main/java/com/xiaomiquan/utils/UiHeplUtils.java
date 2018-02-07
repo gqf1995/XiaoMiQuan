@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -76,6 +77,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 
 /**
@@ -824,6 +827,15 @@ public class UiHeplUtils {
         }).show();
     }
 
+    public static void reducePhoto(final Context context, List<String> paths, OnCompressListener listener) {
+        Luban.with(context)
+                .load(paths)                                   // 传人要压缩的图片列表
+                .ignoreBy(100)                                  // 忽略不压缩图片的大小
+                .setTargetDir(SDCardUtils.getSDCardPaths().get(0) + "/AndroidSamples")  // 设置压缩后文件存储位置
+                .setCompressListener(listener).launch();    //启动压缩
+    }
+
+
     /**
      * 修剪图片
      */
@@ -845,13 +857,13 @@ public class UiHeplUtils {
                 // 图片输出文件夹路径。
                 .outputDirectory(SDCardUtils.getSDCardPaths().get(0) + "/AndroidSamples")
                 // 裁剪图片输出的最大宽高。
-                .maxWidthHeight(500, 500)
+                .maxWidthHeight(750, 500)
                 // 裁剪时的宽高比。
-                .aspectRatio(1, 1)
+                .aspectRatio(3, 2)
                 // 图片压缩格式：JPEG、PNG。
                 .compressFormat(Durban.COMPRESS_JPEG)
                 // 图片压缩质量，请参考：Bitmap#compress(Bitmap.CompressFormat, int, OutputStream)
-                .compressQuality(90)
+                .compressQuality(80)
                 // 裁剪时的手势支持：ROTATE, SCALE, ALL, NONE.
                 .gesture(Durban.GESTURE_ALL)
                 .controller(

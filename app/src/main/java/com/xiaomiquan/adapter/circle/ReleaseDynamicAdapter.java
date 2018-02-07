@@ -7,7 +7,9 @@ import android.widget.ImageView;
 
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
+import com.xiaomiquan.entity.bean.circle.User;
+import com.xiaomiquan.utils.UiHeplUtils;
+import com.xiaomiquan.utils.glide.GlideUtils;
 import com.yanzhenjie.album.AlbumFile;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;

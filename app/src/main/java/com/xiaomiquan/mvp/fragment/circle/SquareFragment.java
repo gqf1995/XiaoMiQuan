@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.entity.ResultDialogEntity;
+import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
@@ -35,6 +37,8 @@ import com.xiaomiquan.mvp.delegate.circle.SquareDelegate;
 import com.xiaomiquan.widget.circle.SquarePopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -59,6 +63,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_square)).setSubTitle(CommonUtils.getString(R.string.str_release)).setShowBack(false));
         userLogin = SingSettingDBUtil.getUserLogin();
         initShortCut();
         floatBtn();
@@ -74,12 +79,11 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
                 break;
             case 0x124:
-                viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
                 viewDelegate.viewHolder.tv_live_time.setText(datas.get(0).getYearMonthDay());
                 initLive(datas);
@@ -89,6 +93,37 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
             case 0x127:
                 break;
         }
+    }
+
+    @Override
+    protected void clickRightTv() {
+        super.clickRightTv();
+        final SquarePopupWindow squarePopupWindow = new SquarePopupWindow(getActivity());
+        squarePopupWindow.setOnItemClickListener(new SquarePopupWindow.OnItemClickListener() {
+            @Override
+            public void setOnItemClick(View v) {
+                switch (v.getId()) {
+                    case R.id.lin_dynamic:
+                        ReleaseDynamicActivity.startAct(getActivity(), "2", "1");
+                        squarePopupWindow.dismiss();
+                        break;
+                    case R.id.lin_article:
+                        ReleaseArticleActivity.startAct(getActivity(), "1", "1", "0");
+                        squarePopupWindow.dismiss();
+                        break;
+                    case R.id.lin_wechat:
+                        ReleaseArticleActivity.startAct(getActivity(), "1", "1", "1");
+                        squarePopupWindow.dismiss();
+                        break;
+                    case R.id.btn_cancel:
+                        squarePopupWindow.dismiss();
+                        break;
+
+                }
+            }
+        });
+        squarePopupWindow.showAtLocation(viewDelegate.viewHolder.banner_img, Gravity.BOTTOM, 0, 0);
+
     }
 
     @Override
@@ -112,104 +147,109 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
     List<String> mtitles;
 
     public void initShortCut() {
-        mtitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_square));
-        int[] imgs = {R.drawable.icon_live, R.drawable.icon_news, R.drawable.icon_group, R.drawable.icon_bigv, R.drawable.icon_article};
+        if (squareShortCutAdapter == null) {
+            mtitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_square));
+            int[] imgs = {R.drawable.icon_live, R.drawable.icon_group, R.drawable.icon_bigv, R.drawable.icon_article};
+            List<HashMap<String, Object>> list = new ArrayList<>();
+            for (int i = 0; i < mtitles.size(); i++) {
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("title", mtitles.get(i));
+                hashMap.put("img", imgs[i]);
+                list.add(hashMap);
+            }
+            squareShortCutAdapter = new SquareShortCutAdapter(getActivity(), list);
+            squareShortCutAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    switch (position) {
+                        case 0:
+                            gotoActivity(LiveActivity.class).startAct();
+                            break;
+//                    case 1:
+//                        gotoActivity(NewsActivity.class).startAct();
+//                        break;
+                        case 1:
+                            //模拟交易
+                            ResultDialogEntity resultDialogEntity = new ResultDialogEntity();
+                            resultDialogEntity.setCode("0");
+                            EventBus.getDefault().post(resultDialogEntity);
+                            break;
+                        case 2:
+                            gotoActivity(BigVListActivity.class).startAct();
+                            break;
+                        case 3:
+                            gotoActivity(ArticleActivity.class).startAct();
+                            break;
+                    }
 
-        List<HashMap<String, Object>> list = new ArrayList<>();
-        for (int i = 0; i < mtitles.size(); i++) {
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("title", mtitles.get(i));
-            hashMap.put("img", imgs[i]);
-            list.add(hashMap);
-        }
-        squareShortCutAdapter = new SquareShortCutAdapter(getActivity(), list);
-        squareShortCutAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                switch (position) {
-                    case 0:
-                        gotoActivity(LiveActivity.class).startAct();
-                        break;
-                    case 1:
-                        gotoActivity(NewsActivity.class).startAct();
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-                        gotoActivity(BigVListActivity.class).startAct();
-                        break;
-                    case 4:
-                        gotoActivity(ArticleActivity.class).startAct();
-                        break;
                 }
 
-            }
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
 
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-
-                return false;
-            }
-        });
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        viewDelegate.viewHolder.ry_entrance.setLayoutManager(gridLayoutManager);
-        viewDelegate.viewHolder.ry_entrance.setItemAnimator(new DefaultItemAnimator());
-        viewDelegate.viewHolder.ry_entrance.setAdapter(squareShortCutAdapter);
-    }
-
-    public void initLive(final List<SquareLive> squareLives) {
-        if (squareLiveAdapter == null) {
-            onRefresh();
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
-            squareLiveAdapter = new SquareLiveAdapter(binder, getActivity(), squareLives);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
+                    return false;
+                }
+            });
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4) {
                 @Override
                 public boolean canScrollVertically() {
                     return false;
                 }
             };
-            squareLiveAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                    if (squareLives.get(position).getType().equals("1")) {
-                        ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
-                    } else {
-                        TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
-                    }
-                }
+            viewDelegate.viewHolder.ry_entrance.setLayoutManager(gridLayoutManager);
+            viewDelegate.viewHolder.ry_entrance.setItemAnimator(new DefaultItemAnimator());
+            viewDelegate.viewHolder.ry_entrance.setAdapter(squareShortCutAdapter);
+        }
+    }
 
-                @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    return false;
-                }
-            });
-            squareLiveAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
-                @Override
-                public void onClick(View view, final int position, Object item) {
-                    if (view.getId() == R.id.lin_comment) {
+    public void initLive(final List<SquareLive> squareLives) {
+        if (squareLiveAdapter == null) {
+            onRefresh();
+            if (squareLives.size() > 0) {
+                squareLiveAdapter = new SquareLiveAdapter(binder, getActivity(), squareLives);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                };
+                squareLiveAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
                         if (squareLives.get(position).getType().equals("1")) {
                             ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
                         } else {
                             TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
                         }
                     }
-                    if (view.getId() == R.id.cv_head) {
+
+                    @Override
+                    public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                        return false;
                     }
-                }
-            });
-            viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
-            viewDelegate.viewHolder.ry_live.getItemAnimator().setChangeDuration(0);
-            viewDelegate.viewHolder.ry_live.setAdapter(squareLiveAdapter);
+                });
+                squareLiveAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                    @Override
+                    public void onClick(View view, final int position, Object item) {
+                        if (view.getId() == R.id.lin_comment) {
+                            if (squareLives.get(position).getType().equals("1")) {
+                                ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
+                            } else {
+                                TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+                            }
+                        }
+                        if (view.getId() == R.id.cv_head) {
+                        }
+                    }
+                });
+
+                viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
+                viewDelegate.viewHolder.ry_live.getItemAnimator().setChangeDuration(0);
+                viewDelegate.viewHolder.ry_live.setAdapter(squareLiveAdapter);
+            }
         } else {
             squareLiveAdapter.setDatas(squareLives);
         }
-
 
     }
 

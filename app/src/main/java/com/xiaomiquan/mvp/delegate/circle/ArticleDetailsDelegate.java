@@ -51,6 +51,7 @@ public class ArticleDetailsDelegate extends BasePullDelegate{
         public MaterialEditText et_input2;
         public TextView tv_commit;
         public LinearLayout lin_comment;
+        public LinearLayout lin_praise;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -72,6 +73,7 @@ public class ArticleDetailsDelegate extends BasePullDelegate{
             this.et_input2 = (MaterialEditText) rootView.findViewById(R.id.et_input2);
             this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);
             this.lin_comment = (LinearLayout) rootView.findViewById(R.id.lin_comment);
+            this.lin_praise = (LinearLayout) rootView.findViewById(R.id.lin_praise);
         }
 
     }

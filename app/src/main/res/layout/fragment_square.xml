@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/include_toolbar_with_statusbar" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:orientation="vertical">
+
 
         <com.xiaomiquan.widget.StickyScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/title">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,7 +61,8 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/trans_40px"
-                        android:paddingRight="@dimen/trans_40px">
+                        android:paddingRight="@dimen/trans_40px"
+                        android:visibility="gone">
 
                         <android.support.v7.widget.AppCompatImageView
                             android:id="@+id/civ_img"
@@ -101,7 +110,8 @@
                         android:id="@+id/ry_message"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scrollbars="none" />
+                        android:scrollbars="none"
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
@@ -109,7 +119,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/trans_20px"
-                    android:background="@color/base_mask" />
+                    android:background="@color/base_mask"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/iv_img"
@@ -117,7 +128,8 @@
                     android:layout_height="@dimen/trans_400px"
                     android:padding="@dimen/trans_8px"
                     android:scaleType="fitXY"
-                    android:src="@drawable/bg" />
+                    android:src="@drawable/bg"
+                    android:visibility="gone" />
 
                 <View
                     android:layout_width="match_parent"
@@ -183,18 +195,21 @@
                     android:padding="@dimen/text_trans_10px"
                     android:scrollbars="none" />
 
+
             </LinearLayout>
         </com.xiaomiquan.widget.StickyScrollView>
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/civ_send"
-            android:layout_width="@dimen/trans_92px"
-            android:layout_height="@dimen/trans_92px"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/trans_150px"
-            android:layout_marginRight="@dimen/trans_80px"
-            app:srcCompat="@drawable/ic_write" />
 
-    </RelativeLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/civ_send"
+        android:layout_width="@dimen/trans_92px"
+        android:layout_height="@dimen/trans_92px"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/trans_150px"
+        android:layout_marginRight="@dimen/trans_80px"
+        app:srcCompat="@drawable/ic_write" />
+
+</RelativeLayout>

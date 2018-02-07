@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.utils.UiHeplUtils;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -34,12 +35,18 @@ public class DynamicPhotoAdapter extends CommonAdapter<String> {
         ints = UiHeplUtils.cacularWidAndHei(context, R.dimen.trans_75px, R.dimen.trans_140px, 3, R.dimen.trans_10px, R.dimen.trans_10px);
     }
 
+    public void setDatas(List<String> datas) {
+        this.mDatas.clear();
+        this.mDatas.addAll(datas);
+        this.notifyDataSetChanged();
+    }
+
     @Override
     protected void convert(ViewHolder holder, String s, final int position) {
         icf_plus = holder.getView(R.id.icf_plus);
         iv_img = holder.getView(R.id.iv_img);
-        GlideUtils.loadImage(s, iv_img);
         UiHeplUtils.setCacularWidAndHei(ints, iv_img);
+        GlideUtils.loadImage(s, iv_img);
     }
 
 }

@@ -30,4 +30,5 @@
             android:layout_height="wrap_content"
             android:scrollbars="none" />
     </android.support.v4.widget.SwipeRefreshLayout>
+    <!--<include layout="@layout/merge_layout_no_data"/>-->
 </LinearLayout>

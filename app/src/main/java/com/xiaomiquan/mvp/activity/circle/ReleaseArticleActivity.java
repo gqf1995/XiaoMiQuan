@@ -49,6 +49,7 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
 
     private void initView() {
         viewDelegate.viewHolder.icf_update_img.setOnClickListener(this);
+        viewDelegate.viewHolder.lin_photo.setOnClickListener(this);
         if (wechat.equals("0")) {
             title = CommonUtils.getString(R.string.str_release_article);
             viewDelegate.viewHolder.et_input2.setVisibility(View.VISIBLE);
@@ -209,6 +210,9 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
         super.onClick(v);
         switch (v.getId()) {
             case R.id.icf_update_img:
+                initPop();
+                break;
+            case R.id.lin_photo:
                 initPop();
                 break;
         }

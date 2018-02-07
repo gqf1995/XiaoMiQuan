@@ -36,5 +36,25 @@ public class CirclePreviewBinder extends BaseDataBind<CirclePreviewDelegate> {
                 .RxSendRequest();
     }
 
+    public Disposable joinCircle(
+            String groupId,
+            String inviteCode,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("groupId", groupId);
+        baseMap.put("inviteCode", inviteCode);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().joinCircle)
+                .setShowDialog(true)
+                .setRequestName("加入圈子")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
 
 }

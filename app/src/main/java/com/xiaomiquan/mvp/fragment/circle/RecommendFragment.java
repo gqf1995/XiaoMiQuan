@@ -68,52 +68,55 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
     }
 
     public void initList(final List<UserFriende> userFriendes) {
-        bigVListAdapter = new BigVListAdapter(getActivity(), userFriendes);
-        bigVListAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+        if (bigVListAdapter == null) {
+            bigVListAdapter = new BigVListAdapter(getActivity(), userFriendes);
+            bigVListAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
 
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
-        });
-        bigVListAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
-            @Override
-            public void onClick(View view, int position, Object item) {
-                switch (view.getId()) {
-                    case R.id.tv_attention:
-                        UserFriende userFriende = bigVListAdapter.userFriendes.get(position);
-                        if (userFriende.getAttention()) {
-                            addRequest(binder.attentiondelete(userFriendes.get(position).getAttentionId(), RecommendFragment.this));
-                            bigVListAdapter.userFriendes.remove(position);
-                            userFriende.setAttention(false);
-                            userFriende.setAttentionedCount(userFriende.getAttentionedCount() - 1);
-                            bigVListAdapter.userFriendes.add(position, userFriende);
-                        } else {
-                            addRequest(binder.attention(userFriendes.get(position).getId(), RecommendFragment.this));
-                            bigVListAdapter.userFriendes.remove(position);
-                            userFriende.setAttention(true);
-                            userFriende.setAttentionedCount(userFriende.getAttentionedCount() + 1);
-                            bigVListAdapter.userFriendes.add(position, userFriende);
-                        }
-                        bigVListAdapter.notifyItemChanged(position);
-                        break;
                 }
-            }
-        });
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
-        viewDelegate.viewHolder.pull_recycleview.setLayoutManager(new LinearLayoutManager(getActivity()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-        viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
-        viewDelegate.viewHolder.pull_recycleview.setAdapter(bigVListAdapter);
 
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
+            bigVListAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, int position, Object item) {
+                    switch (view.getId()) {
+                        case R.id.tv_attention:
+                            UserFriende userFriende = bigVListAdapter.userFriendes.get(position);
+                            if (userFriende.getAttention()) {
+                                addRequest(binder.attentiondelete(userFriendes.get(position).getAttentionId(), RecommendFragment.this));
+                                bigVListAdapter.userFriendes.remove(position);
+                                userFriende.setAttention(false);
+                                userFriende.setAttentionedCount(userFriende.getAttentionedCount() - 1);
+                                bigVListAdapter.userFriendes.add(position, userFriende);
+                            } else {
+                                addRequest(binder.attention(userFriendes.get(position).getId(), RecommendFragment.this));
+                                bigVListAdapter.userFriendes.remove(position);
+                                userFriende.setAttention(true);
+                                userFriende.setAttentionedCount(userFriende.getAttentionedCount() + 1);
+                                bigVListAdapter.userFriendes.add(position, userFriende);
+                            }
+                            bigVListAdapter.notifyItemChanged(position);
+                            break;
+                    }
+                }
+            });
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
+            viewDelegate.viewHolder.pull_recycleview.setAdapter(bigVListAdapter);
+        } else {
+            bigVListAdapter.setDatas(userFriendes);
+        }
     }
 
     @Override

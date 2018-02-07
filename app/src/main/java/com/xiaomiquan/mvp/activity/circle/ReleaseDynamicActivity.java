@@ -26,6 +26,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import top.zibin.luban.OnCompressListener;
+
 public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicDelegate, ReleaseDynamicBinder> {
 
     ReleaseDynamicAdapter releaseDynamicAdapter;
@@ -184,27 +186,16 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
         activity.startActivity(intent);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case UiHeplUtils.CROP_CODE_1:
-                    releaseDynamicAdapter.albumFiles.remove(0);
-                    releaseDynamicAdapter.albumFiles.add(UiHeplUtils.stringToAlbumFile(Durban.parseResult(data).get(0)));
-                    isFirst = false;
-                    initImg(releaseDynamicAdapter.albumFiles);
-                    break;
-            }
-        }
-    }
-
     private void initPop(int num) {
         UiHeplUtils.getPhoto(this, new Action<String>() {
             @Override
             public void onAction(int requestCode, @NonNull String result) {
                 //拍照
-                UiHeplUtils.cropPhoto(ReleaseDynamicActivity.this, result);
+//                UiHeplUtils.cropPhoto(ReleaseDynamicActivity.this, result);
+                releaseDynamicAdapter.albumFiles.remove(0);
+                releaseDynamicAdapter.albumFiles.add(UiHeplUtils.stringToAlbumFile(result));
+                isFirst = false;
+                initImg(releaseDynamicAdapter.albumFiles);
             }
         }, new Action<ArrayList<AlbumFile>>() {
             @Override

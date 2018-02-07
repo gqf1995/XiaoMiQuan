@@ -49,7 +49,6 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
     protected void bindEvenListener() {
         super.bindEvenListener();
         userLogin = SingSettingDBUtil.getUserLogin();
-
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -110,12 +109,11 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
      * @param userCircles
      */
     private void initMyCircle(final List<UserCircle> userCircles) {
+        UserCircle userCircle = new UserCircle();
+        userCircle.setName("添加圈子");
+        userCircles.add(0, userCircle);
         if (circleMyAdapter == null) {
             onRefresh();
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
-            UserCircle userCircle = new UserCircle();
-            userCircle.setName("添加圈子");
-            userCircles.add(0, userCircle);
             circleMyAdapter = new CircleMyAdapter(getActivity(), userCircles);
             circleMyAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override

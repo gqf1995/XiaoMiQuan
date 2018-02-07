@@ -56,6 +56,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
 
     public void initArticle(final List<SquareLive> squareLives) {
         if (squareLives.size() > 0) {
+
             initHeadView(squareLives.get(0));
             squareLives.remove(0);
         }

@@ -2,6 +2,7 @@ package com.xiaomiquan.mvp.delegate.circle;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
@@ -15,6 +16,7 @@ import skin.support.widget.SkinCompatCheckBox;
 public class ReleaseArticleDelegate extends BaseDelegate {
 
     public ViewHolder viewHolder;
+
 
 
     @Override
@@ -44,6 +46,7 @@ public class ReleaseArticleDelegate extends BaseDelegate {
         public IconFontTextview icf_plus;
         public ImageView iv_img;
         public IconFontTextview icf_update_img;
+        public LinearLayout lin_photo;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -60,6 +63,7 @@ public class ReleaseArticleDelegate extends BaseDelegate {
             this.icf_update_img = (IconFontTextview) rootView.findViewById(R.id.icf_update_img);
             this.icf_plus = (IconFontTextview) rootView.findViewById(R.id.icf_plus);
             this.iv_img = (ImageView) rootView.findViewById(R.id.iv_img);
+            this.lin_photo = (LinearLayout) rootView.findViewById(R.id.lin_photo);
         }
 
     }
