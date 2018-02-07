@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:hedgehog="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -20,36 +21,17 @@
             android:textColor="@color/color_font3"
             android:textSize="@dimen/trans_24px" />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_start1"
-            android:layout_width="@dimen/trans_34px"
-            android:layout_height="@dimen/trans_34px"
-            android:layout_marginLeft="@dimen/trans_10px"
-            app:srcCompat="@drawable/ic_start_no" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_start2"
-            android:layout_width="@dimen/trans_34px"
-            android:layout_height="@dimen/trans_34px"
-            app:srcCompat="@drawable/ic_start_no" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_start3"
-            android:layout_width="@dimen/trans_34px"
-            android:layout_height="@dimen/trans_34px"
-            app:srcCompat="@drawable/ic_start_no" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_start4"
-            android:layout_width="@dimen/trans_34px"
-            android:layout_height="@dimen/trans_34px"
-            app:srcCompat="@drawable/ic_start_no" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_start5"
-            android:layout_width="@dimen/trans_34px"
-            android:layout_height="@dimen/trans_34px"
-            app:srcCompat="@drawable/ic_start_no" />
+        <com.hedgehog.ratingbar.RatingBar
+            android:id="@+id/ratingbar_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            hedgehog:clickable="false"
+            hedgehog:halfstart="false"
+            hedgehog:starCount="5"
+            hedgehog:starEmpty="@drawable/ic_start_no"
+            hedgehog:starFill="@drawable/ic_start"
+            hedgehog:starImageHeight="@dimen/trans_34px"
+            hedgehog:starImageWidth="@dimen/trans_34px" />
 
 
         <View

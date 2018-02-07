@@ -62,8 +62,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         userLogin = SingSettingDBUtil.getUserLogin();
         initShortCut();
         floatBtn();
-        squareLives = new ArrayList<>();
-        initLive(squareLives);
+
         viewDelegate.viewHolder.lin_live.setOnClickListener(this);
         viewDelegate.viewHolder.lin_news.setOnClickListener(this);
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -107,8 +106,9 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
     @Override
     protected void onFragmentFirstVisible() {
-        onRefresh();
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+        squareLives = new ArrayList<>();
+        initLive(squareLives);
+
     }
 
     List<String> mtitles;
@@ -167,7 +167,8 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
     public void initLive(final List<SquareLive> squareLives) {
         if (squareLiveAdapter == null) {
-
+            onRefresh();
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             squareLiveAdapter = new SquareLiveAdapter(binder, getActivity(), squareLives);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
                 @Override
@@ -210,7 +211,6 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         } else {
             squareLiveAdapter.setDatas(squareLives);
         }
-
 
     }
 

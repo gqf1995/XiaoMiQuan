@@ -55,6 +55,7 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
     private LinearLayout lin_comment;
     public Context context;
     BaseDataBind dataBind;
+    DynamicPhotoAdapter dynamicPhotoAdapter;
 
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
         this.defaultClickLinsener = defaultClickLinsener;
@@ -91,7 +92,7 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
         lin_comment = holder.getView(R.id.lin_comment);
 
         if (s.getImgList() != null) {
-            DynamicPhotoAdapter dynamicPhotoAdapter = new DynamicPhotoAdapter(context, s.getImgList());
+            dynamicPhotoAdapter = new DynamicPhotoAdapter(context, s.getImgList());
             dynamicPhotoAdapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -116,6 +117,7 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
             };
             iv_img.setLayoutManager(gridLayoutManager);
             iv_img.setAdapter(dynamicPhotoAdapter);
+
         }
 
         /**

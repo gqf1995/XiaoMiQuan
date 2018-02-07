@@ -73,9 +73,6 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
                 addRequest(binder.getComment(squareLive.getId(), ArticleDetailsActivity.this));
                 break;
             case 0x126:
-                Praise praise = GsonUtil.getInstance().toObj(data, Praise.class);
-
-                viewDelegate.viewHolder.tv_praise_num.setText(praise.getPraiseQty());
                 break;
             case 0x127:
                 List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
@@ -96,6 +93,11 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
 
         }
+        viewDelegate.viewHolder.tv_comment.setOnClickListener(this);
+        viewDelegate.viewHolder.lin_praise.setOnClickListener(this);
+        viewDelegate.viewHolder.tv_commit.setOnClickListener(this);
+        viewDelegate.viewHolder.et_input2.setOnClickListener(this);
+        viewDelegate.viewHolder.lin_comment.setOnClickListener(this);
         GlideUtils.loadImage(square.getImg(), viewDelegate.viewHolder.iv_banner);
         GlideUtils.loadImage(square.getAvatar(), viewDelegate.viewHolder.cv_head);
         viewDelegate.viewHolder.tv_comment_num.setText(square.getCommentCount() + "");
@@ -104,10 +106,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
         viewDelegate.viewHolder.tv_con.setText(Html.fromHtml(square.getContent()));
         viewDelegate.viewHolder.tv_name.setText(square.getNickName());
         viewDelegate.viewHolder.tv_title.setText(square.getTitle());
-        viewDelegate.viewHolder.tv_praise.setOnClickListener(this);
-        viewDelegate.viewHolder.tv_comment.setOnClickListener(this);
-        viewDelegate.viewHolder.tv_commit.setOnClickListener(this);
-        viewDelegate.viewHolder.lin_comment.setOnClickListener(this);
+
         initComment(square.getCommentVos());
     }
 
@@ -162,25 +161,29 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.tv_praise:
+            case R.id.lin_praise:
                 if (squareLive.isUserPraise()) {
                     squareLive.setUserPraise(false);
                     squareLive.setGoodCount(squareLive.getGoodCount() - 1);
                     viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
-                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
                 } else {
                     squareLive.setUserPraise(true);
                     squareLive.setGoodCount(squareLive.getGoodCount() + 1);
                     viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
-                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
-                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
                 }
+                addRequest(binder.savePraise(squareLive.getId(), ArticleDetailsActivity.this));
                 break;
             case R.id.tv_comment:
                 initPop(true, "", "");
                 break;
             case R.id.tv_commit:
+                initPop(true, "", "");
+                break;
+            case R.id.et_input2:
                 initPop(true, "", "");
                 break;
             case R.id.lin_comment:
@@ -205,6 +208,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
                             reId,
                             ArticleDetailsActivity.this));
                 }
+                commentPopupWindow.et_input2.setText(null);
             }
         });
         if (comment) {

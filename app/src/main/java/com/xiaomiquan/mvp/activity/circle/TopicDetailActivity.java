@@ -66,33 +66,9 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
     protected void bindEvenListener() {
         super.bindEvenListener();
         getIntentData();
-        initToolbar(new ToolbarBuilder().setTitle("帖子详情"));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_topic)));
         addRequest(binder.getTopicContent(squareLive.getId(), TopicDetailActivity.this));
 
-        viewDelegate.viewHolder.tv_comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initPop(true, "", "");
-            }
-        });
-        viewDelegate.viewHolder.tv_praise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addRequest(binder.savePraise(squareLive.getId(), TopicDetailActivity.this));
-            }
-        });
-        viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initPop(true, "", "");
-            }
-        });
-        viewDelegate.viewHolder.et_input2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initPop(true, "", "");
-            }
-        });
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -134,15 +110,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
                 addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
                 break;
             case 0x126:
-                Praise praise = GsonUtil.getInstance().toObj(data, Praise.class);
-                if (praise.getIspraise()) {
-                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                } else {
-                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
-                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
-                }
-                viewDelegate.viewHolder.tv_praise_num.setText(praise.getPraiseQty());
+
                 break;
             case 0x127:
                 List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
@@ -162,6 +130,11 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
 
         }
+        viewDelegate.viewHolder.tv_comment.setOnClickListener(this);
+        viewDelegate.viewHolder.lin_praise.setOnClickListener(this);
+        viewDelegate.viewHolder.tv_commit.setOnClickListener(this);
+        viewDelegate.viewHolder.et_input2.setOnClickListener(this);
+        viewDelegate.viewHolder.lin_comment.setOnClickListener(this);
 
         GlideUtils.loadImage(square.getAvatar(), viewDelegate.viewHolder.cv_head);
         viewDelegate.viewHolder.tv_comment_num.setText(square.getCommentCount() + "");
@@ -275,4 +248,38 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
         activity.startActivity(intent);
     }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.lin_praise:
+                if (squareLive.isUserPraise()) {
+                    squareLive.setUserPraise(false);
+                    squareLive.setGoodCount(squareLive.getGoodCount() - 1);
+                    viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
+                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                } else {
+                    squareLive.setUserPraise(true);
+                    squareLive.setGoodCount(squareLive.getGoodCount() + 1);
+                    viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
+                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                }
+                addRequest(binder.savePraise(squareLive.getId(), TopicDetailActivity.this));
+                break;
+            case R.id.tv_comment:
+                initPop(true, "", "");
+                break;
+            case R.id.tv_commit:
+                initPop(true, "", "");
+                break;
+            case R.id.et_input2:
+                initPop(true, "", "");
+                break;
+            case R.id.lin_comment:
+                initPop(true, "", "");
+                break;
+        }
+    }
 }

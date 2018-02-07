@@ -1,24 +1,22 @@
 package com.xiaomiquan.adapter.circle;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
-import com.fivefivelike.mybaselibrary.http.RequestCallback;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
+import com.hedgehog.ratingbar.RatingBar;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.News;
 import com.xiaomiquan.server.HttpUrl;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.Disposable;
@@ -39,14 +37,10 @@ public class NewsAdapter extends CommonAdapter<News> {
     private TextView tv_praise_num;
     private TextView tv_dislike_num;
     private IconFontTextview tv_dislike;
-    private AppCompatImageView iv_start1;
-    private AppCompatImageView iv_start2;
-    private AppCompatImageView iv_start3;
-    private AppCompatImageView iv_start4;
-    private AppCompatImageView iv_start5;
     private LinearLayout lin_praise;
     private LinearLayout lin_dislike;
     BaseDataBind dataBind;
+    private RatingBar ratingbar_start;
 
 
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
@@ -78,21 +72,9 @@ public class NewsAdapter extends CommonAdapter<News> {
         tv_dislike = holder.getView(R.id.tv_dislike);
         lin_praise = holder.getView(R.id.lin_praise);
         lin_dislike = holder.getView(R.id.lin_dislike);
-        iv_start1 = holder.getView(R.id.iv_start1);
-        iv_start2 = holder.getView(R.id.iv_start2);
-        iv_start3 = holder.getView(R.id.iv_start3);
-        iv_start4 = holder.getView(R.id.iv_start4);
-        iv_start5 = holder.getView(R.id.iv_start5);
-        List<AppCompatImageView> satrts = new ArrayList<>();
-        satrts.add(iv_start1);
-        satrts.add(iv_start2);
-        satrts.add(iv_start3);
-        satrts.add(iv_start4);
-        satrts.add(iv_start5);
+        ratingbar_start = holder.getView(R.id.ratingbar_start);
 
-        for (int i = 0; i < s.getLevel(); i++) {
-            satrts.get(i).setImageResource(R.drawable.ic_start);
-        }
+        ratingbar_start.setStarCount(s.getLevel());
         tv_con.setText(s.getContent());
         tv_dislike_num.setText(s.getBadNum());
         tv_praise_num.setText(s.getGoodNum());

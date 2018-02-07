@@ -8,114 +8,118 @@
 
     <include layout="@layout/include_toolbar_with_statusbar" />
 
-    <RelativeLayout
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:ignore="MissingConstraints">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="MissingConstraints">
+            android:layout_height="match_parent">
 
-            <android.support.v4.widget.NestedScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/trans_10px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/trans_10px">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/trans_20px">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/cv_head"
+                        android:layout_width="@dimen/trans_80px"
+                        android:layout_height="@dimen/trans_80px"
+                        android:src="@color/color_blue" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/trans_20px">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/cv_head"
-                            android:layout_width="@dimen/trans_80px"
-                            android:layout_height="@dimen/trans_80px"
-                            android:src="@color/color_blue" />
+                        android:layout_marginLeft="@dimen/trans_10px"
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/trans_10px"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/tv_name"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:singleLine="true"
-                                    android:text="名字"
-                                    android:textColor="@color/color_font1"
-                                    android:textSize="@dimen/text_trans_28px" />
-
-                                <TextView
-                                    android:id="@+id/tv_master"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/trans_10px"
-                                    android:background="@color/color_24CE91"
-                                    android:padding="@dimen/trans_5px"
-                                    android:text="@string/str_tv_main"
-                                    android:textColor="@color/white"
-                                    android:textSize="@dimen/text_trans_18px" />
-                            </LinearLayout>
-
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tv_time"
+                                android:id="@+id/tv_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/trans_8px"
                                 android:singleLine="true"
-                                android:text="12"
-                                android:textColor="@color/color_font4"
-                                android:textSize="@dimen/text_trans_24px" />
+                                android:text="名字"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_28px" />
 
                             <TextView
-                                android:id="@+id/tv_con"
-                                android:layout_width="match_parent"
+                                android:id="@+id/tv_master"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/trans_15px"
-                                android:text="cont"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/text_trans_32px" />
-
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/pull_recycleview"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:scrollbars="none" />
-
+                                android:layout_marginLeft="@dimen/trans_10px"
+                                android:background="@color/color_24CE91"
+                                android:padding="@dimen/trans_5px"
+                                android:text="@string/str_tv_main"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_trans_18px" />
                         </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/tv_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/trans_8px"
+                            android:singleLine="true"
+                            android:text="12"
+                            android:textColor="@color/color_font4"
+                            android:textSize="@dimen/text_trans_24px" />
+
+                        <TextView
+                            android:id="@+id/tv_con"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/trans_15px"
+                            android:text="cont"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_32px" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/pull_recycleview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="none" />
 
                     </LinearLayout>
 
+                </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/trans_1px"
-                        android:background="@color/base_mask" />
-                    <!-- 地址、时间 、删除 、点赞、 评论 -->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_1px"
+                    android:background="@color/base_mask" />
+                <!-- 地址、时间 、删除 、点赞、 评论 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/trans_20px"
+                    android:paddingTop="@dimen/trans_20px">
+
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/lin_praise"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingBottom="@dimen/trans_20px"
-                        android:paddingTop="@dimen/trans_20px">
+                        android:orientation="horizontal">
 
                         <com.fivefivelike.mybaselibrary.view.IconFontTextview
                             android:id="@+id/tv_praise"
@@ -135,126 +139,125 @@
                             android:text="0"
                             android:textColor="@color/color_font1"
                             android:textSize="@dimen/trans_24px" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
-
-                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                            android:id="@+id/tv_comment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/trans_65px"
-                            android:text="@string/ic_Chat"
-                            android:textColor="@color/color_font1"
-                            android:textSize="@dimen/text_trans_32px" />
-
-                        <TextView
-                            android:id="@+id/tv_comment_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/trans_8px"
-                            android:singleLine="true"
-                            android:text="0"
-                            android:textColor="@color/color_font1"
-                            android:textSize="@dimen/trans_24px" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
-
-                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                            android:id="@+id/icf_shared"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/trans_65px"
-                            android:text="@string/ic_Share"
-                            android:textColor="@color/color_font1"
-                            android:textSize="@dimen/text_trans_32px" />
-
-                        <TextView
-                            android:id="@+id/tv_shared"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/trans_8px"
-                            android:layout_marginRight="@dimen/trans_40px"
-                            android:singleLine="true"
-                            android:text="@string/str_tv_share"
-                            android:textColor="@color/color_font1"
-                            android:textSize="@dimen/trans_24px" />
                     </LinearLayout>
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/trans_20px"
-                        android:background="@color/base_mask" />
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_comment"
-                        android:layout_width="match_parent"
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:id="@+id/tv_comment"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/trans_100px"
-                        android:scrollbars="none" />
+                        android:layout_marginLeft="@dimen/trans_65px"
+                        android:text="@string/ic_Chat"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_32px" />
+
+                    <TextView
+                        android:id="@+id/tv_comment_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/trans_8px"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/trans_24px" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:id="@+id/icf_shared"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/trans_65px"
+                        android:text="@string/ic_Share"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_32px" />
+
+                    <TextView
+                        android:id="@+id/tv_shared"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/trans_8px"
+                        android:layout_marginRight="@dimen/trans_40px"
+                        android:singleLine="true"
+                        android:text="@string/str_tv_share"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/trans_24px" />
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_20px"
+                    android:background="@color/base_mask" />
 
-            </android.support.v4.widget.NestedScrollView>
-        </android.support.v4.widget.SwipeRefreshLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trans_100px"
+                    android:scrollbars="none" />
+            </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/trans_1px"
-            android:background="@color/base_mask" />
+
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_1px"
+        android:background="@color/base_mask" />
 
 
-        <LinearLayout
-            android:id="@+id/lin_comment"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/lin_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/trans_10px">
+
+        <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
+            android:id="@+id/et_input2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="@dimen/trans_10px">
+            android:layout_marginLeft="@dimen/trans_10px"
+            android:layout_marginRight="@dimen/trans_20px"
+            android:layout_weight="1"
+            android:background="@color/base_mask"
+            android:backgroundTint="@color/base_mask"
+            android:clickable="false"
+            android:focusable="false"
+            android:hint="@string/str_tv_sub"
+            android:padding="@dimen/trans_10px"
+            android:textColorHint="@color/color_font3"
+            android:textSize="@dimen/trans_32px"
+            app:met_baseColor="@color/white"
+            app:met_primaryColor="@color/color_blue"
+            app:met_textColor="@color/color_font2"
+            app:met_textColorHint="@color/color_font4"
+            app:met_underlineColor="@color/base_mask" />
 
-            <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
-                android:id="@+id/et_input2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/trans_10px"
-                android:layout_marginRight="@dimen/trans_20px"
-                android:layout_weight="1"
-                android:background="@color/base_mask"
-                android:backgroundTint="@color/base_mask"
-                android:clickable="false"
-                android:focusable="false"
-                android:hint="@string/str_tv_sub"
-                android:padding="@dimen/trans_10px"
-                android:textColorHint="@color/color_font3"
-                android:textSize="@dimen/trans_32px"
-                app:met_baseColor="@color/white"
-                app:met_primaryColor="@color/color_blue"
-                app:met_textColor="@color/color_font2"
-                app:met_textColorHint="@color/color_font4"
-                app:met_underlineColor="@color/base_mask" />
-
-            <TextView
-                android:id="@+id/tv_commit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/trans_10px"
-                android:background="@color/color_blue"
-                android:clickable="false"
-                android:focusable="false"
-                android:gravity="center"
-                android:padding="@dimen/album_dp_10"
-                android:text="@string/str_tv_sub"
-                android:textColor="@color/white"
-                android:textSize="@dimen/trans_32px" />
-        </LinearLayout>
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/trans_10px"
+            android:background="@color/color_blue"
+            android:clickable="false"
+            android:focusable="false"
+            android:gravity="center"
+            android:padding="@dimen/album_dp_10"
+            android:text="@string/str_tv_sub"
+            android:textColor="@color/white"
+            android:textSize="@dimen/trans_32px" />
+    </LinearLayout>
 </LinearLayout>
