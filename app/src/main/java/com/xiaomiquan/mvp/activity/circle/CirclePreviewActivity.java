@@ -44,6 +44,7 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
         getIntentData();
         initToolbar(new ToolbarBuilder().setTitle(userCircle.getName()));
         initUserTopic(new ArrayList<SquareLive>());
+        addRequest(binder.getCicleInfo(userCircle.getId(), CirclePreviewActivity.this));
     }
 
     private void initView() {
@@ -84,7 +85,7 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
     private void initUserTopic(List<SquareLive> squareLives) {
         if (squareLives.size() <= 3) {
             if (circleDynamicAdapter == null) {
-                addRequest(binder.getCicleInfo(userCircle.getId(), CirclePreviewActivity.this));
+
                 circleDynamicAdapter = new CircleDynamicAdapter(binder, CirclePreviewActivity.this, squareLives);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CirclePreviewActivity.this) {
                     @Override

@@ -67,6 +67,7 @@ public class CircleContentBinder extends BaseDataBind<CircleContentDelegate> {
                 .RxSendRequest();
 
     }
+
     /**
      * 回复
      */

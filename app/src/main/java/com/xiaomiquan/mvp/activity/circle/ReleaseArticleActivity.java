@@ -38,7 +38,6 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
     }
 
     String title;
-    File file;
 
     @Override
     protected void bindEvenListener() {
@@ -50,6 +49,7 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
 
     private void initView() {
         viewDelegate.viewHolder.icf_update_img.setOnClickListener(this);
+        viewDelegate.viewHolder.lin_photo.setOnClickListener(this);
         if (wechat.equals("0")) {
             title = CommonUtils.getString(R.string.str_release_article);
             viewDelegate.viewHolder.et_input2.setVisibility(View.VISIBLE);
@@ -169,22 +169,38 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
         activity.startActivity(intent);
     }
 
+
+    File file;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case UiHeplUtils.CROP_CODE_1:
+                    String path = Durban.parseResult(data).get(0);
+                    file = new File(path);
+                    Uri uri = Uri.fromFile(file);
+                    GlideUtils.loadImage(uri, viewDelegate.viewHolder.iv_img);
+                    break;
+            }
+        }
+    }
+
     private void initPop() {
         UiHeplUtils.getPhoto(this, new Action<String>() {
                     @Override
                     public void onAction(int requestCode, @NonNull String result) {
                         //拍照
-                        file = new File(result);
-                        Uri uri = Uri.fromFile(file);
-                        GlideUtils.loadImage(uri, viewDelegate.viewHolder.iv_img);
+                        UiHeplUtils.cropPhoto(ReleaseArticleActivity.this, result);
                     }
                 }, new Action<ArrayList<AlbumFile>>() {
                     @Override
                     public void onAction(int requestCode, @NonNull ArrayList<AlbumFile> result) {
                         //相册
-                        file = new File(result.get(0).getPath());
-                        Uri uri = Uri.fromFile(file);
-                        GlideUtils.loadImage(uri, viewDelegate.viewHolder.iv_img);
+                        String path = result.get(0).getPath();
+                        UiHeplUtils.cropPhoto(ReleaseArticleActivity.this, path);
                     }
                 }, 1
         );
@@ -195,6 +211,9 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
         super.onClick(v);
         switch (v.getId()) {
             case R.id.icf_update_img:
+                initPop();
+                break;
+            case R.id.lin_photo:
                 initPop();
                 break;
         }

@@ -820,7 +820,7 @@ public class UiHeplUtils {
         }).show();
     }
 
-    public static void reducePhoto(final Context context,List<String> paths, OnCompressListener listener) {
+    public static void reducePhoto(final Context context, List<String> paths, OnCompressListener listener) {
         Luban.with(context)
                 .load(paths)                                   // 传人要压缩的图片列表
                 .ignoreBy(100)                                  // 忽略不压缩图片的大小
@@ -850,13 +850,13 @@ public class UiHeplUtils {
                 // 图片输出文件夹路径。
                 .outputDirectory(SDCardUtils.getSDCardPaths().get(0) + "/AndroidSamples")
                 // 裁剪图片输出的最大宽高。
-                .maxWidthHeight(500, 500)
+                .maxWidthHeight(750, 500)
                 // 裁剪时的宽高比。
-                .aspectRatio(1, 1)
+                .aspectRatio(3, 2)
                 // 图片压缩格式：JPEG、PNG。
                 .compressFormat(Durban.COMPRESS_JPEG)
                 // 图片压缩质量，请参考：Bitmap#compress(Bitmap.CompressFormat, int, OutputStream)
-                .compressQuality(50)
+                .compressQuality(80)
                 // 裁剪时的手势支持：ROTATE, SCALE, ALL, NONE.
                 .gesture(Durban.GESTURE_ALL)
                 .controller(

@@ -268,7 +268,7 @@
     <string name="str_et_con">输入正文</string>
     <string name="str_et_url">粘贴文章网址</string>
     <string name="str_et_title">输入标题</string>
-    <string name="str_tv_addimg">+添加封面</string>
+    <string name="str_tv_addimg">添加封面</string>
 
 
     <string name="str_release_dynamic">发布动态</string>

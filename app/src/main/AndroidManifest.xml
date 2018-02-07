@@ -93,6 +93,7 @@
         <activity android:name=".mvp.activity.circle.UserInfoActivity" />
         <activity android:name=".mvp.activity.circle.ArticleDetailsActivity" />
         <activity android:name=".mvp.activity.circle.NewsDetailActivity" />
+        <activity android:name=".mvp.activity.circle.CirclePreviewActivity" />
 
     </application>
 
