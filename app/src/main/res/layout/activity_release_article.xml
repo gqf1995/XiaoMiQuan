@@ -101,7 +101,8 @@
                 android:layout_marginLeft="@dimen/album_dp_10"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/trans_40px"
-                android:paddingRight="@dimen/trans_40px">
+                android:paddingRight="@dimen/trans_40px"
+                android:visibility="gone">
 
                 <skin.support.widget.SkinCompatCheckBox
                     android:id="@+id/ck_live"

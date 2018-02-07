@@ -20,7 +20,7 @@ public class NewsBinder extends BaseDataBind<NewsDelegate> {
     public Disposable getLive(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("pageNum", 1);
+        baseMap.put("pageNum", viewDelegate.page);
         baseMap.put("platform", 1);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)

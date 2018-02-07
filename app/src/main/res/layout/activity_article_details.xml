@@ -250,11 +250,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/trans_10px"
-            android:background="@color/color_blue"
+            android:background="@drawable/select_commit"
             android:clickable="false"
             android:focusable="false"
             android:gravity="center"
-            android:padding="@dimen/album_dp_10"
+            android:padding="@dimen/trans_15px"
             android:text="@string/str_tv_sub"
             android:textColor="@color/white"
             android:textSize="@dimen/trans_32px" />

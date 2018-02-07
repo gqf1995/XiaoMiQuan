@@ -71,7 +71,7 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
         if (squareLiveAdapter == null) {
             onRefresh();
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
-            if (squareLives.size()>0) {
+            if (squareLives.size() > 0) {
                 viewDelegate.viewHolder.tv_time.setText(squareLives.get(0).getYearMonthDay());
             }
             squareLiveAdapter = new SquareLiveAdapter(binder, LiveActivity.this, squareLives);
@@ -114,6 +114,7 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
             viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
             viewDelegate.viewHolder.pull_recycleview.setAdapter(squareLiveAdapter);
+            viewDelegate.setNoDataTxt(CommonUtils.getString(R.string.str_kline_nodata));
         } else {
             squareLiveAdapter.setDatas(squareLives);
         }
