@@ -32,7 +32,6 @@ public class GetFriendsJoinActivity extends BaseDataBindActivity<GetFriendsJoinD
         return new GetFriendsJoinBinder(viewDelegate);
     }
 
-
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
@@ -51,23 +50,7 @@ public class GetFriendsJoinActivity extends BaseDataBindActivity<GetFriendsJoinD
         circleAllDvpAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                //加入圈子
-                if (userCircles.get(position).isFree()) {
-                    CircleDialogHelper.initDefaultDialog(GetFriendsJoinActivity.this, "确定加入吗？", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            addRequest(binder.joinCircle(userCircles.get(position).getId(), "", GetFriendsJoinActivity.this));
-                        }
-                    }).show();
-                } else {
-                    CircleDialogHelper.initDefaultInputDialog(GetFriendsJoinActivity.this, "输入邀请码", "请输入邀请码", "确定", new OnInputClickListener() {
-                        @Override
-                        public void onClick(String text, View v) {
-                            addRequest(binder.joinCircle(userCircles.get(position).getId(), text, GetFriendsJoinActivity.this));
-                        }
-                    }).show();
-                }
-
+                CirclePreviewActivity.startAct(GetFriendsJoinActivity.this, userCircles.get(position));
             }
 
             @Override

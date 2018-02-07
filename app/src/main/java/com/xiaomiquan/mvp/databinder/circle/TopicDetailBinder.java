@@ -140,4 +140,64 @@ public class TopicDetailBinder extends BaseDataBind<TopicDetailDelegate> {
 
     }
 
+
+    /**
+     * 资讯评论获取
+     */
+    public Disposable getNewsComment(
+            String newsId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("newsId", newsId);
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x128)
+                .setRequestUrl(HttpUrl.getIntance().getNewsComment)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("获取评论")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 资讯评论
+     */
+    public Disposable saveNewsComment(
+            String newsId,
+            String userId,
+            String content,
+            String commentId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("newsId", newsId);
+        baseMap.put("userId", userId);
+        baseMap.put("content", content);
+        baseMap.put("commentId", commentId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x127)
+                .setRequestUrl(HttpUrl.getIntance().reComment)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("评论")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 资讯点赞
+     */
+
+
 }

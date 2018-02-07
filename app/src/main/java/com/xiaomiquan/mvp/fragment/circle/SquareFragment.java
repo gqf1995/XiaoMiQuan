@@ -62,6 +62,8 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         userLogin = SingSettingDBUtil.getUserLogin();
         initShortCut();
         floatBtn();
+        squareLives = new ArrayList<>();
+        initLive(squareLives);
         viewDelegate.viewHolder.lin_live.setOnClickListener(this);
         viewDelegate.viewHolder.lin_news.setOnClickListener(this);
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -74,12 +76,12 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
                 break;
             case 0x124:
-                viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+
                 List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
                 viewDelegate.viewHolder.tv_live_time.setText(datas.get(0).getYearMonthDay());
                 initLive(datas);
@@ -105,8 +107,8 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
     @Override
     protected void onFragmentFirstVisible() {
-        squareLives = new ArrayList<>();
-        initLive(squareLives);
+        onRefresh();
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
     }
 
     List<String> mtitles;
@@ -165,8 +167,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
     public void initLive(final List<SquareLive> squareLives) {
         if (squareLiveAdapter == null) {
-            onRefresh();
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+
             squareLiveAdapter = new SquareLiveAdapter(binder, getActivity(), squareLives);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
                 @Override

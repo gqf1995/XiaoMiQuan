@@ -93,77 +93,91 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/lin_praise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_tv_like"
-            android:textColor="@color/color_font2"
-            android:textSize="@dimen/text_trans_24px" />
+            android:orientation="horizontal">
 
-        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-            android:id="@+id/tv_praise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ic_Like"
-            android:textColor="@color/color_font2"
-            android:textSize="@dimen/text_trans_24px" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_tv_like"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_24px" />
 
-        <TextView
-            android:id="@+id/tv_praise_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/trans_8px"
-            android:singleLine="true"
-            android:text="0"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/trans_24px" />
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:id="@+id/tv_praise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ic_Like"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_24px" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="人"
-            android:textColor="@color/color_font2"
-            android:textSize="@dimen/trans_24px" />
+            <TextView
+                android:id="@+id/tv_praise_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/trans_8px"
+                android:singleLine="true"
+                android:text="0"
+                android:textColor="@color/color_font1"
+                android:textSize="@dimen/trans_24px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="人"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/trans_24px" />
+        </LinearLayout>
 
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-
-        <TextView
-            android:id="@+id/tv_dislike_num"
+        <LinearLayout
+            android:id="@+id/lin_dislike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/trans_8px"
-            android:singleLine="true"
-            android:text="0"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/trans_24px" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/trans_8px"
-            android:text="人"
-            android:textColor="@color/color_font2"
-            android:textSize="@dimen/trans_24px" />
 
-        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-            android:id="@+id/tv_dislike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ic_Dislike"
-            android:textColor="@color/color_font2"
-            android:textSize="@dimen/text_trans_24px" />
+            <TextView
+                android:id="@+id/tv_dislike_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/trans_8px"
+                android:singleLine="true"
+                android:text="0"
+                android:textColor="@color/color_font1"
+                android:textSize="@dimen/trans_24px" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/trans_8px"
-            android:text="@string/str_tv_dislike"
-            android:textColor="@color/color_font2"
-            android:textSize="@dimen/text_trans_24px" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/trans_8px"
+                android:text="人"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/trans_24px" />
+
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:id="@+id/tv_dislike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ic_Dislike"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_24px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/trans_8px"
+                android:text="@string/str_tv_dislike"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_24px" />
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -38,6 +38,7 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
     }
 
     String title;
+    File file;
 
     @Override
     protected void bindEvenListener() {
@@ -168,38 +169,22 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
         activity.startActivity(intent);
     }
 
-
-    File file;
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case UiHeplUtils.CROP_CODE_1:
-                    String path = Durban.parseResult(data).get(0);
-                    file = new File(path);
-                    Uri uri = Uri.fromFile(file);
-                    GlideUtils.loadImage(uri, viewDelegate.viewHolder.iv_img);
-                    break;
-            }
-        }
-    }
-
     private void initPop() {
         UiHeplUtils.getPhoto(this, new Action<String>() {
                     @Override
                     public void onAction(int requestCode, @NonNull String result) {
                         //拍照
-                        UiHeplUtils.cropPhoto(ReleaseArticleActivity.this, result);
+                        file = new File(result);
+                        Uri uri = Uri.fromFile(file);
+                        GlideUtils.loadImage(uri, viewDelegate.viewHolder.iv_img);
                     }
                 }, new Action<ArrayList<AlbumFile>>() {
                     @Override
                     public void onAction(int requestCode, @NonNull ArrayList<AlbumFile> result) {
                         //相册
-                        String path = result.get(0).getPath();
-                        UiHeplUtils.cropPhoto(ReleaseArticleActivity.this, path);
+                        file = new File(result.get(0).getPath());
+                        Uri uri = Uri.fromFile(file);
+                        GlideUtils.loadImage(uri, viewDelegate.viewHolder.iv_img);
                     }
                 }, 1
         );

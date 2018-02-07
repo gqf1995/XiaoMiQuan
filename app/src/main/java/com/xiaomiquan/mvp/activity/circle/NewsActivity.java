@@ -49,6 +49,7 @@ public class NewsActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
                 break;
@@ -63,7 +64,7 @@ public class NewsActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
         if (newsAdapter == null) {
             onRefresh();
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
-            newsAdapter = new NewsAdapter(NewsActivity.this, newsList);
+            newsAdapter = new NewsAdapter(binder, NewsActivity.this, newsList);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NewsActivity.this) {
                 @Override
                 public boolean canScrollVertically() {
