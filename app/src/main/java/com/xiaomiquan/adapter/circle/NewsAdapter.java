@@ -5,10 +5,12 @@ import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.News;
+import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserFriende;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -47,6 +49,14 @@ public class NewsAdapter extends CommonAdapter<News> {
         super(context, R.layout.adapter_news, datas);
     }
 
+
+    public void setDatas(List<News> datas) {
+        this.mDatas.clear();
+        this.mDatas.addAll(datas);
+        this.notifyDataSetChanged();
+    }
+
+
     @Override
     protected void convert(ViewHolder holder, News s, final int position) {
         tv_time = holder.getView(R.id.tv_time);
@@ -69,8 +79,22 @@ public class NewsAdapter extends CommonAdapter<News> {
         satrts.add(iv_start4);
         satrts.add(iv_start5);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < s.getLevel(); i++) {
             satrts.get(i).setImageResource(R.drawable.ic_start);
+        }
+        tv_con.setText(s.getContent());
+        tv_dislike_num.setText(s.getBadNum());
+        tv_praise_num.setText(s.getGoodNum());
+        tv_time.setText(s.getCreateTime());
+        if (s.getGood().equals("0")) {
+            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+        } else {
+            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+        }
+        if (s.getBad().equals("0")) {
+        } else {
         }
 
 
