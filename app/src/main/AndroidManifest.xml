@@ -40,17 +40,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:theme">
-        <activity android:name=".mvp.activity.user.LoginAndRegisteredActivity">
+        <activity
+            android:name=".mvp.activity.user.LoginAndRegisteredActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".mvp.activity.user.VerificationCodeActivity">
+        <activity
+            android:name=".mvp.activity.user.VerificationCodeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".mvp.activity.user.InputSetActivity">
+        <activity
+            android:name=".mvp.activity.user.InputSetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".mvp.activity.main.MainActivity">
+        <activity
+            android:name=".mvp.activity.main.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".mvp.activity.market.MarketDetailsActivity">
-        </activity>
-        <activity android:name=".mvp.activity.user.ConversationActivity">
+        <activity
+            android:name=".mvp.activity.market.MarketDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".mvp.activity.main.WelcomActivity"
@@ -61,45 +74,221 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.activity.user.SetActivity"/>
-        <activity android:name=".mvp.activity.user.ChangeDefaultSetActivity"/>
-        <activity android:name=".mvp.activity.user.SecurityActivity"/>
-        <activity android:name=".mvp.activity.market.AddCoinActivity"/>
-        <activity android:name=".mvp.activity.market.SearchCoinMarketActivity"/>
-        <activity android:name=".mvp.activity.market.SortingUserCoinActivity"/>
-        <activity android:name=".mvp.activity.main.WebActivityActivity"/>
-        <activity android:name=".mvp.activity.market.CoinIndexActivity"/>
-        <activity android:name=".mvp.activity.RichTextActivity">
+        <activity
+            android:name=".mvp.activity.user.SetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".mvp.activity.circle.CreatCircleActivity"/>
-        <activity android:name=".mvp.activity.circle.GetFriendsJoinActivity"/>
-        <activity android:name=".mvp.activity.group.CreatGroupActivity"/>
-        <activity android:name=".mvp.activity.group.GroupDealActivity"/>
-        <activity android:name=".mvp.activity.group.CombinationActivity"/>
-        <activity android:name=".mvp.activity.group.EditIntroductionActivity"/>
-        <activity android:name=".mvp.activity.CustomRateActivity"/>
-        <activity android:name=".mvp.activity.user.UserHomePageActivity"/>
-        <activity android:name=".mvp.activity.market.CoinDetailActivity"/>
-        <activity android:name=".mvp.activity.market.CoinMarketActivity"/>
-        <activity android:name=".mvp.activity.user.HomePageActivity"/>
-        <activity android:name=".mvp.activity.user.ChangeUserInfoActivity"/>
-        <activity android:name=".mvp.activity.ShareHistoryTradingActivity"/>
-        <activity android:name=".mvp.activity.circle.ReleaseDynamicActivity"/>
-        <activity android:name=".mvp.activity.circle.ArticleActivity"/>
-        <activity android:name=".mvp.activity.circle.BigVListActivity"/>
-        <activity android:name=".mvp.activity.circle.CircleContentActivity"/>
-        <activity android:name=".mvp.activity.circle.ReleaseArticleActivity" />
-        <activity android:name=".mvp.activity.circle.MembersActivity" />
-        <activity android:name=".mvp.activity.circle.TopicDetailActivity" />
-        <activity android:name=".mvp.activity.circle.JurisdictionActivity" />
-        <activity android:name=".mvp.activity.circle.LiveActivity" />
-        <activity android:name=".mvp.activity.circle.PayCircleActivity" />
-        <activity android:name=".mvp.activity.circle.CreatCodeActivity" />
-        <activity android:name=".mvp.activity.circle.EditCircleActivity" />
-        <activity android:name=".mvp.activity.circle.NewsActivity" />
-        <activity android:name=".mvp.activity.circle.UserInfoActivity" />
-        <activity android:name=".mvp.activity.circle.ArticleDetailsActivity" />
-        <activity android:name=".mvp.activity.circle.NewsDetailActivity" />
+        <activity
+            android:name=".mvp.activity.user.ChangeDefaultSetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.user.SecurityActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.market.AddCoinActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.market.SearchCoinMarketActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.market.SortingUserCoinActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.main.WebActivityActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.market.CoinIndexActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.RichTextActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.CreatCircleActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.GetFriendsJoinActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.group.CreatGroupActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.group.GroupDealActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.group.CombinationActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.group.EditIntroductionActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.CustomRateActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.user.UserHomePageActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.market.CoinDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.market.CoinMarketActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.user.HomePageActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.user.ChangeUserInfoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.ShareHistoryTradingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.ReleaseDynamicActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.ArticleActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.BigVListActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.CircleContentActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.ReleaseArticleActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.MembersActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.TopicDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.JurisdictionActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.LiveActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.PayCircleActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.CreatCodeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.EditCircleActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.NewsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.UserInfoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.ArticleDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.circle.NewsDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.activity.user.ConversationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                    android:host="com.xiaomiquan"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong"/>
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.xiaomiquan.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/rc_file_path"/>
+        </provider>
 
     </application>
 

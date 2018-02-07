@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.activity.market;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -52,7 +53,7 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
                         sortingAdapter.getDatas().remove(position);
                         sortingAdapter.getDatas().add(0, s);
                         sortingAdapter.notifyDataSetChanged();
-                        sendHttp();
+                        sendHttp(true);
                     } else if (type == R.id.tv_star) {
                         ExchangeData exchangeData = strDatas.get(position);
                         //取消自选
@@ -81,7 +82,7 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
                             sortingAdapter.notifyItemChanged(1);
                         }
                     }
-                    sendHttp();
+                    sendHttp(true);
                     return true;
                 }
 
@@ -97,10 +98,11 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
         } else {
             sortingAdapter.setData(datas);
             strDatas = sortingAdapter.getDatas();
+            sendHttp(false);
         }
     }
 
-    private void sendHttp() {
+    private void sendHttp(boolean isSend) {
         if (disposable != null) {
             disposable.dispose();
         }
@@ -112,7 +114,9 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
         for (int i = 0; i < sortingAdapter.getDatas().size(); i++) {
             onlyKey.add(sortingAdapter.getDatas().get(i).getOnlyKey());
         }
-        disposable = binder.order(onlyKey, SortingUserCoinActivity.this);
+        if(isSend) {
+            disposable = binder.order(onlyKey, SortingUserCoinActivity.this);
+        }
     }
 
     @Override
@@ -129,6 +133,16 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
 
     private void refresh(boolean isShow) {
         addRequest(binder.marketdata(isShow, this));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0x123) {
+                refresh(true);
+            }
+        }
     }
 
     @Override

@@ -6,7 +6,7 @@
     <item>
         <!-- 图片 -->
         <bitmap
-            android:gravity="center"
+            android:gravity="fill"
             android:src="@drawable/welcome" />
     </item>
 </layer-list>

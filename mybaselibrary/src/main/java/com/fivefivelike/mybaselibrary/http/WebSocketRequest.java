@@ -3,6 +3,7 @@ package com.fivefivelike.mybaselibrary.http;
 import com.dhh.websocket.RxWebSocketUtil;
 import com.dhh.websocket.WebSocketInfo;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
+import com.yanzhenjie.nohttp.rest.CacheMode;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -69,12 +70,13 @@ public class WebSocketRequest {
 
     public void sendData(List<String> keys) {
         if (keys != null) {
-            StringBuffer stringBuffer = new StringBuffer();
+            StringBuffer stringBuffer = new StringBuffer("");
             for (int i = 0; i < keys.size(); i++) {
                 stringBuffer.append(",").append(keys.get(i));
             }
-            unregister(oldSend);
+            //unregister(oldSend);
             oldSend = stringBuffer.toString();
+            register(oldSend);
         }
     }
 
@@ -88,6 +90,7 @@ public class WebSocketRequest {
                 .setRequestUrl(registerUrl)
                 .setShowDialog(false)
                 .setRequestName("注册web")
+                .setCacheMode(CacheMode.ONLY_REQUEST_NETWORK)
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)

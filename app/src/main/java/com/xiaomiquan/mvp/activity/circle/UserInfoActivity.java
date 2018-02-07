@@ -18,7 +18,7 @@ import com.xiaomiquan.entity.bean.circle.UserInfoGroupVos;
 import com.xiaomiquan.mvp.databinder.circle.UserInfoBinder;
 import com.xiaomiquan.mvp.delegate.circle.UserInfoDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.io.Serializable;

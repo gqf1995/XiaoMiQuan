@@ -29,7 +29,7 @@ import com.xiaomiquan.mvp.activity.group.CombinationActivity;
 import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
 import com.xiaomiquan.mvp.databinder.BaseActivityPullBinder;
 import com.xiaomiquan.mvp.delegate.HomePageDelegate;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
@@ -60,12 +60,12 @@ public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, Bas
         super.bindEvenListener();
         getIntentData();
         initToolbar(new ToolbarBuilder().setTitle(""));
-        viewDelegate.initToplinsener((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px));
+        viewDelegate.initToplinsener((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_210px));
     }
 
     private void initList(List<SquareLive> datas) {
         if (adapter == null) {
-            squareLiveAdapter = new SquareLiveAdapter(binder,this, datas);
+            squareLiveAdapter = new SquareLiveAdapter(binder, this, datas);
             adapter = new HeaderAndFooterWrapper(squareLiveAdapter);
             adapter.addHeaderView(initTop());
             initRecycleViewPull(adapter, new LinearLayoutManager(this));
@@ -163,6 +163,7 @@ public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, Bas
                 initList(userHomePage.getArticleTopicVos());
                 initCircleList(userHomePage.getGroupVos());
                 initUser(userHomePage);
+                break;
             case 0x124:
                 List<GroupItem> groupItems = GsonUtil.getInstance().toList(data, GroupItem.class);
                 initGroupList(groupItems);
@@ -173,6 +174,7 @@ public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, Bas
     @Override
     protected void refreshData() {
         addRequest(binder.personCenter(id, this));
+        addRequest(binder.listDemo(this));
     }
 
     public static void startAct(Activity activity,

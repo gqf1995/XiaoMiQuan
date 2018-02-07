@@ -11,22 +11,18 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CommentDetailAdapter;
 import com.xiaomiquan.entity.bean.circle.Comment;
-import com.xiaomiquan.entity.bean.circle.CommentRecode;
 import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.mvp.databinder.circle.ArticleDetailsBinder;
 import com.xiaomiquan.mvp.delegate.circle.ArticleDetailsDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.xiaomiquan.utils.glide.GlideUtils;
-import com.xiaomiquan.widget.CircleDialogHelper;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.circle.CommentPopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 

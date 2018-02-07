@@ -19,7 +19,7 @@ import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.databinder.ChangeUserInfoBinder;
 import com.xiaomiquan.mvp.delegate.ChangeUserInfoDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.AlbumFile;
 

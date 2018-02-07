@@ -1,4 +1,4 @@
-package com.gqfbtc.Utils;
+package com.fivefivelike.mybaselibrary.view;
 
 import android.content.Context;
 import android.support.annotation.DimenRes;
@@ -9,9 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.gqfbtc.R;
-import com.gqfbtc.Utils.glide.GlideUtils;
-import com.gqfbtc.entity.PathEntity;
+import com.fivefivelike.mybaselibrary.R;
+import com.fivefivelike.mybaselibrary.utils.AndroidUtil;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter.OnItemClickListener;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class AddPicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private OnItemClickListener onItemClickListener;
     private int imageSize;
     @DrawableRes
-    private int addPicRes = R.drawable.scbtnimg;
+    private int addPicRes = R.drawable.ic_add_pic;
     @DimenRes
     private int cloumnPaddingSize = R.dimen.trans_100px;
     private int cloumnCount = 4;
@@ -75,9 +76,21 @@ public class AddPicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private void cacularImagsize() {
-        imageSize = UiHeplUtils.cacularWidAndHei(mContext, cloumnPaddingSize, cloumnCount, 1, 1)[1];
+        imageSize = cacularWidAndHei(mContext, cloumnPaddingSize, cloumnCount, R.dimen.trans_10px,  R.dimen.trans_10px)[1];
     }
 
+    public  int[] cacularWidAndHei(Context context, @DimenRes int paddingRes, int viewNum, int relWith, int relHei) {
+        int[] size = new int[2];
+        int width = (int) CommonUtils.getDimensionPixelSize(relWith);
+        int hight = (int) CommonUtils.getDimensionPixelSize(relHei);
+        int paddingValue = context.getResources().getDimensionPixelSize(paddingRes);
+        int screenWidth = AndroidUtil.getScreenW(context, false);
+        int viewWidth = (screenWidth - paddingValue) / viewNum;
+        int viewHeight = viewWidth * hight / width;
+        size[0] = viewWidth;
+        size[1] = viewHeight;
+        return size;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -135,9 +148,10 @@ public class AddPicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Object path = list.get(position);
                 if (path instanceof String) {
                     GlideUtils.loadImage(path.toString(), showPicViewHolder.iv_pic);
-                } else if (path instanceof PathEntity) {
-                    GlideUtils.loadImage(((PathEntity) path).getPath(), showPicViewHolder.iv_pic);
                 }
+//                else if (path instanceof PathEntity) {
+//                    GlideUtils.loadImage(((PathEntity) path).getPath(), showPicViewHolder.iv_pic);
+//                }
                 break;
         }
     }

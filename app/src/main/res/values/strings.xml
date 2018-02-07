@@ -42,6 +42,7 @@
     <string name="str_high_quality">优质</string>
     <string name="str_free_subscription">免费订阅</string>
     <string name="str_my_subscribe_management">我的订阅管理</string>
+    <string name="str_gallery">图库</string>
 
 
     <string name="str_confirm">确认</string>
@@ -70,17 +71,17 @@
     <string name="str_cost">费\u3000</string>
     <string name="str_buy_in">买入</string>
     <string name="str_buy">买</string>
-    <string name="str_highest">最高</string>
+    <string name="str_highest">高</string>
     <string name="str_opening_quotation">开盘</string>
     <string name="str_sell_out">卖出</string>
     <string name="str_sell">卖</string>
-    <string name="str_minimum">最低</string>
+    <string name="str_minimum">低</string>
     <string name="str_closing_quotation">收盘</string>
     <string name="str_add">添加</string>
     <string name="str_coin_index">币种指数</string>
     <string name="str_name_of_the">名称</string>
     <string name="str_latest_price">最新价</string>
-    <string name="str_volume">成交量</string>
+    <string name="str_volume">量</string>
     <string name="str_rise_ranking">涨幅榜</string>
     <string name="str_rise">涨幅</string>
     <string name="str_amplitude">震幅</string>
@@ -306,6 +307,7 @@
     <string name="str_tv_code">我有加圈码</string>
     <string name="str_title_create_circle">创建圈子</string>
     <string name="str_toast_user">请阅读用户规范</string>
+    <string name="str_toast_need_login">登录后才能使用此功能</string>
     <string name="str_eNames">[{\"cName\":\"\",\"eName\":\"Coincheck\"},{\"cName\":\"\",\"eName\":\"Bitflyer\"},{\"cName\":\"\",\"eName\":\"Cex\"},{\"cName\":\"\",\"eName\":\"Aex\"},{\"cName\":\"\",\"eName\":\"Bittrex\"},{\"cName\":\"\",\"eName\":\"Exx\"},{\"cName\":\"\",\"eName\":\"Hitbtc\"},{\"cName\":\"\",\"eName\":\"Gate\"},{\"cName\":\"\",\"eName\":\"Bitfinex\"},{\"cName\":\"\",\"eName\":\"Coinw\"},{\"cName\":\"\",\"eName\":\"Quoine\"},{\"cName\":\"\",\"eName\":\"Coinegg\"},{\"cName\":\"\",\"eName\":\"Coinbase\"},{\"cName\":\"\",\"eName\":\"Kucoin\"},{\"cName\":\"\",\"eName\":\"Coinnest\"},{\"cName\":\"\",\"eName\":\"Ucoin\"},{\"cName\":\"\",\"eName\":\"Chaoex\"},{\"cName\":\"\",\"eName\":\"Binance\"},{\"cName\":\"\",\"eName\":\"Kraken\"},{\"cName\":\"\",\"eName\":\"Liqui\"},{\"cName\":\"\",\"eName\":\"Zb\"},{\"cName\":\"\",\"eName\":\"Kkex\"},{\"cName\":\"\",\"eName\":\"Okex\"},{\"cName\":\"\",\"eName\":\"Korbit\"},{\"cName\":\"\",\"eName\":\"Btcbox\"},{\"cName\":\"\",\"eName\":\"Coin900\"},{\"cName\":\"\",\"eName\":\"Huobi\"},{\"cName\":\"\",\"eName\":\"Coinone\"},{\"cName\":\"\",\"eName\":\"Bitz\"},{\"cName\":\"\",\"eName\":\"Bitstamp\"},{\"cName\":\"\",\"eName\":\"Bitmex\"},{\"cName\":\"\",\"eName\":\"Bcex\"},{\"cName\":\"\",\"eName\":\"Poloniex\"},{\"cName\":\"\",\"eName\":\"Bithumb\"},{\"cName\":\"\",\"eName\":\"Bigone\"},{\"cName\":\"\",\"eName\":\"Bibox\"}]</string>
 
 
@@ -319,9 +321,9 @@
         <item>市值</item>
         <item>交易所</item>
         <item>BTC</item>
-        <item>BTH</item>
+        <item>BCH</item>
         <item>ETH</item>
-        <item>ETC</item>
+        <item>LTC</item>
     </string-array>
     <string-array name="sa_select_group">
         <item>全部组合</item>
@@ -454,13 +456,11 @@
     <string-array name="sa_select_kline_type">
         <item>MA</item>
         <item>EMA</item>
-        <item>BOLL</item>
         <item>关闭</item>
     </string-array>
     <string-array name="sa_select_kline_show_type">
         <item>MA</item>
         <item>EMA</item>
-        <item>BOLL</item>
         <item>均线</item>
     </string-array>
 

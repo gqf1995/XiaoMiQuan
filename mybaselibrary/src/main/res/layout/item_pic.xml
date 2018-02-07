@@ -9,5 +9,5 @@
         android:layout_width="@dimen/trans_144px"
         android:layout_height="@dimen/trans_144px"
         android:scaleType="centerCrop"
-        tools:src="@mipmap/ic_launcher"/>
+        />
 </LinearLayout>

@@ -5,8 +5,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.widget.TextView;
 
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.bean.LiveData;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 

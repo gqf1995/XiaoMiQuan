@@ -2,7 +2,6 @@ package com.xiaomiquan.greenDaoUtils;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.TextUtils;
 
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.xiaomiquan.entity.bean.UserLogin;
@@ -52,16 +51,11 @@ public class SingSettingDBUtil {
     public static void setNewUserLogin(UserLogin userLogin) {
         //获取到用户基本信息,保存在数据库
         if (userLogin != null) {
-            if (!TextUtils.isEmpty(userLogin.getPhone())) {
-                //                if (DaoManager.getInstance().getDaoSession().getUserLoginDao().queryBuilder().list().size() != 0) {
-                //                    //如果有先删除
-                //                    delectUserLogin();
-                //                }
-                //插入
-                DaoManager.getInstance().getDaoSession().getUserLoginDao().insertOrReplace(userLogin);
-                HttpUrl.getIntance().saveUid(userLogin.getId() + "");
-            }
+            //插入
+            DaoManager.getInstance().getDaoSession().getUserLoginDao().insertOrReplace(userLogin);
+            HttpUrl.getIntance().saveUid(userLogin.getId() + "");
         }
+
     }
 
     //登录信息获取

@@ -32,6 +32,7 @@ public class ExchangeAdapter extends CommonAdapter<ExchangeName> {
         iv_pic.setImageResource(R.drawable.dogecoin);
         tv_name.setText(s.getEname());
 
+
     }
 
 }

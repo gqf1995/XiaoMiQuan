@@ -13,6 +13,7 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -56,6 +57,12 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
     protected void bindEvenListener() {
         super.bindEvenListener();
         getIntentData();
+        viewDelegate.initTop(new DefaultClickLinsener() {
+            @Override
+            public void onClick(View view, int position, Object item) {
+                viewDelegate.selectType = position;
+            }
+        });
         initToolbar(new ToolbarBuilder().setTitle("").setmRightImg1(CommonUtils.getString(R.string.ic_Share1)));
         viewDelegate.setOnClickListener(this, R.id.tv_left, R.id.tv_right);
         initGroup();
@@ -186,6 +193,7 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         groupItems = intent.getParcelableArrayListExtra("groupItems");
         isMy = intent.getBooleanExtra("isMy", false);
         position = intent.getIntExtra("position", 0);
+        viewDelegate.onSelectLinsener(null, null);
     }
 
 

@@ -1,4 +1,4 @@
-package com.xiaomiquan.utils.glide;
+package com.fivefivelike.mybaselibrary.utils.glide;
 
 import android.webkit.URLUtil;
 import android.widget.ImageView;

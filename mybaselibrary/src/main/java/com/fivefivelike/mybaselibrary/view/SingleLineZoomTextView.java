@@ -1,18 +1,19 @@
-package com.gqfbtc.widget;
+package com.fivefivelike.mybaselibrary.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import com.gqfbtc.R;
+
+import skin.support.widget.SkinCompatTextView;
+
 /**
  * Created by 郭青枫 on 2017/9/28.
  */
 
-public class SingleLineZoomTextView extends AppCompatTextView {
+public class SingleLineZoomTextView extends SkinCompatTextView {
 
     private Paint mPaint;
     private float mTextSize;

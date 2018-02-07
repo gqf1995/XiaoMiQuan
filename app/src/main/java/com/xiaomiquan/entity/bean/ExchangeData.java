@@ -13,26 +13,145 @@ public class ExchangeData implements Parcelable {
 
     private String id;
     private String exchange; //交易所
+    private String exch; //交易所
     private String name;//symbol的全称
     private String symbol;//e.g. btc,eth...
+    private String sym;//e.g. btc,eth...
     private String unit;//兑换货币单位 BTC/USD 中的 USD
     private String tradePair;//e.g. BTC/USD symbol/unit
     private String side;//1买2卖
     private String last;//最新价
+    private String la;//最新价
     private String high;//最高价
+    private String h;//最高价
     private String low;//最低价
+    private String l;//最低价
     private String open;//24小时开盘价
+    private String o;//24小时开盘价
     private String close;//24小时收盘价
+    private String c;//24小时收盘价
     private String volume; //24成交量
+    private String vol; //24成交量
     private String amount;//24小时成交额
+    private String amt;//24小时成交额
     private String ask;//卖一
     private String bid;//买一
     private String change;//24小时涨跌幅
+    private String ch;//24小时涨跌幅
     private String timestamp;
-
+    private String ts;
 
     private String onlyKey;//市场的唯一标识 例如：Okex_ETH_BTC "choicePrice": null// 用户选择的市场价格
+    private String key;//市场的唯一标识 例如：Okex_ETH_BTC "choicePrice": null// 用户选择的市场价格
 
+
+    public String getExch() {
+        return exch;
+    }
+
+    public void setExch(String exch) {
+        this.exch = exch;
+        this.exchange = exch;
+    }
+
+    public String getSym() {
+        return sym;
+    }
+
+    public void setSym(String sym) {
+        this.sym = sym;
+        this.symbol = sym;
+    }
+
+    public String getLa() {
+        return la;
+    }
+
+    public void setLa(String la) {
+        this.la = la;
+        this.last = la;
+    }
+
+    public String getH() {
+        return h;
+    }
+
+    public void setH(String h) {
+        this.h = h;
+        this.high = h;
+    }
+
+    public String getL() {
+        return l;
+    }
+
+    public void setL(String l) {
+        this.l = l;
+        this.low = l;
+    }
+
+    public String getO() {
+        return o;
+    }
+
+    public void setO(String o) {
+        this.o = o;
+        this.open = o;
+    }
+
+    public String getC() {
+        return c;
+    }
+
+    public void setC(String c) {
+        this.c = c;
+        this.close = c;
+    }
+
+    public String getVol() {
+        return vol;
+    }
+
+    public void setVol(String vol) {
+        this.vol = vol;
+        this.volume = vol;
+    }
+
+    public String getAmt() {
+        return amt;
+    }
+
+    public void setAmt(String amt) {
+        this.amt = amt;
+        this.amount = amt;
+    }
+
+    public String getCh() {
+        return ch;
+    }
+
+    public void setCh(String ch) {
+        this.ch = ch;
+        this.change = ch;
+    }
+
+    public String getTs() {
+        return ts;
+    }
+
+    public void setTs(String ts) {
+        this.ts = ts;
+        this.timestamp = ts;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+        this.onlyKey = key;
+    }
 
     /**
      * 24h_volume_usd : 8932820000
@@ -302,6 +421,7 @@ public class ExchangeData implements Parcelable {
         this.totalSupply = totalSupply;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -311,23 +431,35 @@ public class ExchangeData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.exchange);
+        dest.writeString(this.exch);
         dest.writeString(this.name);
         dest.writeString(this.symbol);
+        dest.writeString(this.sym);
         dest.writeString(this.unit);
         dest.writeString(this.tradePair);
         dest.writeString(this.side);
         dest.writeString(this.last);
+        dest.writeString(this.la);
         dest.writeString(this.high);
+        dest.writeString(this.h);
         dest.writeString(this.low);
+        dest.writeString(this.l);
         dest.writeString(this.open);
+        dest.writeString(this.o);
         dest.writeString(this.close);
+        dest.writeString(this.c);
         dest.writeString(this.volume);
+        dest.writeString(this.vol);
         dest.writeString(this.amount);
+        dest.writeString(this.amt);
         dest.writeString(this.ask);
         dest.writeString(this.bid);
         dest.writeString(this.change);
+        dest.writeString(this.ch);
         dest.writeString(this.timestamp);
+        dest.writeString(this.ts);
         dest.writeString(this.onlyKey);
+        dest.writeString(this.key);
         dest.writeString(this.availableSupply);
         dest.writeString(this.lastUpdated);
         dest.writeString(this.marketCapUsd);
@@ -347,23 +479,35 @@ public class ExchangeData implements Parcelable {
     protected ExchangeData(Parcel in) {
         this.id = in.readString();
         this.exchange = in.readString();
+        this.exch = in.readString();
         this.name = in.readString();
         this.symbol = in.readString();
+        this.sym = in.readString();
         this.unit = in.readString();
         this.tradePair = in.readString();
         this.side = in.readString();
         this.last = in.readString();
+        this.la = in.readString();
         this.high = in.readString();
+        this.h = in.readString();
         this.low = in.readString();
+        this.l = in.readString();
         this.open = in.readString();
+        this.o = in.readString();
         this.close = in.readString();
+        this.c = in.readString();
         this.volume = in.readString();
+        this.vol = in.readString();
         this.amount = in.readString();
+        this.amt = in.readString();
         this.ask = in.readString();
         this.bid = in.readString();
         this.change = in.readString();
+        this.ch = in.readString();
         this.timestamp = in.readString();
+        this.ts = in.readString();
         this.onlyKey = in.readString();
+        this.key = in.readString();
         this.availableSupply = in.readString();
         this.lastUpdated = in.readString();
         this.marketCapUsd = in.readString();
@@ -388,40 +532,4 @@ public class ExchangeData implements Parcelable {
             return new ExchangeData[size];
         }
     };
-
-    @Override
-    public String toString() {
-        return "ExchangeData{" +
-                "id='" + id + '\'' +
-                ", exchange='" + exchange + '\'' +
-                ", name='" + name + '\'' +
-                ", symbol='" + symbol + '\'' +
-                ", unit='" + unit + '\'' +
-                ", tradePair='" + tradePair + '\'' +
-                ", side='" + side + '\'' +
-                ", last='" + last + '\'' +
-                ", high='" + high + '\'' +
-                ", low='" + low + '\'' +
-                ", open='" + open + '\'' +
-                ", close='" + close + '\'' +
-                ", volume='" + volume + '\'' +
-                ", amount='" + amount + '\'' +
-                ", ask='" + ask + '\'' +
-                ", bid='" + bid + '\'' +
-                ", change='" + change + '\'' +
-                ", timestamp='" + timestamp + '\'' +
-                ", onlyKey='" + onlyKey + '\'' +
-                ", availableSupply='" + availableSupply + '\'' +
-                ", lastUpdated='" + lastUpdated + '\'' +
-                ", marketCapUsd='" + marketCapUsd + '\'' +
-                ", maxSupply='" + maxSupply + '\'' +
-                ", percentChange1h='" + percentChange1h + '\'' +
-                ", percentChange24h='" + percentChange24h + '\'' +
-                ", percentChange7d='" + percentChange7d + '\'' +
-                ", priceBtc='" + priceBtc + '\'' +
-                ", priceUsd='" + priceUsd + '\'' +
-                ", rank='" + rank + '\'' +
-                ", totalSupply='" + totalSupply + '\'' +
-                '}';
-    }
 }

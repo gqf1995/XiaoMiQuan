@@ -8,12 +8,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.CoinData;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.UserSet;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 public class CoinDetailDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
@@ -30,7 +34,6 @@ public class CoinDetailDelegate extends BaseDelegate {
 
     public void initData(CoinData data, ExchangeData exchangeData) {
         //viewHolder.tv_name.setText(e.get);
-        GlideUtils.loadImage(data.getPicUrl(), viewHolder.iv_coin_icon);
         StringBuffer name = new StringBuffer("");
         if (TextUtils.isEmpty(data.getNameZh()) && !TextUtils.isEmpty(data.getNameEg())) {
             name.append(data.getNameZh());
@@ -65,6 +68,48 @@ public class CoinDetailDelegate extends BaseDelegate {
         viewHolder.tv_browser.setText(data.getBlockBrowserUrl());
         viewHolder.tv_website.setText(data.getOfficalWebsiteUrl());
         viewHolder.tv_wallet_address.setText(data.getWhitePaperUrl());
+
+        GlideUtils.loadImage(data.getPicUrl(), viewHolder.iv_coin_icon);
+
+
+        List<String> strings = BigUIUtil.getinstance().rateUSDAndCNY(exchangeData.getPriceUsd(), exchangeData.getSymbol(), UserSet.getinstance().getUSDUnit());
+
+        viewHolder.tv_price_usd.setText(strings.get(0));
+        viewHolder.tv_price_cny.setText(strings.get(1));
+
+        String s = strings.get(0);
+        String symbol = "";
+        if (strings.get(0).contains("$") || strings.get(0).contains("¥")) {
+            s = s.substring(1, strings.get(0).length());
+            symbol = s.substring(0, 1);
+        } else {
+            s = exchangeData.getLast();
+        }
+        StringBuffer stringBuffer = new StringBuffer();
+        String end = "";
+        if (!TextUtils.isEmpty(exchangeData.getPercentChange24h())) {
+            if (new BigDecimal("0").compareTo(new BigDecimal(exchangeData.getPercentChange24h())) == 1) {
+                //跌
+                stringBuffer.append("- ")
+                        .append(symbol + BigUIUtil.getinstance().risePrice(s, exchangeData.getPercentChange24h()))
+                        .append("(")
+                        .append(BigUIUtil.getinstance().changeAmount(exchangeData.getPercentChange24h()))
+                        .append("%) ");
+                end = CommonUtils.getString(R.string.ic_Fall);
+                viewHolder.tv_change.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+            } else {
+                //涨
+                stringBuffer.append("+ ")
+                        .append(symbol + BigUIUtil.getinstance().risePrice(s, exchangeData.getPercentChange24h()))
+                        .append("(+")
+                        .append(BigUIUtil.getinstance().changeAmount(exchangeData.getPercentChange24h()))
+                        .append("%) ");
+                end = CommonUtils.getString(R.string.ic_Climb);
+                viewHolder.tv_change.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+            }
+        }
+
+        viewHolder.tv_change.setText(stringBuffer.toString() + " " + end);
 
     }
 

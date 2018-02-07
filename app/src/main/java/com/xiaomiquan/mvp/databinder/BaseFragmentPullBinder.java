@@ -33,6 +33,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().getAllMarketCaps)
                 .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("获得所有市值信息 未做排序")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)

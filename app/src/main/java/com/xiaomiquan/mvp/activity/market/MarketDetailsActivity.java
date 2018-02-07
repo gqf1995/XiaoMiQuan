@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.activity.market;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -58,6 +59,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     int updataHistoryNum = 0;//获取历史记录次数
     List<String> userOnlyKeys;
     StringBuffer mylog = new StringBuffer();
+    ValueAnimator anim;//刷新动画
 
     private void setLog(String log) {
         mylog.append(log + "\n");
@@ -105,6 +107,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
             request(lineBeans.get(lineBeans.size() - 1).timestamp + "");
             timeIndex = 0;
         }
+        handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
         handler.sendEmptyMessageDelayed(1, 1000);
         viewDelegate.viewHolder.tv_title.setText(exchangeData.getExchange() + "(" + (10 - timeIndex) + ")");
     }
@@ -117,29 +120,10 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         initView();
         //删除 无效记录
         KlineDaoUtil.delectHistory(exchangeData.getOnlyKey());
-        initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
+        initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(CommonUtils.getString(R.string.ic_Update1)));//.setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
-        viewDelegate.setOnClickListener(this, R.id.lin_global_market, R.id.lin_currency_data, R.id.lin_simulation);
+        viewDelegate.setOnClickListener(this, R.id.lin_add, R.id.lin_global_market, R.id.lin_currency_data, R.id.lin_simulation);
         initCollection();
-    }
-
-
-    //右上角添加初始化
-    private void initCollection() {
-        String string = CacheUtils.getInstance().getString(CACHE_CHOOSE);
-        userOnlyKeys = GsonUtil.getInstance().toList(string, String.class);
-        if (userOnlyKeys != null) {
-            if (userOnlyKeys.contains(exchangeData.getOnlyKey())) {
-                viewDelegate.getmToolbarSubTitle().setTextColor(CommonUtils.getColor(R.color.color_F5A623));
-                viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.ic_star) + " " + CommonUtils.getString(R.string.str_add));
-            } else {
-                viewDelegate.getmToolbarSubTitle().setTextColor(CommonUtils.getColor(R.color.white));
-                viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add));
-            }
-        } else {
-            userOnlyKeys = new ArrayList<>();
-            viewDelegate.getmToolbarSubTitle().setTextColor(CommonUtils.getColor(R.color.white));
-        }
     }
 
     @Override
@@ -262,16 +246,26 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-        //点击添加自选
-        binder.singlesubs(exchangeData.getOnlyKey(), userOnlyKeys.contains(exchangeData.getOnlyKey()) ? "0" : "1", null);
-        if (userOnlyKeys.contains(exchangeData.getOnlyKey())) {
-            userOnlyKeys.remove(userOnlyKeys.indexOf(exchangeData.getOnlyKey()));
-            viewDelegate.getmToolbarSubTitle().setTextColor(CommonUtils.getColor(R.color.white));
-        } else {
-            userOnlyKeys.add(exchangeData.getOnlyKey());
-            viewDelegate.getmToolbarSubTitle().setTextColor(CommonUtils.getColor(R.color.color_F5A623));
+        if (klineDraw != null) {
+            //手动刷新
+            if (anim != null && anim.isRunning()) {
+                anim.cancel();
+            }
+            anim = ValueAnimator.ofFloat(0f, 360f);
+            anim.setDuration(500);
+            anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float currentValue = (float) animation.getAnimatedValue();
+                    viewDelegate.getmToolbarSubTitle().setRotation(currentValue);
+                }
+            });
+            anim.start();
+            timeIndex = updataTime - 1;
+            updata();
         }
     }
+
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
@@ -525,6 +519,50 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 resultDialogEntity.setCode("0");
                 EventBus.getDefault().post(resultDialogEntity);
                 break;
+            case R.id.lin_add:
+                //添加自选
+                clickAdd();
+                break;
+        }
+    }
+
+    //右上角添加初始化
+    private void initCollection() {
+        String string = CacheUtils.getInstance().getString(CACHE_CHOOSE);
+        userOnlyKeys = GsonUtil.getInstance().toList(string, String.class);
+        if (userOnlyKeys != null) {
+            if (userOnlyKeys.contains(exchangeData.getOnlyKey())) {
+                isAddView(true);
+            } else {
+                isAddView(false);
+            }
+        } else {
+            userOnlyKeys = new ArrayList<>();
+            isAddView(false);
+        }
+    }
+
+    private void isAddView(boolean isAdd) {
+        if (isAdd) {
+            viewDelegate.viewHolder.tv_add.setTextColor(CommonUtils.getColor(R.color.color_F5A623));
+            viewDelegate.viewHolder.tv_icon_add.setTextColor(CommonUtils.getColor(R.color.color_F5A623));
+            viewDelegate.viewHolder.tv_icon_add.setText(CommonUtils.getString(R.string.ic_star));
+        } else {
+            viewDelegate.viewHolder.tv_add.setTextColor(CommonUtils.getColor(R.color.color_font2));
+            viewDelegate.viewHolder.tv_icon_add.setTextColor(CommonUtils.getColor(R.color.color_font2));
+            viewDelegate.viewHolder.tv_icon_add.setText(CommonUtils.getString(R.string.ic_Star));
+        }
+    }
+
+    private void clickAdd() {
+        //点击添加自选
+        binder.singlesubs(exchangeData.getOnlyKey(), userOnlyKeys.contains(exchangeData.getOnlyKey()) ? "0" : "1", null);
+        if (userOnlyKeys.contains(exchangeData.getOnlyKey())) {
+            userOnlyKeys.remove(userOnlyKeys.indexOf(exchangeData.getOnlyKey()));
+            isAddView(false);
+        } else {
+            userOnlyKeys.add(exchangeData.getOnlyKey());
+            isAddView(true);
         }
     }
 }

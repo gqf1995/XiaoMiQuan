@@ -12,7 +12,7 @@ import com.kyleduo.switchbutton.SwitchButton;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.utils.UserSet;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.xiaomiquan.utils.glide;
+package com.fivefivelike.mybaselibrary.utils.glide;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.util.AttributeSet;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
 
-import com.xiaomiquan.R;
+import com.fivefivelike.mybaselibrary.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

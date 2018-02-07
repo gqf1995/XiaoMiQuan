@@ -9,8 +9,10 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DimenRes;
+import android.support.annotation.DrawableRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -32,8 +34,11 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SDCardUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.fivefivelike.mybaselibrary.base.BigImageviewActivity;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.view.AddPicAdapter;
+import com.fivefivelike.mybaselibrary.view.GridSpacingItemDecoration;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.PathEntity;
 import com.xiaomiquan.widget.CircleDialogHelper;
@@ -47,6 +52,7 @@ import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.PermissionListener;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RationaleListener;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -877,5 +883,81 @@ public class UiHeplUtils {
                 .onCancel(cancleLinsener)
                 .start(); // 千万不要忘记调用start()方法。
     }
+
+    /**
+     * @param list                存路径的集合
+     * @param addPicAdapter       适配器
+     * @param activity
+     * @param recyclerView
+     * @param cloumnCount         每行数量
+     * @param cloumnAllPaddingRes 总行间距
+     * @param addPicRes           添加图标资源
+     * @param bigImageSelect      进入大图是否有选择操作
+     */
+    public static void initChoosePicRv(final List<String> list, final AddPicAdapter addPicAdapter, final FragmentActivity activity, RecyclerView recyclerView,
+                                       int cloumnCount, @DimenRes int cloumnAllPaddingRes, @DrawableRes int addPicRes, final boolean bigImageSelect, final int selectIconNum) {
+        cloumnCount = cloumnCount == 0 ? 4 : cloumnCount;
+        cloumnAllPaddingRes = cloumnAllPaddingRes == 0 ? R.dimen.trans_100px : cloumnAllPaddingRes;
+        recyclerView.setLayoutManager(new GridLayoutManager(activity, cloumnCount));
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(cloumnCount, activity.getResources().getDimensionPixelSize(cloumnAllPaddingRes) / (cloumnCount + 1), true));
+        recyclerView.setAdapter(addPicAdapter);
+        addPicAdapter.setCloumnCount(cloumnCount);
+        if (addPicRes != 0) {
+            addPicAdapter.setAddPicRes(addPicRes);
+        }
+        addPicAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                int itemViewType = addPicAdapter.getItemViewType(position);
+                switch (itemViewType) {
+                    case AddPicAdapter.TYPE_ADD://添加图片
+                        getPhoto(activity, new com.yanzhenjie.album.Action<String>() {
+                            @Override
+                            public void onAction(int requestCode, @android.support.annotation.NonNull String result) {
+                                if (result != null) {
+                                    list.add(result);
+                                    addPicAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }, new com.yanzhenjie.album.Action<ArrayList<AlbumFile>>() {
+                            @Override
+                            public void onAction(int requestCode, @android.support.annotation.NonNull ArrayList<AlbumFile> result) {
+                                if (result != null) {
+                                    for (AlbumFile item : result) {
+                                        list.add(item.getPath());
+                                    }
+                                    addPicAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }, selectIconNum - list.size());
+                        break;
+                    case AddPicAdapter.TYPE_PIC://显示大图
+                        BigImageviewActivity.toBigImage(activity)
+                                .checkedList(list)
+                                .currentPosition(position)
+                                .checkable(bigImageSelect)
+                                .setmWidget(getDefaultAlbumWight(activity, CommonUtils.getString(R.string.str_gallery)))
+                                .onResult(new com.yanzhenjie.album.Action<List<String>>() {
+                                    @Override
+                                    public void onAction(int requestCode, @android.support.annotation.NonNull List<String> result) {
+                                        list.clear();
+                                        list.addAll(result);
+                                        addPicAdapter.notifyDataSetChanged();
+                                    }
+                                }).start();
+                        break;
+                }
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
+
+    }
+
+
 
 }

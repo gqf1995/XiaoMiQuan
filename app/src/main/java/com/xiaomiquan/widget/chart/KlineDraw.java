@@ -155,9 +155,9 @@ public class KlineDraw {
         LineDataSet lineDataSetMA30 = (LineDataSet) lineData.getDataSetByIndex(1);//十日均线;
         LineDataSet lineDataSetEMA7 = (LineDataSet) lineData.getDataSetByIndex(2);
         LineDataSet lineDataSetEMA30 = (LineDataSet) lineData.getDataSetByIndex(3);
-        LineDataSet lineDataSetUB = (LineDataSet) lineData.getDataSetByIndex(4);//UP 上轨 UB
-        LineDataSet lineDataSetBOLL = (LineDataSet) lineData.getDataSetByIndex(5);//MB 中轨 BOLL
-        LineDataSet lineDataSetLB = (LineDataSet) lineData.getDataSetByIndex(6);//DN 下轨 LB
+//        LineDataSet lineDataSetUB = (LineDataSet) lineData.getDataSetByIndex(4);//UP 上轨 UB
+//        LineDataSet lineDataSetBOLL = (LineDataSet) lineData.getDataSetByIndex(5);//MB 中轨 BOLL
+//        LineDataSet lineDataSetLB = (LineDataSet) lineData.getDataSetByIndex(6);//DN 下轨 LB
         boolean isMA = false;
         boolean isEMA = false;
         boolean isBOLL = false;
@@ -167,19 +167,21 @@ public class KlineDraw {
         } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 1) {
             //EMA
             isEMA = true;
-        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 2) {
-            //BOLL
-            isBOLL = true;
-        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 3) {
+        }
+//        else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 2) {
+//            //BOLL
+//            isBOLL = true;
+//        }
+        else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 2) {
             //均线
         }
         lineDataSetMA7.setVisible(isMA);
         lineDataSetMA30.setVisible(isMA);
         lineDataSetEMA7.setVisible(isEMA);
         lineDataSetEMA30.setVisible(isEMA);
-        lineDataSetUB.setVisible(isBOLL);
-        lineDataSetBOLL.setVisible(isBOLL);
-        lineDataSetLB.setVisible(isBOLL);
+//        lineDataSetUB.setVisible(isBOLL);
+//        lineDataSetBOLL.setVisible(isBOLL);
+//        lineDataSetLB.setVisible(isBOLL);
         setOffset();
 
         mChartKline.setAutoScaleMinMaxEnabled(true);
@@ -352,9 +354,9 @@ public class KlineDraw {
             LineDataSet lineDataSetMA30 = (LineDataSet) lineData.getDataSetByIndex(1);//十日均线;
             LineDataSet lineDataSetEMA7 = (LineDataSet) lineData.getDataSetByIndex(2);
             LineDataSet lineDataSetEMA30 = (LineDataSet) lineData.getDataSetByIndex(3);
-            LineDataSet lineDataSetUB = (LineDataSet) lineData.getDataSetByIndex(4);//UP 上轨 UB
-            LineDataSet lineDataSetBOLL = (LineDataSet) lineData.getDataSetByIndex(5);//MB 中轨 BOLL
-            LineDataSet lineDataSetLB = (LineDataSet) lineData.getDataSetByIndex(6);//DN 下轨 LB
+//            LineDataSet lineDataSetUB = (LineDataSet) lineData.getDataSetByIndex(4);//UP 上轨 UB
+//            LineDataSet lineDataSetBOLL = (LineDataSet) lineData.getDataSetByIndex(5);//MB 中轨 BOLL
+//            LineDataSet lineDataSetLB = (LineDataSet) lineData.getDataSetByIndex(6);//DN 下轨 LB
 
             //lineData.addXValue(kLineBean.getDate());
 
@@ -374,18 +376,18 @@ public class KlineDraw {
                 //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
                 lineData.addEntry(mData.getExpmaData30().get(mData.getExpmaData30().size() - index), 3);
             }
-            if (lineDataSetUB != null) {
-                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
-                lineData.addEntry(mData.getBollDataUP().get(mData.getBollDataUP().size() - index), 3);
-            }
-            if (lineDataSetBOLL != null) {
-                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
-                lineData.addEntry(mData.getBollDataMB().get(mData.getBollDataMB().size() - index), 3);
-            }
-            if (lineDataSetLB != null) {
-                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
-                lineData.addEntry(mData.getBollDataDN().get(mData.getBollDataDN().size() - index), 3);
-            }
+//            if (lineDataSetUB != null) {
+//                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
+//                lineData.addEntry(mData.getBollDataUP().get(mData.getBollDataUP().size() - index), 3);
+//            }
+//            if (lineDataSetBOLL != null) {
+//                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
+//                lineData.addEntry(mData.getBollDataMB().get(mData.getBollDataMB().size() - index), 3);
+//            }
+//            if (lineDataSetLB != null) {
+//                //mData.getMa30DataL().add(new Entry(KMAEntity.getLastMA(kLineDatas, 30), count));
+//                lineData.addEntry(mData.getBollDataDN().get(mData.getBollDataDN().size() - index), 3);
+//            }
         }
     }
 
@@ -515,7 +517,7 @@ public class KlineDraw {
 
         //bar x y轴
         xAxisKline = mChartKline.getXAxis();
-        xAxisKline.setDrawLabels(true); //是否显示X坐标轴上的刻度，默认是true
+        xAxisKline.setDrawLabels(false); //是否显示X坐标轴上的刻度，默认是true
         xAxisKline.setDrawGridLines(false);//是否显示X坐标轴上的刻度竖线，默认是true
         xAxisKline.setDrawAxisLine(false); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
         xAxisKline.enableGridDashedLine(10f, 10f, 0f);//虚线表示X轴上的刻度竖线(float lineLength, float spaceLength, float phase)三个参数，1.线长，2.虚线间距，3.虚线开始坐标
@@ -633,9 +635,9 @@ public class KlineDraw {
         LineDataSet lineDataSetMA30 = MyUtils.setMaLine(30, mData.getXVals(), mData.getMa30DataL());
         LineDataSet lineDataSetEMA7 = setKDJMaLine(3, mData.getXVals(), (ArrayList<Entry>) mData.getExpmaData7());
         LineDataSet lineDataSetEMA30 = setKDJMaLine(1, mData.getXVals(), (ArrayList<Entry>) mData.getExpmaData30());
-        LineDataSet lineDataSetUB = setKDJMaLine(1, mData.getXVals(), (ArrayList<Entry>) mData.getBollDataUP());//UP 上轨 UB
-        LineDataSet lineDataSetBOLL = setKDJMaLine(3, mData.getXVals(), (ArrayList<Entry>) mData.getBollDataMB());//MB 中轨 BOLL
-        LineDataSet lineDataSetLB = setKDJMaLine(0, mData.getXVals(), (ArrayList<Entry>) mData.getBollDataDN());//DN 下轨 LB
+//        LineDataSet lineDataSetUB = setKDJMaLine(1, mData.getXVals(), (ArrayList<Entry>) mData.getBollDataUP());//UP 上轨 UB
+//        LineDataSet lineDataSetBOLL = setKDJMaLine(3, mData.getXVals(), (ArrayList<Entry>) mData.getBollDataMB());//MB 中轨 BOLL
+//        LineDataSet lineDataSetLB = setKDJMaLine(0, mData.getXVals(), (ArrayList<Entry>) mData.getBollDataDN());//DN 下轨 LB
 
         boolean isMA = false;
         boolean isEMA = false;
@@ -646,26 +648,28 @@ public class KlineDraw {
         } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 1) {
             //EMA
             isEMA = true;
-        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 2) {
-            //BOLL
-            isBOLL = true;
-        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 3) {
+        }
+//        else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 2) {
+//            //BOLL
+//            isBOLL = true;
+//        }
+        else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 2) {
             //均线
         }
         lineDataSetMA7.setVisible(isMA);
         lineDataSetMA30.setVisible(isMA);
         lineDataSetEMA7.setVisible(isEMA);
         lineDataSetEMA30.setVisible(isEMA);
-        lineDataSetUB.setVisible(isBOLL);
-        lineDataSetBOLL.setVisible(isBOLL);
-        lineDataSetLB.setVisible(isBOLL);
+//        lineDataSetUB.setVisible(isBOLL);
+//        lineDataSetBOLL.setVisible(isBOLL);
+//        lineDataSetLB.setVisible(isBOLL);
         sets.add(lineDataSetMA7);
         sets.add(lineDataSetMA30);
         sets.add(lineDataSetEMA7);
         sets.add(lineDataSetEMA30);
-        sets.add(lineDataSetUB);
-        sets.add(lineDataSetBOLL);
-        sets.add(lineDataSetLB);
+//        sets.add(lineDataSetUB);
+//        sets.add(lineDataSetBOLL);
+//        sets.add(lineDataSetLB);
 
         LineData lineData = new LineData(mData.getXVals(), sets);
 
