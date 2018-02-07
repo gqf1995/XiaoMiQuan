@@ -3,6 +3,7 @@ package com.xiaomiquan.mvp.activity.market;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
@@ -86,13 +87,16 @@ public class CoinDetailActivity extends BaseDataBindActivity<CoinDetailDelegate,
                 break;
             case 0x124:
                 //币种资料
-                CoinData coin = GsonUtil.getInstance().toObj(data, CoinData.class);
-                addRequest(binder.getMarketCapById(coin.getNameEg(), this));
+                coinData = GsonUtil.getInstance().toObj(data, CoinData.class);
+                if (coinData != null) {
+                    if (!TextUtils.isEmpty(coinData.getNameEg())) {
+                        addRequest(binder.getMarketCapById(coinData.getNameEg(), this));
+                    }
+                }
                 break;
             case 0x125:
                 ExchangeData exchangeData = GsonUtil.getInstance().toObj(data, ExchangeData.class);
                 viewDelegate.initData(coinData, exchangeData);
-
                 break;
         }
     }

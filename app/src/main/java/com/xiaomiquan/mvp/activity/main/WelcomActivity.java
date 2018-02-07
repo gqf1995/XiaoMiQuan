@@ -1,12 +1,13 @@
 package com.xiaomiquan.mvp.activity.main;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.fivefivelike.mybaselibrary.base.BaseActivity;
 import com.xiaomiquan.mvp.delegate.WelcomDelegate;
-import com.xiaomiquan.server.HttpUrl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,6 +45,7 @@ public class WelcomActivity extends BaseActivity<WelcomDelegate> {
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //viewDelegate.viewHolder.iv_pic.setImageResource(R.drawable.welcom);
         handler.sendEmptyMessageDelayed(1, 500);
 //        HttpUrl.setBaseUrl(httpBaseUrl4);
@@ -96,9 +98,9 @@ public class WelcomActivity extends BaseActivity<WelcomDelegate> {
 
     private void doAct() {
         doPing();
-        gotoActivity(MainActivity.class).setIsFinish(true).startAct();
-//        startActivity(new Intent(WelcomActivity.this, MainActivity.class));
-//        finish();
+        handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
+        startActivity(new Intent(WelcomActivity.this, MainActivity.class));
+        finish();
     }
 
     private void append(StringBuffer stringBuffer, String text) {

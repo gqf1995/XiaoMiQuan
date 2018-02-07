@@ -17,11 +17,8 @@ import com.xiaomiquan.adapter.circle.ReleaseDynamicAdapter;
 import com.xiaomiquan.mvp.databinder.circle.ReleaseDynamicBinder;
 import com.xiaomiquan.mvp.delegate.circle.ReleaseDynamicDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
-import com.xiaomiquan.utils.glide.GlideAlbumLoader;
 import com.yanzhenjie.album.Action;
-import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
-import com.yanzhenjie.album.api.widget.Widget;
 import com.yanzhenjie.durban.Durban;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 

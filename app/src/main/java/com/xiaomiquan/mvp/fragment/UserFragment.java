@@ -63,8 +63,6 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
     protected void bindEvenListener() {
         super.bindEvenListener();
         //更新用户信息
-        userLogin = SingSettingDBUtil.getUserLogin();
-        viewDelegate.initUserMsg(userLogin);
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_user)).setShowBack(false).setmRightImg1(CommonUtils.getString(R.string.ic_Chat)));
         viewDelegate.setOnClickListener(this
                 , R.id.checkbox_night_model
@@ -79,6 +77,15 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 , R.id.lin_set8
                 , R.id.lin_set9
         );
+    }
+
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        super.onFragmentVisibleChange(isVisible);
+        if(isVisible){
+            userLogin = SingSettingDBUtil.getUserLogin();
+            viewDelegate.initUserMsg(userLogin);
+        }
     }
 
     @Override

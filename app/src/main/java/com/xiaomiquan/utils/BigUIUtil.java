@@ -267,6 +267,45 @@ public class BigUIUtil {
 
     // ETH/BTC=0.5  BTC/USD=10000  ADA/USD=5000
 
+    public List<String> rateUSDAndCNY(String price, String symbol, String itemUnit) {
+        if ("USDT".equals(itemUnit)) {
+            itemUnit = "USD";
+        }
+        if ("USDT".equals(symbol)) {
+            symbol = "USD";
+        }
+        //多价格汇率
+        if (rateTwoPrice == null) {
+            rateTwoPrice = new ArrayList<>();
+        } else {
+            rateTwoPrice.clear();
+        }
+        if (usdRate == null) {
+            rateTwoPrice.add("");
+            rateTwoPrice.add("");
+        }
+        if (TextUtils.isEmpty(price) || TextUtils.isEmpty(itemUnit)) {
+            rateTwoPrice.add(bigPrice(price));
+            rateTwoPrice.add("");
+            return rateTwoPrice;
+        }
+        if (usdRate.containsKey(itemUnit)) {
+            rateTwoPrice.add("$" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()));
+        } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
+            rateTwoPrice.add("$" + bigPrice(rate(symbol, "USD")));
+        } else {
+            rateTwoPrice.add("");
+        }
+        if (usdRate.containsKey(itemUnit)) {
+            rateTwoPrice.add("¥" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+        } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
+            rateTwoPrice.add("¥" + bigPrice(rate(symbol, "CNY")));
+        } else {
+            rateTwoPrice.add("");
+        }
+        return rateTwoPrice;
+    }
+
     //多价格展示页面调用
     public List<String> rateTwoPrice(String price, String symbol, String itemUnit) {
 

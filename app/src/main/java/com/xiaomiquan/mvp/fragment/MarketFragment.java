@@ -228,7 +228,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 }
             }
         });
-        if (userLogin != null) {
+        if (userLogin == null) {
             viewDelegate.viewHolder.tl_2.setCurrentTab(1);
             viewDelegate.viewHolder.tl_2.setCurrentTab(1);
         }

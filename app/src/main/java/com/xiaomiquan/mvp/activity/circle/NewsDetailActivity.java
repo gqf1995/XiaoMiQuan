@@ -22,7 +22,7 @@ import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.mvp.databinder.circle.TopicDetailBinder;
 import com.xiaomiquan.mvp.delegate.circle.TopicDetailDelegate;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.circle.CommentPopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 

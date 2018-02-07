@@ -8,13 +8,15 @@ import com.biv.loader.glide.GlideImageLoader;
 import com.blankj.utilcode.util.Utils;
 import com.fivefivelike.mybaselibrary.base.BaseApp;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
+import com.xiaomiquan.R;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
-import com.xiaomiquan.utils.glide.GlideAlbumLoader;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideAlbumLoader;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumConfig;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -108,7 +110,7 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
             CSCustomServiceInfo csInfo = csBuilder.nickName(SingSettingDBUtil.getUserLogin().getNickName()).build();
             RongIM.getInstance().startCustomerServiceChat(activity, "KEFU151728371459995", "客服中心", csInfo);
         } else {
-            ToastUtil.show("登录后才能使用客服帮助");
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
         }
     }
 

@@ -1,4 +1,4 @@
-package com.xiaomiquan.utils.glide;
+package com.fivefivelike.mybaselibrary.utils.glide;
 
 /**
  * Created by 郭青枫 on 2017/12/1 0001.

@@ -137,16 +137,18 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
 
 
     private void goChoose() {
-        if (strings == null) {
-            strings = new ArrayList<>();
-        } else {
-            strings.clear();
+        if (SingSettingDBUtil.isLogin(getActivity())) {
+            if (strings == null) {
+                strings = new ArrayList<>();
+            } else {
+                strings.clear();
+            }
+            for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
+                strings.add(exchangeMarketAdapter.getDatas().get(i).getOnlyKey());
+            }
+            CacheUtils.getInstance().put(CACHE_CHOOSE, GsonUtil.getInstance().toJson(strings));
+            AddCoinActivity.startAct(this, strings, 0x123);
         }
-        for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
-            strings.add(exchangeMarketAdapter.getDatas().get(i).getOnlyKey());
-        }
-        CacheUtils.getInstance().put(CACHE_CHOOSE, GsonUtil.getInstance().toJson(strings));
-        AddCoinActivity.startAct(this, strings, 0x123);
     }
 
     View rootView;

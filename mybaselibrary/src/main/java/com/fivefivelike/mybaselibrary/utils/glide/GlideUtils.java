@@ -1,4 +1,4 @@
-package com.xiaomiquan.utils.glide;
+package com.fivefivelike.mybaselibrary.utils.glide;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.utils.FileUtil;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
-import com.xiaomiquan.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

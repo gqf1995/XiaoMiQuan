@@ -64,6 +64,7 @@ dependencies {
     compile rootProject.ext.dependencies["websocket"]
     compile rootProject.ext.dependencies["java-websocket"]
     compile rootProject.ext.dependencies["flowlayout"]
+    compile rootProject.ext.dependencies["Luban"]
     compile rootProject.ext.dependencies["skin-support"]
     compile rootProject.ext.dependencies["skin-support-design"]
     compile rootProject.ext.dependencies["skin-support-cardview"]

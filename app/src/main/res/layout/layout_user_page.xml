@@ -15,7 +15,7 @@
             android:id="@+id/iv_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/trans_226px"
-            android:background="@color/base_mask"/>
+            android:background="@drawable/user_bg_dark"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,6 +80,7 @@
                         android:text="@string/str_fans"
                         android:textColor="@color/color_999999"
                         android:textSize="@dimen/text_trans_22px"/>
+
 
                     <TextView
                         android:id="@+id/tv_fans_num"

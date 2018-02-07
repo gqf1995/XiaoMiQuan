@@ -9,15 +9,11 @@ import android.net.wifi.WifiManager;
 import android.os.Parcelable;
 import android.util.Log;
 
-import com.xiaomiquan.server.HttpUrl;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.xiaomiquan.base.AppConst.httpBaseUrl4;
 
 /**
  * Created by 郭青枫 on 2018/1/26 0026.
@@ -53,51 +49,6 @@ public class PingUtil {
     }
 
 
-    String ipPing2 = "54.250.214.59";
-    String ipPing1 = "47.90.120.59";
-    int time = 100000;
-    int pingNum = 5;
-
-    private void doPing() {
-        ping1Values = new ArrayList<>();
-        ping2Values = new ArrayList<>();
-        boolean ping = ping(ipPing1, ping1Values, pingNum, new StringBuffer());
-        if (ping) {
-            //第一个 ip ping成功
-            float end1 = 0;
-            float end2 = 0;
-            for (int i = 0; i < ping1Values.size(); i++) {
-                end1 = end1 + ping1Values.get(i);
-            }
-            end1 = end1 / ping1Values.size();
-            if (end1 > time) {
-                //第一个 ip 网络延迟 大于1000毫秒
-                boolean ping2 = ping(ipPing2, ping2Values, pingNum, new StringBuffer());
-                if (ping2) {
-                    //第二个网络 ping成功
-                    for (int i = 0; i < ping2Values.size(); i++) {
-                        end2 = end2 + ping2Values.get(i);
-                    }
-                    end2 = end2 / ping2Values.size();
-                    if (end1 > end2) {
-                        //用第二个网络
-                        Log.i("ping", "ipPing2" + ipPing2);
-                        HttpUrl.setBaseUrl(httpBaseUrl4);
-                    } else {
-                        Log.i("ping", "ipPing1" + ipPing1);
-                    }
-                } else {
-                    Log.i("ping", "ipPing1" + ipPing1);
-                }
-            } else {
-                Log.i("ping", "ipPing1" + ipPing1);
-            }
-        } else {
-            //直接用第二个网络
-            Log.i("ping", "ipPing2" + ipPing2);
-            HttpUrl.setBaseUrl(httpBaseUrl4);
-        }
-    }
 
     List<Float> ping1Values;
     List<Float> ping2Values;

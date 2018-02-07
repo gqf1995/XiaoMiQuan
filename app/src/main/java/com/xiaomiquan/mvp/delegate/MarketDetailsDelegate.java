@@ -46,7 +46,6 @@ public class MarketDetailsDelegate extends BaseDelegate {
     }
 
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_market_details;
@@ -166,7 +165,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
         }
         viewHolder.tv_rate.setText(strings.get(1));
         if (TextUtils.isEmpty(strings.get(1))) {
-            viewHolder.tv_rate.setVisibility(View.INVISIBLE);
+            viewHolder.tv_rate.setVisibility(View.GONE);
         } else {
             viewHolder.tv_rate.setVisibility(View.VISIBLE);
         }
@@ -185,7 +184,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
                 //跌
                 stringBuffer.append("- ")
                         .append(symbol + BigUIUtil.getinstance().risePrice(s, exchangeData.getChange()))
-                        .append("(-")
+                        .append("(")
                         .append(BigUIUtil.getinstance().changeAmount(exchangeData.getChange()))
                         .append("%) ");
                 end = CommonUtils.getString(R.string.ic_Fall);
@@ -276,6 +275,9 @@ public class MarketDetailsDelegate extends BaseDelegate {
         public LinearLayout lin_global_market;
         public LinearLayout lin_currency_data;
         public LinearLayout lin_simulation;
+        public IconFontTextview tv_icon_add;
+        public TextView tv_add;
+        public LinearLayout lin_add;
         public LinearLayout lin_advance_warning;
         public LinearLayout lin_kline;
         public FrameLayout fl_bottom;
@@ -319,6 +321,9 @@ public class MarketDetailsDelegate extends BaseDelegate {
             this.lin_global_market = (LinearLayout) rootView.findViewById(R.id.lin_global_market);
             this.lin_currency_data = (LinearLayout) rootView.findViewById(R.id.lin_currency_data);
             this.lin_simulation = (LinearLayout) rootView.findViewById(R.id.lin_simulation);
+            this.tv_icon_add = (IconFontTextview) rootView.findViewById(R.id.tv_icon_add);
+            this.tv_add = (TextView) rootView.findViewById(R.id.tv_add);
+            this.lin_add = (LinearLayout) rootView.findViewById(R.id.lin_add);
             this.lin_advance_warning = (LinearLayout) rootView.findViewById(R.id.lin_advance_warning);
             this.lin_kline = (LinearLayout) rootView.findViewById(R.id.lin_kline);
             this.fl_bottom = (FrameLayout) rootView.findViewById(R.id.fl_bottom);

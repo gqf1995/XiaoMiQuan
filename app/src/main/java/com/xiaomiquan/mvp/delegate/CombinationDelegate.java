@@ -24,7 +24,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.EarningsMovements;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.utils.BigUIUtil;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 import com.xiaomiquan.widget.chart.MyLeftRateMarkerView;
 

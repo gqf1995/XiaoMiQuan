@@ -29,7 +29,9 @@ import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.HandlerHelper;
 import com.xiaomiquan.utils.PingUtil;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
+
+import java.util.ArrayList;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -86,14 +88,20 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         }
     };
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //页面切换停止websocket
+        WebSocketRequest.getInstance().sendData(new ArrayList<String>());
+    }
+
     private void updata() {
         addRequest(binder.getAllPriceRate(this));
         handler.sendEmptyMessageDelayed(1, 15000);
     }
 
     public void initSocket() {
-        String ip = HttpUrl.getBaseUrl().substring(5, HttpUrl.getBaseUrl().length() - 6);
-        WebSocketRequest.getInstance().intiWebSocket("ws:" + ip + ":1903/ws/" + uid, this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
+        WebSocketRequest.getInstance().intiWebSocket("ws:" + "//topcoin.bicoin.com.cn/ws/" + uid, this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
             @Override
             public void onDataSuccess(String name, String data, String info, int status) {
 
@@ -105,9 +113,9 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
             }
         });
         WebSocketRequest.getInstance().setRegisterUrl(HttpUrl.getIntance().registerkeys);
-        WebSocketRequest.getInstance().setUnregisterUrl(HttpUrl.getIntance().unregisterkeys);
+        //WebSocketRequest.getInstance().setUnregisterUrl(HttpUrl.getIntance().unregisterkeys);
         WebSocketRequest.getInstance().setUid(uid);
-        WebSocketRequest.getInstance().unregister("");
+        // WebSocketRequest.getInstance().unregister("");
     }
 
     //添加主页4个基础页面

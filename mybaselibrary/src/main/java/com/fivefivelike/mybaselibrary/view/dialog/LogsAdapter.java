@@ -22,6 +22,12 @@ public class LogsAdapter extends CommonAdapter<String> {
         super(context, R.layout.item_comment, datas);
     }
 
+    public void setDatas(List<String> datas){
+        getDatas().clear();
+        getDatas().addAll(datas);
+        notifyDataSetChanged();
+    }
+
     @Override
     protected void convert(ViewHolder holder, String s, final int position) {
         commentTv = holder.getView(R.id.commentTv);

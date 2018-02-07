@@ -10,7 +10,7 @@ import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.mvp.databinder.circle.EditCircleBinder;
 import com.xiaomiquan.mvp.delegate.circle.EditCircleDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 
 public class EditCircleActivity extends BaseDataBindActivity<EditCircleDelegate, EditCircleBinder> {
 

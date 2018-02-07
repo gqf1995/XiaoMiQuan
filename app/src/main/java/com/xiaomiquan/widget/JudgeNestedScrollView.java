@@ -82,6 +82,8 @@ public class JudgeNestedScrollView extends NestedScrollView {
     }
 
     private void init() {
+        setFocusableInTouchMode(true);
+        setFocusable(true);
         this.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {

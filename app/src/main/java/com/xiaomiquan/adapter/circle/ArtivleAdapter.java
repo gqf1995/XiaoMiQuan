@@ -8,18 +8,15 @@ import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
-import com.fivefivelike.mybaselibrary.http.RequestCallback;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.server.HttpUrl;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;

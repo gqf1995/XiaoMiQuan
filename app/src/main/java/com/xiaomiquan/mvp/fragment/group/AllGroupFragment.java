@@ -4,9 +4,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.tablayout.listener.OnTabSelectListener;
+import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.DynamicAdapter;
 import com.xiaomiquan.adapter.group.AllMyGroupAdapter;
 import com.xiaomiquan.adapter.group.HotGroupAdapter;
@@ -51,7 +54,6 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        userLogin = SingSettingDBUtil.getUserLogin();
         initList(new ArrayList<String>());
         addRequest(binder.top(types[index++], this));
     }
@@ -64,6 +66,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
+        userLogin = SingSettingDBUtil.getUserLogin();
         if (isVisible) {
             onRefresh();
         } else {
@@ -72,10 +75,9 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     }
 
     public void notifyDataSetChanged() {
-        if (allMyGroupAdapter != null && hotGroupAdapter != null && adapter != null) {
+        if (allMyGroupAdapter != null && hotGroupAdapter != null) {
             allMyGroupAdapter.notifyDataSetChanged();
             hotGroupAdapter.notifyDataSetChanged();
-            adapter.notifyDataSetChanged();
         }
     }
 
@@ -108,10 +110,14 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                         //查看详情
                         CombinationActivity.startAct(getActivity(), hotGroupAdapter.getDatas().get(position), true);
                     } else if (hotGroupAdapter.getDatas().get(position).getIsAttention() == 1) {
-                        hotGroupAdapter.getDatas().get(position).setAttentionCount(0 + "");
-                        //关注
-                        addRequest(binder.demoattention(hotGroupAdapter.getDatas().get(position).getUserId() + "", null));
-                        hotGroupAdapter.notifyItemChanged(position);
+                        if (userLogin != null) {
+                            hotGroupAdapter.getDatas().get(position).setAttentionCount(0 + "");
+                            //关注
+                            addRequest(binder.demoattention(hotGroupAdapter.getDatas().get(position).getUserId() + "", null));
+                            hotGroupAdapter.notifyItemChanged(position);
+                        } else {
+                            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+                        }
                     }
                 }
             });

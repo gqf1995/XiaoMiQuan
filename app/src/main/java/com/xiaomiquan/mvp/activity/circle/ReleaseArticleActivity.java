@@ -15,7 +15,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.circle.ReleaseArticleBinder;
 import com.xiaomiquan.mvp.delegate.circle.ReleaseArticleDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.durban.Durban;
@@ -175,7 +175,6 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case UiHeplUtils.CROP_CODE_1:

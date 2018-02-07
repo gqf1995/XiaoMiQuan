@@ -20,10 +20,10 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.utils.BigUIUtil;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.DropDownView;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +43,7 @@ public class GroupDealDelegate extends BaseDelegate {
     String sellBalance = "";
     public int selectType = 0;
 
-    private void initTop() {
+    public void initTop(DefaultClickLinsener defaultClickLinsener) {
         viewHolder.tl_1.setIconVisible(false);
         mTabEntitiesTop.add(new TabEntity(CommonUtils.getString(R.string.str_buy), R.string.ic_Download, 0));
         mTabEntitiesTop.add(new TabEntity(CommonUtils.getString(R.string.str_sell), R.string.ic_Upload, 0));
@@ -53,12 +53,7 @@ public class GroupDealDelegate extends BaseDelegate {
         viewHolder.et_coin_search.setBackground(new RadiuBg(CommonUtils.getColor(R.color.base_mask), 1000, 1000, 1000, 1000));
 
         List<String> dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_price_type));
-        viewHolder.lin_choose.setDefaultClickLinsener(new DefaultClickLinsener() {
-            @Override
-            public void onClick(View view, int position, Object item) {
-                selectType = position;
-            }
-        }).setDatas(dataset2, null);
+        viewHolder.lin_choose.setDefaultClickLinsener(defaultClickLinsener).setDatas(dataset2, null);
     }
 
     public void onSelectLinsener(CoinDetail coinDetail, GroupItem groupItem) {
@@ -67,19 +62,16 @@ public class GroupDealDelegate extends BaseDelegate {
             viewHolder.tv_balance.setText(CommonUtils.getString(R.string.str_now_no_data));
             viewHolder.tv_sell_price.setText(CommonUtils.getString(R.string.str_now_no_data));
             viewHolder.tv_coin_type.setText(CommonUtils.getString(R.string.str_now_no_data));
+            viewHolder.tv_unit.setText(CommonUtils.getString(R.string.str_now_no_data));
             return;
         }
-        String cnyPrice = "--";
-        if (!TextUtils.isEmpty(coinDetail.getPriceUsd())) {
-            String rate = BigUIUtil.getinstance().rate("CNY", "USD");
-            if (!TextUtils.isEmpty(rate)) {
-                cnyPrice = BigUIUtil.getinstance().bigPrice(new BigDecimal(coinDetail.getPriceUsd()).divide(new BigDecimal(rate), 8, BigDecimal.ROUND_HALF_DOWN).toPlainString());
-                viewHolder.tv_buy_price.setText(cnyPrice);
-            } else {
-                viewHolder.tv_buy_price.setText(coinDetail.getPriceUsd());
-            }
-        }
-        viewHolder.tv_sell_price.setText(coinDetail.getPriceUsd());
+        viewHolder.tv_unit.setText(coinDetail.getSymbol());
+        List<String> strings = BigUIUtil.getinstance().rateUSDAndCNY(coinDetail.getPriceUsd(), coinDetail.getSymbol(), UserSet.getinstance().getUSDUnit());
+
+        viewHolder.tv_sell_price.setText(strings.get(0));
+        viewHolder.tv_buy_price.setText(strings.get(1));
+
+
         if (viewHolder.tl_1.getCurrentTab() == 0) {
             //买
             buyBalance = CommonUtils.getString(R.string.str_tv_balance) + groupItem.getBalance() + "USD";
@@ -111,7 +103,7 @@ public class GroupDealDelegate extends BaseDelegate {
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
         viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px), viewHolder.vp_sliding, false);
-        initTop();
+
 
     }
 
@@ -140,6 +132,7 @@ public class GroupDealDelegate extends BaseDelegate {
         public DropDownView lin_choose;
         public TextView tv_num_label;
         public EditText et_sell_num;
+        public TextView tv_unit;
         public TextView tv_commit;
         public CommonTabLayout tl_2;
         public LinearLayout lin_table;
@@ -165,6 +158,7 @@ public class GroupDealDelegate extends BaseDelegate {
             this.lin_choose = (DropDownView) rootView.findViewById(R.id.lin_choose);
             this.tv_num_label = (TextView) rootView.findViewById(R.id.tv_num_label);
             this.et_sell_num = (EditText) rootView.findViewById(R.id.et_sell_num);
+            this.tv_unit = (TextView) rootView.findViewById(R.id.tv_unit);
             this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
             this.lin_table = (LinearLayout) rootView.findViewById(R.id.lin_table);

@@ -5,22 +5,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
-import com.xiaomiquan.adapter.circle.BigVListAdapter;
 import com.xiaomiquan.adapter.circle.MembersAdapter;
 import com.xiaomiquan.entity.bean.GroupOwner;
 import com.xiaomiquan.entity.bean.circle.CirclePerson;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
-import com.xiaomiquan.entity.bean.circle.UserFriende;
-import com.xiaomiquan.mvp.databinder.circle.LiveBinder;
 import com.xiaomiquan.mvp.databinder.circle.MembersBinder;
-import com.xiaomiquan.mvp.delegate.circle.LiveDelegate;
 import com.xiaomiquan.mvp.delegate.circle.MembersDelegate;
-import com.xiaomiquan.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 

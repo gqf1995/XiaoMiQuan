@@ -311,11 +311,13 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
         super.onSaveInstanceState(outState);
         outState.putParcelable("exchangeName", exchangeName);
     }
-    public void checkRedRise(){
+
+    public void checkRedRise() {
         if (exchangeMarketAdapter != null) {
             exchangeMarketAdapter.checkRedRise(exchangeMarketAdapter);
         }
     }
+
     private void initRise() {
         if (riseDatas == null) {
             riseDatas = new ArrayList<>();
