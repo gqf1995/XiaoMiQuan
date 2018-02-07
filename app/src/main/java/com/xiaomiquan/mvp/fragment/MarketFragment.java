@@ -14,11 +14,12 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.dialog.LogDialog;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeName;
+import com.xiaomiquan.entity.bean.UserLogin;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.market.SearchCoinMarketActivity;
 import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.TabViewpageBinder;
@@ -40,6 +41,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     ArrayList<Fragment> fragments;
     List<String> mTitles;
     List<ExchangeName> exchangeNameList;
+    UserLogin userLogin;
 
     int defaultLenght;
 
@@ -69,6 +71,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        userLogin = SingSettingDBUtil.getUserLogin();
         initToolbar(new ToolbarBuilder().setmRightImg2(CommonUtils.getString(R.string.ic_Filter2)).setmRightImg1(CommonUtils.getString(R.string.ic_Share))
                 .setTitle(CommonUtils.getString(R.string.str_title_market)).setShowBack(true));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
@@ -79,9 +82,12 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         String exchangeNamesStr = CacheUtils.getInstance().getString(CACHE_EXCHANGENAME);
         if (!TextUtils.isEmpty(exchangeNamesStr)) {
             exchangeNameList = GsonUtil.getInstance().toList(exchangeNamesStr, ExchangeName.class);
-            initTablelayout(exchangeNameList);
+        } else {
+            String datas = CommonUtils.getString(R.string.str_eNames);
+            CacheUtils.getInstance().put(CACHE_EXCHANGENAME, datas);
+            exchangeNameList = GsonUtil.getInstance().toList(datas, ExchangeName.class);
         }
-        addRequest(binder.getAllEXchange(this));
+        initTablelayout(exchangeNameList);
     }
 
     ArrayList<String> strings;
@@ -139,7 +145,9 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     protected void clickRightIv1() {
         super.clickRightIv();
         // 排序
-        gotoActivity(SortingUserCoinActivity.class).fragStartActResult(this, 0x123);
+        if (SingSettingDBUtil.isLogin(getActivity())) {
+            gotoActivity(SortingUserCoinActivity.class).fragStartActResult(this, 0x123);
+        }
     }
 
     @Override
@@ -220,6 +228,10 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 }
             }
         });
+        if (userLogin != null) {
+            viewDelegate.viewHolder.tl_2.setCurrentTab(1);
+            viewDelegate.viewHolder.tl_2.setCurrentTab(1);
+        }
     }
 
     private void initBarClick() {

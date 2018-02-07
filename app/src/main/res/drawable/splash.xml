@@ -7,6 +7,6 @@
         <!-- 图片 -->
         <bitmap
             android:gravity="center"
-            android:src="@drawable/welcom" />
+            android:src="@drawable/welcome" />
     </item>
 </layer-list>

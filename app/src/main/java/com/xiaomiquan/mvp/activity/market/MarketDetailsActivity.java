@@ -131,8 +131,10 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         if (userOnlyKeys != null) {
             if (userOnlyKeys.contains(exchangeData.getOnlyKey())) {
                 viewDelegate.getmToolbarSubTitle().setTextColor(CommonUtils.getColor(R.color.color_F5A623));
+                viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.ic_star) + " " + CommonUtils.getString(R.string.str_add));
             } else {
                 viewDelegate.getmToolbarSubTitle().setTextColor(CommonUtils.getColor(R.color.white));
+                viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add));
             }
         } else {
             userOnlyKeys = new ArrayList<>();

@@ -9,19 +9,21 @@ import com.blankj.utilcode.util.Utils;
 import com.fivefivelike.mybaselibrary.base.BaseApp;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.xiaomiquan.utils.glide.GlideAlbumLoader;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumConfig;
-import com.yanzhenjie.album.task.DefaultAlbumLoader;
 import com.yanzhenjie.nohttp.NoHttp;
 
 import java.util.Locale;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.CSCustomServiceInfo;
 import io.rong.imlib.model.Message;
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCardViewInflater;
@@ -99,16 +101,22 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
         }
     }
 
+    //客户服务
+    public void startCustomerService(Activity activity) {
+        if (SingSettingDBUtil.getUserLogin() != null) {
+            CSCustomServiceInfo.Builder csBuilder = new CSCustomServiceInfo.Builder();
+            CSCustomServiceInfo csInfo = csBuilder.nickName(SingSettingDBUtil.getUserLogin().getNickName()).build();
+            RongIM.getInstance().startCustomerServiceChat(activity, "KEFU151728371459995", "客服中心", csInfo);
+        } else {
+            ToastUtil.show("登录后才能使用客服帮助");
+        }
+    }
+
     @Override
     public void onTerminate() {
         // 程序终止的时候执行
         WebSocketRequest.getInstance().onDestory();
         super.onTerminate();
-    }
-
-    @Override
-    public void startCustomerService(Activity activity) {
-
     }
 
     public Class getLoginActivityClass() {

@@ -24,7 +24,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/trans_320px"
-                    android:background="@color/base_mask"
+                    android:background="@drawable/user_bg_dark"
                     android:padding="@dimen/trans_40px"
                     >
 
@@ -57,7 +57,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="@string/str_nologin"
-                                android:textColor="@color/color_font1"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_32px"/>
 
                             <TextView
