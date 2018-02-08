@@ -7,9 +7,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
+import com.xiaomiquan.utils.UiHeplUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -23,17 +25,20 @@ public class CircleMyAdapter extends CommonAdapter<UserCircle> {
 
 
     private LinearLayout lin_creat;
-    private ImageView iv_head;
+    private RoundedImageView iv_head;
     private TextView tv_title;
     private TextView tv_num;
     private TextView tv_name;
     private RelativeLayout riv_info;
+    int[] ints;
 
     public CircleMyAdapter(Context context, List<UserCircle> datas) {
         super(context, R.layout.adapter_circle_creat, datas);
+        ints = UiHeplUtils.cacularWidAndHei(context, R.dimen.trans_90px, R.dimen.trans_60px, 3, R.dimen.trans_5px, R.dimen.trans_5px);
+
     }
 
-    public void setDatas( List<UserCircle> datas){
+    public void setDatas(List<UserCircle> datas) {
         getDatas().clear();
         getDatas().addAll(datas);
         notifyDataSetChanged();
@@ -47,6 +52,9 @@ public class CircleMyAdapter extends CommonAdapter<UserCircle> {
         tv_num = holder.getView(R.id.tv_num);
         tv_name = holder.getView(R.id.tv_name);
         riv_info = holder.getView(R.id.riv_info);
+
+        UiHeplUtils.setCacularWidAndHei(ints, lin_creat);
+        UiHeplUtils.setCacularWidAndHei(ints, riv_info);
 
         if (position == 0) {
             lin_creat.setVisibility(View.VISIBLE);

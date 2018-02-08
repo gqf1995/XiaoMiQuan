@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.fragment.circle;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.BigVListAdapter;
 import com.xiaomiquan.entity.bean.circle.UserFriende;
+import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.RecommendBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -37,10 +39,17 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
     protected void bindEvenListener() {
         super.bindEvenListener();
         addRequest(binder.getBigVlist(this));
+        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                addRequest(binder.getBigVlist(RecommendFragment.this));
+            }
+        });
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
                 List<UserFriende> datas = GsonUtil.getInstance().toList(data, UserFriende.class);
@@ -102,10 +111,13 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
                             }
                             bigVListAdapter.notifyItemChanged(position);
                             break;
+
+                        case R.id.cv_head:
+                            UserHomePageActivity.startAct(getActivity(), userFriendes.get(position).getId());
+                            break;
                     }
                 }
             });
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
             viewDelegate.viewHolder.pull_recycleview.setLayoutManager(new LinearLayoutManager(getActivity()) {
                 @Override
                 public boolean canScrollVertically() {

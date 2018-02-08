@@ -19,12 +19,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/trans_320px"
+                android:background="@color/toolbar_bg"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/trans_24px"
-                android:paddingLeft="@dimen/trans_30px"
-                android:paddingRight="@dimen/trans_40px"
-                android:paddingTop="@dimen/trans_25px">
+                android:padding="@dimen/trans_30px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -42,7 +41,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="名字"
-                            android:textColor="@color/color_font1"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/text_trans_35px"
                             android:textStyle="bold" />
 
@@ -57,14 +56,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="娃娃"
-                                android:textColor="@color/color_font2"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_28px" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_tv_creat"
-                                android:textColor="@color/color_font2"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_28px" />
 
                             <TextView
@@ -72,7 +71,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/trans_20px"
                                 android:text="@string/str_tv_have"
-                                android:textColor="@color/color_font2"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_28px" />
 
                             <TextView
@@ -80,14 +79,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="111"
-                                android:textColor="@color/color_font2"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_28px" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_tv_peoplenum"
-                                android:textColor="@color/color_font2"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_28px" />
                         </LinearLayout>
 
@@ -108,11 +107,11 @@
 
                 <TextView
                     android:id="@+id/tv_con"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/trans_20px"
                     android:text="名字"
-                    android:textColor="@color/color_font2"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_trans_28px" />
             </LinearLayout>
 
@@ -169,7 +168,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@color/color_blue"
+                        android:background="@drawable/select_commit"
                         android:gravity="center"
                         android:padding="@dimen/trans_10px"
                         android:text="@string/str_tv_join"
@@ -186,7 +185,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@color/color_blue"
+                        android:background="@drawable/select_commit"
                         android:gravity="center"
                         android:padding="@dimen/trans_10px"
                         android:text="@string/str_tv_code"
@@ -230,7 +229,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/trans_40px"
-                    android:background="@color/color_blue"
+                    android:background="@drawable/select_commit"
                     android:padding="@dimen/trans_15px"
                     android:text="@string/str_tv_join"
                     android:textColor="@color/white" />

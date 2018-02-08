@@ -36,6 +36,7 @@ import com.xiaomiquan.mvp.activity.circle.ReleaseDynamicActivity;
 import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
 import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
 import com.xiaomiquan.mvp.activity.circle.UserInfoActivity;
+import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.SquareBinder;
 import com.xiaomiquan.mvp.delegate.circle.SquareDelegate;
 import com.xiaomiquan.widget.circle.SquarePopupWindow;
@@ -86,7 +87,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 long intemHeight = viewDelegate.viewHolder.ry_live.getLayoutManager().getHeight() / squareLiveAdapter.getDatas().size();
                 int index = (int) (scrollY / intemHeight);
-                viewDelegate.viewHolder.tv_live_time.setText(squareLiveAdapter.getDatas().get(index).getHourMinute());
+                viewDelegate.viewHolder.tv_live_time.setText(squareLiveAdapter.getDatas().get(index).getYearMonthDay());
             }
         });
     }
@@ -253,11 +254,11 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                             }
                         }
                         if (view.getId() == R.id.cv_head) {
+                            UserHomePageActivity.startAct(getActivity(), squareLives.get(position).getUserId());
                         }
                     }
                 });
-
-                viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
+                 viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
                 viewDelegate.viewHolder.ry_live.getItemAnimator().setChangeDuration(0);
                 viewDelegate.viewHolder.ry_live.setAdapter(squareLiveAdapter);
             }

@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.base.BasePullDelegate;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText;
@@ -15,7 +14,7 @@ import com.xiaomiquan.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ArticleDetailsDelegate extends BasePullDelegate{
+public class ArticleDetailsDelegate extends BasePullDelegate {
     public ViewHolder viewHolder;
 
     @Override
@@ -52,6 +51,8 @@ public class ArticleDetailsDelegate extends BasePullDelegate{
         public TextView tv_commit;
         public LinearLayout lin_comment;
         public LinearLayout lin_praise;
+        public LinearLayout lin_userinfo;
+
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -74,6 +75,7 @@ public class ArticleDetailsDelegate extends BasePullDelegate{
             this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);
             this.lin_comment = (LinearLayout) rootView.findViewById(R.id.lin_comment);
             this.lin_praise = (LinearLayout) rootView.findViewById(R.id.lin_praise);
+            this.lin_userinfo = (LinearLayout) rootView.findViewById(R.id.lin_userinfo);
         }
 
     }

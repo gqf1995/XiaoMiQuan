@@ -19,6 +19,7 @@ import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
 import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
+import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.mvp.databinder.GetFriendsJoinBinder;
 import com.xiaomiquan.mvp.databinder.circle.LiveBinder;
 import com.xiaomiquan.mvp.databinder.circle.NewsBinder;
@@ -28,6 +29,7 @@ import com.xiaomiquan.mvp.delegate.circle.NewsDelegate;
 import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -53,12 +55,12 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_tv_live)).setSubTitle(CommonUtils.getString(R.string.str_release)));
         initLive(new ArrayList<SquareLive>());
-        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                addRequest(binder.getLive(LiveActivity.this));
-            }
-        });
+//        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                addRequest(binder.getLive(LiveActivity.this));
+//            }
+//        });
         viewDelegate.viewHolder.pull_recycleview.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -91,6 +93,7 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
 
     }
 
+    HeaderAndFooterWrapper adapter;
     public void initLive(final List<SquareLive> squareLives) {
         if (squareLiveAdapter == null) {
             onRefresh();
@@ -131,16 +134,18 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
                         }
                     }
                     if (view.getId() == R.id.cv_head) {
-                        UserInfoActivity.startAct(LiveActivity.this, squareLives.get(position));
+                        UserHomePageActivity.startAct(LiveActivity.this, squareLives.get(position).getUserId());
                     }
                 }
             });
-            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
-            viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
-            viewDelegate.viewHolder.pull_recycleview.setAdapter(squareLiveAdapter);
+//            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
+//            viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
+//            viewDelegate.viewHolder.pull_recycleview.setAdapter(squareLiveAdapter);
+            adapter = new HeaderAndFooterWrapper(squareLiveAdapter);
+            initRecycleViewPull(adapter, new LinearLayoutManager(this));
             viewDelegate.setNoDataTxt(CommonUtils.getString(R.string.str_kline_nodata));
         } else {
-            squareLiveAdapter.setDatas(squareLives);
+            getDataBack(squareLiveAdapter.getDatas(), squareLives, squareLiveAdapter);
         }
     }
 

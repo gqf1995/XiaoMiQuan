@@ -25,6 +25,7 @@ import com.xiaomiquan.mvp.activity.circle.CreatCircleActivity;
 import com.xiaomiquan.mvp.activity.circle.GetFriendsJoinActivity;
 import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
 import com.xiaomiquan.mvp.activity.circle.UserInfoActivity;
+import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.CircleShowBinder;
 import com.xiaomiquan.mvp.delegate.circle.CircleShowDelegate;
 import com.xiaomiquan.widget.circle.JoinPopupWindow;
@@ -56,6 +57,7 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
                 addRequest(binder.getMyCircle(CircleShowFragment.this));
             }
         });
+
     }
 
     @Override
@@ -182,11 +184,12 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
                         }
                     }
                     if (view.getId() == R.id.cv_head) {
-                        UserInfoActivity.startAct(getActivity(), squareLives.get(position));
+                        UserHomePageActivity.startAct(getActivity(), squareLives.get(position).getUserId());
                     }
                 }
             });
             viewDelegate.viewHolder.rv_circle.setLayoutManager(linearLayoutManager);
+            viewDelegate.viewHolder.rv_circle.getItemAnimator().setChangeDuration(0);
             viewDelegate.viewHolder.rv_circle.setAdapter(circleDynamicAdapter);
         } else {
             circleDynamicAdapter.setDatas(squareLives);

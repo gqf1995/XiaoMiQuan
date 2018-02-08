@@ -1,5 +1,7 @@
 package com.xiaomiquan.mvp.delegate.circle;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText;
 import com.xiaomiquan.R;
@@ -18,6 +21,7 @@ import skin.support.widget.SkinCompatCheckBox;
 public class ReleaseDynamicDelegate extends BaseDelegate {
 
     public ViewHolder viewHolder;
+    int index;
 
     @Override
     public void initView() {
@@ -29,9 +33,17 @@ public class ReleaseDynamicDelegate extends BaseDelegate {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                viewHolder.tv_scale.setText(i2 + "");
+                if (i1 == 0) {
+                    index = index + i2;
+                    viewHolder.tv_scale.setText(index + "");
+                } else {
+                    viewHolder.tv_scale.setText(i + "");
+                    index = i;
+                }
+
             }
 
             @Override

@@ -9,9 +9,11 @@ import android.widget.TextView;
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.server.HttpUrl;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -28,6 +30,7 @@ import io.reactivex.disposables.Disposable;
 
 public class ArtivleAdapter extends CommonAdapter<SquareLive> {
 
+    DefaultClickLinsener defaultClickLinsener;
 
     private ImageView ic_pic;
     private TextView tv_time;
@@ -40,6 +43,10 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
 
     BaseDataBind dataBind;
     private LinearLayout lin_praise;
+
+    public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
+        this.defaultClickLinsener = defaultClickLinsener;
+    }
 
 
     public ArtivleAdapter(BaseDataBind baseDataBind, Context context, List<SquareLive> datas) {
@@ -97,6 +104,15 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
                 }
                 dataBind.addRequest(savePraise(dataBind, s.getId()));
                 notifyItemChanged(position);
+            }
+        });
+
+        cv_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(view, position, null);
+                }
             }
         });
     }

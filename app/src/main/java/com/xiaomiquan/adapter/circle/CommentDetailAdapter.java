@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.Comment;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
@@ -35,6 +36,12 @@ public class CommentDetailAdapter extends CommonAdapter<Comment> {
         super(context, R.layout.adapter_details_comment, datas);
     }
 
+    public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
+        this.defaultClickLinsener = defaultClickLinsener;
+    }
+
+    DefaultClickLinsener defaultClickLinsener;
+
     public void setDatas(List<Comment> datas) {
         this.mDatas.clear();
         this.mDatas.addAll(datas);
@@ -42,7 +49,7 @@ public class CommentDetailAdapter extends CommonAdapter<Comment> {
     }
 
     @Override
-    protected void convert(ViewHolder holder, Comment comment, int position) {
+    protected void convert(ViewHolder holder, Comment comment, final int position) {
         cv_head = holder.getView(R.id.cv_head);
         tv_name = holder.getView(R.id.tv_name);
         tv_master = holder.getView(R.id.tv_master);
@@ -66,6 +73,15 @@ public class CommentDetailAdapter extends CommonAdapter<Comment> {
         tv_time.setText(comment.getCreateTimeStr());
         GlideUtils.loadImage(comment.getAvatar(), cv_head);
         tv_name.setText(comment.getNickName());
+
+        cv_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(view, position, null);
+                }
+            }
+        });
     }
 
 }
