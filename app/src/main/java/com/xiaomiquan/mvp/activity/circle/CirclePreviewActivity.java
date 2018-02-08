@@ -8,6 +8,7 @@ import android.view.View;
 import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleDynamicAdapter;
 import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
@@ -16,7 +17,6 @@ import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.mvp.databinder.circle.CirclePreviewBinder;
 import com.xiaomiquan.mvp.delegate.circle.CirclePreviewDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.xiaomiquan.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.CircleDialogHelper;
 
 import java.util.ArrayList;
