@@ -10,6 +10,7 @@ import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.adapter.group.GroupDealCurrencyAdapter;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
+import com.xiaomiquan.entity.bean.group.TradingResult;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -127,6 +128,13 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
             } else {
                 onSelectLinsener.onSelectLinsener(null);
             }
+        }
+    }
+
+    public void setSellResult(TradingResult tradingResult) {
+        if (adapter != null) {
+            adapter.getDatas().get(adapter.getSelectPosition()).setCount(tradingResult.getCount());
+            adapter.notifyDataSetChanged();
         }
     }
 

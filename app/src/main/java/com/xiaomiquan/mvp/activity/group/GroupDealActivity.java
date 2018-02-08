@@ -3,7 +3,6 @@ package com.xiaomiquan.mvp.activity.group;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -12,8 +11,8 @@ import android.view.View;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
-import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -21,6 +20,7 @@ import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
 import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.entity.bean.group.TradingResult;
 import com.xiaomiquan.mvp.activity.ShareHistoryTradingActivity;
 import com.xiaomiquan.mvp.databinder.group.GroupDealBinder;
 import com.xiaomiquan.mvp.delegate.group.GroupDealDelegate;
@@ -50,19 +50,28 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-
+        switch (requestCode) {
+            case 0x123:
+                //买
+                TradingResult tradingResultBuy = GsonUtil.getInstance().toObj(data, TradingResult.class);
+                groupItems.get(position).setBalance(tradingResultBuy.getBalance());
+                //更新余额
+                viewDelegate.onSelectLinsener(viewDelegate.mCoinDetail, groupItems.get(position));
+                break;
+            case 0x124:
+                //卖
+                TradingResult tradingResultSell = GsonUtil.getInstance().toObj(data, TradingResult.class);
+                //刷新卖列表
+                currencyFragmentSell.setSellResult(tradingResultSell);
+                currencyFragmentSell.getSelectPositionData();
+                break;
+        }
     }
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         getIntentData();
-        viewDelegate.initTop(new DefaultClickLinsener() {
-            @Override
-            public void onClick(View view, int position, Object item) {
-                viewDelegate.selectType = position;
-            }
-        });
         initToolbar(new ToolbarBuilder().setTitle("").setmRightImg1(CommonUtils.getString(R.string.ic_Share1)));
         viewDelegate.setOnClickListener(this, R.id.tv_left, R.id.tv_right);
         initGroup();
@@ -79,7 +88,6 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         viewDelegate.viewHolder.tv_title.setText(groupItems.get(position).getName());
         initTablelayout();
         initCurrency();
-        addRequest(binder.getBalance(groupItems.get(position).getId(), this));
         viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,16 +123,18 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_num));
             return;
         }
-        if (coinDetail == null) {
+        if (viewDelegate.mCoinDetail == null) {
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_no_select_coin));
             return;
         }
         addRequest(binder.deal(groupItems.get(position).getId(),
                 viewDelegate.viewHolder.tl_1.getCurrentTab() == 0 ? "1" : "2",
-                coinDetail.getCoinId(),
+                viewDelegate.viewHolder.tl_1.getCurrentTab() == 0 ? viewDelegate.mCoinDetail.getId() : viewDelegate.mCoinDetail.getCoinId(),
                 viewDelegate.viewHolder.et_sell_price.getText().toString(),
-                viewDelegate.selectType + "",
-                viewDelegate.viewHolder.et_sell_num.getText().toString(), this));
+                viewDelegate.selectType + 1 + "",
+                viewDelegate.viewHolder.et_sell_num.getText().toString(),
+                viewDelegate.viewHolder.tl_1.getCurrentTab() == 0 ? 0x123 : 0x124,
+                this));
     }
 
     @Override
@@ -132,7 +142,6 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         return GroupDealDelegate.class;
     }
 
-    ArrayList<Fragment> fragments;
     List<String> mTitles;
     private ArrayList<CustomTabEntity> mTabEntities;
 

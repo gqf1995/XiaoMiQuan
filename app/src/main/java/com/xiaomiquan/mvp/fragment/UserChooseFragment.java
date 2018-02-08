@@ -21,6 +21,7 @@ import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.market.AddCoinActivity;
+import com.xiaomiquan.mvp.activity.market.MarketDetailsActivity;
 import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
@@ -109,7 +110,9 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         exchangeMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-
+                if (position > -1) {
+                    MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
+                }
             }
 
             @Override
@@ -130,7 +133,6 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         initRecycleViewPull(headerAndFooterWrapper, headerAndFooterWrapper.getHeadersCount() + headerAndFooterWrapper.getFootersCount(), linearLayoutManager);
         viewDelegate.setIsLoadMore(false);
         defaultDatas = new ArrayList<>();
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         onRefresh();
         initTool();
     }
@@ -251,6 +253,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     @Override
     protected void refreshData() {
         if (userLogin != null) {
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             addRequest(binder.marketdata(this));
             isOnRefush = true;
         } else {
@@ -344,8 +347,9 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                     exchangeMarketAdapter.notifyDataSetChanged();
                 }
             }
-        } else {
+        } else if(!isVisible){
             binder.cancelpost();
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
             isOnRefush = false;
         }
     }

@@ -37,6 +37,7 @@ public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndReg
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(""));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
+        SingSettingDBUtil.delectUserLogin();
         viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

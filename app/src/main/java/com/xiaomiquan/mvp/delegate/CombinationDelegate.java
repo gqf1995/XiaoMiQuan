@@ -42,6 +42,7 @@ public class CombinationDelegate extends BaseDelegate {
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
         viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_110px), viewHolder.viewpager, false);
+        viewHolder.linechart.setNoDataText(CommonUtils.getString(R.string.str_chart_nodata));
     }
 
     public void initRate(String data) {
@@ -109,7 +110,7 @@ public class CombinationDelegate extends BaseDelegate {
         mChartKline.setBorderColor(CommonUtils.getColor(R.color.border_color));//边线颜色
         mChartKline.setDescription("");//右下角对图表的描述信息
         mChartKline.setMinOffset(0f);
-        mChartKline.setExtraOffsets(20f, 0f, 30f, 0f);
+        mChartKline.setExtraOffsets(20f, 0f, 30f, 20f);
 
         Legend lineChartLegend = mChartKline.getLegend();
         lineChartLegend.setEnabled(false);//是否绘制 Legend 图例

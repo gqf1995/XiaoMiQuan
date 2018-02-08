@@ -1,6 +1,5 @@
 package com.xiaomiquan.mvp.activity.user;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
@@ -44,20 +43,20 @@ public class HomePageActivity extends BasePullActivity<HomePageDelegate, BaseAct
     }
 
     private void initList(List<String> datas) {
-        for (int i = 0; i < 20; i++) {
-            datas.add("");
-        }
-        if (dynamicAdapter == null) {
-            dynamicAdapter = new DynamicAdapter(this, datas);
-            adapter = new HeaderAndFooterWrapper(dynamicAdapter);
-            adapter.addHeaderView(initTop());
-            initRecycleViewPull(adapter, new LinearLayoutManager(this));
-            viewDelegate.setIsLoadMore(false);
-            onRefresh();
-            addRequest(binder.listDemo(this));
-        } else {
-            getDataBack(dynamicAdapter.getDatas(), datas, adapter);
-        }
+//        for (int i = 0; i < 20; i++) {
+//            datas.add("");
+//        }
+//        if (dynamicAdapter == null) {
+//            dynamicAdapter = new DynamicAdapter(this, datas);
+//            adapter = new HeaderAndFooterWrapper(dynamicAdapter);
+//            adapter.addHeaderView(initTop());
+//            initRecycleViewPull(adapter, new LinearLayoutManager(this));
+//            viewDelegate.setIsLoadMore(false);
+//            onRefresh();
+//            addRequest(binder.listDemo(this));
+//        } else {
+//            getDataBack(dynamicAdapter.getDatas(), datas, adapter);
+//        }
     }
 
     public TextView tv_name;

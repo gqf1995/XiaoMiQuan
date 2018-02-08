@@ -32,8 +32,9 @@ public class ToolbarBuilder {
         return backTxt;
     }
 
-    public void setBackTxt(String backTxt) {
+    public ToolbarBuilder setBackTxt(String backTxt) {
         this.backTxt = backTxt;
+        return this;
     }
 
     public int getNavigationIcon() {

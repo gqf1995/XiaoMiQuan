@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">XiaoMiQuan</string>
+    <string name="app_name">BCOIN</string>
     <string name="action_settings">Settings</string>
 
 
@@ -222,6 +222,7 @@
     <string name="str_group_dynamic">组合动态</string>
     <string name="str_save">保存</string>
     <string name="str_fucose">关注</string>
+    <string name="str_cancel_fucose">取消关注</string>
     <string name="str_already_fucose">已关注</string>
     <string name="str_fucose_people_num">关注人数</string>
     <string name="str_deal_time">成交时间</string>
@@ -231,6 +232,9 @@
     <string name="str_creater">创建者</string>
     <string name="str_master">圈主</string>
     <string name="str_top">置顶</string>
+    <string name="str_deal_price">成交价</string>
+    <string name="str_no_kline">该币种暂无K线</string>
+    <string name="str_no_kline_toast">程序员已经在努力优化了</string>
 
 
     <string name="str_search_circle">查找圈子</string>
@@ -269,7 +273,7 @@
     <string name="str_et_con">输入正文</string>
     <string name="str_et_url">粘贴文章网址</string>
     <string name="str_et_title">输入标题</string>
-    <string name="str_tv_addimg">+添加封面</string>
+    <string name="str_tv_addimg">添加封面</string>
 
 
     <string name="str_release_dynamic">发布动态</string>
@@ -292,6 +296,7 @@
     <string name="str_tv_share">分享</string>
     <string name="str_tv_attention">关注</string>
     <string name="str_title_article">文章详情</string>
+    <string name="str_title_topic">动态详情</string>
     <string name="str_title_news">资讯详情</string>
     <string name="str_tv_sub">评论</string>
     <string name="str_tv_free">免费</string>
@@ -307,8 +312,8 @@
     <string name="str_tv_code">我有加圈码</string>
     <string name="str_title_create_circle">创建圈子</string>
     <string name="str_toast_user">请阅读用户规范</string>
-    <string name="str_toast_need_login">登录后才能使用此功能</string>
     <string name="str_title_square">广场</string>
+    <string name="str_toast_need_login">登录后才能使用此功能</string>
     <string name="str_eNames">[{\"cName\":\"\",\"eName\":\"Coincheck\"},{\"cName\":\"\",\"eName\":\"Bitflyer\"},{\"cName\":\"\",\"eName\":\"Cex\"},{\"cName\":\"\",\"eName\":\"Aex\"},{\"cName\":\"\",\"eName\":\"Bittrex\"},{\"cName\":\"\",\"eName\":\"Exx\"},{\"cName\":\"\",\"eName\":\"Hitbtc\"},{\"cName\":\"\",\"eName\":\"Gate\"},{\"cName\":\"\",\"eName\":\"Bitfinex\"},{\"cName\":\"\",\"eName\":\"Coinw\"},{\"cName\":\"\",\"eName\":\"Quoine\"},{\"cName\":\"\",\"eName\":\"Coinegg\"},{\"cName\":\"\",\"eName\":\"Coinbase\"},{\"cName\":\"\",\"eName\":\"Kucoin\"},{\"cName\":\"\",\"eName\":\"Coinnest\"},{\"cName\":\"\",\"eName\":\"Ucoin\"},{\"cName\":\"\",\"eName\":\"Chaoex\"},{\"cName\":\"\",\"eName\":\"Binance\"},{\"cName\":\"\",\"eName\":\"Kraken\"},{\"cName\":\"\",\"eName\":\"Liqui\"},{\"cName\":\"\",\"eName\":\"Zb\"},{\"cName\":\"\",\"eName\":\"Kkex\"},{\"cName\":\"\",\"eName\":\"Okex\"},{\"cName\":\"\",\"eName\":\"Korbit\"},{\"cName\":\"\",\"eName\":\"Btcbox\"},{\"cName\":\"\",\"eName\":\"Coin900\"},{\"cName\":\"\",\"eName\":\"Huobi\"},{\"cName\":\"\",\"eName\":\"Coinone\"},{\"cName\":\"\",\"eName\":\"Bitz\"},{\"cName\":\"\",\"eName\":\"Bitstamp\"},{\"cName\":\"\",\"eName\":\"Bitmex\"},{\"cName\":\"\",\"eName\":\"Bcex\"},{\"cName\":\"\",\"eName\":\"Poloniex\"},{\"cName\":\"\",\"eName\":\"Bithumb\"},{\"cName\":\"\",\"eName\":\"Bigone\"},{\"cName\":\"\",\"eName\":\"Bibox\"}]</string>
 
 
@@ -389,7 +394,6 @@
 
     <string-array name="sa_select_square">
         <item>大v直播</item>
-        <item>热门快讯 </item>
         <item>热门组合 </item>
         <item>推荐大v </item>
         <item>精选文章 </item>
@@ -464,7 +468,6 @@
         <item>EMA</item>
         <item>均线</item>
     </string-array>
-
 
 
 </resources>

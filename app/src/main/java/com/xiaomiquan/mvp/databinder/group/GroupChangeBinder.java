@@ -35,26 +35,6 @@ public class GroupChangeBinder extends BaseDataBind<BaseFragentPullDelegate> {
     }
 
 
-    /**
-     * 取消关注组合
-     */
-    public Disposable cancelAttention(
-            String demoId,
-            RequestCallback requestCallback) {
-        getBaseMapWithUid();
-        baseMap.put("demoId", demoId);
-        return new HttpRequest.Builder()
-                .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().cancelAttention)
-                .setShowDialog(false)
-                .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("取消关注组合")
-                .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.Json)
-                .setRequestObj(baseMap)
-                .setRequestCallback(requestCallback)
-                .build()
-                .RxSendRequest();
-    }
+
 
 }

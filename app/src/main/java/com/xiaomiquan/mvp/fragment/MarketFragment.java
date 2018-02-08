@@ -106,8 +106,12 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                     }
                 }
             }
+        } else {
+            //页面切换停止websocket
+            //WebSocketRequest.getInstance().sendData(new ArrayList<String>());
         }
     }
+
 
     //给toolbar添加搜索布局
 

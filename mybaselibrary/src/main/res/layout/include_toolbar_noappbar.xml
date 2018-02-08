@@ -52,10 +52,11 @@
                     android:layout_height="@dimen/trans_90px"
                     android:layout_gravity="left|center_vertical"
                     android:gravity="center"
+                    android:paddingLeft="@dimen/trans_10px"
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_trans_28px"
-                    android:visibility="gone"/>
+                    />
 
             </LinearLayout>
 

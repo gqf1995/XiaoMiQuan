@@ -40,6 +40,7 @@ public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, B
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        id = getArguments().getString("id");
         initList(new ArrayList<HistoryTrading>());
     }
 
@@ -49,7 +50,7 @@ public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, B
         adapter.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
             public void onClick(View view, int position, Object item) {
-                addRequest(binder.cancel(adapter.getDatas().get(position).getDemoId(),NotDealFragment.this));
+                addRequest(binder.cancel(adapter.getDatas().get(position).getId(), NotDealFragment.this));
             }
         });
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));

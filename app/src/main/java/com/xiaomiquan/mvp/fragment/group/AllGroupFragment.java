@@ -10,10 +10,11 @@ import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.DynamicAdapter;
 import com.xiaomiquan.adapter.group.AllMyGroupAdapter;
+import com.xiaomiquan.adapter.group.GroupDynamicAdapter;
 import com.xiaomiquan.adapter.group.HotGroupAdapter;
 import com.xiaomiquan.entity.bean.UserLogin;
+import com.xiaomiquan.entity.bean.group.GroupDynamic;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.entity.bean.group.GroupRank;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
@@ -37,7 +38,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     GroupRank list30;
     GroupRank listall;
     UserLogin userLogin;
-    DynamicAdapter adapter;
+    GroupDynamicAdapter adapter;
 
 
     @Override
@@ -54,7 +55,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initList(new ArrayList<String>());
+        initList(new ArrayList<GroupDynamic>());
         addRequest(binder.top(types[index++], this));
     }
 
@@ -75,9 +76,10 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     }
 
     public void notifyDataSetChanged() {
-        if (allMyGroupAdapter != null && hotGroupAdapter != null) {
+        if (allMyGroupAdapter != null && hotGroupAdapter != null && adapter != null) {
             allMyGroupAdapter.notifyDataSetChanged();
             hotGroupAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -108,7 +110,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                 public void onClick(View view, int position, Object item) {
                     if (hotGroupAdapter.getDatas().get(position).getIsAttention() == 0) {
                         //查看详情
-                        CombinationActivity.startAct(getActivity(), hotGroupAdapter.getDatas().get(position), true);
+                        CombinationActivity.startAct(getActivity(), hotGroupAdapter.getDatas().get(position), false);
                     } else if (hotGroupAdapter.getDatas().get(position).getIsAttention() == 1) {
                         if (userLogin != null) {
                             hotGroupAdapter.getDatas().get(position).setAttentionCount(0 + "");
@@ -150,10 +152,15 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
         }
     }
 
-    private void initList(List<String> datas) {
+    private void initList(List<GroupDynamic> datas) {
         if (adapter == null) {
-            adapter = new DynamicAdapter(getActivity(), datas);
-            initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
+            adapter = new GroupDynamicAdapter(getActivity(), datas);
+            initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
         } else {
             getDataBack(adapter.getDatas(), datas, adapter);
         }
@@ -185,6 +192,10 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                     index = 0;
                 }
                 break;
+            case 0x125:
+                List<GroupDynamic> groupDynamics = GsonUtil.getInstance().toList(data, GroupDynamic.class);
+                initList(groupDynamics);
+                break;
         }
     }
 
@@ -192,6 +203,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     protected void refreshData() {
         if (userLogin != null) {
             addRequest(binder.listDemo(this));
+            addRequest(binder.dynamic(this));
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         } else {
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);

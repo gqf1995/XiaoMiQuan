@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -38,6 +39,8 @@ public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDel
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        id = getArguments().getString("id");
+        initList(new ArrayList<HoldDetail>());
     }
 
 
@@ -51,6 +54,7 @@ public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDel
 
     private void initTop() {
         View rootView=getActivity().getLayoutInflater().inflate(R.layout.layout_label_detail,null);
+        rootView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         viewDelegate.viewHolder.fl_pull.addView(rootView,0);
     }
 
@@ -65,20 +69,6 @@ public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDel
         }
     }
 
-    @Override
-    protected void onFragmentVisibleChange(boolean isVisible) {
-        if (isVisible) {
-            onRefresh();
-        } else {
-            binder.cancelpost();
-        }
-    }
-
-    @Override
-    protected void onFragmentFirstVisible() {
-        id=getArguments().getString("id");
-        initList(new ArrayList<HoldDetail>());
-    }
 
     @Override
     protected void refreshData() {

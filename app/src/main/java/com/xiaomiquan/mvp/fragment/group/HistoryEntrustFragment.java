@@ -39,6 +39,7 @@ public class HistoryEntrustFragment extends BasePullFragment<BaseFragentPullDele
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        id = getArguments().getString("id");
         initList(new ArrayList<HistoryTrading>());
     }
 

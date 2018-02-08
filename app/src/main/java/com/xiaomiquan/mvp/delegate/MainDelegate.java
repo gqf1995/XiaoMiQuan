@@ -3,6 +3,7 @@ package com.xiaomiquan.mvp.delegate;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.tablayout.CommonTabLayout;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -44,6 +45,9 @@ public class MainDelegate extends IMDelegate {
             @Override
             public void onTabSelect(int position) {
                 showFragment(position);
+                if (position != 0) {
+                    WebSocketRequest.getInstance().sendData(new ArrayList<String>());
+                }
             }
 
             @Override
@@ -66,6 +70,7 @@ public class MainDelegate extends IMDelegate {
             imLinsener.ImSuccess();
         }
     }
+
     public static class ViewHolder {
         public View rootView;
         public FrameLayout fl_root;

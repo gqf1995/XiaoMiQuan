@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * 我的关注组合
  */
-public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
+public class MyFocuseGroupFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
 
     FocuseGroupAdapter myGroupAdapter;
 
@@ -48,11 +48,13 @@ public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDeleg
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
         return BaseFragentPullDelegate.class;
     }
+
     public void notifyDataSetChanged() {
-        if (myGroupAdapter != null ) {
+        if (myGroupAdapter != null) {
             myGroupAdapter.notifyDataSetChanged();
         }
     }
+
     private void initList(List<GroupItem> datas) {
         if (myGroupAdapter == null) {
             myGroupAdapter = new FocuseGroupAdapter(getActivity(), datas);
@@ -60,10 +62,7 @@ public class MyGocuseGroupFragment extends BasePullFragment<BaseFragentPullDeleg
                 @Override
                 public void onClick(View view, final int position, Object item) {
                     if (view.getId() == R.id.tv_deal) {
-                        //取消关注
-                        myGroupAdapter.getDatas().remove(position);
-                        myGroupAdapter.notifyDataSetChanged();
-                        binder.cancelAttention(myGroupAdapter.getDatas().get(position).getId(), null);
+                        CombinationActivity.startAct(getActivity(), myGroupAdapter.getDatas().get(position), false);
                     }
                     if (view.getId() == R.id.tv_look) {
                         CombinationActivity.startAct(getActivity(), myGroupAdapter.getDatas().get(position), false);
