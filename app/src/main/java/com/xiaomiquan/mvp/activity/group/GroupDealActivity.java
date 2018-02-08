@@ -19,7 +19,7 @@ import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
-import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.entity.bean.group.GroupBaseDeal;
 import com.xiaomiquan.entity.bean.group.TradingResult;
 import com.xiaomiquan.mvp.activity.ShareHistoryTradingActivity;
 import com.xiaomiquan.mvp.databinder.group.GroupDealBinder;
@@ -182,7 +182,7 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
     }
 
     public static void startAct(Activity activity,
-                                List<GroupItem> groupItems,
+                                List<GroupBaseDeal> groupItems,
                                 int position,
                                 boolean isMy
     ) {
@@ -193,7 +193,7 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         activity.startActivity(intent);
     }
 
-    private List<GroupItem> groupItems;
+    private List<GroupBaseDeal> groupItems;
     boolean isMy;
     int position;
 

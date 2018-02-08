@@ -254,7 +254,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
             });
             // }
         } else {
-            squareLiveAdapter.setDatas(squareLives);
+            //squareLiveAdapter.setDatas(squareLives);
             getDataBack(squareLiveAdapter.getDatas(), squareLives, squareLiveAdapter);
         }
 

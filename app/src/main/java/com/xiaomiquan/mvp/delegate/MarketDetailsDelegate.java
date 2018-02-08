@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import skin.support.widget.SkinCompatToolbar;
+
 public class MarketDetailsDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
     ArrayList<Fragment> fragments;
@@ -155,53 +157,30 @@ public class MarketDetailsDelegate extends BaseDelegate {
     public void initData(ExchangeData exchangeData) {
         viewHolder.tv_title.setText(exchangeData.getExchange());
         viewHolder.tv_subtitle.setText(exchangeData.getSymbol() + "/" + exchangeData.getUnit());
-        String priceStr = BigUIUtil.getinstance().bigPrice(exchangeData.getLast());
-        viewHolder.tv_volume.setText(BigUIUtil.getinstance().bigAmount(exchangeData.getVolume()));
-        viewHolder.tv_highest.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getHigh()));
-        viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow()));
-        viewHolder.tv_buy_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getBid()));
-        viewHolder.tv_sell_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getAsk()));
-
-
-        List<String> strings = BigUIUtil.getinstance().rateTwoPrice(exchangeData.getLast(), exchangeData.getSymbol(), exchangeData.getUnit());
-        if (TextUtils.isEmpty(strings.get(0))) {
-            viewHolder.tv_price.setText("--");
-        } else {
-            viewHolder.tv_price.setText(strings.get(0));
-        }
-        viewHolder.tv_rate.setText(strings.get(1));
-        if (TextUtils.isEmpty(strings.get(1))) {
+        viewHolder.tv_price.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLast()));
+        String s = BigUIUtil.getinstance().rateOnePrice(exchangeData.getLast(), exchangeData.getSymbol(), exchangeData.getUnit());
+        if (TextUtils.isEmpty(s)) {
             viewHolder.tv_rate.setVisibility(View.GONE);
         } else {
             viewHolder.tv_rate.setVisibility(View.VISIBLE);
+            viewHolder.tv_rate.setText(s);
         }
-        String s = strings.get(0);
-        String symbol = "";
-        if (strings.get(0).contains("$") || strings.get(0).contains("¥")) {
-            s = s.substring(1, strings.get(0).length());
-            symbol = s.substring(0, 1);
-        } else {
-            s = exchangeData.getLast();
-        }
+
         StringBuffer stringBuffer = new StringBuffer();
         String end = "";
         if (!TextUtils.isEmpty(exchangeData.getChange())) {
             if (new BigDecimal("0").compareTo(new BigDecimal(exchangeData.getChange())) == 1) {
                 //跌
-                stringBuffer.append("- ")
-                        .append(symbol + BigUIUtil.getinstance().risePrice(s, exchangeData.getChange()))
-                        .append("(")
+                stringBuffer.append("")
                         .append(BigUIUtil.getinstance().changeAmount(exchangeData.getChange()))
-                        .append("%) ");
+                        .append("% ");
                 end = CommonUtils.getString(R.string.ic_Fall);
                 viewHolder.tv_rise.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
             } else {
                 //涨
                 stringBuffer.append("+ ")
-                        .append(symbol + BigUIUtil.getinstance().risePrice(s, exchangeData.getChange()))
-                        .append("(+")
                         .append(BigUIUtil.getinstance().changeAmount(exchangeData.getChange()))
-                        .append("%) ");
+                        .append("% ");
                 end = CommonUtils.getString(R.string.ic_Climb);
                 viewHolder.tv_rise.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
             }
@@ -210,43 +189,61 @@ public class MarketDetailsDelegate extends BaseDelegate {
         viewHolder.tv_rise.setText(stringBuffer.toString() + " " + end);
 
 
-        viewHolder.tv_volume.setText(BigUIUtil.getinstance().bigAmount(exchangeData.getVolume()));
-        viewHolder.tv_highest.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getHigh()));
-        viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow()));
-        viewHolder.tv_buy_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getBid()));
-        viewHolder.tv_sell_one.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getAsk()));
 
         //动画
         if (mExchangeData != null) {
             if (!mExchangeData.getHigh().equals(exchangeData.getHigh())) {
-                BigUIUtil.getinstance().anim(viewHolder.tv_highest, mExchangeData.getHigh(), exchangeData.getHigh(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
+                BigUIUtil.getinstance().noAnim(viewHolder.tv_highest, mExchangeData.getHigh(), exchangeData.getHigh(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
             }
             if (!mExchangeData.getLow().equals(exchangeData.getLow())) {
-                BigUIUtil.getinstance().anim(viewHolder.tv_minimum, mExchangeData.getLow(), exchangeData.getLow(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
+                BigUIUtil.getinstance().noAnim(viewHolder.tv_minimum, mExchangeData.getLow(), exchangeData.getLow(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
             }
             if (!mExchangeData.getBid().equals(exchangeData.getBid())) {
-                BigUIUtil.getinstance().anim(viewHolder.tv_buy_one, mExchangeData.getBid(), exchangeData.getBid(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
+                BigUIUtil.getinstance().noAnim(viewHolder.tv_buy_one, mExchangeData.getBid(), exchangeData.getBid(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
             }
             if (!mExchangeData.getAsk().equals(exchangeData.getAsk())) {
-                BigUIUtil.getinstance().anim(viewHolder.tv_sell_one, mExchangeData.getAsk(), exchangeData.getAsk(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
+                BigUIUtil.getinstance().noAnim(viewHolder.tv_sell_one, mExchangeData.getAsk(), exchangeData.getAsk(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
             }
-            List<String> stringsold = BigUIUtil.getinstance().rateTwoPrice(mExchangeData.getLast(), exchangeData.getSymbol(), exchangeData.getUnit());
-            if (!stringsold.get(0).equals(strings.get(0))) {
-                BigUIUtil.getinstance().anim(viewHolder.tv_price, stringsold.get(0), strings.get(0), CommonUtils.getColor(R.color.color_font1), exchangeData.getOnlyKey());
-            }
-            if (!stringsold.get(1).equals(strings.get(1))) {
-                BigUIUtil.getinstance().anim(viewHolder.tv_rate, stringsold.get(1), strings.get(1), CommonUtils.getColor(R.color.color_font3), exchangeData.getOnlyKey());
+            if (!mExchangeData.getLast().equals(exchangeData.getLast())) {
+                BigUIUtil.getinstance().noAnim(viewHolder.tv_price, mExchangeData.getLast(), exchangeData.getLast(), CommonUtils.getColor(R.color.color_font3), exchangeData.getOnlyKey());
+                BigUIUtil.getinstance().noAnim(viewHolder.tv_price_ic, mExchangeData.getLast(), exchangeData.getLast(), CommonUtils.getColor(R.color.color_font3), exchangeData.getOnlyKey());
+                BigUIUtil.getinstance().noAnim(viewHolder.tv_rate, mExchangeData.getLast(), exchangeData.getLast(), CommonUtils.getColor(R.color.color_font3), exchangeData.getOnlyKey());
+                if (new BigDecimal(mExchangeData.getLast()).compareTo(new BigDecimal(exchangeData.getLast())) == 1) {
+                    viewHolder.tv_price_ic.setText(CommonUtils.getString(R.string.ic_down));
+                } else {
+                    viewHolder.tv_price_ic.setText(CommonUtils.getString(R.string.ic_up));
+                }
             }
         }
         mExchangeData = exchangeData;
-    }
+        viewHolder.tv_volume.setText(BigUIUtil.getinstance().bigAmount(exchangeData.getVolume()));
+        viewHolder.tv_highest.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getHigh()));
+        viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow()));
 
+    }
 
     public static class ViewHolder {
         public View rootView;
+        public View v_status;
+        public IconFontTextview toolbar_back;
+        public TextView toolbar_back_txt;
+        public LinearLayout toolbar_lin_back;
+        public FrameLayout fl_content;
+        public IconFontTextview toolbar_subtitle;
+        public View view_subtitle_point;
+        public IconFontTextview toolbar_img2;
+        public View view_img2_point;
+        public IconFontTextview toolbar_img1;
+        public View view_img1_point;
+        public IconFontTextview toolbar_img;
+        public View view_img_point;
+        public TextView toolbar_title;
+        public SkinCompatToolbar toolbar;
+        public LinearLayout layout_title_bar;
         public TextView tv_title;
         public TextView tv_subtitle;
         public FontTextview tv_price;
+        public IconFontTextview tv_price_ic;
         public FontTextview tv_rate;
         public IconFontTextview tv_rise;
         public TextView tv_highest;
@@ -291,9 +288,26 @@ public class MarketDetailsDelegate extends BaseDelegate {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
+            this.v_status = (View) rootView.findViewById(R.id.v_status);
+            this.toolbar_back = (IconFontTextview) rootView.findViewById(R.id.toolbar_back);
+            this.toolbar_back_txt = (TextView) rootView.findViewById(R.id.toolbar_back_txt);
+            this.toolbar_lin_back = (LinearLayout) rootView.findViewById(R.id.toolbar_lin_back);
+            this.fl_content = (FrameLayout) rootView.findViewById(R.id.fl_content);
+            this.toolbar_subtitle = (IconFontTextview) rootView.findViewById(R.id.toolbar_subtitle);
+            this.view_subtitle_point = (View) rootView.findViewById(R.id.view_subtitle_point);
+            this.toolbar_img2 = (IconFontTextview) rootView.findViewById(R.id.toolbar_img2);
+            this.view_img2_point = (View) rootView.findViewById(R.id.view_img2_point);
+            this.toolbar_img1 = (IconFontTextview) rootView.findViewById(R.id.toolbar_img1);
+            this.view_img1_point = (View) rootView.findViewById(R.id.view_img1_point);
+            this.toolbar_img = (IconFontTextview) rootView.findViewById(R.id.toolbar_img);
+            this.view_img_point = (View) rootView.findViewById(R.id.view_img_point);
+            this.toolbar_title = (TextView) rootView.findViewById(R.id.toolbar_title);
+            this.toolbar = (SkinCompatToolbar) rootView.findViewById(R.id.toolbar);
+            this.layout_title_bar = (LinearLayout) rootView.findViewById(R.id.layout_title_bar);
             this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
             this.tv_subtitle = (TextView) rootView.findViewById(R.id.tv_subtitle);
             this.tv_price = (FontTextview) rootView.findViewById(R.id.tv_price);
+            this.tv_price_ic = (IconFontTextview) rootView.findViewById(R.id.tv_price_ic);
             this.tv_rate = (FontTextview) rootView.findViewById(R.id.tv_rate);
             this.tv_rise = (IconFontTextview) rootView.findViewById(R.id.tv_rise);
             this.tv_highest = (TextView) rootView.findViewById(R.id.tv_highest);
@@ -339,3 +353,4 @@ public class MarketDetailsDelegate extends BaseDelegate {
 
     }
 }
+

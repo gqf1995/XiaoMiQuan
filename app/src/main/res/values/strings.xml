@@ -81,7 +81,7 @@
     <string name="str_coin_index">币种指数</string>
     <string name="str_name_of_the">名称</string>
     <string name="str_latest_price">最新价</string>
-    <string name="str_volume">量</string>
+    <string name="str_volume">24H量</string>
     <string name="str_rise_ranking">涨幅榜</string>
     <string name="str_rise">涨幅</string>
     <string name="str_amplitude">震幅</string>

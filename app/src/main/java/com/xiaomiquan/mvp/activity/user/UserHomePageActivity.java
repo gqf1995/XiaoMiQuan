@@ -121,7 +121,7 @@ public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, Bas
                 @Override
                 public void onClick(View view, int position, Object item) {
                     if (view.getId() == R.id.tv_deal) {
-                        GroupDealActivity.startAct(UserHomePageActivity.this, myGroupAdapter.getDatas(), position, true);
+                        GroupDealActivity.startAct(UserHomePageActivity.this, (ArrayList)myGroupAdapter.getDatas(), position, true);
                     }
                     if (view.getId() == R.id.tv_look) {
                         CombinationActivity.startAct(UserHomePageActivity.this, myGroupAdapter.getDatas().get(position), true);

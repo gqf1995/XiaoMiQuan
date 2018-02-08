@@ -53,6 +53,7 @@ public class ExchangeNameListFragment extends BasePullFragment<BaseFragentPullDe
         });
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsLoadMore(false);
+        viewDelegate.setShowNoData(false);
     }
 
     @Override

@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="576"/>
 
-            <TextView
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
                 android:id="@+id/tv_hold_proportion_change"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
