@@ -21,6 +21,7 @@ import com.xiaomiquan.mvp.delegate.circle.ArticleDelegate;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBinder> {
@@ -42,6 +43,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_tv_article)).setSubTitle(CommonUtils.getString(R.string.str_release)));
+        initArticle(new ArrayList<SquareLive>());
         addRequest(binder.getArticle(ArticleActivity.this));
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -60,7 +62,6 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
 
     public void initArticle(final List<SquareLive> squareLives) {
         if (squareLives.size() > 0) {
-
             initHeadView(squareLives.get(0));
             squareLives.remove(0);
         }
@@ -97,10 +98,12 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
                     return false;
                 }
             };
-            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
+//            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
-            viewDelegate.viewHolder.pull_recycleview.setAdapter(artivleAdapter);
+//            viewDelegate.viewHolder.pull_recycleview.setAdapter(artivleAdapter);
+            initRecycleViewPull(artivleAdapter, linearLayoutManager);
         } else {
+            getDataBack(artivleAdapter.getDatas(), squareLives, artivleAdapter);
             artivleAdapter.setDatas(squareLives);
         }
 

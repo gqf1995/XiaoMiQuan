@@ -13,6 +13,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.widget.StickyScrollView;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
+import skin.support.widget.SkinCompatLinearLayout;
 
 /**
  * Created by Andy on 2018/1/26.
@@ -49,8 +50,9 @@ public class SquareDelegate extends BaseMyPullDelegate {
         public LinearLayout lin_live;
         public RecyclerView pull_recycleview;
         public StickyScrollView scrollView_scroll;
-        public SwipeRefreshLayout swipeRefreshLayout;
         public AppCompatImageView civ_send;
+        public SwipeRefreshLayout swipeRefreshLayout;
+        public SkinCompatLinearLayout fl_pull;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -65,8 +67,9 @@ public class SquareDelegate extends BaseMyPullDelegate {
             this.lin_live = (LinearLayout) rootView.findViewById(R.id.lin_live);
             this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
             this.scrollView_scroll = (StickyScrollView) rootView.findViewById(R.id.scrollView_scroll);
-            this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
             this.civ_send = (AppCompatImageView) rootView.findViewById(R.id.civ_send);
+            this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+            this.fl_pull = (SkinCompatLinearLayout) rootView.findViewById(R.id.fl_pull);
         }
 
     }

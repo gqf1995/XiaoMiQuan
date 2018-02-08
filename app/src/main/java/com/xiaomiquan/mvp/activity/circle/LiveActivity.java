@@ -55,12 +55,7 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_tv_live)).setSubTitle(CommonUtils.getString(R.string.str_release)));
         initLive(new ArrayList<SquareLive>());
-//        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                addRequest(binder.getLive(LiveActivity.this));
-//            }
-//        });
+
         viewDelegate.viewHolder.pull_recycleview.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -94,6 +89,7 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
     }
 
     HeaderAndFooterWrapper adapter;
+
     public void initLive(final List<SquareLive> squareLives) {
         if (squareLiveAdapter == null) {
             onRefresh();
@@ -139,10 +135,10 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
                 }
             });
 //            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
-//            viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
+            viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
 //            viewDelegate.viewHolder.pull_recycleview.setAdapter(squareLiveAdapter);
-            adapter = new HeaderAndFooterWrapper(squareLiveAdapter);
-            initRecycleViewPull(adapter, new LinearLayoutManager(this));
+//            adapter = new HeaderAndFooterWrapper(squareLiveAdapter);
+            initRecycleViewPull(squareLiveAdapter, linearLayoutManager);
             viewDelegate.setNoDataTxt(CommonUtils.getString(R.string.str_kline_nodata));
         } else {
             getDataBack(squareLiveAdapter.getDatas(), squareLives, squareLiveAdapter);
