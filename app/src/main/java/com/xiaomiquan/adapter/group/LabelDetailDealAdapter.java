@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.HoldDetail;
+import com.xiaomiquan.utils.BigUIUtil;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -38,10 +39,9 @@ public class LabelDetailDealAdapter extends CommonAdapter<HoldDetail> {
 
         tv_currency.setText(s.getSymbol());
         tv_storage_quantity.setText(s.getCount());
-        tv_storage_price.setText(s.getPrice());
-        tv_now_price.setText(s.getCurrPrice());
-        tv_earnings_ratio.setText(s.getRate());
-
+        tv_storage_price.setText(BigUIUtil.getinstance().bigPrice(s.getPrice()));
+        tv_now_price.setText(BigUIUtil.getinstance().bigPrice(s.getCurrPrice()));
+        BigUIUtil.getinstance().rateTextView(Double.parseDouble(s.getRate()), tv_earnings_ratio);
     }
 
 }

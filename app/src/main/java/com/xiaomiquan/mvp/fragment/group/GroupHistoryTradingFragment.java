@@ -10,7 +10,7 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.LabelHistoryTradingAdapter;
 import com.xiaomiquan.entity.bean.group.HistoryTrading;
-import com.xiaomiquan.mvp.databinder.group.GroupChangeBinder;
+import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
 import java.util.ArrayList;
@@ -19,13 +19,13 @@ import java.util.List;
 /**
  * 历史交易
  */
-public class GroupHistoryTradingFragment extends BasePullFragment<BaseFragentPullDelegate, GroupChangeBinder> {
+public class GroupHistoryTradingFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
     LabelHistoryTradingAdapter groupAdapter;
 
     @Override
-    public GroupChangeBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
-        return new GroupChangeBinder(viewDelegate);
+    public BaseFragmentPullBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
+        return new BaseFragmentPullBinder(viewDelegate);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class GroupHistoryTradingFragment extends BasePullFragment<BaseFragentPul
 
     @Override
     protected void refreshData() {
-
+        addRequest(binder.listDeal(id, "1", this));
     }
 
     public static GroupHistoryTradingFragment newInstance(

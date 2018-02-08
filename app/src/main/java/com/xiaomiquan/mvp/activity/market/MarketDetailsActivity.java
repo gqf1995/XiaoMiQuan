@@ -106,10 +106,12 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         if (timeIndex % updataTime == 0) {
             request(lineBeans.get(lineBeans.size() - 1).timestamp + "");
             timeIndex = 0;
+        } else if (timeIndex == 1) {
+            sendWebSocket();
         }
         handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
         handler.sendEmptyMessageDelayed(1, 1000);
-        viewDelegate.viewHolder.tv_title.setText(exchangeData.getExchange() + "(" + (10 - timeIndex) + ")");
+        viewDelegate.getmToolbarSubTitle().setText((10 - timeIndex) + "s");
     }
 
     @Override
@@ -120,7 +122,10 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         initView();
         //删除 无效记录
         KlineDaoUtil.delectHistory(exchangeData.getOnlyKey());
-        initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(CommonUtils.getString(R.string.ic_Update1)));//.setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
+        initToolbar(new ToolbarBuilder().setTitle("").setBackTxt(exchangeData.getExchange() + "  " + exchangeData.getSymbol() + "/" + exchangeData.getUnit()));//.setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
+        viewDelegate.getmToolbarBackTxt().setText(exchangeData.getExchange() + "  " + exchangeData.getSymbol() + "/" + exchangeData.getUnit());
+        viewDelegate.getmToolbarBack().setText(CommonUtils.getString(R.string.ic_Left));
+        viewDelegate.getmToolbarBack().setVisibility(View.VISIBLE);
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
         viewDelegate.setOnClickListener(this, R.id.lin_add, R.id.lin_global_market, R.id.lin_currency_data, R.id.lin_simulation);
         initCollection();
@@ -139,7 +144,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
     private void onBack() {
         onBackPressed();
-        overridePendingTransition(R.anim.pop_right_enter_anim, R.anim.pop_right_exit_anim);
+        overridePendingTransition(R.anim.pop_no, R.anim.pop_right_exit_anim);
     }
 
     List<String> dataset1;//选择 时间
@@ -202,15 +207,13 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
             } else {
                 lineBeans.addAll(kLineBeans);
             }
-            if (lineBeans != null) {
+            if (lineBeans.size() > 0) {
+                Log.i("KlineDraw", "DataParse");
+                mData = new DataParse();
                 if (lineBeans.size() > 0) {
-                    Log.i("KlineDraw", "DataParse");
-                    mData = new DataParse();
-                    if (lineBeans.size() > 0) {
-                        mData.parseKLine(lineBeans);
-                    }
-                    klineDraw = new KlineDraw();
+                    mData.parseKLine(lineBeans);
                 }
+                klineDraw = new KlineDraw();
             }
             viewDelegate.viewHolder.combinedchart.setOnMaxLeftLinsener(new KCombinedChart.OnMaxLeftLinsener() {
                 @Override
@@ -246,7 +249,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-        if (klineDraw != null) {
+        if (klineDraw != null && false) {
             //手动刷新
             if (anim != null && anim.isRunning()) {
                 anim.cancel();
@@ -274,6 +277,10 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 Log.i("KlineDraw", "onServiceSuccess");
                 setLog("请求成功" + TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss:SSS")));
                 List<KLineBean> newkLineBeans = GsonUtil.getInstance().toList(data, KLineBean.class);
+                if(newkLineBeans.size()==0){
+                    viewDelegate.noKlineView();
+                    return;
+                }
                 if (isChange) {
                     //初始化所有数据
                     getOffLineData(newkLineBeans);
@@ -299,10 +306,10 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                     viewDelegate.viewHolder.barchart.setNoDataText(CommonUtils.getString(R.string.str_kline_nodata));
                 }
                 isChange = false;
-
                 break;
         }
     }
+
 
 
     //初始化 k线
@@ -389,7 +396,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
             }
         });
-        sendWebSocket();
+
     }
 
     List<String> sendKeys;
@@ -412,7 +419,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         Intent intent = new Intent(activity, MarketDetailsActivity.class);
         intent.putExtra("exchangeData", exchangeData);
         activity.startActivity(intent);
-        activity.overridePendingTransition(R.anim.pop_right_enter_anim, R.anim.pop_right_exit_anim);
+        activity.overridePendingTransition(R.anim.pop_right_enter_anim, R.anim.pop_no);
     }
 
     @Override

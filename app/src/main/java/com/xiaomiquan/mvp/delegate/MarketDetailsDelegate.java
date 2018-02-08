@@ -62,6 +62,12 @@ public class MarketDetailsDelegate extends BaseDelegate {
 
     }
 
+    //没有k线
+    public void noKlineView() {
+        viewHolder.lin_kbg.setVisibility(View.GONE);
+        viewHolder.lin_no_kline.setVisibility(View.VISIBLE);
+    }
+
     public int selectPosition = 0;
 
     public void setDetailsData(int position, DataParse data) {
@@ -243,9 +249,9 @@ public class MarketDetailsDelegate extends BaseDelegate {
         public FontTextview tv_price;
         public FontTextview tv_rate;
         public IconFontTextview tv_rise;
-        public TextView tv_volume;
         public TextView tv_highest;
         public TextView tv_minimum;
+        public TextView tv_volume;
         public TextView tv_buy_one;
         public TextView tv_sell_one;
         public TextView tv_market_value;
@@ -272,6 +278,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
         public LinearLayout lin_ma2;
         public KCombinedChart barchart;
         public LinearLayout lin_kbg;
+        public LinearLayout lin_no_kline;
         public LinearLayout lin_global_market;
         public LinearLayout lin_currency_data;
         public LinearLayout lin_simulation;
@@ -289,9 +296,9 @@ public class MarketDetailsDelegate extends BaseDelegate {
             this.tv_price = (FontTextview) rootView.findViewById(R.id.tv_price);
             this.tv_rate = (FontTextview) rootView.findViewById(R.id.tv_rate);
             this.tv_rise = (IconFontTextview) rootView.findViewById(R.id.tv_rise);
-            this.tv_volume = (TextView) rootView.findViewById(R.id.tv_volume);
             this.tv_highest = (TextView) rootView.findViewById(R.id.tv_highest);
             this.tv_minimum = (TextView) rootView.findViewById(R.id.tv_minimum);
+            this.tv_volume = (TextView) rootView.findViewById(R.id.tv_volume);
             this.tv_buy_one = (TextView) rootView.findViewById(R.id.tv_buy_one);
             this.tv_sell_one = (TextView) rootView.findViewById(R.id.tv_sell_one);
             this.tv_market_value = (TextView) rootView.findViewById(R.id.tv_market_value);
@@ -318,6 +325,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
             this.lin_ma2 = (LinearLayout) rootView.findViewById(R.id.lin_ma2);
             this.barchart = (KCombinedChart) rootView.findViewById(R.id.barchart);
             this.lin_kbg = (LinearLayout) rootView.findViewById(R.id.lin_kbg);
+            this.lin_no_kline = (LinearLayout) rootView.findViewById(R.id.lin_no_kline);
             this.lin_global_market = (LinearLayout) rootView.findViewById(R.id.lin_global_market);
             this.lin_currency_data = (LinearLayout) rootView.findViewById(R.id.lin_currency_data);
             this.lin_simulation = (LinearLayout) rootView.findViewById(R.id.lin_simulation);

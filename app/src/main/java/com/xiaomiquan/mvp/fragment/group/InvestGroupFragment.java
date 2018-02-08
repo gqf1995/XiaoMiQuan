@@ -70,8 +70,8 @@ public class InvestGroupFragment extends BaseDataBindFragment<ComTabViewpageDele
                         ((AllGroupFragment) fragments.get(i)).notifyDataSetChanged();
                     } else if (fragments.get(i) instanceof CompetitionGroupFragment) {
                         ((CompetitionGroupFragment) fragments.get(i)).notifyDataSetChanged();
-                    } else if (fragments.get(i) instanceof MyGocuseGroupFragment) {
-                        ((MyGocuseGroupFragment) fragments.get(i)).notifyDataSetChanged();
+                    } else if (fragments.get(i) instanceof MyFocuseGroupFragment) {
+                        ((MyFocuseGroupFragment) fragments.get(i)).notifyDataSetChanged();
                     } else if (fragments.get(i) instanceof MyGroupFragment) {
                         ((MyGroupFragment) fragments.get(i)).notifyDataSetChanged();
                     }
@@ -100,7 +100,7 @@ public class InvestGroupFragment extends BaseDataBindFragment<ComTabViewpageDele
         fragments = new ArrayList<>();
         fragments.add(new AllGroupFragment());
         fragments.add(new CompetitionGroupFragment());
-        fragments.add(new MyGocuseGroupFragment());
+        fragments.add(new MyFocuseGroupFragment());
         fragments.add(new MyGroupFragment());
         for (int i = 0; i < mTitles.size(); i++) {
             mTabEntities.add(new TabEntity(mTitles.get(i), 0, 0));

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.NoParentsTouchFramelayout;
 import com.tablayout.CommonTabLayout;
@@ -21,7 +20,6 @@ import com.xiaomiquan.entity.bean.group.CoinDetail;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.UserSet;
-import com.xiaomiquan.widget.DropDownView;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 
 import java.util.ArrayList;
@@ -38,12 +36,13 @@ public class GroupDealDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
 
     private ArrayList<CustomTabEntity> mTabEntitiesTop = new ArrayList<>();
-
+    public CoinDetail mCoinDetail;
     String buyBalance = "";
     String sellBalance = "";
     public int selectType = 0;
+    List<String> dataset2;
 
-    public void initTop(DefaultClickLinsener defaultClickLinsener) {
+    public void initTop() {
         viewHolder.tl_1.setIconVisible(false);
         mTabEntitiesTop.add(new TabEntity(CommonUtils.getString(R.string.str_buy), R.string.ic_Download, 0));
         mTabEntitiesTop.add(new TabEntity(CommonUtils.getString(R.string.str_sell), R.string.ic_Upload, 0));
@@ -51,12 +50,30 @@ public class GroupDealDelegate extends BaseDelegate {
         viewHolder.nestedScrollView.setNoScollView(viewHolder.fl_currency);
         changeType(true);
         viewHolder.et_coin_search.setBackground(new RadiuBg(CommonUtils.getColor(R.color.base_mask), 1000, 1000, 1000, 1000));
-
-        List<String> dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_price_type));
-        viewHolder.lin_choose.setDefaultClickLinsener(defaultClickLinsener).setDatas(dataset2, null);
+        dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_price_type));
+        selectType = 0;
+        viewHolder.tv_choose_txt.setText(dataset2.get(0));
+        viewHolder.lin_choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCoinDetail != null) {
+                    if (selectType == 0) {
+                        selectType = 1;
+                        viewHolder.tv_choose_txt.setText(dataset2.get(1));
+                        viewHolder.et_sell_price.setEnabled(false);
+                        viewHolder.et_sell_price.setText(BigUIUtil.getinstance().bigPrice(mCoinDetail.getPriceUsd()));
+                    } else {
+                        selectType = 0;
+                        viewHolder.tv_choose_txt.setText(dataset2.get(0));
+                        viewHolder.et_sell_price.setEnabled(true);
+                    }
+                }
+            }
+        });
     }
 
     public void onSelectLinsener(CoinDetail coinDetail, GroupItem groupItem) {
+        mCoinDetail = coinDetail;
         if (coinDetail == null) {
             viewHolder.tv_buy_price.setText(CommonUtils.getString(R.string.str_now_no_data));
             viewHolder.tv_balance.setText(CommonUtils.getString(R.string.str_now_no_data));
@@ -65,6 +82,14 @@ public class GroupDealDelegate extends BaseDelegate {
             viewHolder.tv_unit.setText(CommonUtils.getString(R.string.str_now_no_data));
             return;
         }
+
+        if (selectType == 1) {
+            viewHolder.et_sell_price.setText(BigUIUtil.getinstance().bigPrice(mCoinDetail.getPriceUsd()));
+            viewHolder.et_sell_price.setEnabled(false);
+        } else {
+            viewHolder.et_sell_price.setEnabled(true);
+        }
+
         viewHolder.tv_unit.setText(coinDetail.getSymbol());
         List<String> strings = BigUIUtil.getinstance().rateUSDAndCNY(coinDetail.getPriceUsd(), coinDetail.getSymbol(), UserSet.getinstance().getUSDUnit());
 
@@ -103,7 +128,7 @@ public class GroupDealDelegate extends BaseDelegate {
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
         viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px), viewHolder.vp_sliding, false);
-
+        initTop();
 
     }
 
@@ -129,7 +154,9 @@ public class GroupDealDelegate extends BaseDelegate {
         public TextView tv_balance;
         public TextView tv_price_label;
         public EditText et_sell_price;
-        public DropDownView lin_choose;
+        public TextView tv_choose_txt;
+        public IconFontTextview tv_drop;
+        public LinearLayout lin_choose;
         public TextView tv_num_label;
         public EditText et_sell_num;
         public TextView tv_unit;
@@ -155,7 +182,9 @@ public class GroupDealDelegate extends BaseDelegate {
             this.tv_balance = (TextView) rootView.findViewById(R.id.tv_balance);
             this.tv_price_label = (TextView) rootView.findViewById(R.id.tv_price_label);
             this.et_sell_price = (EditText) rootView.findViewById(R.id.et_sell_price);
-            this.lin_choose = (DropDownView) rootView.findViewById(R.id.lin_choose);
+            this.tv_choose_txt = (TextView) rootView.findViewById(R.id.tv_choose_txt);
+            this.tv_drop = (IconFontTextview) rootView.findViewById(R.id.tv_drop);
+            this.lin_choose = (LinearLayout) rootView.findViewById(R.id.lin_choose);
             this.tv_num_label = (TextView) rootView.findViewById(R.id.tv_num_label);
             this.et_sell_num = (EditText) rootView.findViewById(R.id.et_sell_num);
             this.tv_unit = (TextView) rootView.findViewById(R.id.tv_unit);

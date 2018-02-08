@@ -75,6 +75,9 @@ public class WebSocketRequest {
                 stringBuffer.append(",").append(keys.get(i));
             }
             //unregister(oldSend);
+            if (disposable != null) {
+                disposable.dispose();
+            }
             oldSend = stringBuffer.toString();
             register(oldSend);
         }
@@ -199,7 +202,7 @@ public class WebSocketRequest {
 
     private void startSocket() {
         isOpen = false;
-//        KLog.i(REQUEST_TAG, "startSocket  " + mUrl);
+        //        KLog.i(REQUEST_TAG, "startSocket  " + mUrl);
         client = new TickerWebsocket(mUrl) {
             @Override
             public void onMessage(String message) {
@@ -223,7 +226,7 @@ public class WebSocketRequest {
                 startSocket();
             }
         };
-        Thread thread=new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 client.start();

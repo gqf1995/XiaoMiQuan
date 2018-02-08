@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">XiaoMiQuan</string>
+    <string name="app_name">BCOIN</string>
     <string name="action_settings">Settings</string>
 
 
@@ -222,6 +222,7 @@
     <string name="str_group_dynamic">组合动态</string>
     <string name="str_save">保存</string>
     <string name="str_fucose">关注</string>
+    <string name="str_cancel_fucose">取消关注</string>
     <string name="str_already_fucose">已关注</string>
     <string name="str_fucose_people_num">关注人数</string>
     <string name="str_deal_time">成交时间</string>
@@ -231,6 +232,9 @@
     <string name="str_creater">创建者</string>
     <string name="str_master">圈主</string>
     <string name="str_top">置顶</string>
+    <string name="str_deal_price">成交价</string>
+    <string name="str_no_kline">该币种暂无K线</string>
+    <string name="str_no_kline_toast">程序员已经在努力优化了</string>
 
 
     <string name="str_search_circle">查找圈子</string>
@@ -464,7 +468,6 @@
         <item>EMA</item>
         <item>均线</item>
     </string-array>
-
 
 
 </resources>

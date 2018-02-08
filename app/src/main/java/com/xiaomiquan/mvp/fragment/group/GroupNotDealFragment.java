@@ -39,6 +39,8 @@ public class GroupNotDealFragment extends BasePullFragment<BaseFragentPullDelega
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        id = getArguments().getString("id");
+        initList(new ArrayList<HistoryTrading>());
     }
 
 
@@ -48,7 +50,7 @@ public class GroupNotDealFragment extends BasePullFragment<BaseFragentPullDelega
         adapter.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
             public void onClick(View view, int position, Object item) {
-                addRequest(binder.cancel(adapter.getDatas().get(position).getDemoId(), GroupNotDealFragment.this));
+                addRequest(binder.cancel(adapter.getDatas().get(position).getId(), GroupNotDealFragment.this));
             }
         });
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
@@ -69,22 +71,10 @@ public class GroupNotDealFragment extends BasePullFragment<BaseFragentPullDelega
                 List<HistoryTrading> data1 = GsonUtil.getInstance().toList(data, HistoryTrading.class);
                 getDataBack(adapter.getDatas(), data1, adapter);
                 break;
+            case 0x124:
+                onRefresh();
+                break;
         }
-    }
-
-    @Override
-    protected void onFragmentVisibleChange(boolean isVisible) {
-        if (isVisible) {
-            onRefresh();
-        } else {
-            binder.cancelpost();
-        }
-    }
-
-    @Override
-    protected void onFragmentFirstVisible() {
-        id = getArguments().getString("id");
-        initList(new ArrayList<HistoryTrading>());
     }
 
     @Override

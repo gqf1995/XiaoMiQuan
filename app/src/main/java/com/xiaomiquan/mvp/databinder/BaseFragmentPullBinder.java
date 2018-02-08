@@ -293,10 +293,10 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
      * 持有币种列表
      */
     public Disposable myCoin(
-            String dealId,
+            String demoId,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("dealId", dealId);
+        baseMap.put("demoId", demoId);
         baseMap.put("pageNum", viewDelegate.page);
         baseMap.put("pageSize", viewDelegate.pagesize);
         return new HttpRequest.Builder()
@@ -395,7 +395,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
             String demoId,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("demoId", demoId);
+        baseMap.put("dealId", demoId);
         return new HttpRequest.Builder()
                 .setRequestCode(0x124)
                 .setRequestUrl(HttpUrl.getIntance().cancel)
@@ -446,6 +446,27 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("取消关注组合")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+    /**
+     * 组合动态
+     */
+    public Disposable dynamic(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("pageNum",viewDelegate.page);
+        baseMap.put("pageSize",viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x125)
+                .setRequestUrl(HttpUrl.getIntance().dynamic)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("组合动态")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)

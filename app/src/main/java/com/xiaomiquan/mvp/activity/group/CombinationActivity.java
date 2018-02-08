@@ -43,8 +43,21 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-        //修改简介
-        EditIntroductionActivity.startAct(this, groupItem.getId(), groupItem.getBrief(), groupItem.getSync(), 0x123);
+        if (isMy) {
+            //修改简介
+            EditIntroductionActivity.startAct(this, groupItem.getId(), groupItem.getBrief(), groupItem.getSync(), 0x123);
+        } else {
+            //取消关注 或 关注
+            if (groupItem.getIsAttention() == 0) {
+                binder.cancelAttention(groupItem.getUserId(), null);
+                viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_focuse));
+            } else if (groupItem.getIsAttention() == 1) {
+                binder.demoattention(groupItem.getUserId(), null);
+                viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_cancel_fucose));
+            } else if (groupItem.getIsAttention() == 2) {
+
+            }
+        }
     }
 
     public static void startAct(Activity activity,
@@ -65,7 +78,7 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         groupItem = intent.getParcelableExtra("groupItem");
         isMy = intent.getBooleanExtra("isMy", false);
         viewDelegate.initData(groupItem);
-        addRequest(binder.getTodayInfo(groupItem.getId(), this));
+        addRequest(binder.getTodayInfo(isMy ? groupItem.getId() : groupItem.getUserId(), this));
     }
 
 
@@ -73,7 +86,7 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
     protected void bindEvenListener() {
         super.bindEvenListener();
         getIntentData();
-        initToolbar(new ToolbarBuilder().setTitle(groupItem.getName()).setSubTitle(isMy ? CommonUtils.getString(R.string.str_change_introduction) : ""));
+        initToolbar(new ToolbarBuilder().setTitle(groupItem.getName()).setSubTitle(isMy ? CommonUtils.getString(R.string.str_change_introduction) : CommonUtils.getString(R.string.str_cancel_fucose)));
         initViews();
     }
 
@@ -100,7 +113,7 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
                 //今日收益&日均操作次数
                 viewDelegate.viewHolder.tv_today_earnings.setText(GsonUtil.getInstance().getValue(data, "todayRate"));
                 viewDelegate.viewHolder.tv_daily_operation.setText(GsonUtil.getInstance().getValue(data, "count"));
-                addRequest(binder.rateTrend(groupItem.getId(), this));
+                addRequest(binder.rateTrend(isMy ? groupItem.getId() : groupItem.getUserId(), this));
                 break;
             case 0x124:
                 //分期收益
@@ -110,7 +123,7 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
                 //收益走势
                 EarningsMovements earningsMovements = GsonUtil.getInstance().toObj(data, EarningsMovements.class);
                 viewDelegate.initEarningsMovements(earningsMovements);
-                addRequest(binder.allRate(groupItem.getId(), this));
+                addRequest(binder.allRate(isMy ? groupItem.getId() : groupItem.getUserId(), this));
                 break;
         }
     }
@@ -118,10 +131,10 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
     private void initViews() {
         String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_combination);
         fragments = new ArrayList<>();
-        fragments.add(GroupDetailListFragment.newInstance(groupItem.getId()));
-        fragments.add(GroupNotDealFragment.newInstance(groupItem.getId()));
-        fragments.add(GroupHistoryTradingFragment.newInstance(groupItem.getId()));
-        fragments.add(GroupHistoryEntrustFragment.newInstance(groupItem.getId()));
+        fragments.add(GroupDetailListFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
+        fragments.add(GroupNotDealFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
+        fragments.add(GroupHistoryTradingFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
+        fragments.add(GroupHistoryEntrustFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
         for (int i = 0; i < stringArray.length; i++) {
             mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
         }

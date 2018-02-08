@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
@@ -22,14 +23,12 @@ import com.xiaomiquan.mvp.delegate.IMDelegate;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
-import com.xiaomiquan.mvp.fragment.circle.CircleFragment;
 import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.HandlerHelper;
 import com.xiaomiquan.utils.PingUtil;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 
 import java.util.ArrayList;
 
@@ -62,7 +61,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         initFragment();
         mainEventBusHelper = new MainEventBusHelper(this, viewDelegate, binder);
         uid = DeviceUtils.getAndroidID() + System.currentTimeMillis();
-        //initSocket();
+        initSocket();
         updata();
         netWorkLinsener();
     }
@@ -91,7 +90,6 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     @Override
     protected void onStop() {
         super.onStop();
-        //页面切换停止websocket
         WebSocketRequest.getInstance().sendData(new ArrayList<String>());
     }
 

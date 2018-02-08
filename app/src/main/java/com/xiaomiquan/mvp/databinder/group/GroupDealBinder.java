@@ -18,27 +18,27 @@ public class GroupDealBinder extends BaseDataBind<GroupDealDelegate> {
     }
 
 
-    /**
-     * 获取余额
-     */
-    public Disposable getBalance(
-            String demoId,
-            RequestCallback requestCallback) {
-        getBaseMapWithUid();
-        baseMap.put("demoId", demoId);
-        return new HttpRequest.Builder()
-                .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().getBalance)
-                .setShowDialog(true)
-                .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("获取余额")
-                .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.Json)
-                .setRequestObj(baseMap)
-                .setRequestCallback(requestCallback)
-                .build()
-                .RxSendRequest();
-    }
+//    /**
+//     * 获取余额
+//     */
+//    public Disposable getBalance(
+//            String demoId,
+//            RequestCallback requestCallback) {
+//        getBaseMapWithUid();
+//        baseMap.put("demoId", demoId);
+//        return new HttpRequest.Builder()
+//                .setRequestCode(0x123)
+//                .setRequestUrl(HttpUrl.getIntance().getBalance)
+//                .setShowDialog(true)
+//                .setDialog(viewDelegate.getNetConnectDialog())
+//                .setRequestName("获取余额")
+//                .setRequestMode(HttpRequest.RequestMode.POST)
+//                .setParameterMode(HttpRequest.ParameterMode.Json)
+//                .setRequestObj(baseMap)
+//                .setRequestCallback(requestCallback)
+//                .build()
+//                .RxSendRequest();
+//    }
 
     /**
      * 申请买卖
@@ -50,6 +50,7 @@ public class GroupDealBinder extends BaseDataBind<GroupDealDelegate> {
             String price,
             String priceType,
             String count,
+            int code,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("demoId", demoId);
@@ -59,7 +60,7 @@ public class GroupDealBinder extends BaseDataBind<GroupDealDelegate> {
         baseMap.put("priceType", priceType);
         baseMap.put("count", count);
         return new HttpRequest.Builder()
-                .setRequestCode(0x124)
+                .setRequestCode(code)
                 .setRequestUrl(HttpUrl.getIntance().deal)
                 .setShowDialog(true)
                 .setDialog(viewDelegate.getNetConnectDialog())

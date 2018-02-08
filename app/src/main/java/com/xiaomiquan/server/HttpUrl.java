@@ -372,6 +372,10 @@ public class HttpUrl {
      * 组合分享
      */
     public String articleSave = getBaseUrl() + demoUrl + "/articleSave";
+    /**
+     * 组合动态
+     */
+    public String dynamic = getBaseUrl() + demoUrl + "/dynamic";
 
 
 

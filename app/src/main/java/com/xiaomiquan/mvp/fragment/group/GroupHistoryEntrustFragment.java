@@ -37,6 +37,8 @@ public class GroupHistoryEntrustFragment extends BasePullFragment<BaseFragentPul
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        id=getArguments().getString("id");
+        initList(new ArrayList<HistoryTrading>());
     }
 
 
@@ -63,24 +65,11 @@ public class GroupHistoryEntrustFragment extends BasePullFragment<BaseFragentPul
         }
     }
 
-    @Override
-    protected void onFragmentVisibleChange(boolean isVisible) {
-        if (isVisible) {
-            onRefresh();
-        } else {
-            binder.cancelpost();
-        }
-    }
 
-    @Override
-    protected void onFragmentFirstVisible() {
-        id=getArguments().getString("id");
-        initList(new ArrayList<HistoryTrading>());
-    }
 
     @Override
     protected void refreshData() {
-        //addRequest(binder.listArticleByPage(this));
+        addRequest(binder.history(id,this));
     }
 
     public static GroupHistoryEntrustFragment newInstance(

@@ -79,5 +79,46 @@ public class CombinationBinder extends BaseDataBind<CombinationDelegate> {
                 .build()
                 .RxSendRequest();
     }
-
+    /**
+     * 取消关注组合
+     */
+    public Disposable cancelAttention(
+            String demoId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("demoId", demoId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x126)
+                .setRequestUrl(HttpUrl.getIntance().cancelAttention)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("取消关注组合")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+    /**
+     * 关注组合
+     */
+    public Disposable demoattention(
+            String demoId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("userId", demoId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x127)
+                .setRequestUrl(HttpUrl.getIntance().demoattention)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("关注组合")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 }

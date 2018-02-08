@@ -77,8 +77,7 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
 
         tv_coin_unit.setText(s.getUnit());
 
-        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + BigUIUtil.getinstance().bigAmount(s.getAmount()));
-
+        tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + BigUIUtil.getinstance().bigAmount(s.getVolume()));
 
         tv_name.setText(CommonUtils.getString(R.string.str_rise) + BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
 
