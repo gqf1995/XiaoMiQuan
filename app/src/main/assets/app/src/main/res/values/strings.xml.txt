@@ -289,7 +289,7 @@
     <string name="str_pop_cancle">取消</string>
 
     <string name="str_tv_news">热门资讯</string>
-    <string name="str_tv_live">快讯直播</string>
+    <string name="str_tv_live">大V直播</string>
     <string name="str_tv_article">精选文章</string>
     <string name="str_tv_like">利好</string>
     <string name="str_tv_dislike">利空</string>

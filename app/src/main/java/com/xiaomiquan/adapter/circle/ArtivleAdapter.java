@@ -79,8 +79,8 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
             tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
             tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
         } else {
-            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
-            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font2));
+            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font2));
 
         }
 

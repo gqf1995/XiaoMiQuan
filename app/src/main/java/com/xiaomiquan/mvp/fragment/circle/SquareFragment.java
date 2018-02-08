@@ -68,14 +68,11 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         userLogin = SingSettingDBUtil.getUserLogin();
         initShortCut();
         floatBtn();
+        initLive(new ArrayList<SquareLive>());
+//        addRequest(binder.getLive(SquareFragment.this));
         viewDelegate.viewHolder.lin_live.setOnClickListener(this);
         viewDelegate.viewHolder.lin_news.setOnClickListener(this);
-        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                addRequest(binder.getLive(SquareFragment.this));
-            }
-        });
+
 
         viewDelegate.viewHolder.scrollView_scroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -95,7 +92,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                 break;
             case 0x124:
                 List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
-                viewDelegate.viewHolder.tv_live_time.setText(datas.get(0).getYearMonthDay());
+//                viewDelegate.viewHolder.tv_live_time.setText(datas.get(0).getYearMonthDay());
                 initLive(datas);
                 break;
             case 0x125:
@@ -141,18 +138,14 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         addRequest(binder.getLive(this));
     }
 
-    List<SquareLive> squareLives;
-
     @Override
     protected void onFragmentFirstVisible() {
-        squareLives = new ArrayList<>();
-        initLive(squareLives);
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
     }
 
     List<String> mtitles;
 
     public void initShortCut() {
-        if (squareShortCutAdapter == null) {
             mtitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_square));
             int[] imgs = {R.drawable.icon_live, R.drawable.icon_group, R.drawable.icon_bigv, R.drawable.icon_article};
             List<HashMap<String, Object>> list = new ArrayList<>();
@@ -204,7 +197,6 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
             viewDelegate.viewHolder.ry_entrance.setLayoutManager(gridLayoutManager);
             viewDelegate.viewHolder.ry_entrance.setItemAnimator(new DefaultItemAnimator());
             viewDelegate.viewHolder.ry_entrance.setAdapter(squareShortCutAdapter);
-        }
     }
 
     public void initLive(final List<SquareLive> squareLives) {
@@ -216,10 +208,10 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
             squareLiveAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                    if (squareLives.get(position).getType().equals("1")) {
-                        ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
+                    if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
+                        ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
                     } else {
-                        TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+                        TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
                     }
                 }
 
@@ -232,29 +224,29 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                 @Override
                 public void onClick(View view, final int position, Object item) {
                     if (view.getId() == R.id.lin_comment) {
-                        if (squareLives.get(position).getType().equals("1")) {
-                            ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
+                        if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
+                            ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
                         } else {
-                            TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+                            TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
                         }
                     }
                     if (view.getId() == R.id.cv_head) {
-                        UserHomePageActivity.startAct(getActivity(), squareLives.get(position).getUserId());
+                        UserHomePageActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position).getUserId());
                     }
                 }
             });
             // viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
             // viewDelegate.viewHolder.ry_live.setAdapter(squareLiveAdapter);
+
+
             initRecycleViewPull(squareLiveAdapter, new LinearLayoutManager(getActivity()) {
                 @Override
                 public boolean canScrollVertically() {
                     return false;
                 }
             });
-            // }
         } else {
-            //squareLiveAdapter.setDatas(squareLives);
             getDataBack(squareLiveAdapter.getDatas(), squareLives, squareLiveAdapter);
         }
 
