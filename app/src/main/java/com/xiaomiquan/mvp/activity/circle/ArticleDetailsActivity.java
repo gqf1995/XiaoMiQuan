@@ -14,11 +14,13 @@ import android.view.inputmethod.InputMethodManager;
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CommentDetailAdapter;
 import com.xiaomiquan.entity.bean.circle.Comment;
 import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.ArticleDetailsBinder;
 import com.xiaomiquan.mvp.delegate.circle.ArticleDetailsDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -94,6 +96,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
         viewDelegate.viewHolder.tv_commit.setOnClickListener(this);
         viewDelegate.viewHolder.et_input2.setOnClickListener(this);
         viewDelegate.viewHolder.lin_comment.setOnClickListener(this);
+        viewDelegate.viewHolder.lin_userinfo.setOnClickListener(this);
         GlideUtils.loadImage(square.getImg(), viewDelegate.viewHolder.iv_banner);
         GlideUtils.loadImage(square.getAvatar(), viewDelegate.viewHolder.cv_head);
         viewDelegate.viewHolder.tv_comment_num.setText(square.getCommentCount() + "");
@@ -131,6 +134,14 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
                     return false;
                 }
             });
+
+            commentAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, int position, Object item) {
+                    UserHomePageActivity.startAct(ArticleDetailsActivity.this, comment.get(position).getCommentUserId());
+                }
+            });
+            viewDelegate.viewHolder.rv_comment.getItemAnimator().setChangeDuration(0);
             viewDelegate.viewHolder.rv_comment.setAdapter(commentAdapter);
         } else {
             commentAdapter.setDatas(comment);
@@ -184,6 +195,9 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
                 break;
             case R.id.lin_comment:
                 initPop(true, "", "");
+                break;
+            case R.id.lin_userinfo:
+                UserHomePageActivity.startAct(ArticleDetailsActivity.this, squareLive.getUserId());
                 break;
         }
     }

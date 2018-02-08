@@ -13,6 +13,7 @@ import com.xiaomiquan.adapter.circle.BigVListAdapter;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.circle.UserFriende;
 import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
+import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.RecommendBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -98,6 +99,9 @@ public class AttentionFragment extends BasePullFragment<BaseFragentPullDelegate,
                             addRequest(binder.attentiondelete(userFriendes.get(position).getAttentionId(), AttentionFragment.this));
                             bigVListAdapter.userFriendes.remove(position);
                             bigVListAdapter.notifyDataSetChanged();
+                            break;
+                        case R.id.cv_head:
+                            UserHomePageActivity.startAct(getActivity(), userFriendes.get(position).getId());
                             break;
                     }
                 }

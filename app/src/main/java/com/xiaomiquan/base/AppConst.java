@@ -10,6 +10,7 @@ public class AppConst {
      * 测试
      */
     public static final String httpBaseUrl = "http://topcoin.bicoin.com.cn/topcoin";
+//    public static final String httpBaseUrl = "http://topcoin.bicoin.com.cn/topcoin";
 //    public static final String httpBaseUrl2 = "http://47.97.169.136:1903";
 //    //public static final String httpBaseUrl2 = "http://192.168.31.12:1903/";
 //    //public static final String httpBaseUrl3 = "http://hk-topcoin.tokenboxes.com";

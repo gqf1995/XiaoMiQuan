@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -15,7 +14,7 @@
             android:id="@+id/iv_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/trans_226px"
-            android:background="@drawable/user_bg_dark"/>
+            android:background="@drawable/user_bg_dark" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +31,7 @@
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -47,23 +46,24 @@
                         android:layout_weight="1"
                         android:text=""
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_trans_32px"/>
+                        android:textSize="@dimen/text_trans_32px" />
 
                     <TextView
                         android:id="@+id/tv_is_focuse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/trans_20px"
                         android:gravity="center"
                         android:text=""
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_trans_22px"/>
+                        android:textSize="@dimen/text_trans_22px" />
 
 
                 </LinearLayout>
 
                 <Space
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/trans_9px"/>
+                    android:layout_height="@dimen/trans_9px" />
 
 
                 <LinearLayout
@@ -79,7 +79,7 @@
                         android:gravity="center"
                         android:text="@string/str_fans"
                         android:textColor="@color/color_999999"
-                        android:textSize="@dimen/text_trans_22px"/>
+                        android:textSize="@dimen/text_trans_22px" />
 
 
                     <TextView
@@ -89,11 +89,11 @@
                         android:gravity="center"
                         android:text="@string/str_fans"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_trans_22px"/>
+                        android:textSize="@dimen/text_trans_22px" />
 
                     <Space
                         android:layout_width="@dimen/trans_50px"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
                         android:gravity="center"
                         android:text="@string/str_focuse"
                         android:textColor="@color/color_999999"
-                        android:textSize="@dimen/text_trans_22px"/>
+                        android:textSize="@dimen/text_trans_22px" />
 
                     <TextView
                         android:id="@+id/tv_focuse_num"
@@ -111,7 +111,7 @@
                         android:gravity="center"
                         android:text="@string/str_fans"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_trans_22px"/>
+                        android:textSize="@dimen/text_trans_22px" />
 
                 </LinearLayout>
 
@@ -139,7 +139,7 @@
                     android:paddingTop="@dimen/trans_3px"
                     android:text="@string/str_high_quality"
                     android:textColor="@color/color_F5A623"
-                    android:textSize="@dimen/text_trans_22px"/>
+                    android:textSize="@dimen/text_trans_22px" />
 
                 <TextView
                     android:id="@+id/tv_free_subscription"
@@ -153,7 +153,7 @@
                     android:paddingTop="@dimen/trans_3px"
                     android:text="@string/str_free_subscription"
                     android:textColor="@color/color_44c745"
-                    android:textSize="@dimen/text_trans_22px"/>
+                    android:textSize="@dimen/text_trans_22px" />
 
                 <TextView
                     android:id="@+id/tv_my_subscribe"
@@ -163,13 +163,13 @@
                     android:text="@string/str_my_subscribe_management"
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_28px"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:layout_width="wrap_content"
@@ -178,8 +178,7 @@
                     android:layout_marginRight="@dimen/trans_30px"
                     android:text="@string/ic_Next"
                     android:textColor="@color/color_font2"
-                    android:textSize="@dimen/text_trans_30px"
-                    />
+                    android:textSize="@dimen/text_trans_30px" />
 
             </LinearLayout>
 
@@ -191,8 +190,7 @@
             android:layout_height="@dimen/trans_144px"
             android:layout_gravity="bottom"
             android:layout_marginBottom="@dimen/trans_56px"
-            android:layout_marginLeft="@dimen/trans_66px"
-            />
+            android:layout_marginLeft="@dimen/trans_66px" />
 
 
     </FrameLayout>
@@ -200,7 +198,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/trans_20px"
-        android:background="@color/base_mask"/>
+        android:background="@color/base_mask" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -214,8 +212,7 @@
             android:layout_marginBottom="@dimen/trans_20px"
             android:layout_marginLeft="@dimen/trans_40px"
             android:layout_marginRight="@dimen/trans_15px"
-            android:layout_marginTop="@dimen/trans_20px"
-            />
+            android:layout_marginTop="@dimen/trans_20px" />
 
         <TextView
             android:id="@+id/tv_title_group"
@@ -224,19 +221,19 @@
             android:gravity="center"
             android:text="@string/str_others_group"
             android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_28px"/>
+            android:textSize="@dimen/text_trans_28px" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/trans_1px"
-        android:background="@color/base_mask"/>
+        android:background="@color/base_mask" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -250,8 +247,7 @@
             android:layout_marginBottom="@dimen/trans_20px"
             android:layout_marginLeft="@dimen/trans_40px"
             android:layout_marginRight="@dimen/trans_15px"
-            android:layout_marginTop="@dimen/trans_20px"
-            />
+            android:layout_marginTop="@dimen/trans_20px" />
 
         <TextView
             android:id="@+id/tv_title_circle"
@@ -260,19 +256,19 @@
             android:gravity="center"
             android:text="@string/str_others_circle"
             android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_28px"/>
+            android:textSize="@dimen/text_trans_28px" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/trans_1px"
-        android:background="@color/base_mask"/>
+        android:background="@color/base_mask" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_circle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -286,8 +282,7 @@
             android:layout_marginBottom="@dimen/trans_20px"
             android:layout_marginLeft="@dimen/trans_40px"
             android:layout_marginRight="@dimen/trans_15px"
-            android:layout_marginTop="@dimen/trans_20px"
-            />
+            android:layout_marginTop="@dimen/trans_20px" />
 
         <TextView
             android:id="@+id/tv_title_live"
@@ -296,7 +291,7 @@
             android:layout_weight="1"
             android:text="@string/str_others_live"
             android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_28px"/>
+            android:textSize="@dimen/text_trans_28px" />
 
         <com.fivefivelike.mybaselibrary.view.IconFontTextview
             android:id="@+id/tv_live_time"
@@ -306,13 +301,13 @@
             android:gravity="center"
             android:text="@string/ic_Calendar"
             android:textColor="@color/color_font2"
-            android:textSize="@dimen/text_trans_24px"/>
+            android:textSize="@dimen/text_trans_24px" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/trans_1px"
-        android:background="@color/base_mask"/>
+        android:background="@color/base_mask" />
 
 </LinearLayout>

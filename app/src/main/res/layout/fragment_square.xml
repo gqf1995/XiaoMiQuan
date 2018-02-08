@@ -9,7 +9,8 @@
 
     <include
         android:id="@+id/title"
-        layout="@layout/include_toolbar_with_statusbar" />
+        layout="@layout/include_toolbar_with_statusbar"
+        />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -20,9 +21,11 @@
 
 
         <com.xiaomiquan.widget.StickyScrollView
+            android:id="@+id/scrollView_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/title">
+            android:layout_below="@+id/title"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -140,12 +143,14 @@
                     android:id="@+id/lin_live"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/trans_80px"
+                    android:background="@color/colorPrimary"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/trans_40px"
-                    android:paddingRight="@dimen/trans_40px">
+                    android:paddingRight="@dimen/trans_40px"
+                    android:tag="sticky">
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_40px"

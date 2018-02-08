@@ -37,6 +37,7 @@ public class BigVListAdapter extends CommonAdapter<UserFriende> {
         super(context, R.layout.adapter_bigv_list, datas);
         this.userFriendes = datas;
     }
+
     public void setDatas(List<UserFriende> datas) {
         this.mDatas.clear();
         this.mDatas.addAll(datas);
@@ -61,6 +62,14 @@ public class BigVListAdapter extends CommonAdapter<UserFriende> {
         }
 
         tv_attention.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(view, position, null);
+                }
+            }
+        });
+        cv_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (defaultClickLinsener != null) {

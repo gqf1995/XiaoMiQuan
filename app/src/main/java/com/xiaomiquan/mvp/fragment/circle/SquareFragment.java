@@ -1,5 +1,8 @@
 package com.xiaomiquan.mvp.fragment.circle;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +17,7 @@ import com.fivefivelike.mybaselibrary.entity.ResultDialogEntity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
@@ -32,6 +36,7 @@ import com.xiaomiquan.mvp.activity.circle.ReleaseDynamicActivity;
 import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
 import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
 import com.xiaomiquan.mvp.activity.circle.UserInfoActivity;
+import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.SquareBinder;
 import com.xiaomiquan.mvp.delegate.circle.SquareDelegate;
 import com.xiaomiquan.widget.circle.SquarePopupWindow;
@@ -60,6 +65,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         return new SquareBinder(viewDelegate);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
@@ -73,6 +79,15 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
             @Override
             public void onRefresh() {
                 addRequest(binder.getLive(SquareFragment.this));
+            }
+        });
+
+        viewDelegate.viewHolder.scrollView_scroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                long intemHeight = viewDelegate.viewHolder.ry_live.getLayoutManager().getHeight() / squareLiveAdapter.getDatas().size();
+                int index = (int) (scrollY / intemHeight);
+                viewDelegate.viewHolder.tv_live_time.setText(squareLiveAdapter.getDatas().get(index).getYearMonthDay());
             }
         });
     }
@@ -239,11 +254,11 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                             }
                         }
                         if (view.getId() == R.id.cv_head) {
+                            UserHomePageActivity.startAct(getActivity(), squareLives.get(position).getUserId());
                         }
                     }
                 });
-
-                viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
+                 viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
                 viewDelegate.viewHolder.ry_live.getItemAnimator().setChangeDuration(0);
                 viewDelegate.viewHolder.ry_live.setAdapter(squareLiveAdapter);
             }

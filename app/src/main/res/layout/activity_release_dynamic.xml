@@ -71,7 +71,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/trans_1px"
-                android:background="@color/base_mask" />
+                android:background="@color/base_mask"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"

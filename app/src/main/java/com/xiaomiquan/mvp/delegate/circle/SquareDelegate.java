@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.xiaomiquan.R;
+import com.xiaomiquan.widget.StickyScrollView;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
 
@@ -20,6 +21,7 @@ import cn.bingoogolapple.bgabanner.BGABanner;
 public class SquareDelegate extends BaseMyPullDelegate {
 
     public ViewHolder viewHolder;
+
 
     @Override
     public void initView() {
@@ -47,6 +49,7 @@ public class SquareDelegate extends BaseMyPullDelegate {
         public RecyclerView ry_live;
         public AppCompatImageView civ_send;
         public SwipeRefreshLayout swipeRefreshLayout;
+        public StickyScrollView scrollView_scroll;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -62,6 +65,7 @@ public class SquareDelegate extends BaseMyPullDelegate {
             this.ry_live = (RecyclerView) rootView.findViewById(R.id.ry_live);
             this.civ_send = (AppCompatImageView) rootView.findViewById(R.id.civ_send);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+            this.scrollView_scroll = (StickyScrollView) rootView.findViewById(R.id.scrollView_scroll);
         }
 
     }

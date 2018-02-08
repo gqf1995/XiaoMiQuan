@@ -11,6 +11,7 @@ import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleAllDvpAdapter;
@@ -18,6 +19,7 @@ import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
 import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
+import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.mvp.databinder.GetFriendsJoinBinder;
 import com.xiaomiquan.mvp.databinder.circle.LiveBinder;
 import com.xiaomiquan.mvp.databinder.circle.NewsBinder;
@@ -27,6 +29,7 @@ import com.xiaomiquan.mvp.delegate.circle.NewsDelegate;
 import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -52,10 +55,33 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_tv_live)).setSubTitle(CommonUtils.getString(R.string.str_release)));
         initLive(new ArrayList<SquareLive>());
-        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                addRequest(binder.getLive(LiveActivity.this));
+//            }
+//        });
+        viewDelegate.viewHolder.pull_recycleview.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onRefresh() {
-                addRequest(binder.getLive(LiveActivity.this));
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                //判断是当前layoutManager是否为LinearLayoutManager
+                // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
+                if (layoutManager instanceof LinearLayoutManager) {
+                    LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
+                    //获取第一个可见view的位置
+                    int firstItemPosition = linearManager.findFirstVisibleItemPosition();
+                    viewDelegate.viewHolder.tv_time.setText(
+                            squareLiveAdapter.getDatas().get(firstItemPosition).getYearMonthDay() + "");
+
+
+                }
             }
         });
     }
@@ -67,6 +93,7 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
 
     }
 
+    HeaderAndFooterWrapper adapter;
     public void initLive(final List<SquareLive> squareLives) {
         if (squareLiveAdapter == null) {
             onRefresh();
@@ -107,16 +134,18 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
                         }
                     }
                     if (view.getId() == R.id.cv_head) {
-                        UserInfoActivity.startAct(LiveActivity.this, squareLives.get(position));
+                        UserHomePageActivity.startAct(LiveActivity.this, squareLives.get(position).getUserId());
                     }
                 }
             });
-            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
-            viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
-            viewDelegate.viewHolder.pull_recycleview.setAdapter(squareLiveAdapter);
+//            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
+//            viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
+//            viewDelegate.viewHolder.pull_recycleview.setAdapter(squareLiveAdapter);
+            adapter = new HeaderAndFooterWrapper(squareLiveAdapter);
+            initRecycleViewPull(adapter, new LinearLayoutManager(this));
             viewDelegate.setNoDataTxt(CommonUtils.getString(R.string.str_kline_nodata));
         } else {
-            squareLiveAdapter.setDatas(squareLives);
+            getDataBack(squareLiveAdapter.getDatas(), squareLives, squareLiveAdapter);
         }
     }
 
