@@ -17,7 +17,7 @@ import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
-import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.entity.bean.group.GroupBaseDeal;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
@@ -72,7 +72,7 @@ public class GroupDealDelegate extends BaseDelegate {
         });
     }
 
-    public void onSelectLinsener(CoinDetail coinDetail, GroupItem groupItem) {
+    public void onSelectLinsener(CoinDetail coinDetail, GroupBaseDeal groupItem) {
         mCoinDetail = coinDetail;
         if (coinDetail == null) {
             viewHolder.tv_buy_price.setText(CommonUtils.getString(R.string.str_now_no_data));

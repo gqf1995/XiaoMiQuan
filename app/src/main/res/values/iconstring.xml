@@ -137,4 +137,6 @@
     <string name="ic_star">&#xe6c7;</string>
     <string name="ic_down_zuhe">&#xe621;</string>
     <string name="ic_Combined">&#xe620;</string>
+    <string name="ic_up">&#xe61f;</string>
+    <string name="ic_down">&#xe61e;</string>
 </resources>

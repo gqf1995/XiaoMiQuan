@@ -1,10 +1,12 @@
 package com.xiaomiquan.entity.bean.group;
 
+import android.os.Parcel;
+
 /**
  * Created by 郭青枫 on 2018/2/8 0008.
  */
 
-public class GroupDynamic {
+public class GroupDynamic extends GroupBaseDeal {
     /**
      * brief : 这是关于币圈交易的组合
      * coinId : 1
@@ -186,4 +188,69 @@ public class GroupDynamic {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(this.brief);
+        dest.writeString(this.coinId);
+        dest.writeString(this.count);
+        dest.writeLong(this.createTime);
+        dest.writeLong(this.dealTime);
+        dest.writeString(this.demoId);
+        dest.writeInt(this.isAttention);
+        dest.writeInt(this.isSelf);
+        dest.writeString(this.name);
+        dest.writeString(this.nickName);
+        dest.writeString(this.positionRateAfter);
+        dest.writeString(this.positionRateBefore);
+        dest.writeString(this.symbol);
+        dest.writeString(this.totalRate);
+        dest.writeInt(this.type);
+        dest.writeString(this.userId);
+        dest.writeString(this.avatar);
+        dest.writeString(this.price);
+    }
+
+    public GroupDynamic() {
+    }
+
+    protected GroupDynamic(Parcel in) {
+        super(in);
+        this.brief = in.readString();
+        this.coinId = in.readString();
+        this.count = in.readString();
+        this.createTime = in.readLong();
+        this.dealTime = in.readLong();
+        this.demoId = in.readString();
+        this.isAttention = in.readInt();
+        this.isSelf = in.readInt();
+        this.name = in.readString();
+        this.nickName = in.readString();
+        this.positionRateAfter = in.readString();
+        this.positionRateBefore = in.readString();
+        this.symbol = in.readString();
+        this.totalRate = in.readString();
+        this.type = in.readInt();
+        this.userId = in.readString();
+        this.avatar = in.readString();
+        this.price = in.readString();
+    }
+
+    public static final Creator<GroupDynamic> CREATOR = new Creator<GroupDynamic>() {
+        @Override
+        public GroupDynamic createFromParcel(Parcel source) {
+            return new GroupDynamic(source);
+        }
+
+        @Override
+        public GroupDynamic[] newArray(int size) {
+            return new GroupDynamic[size];
+        }
+    };
 }

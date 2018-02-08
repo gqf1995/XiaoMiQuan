@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="@dimen/trans_90px"
-            android:layout_gravity="bottom|center_horizontal"
+            android:layout_gravity="bottom"
             android:gravity="center_horizontal|bottom"
             android:orientation="vertical"
             android:visibility="gone">
@@ -38,7 +38,8 @@
                 android:gravity="center"
                 android:text=""
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_trans_24px"/>
+                android:textSize="@dimen/text_trans_24px"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -71,43 +72,69 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="@dimen/trans_10px"
-                    android:paddingTop="@dimen/trans_20px">
+                    >
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="404"
+                        android:layout_weight="546"
                         android:orientation="vertical"
                         android:paddingLeft="@dimen/trans_30px">
 
-                        <com.fivefivelike.mybaselibrary.view.FontTextview
-                            android:id="@+id/tv_price"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="$14,525.08888"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_trans_40px"/>
+                            android:gravity="top"
+                            android:orientation="horizontal">
 
-                        <com.fivefivelike.mybaselibrary.view.FontTextview
-                            android:id="@+id/tv_rate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="@dimen/trans_10px"
-                            android:text=" $14,525.08888"
-                            android:textColor="@color/color_font3"
-                            android:textSize="@dimen/text_trans_24px"/>
+                            <com.fivefivelike.mybaselibrary.view.FontTextview
+                                android:id="@+id/tv_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="$14,525.08888"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_trans_56px"/>
 
-                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                            android:id="@+id/tv_rise"
-                            android:layout_width="wrap_content"
+                            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                                android:id="@+id/tv_price_ic"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="top"
+                                android:paddingTop="@dimen/trans_5px"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_trans_30px"/>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="@dimen/trans_20px"
-                            android:text="+ $14,525.08888"
-                            android:textColor="@color/color_font3"
-                            android:textSize="@dimen/text_trans_24px"/>
+                            android:orientation="horizontal">
+
+                            <com.fivefivelike.mybaselibrary.view.FontTextview
+                                android:id="@+id/tv_rate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/trans_10px"
+                                android:gravity="center"
+                                android:paddingTop="@dimen/trans_10px"
+                                android:text=" $14,525.08888"
+                                android:textColor="@color/color_font3"
+                                android:textSize="@dimen/text_trans_26px"/>
+
+                            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                                android:id="@+id/tv_rise"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:paddingTop="@dimen/trans_20px"
+                                android:text="+ $14,525.08888"
+                                android:textColor="@color/color_font3"
+                                android:textSize="@dimen/text_trans_26px"/>
+
+                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -115,9 +142,10 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="246"
+                        android:layout_weight="206"
                         android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingRight="@dimen/trans_40px">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -135,10 +163,10 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="@dimen/trans_10px"
-                                    android:gravity="center"
+                                    android:layout_weight="1"
                                     android:text="@string/str_highest"
                                     android:textColor="@color/color_font4"
                                     android:textSize="@dimen/text_trans_20px"/>
@@ -163,10 +191,10 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="@dimen/trans_10px"
-                                    android:gravity="center"
+                                    android:layout_weight="1"
                                     android:text="@string/str_minimum"
                                     android:textColor="@color/color_font4"
                                     android:textSize="@dimen/text_trans_20px"/>
@@ -191,10 +219,10 @@
                                 >
 
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="@dimen/trans_10px"
-                                    android:gravity="center"
+                                    android:layout_weight="1"
                                     android:text="@string/str_volume"
                                     android:textColor="@color/color_font4"
                                     android:textSize="@dimen/text_trans_20px"/>
@@ -656,8 +684,8 @@
                         android:id="@+id/lin_no_kline"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="match_parent"
