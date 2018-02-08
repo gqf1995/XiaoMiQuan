@@ -155,6 +155,12 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     private void initList(List<GroupDynamic> datas) {
         if (adapter == null) {
             adapter = new GroupDynamicAdapter(getActivity(), datas);
+            adapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, int position, Object item) {
+
+                }
+            });
             initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()) {
                 @Override
                 public boolean canScrollVertically() {

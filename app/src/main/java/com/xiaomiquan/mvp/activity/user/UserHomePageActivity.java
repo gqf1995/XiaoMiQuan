@@ -193,13 +193,15 @@ public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, Bas
         initList(new ArrayList<SquareLive>());
         tv_high_quality.setVisibility(View.GONE);
         tv_free_subscription.setVisibility(View.GONE);
-        if ((userLogin.getId() + "").equals(id)) {
-            //我的个人中心
-            tv_title_group.setText(CommonUtils.getString(R.string.str_my_group));
-            tv_title_live.setText(CommonUtils.getString(R.string.str_my_live));
-            tv_title_circle.setText(CommonUtils.getString(R.string.str_my_circle));
-            tv_is_focuse.setVisibility(View.GONE);
-            tv_my_subscribe.setVisibility(View.VISIBLE);
+        if (userLogin != null) {
+            if ((userLogin.getId() + "").equals(id)) {
+                //我的个人中心
+                tv_title_group.setText(CommonUtils.getString(R.string.str_my_group));
+                tv_title_live.setText(CommonUtils.getString(R.string.str_my_live));
+                tv_title_circle.setText(CommonUtils.getString(R.string.str_my_circle));
+                tv_is_focuse.setVisibility(View.GONE);
+                tv_my_subscribe.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -209,7 +211,13 @@ public class UserHomePageActivity extends BasePullActivity<HomePageDelegate, Bas
         tv_name.setText(data.getNickName());
         tv_fans_num.setText(userHomePage.getFansCount() + "");
         tv_focuse_num.setText(userHomePage.getAttentionCount() + "");
-        if (!(userLogin.getId() + "").equals(id)) {
+        if (userLogin != null) {
+            if (!(userLogin.getId() + "").equals(id)) {
+                tv_high_quality.setVisibility(data.getBigv() > 0 ? View.VISIBLE : View.GONE);
+                tv_free_subscription.setVisibility(data.getSubscribeCharge() == 0 ? View.VISIBLE : View.GONE);
+                tv_is_focuse.setText(userHomePage.isAttention() ? CommonUtils.getString(R.string.str_already_fucose) : CommonUtils.getString(R.string.str_focuse));
+            }
+        }else{
             tv_high_quality.setVisibility(data.getBigv() > 0 ? View.VISIBLE : View.GONE);
             tv_free_subscription.setVisibility(data.getSubscribeCharge() == 0 ? View.VISIBLE : View.GONE);
             tv_is_focuse.setText(userHomePage.isAttention() ? CommonUtils.getString(R.string.str_already_fucose) : CommonUtils.getString(R.string.str_focuse));

@@ -1,9 +1,11 @@
 package com.xiaomiquan.adapter.group;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
@@ -41,6 +43,12 @@ public class GroupDynamicAdapter extends CommonAdapter<GroupDynamic> {
         super(context, R.layout.adapter_group_dynamic, datas);
     }
 
+    DefaultClickLinsener defaultClickLinsener;
+
+    public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
+        this.defaultClickLinsener = defaultClickLinsener;
+    }
+
     @Override
     protected void convert(ViewHolder holder, GroupDynamic s, final int position) {
         ic_pic = holder.getView(R.id.ic_pic);
@@ -55,7 +63,14 @@ public class GroupDynamicAdapter extends CommonAdapter<GroupDynamic> {
         tv_rate_to = holder.getView(R.id.tv_rate_to);
         tv_commit = holder.getView(R.id.tv_commit);
         tv_rate_ic = holder.getView(R.id.tv_rate_ic);
-
+        tv_commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(v, position, null);
+                }
+            }
+        });
         tv_nike_name.setText(s.getNickName());
         tv_group_name.setText(s.getName());
         tv_time.setText(com.blankj.utilcode.util.TimeUtils.millis2String(s.getDealTime()));
