@@ -37,6 +37,7 @@ public class SquareDelegate extends BaseMyPullDelegate {
 
     public static class ViewHolder {
         public View rootView;
+
         public BGABanner banner_img;
         public RecyclerView ry_entrance;
         public AppCompatImageView civ_img;
@@ -46,10 +47,10 @@ public class SquareDelegate extends BaseMyPullDelegate {
         public ImageView iv_img;
         public TextView tv_live_time;
         public LinearLayout lin_live;
-        public RecyclerView ry_live;
-        public AppCompatImageView civ_send;
-        public SwipeRefreshLayout swipeRefreshLayout;
+        public RecyclerView pull_recycleview;
         public StickyScrollView scrollView_scroll;
+        public SwipeRefreshLayout swipeRefreshLayout;
+        public AppCompatImageView civ_send;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -62,10 +63,10 @@ public class SquareDelegate extends BaseMyPullDelegate {
             this.iv_img = (ImageView) rootView.findViewById(R.id.iv_img);
             this.tv_live_time = (TextView) rootView.findViewById(R.id.tv_live_time);
             this.lin_live = (LinearLayout) rootView.findViewById(R.id.lin_live);
-            this.ry_live = (RecyclerView) rootView.findViewById(R.id.ry_live);
-            this.civ_send = (AppCompatImageView) rootView.findViewById(R.id.civ_send);
-            this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+            this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
             this.scrollView_scroll = (StickyScrollView) rootView.findViewById(R.id.scrollView_scroll);
+            this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+            this.civ_send = (AppCompatImageView) rootView.findViewById(R.id.civ_send);
         }
 
     }

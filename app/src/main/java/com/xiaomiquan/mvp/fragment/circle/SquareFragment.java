@@ -80,7 +80,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         viewDelegate.viewHolder.scrollView_scroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                long intemHeight = viewDelegate.viewHolder.ry_live.getLayoutManager().getHeight() / squareLiveAdapter.getDatas().size();
+                long intemHeight = viewDelegate.viewHolder.pull_recycleview.getLayoutManager().getHeight() / squareLiveAdapter.getDatas().size();
                 int index = (int) (scrollY / intemHeight);
                 viewDelegate.viewHolder.tv_live_time.setText(squareLiveAdapter.getDatas().get(index).getYearMonthDay());
             }
@@ -244,7 +244,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                 }
             });
             // viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
-            viewDelegate.viewHolder.ry_live.getItemAnimator().setChangeDuration(0);
+            viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
             // viewDelegate.viewHolder.ry_live.setAdapter(squareLiveAdapter);
             initRecycleViewPull(squareLiveAdapter, new LinearLayoutManager(getActivity()) {
                 @Override

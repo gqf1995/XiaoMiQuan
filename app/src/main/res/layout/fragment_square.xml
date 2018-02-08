@@ -194,11 +194,12 @@
 
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/ry_live"
+                    android:id="@+id/pull_recycleview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/text_trans_10px"
                     android:scrollbars="none" />
+
 
 
             </LinearLayout>
