@@ -200,6 +200,16 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
                 }
             }
         });
+        lin_article.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(view, position, null);
+                }
+            }
+        });
+
+
 
     }
 

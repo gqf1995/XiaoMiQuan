@@ -33,6 +33,7 @@ import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.SquareBinder;
 import com.xiaomiquan.mvp.delegate.circle.SquareDelegate;
+import com.xiaomiquan.widget.JudgeNestedScrollView;
 import com.xiaomiquan.widget.circle.SquarePopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
@@ -70,15 +71,28 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         initLive(new ArrayList<SquareLive>());
 //        addRequest(binder.getLive(SquareFragment.this));
         viewDelegate.viewHolder.lin_live.setOnClickListener(this);
-        viewDelegate.viewHolder.lin_news.setOnClickListener(this);
 
-
-        viewDelegate.viewHolder.scrollView_scroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        viewDelegate.viewHolder.pull_recycleview.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                long intemHeight = viewDelegate.viewHolder.pull_recycleview.getLayoutManager().getHeight() / squareLiveAdapter.getDatas().size();
-                int index = (int) (scrollY / intemHeight);
-                viewDelegate.viewHolder.tv_live_time.setText(squareLiveAdapter.getDatas().get(index).getYearMonthDay());
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (squareLiveAdapter.getDatas().size() > 0) {
+                    RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                    //判断是当前layoutManager是否为LinearLayoutManager
+                    // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
+                    if (layoutManager instanceof LinearLayoutManager) {
+                        LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
+                        //获取第一个可见view的位置
+                        int firstItemPosition = linearManager.findFirstVisibleItemPosition();
+                        viewDelegate.viewHolder.tv_live_time.setText(
+                                squareLiveAdapter.getDatas().get(firstItemPosition).getYearMonthDay() + "");
+                    }
+                }
             }
         });
     }
@@ -128,7 +142,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                 }
             }
         });
-        squarePopupWindow.showAtLocation(viewDelegate.viewHolder.banner_img, Gravity.BOTTOM, 0, 0);
+        squarePopupWindow.showAtLocation(viewDelegate.viewHolder.lin_live, Gravity.BOTTOM, 0, 0);
 
     }
 
@@ -145,57 +159,57 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
     List<String> mtitles;
 
     public void initShortCut() {
-            mtitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_square));
-            int[] imgs = {R.drawable.icon_live, R.drawable.icon_group, R.drawable.icon_bigv, R.drawable.icon_article};
-            List<HashMap<String, Object>> list = new ArrayList<>();
-            for (int i = 0; i < mtitles.size(); i++) {
-                HashMap<String, Object> hashMap = new HashMap<>();
-                hashMap.put("title", mtitles.get(i));
-                hashMap.put("img", imgs[i]);
-                list.add(hashMap);
+        mtitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_square));
+        int[] imgs = {R.drawable.icon_live, R.drawable.icon_group, R.drawable.icon_bigv, R.drawable.icon_article};
+        List<HashMap<String, Object>> list = new ArrayList<>();
+        for (int i = 0; i < mtitles.size(); i++) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("title", mtitles.get(i));
+            hashMap.put("img", imgs[i]);
+            list.add(hashMap);
+        }
+        squareShortCutAdapter = new SquareShortCutAdapter(getActivity(), list);
+        squareShortCutAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                switch (position) {
+                    case 0:
+                        gotoActivity(LiveActivity.class).startAct();
+                        break;
+                    //                    case 1:
+                    //                        gotoActivity(NewsActivity.class).startAct();
+                    //                        break;
+                    case 1:
+                        //模拟交易
+                        ResultDialogEntity resultDialogEntity = new ResultDialogEntity();
+                        resultDialogEntity.setCode("0");
+                        EventBus.getDefault().post(resultDialogEntity);
+                        break;
+                    case 2:
+                        gotoActivity(BigVListActivity.class).startAct();
+                        break;
+                    case 3:
+                        gotoActivity(ArticleActivity.class).startAct();
+                        break;
+                }
+
             }
-            squareShortCutAdapter = new SquareShortCutAdapter(getActivity(), list);
-            squareShortCutAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    switch (position) {
-                        case 0:
-                            gotoActivity(LiveActivity.class).startAct();
-                            break;
-                        //                    case 1:
-                        //                        gotoActivity(NewsActivity.class).startAct();
-                        //                        break;
-                        case 1:
-                            //模拟交易
-                            ResultDialogEntity resultDialogEntity = new ResultDialogEntity();
-                            resultDialogEntity.setCode("0");
-                            EventBus.getDefault().post(resultDialogEntity);
-                            break;
-                        case 2:
-                            gotoActivity(BigVListActivity.class).startAct();
-                            break;
-                        case 3:
-                            gotoActivity(ArticleActivity.class).startAct();
-                            break;
-                    }
 
-                }
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
 
-                @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-
-                    return false;
-                }
-            });
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            };
-            viewDelegate.viewHolder.ry_entrance.setLayoutManager(gridLayoutManager);
-            viewDelegate.viewHolder.ry_entrance.setItemAnimator(new DefaultItemAnimator());
-            viewDelegate.viewHolder.ry_entrance.setAdapter(squareShortCutAdapter);
+                return false;
+            }
+        });
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        viewDelegate.viewHolder.ry_entrance.setLayoutManager(gridLayoutManager);
+        viewDelegate.viewHolder.ry_entrance.setItemAnimator(new DefaultItemAnimator());
+        viewDelegate.viewHolder.ry_entrance.setAdapter(squareShortCutAdapter);
     }
 
     public void initLive(final List<SquareLive> squareLives) {
@@ -232,19 +246,17 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                     if (view.getId() == R.id.cv_head) {
                         PersonalHomePageActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position).getUserId());
                     }
+                    if (view.getId() == R.id.lin_article) {
+                        if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
+                            ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                        } else {
+                            TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                        }
+                    }
                 }
             });
-            // viewDelegate.viewHolder.ry_live.setLayoutManager(linearLayoutManager);
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
-            // viewDelegate.viewHolder.ry_live.setAdapter(squareLiveAdapter);
-
-
-            initRecycleViewPull(squareLiveAdapter, new LinearLayoutManager(getActivity()) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            });
+            initRecycleViewPull(squareLiveAdapter, new LinearLayoutManager(getActivity()));
         } else {
             getDataBack(squareLiveAdapter.getDatas(), squareLives, squareLiveAdapter);
         }
@@ -281,7 +293,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                         }
                     }
                 });
-                squarePopupWindow.showAtLocation(viewDelegate.viewHolder.banner_img, Gravity.BOTTOM, 0, 0);
+                squarePopupWindow.showAtLocation(viewDelegate.viewHolder.lin_live, Gravity.BOTTOM, 0, 0);
             }
         });
     }
@@ -290,9 +302,6 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.lin_news:
-                gotoActivity(NewsActivity.class).startAct();
-                break;
             case R.id.lin_live:
                 gotoActivity(LiveActivity.class).startAct();
                 break;
