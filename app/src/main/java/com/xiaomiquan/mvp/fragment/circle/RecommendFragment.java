@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
@@ -118,16 +119,12 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
                     }
                 }
             });
-            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(new LinearLayoutManager(getActivity()) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            });
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
-            viewDelegate.viewHolder.pull_recycleview.setAdapter(bigVListAdapter);
+//            viewDelegate.viewHolder.pull_recycleview.setAdapter(bigVListAdapter);
+            initRecycleViewPull(bigVListAdapter, new LinearLayoutManager(getActivity()));
+            viewDelegate.setNoDataTxt(CommonUtils.getString(R.string.str_kline_nodata));
         } else {
-            bigVListAdapter.setDatas(userFriendes);
+            getDataBack(bigVListAdapter.getDatas(), userFriendes, bigVListAdapter);
         }
     }
 

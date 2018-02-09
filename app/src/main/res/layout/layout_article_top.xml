@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/trans_490px">
+    android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/iv_banner"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/trans_490px"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:scaleType="fitXY" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/trans_40px"
+        android:layout_alignBottom="@+id/iv_banner"
+        android:layout_alignTop="@+id/iv_banner"
+        android:background="@color/black_transparent_25"
+        android:gravity="bottom"
         android:orientation="vertical"
-        android:padding="@dimen/trans_50px">
+        android:paddingBottom="@dimen/trans_70px"
+        android:paddingLeft="@dimen/trans_50px"
+        android:paddingRight="@dimen/trans_50px">
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2018/03/04"
-            android:textColor="@color/color_font2"
+            android:textColor="@color/white"
             android:textSize="@dimen/trans_28px" />
 
         <TextView
@@ -30,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/trans_20px"
             android:text="名字"
-            android:textColor="@color/color_font1"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_trans_50px" />
 
         <LinearLayout
@@ -52,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/trans_15px"
                 android:text="名字"
-                android:textColor="@color/color_font3"
+                android:textColor="@color/white"
                 android:textSize="@dimen/trans_28px" />
 
             <View
@@ -70,7 +76,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:text="@string/ic_Chat"
-                android:textColor="@color/color_font2"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_trans_30px" />
 
             <TextView
@@ -81,30 +87,37 @@
                 android:layout_marginRight="@dimen/trans_40px"
                 android:singleLine="true"
                 android:text="10"
-                android:textColor="@color/color_font2"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_trans_28px" />
 
-            <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                android:id="@+id/tv_praise"
+            <LinearLayout
+                android:id="@+id/lin_praise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:text="@string/ic_Like"
-                android:textColor="@color/color_font2"
-                android:textSize="@dimen/text_trans_30px" />
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/trans_20px"
+                android:paddingRight="@dimen/trans_20px">
 
-            <TextView
-                android:id="@+id/tv_praise_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/trans_10px"
-                android:singleLine="true"
-                android:text="0"
-                android:textColor="@color/color_font2"
-                android:textSize="@dimen/text_trans_28px" />
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/tv_praise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="@string/ic_Like"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_30px" />
 
+                <TextView
+                    android:id="@+id/tv_praise_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/trans_10px"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_28px" />
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
 </RelativeLayout>

@@ -68,7 +68,8 @@
                                 android:padding="@dimen/trans_5px"
                                 android:text="@string/str_tv_main"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/text_trans_18px" />
+                                android:textSize="@dimen/text_trans_18px"
+                                android:visibility="gone" />
                         </LinearLayout>
 
 

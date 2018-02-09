@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
     android:gravity="center"
     android:orientation="horizontal"
     android:padding="@dimen/trans_20px">
@@ -41,38 +42,45 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/trans_20px"
             android:orientation="horizontal">
 
-            <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                android:id="@+id/tv_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:text="@string/ic_Chat"
-                android:textColor="@color/color_font2"
-                android:textSize="@dimen/text_trans_30px" />
-
-            <TextView
-                android:id="@+id/tv_comment_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/trans_10px"
-                android:layout_marginRight="@dimen/trans_40px"
-                android:singleLine="true"
-                android:text="10"
-                android:textColor="@color/color_font2"
-                android:textSize="@dimen/text_trans_28px" />
-
-            <LinearLayout android:id="@+id/lin_praise"
+            <LinearLayout
+                android:id="@+id/lin_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/trans_20px"
-                android:paddingRight="@dimen/trans_20px">
+                android:padding="@dimen/trans_20px">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/tv_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="@string/ic_Chat"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/text_trans_30px" />
+
+                <TextView
+                    android:id="@+id/tv_comment_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/trans_10px"
+                    android:layout_marginRight="@dimen/trans_40px"
+                    android:singleLine="true"
+                    android:text="10"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/text_trans_28px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_praise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/trans_20px">
 
                 <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:id="@+id/tv_praise"

@@ -104,17 +104,11 @@ public class AttentionFragment extends BasePullFragment<BaseFragentPullDelegate,
                     }
                 }
             });
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
-            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(new LinearLayoutManager(getActivity()) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            });
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
-            viewDelegate.viewHolder.pull_recycleview.setAdapter(bigVListAdapter);
+            initRecycleViewPull(bigVListAdapter, new LinearLayoutManager(getActivity()));
         } else {
             bigVListAdapter.setDatas(userFriendes);
+            getDataBack(bigVListAdapter.getDatas(), userFriendes, bigVListAdapter);
         }
 
     }

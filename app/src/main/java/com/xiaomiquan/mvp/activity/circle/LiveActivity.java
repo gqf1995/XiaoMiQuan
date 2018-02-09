@@ -120,10 +120,7 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
                     }
                 }
             });
-//            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
-//            viewDelegate.viewHolder.pull_recycleview.setAdapter(squareLiveAdapter);
-//            adapter = new HeaderAndFooterWrapper(squareLiveAdapter);
             initRecycleViewPull(squareLiveAdapter, linearLayoutManager);
             viewDelegate.setNoDataTxt(CommonUtils.getString(R.string.str_kline_nodata));
         } else {
