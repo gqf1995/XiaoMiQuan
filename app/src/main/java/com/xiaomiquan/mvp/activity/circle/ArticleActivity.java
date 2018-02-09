@@ -1,26 +1,34 @@
 package com.xiaomiquan.mvp.activity.circle;
 
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.ArtivleAdapter;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.ArticleBinder;
 import com.xiaomiquan.mvp.delegate.circle.ArticleDelegate;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBinder> {
 
@@ -107,25 +115,52 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
 
     }
 
+
+    public ImageView iv_banner;
+    public TextView tv_time;
+    public TextView tv_title;
+    public CircleImageView iv_head;
+    public TextView tv_name;
+    public IconFontTextview tv_comment;
+    public TextView tv_comment_num;
+    public IconFontTextview tv_praise;
+    public TextView tv_praise_num;
+    public LinearLayout lin_praise;
+
+    private View initHead() {
+        View rootView = getLayoutInflater().inflate(R.layout.layout_article_top, null);
+        this.iv_banner = (ImageView) rootView.findViewById(R.id.iv_banner);
+        this.tv_time = (TextView) rootView.findViewById(R.id.tv_time);
+        this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
+        this.iv_head = (CircleImageView) rootView.findViewById(R.id.iv_head);
+        this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);
+        this.tv_comment = (IconFontTextview) rootView.findViewById(R.id.tv_comment);
+        this.tv_comment_num = (TextView) rootView.findViewById(R.id.tv_comment_num);
+        this.tv_praise = (IconFontTextview) rootView.findViewById(R.id.tv_praise);
+        this.tv_praise_num = (TextView) rootView.findViewById(R.id.tv_praise_num);
+        this.lin_praise = (LinearLayout) rootView.findViewById(R.id.lin_praise);
+        return rootView;
+    }
+
     private void initHeadView(final SquareLive squareLive) {
         /**
          * 用户是否点赞
          //                 */
         if (squareLive.isUserPraise()) {
-            viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
-            viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
         } else {
-            viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
-            viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
         }
-        viewDelegate.viewHolder.tv_time.setText(squareLive.getCreateTimeStr());
-        viewDelegate.viewHolder.tv_title.setText(squareLive.getTitle());
-        GlideUtils.loadImage(squareLive.getAvatar(), viewDelegate.viewHolder.iv_head);
-        GlideUtils.loadImage(squareLive.getImg(), viewDelegate.viewHolder.iv_banner);
-        viewDelegate.viewHolder.tv_name.setText(squareLive.getNickName());
-        viewDelegate.viewHolder.tv_comment_num.setText(squareLive.getCommentCount() + "");
-        viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
-        viewDelegate.viewHolder.lin_praise.setOnClickListener(new View.OnClickListener() {
+        tv_time.setText(squareLive.getCreateTimeStr());
+        tv_title.setText(squareLive.getTitle());
+        GlideUtils.loadImage(squareLive.getAvatar(), iv_head);
+        GlideUtils.loadImage(squareLive.getImg(), iv_banner);
+        tv_name.setText(squareLive.getNickName());
+        tv_comment_num.setText(squareLive.getCommentCount() + "");
+        tv_praise_num.setText(squareLive.getGoodCount() + "");
+        lin_praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /**
@@ -134,23 +169,23 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
                 if (squareLive.isUserPraise()) {
                     squareLive.setUserPraise(false);
                     squareLive.setGoodCount(squareLive.getGoodCount() - 1);
-                    viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
-                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
-                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                    tv_praise_num.setText(squareLive.getGoodCount() + "");
+                    tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                    tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
 
                 } else {
                     squareLive.setUserPraise(true);
                     squareLive.setGoodCount(squareLive.getGoodCount() + 1);
-                    viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
-                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    tv_praise_num.setText(squareLive.getGoodCount() + "");
+                    tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
 
                 }
                 addRequest(binder.savePraise(squareLive.getId(), ArticleActivity.this));
             }
         });
 
-        viewDelegate.viewHolder.tv_title.setOnClickListener(new View.OnClickListener() {
+        tv_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ArticleDetailsActivity.startAct(ArticleActivity.this, squareLive);
@@ -178,4 +213,5 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
     protected void refreshData() {
         addRequest(binder.getArticle(ArticleActivity.this));
     }
+
 }

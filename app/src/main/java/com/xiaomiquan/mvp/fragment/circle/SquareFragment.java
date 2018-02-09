@@ -253,6 +253,13 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                             TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
                         }
                     }
+                    if (view.getId() == R.id.lin_article) {
+                        if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
+                            ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                        } else {
+                            TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                        }
+                    }
                 }
             });
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
