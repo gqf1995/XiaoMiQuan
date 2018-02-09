@@ -85,6 +85,28 @@ public class BigUIUtil {
         }
     }
 
+    //没动画变色
+    public void noAnim(final TextView textView, String oldnum, String newnum, final int endColor, String onlyKey) {
+        if (TextUtils.isEmpty(oldnum) || TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {
+            return;
+        }
+        if (oldnum.contains("¥") || oldnum.contains("$")) {
+            oldnum = oldnum.substring(1);
+        }
+        if (newnum.contains("¥") || newnum.contains("$")) {
+            newnum = oldnum.substring(1);
+        }
+        if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == 1) {
+            //降价
+            textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+        } else if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == -1) {
+            //涨价
+            textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+        } else {
+            return;
+        }
+    }
+
     //动画
     public void anim(final TextView textView, String oldnum, String newnum, final int endColor, String onlyKey) {
         if (TextUtils.isEmpty(oldnum) || TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {

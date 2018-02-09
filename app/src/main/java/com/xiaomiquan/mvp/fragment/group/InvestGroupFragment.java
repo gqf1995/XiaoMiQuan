@@ -8,6 +8,7 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.group.CreatGroupActivity;
 import com.xiaomiquan.mvp.databinder.ComTabViewpageBinder;
 import com.xiaomiquan.mvp.delegate.ComTabViewpageDelegate;
@@ -50,7 +51,9 @@ public class InvestGroupFragment extends BaseDataBindFragment<ComTabViewpageDele
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-        gotoActivity(CreatGroupActivity.class).startAct();
+        if(SingSettingDBUtil.isLogin(getActivity())){
+            gotoActivity(CreatGroupActivity.class).startAct();
+        }
     }
 
     @Override

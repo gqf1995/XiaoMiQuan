@@ -88,7 +88,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
         allMyGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
             public void onClick(View view, int position, Object item) {
-                GroupDealActivity.startAct(getActivity(), allMyGroupAdapter.getDatas(), position, true);
+                GroupDealActivity.startAct(getActivity(), (ArrayList)allMyGroupAdapter.getDatas(), position, true);
             }
         });
         viewDelegate.viewHolder.rv_my_group.setLayoutManager(new LinearLayoutManager(getActivity()) {
@@ -158,7 +158,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
             adapter.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
                 public void onClick(View view, int position, Object item) {
-
+                    GroupDealActivity.startAct(getActivity(), (ArrayList)adapter.getDatas(), position, true);
                 }
             });
             initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()) {

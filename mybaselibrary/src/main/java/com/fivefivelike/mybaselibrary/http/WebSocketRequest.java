@@ -86,7 +86,7 @@ public class WebSocketRequest {
     private void register(String json) {
         LinkedHashMap baseMap = new LinkedHashMap<>();
         baseMap.put("uid", uid);
-        baseMap.put("keys", "{" + json + "}");
+        baseMap.put("keys", "" + json + "");
         KLog.i(REQUEST_TAG, "register  " + json);
         disposable = new HttpRequest.Builder()
                 .setRequestCode(0x123)

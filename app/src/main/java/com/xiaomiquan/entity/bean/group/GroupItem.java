@@ -1,13 +1,12 @@
 package com.xiaomiquan.entity.bean.group;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 /**
  * Created by 郭青枫 on 2018/1/31 0031.
  */
 
-public class GroupItem implements Parcelable {
+public class GroupItem extends GroupBaseDeal {
     /**
      * id : 1
      * userId : null
@@ -28,12 +27,9 @@ public class GroupItem implements Parcelable {
      * attentionCount : 0
      */
 
-    private String id;
     private String userId;
-    private String name;
     private String type;
     private String isShow;
-    private String balance;
     private String brief;
     private String operationCount;
     private long startTime;
@@ -53,28 +49,12 @@ public class GroupItem implements Parcelable {
     private double rate;
     private int sort;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getUserId() {
         return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getType() {
@@ -91,14 +71,6 @@ public class GroupItem implements Parcelable {
 
     public void setIsShow(String isShow) {
         this.isShow = isShow;
-    }
-
-    public String getBalance() {
-        return balance;
-    }
-
-    public void setBalance(String balance) {
-        this.balance = balance;
     }
 
     public String getBrief() {
@@ -189,6 +161,14 @@ public class GroupItem implements Parcelable {
         this.attentionCount = attentionCount;
     }
 
+    public String getSync() {
+        return sync;
+    }
+
+    public void setSync(String sync) {
+        this.sync = sync;
+    }
+
     public int getIsAttention() {
         return isAttention;
     }
@@ -221,14 +201,6 @@ public class GroupItem implements Parcelable {
         this.sort = sort;
     }
 
-    public String getSync() {
-        return sync;
-    }
-
-    public void setSync(String sync) {
-        this.sync = sync;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -236,12 +208,10 @@ public class GroupItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
+        super.writeToParcel(dest, flags);
         dest.writeString(this.userId);
-        dest.writeString(this.name);
         dest.writeString(this.type);
         dest.writeString(this.isShow);
-        dest.writeString(this.balance);
         dest.writeString(this.brief);
         dest.writeString(this.operationCount);
         dest.writeLong(this.startTime);
@@ -264,12 +234,10 @@ public class GroupItem implements Parcelable {
     }
 
     protected GroupItem(Parcel in) {
-        this.id = in.readString();
+        super(in);
         this.userId = in.readString();
-        this.name = in.readString();
         this.type = in.readString();
         this.isShow = in.readString();
-        this.balance = in.readString();
         this.brief = in.readString();
         this.operationCount = in.readString();
         this.startTime = in.readLong();
@@ -288,7 +256,7 @@ public class GroupItem implements Parcelable {
         this.sort = in.readInt();
     }
 
-    public static final Parcelable.Creator<GroupItem> CREATOR = new Parcelable.Creator<GroupItem>() {
+    public static final Creator<GroupItem> CREATOR = new Creator<GroupItem>() {
         @Override
         public GroupItem createFromParcel(Parcel source) {
             return new GroupItem(source);

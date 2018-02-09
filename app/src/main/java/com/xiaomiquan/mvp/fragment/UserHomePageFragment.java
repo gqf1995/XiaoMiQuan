@@ -60,7 +60,7 @@ public class UserHomePageFragment extends BasePullFragment<BaseFragentPullDelega
                 @Override
                 public void onClick(View view, final int position, Object item) {
                     if (view.getId() == R.id.tv_deal) {
-                        GroupDealActivity.startAct(getActivity(), myGroupAdapter.getDatas(),position, true);
+                        GroupDealActivity.startAct(getActivity(), (ArrayList)myGroupAdapter.getDatas(),position, true);
                     }
                     if (view.getId() == R.id.tv_look) {
                         CombinationActivity.startAct(getActivity(), myGroupAdapter.getDatas().get(position), true);

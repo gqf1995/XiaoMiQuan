@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -82,14 +83,22 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     private Handler handler = new Handler() {//进行延时跳转
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 1:
+                case 0x124:
+                    //更新
                     updata();
                     Log.i("updata", "updata");
                     break;
-                case 2:
+                case 0x125:
+                    //本地保存kline数据 加载
                     if (!isInit) {
                         isInit = !isInit;
                         loadDao();
+                    }
+                    break;
+                case 0x123:
+                    //websocket推送更新
+                    if (viewDelegate != null) {
+                        viewDelegate.initData((ExchangeData) msg.obj);
                     }
                     break;
             }
@@ -110,7 +119,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
             sendWebSocket();
         }
         handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
-        handler.sendEmptyMessageDelayed(1, 1000);
+        handler.sendEmptyMessageDelayed(0x124, 1000);
         viewDelegate.getmToolbarSubTitle().setText((10 - timeIndex) + "s");
     }
 
@@ -122,8 +131,8 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         initView();
         //删除 无效记录
         KlineDaoUtil.delectHistory(exchangeData.getOnlyKey());
-        initToolbar(new ToolbarBuilder().setTitle("").setBackTxt(exchangeData.getExchange() + "  " + exchangeData.getSymbol() + "/" + exchangeData.getUnit()));//.setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
-        viewDelegate.getmToolbarBackTxt().setText(exchangeData.getExchange() + "  " + exchangeData.getSymbol() + "/" + exchangeData.getUnit());
+        initToolbar(new ToolbarBuilder().setTitle("").setSubTitle("10s").setBackTxt(exchangeData.getExchange() + "  " + exchangeData.getSymbol() + "/" + exchangeData.getUnit()));//.setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
+        viewDelegate.getmToolbarBackTxt().setText(Html.fromHtml("<big>" + exchangeData.getExchange() + "</big>  <small>" + exchangeData.getSymbol() + "/" + exchangeData.getUnit() + "<small/>"));
         viewDelegate.getmToolbarBack().setText(CommonUtils.getString(R.string.ic_Left));
         viewDelegate.getmToolbarBack().setVisibility(View.VISIBLE);
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
@@ -165,7 +174,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus && isHavaDao) {
             //进入页面后判断是否数据库有无数据 有则进入后就进行数据处理
-            handler.sendEmptyMessage(2);
+            handler.sendEmptyMessage(0x125);
         } else {
 
         }
@@ -277,7 +286,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 Log.i("KlineDraw", "onServiceSuccess");
                 setLog("请求成功" + TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss:SSS")));
                 List<KLineBean> newkLineBeans = GsonUtil.getInstance().toList(data, KLineBean.class);
-                if(newkLineBeans.size()==0){
+                if (newkLineBeans.size() == 0) {
                     viewDelegate.noKlineView();
                     return;
                 }
@@ -297,7 +306,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                     //判断是否有数据 定时器10秒更新 更新显示
                     lineBeans = mData.getKLineDatas();
                     if (timeIndex == -1) {
-                        handler.sendEmptyMessageDelayed(1, 1000);
+                        handler.sendEmptyMessageDelayed(0x124, 1000);
                     }
                     viewDelegate.viewHolder.combinedchart.setNoDataText(CommonUtils.getString(R.string.str_chart_nodata));
                     viewDelegate.viewHolder.barchart.setNoDataText(CommonUtils.getString(R.string.str_chart_nodata));
@@ -309,7 +318,6 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 break;
         }
     }
-
 
 
     //初始化 k线
@@ -361,15 +369,19 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
     //更新 k线
     private void updataKline(List<KLineBean> lineBeans) {
-        this.lineBeans = mData.getKLineDatas();
-        Iterator<KLineBean> it = lineBeans.iterator();
-        while (it.hasNext()) {
-            KLineBean x = it.next();
-            if (x.timestamp < this.lineBeans.get(this.lineBeans.size() - 1).timestamp) {
-                it.remove();
+        if (mData != null) {
+            if (mData.getKLineDatas() != null) {
+                this.lineBeans = mData.getKLineDatas();
+                Iterator<KLineBean> it = lineBeans.iterator();
+                while (it.hasNext()) {
+                    KLineBean x = it.next();
+                    if (x.timestamp < this.lineBeans.get(this.lineBeans.size() - 1).timestamp) {
+                        it.remove();
+                    }
+                }
+                klineDraw.updata(lineBeans, exchangeData.getOnlyKey() + klineValue);
             }
         }
-        klineDraw.updata(lineBeans, exchangeData.getOnlyKey() + klineValue);
     }
 
     //获取 前一列表所传数据 订阅websocket
@@ -385,7 +397,10 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                     ExchangeData edata = GsonUtil.getInstance().toObj(data, ExchangeData.class);
                     if (!TextUtils.isEmpty(edata.getOnlyKey())) {
                         if (exchangeData.getOnlyKey().equals(edata.getOnlyKey())) {
-                            viewDelegate.initData(edata);
+                            Message message = new Message();
+                            message.what = 0x123;
+                            message.obj = edata;
+                            handler.sendMessage(message);
                         }
                     }
                 }
