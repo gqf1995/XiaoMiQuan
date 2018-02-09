@@ -9,6 +9,7 @@
     <string name="str_login_et_pass">请输入密码</string>
     <string name="str_login_label_phone">手机号</string>
     <string name="str_login_et_phone">请输入手机号</string>
+    <string name="str_people">人</string>
 
     <string name="str_et_new_pass">请输入新密码</string>
     <string name="str_et_new_pass_again">请再次输入新密码</string>

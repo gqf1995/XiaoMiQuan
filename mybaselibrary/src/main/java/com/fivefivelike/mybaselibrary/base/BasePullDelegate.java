@@ -38,9 +38,9 @@ public abstract class BasePullDelegate extends BaseDelegate {
     private Paginate.Callbacks callbacks;
     private boolean isNoData = false;
     private LoadingListItemCreator loadingListItemCreator;
-    private int headerCount = 0;//头布局数量
+    private int headerCount = 1;//头布局数量
     private View.OnClickListener noDataClickListener;
-
+    public int defaultPage=1;
     private int noDataImgId = 0;
 
     /**
@@ -87,6 +87,10 @@ public abstract class BasePullDelegate extends BaseDelegate {
 
     public void setShowNoData(boolean showNoData) {
         isShowNoData = showNoData;
+    }
+
+    public void setDefaultPage(int defaultPage) {
+        this.defaultPage = defaultPage;
     }
 
     /**
@@ -280,7 +284,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
         switch (loadMode) {
             case REFRESH://下拉刷新
                 mMode = LoadMode.REFRESH;
-                page = 1;
+                page = defaultPage;
                 break;
             case DOWN://上拉加载
                 mMode = LoadMode.DOWN;

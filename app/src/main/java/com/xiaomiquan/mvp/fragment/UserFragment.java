@@ -14,9 +14,9 @@ import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeUserInfoActivity;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
+import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.activity.user.SecurityActivity;
 import com.xiaomiquan.mvp.activity.user.SetActivity;
-import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.mvp.databinder.UserBinder;
 import com.xiaomiquan.mvp.delegate.UserDelegate;
 import com.xiaomiquan.utils.UserSet;
@@ -110,7 +110,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
             case R.id.lin_set0:
                 //我的个人主页
                 if (SingSettingDBUtil.isLogin(getActivity())) {
-                    UserHomePageActivity.startAct(getActivity(), userLogin.getId() + "");
+                    PersonalHomePageActivity.startAct(getActivity(), userLogin.getId() + "");
                 }
                 break;
             case R.id.lin_set3:

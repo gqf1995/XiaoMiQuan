@@ -190,6 +190,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
     String lastTime;
 
+    //当数据库有数据时,在界面可视的时候加载数据
     private void loadDao() {
         //加载从数据库中获取的数据
         if (klineDraw != null) {
@@ -216,6 +217,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
             } else {
                 lineBeans.addAll(kLineBeans);
             }
+            //处理数据 不绘制
             if (lineBeans.size() > 0) {
                 Log.i("KlineDraw", "DataParse");
                 mData = new DataParse();

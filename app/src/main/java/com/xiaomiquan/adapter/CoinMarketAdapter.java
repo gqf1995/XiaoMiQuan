@@ -75,7 +75,7 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
         tv_coin_unit.setText(s.getName());
 
 
-        String s1 = BigUIUtil.getinstance().rateOnePrice(s.getPriceUsd(), s.getSymbol(), UserSet.getinstance().getUSDUnit());
+        String s1 = BigUIUtil.getinstance().rateMarketPrice(s.getPriceUsd(), s.getSymbol(), UserSet.getinstance().getUSDUnit());
         String s2 = BigUIUtil.getinstance().rateOnePrice(s.getMarketCapUsd(), s.getSymbol(), UserSet.getinstance().getUSDUnit());
         if (TextUtils.isEmpty(s2)) {
             tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  ");

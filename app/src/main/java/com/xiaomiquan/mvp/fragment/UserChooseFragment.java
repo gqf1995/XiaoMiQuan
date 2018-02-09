@@ -261,7 +261,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         }
     }
 
-    private void sendWebSocket() {
+    public void sendWebSocket() {
         if (exchangeMarketAdapter != null) {
             if (sendKeys == null) {
                 sendKeys = new ArrayList<>();

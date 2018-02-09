@@ -120,17 +120,22 @@ public class MarketDetailsDelegate extends BaseDelegate {
             viewHolder.tv_ma30.setVisibility(View.GONE);
             viewHolder.tv_boll.setVisibility(View.GONE);
         } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 2) {
-            //BOLL
-            viewHolder.tv_ma7.setText("BOLL:" + BigUIUtil.getinstance().bigPrice(data.getBollDataMB().get(position).getVal() + "") + "");
-            viewHolder.tv_ma15.setText("UB:" + BigUIUtil.getinstance().bigPrice(data.getBollDataUP().get(position).getVal() + "") + "");
-            viewHolder.tv_ma30.setText("LB:" + BigUIUtil.getinstance().bigPrice(data.getBollDataDN().get(position).getVal() + "") + "");
-            setKDJMaLine(3, viewHolder.tv_ma7);
-            setKDJMaLine(1, viewHolder.tv_ma30);
-            setKDJMaLine(0, viewHolder.tv_ma30);
-            viewHolder.tv_ma7.setVisibility(View.VISIBLE);
-            viewHolder.tv_ma15.setVisibility(View.VISIBLE);
-            viewHolder.tv_ma30.setVisibility(View.VISIBLE);
-            viewHolder.tv_boll.setVisibility(View.VISIBLE);
+//            //BOLL
+//            viewHolder.tv_ma7.setText("BOLL:" + BigUIUtil.getinstance().bigPrice(data.getBollDataMB().get(position).getVal() + "") + "");
+//            viewHolder.tv_ma15.setText("UB:" + BigUIUtil.getinstance().bigPrice(data.getBollDataUP().get(position).getVal() + "") + "");
+//            viewHolder.tv_ma30.setText("LB:" + BigUIUtil.getinstance().bigPrice(data.getBollDataDN().get(position).getVal() + "") + "");
+//            setKDJMaLine(3, viewHolder.tv_ma7);
+//            setKDJMaLine(1, viewHolder.tv_ma30);
+//            setKDJMaLine(0, viewHolder.tv_ma30);
+//            viewHolder.tv_ma7.setVisibility(View.VISIBLE);
+//            viewHolder.tv_ma15.setVisibility(View.VISIBLE);
+//            viewHolder.tv_ma30.setVisibility(View.VISIBLE);
+//            viewHolder.tv_boll.setVisibility(View.VISIBLE);
+            //均线
+            viewHolder.tv_ma7.setVisibility(View.GONE);
+            viewHolder.tv_ma15.setVisibility(View.GONE);
+            viewHolder.tv_ma30.setVisibility(View.GONE);
+            viewHolder.tv_boll.setVisibility(View.GONE);
         } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 3) {
             //均线
             viewHolder.tv_ma7.setVisibility(View.GONE);
@@ -158,7 +163,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
         viewHolder.tv_title.setText(exchangeData.getExchange());
         viewHolder.tv_subtitle.setText(exchangeData.getSymbol() + "/" + exchangeData.getUnit());
         viewHolder.tv_price.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLast()));
-        String s = BigUIUtil.getinstance().rateOnePrice(exchangeData.getLast(), exchangeData.getSymbol(), exchangeData.getUnit());
+        String s = BigUIUtil.getinstance().rateMarketPrice(exchangeData.getLast(), exchangeData.getSymbol(), exchangeData.getUnit());
         if (TextUtils.isEmpty(s)) {
             viewHolder.tv_rate.setVisibility(View.GONE);
         } else {

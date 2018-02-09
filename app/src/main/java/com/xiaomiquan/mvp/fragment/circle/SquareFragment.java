@@ -3,7 +3,6 @@ package com.xiaomiquan.mvp.fragment.circle;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,7 +30,7 @@ import com.xiaomiquan.mvp.activity.circle.NewsActivity;
 import com.xiaomiquan.mvp.activity.circle.ReleaseArticleActivity;
 import com.xiaomiquan.mvp.activity.circle.ReleaseDynamicActivity;
 import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
-import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
+import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.SquareBinder;
 import com.xiaomiquan.mvp.delegate.circle.SquareDelegate;
 import com.xiaomiquan.widget.circle.SquarePopupWindow;
@@ -231,7 +230,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                         }
                     }
                     if (view.getId() == R.id.cv_head) {
-                        UserHomePageActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position).getUserId());
+                        PersonalHomePageActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position).getUserId());
                     }
                 }
             });

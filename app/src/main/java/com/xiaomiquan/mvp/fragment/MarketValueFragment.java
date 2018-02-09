@@ -14,9 +14,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.CoinMarketAdapter;
 import com.xiaomiquan.entity.Drop24ChangeSort;
 import com.xiaomiquan.entity.Rise24ChangeSort;
-import com.xiaomiquan.entity.bean.CoinMarketValue;
 import com.xiaomiquan.entity.bean.ExchangeData;
-import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.mvp.activity.market.CoinDetailActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
@@ -95,8 +93,9 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
-            viewDelegate.setIsLoadMore(false);
+            viewDelegate.setIsLoadMore(true);
             initTool();
+            viewDelegate.setDefaultPage(0);
         } else {
             getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);
         }
@@ -177,7 +176,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
     }
 
 
-    private void sendWebSocket() {
+    public void sendWebSocket() {
         if (exchangeMarketAdapter != null) {
             if (sendKeys == null) {
                 sendKeys = new ArrayList<>();

@@ -46,10 +46,10 @@ public class HotGroupAdapter extends CommonAdapter<GroupItem> {
 
 
         tv_num.setText("" + s.getSort());
-        BigUIUtil.getinstance().rateTextView(s.getRate(),tv_last_week_earnings);
+        BigUIUtil.getinstance().rateTextView(s.getRate(), tv_last_week_earnings);
 
         tv_name.setText(s.getName());
-        tv_focuse_num.setText(s.getAttentionCount() + "");
+        tv_focuse_num.setText(s.getAttentionCount() + CommonUtils.getString(R.string.str_people) + CommonUtils.getString(R.string.str_focuse));
 
         if (s.getIsAttention() == 0) {
             tv_focuse.setText(CommonUtils.getString(R.string.str_details));

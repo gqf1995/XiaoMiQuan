@@ -590,7 +590,93 @@ public class BigUIUtil {
         }
         return price;
     }
-
+    //仅市值页面调用
+    public String rateMarketPrice(String price, String symbol, String itemUnit) {
+        if (TextUtils.isEmpty(price) || TextUtils.isEmpty(itemUnit)) {
+            return price;
+        }
+        if ("USDT".equals(itemUnit)) {
+            itemUnit = "USD";
+        }
+        if ("USDT".equals(symbol)) {
+            symbol = "USD";
+        }
+        //市值页面只显示 单价格
+        String unit = UserSet.getinstance().getUnit();
+        if (setUnits == null) {
+            setUnits = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
+        }
+        if (-1 == setUnits.indexOf(unit)) {
+            return "$" +bigPrice(price);
+        } else if (0 == setUnits.indexOf(unit)) {
+            //  默认
+            return "$" +bigPrice(price);
+        } else if (1 == setUnits.indexOf(unit)) {
+            //    平台价格-cny=cny
+            if (usdRate.containsKey(itemUnit)) {
+                return "¥" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+            } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
+                return "¥" + bigPrice(rate(symbol, "CNY"));
+            }
+        } else if (2 == setUnits.indexOf(unit)) {
+            //    平台价格-usd=usd
+            if (usdRate.containsKey(itemUnit)) {
+                return "$" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+            } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
+                return "$" + bigPrice(rate(symbol, "USD"));
+            }
+        } else if (3 == setUnits.indexOf(unit)) {
+            //    cny-平台价格=cny
+            if (usdRate.containsKey(itemUnit)) {
+                return "¥" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+            } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
+                return "¥" + bigPrice(rate(symbol, "CNY"));
+            }
+        } else if (4 == setUnits.indexOf(unit)) {
+            //    usd-平台价格=usd
+            if (usdRate.containsKey(itemUnit)) {
+                return "$" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+            } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
+                return "$" + bigPrice(rate(symbol, "USD"));
+            }
+        } else if (5 == setUnits.indexOf(unit)) {
+            //    usd-cny=usd
+            if (usdRate.containsKey(itemUnit)) {
+                return "$" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+            } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
+                return "$" + bigPrice(rate(symbol, "USD"));
+            }
+        } else if (6 == setUnits.indexOf(unit)) {
+            //    cny-usd=cny
+            if (usdRate.containsKey(itemUnit)) {
+                return "¥" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+            } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
+                return "¥" + bigPrice(rate(symbol, "CNY"));
+            }
+        } else if (7 == setUnits.indexOf(unit)) {
+            //    仅usd=usd
+            if (usdRate.containsKey(itemUnit)) {
+                return "$" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+            } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
+                return "$" + bigPrice(rate(symbol, "USD"));
+            }
+        } else if (8 == setUnits.indexOf(unit)) {
+            //    仅cny=cny
+            if (usdRate.containsKey(itemUnit)) {
+                return "¥" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+            } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
+                return "¥" + bigPrice(rate(symbol, "CNY"));
+            }
+        } else if (9 == setUnits.indexOf(unit)) {
+            //    仅平台价格=usd
+            if (usdRate.containsKey(itemUnit)) {
+                return "$" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+            } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
+                return "$" + bigPrice(rate(symbol, "USD"));
+            }
+        }
+        return price;
+    }
     public String rate(String name, String unit) {
         if (!isHavaData) {
             return "";
