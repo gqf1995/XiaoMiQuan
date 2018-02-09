@@ -18,6 +18,7 @@ import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -40,6 +41,9 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
     private TextView tv_praise_num;
     private CircleImageView cv_head;
 
+    public List<Boolean> isUserPraise;
+    public List<Integer> praiseNum;
+
     BaseDataBind dataBind;
     private LinearLayout lin_praise;
 
@@ -51,6 +55,8 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
     public ArtivleAdapter(BaseDataBind baseDataBind, Context context, List<SquareLive> datas) {
         super(context, R.layout.adapter_article, datas);
         dataBind = baseDataBind;
+        isUserPraise = new ArrayList<>();
+        praiseNum = new ArrayList<>();
     }
 
     public void setDatas(List<SquareLive> datas) {
@@ -70,6 +76,11 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
         tv_praise_num = holder.getView(R.id.tv_praise_num);
         cv_head = holder.getView(R.id.cv_head);
         lin_praise = holder.getView(R.id.lin_praise);
+//
+//        if (s != null) {
+//            isUserPraise.add(s.isUserPraise());
+//            praiseNum.add(s.getGoodCount());
+//        }
 
         /**
          * 用户是否点赞
@@ -93,18 +104,35 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
         lin_praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tv_praise = view.findViewById(R.id.tv_praise);
+                tv_praise_num = view.findViewById(R.id.tv_praise_num);
                 if (s.isUserPraise()) {
                     s.setUserPraise(false);
                     s.setGoodCount(s.getGoodCount() - 1);
-
+                    tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font2));
+                    tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font2));
+                    tv_praise_num.setText(s.getGoodCount() + "");
                 } else {
                     s.setUserPraise(true);
                     s.setGoodCount(s.getGoodCount() + 1);
+                    tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    tv_praise_num.setText(s.getGoodCount() + "");
                 }
                 dataBind.addRequest(savePraise(dataBind, s.getId()));
-                notifyItemChanged(position);
+//                notifyDataSetChanged();
+                notifyItemChanged(position - 1);
             }
         });
+        tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(view, position, null);
+                }
+            }
+        });
+
 
         cv_head.setOnClickListener(new View.OnClickListener() {
             @Override

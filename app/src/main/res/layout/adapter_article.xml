@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants"
     android:gravity="center"
     android:orientation="horizontal"
     android:padding="@dimen/trans_20px">
@@ -35,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/trans_20px"
+            android:maxLines="2"
             android:text="con"
             android:textColor="@color/color_font1"
             android:textSize="@dimen/text_trans_30px" />
@@ -79,6 +79,8 @@
                 android:id="@+id/lin_praise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
                 android:padding="@dimen/trans_20px">
 
