@@ -12,6 +12,7 @@ import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
+import com.xiaomiquan.widget.StickyScrollView;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,8 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
         viewHolder.lin_my_group.setVisibility(View.GONE);
+//        viewHolder.nestedScrollView.setTabAndPager(viewHolder.view_tab,(int)CommonUtils.getDimensionPixelSize(R.dimen.trans_1px),
+//                (int)CommonUtils.getDimensionPixelSize(R.dimen.trans_80px),viewHolder.pull_recycleview, false);
     }
 
     @Override
@@ -48,9 +51,11 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
         public RecyclerView rv_my_group;
         public CommonTabLayout tl_2;
         public RecyclerView rcv_hot_group;
+        public View view_tab;
         public RecyclerView pull_recycleview;
-        public FrameLayout fl_rcv;
+        public StickyScrollView nestedScrollView;
         public SwipeRefreshLayout swipeRefreshLayout;
+        public FrameLayout fl_rcv;
         public SkinCompatLinearLayout fl_pull;
 
         public ViewHolder(View rootView) {
@@ -59,9 +64,11 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
             this.rv_my_group = (RecyclerView) rootView.findViewById(R.id.rv_my_group);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
             this.rcv_hot_group = (RecyclerView) rootView.findViewById(R.id.rcv_hot_group);
+            this.view_tab = (View) rootView.findViewById(R.id.view_tab);
             this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
-            this.fl_rcv = (FrameLayout) rootView.findViewById(R.id.fl_rcv);
+            this.nestedScrollView = (StickyScrollView) rootView.findViewById(R.id.nestedScrollView);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+            this.fl_rcv = (FrameLayout) rootView.findViewById(R.id.fl_rcv);
             this.fl_pull = (SkinCompatLinearLayout) rootView.findViewById(R.id.fl_pull);
         }
 

@@ -10,10 +10,8 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.BigVListAdapter;
-import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.circle.UserFriende;
-import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
-import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
+import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.RecommendBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -101,7 +99,7 @@ public class AttentionFragment extends BasePullFragment<BaseFragentPullDelegate,
                             bigVListAdapter.notifyDataSetChanged();
                             break;
                         case R.id.cv_head:
-                            UserHomePageActivity.startAct(getActivity(), userFriendes.get(position).getId());
+                            PersonalHomePageActivity.startAct(getActivity(), userFriendes.get(position).getId());
                             break;
                     }
                 }

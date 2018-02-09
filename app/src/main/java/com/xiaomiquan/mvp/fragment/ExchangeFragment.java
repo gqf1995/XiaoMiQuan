@@ -262,7 +262,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
         exchangeMarketAdapter.updataOne(updataPosition, data);
     }
 
-    private void sendWebSocket() {
+    public void sendWebSocket() {
         if (exchangeMarketAdapter != null) {
             if (sendKeys == null) {
                 sendKeys = new ArrayList<>();

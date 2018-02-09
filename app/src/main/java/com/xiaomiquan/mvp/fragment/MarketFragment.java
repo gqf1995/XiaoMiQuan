@@ -112,9 +112,24 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         }
     }
 
+    public void sendWebsocket() {
+        for (int i = 0; i < fragments.size(); i++) {
+            if (i == viewDelegate.viewHolder.tl_2.getCurrentTab()) {
+                if (fragments.get(i) instanceof ExchangeFragment) {
+                    ((ExchangeFragment) fragments.get(i)).sendWebSocket();
+                } else if (fragments.get(i) instanceof MarketValueFragment) {
+                    ((MarketValueFragment) fragments.get(i)).sendWebSocket();
+                } else if (fragments.get(i) instanceof UserChooseFragment) {
+                    ((UserChooseFragment) fragments.get(i)).sendWebSocket();
+                } else if (fragments.get(i) instanceof CoinExchangeFragment) {
+                    ((CoinExchangeFragment) fragments.get(i)).sendWebSocket();
+                }
+            }
+        }
+    }
+
 
     //给toolbar添加搜索布局
-
     private void initToolBarSearch() {
         viewDelegate.getFl_content().addView(getActivity().getLayoutInflater().inflate(R.layout.layout_top_search, null));
         EditText et_search = viewDelegate.getFl_content().findViewById(R.id.et_search);

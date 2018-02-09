@@ -81,7 +81,7 @@ public class CombinationDelegate extends BaseDelegate {
     public void initData(GroupItem groupItem) {
         GlideUtils.loadImage(groupItem.getAvatar(), viewHolder.ic_pic);
         viewHolder.tv_name.setText(groupItem.getName());
-        viewHolder.tv_focus_on_num.setText(groupItem.getAttentionCount());
+        viewHolder.tv_focus_on_num.setText(groupItem.getAttentionCount() + CommonUtils.getString(R.string.str_people) + CommonUtils.getString(R.string.str_focuse));
         viewHolder.tv_label.setText(groupItem.getType());
         viewHolder.tv_create_time.setText(TimeUtils.millis2String(groupItem.getCreateTime(), DEFAULT_FORMAT));
         viewHolder.tv_introduce.setText(groupItem.getBrief());
@@ -110,18 +110,18 @@ public class CombinationDelegate extends BaseDelegate {
         mChartKline.setBorderColor(CommonUtils.getColor(R.color.border_color));//边线颜色
         mChartKline.setDescription("");//右下角对图表的描述信息
         mChartKline.setMinOffset(0f);
-        mChartKline.setExtraOffsets(20f, 0f, 30f, 20f);
+        mChartKline.setExtraOffsets(20f, 0f, 30f, 0f);
 
         Legend lineChartLegend = mChartKline.getLegend();
         lineChartLegend.setEnabled(false);//是否绘制 Legend 图例
         lineChartLegend.setForm(Legend.LegendForm.CIRCLE);
 
         xAxisKline = mChartKline.getXAxis();
-        xAxisKline.setDrawLabels(false); //是否显示X坐标轴上的刻度，默认是true
+        xAxisKline.setDrawLabels(true); //是否显示X坐标轴上的刻度，默认是true
         xAxisKline.setDrawGridLines(false);//是否显示X坐标轴上的刻度竖线，默认是true
         xAxisKline.setDrawAxisLine(false); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
         xAxisKline.enableGridDashedLine(10f, 10f, 0f);//虚线表示X轴上的刻度竖线(float lineLength, float spaceLength, float phase)三个参数，1.线长，2.虚线间距，3.虚线开始坐标
-        xAxisKline.setTextColor(CommonUtils.getColor(R.color.color_font2));//设置字的颜色
+        xAxisKline.setTextColor(CommonUtils.getColor(R.color.transparent));//设置字的颜色
         xAxisKline.setPosition(XAxis.XAxisPosition.BOTTOM);//设置值显示在什么位置
         xAxisKline.setAvoidFirstLastClipping(false);//设置首尾的值是否自动调整，避免被遮挡
 
@@ -136,6 +136,7 @@ public class CombinationDelegate extends BaseDelegate {
         //        axisLeftKline.setGridColor(CommonUtils.getColor(R.color.minute_grayLine));
         axisLeftKline.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         axisLeftKline.setLabelCount(4, false); //第一个参数是Y轴坐标的个数，第二个参数是 是否不均匀分布，true是不均匀分布
+
 
         axisRightKline = mChartKline.getAxisRight();
         axisRightKline.setDrawLabels(false);
@@ -161,9 +162,10 @@ public class CombinationDelegate extends BaseDelegate {
         MyLeftRateMarkerView leftMarkerView = new MyLeftRateMarkerView(viewHolder.rootView.getContext(), R.layout.mymarkerview);
         mChartKline.setMarkerView(leftMarkerView);
         mChartKline.setData(lineData);
-        setHandler(mChartKline);
+        //setHandler(mChartKline);
 
         mChartKline.moveViewToX(lineEntries.size() - 1);
+        mChartKline.setMaxVisibleValueCount(earningsMovements.getRates().size());
         mChartKline.invalidate();
 
     }

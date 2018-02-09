@@ -13,7 +13,6 @@ import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
-import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
 import com.xiaomiquan.server.HttpUrl;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;

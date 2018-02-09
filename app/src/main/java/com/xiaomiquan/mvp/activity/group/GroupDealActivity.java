@@ -148,8 +148,8 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
     private void initTablelayout() {
         ArrayList fragments = new ArrayList<>();
         fragments.add(NotDealFragment.newInstance(groupItems.get(position).getId()));
-        fragments.add(HistoryEntrustFragment.newInstance(groupItems.get(position).getId()));
         fragments.add(HistoryTradingFragment.newInstance(groupItems.get(position).getId()));
+        fragments.add(HistoryEntrustFragment.newInstance(groupItems.get(position).getId()));
         if (innerPagerAdapter == null) {
             mTitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_deal));
             mTabEntities = new ArrayList<>();

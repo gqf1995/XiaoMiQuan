@@ -20,6 +20,7 @@ import com.xiaomiquan.mvp.fragment.group.GroupDetailListFragment;
 import com.xiaomiquan.mvp.fragment.group.GroupHistoryEntrustFragment;
 import com.xiaomiquan.mvp.fragment.group.GroupHistoryTradingFragment;
 import com.xiaomiquan.mvp.fragment.group.GroupNotDealFragment;
+import com.xiaomiquan.utils.BigUIUtil;
 
 import java.util.ArrayList;
 
@@ -111,7 +112,7 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         switch (requestCode) {
             case 0x123:
                 //今日收益&日均操作次数
-                viewDelegate.viewHolder.tv_today_earnings.setText(GsonUtil.getInstance().getValue(data, "todayRate"));
+                BigUIUtil.getinstance().rateTextView(Double.parseDouble(GsonUtil.getInstance().getValue(data, "todayRate")),viewDelegate.viewHolder.tv_today_earnings);
                 viewDelegate.viewHolder.tv_daily_operation.setText(GsonUtil.getInstance().getValue(data, "count"));
                 addRequest(binder.rateTrend(isMy ? groupItem.getId() : groupItem.getUserId(), this));
                 break;

@@ -116,18 +116,24 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         // WebSocketRequest.getInstance().unregister("");
     }
 
+    MarketFragment marketFragment;
+    SquareFragment squareFragment;
+    InvestGroupFragment investGroupFragment;
+    UserFragment userFragment;
+
     //添加主页4个基础页面
     public void initFragment() {
         //设置 以哪个FrameLayout 作为展示
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
-        viewDelegate.addFragment(new MarketFragment());
-        viewDelegate.addFragment(new SquareFragment());
-        viewDelegate.addFragment(new InvestGroupFragment());
-        viewDelegate.addFragment(new UserFragment());
+        viewDelegate.addFragment(marketFragment = new MarketFragment());
+        viewDelegate.addFragment(squareFragment = new SquareFragment());
+        viewDelegate.addFragment(investGroupFragment = new InvestGroupFragment());
+        viewDelegate.addFragment(userFragment = new UserFragment());
         //显示第0个
         viewDelegate.showFragment(0);
         doubleClickActList.add(this.getClass().getName());//两次返回推出act注册
     }
+
 
     public void toPage(int pagePosition, int childPosition) {
         viewDelegate.showFragment(pagePosition);
@@ -164,6 +170,9 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     protected void onResume() {
         super.onResume();
         initIm();
+        if (viewDelegate.getCuurentFragmentPosition() == 0) {
+            marketFragment.sendWebsocket();
+        }
     }
 
     private void initIm() {

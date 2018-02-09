@@ -17,16 +17,15 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CommentDetailAdapter;
 import com.xiaomiquan.adapter.circle.DynamicPhotoAdapter;
 import com.xiaomiquan.entity.bean.circle.Comment;
-import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
-import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
+import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.TopicDetailBinder;
 import com.xiaomiquan.mvp.delegate.circle.TopicDetailDelegate;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.circle.CommentPopupWindow;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.api.widget.Widget;
@@ -187,7 +186,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
         commentAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
             public void onClick(View view, int position, Object item) {
-                UserHomePageActivity.startAct(TopicDetailActivity.this, comments.get(position).getCommentUserId());
+                PersonalHomePageActivity.startAct(TopicDetailActivity.this, comments.get(position).getCommentUserId());
             }
         });
         viewDelegate.viewHolder.rv_comment.getItemAnimator().setChangeDuration(0);

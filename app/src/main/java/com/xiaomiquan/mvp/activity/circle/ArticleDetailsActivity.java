@@ -12,19 +12,18 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
+import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CommentDetailAdapter;
 import com.xiaomiquan.entity.bean.circle.Comment;
-import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
-import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
+import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.ArticleDetailsBinder;
 import com.xiaomiquan.mvp.delegate.circle.ArticleDetailsDelegate;
-import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.circle.CommentPopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
@@ -138,7 +137,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
             commentAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
                 public void onClick(View view, int position, Object item) {
-                    UserHomePageActivity.startAct(ArticleDetailsActivity.this, comment.get(position).getCommentUserId());
+                    PersonalHomePageActivity.startAct(ArticleDetailsActivity.this, comment.get(position).getCommentUserId());
                 }
             });
             viewDelegate.viewHolder.rv_comment.getItemAnimator().setChangeDuration(0);
@@ -197,7 +196,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
                 initPop(true, "", "");
                 break;
             case R.id.lin_userinfo:
-                UserHomePageActivity.startAct(ArticleDetailsActivity.this, squareLive.getUserId());
+                PersonalHomePageActivity.startAct(ArticleDetailsActivity.this, squareLive.getUserId());
                 break;
         }
     }

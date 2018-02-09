@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Created by 郭青枫 on 2018/1/13 0013.
  */
 
-public class StickyScrollView extends android.support.v4.widget.NestedScrollView {
+public class StickyScrollView extends JudgeNestedScrollView {
 
     /**
      * Tag for views that should stick and have constant drawing. e.g. TextViews, ImageViews etc

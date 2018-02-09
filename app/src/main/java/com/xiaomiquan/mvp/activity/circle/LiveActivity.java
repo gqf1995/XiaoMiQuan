@@ -1,37 +1,23 @@
 package com.xiaomiquan.mvp.activity.circle;
 
-import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.circle.CircleAllDvpAdapter;
 import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
-import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
-import com.xiaomiquan.entity.bean.circle.UserCircle;
-import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
-import com.xiaomiquan.mvp.databinder.GetFriendsJoinBinder;
-import com.xiaomiquan.mvp.databinder.circle.LiveBinder;
+import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.NewsBinder;
-import com.xiaomiquan.mvp.delegate.GetFriendsJoinDelegate;
-import com.xiaomiquan.mvp.delegate.circle.LiveDelegate;
 import com.xiaomiquan.mvp.delegate.circle.NewsDelegate;
-import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
-import com.xiaomiquan.widget.CircleDialogHelper;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,7 +116,7 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
                         }
                     }
                     if (view.getId() == R.id.cv_head) {
-                        UserHomePageActivity.startAct(LiveActivity.this, squareLives.get(position).getUserId());
+                        PersonalHomePageActivity.startAct(LiveActivity.this, squareLives.get(position).getUserId());
                     }
                 }
             });

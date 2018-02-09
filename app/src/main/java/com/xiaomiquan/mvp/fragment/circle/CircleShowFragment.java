@@ -15,7 +15,6 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleDynamicAdapter;
 import com.xiaomiquan.adapter.circle.CircleMyAdapter;
 import com.xiaomiquan.entity.bean.UserLogin;
-import com.xiaomiquan.entity.bean.circle.Praise;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
@@ -24,8 +23,7 @@ import com.xiaomiquan.mvp.activity.circle.CircleContentActivity;
 import com.xiaomiquan.mvp.activity.circle.CreatCircleActivity;
 import com.xiaomiquan.mvp.activity.circle.GetFriendsJoinActivity;
 import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
-import com.xiaomiquan.mvp.activity.circle.UserInfoActivity;
-import com.xiaomiquan.mvp.activity.user.UserHomePageActivity;
+import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.CircleShowBinder;
 import com.xiaomiquan.mvp.delegate.circle.CircleShowDelegate;
 import com.xiaomiquan.widget.circle.JoinPopupWindow;
@@ -184,7 +182,7 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
                         }
                     }
                     if (view.getId() == R.id.cv_head) {
-                        UserHomePageActivity.startAct(getActivity(), squareLives.get(position).getUserId());
+                        PersonalHomePageActivity.startAct(getActivity(), squareLives.get(position).getUserId());
                     }
                 }
             });

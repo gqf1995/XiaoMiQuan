@@ -27,11 +27,11 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
     public Disposable getAllMarketCaps(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("offset", viewDelegate.page);
-        baseMap.put("limit", viewDelegate.pagesize);
+        //baseMap.put("offset", viewDelegate.page);
+        //baseMap.put("limit", viewDelegate.pagesize);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().getAllMarketCaps)
+                .setRequestUrl(HttpUrl.getIntance().getAllMarketCaps+"?offset="+viewDelegate.page+"&limit="+viewDelegate.pagesize)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("获得所有市值信息 未做排序")
