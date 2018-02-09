@@ -24,6 +24,7 @@ import com.xiaomiquan.mvp.databinder.circle.ArticleBinder;
 import com.xiaomiquan.mvp.delegate.circle.ArticleDelegate;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
 
     ArtivleAdapter artivleAdapter;
     LinearLayoutManager linearLayoutManager;
+    HeaderAndFooterWrapper headerAndFooterWrapper;
 
     @Override
     protected Class<ArticleDelegate> getDelegateClass() {
@@ -67,10 +69,6 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
     }
 
     public void initArticle(final List<SquareLive> squareLives) {
-        if (squareLives.size() > 0) {
-            initHeadView(squareLives.get(0));
-            squareLives.remove(0);
-        }
         if (artivleAdapter == null) {
             onRefresh();
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
@@ -78,7 +76,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
             artivleAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                    ArticleDetailsActivity.startAct(ArticleActivity.this, squareLives.get(position));
+                    ArticleDetailsActivity.startAct(ArticleActivity.this, squareLives.get(position - 1));
                 }
 
                 @Override
@@ -92,25 +90,33 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
                 public void onClick(View view, int position, Object item) {
                     switch (view.getId()) {
                         case R.id.cv_head:
-                            PersonalHomePageActivity.startAct(ArticleActivity.this, squareLives.get(position).getUserId());
+                            PersonalHomePageActivity.startAct(ArticleActivity.this, squareLives.get(position - 1).getUserId());
                             break;
+//                        case R.id.lin_praise:
+//                            if (artivleAdapter.isUserPraise.get(position - 1)) {
+//
+//                                artivleAdapter.isUserPraise.add(position - 1, false);
+//                                artivleAdapter.praiseNum.add(position - 1, artivleAdapter.praiseNum.get(position - 1) - 1);
+//                            } else {
+//                                artivleAdapter.isUserPraise.add(position - 1, true);
+//                                artivleAdapter.praiseNum.add(position - 1, artivleAdapter.praiseNum.get(position - 1) + 1);
+//                            }
+//                            artivleAdapter.notifyDataSetChanged();
+//                            addRequest(binder.savePraise(squareLives.get(position - 1).getId(), ArticleActivity.this));
+//                            break;
                     }
                 }
             });
-
-            linearLayoutManager = new LinearLayoutManager(ArticleActivity.this) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            };
-//            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
-//            viewDelegate.viewHolder.pull_recycleview.setAdapter(artivleAdapter);
-            initRecycleViewPull(artivleAdapter, linearLayoutManager);
+            headerAndFooterWrapper = new HeaderAndFooterWrapper(artivleAdapter);
+            headerAndFooterWrapper.addHeaderView(initHead());
+            initRecycleViewPull(headerAndFooterWrapper, 1, new LinearLayoutManager(ArticleActivity.this));
         } else {
-            getDataBack(artivleAdapter.getDatas(), squareLives, artivleAdapter);
-            artivleAdapter.setDatas(squareLives);
+            if (squareLives.size() > 0) {
+                initHeadView(squareLives.get(0));
+                squareLives.remove(0);
+                getDataBack(artivleAdapter.getDatas(), squareLives, artivleAdapter);
+            }
         }
 
     }
@@ -139,6 +145,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
         this.tv_praise = (IconFontTextview) rootView.findViewById(R.id.tv_praise);
         this.tv_praise_num = (TextView) rootView.findViewById(R.id.tv_praise_num);
         this.lin_praise = (LinearLayout) rootView.findViewById(R.id.lin_praise);
+
         return rootView;
     }
 
@@ -160,6 +167,20 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
         tv_name.setText(squareLive.getNickName());
         tv_comment_num.setText(squareLive.getCommentCount() + "");
         tv_praise_num.setText(squareLive.getGoodCount() + "");
+        tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArticleDetailsActivity.startAct(ArticleActivity.this, squareLive);
+            }
+        });
+
+        iv_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PersonalHomePageActivity.startAct(ArticleActivity.this, squareLive.getUserId());
+            }
+        });
+
         lin_praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

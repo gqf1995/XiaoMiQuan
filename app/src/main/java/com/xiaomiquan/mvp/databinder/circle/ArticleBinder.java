@@ -26,7 +26,7 @@ public class ArticleBinder extends BaseDataBind<ArticleDelegate> {
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().getArticle)
-                .setShowDialog(true)
+                .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("获取文章")
                 .setRequestMode(HttpRequest.RequestMode.GET)
