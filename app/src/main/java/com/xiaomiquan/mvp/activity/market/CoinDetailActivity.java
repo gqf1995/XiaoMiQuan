@@ -36,7 +36,6 @@ public class CoinDetailActivity extends BaseDataBindActivity<CoinDetailDelegate,
         super.bindEvenListener();
         getIntentData();
         initToolbar(new ToolbarBuilder().setTitle(exchangeData.getSymbol()));
-        addRequest(binder.getAllMarketBySymbol(exchangeData.getSymbol(), this));
         addRequest(binder.getSymbolInfomation(exchangeData.getSymbol(), this));
         viewDelegate.viewHolder.tv_look_more_global_market.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,20 +73,12 @@ public class CoinDetailActivity extends BaseDataBindActivity<CoinDetailDelegate,
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
-            case 0x123:
-                //根据币种名称获得相关信息
-                List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
-                if (datas.size() > 5) {
-                    initList(datas.subList(datas.size() - 5, datas.size()));
-                    return;
-                }
-                initList(datas);
-                break;
             case 0x124:
                 //币种资料
-                coinData = GsonUtil.getInstance().toObj(data, CoinData.class);
+                List<ExchangeData> datas = GsonUtil.getInstance().toList(data,"market", ExchangeData.class);
+                initList(datas);
+                coinData = GsonUtil.getInstance().toObj(data,"symbolInf", CoinData.class);
                 if (coinData != null) {
                     if (!TextUtils.isEmpty(coinData.getNameEg())) {
                         addRequest(binder.getMarketCapById(coinData.getNameEg(), this));

@@ -1,10 +1,10 @@
 package com.xiaomiquan.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatImageView;
+import android.view.View;
 
-import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
+import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -20,10 +20,10 @@ import java.util.List;
 public class AddCoinAdapter extends CommonAdapter<ExchangeData> {
 
     private FontTextview tv_name;
-    private AppCompatImageView iv_select;
     List<String> userSelectKeys;
     private List<Integer> selectPostion;
     boolean isCoin = false;
+    private IconFontTextview tv_select;
 
     public void setCoin(boolean coin) {
         isCoin = coin;
@@ -53,8 +53,8 @@ public class AddCoinAdapter extends CommonAdapter<ExchangeData> {
 
     @Override
     protected void convert(ViewHolder holder, ExchangeData s, final int position) {
-        iv_select = holder.getView(R.id.iv_select);
         tv_name = holder.getView(R.id.tv_name);
+        tv_select = holder.getView(R.id.tv_select);
         if (isCoin) {
             tv_name.setText(s.getExchange() + "/" + s.getUnit());
         } else {
@@ -70,11 +70,9 @@ public class AddCoinAdapter extends CommonAdapter<ExchangeData> {
         }
 
         if (selectPostion.contains(position)) {
-            iv_select.setBackgroundResource(R.color.color_blue);
-            tv_name.setTextColor(CommonUtils.getColor(R.color.color_blue));
+            tv_select.setVisibility(View.VISIBLE);
         } else {
-            iv_select.setBackgroundResource(R.color.white);
-            tv_name.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            tv_select.setVisibility(View.GONE);
         }
     }
 

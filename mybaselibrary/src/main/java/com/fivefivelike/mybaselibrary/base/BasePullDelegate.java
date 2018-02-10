@@ -87,6 +87,10 @@ public abstract class BasePullDelegate extends BaseDelegate {
 
     public void setShowNoData(boolean showNoData) {
         isShowNoData = showNoData;
+        if (mFootView != null) {
+            RelativeLayout nodata = (RelativeLayout) mFootView.findViewById(R.id.no_data);
+            nodata.setVisibility(isShowNoData ? View.VISIBLE : View.GONE);
+        }
     }
 
     public void setDefaultPage(int defaultPage) {
@@ -191,6 +195,9 @@ public abstract class BasePullDelegate extends BaseDelegate {
             ((ImageView) mFootView.findViewById(R.id.ic_nodata)).setBackgroundResource(noDataImgId);
         } else if (noDataImgId == 0) {
             ((ImageView) mFootView.findViewById(R.id.ic_nodata)).setVisibility(View.GONE);
+        } else {
+            ((ImageView) mFootView.findViewById(R.id.ic_nodata)).setBackgroundResource(R.drawable.ic_nodata);
+
         }
     }
 
@@ -256,6 +263,10 @@ public abstract class BasePullDelegate extends BaseDelegate {
 
     public TextView getNoDataText() {
         return (TextView) mFootView.findViewById(R.id.tv_nodata);
+    }
+
+    public ImageView getNoDataImg() {
+        return (ImageView) mFootView.findViewById(R.id.ic_nodata);
     }
 
     /**

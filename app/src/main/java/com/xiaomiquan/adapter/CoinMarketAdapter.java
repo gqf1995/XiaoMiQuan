@@ -123,7 +123,7 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
                 if (oldData != null) {
                     if (s.getOnlyKey().equals(oldData.getOnlyKey())) {
                         TextView tv_coin_price_color = holder.getView(R.id.tv_coin_price);
-                        BigUIUtil.getinstance().anim(tv_coin_price_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
+                        BigUIUtil.getinstance().anim(tv_coin_price_color, oldData.getPriceUsd(), s.getPriceUsd(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
                     }
                 }
             }
@@ -144,28 +144,18 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
                     .get(position).getOnlyKey())) {
                 return;
             }
-            boolean isSameChange = false;
             boolean isSameLast;
-            //涨幅 和 价格 如果为空则不变
-            if (TextUtils.isEmpty(data.getChange())) {
-                data.setChange(getDatas().get(position).getChange());
-                isSameChange = true;
-            } else {
-                if (getDatas().get(position).getChange().equals(data.getChange())) {
-                    isSameChange = true;
-                }
-            }
-            if (TextUtils.isEmpty(data.getLast())) {
-                data.setLast(getDatas().get(position).getLast());
+            if (TextUtils.isEmpty(data.getPriceUsd())) {
+                data.setLast(getDatas().get(position).getPriceUsd());
                 isSameLast = true;
             } else {
-                if (getDatas().get(position).getLast().equals(data.getLast())) {
+                if (getDatas().get(position).getPriceUsd().equals(data.getPriceUsd())) {
                     isSameLast = true;
                 } else {
                     isSameLast = false;
                 }
             }
-            if (isSameChange && isSameLast) {
+            if (isSameLast) {
                 return;
             }
             exchangeDataMap.put(position, getDatas().get(position));

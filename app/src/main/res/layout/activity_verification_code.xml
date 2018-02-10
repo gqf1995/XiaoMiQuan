@@ -66,6 +66,7 @@
         android:padding="@dimen/trans_20px"
         android:text="@string/str_code_not_received"
         android:textColor="@color/color_font1"
-        android:textSize="@dimen/text_trans_28px"/>
+        android:textSize="@dimen/text_trans_28px"
+        android:visibility="gone"/>
 
 </LinearLayout>

@@ -30,7 +30,7 @@ ext {
             "crop-photo"                    : "com.soundcloud.android:android-crop:1.0.1@aar",//裁剪
             "rvadapter"                     : "com.zhy:base-rvadapter:3.0.3",
             "lvadapter"                     : "com.zhy:base-adapter:3.0.3",
-            "album"                         : "com.yanzhenjie:album:2.0.0",//图库调用
+            "album"                         : "com.yanzhenjie:album:2.0.2",//图库调用
             "swiperecyclerview"             : "com.yanzhenjie:recyclerview-swipe:1.1.2",//闫振杰的多功能 list
             "andpermission"                 : "com.yanzhenjie:permission:1.1.0",//权限
             "durban"                        : "com.yanzhenjie:durban:1.0.1",//闫振杰裁剪

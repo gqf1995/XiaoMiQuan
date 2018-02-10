@@ -184,7 +184,8 @@
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/trans_45px"
                     android:paddingRight="@dimen/trans_30px"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    >
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_52px"
@@ -429,7 +430,7 @@
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/trans_45px"
                     android:paddingRight="@dimen/trans_30px"
-                    android:visibility="gone">
+                    >
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="@dimen/trans_52px"
@@ -463,7 +464,7 @@
                     android:layout_height="@dimen/trans_1px"
                     android:layout_marginLeft="@dimen/trans_45px"
                     android:background="@color/base_mask"
-                    android:visibility="gone"/>
+                    />
 
                 <LinearLayout
                     android:id="@+id/lin_set8"
