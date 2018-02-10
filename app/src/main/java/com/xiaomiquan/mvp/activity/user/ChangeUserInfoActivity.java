@@ -1,8 +1,7 @@
 package com.xiaomiquan.mvp.activity.user;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -13,13 +12,13 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.databinder.ChangeUserInfoBinder;
 import com.xiaomiquan.mvp.delegate.ChangeUserInfoDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.AlbumFile;
 
@@ -73,8 +72,9 @@ public class ChangeUserInfoActivity extends BaseDataBindActivity<ChangeUserInfoD
 
     private void showPic(String path) {
         pictureFile = new File(path);
-        Bitmap bitmap = BitmapFactory.decodeFile(path);
-        viewDelegate.viewHolder.ic_pic.setImageBitmap(bitmap);
+        //Bitmap bitmap = BitmapFactory.decodeFile(path);
+        //viewDelegate.viewHolder.ic_pic.setImageBitmap(bitmap);
+        GlideUtils.loadImage(Uri.fromFile(pictureFile),viewDelegate.viewHolder.ic_pic);
     }
 
 

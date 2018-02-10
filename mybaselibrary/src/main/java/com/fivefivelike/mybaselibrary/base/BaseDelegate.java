@@ -288,7 +288,9 @@ public abstract class BaseDelegate extends IDelegateImpl {
                 for (int i = 0; i < backStackCount; i++) {
                     this.fragmentManager.popBackStack();
                 }
-                fragmentList.clear();
+                if (fragmentList != null) {
+                    fragmentList.clear();
+                }
             }
         }
     }

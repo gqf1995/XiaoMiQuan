@@ -225,7 +225,6 @@
             android:name=".mvp.activity.user.PersonalHomePageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".mvp.activity.user.ConversationActivity"
             android:screenOrientation="portrait"

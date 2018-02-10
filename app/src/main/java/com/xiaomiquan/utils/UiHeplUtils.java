@@ -39,6 +39,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.fivefivelike.mybaselibrary.adapter.entity.ShareItemEntity;
 import com.fivefivelike.mybaselibrary.base.BigImageviewActivity;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.view.AddPicAdapter;
 import com.fivefivelike.mybaselibrary.view.GridSpacingItemDecoration;
@@ -439,18 +440,18 @@ public class UiHeplUtils {
 
 
     //设置图库样式
-    public static Widget getDefaultAlbumWight(Context context, String title) {
-        return Widget.newDarkBuilder(context)
+    public static Widget getDefaultAlbumWight(String title) {
+        return Widget.newDarkBuilder(GlobleContext.getInstance().getApplicationContext())
                 .title(title) // Title.
-                .statusBarColor(context.getResources().getColor(R.color.color_blue)) // StatusBar color.
-                .toolBarColor(context.getResources().getColor(R.color.color_blue)) // Toolbar color.
+                .statusBarColor(CommonUtils.getColor(R.color.color_blue)) // StatusBar color.
+                .toolBarColor(CommonUtils.getColor(R.color.color_blue)) // Toolbar color.
                 .navigationBarColor(Color.WHITE) // Virtual NavigationBar color of Android5.0+.
-                .mediaItemCheckSelector(context.getResources().getColor(R.color.color_blue),
-                        context.getResources().getColor(R.color.color_blue_dark)) // Image or video selection box.
-                .bucketItemCheckSelector(context.getResources().getColor(R.color.color_blue),
-                        context.getResources().getColor(R.color.color_blue_dark)) // Select the folder selection box.
+                .mediaItemCheckSelector(CommonUtils.getColor(R.color.color_blue),
+                        CommonUtils.getColor(R.color.color_blue_dark)) // Image or video selection box.
+                .bucketItemCheckSelector(CommonUtils.getColor(R.color.color_blue),
+                        CommonUtils.getColor(R.color.color_blue_dark)) // Select the folder selection box.
                 .buttonStyle( // Used to configure the style of button when the image/video is not found.
-                        Widget.ButtonStyle.newDarkBuilder(context) // With Widget's Builder model.
+                        Widget.ButtonStyle.newDarkBuilder(GlobleContext.getInstance().getApplicationContext()) // With Widget's Builder model.
                                 .setButtonSelector(Color.WHITE, Color.WHITE) // Button selector.
                                 .build()
                 ).build();
@@ -820,14 +821,24 @@ public class UiHeplUtils {
     }
 
     private static void photo(FragmentActivity fragmentActivity, com.yanzhenjie.album.Action<ArrayList<AlbumFile>> a, int selectNum) {
-        Album.image(fragmentActivity) // 选择图片。
-                .multipleChoice()
-                .requestCode(0x123)
-                .camera(true)
-                .columnCount(3)
-                .selectCount(selectNum)
-                .onResult(a)
-                .start();
+        if (selectNum == 1) {
+            Album.image(fragmentActivity) // 选择图片。
+                    .singleChoice()
+                    .requestCode(0x123)
+                    .camera(true)
+                    .columnCount(3)
+                    .onResult(a)
+                    .start();
+        } else {
+            Album.image(fragmentActivity) // 选择图片。
+                    .multipleChoice()
+                    .requestCode(0x123)
+                    .camera(true)
+                    .columnCount(3)
+                    .selectCount(selectNum)
+                    .onResult(a)
+                    .start();
+        }
     }
 
     private static void showPhotoDialog(final FragmentActivity fragmentActivity, final com.yanzhenjie.album.Action<String> cameraLinsener, final com.yanzhenjie.album.Action<ArrayList<AlbumFile>> photoLinsener, final int selectNum) {
@@ -978,7 +989,7 @@ public class UiHeplUtils {
                                 .checkedList(list)
                                 .currentPosition(position)
                                 .checkable(bigImageSelect)
-                                .setmWidget(getDefaultAlbumWight(activity, CommonUtils.getString(R.string.str_gallery)))
+                                .setmWidget(getDefaultAlbumWight(CommonUtils.getString(R.string.str_gallery)))
                                 .onResult(new com.yanzhenjie.album.Action<List<String>>() {
                                     @Override
                                     public void onAction(int requestCode, @android.support.annotation.NonNull List<String> result) {
