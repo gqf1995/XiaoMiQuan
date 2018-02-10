@@ -90,8 +90,8 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
-            viewDelegate.setIsLoadMore(false);
             initTool();
+            viewDelegate.setDefaultPage(0);
         } else {
             exchangeMarketAdapter.setFirst(true);
             getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);

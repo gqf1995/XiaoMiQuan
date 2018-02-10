@@ -443,8 +443,8 @@ public class UiHeplUtils {
     public static Widget getDefaultAlbumWight(String title) {
         return Widget.newDarkBuilder(GlobleContext.getInstance().getApplicationContext())
                 .title(title) // Title.
-                .statusBarColor(CommonUtils.getColor(R.color.color_blue)) // StatusBar color.
-                .toolBarColor(CommonUtils.getColor(R.color.color_blue)) // Toolbar color.
+                .statusBarColor(CommonUtils.getColor(R.color.toolbar_bg)) // StatusBar color.
+                .toolBarColor(CommonUtils.getColor(R.color.toolbar_bg)) // Toolbar color.
                 .navigationBarColor(Color.WHITE) // Virtual NavigationBar color of Android5.0+.
                 .mediaItemCheckSelector(CommonUtils.getColor(R.color.color_blue),
                         CommonUtils.getColor(R.color.color_blue_dark)) // Image or video selection box.

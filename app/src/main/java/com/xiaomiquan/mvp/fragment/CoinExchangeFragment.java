@@ -78,8 +78,8 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
             //viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
             //viewDelegate.viewHolder.recycler_view.setAdapter(exchangeMarketAdapter);
             initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
-            viewDelegate.setIsLoadMore(false);
             initTool();
+            viewDelegate.setDefaultPage(0);
         } else {
             //exchangeMarketAdapter.setDatas(strDatas);
             exchangeMarketAdapter.setFirst(true);

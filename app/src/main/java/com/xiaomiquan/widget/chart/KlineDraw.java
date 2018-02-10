@@ -108,8 +108,6 @@ public class KlineDraw {
         mChartKline.setAutoScaleMinMaxEnabled(true);
         mChartVolume.setAutoScaleMinMaxEnabled(true);
         setOffset();
-
-
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
 

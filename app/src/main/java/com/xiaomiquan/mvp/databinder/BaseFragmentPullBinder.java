@@ -135,6 +135,8 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("name", name);
+        baseMap.put("offset", viewDelegate.page);
+        baseMap.put("limit", viewDelegate.pagesize);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().getAllMarketByExchangeOrSymbol)
