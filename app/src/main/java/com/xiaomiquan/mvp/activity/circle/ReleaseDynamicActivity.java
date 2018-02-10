@@ -119,53 +119,57 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
 
     private void initImg(ArrayList<AlbumFile> files) {
         files.add(0, null);
-        releaseDynamicAdapter = new ReleaseDynamicAdapter(ReleaseDynamicActivity.this, files);
-        releaseDynamicAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                if (position == 0) {
-                    if (releaseDynamicAdapter.albumFiles.size() < 7) {
-                        initPop(7 - releaseDynamicAdapter.albumFiles.size());
+        if (releaseDynamicAdapter == null) {
+            releaseDynamicAdapter = new ReleaseDynamicAdapter(ReleaseDynamicActivity.this, files);
+            releaseDynamicAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    if (position == 0) {
+                        if (releaseDynamicAdapter.albumFiles.size() < 7) {
+                            initPop(7 - releaseDynamicAdapter.albumFiles.size());
+                        } else {
+                            ToastUtil.show(CommonUtils.getString(R.string.str_rv_img));
+                        }
                     } else {
-                        ToastUtil.show(CommonUtils.getString(R.string.str_rv_img));
+                        /// TODO: 2018/2/2  删除图片操作
+                        UiHeplUtils.galleryPhoto(ReleaseDynamicActivity.this,
+                                new Action<ArrayList<String>>() { // 如果checkable(false)，那么action不用传。
+                                    @Override
+                                    public void onAction(int requestCode, @NonNull ArrayList<String> result) {
+                                        List<String> list = result;
+                                        releaseDynamicAdapter.albumFiles.removeAll(releaseDynamicAdapter.albumFiles);
+                                        releaseDynamicAdapter.albumFiles.addAll((UiHeplUtils.stringsToAlbumFiles(list)));
+                                        isFirst = false;
+                                        initImg(releaseDynamicAdapter.albumFiles);
+                                    }
+                                }, new Action<String>() {
+                                    @Override
+                                    public void onAction(int requestCode, @NonNull String result) {
+                                    }
+                                }, true,
+                                releaseDynamicAdapter.path,
+                                CommonUtils.getString(R.string.str_img_title)
+                        );
                     }
-                } else {
-                    /// TODO: 2018/2/2  删除图片操作
-                    UiHeplUtils.galleryPhoto(ReleaseDynamicActivity.this,
-                            new Action<ArrayList<String>>() { // 如果checkable(false)，那么action不用传。
-                                @Override
-                                public void onAction(int requestCode, @NonNull ArrayList<String> result) {
-                                    List<String> list = result;
-                                    releaseDynamicAdapter.albumFiles.removeAll(releaseDynamicAdapter.albumFiles);
-                                    releaseDynamicAdapter.albumFiles.addAll((UiHeplUtils.stringsToAlbumFiles(list)));
-                                    isFirst = false;
-                                    initImg(releaseDynamicAdapter.albumFiles);
-                                }
-                            }, new Action<String>() {
-                                @Override
-                                public void onAction(int requestCode, @NonNull String result) {
-                                }
-                            }, true,
-                            releaseDynamicAdapter.path,
-                            CommonUtils.getString(R.string.str_img_title)
-                    );
+
                 }
 
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
-        });
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(ReleaseDynamicActivity.this, 3) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        viewDelegate.viewHolder.rv_img.setLayoutManager(gridLayoutManager);
-        viewDelegate.viewHolder.rv_img.setAdapter(releaseDynamicAdapter);
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(ReleaseDynamicActivity.this, 3) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            viewDelegate.viewHolder.rv_img.setLayoutManager(gridLayoutManager);
+            viewDelegate.viewHolder.rv_img.setAdapter(releaseDynamicAdapter);
+        } else {
+            releaseDynamicAdapter.setDatas(files);
+        }
 
     }
 
