@@ -41,10 +41,10 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        getIntentData();
-        initToolbar(new ToolbarBuilder().setTitle(userCircle.getName()));
         initUserTopic(new ArrayList<SquareLive>());
-        addRequest(binder.getCicleInfo(userCircle.getId(), CirclePreviewActivity.this));
+        getIntentData();
+
+//        addRequest(binder.getCicleInfo(userCircle.getId(), CirclePreviewActivity.this));
     }
 
     private void initView() {
@@ -66,6 +66,15 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
         viewDelegate.viewHolder.tv_code.setOnClickListener(this);
         viewDelegate.viewHolder.tv_pay.setOnClickListener(this);
 
+        if (userCircle.getArticleTopicVos().size() >= 3) {
+            List<SquareLive> data = new ArrayList<>();
+            data.add(userCircle.getArticleTopicVos().get(0));
+            data.add(userCircle.getArticleTopicVos().get(1));
+            data.add(userCircle.getArticleTopicVos().get(2));
+        } else {
+            initUserTopic(userCircle.getArticleTopicVos());
+        }
+
     }
 
     @Override
@@ -83,21 +92,18 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
     }
 
     private void initUserTopic(List<SquareLive> squareLives) {
-        if (squareLives.size() <= 3) {
-            if (circleDynamicAdapter == null) {
-
-                circleDynamicAdapter = new CircleDynamicAdapter(binder, CirclePreviewActivity.this, squareLives);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CirclePreviewActivity.this) {
-                    @Override
-                    public boolean canScrollVertically() {
-                        return false;
-                    }
-                };
-                viewDelegate.viewHolder.ry_dynamic.setLayoutManager(linearLayoutManager);
-                viewDelegate.viewHolder.ry_dynamic.setAdapter(circleDynamicAdapter);
-            } else {
-                circleDynamicAdapter.setDatas(squareLives);
-            }
+        if (circleDynamicAdapter == null) {
+            circleDynamicAdapter = new CircleDynamicAdapter(binder, CirclePreviewActivity.this, squareLives);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CirclePreviewActivity.this) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            viewDelegate.viewHolder.ry_dynamic.setLayoutManager(linearLayoutManager);
+            viewDelegate.viewHolder.ry_dynamic.setAdapter(circleDynamicAdapter);
+        } else {
+            circleDynamicAdapter.setDatas(squareLives);
         }
     }
 
@@ -114,6 +120,7 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
     private void getIntentData() {
         Intent intent = getIntent();
         userCircle = intent.getParcelableExtra("userCircle");
+        initToolbar(new ToolbarBuilder().setTitle(userCircle.getName()));
         initView();
     }
 

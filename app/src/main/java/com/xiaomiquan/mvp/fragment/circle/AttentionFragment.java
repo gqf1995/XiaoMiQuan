@@ -6,11 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.BigVListAdapter;
+import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.UserFriende;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.RecommendBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
@@ -23,6 +27,7 @@ public class AttentionFragment extends BasePullFragment<BaseFragentPullDelegate,
 
     BigVListAdapter bigVListAdapter;
     List<UserFriende> userFriendeList;
+    UserLogin userLogin;
 
     @Override
     public RecommendBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
@@ -37,6 +42,7 @@ public class AttentionFragment extends BasePullFragment<BaseFragentPullDelegate,
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        userLogin = SingSettingDBUtil.getUserLogin();
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -94,9 +100,13 @@ public class AttentionFragment extends BasePullFragment<BaseFragentPullDelegate,
                 public void onClick(View view, int position, Object item) {
                     switch (view.getId()) {
                         case R.id.tv_attention:
-                            addRequest(binder.attentiondelete(userFriendes.get(position).getAttentionId(), AttentionFragment.this));
-                            bigVListAdapter.userFriendes.remove(position);
-                            bigVListAdapter.notifyDataSetChanged();
+                            if (userLogin != null) {
+                                addRequest(binder.attentiondelete(userFriendes.get(position).getAttentionId(), AttentionFragment.this));
+                                bigVListAdapter.userFriendes.remove(position);
+                                bigVListAdapter.notifyDataSetChanged();
+                            } else {
+                                ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+                            }
                             break;
                         case R.id.cv_head:
                             PersonalHomePageActivity.startAct(getActivity(), userFriendes.get(position).getId());

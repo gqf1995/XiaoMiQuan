@@ -155,7 +155,7 @@ public class NewsDetailActivity extends BasePullActivity<TopicDetailDelegate, To
 
     private void initComment(final List<Comment> comments) {
         CommentDetailAdapter commentAdapter = new CommentDetailAdapter(mContext, comments);
-        viewDelegate.viewHolder.rv_comment.setLayoutManager(new LinearLayoutManager(mContext) {
+        viewDelegate.viewHolder.pull_recycleview.setLayoutManager(new LinearLayoutManager(mContext) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -172,7 +172,7 @@ public class NewsDetailActivity extends BasePullActivity<TopicDetailDelegate, To
                 return false;
             }
         });
-        viewDelegate.viewHolder.rv_comment.setAdapter(commentAdapter);
+        viewDelegate.viewHolder.pull_recycleview.setAdapter(commentAdapter);
     }
 
     private void initPop(final Boolean comment, final String reId, final String reName) {

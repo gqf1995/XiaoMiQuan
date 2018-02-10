@@ -62,6 +62,7 @@ public class CircleDynamicAdapter extends CommonAdapter<SquareLive> {
         super(context, R.layout.adapter_circle_dynamic, datas);
         this.context = context;
         dataBind = baseDataBind;
+
     }
 
     public void setDatas(List<SquareLive> datas) {

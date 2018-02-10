@@ -24,6 +24,7 @@ import com.xiaomiquan.mvp.delegate.IMDelegate;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
+import com.xiaomiquan.mvp.fragment.circle.CircleFragment;
 import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
@@ -132,7 +133,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     }
 
     MarketFragment marketFragment;
-    SquareFragment squareFragment;
+    CircleFragment squareFragment;
     InvestGroupFragment investGroupFragment;
     UserFragment userFragment;
 
@@ -141,7 +142,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         //设置 以哪个FrameLayout 作为展示
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
         viewDelegate.addFragment(marketFragment = new MarketFragment());
-        viewDelegate.addFragment(squareFragment = new SquareFragment());
+        viewDelegate.addFragment(squareFragment = new CircleFragment());
         viewDelegate.addFragment(investGroupFragment = new InvestGroupFragment());
         viewDelegate.addFragment(userFragment = new UserFragment());
         //显示第0个

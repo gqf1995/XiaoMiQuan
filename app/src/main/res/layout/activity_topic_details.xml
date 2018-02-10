@@ -93,7 +93,7 @@
                             android:textSize="@dimen/text_trans_32px" />
 
                         <android.support.v7.widget.RecyclerView
-                            android:id="@+id/pull_recycleview"
+                            android:id="@+id/rv_img"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:scrollbars="none" />
@@ -222,7 +222,7 @@
                     android:background="@color/base_mask" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_comment"
+                    android:id="@+id/pull_recycleview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/trans_100px"

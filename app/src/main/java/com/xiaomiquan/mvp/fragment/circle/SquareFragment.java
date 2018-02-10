@@ -15,6 +15,7 @@ import com.fivefivelike.mybaselibrary.entity.ResultDialogEntity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
@@ -122,23 +123,26 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         squarePopupWindow.setOnItemClickListener(new SquarePopupWindow.OnItemClickListener() {
             @Override
             public void setOnItemClick(View v) {
-                switch (v.getId()) {
-                    case R.id.lin_dynamic:
-                        ReleaseDynamicActivity.startAct(getActivity(), "2", "1");
-                        squarePopupWindow.dismiss();
-                        break;
-                    case R.id.lin_article:
-                        ReleaseArticleActivity.startAct(getActivity(), "1", "1", "0");
-                        squarePopupWindow.dismiss();
-                        break;
-                    case R.id.lin_wechat:
-                        ReleaseArticleActivity.startAct(getActivity(), "1", "1", "1");
-                        squarePopupWindow.dismiss();
-                        break;
-                    case R.id.btn_cancel:
-                        squarePopupWindow.dismiss();
-                        break;
-
+                if (userLogin != null) {
+                    switch (v.getId()) {
+                        case R.id.lin_dynamic:
+                            ReleaseDynamicActivity.startAct(getActivity(), "2", "1");
+                            squarePopupWindow.dismiss();
+                            break;
+                        case R.id.lin_article:
+                            ReleaseArticleActivity.startAct(getActivity(), "1", "1", "0");
+                            squarePopupWindow.dismiss();
+                            break;
+                        case R.id.lin_wechat:
+                            ReleaseArticleActivity.startAct(getActivity(), "1", "1", "1");
+                            squarePopupWindow.dismiss();
+                            break;
+                        case R.id.btn_cancel:
+                            squarePopupWindow.dismiss();
+                            break;
+                    }
+                } else {
+                    ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
                 }
             }
         });
@@ -221,11 +225,12 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
             squareLiveAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                    if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
-                        ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
-                    } else {
-                        TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
-                    }
+                        if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
+                            ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                        } else {
+                            TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                        }
+
                 }
 
                 @Override
@@ -245,13 +250,6 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                     }
                     if (view.getId() == R.id.cv_head) {
                         PersonalHomePageActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position).getUserId());
-                    }
-                    if (view.getId() == R.id.lin_article) {
-                        if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
-                            ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
-                        } else {
-                            TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
-                        }
                     }
                     if (view.getId() == R.id.lin_article) {
                         if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
@@ -280,23 +278,26 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                 squarePopupWindow.setOnItemClickListener(new SquarePopupWindow.OnItemClickListener() {
                     @Override
                     public void setOnItemClick(View v) {
-                        switch (v.getId()) {
-                            case R.id.lin_dynamic:
-                                ReleaseDynamicActivity.startAct(getActivity(), "2", "1");
-                                squarePopupWindow.dismiss();
-                                break;
-                            case R.id.lin_article:
-                                ReleaseArticleActivity.startAct(getActivity(), "1", "1", "0");
-                                squarePopupWindow.dismiss();
-                                break;
-                            case R.id.lin_wechat:
-                                ReleaseArticleActivity.startAct(getActivity(), "1", "1", "1");
-                                squarePopupWindow.dismiss();
-                                break;
-                            case R.id.btn_cancel:
-                                squarePopupWindow.dismiss();
-                                break;
-
+                        if (userLogin != null) {
+                            switch (v.getId()) {
+                                case R.id.lin_dynamic:
+                                    ReleaseDynamicActivity.startAct(getActivity(), "2", "1");
+                                    squarePopupWindow.dismiss();
+                                    break;
+                                case R.id.lin_article:
+                                    ReleaseArticleActivity.startAct(getActivity(), "1", "1", "0");
+                                    squarePopupWindow.dismiss();
+                                    break;
+                                case R.id.lin_wechat:
+                                    ReleaseArticleActivity.startAct(getActivity(), "1", "1", "1");
+                                    squarePopupWindow.dismiss();
+                                    break;
+                                case R.id.btn_cancel:
+                                    squarePopupWindow.dismiss();
+                                    break;
+                            }
+                        } else {
+                            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
                         }
                     }
                 });

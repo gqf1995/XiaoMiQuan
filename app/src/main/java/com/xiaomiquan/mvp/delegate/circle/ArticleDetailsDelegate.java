@@ -48,7 +48,7 @@ public class ArticleDetailsDelegate extends BasePullDelegate {
         public TextView tv_shared;
         public LinearLayout lin_shared;
         public TextView tv_praise_person;
-        public RecyclerView rv_comment;
+        public RecyclerView pull_recycleview;
         public SwipeRefreshLayout swipeRefreshLayout;
         public MaterialEditText et_input2;
         public TextView tv_commit;
@@ -73,7 +73,7 @@ public class ArticleDetailsDelegate extends BasePullDelegate {
             this.tv_shared = (TextView) rootView.findViewById(R.id.tv_shared);
             this.lin_shared = (LinearLayout) rootView.findViewById(R.id.lin_shared);
             this.tv_praise_person = (TextView) rootView.findViewById(R.id.tv_praise_person);
-            this.rv_comment = (RecyclerView) rootView.findViewById(R.id.rv_comment);
+            this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
             this.et_input2 = (MaterialEditText) rootView.findViewById(R.id.et_input2);
             this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);
