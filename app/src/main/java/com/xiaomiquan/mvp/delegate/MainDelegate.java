@@ -3,7 +3,6 @@ package com.xiaomiquan.mvp.delegate;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.tablayout.CommonTabLayout;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -18,7 +17,7 @@ public class MainDelegate extends IMDelegate {
     private String[] mTitles = {"", "", "", ""};
     private int[] mIconSelectIds = {
             R.string.ic_Chart, R.string.ic_Layers,
-            R.string.ic_Inbox, R.string.ic_Home};
+            R.string.ic_Inbox, R.string.ic_User};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Override
@@ -26,7 +25,6 @@ public class MainDelegate extends IMDelegate {
         viewHolder = new ViewHolder(getRootView());
         //初始化皮肤
         UserSet.getinstance().setNight(UserSet.getinstance().isNight());
-        initBottom();
     }
 
     @Override
@@ -34,27 +32,14 @@ public class MainDelegate extends IMDelegate {
         return R.layout.activity_main;
     }
 
-    private void initBottom() {
+    public void initBottom(OnTabSelectListener onTabSelectListener) {
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], 0));
         }
         viewHolder.tl_2.setIconVisible(false);
         viewHolder.tl_2.setmIndicatorId(R.drawable.shape_blue_maxradiu);
         viewHolder.tl_2.setTabData(mTabEntities);
-        viewHolder.tl_2.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                showFragment(position);
-                if (position != 0) {
-                    WebSocketRequest.getInstance().sendData(new ArrayList<String>());
-                }
-            }
-
-            @Override
-            public void onTabReselect(int position) {
-
-            }
-        });
+        viewHolder.tl_2.setOnTabSelectListener(onTabSelectListener);
     }
 
     @Override

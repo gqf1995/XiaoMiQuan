@@ -79,6 +79,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
     private void initList(List<ExchangeData> strDatas) {
         if (exchangeMarketAdapter == null) {
             exchangeMarketAdapter = new CoinMarketAdapter(getActivity(), strDatas);
+            exchangeMarketAdapter.setFirst(true);
             exchangeMarketAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -113,7 +114,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
         this.lin_root = (SkinCompatLinearLayout) rootView.findViewById(R.id.lin_root);
         tv_unit.setText(UserSet.getinstance().getUnit());
 
-        tv_rise.setText(CommonUtils.getString(R.string.str_rise));
+        tv_rise.setText(CommonUtils.getString(R.string.str_rise_24h));
         tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
         tv_unit.setOnClickListener(new View.OnClickListener() {
             @Override

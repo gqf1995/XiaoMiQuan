@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -65,6 +66,11 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
                 currencyFragmentSell.setSellResult(tradingResultSell);
                 currencyFragmentSell.getSelectPositionData();
                 break;
+        }
+        for (int i = 0; i < fragments.size(); i++) {
+            if (fragments.get(i) instanceof BasePullFragment) {
+                ((BasePullFragment) fragments.get(i)).onRefresh();
+            }
         }
     }
 
@@ -144,9 +150,10 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
 
     List<String> mTitles;
     private ArrayList<CustomTabEntity> mTabEntities;
+    ArrayList fragments;
 
     private void initTablelayout() {
-        ArrayList fragments = new ArrayList<>();
+        fragments = new ArrayList<>();
         fragments.add(NotDealFragment.newInstance(groupItems.get(position).getId()));
         fragments.add(HistoryTradingFragment.newInstance(groupItems.get(position).getId()));
         fragments.add(HistoryEntrustFragment.newInstance(groupItems.get(position).getId()));

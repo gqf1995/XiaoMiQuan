@@ -1,6 +1,7 @@
 package com.xiaomiquan.utils;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -35,6 +36,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SDCardUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.fivefivelike.mybaselibrary.adapter.entity.ShareItemEntity;
 import com.fivefivelike.mybaselibrary.base.BigImageviewActivity;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
@@ -42,6 +44,7 @@ import com.fivefivelike.mybaselibrary.view.AddPicAdapter;
 import com.fivefivelike.mybaselibrary.view.GridSpacingItemDecoration;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.PathEntity;
+import com.xiaomiquan.mvp.dialog.ShareDialog;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
@@ -906,11 +909,23 @@ public class UiHeplUtils {
      * @param addPicRes           添加图标资源
      * @param bigImageSelect      进入大图是否有选择操作
      */
-    public static void initChoosePicRv(final List<String> list, final AddPicAdapter addPicAdapter, final FragmentActivity activity, RecyclerView recyclerView,
-                                       int cloumnCount, @DimenRes int cloumnAllPaddingRes, @DrawableRes int addPicRes, final boolean bigImageSelect, final int selectIconNum) {
+    public static void initChoosePicRv(final List<String> list,
+                                       final AddPicAdapter addPicAdapter,
+                                       final FragmentActivity activity,
+                                       RecyclerView recyclerView,
+                                       int cloumnCount,
+                                       @DimenRes int cloumnAllPaddingRes,
+                                       @DrawableRes int addPicRes,
+                                       final boolean bigImageSelect,
+                                       final int selectIconNum) {
         cloumnCount = cloumnCount == 0 ? 4 : cloumnCount;
         cloumnAllPaddingRes = cloumnAllPaddingRes == 0 ? R.dimen.trans_100px : cloumnAllPaddingRes;
-        recyclerView.setLayoutManager(new GridLayoutManager(activity, cloumnCount));
+        recyclerView.setLayoutManager(new GridLayoutManager(activity, cloumnCount) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(cloumnCount, activity.getResources().getDimensionPixelSize(cloumnAllPaddingRes) / (cloumnCount + 1), true));
         recyclerView.setAdapter(addPicAdapter);
@@ -927,7 +942,7 @@ public class UiHeplUtils {
                         getPhoto(activity, new com.yanzhenjie.album.Action<String>() {
                             @Override
                             public void onAction(int requestCode, @android.support.annotation.NonNull String result) {
-                                if (result != null) {
+                                if (!TextUtils.isEmpty(result)) {
                                     list.add(result);
                                     addPicAdapter.notifyDataSetChanged();
                                 }
@@ -971,5 +986,51 @@ public class UiHeplUtils {
     }
 
 
+    public static Bitmap screenShot(FragmentActivity activity) {
+        //获取当前屏幕的大小
+        int width = activity.getWindow().getDecorView().getRootView().getWidth();
+        int height = activity.getWindow().getDecorView().getRootView().getHeight();
+        //生成相同大小的图片
+        Bitmap temBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        //找到当前页面的跟布局
+        View view = activity.getWindow().getDecorView().getRootView();
+        //设置缓存
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();
+        //从缓存中获取当前屏幕的图片
+        temBitmap = view.getDrawingCache();
+        return temBitmap;
+    }
+
+    public static void shareImgs(final FragmentActivity activity, final List<Bitmap> bitmaps) {
+        ShareDialog shareDialog;
+        shareDialog = new ShareDialog(activity, new ShareDialog.SharePlatformChooseListener() {
+            @Override
+            public void onPlatformChoose(Dialog dialog, final ShareItemEntity shareObj) {
+                dialog.dismiss();
+                if (shareObj.isSystemShare()) {//系统分享
+                    List<String> names = new ArrayList<>();
+                    List<File> files = new ArrayList<>();
+                    for (int i = 0; i < bitmaps.size(); i++) {
+                        names.add("/sdcard/" + "BCOIN_share" + System.currentTimeMillis() + ".png");
+                    }
+                    ShareDialog.downBitmapToFile(activity, bitmaps, names, false);
+                    for (int i = 0; i < names.size(); i++) {
+                        files.add(new File(names.get(i)));
+                    }
+                    ShareDialog.shareWithSystem(activity, shareObj, files, "");
+                } else {//sharesdk分享
+
+                }
+            }
+        });
+        List<ShareItemEntity> systemList = ShareDialog.getSystemList(activity);
+        if (systemList == null || systemList.size() == 0) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_share_no));
+            return;
+        }
+        shareDialog.refreshData(systemList);
+        shareDialog.show();
+    }
 
 }

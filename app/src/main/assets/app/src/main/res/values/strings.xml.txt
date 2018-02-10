@@ -84,6 +84,7 @@
     <string name="str_latest_price">最新价</string>
     <string name="str_volume">24H量</string>
     <string name="str_rise_ranking">涨幅榜</string>
+    <string name="str_rise_24h">24H涨幅</string>
     <string name="str_rise">涨幅</string>
     <string name="str_amplitude">震幅</string>
     <string name="str_drop_ranking">跌幅榜</string>
@@ -317,6 +318,23 @@
     <string name="str_toast_need_login">登录后才能使用此功能</string>
     <string name="str_eNames">[{\"cName\":\"\",\"eName\":\"Coincheck\"},{\"cName\":\"\",\"eName\":\"Bitflyer\"},{\"cName\":\"\",\"eName\":\"Cex\"},{\"cName\":\"\",\"eName\":\"Aex\"},{\"cName\":\"\",\"eName\":\"Bittrex\"},{\"cName\":\"\",\"eName\":\"Exx\"},{\"cName\":\"\",\"eName\":\"Hitbtc\"},{\"cName\":\"\",\"eName\":\"Gate\"},{\"cName\":\"\",\"eName\":\"Bitfinex\"},{\"cName\":\"\",\"eName\":\"Coinw\"},{\"cName\":\"\",\"eName\":\"Quoine\"},{\"cName\":\"\",\"eName\":\"Coinegg\"},{\"cName\":\"\",\"eName\":\"Coinbase\"},{\"cName\":\"\",\"eName\":\"Kucoin\"},{\"cName\":\"\",\"eName\":\"Coinnest\"},{\"cName\":\"\",\"eName\":\"Ucoin\"},{\"cName\":\"\",\"eName\":\"Chaoex\"},{\"cName\":\"\",\"eName\":\"Binance\"},{\"cName\":\"\",\"eName\":\"Kraken\"},{\"cName\":\"\",\"eName\":\"Liqui\"},{\"cName\":\"\",\"eName\":\"Zb\"},{\"cName\":\"\",\"eName\":\"Kkex\"},{\"cName\":\"\",\"eName\":\"Okex\"},{\"cName\":\"\",\"eName\":\"Korbit\"},{\"cName\":\"\",\"eName\":\"Btcbox\"},{\"cName\":\"\",\"eName\":\"Coin900\"},{\"cName\":\"\",\"eName\":\"Huobi\"},{\"cName\":\"\",\"eName\":\"Coinone\"},{\"cName\":\"\",\"eName\":\"Bitz\"},{\"cName\":\"\",\"eName\":\"Bitstamp\"},{\"cName\":\"\",\"eName\":\"Bitmex\"},{\"cName\":\"\",\"eName\":\"Bcex\"},{\"cName\":\"\",\"eName\":\"Poloniex\"},{\"cName\":\"\",\"eName\":\"Bithumb\"},{\"cName\":\"\",\"eName\":\"Bigone\"},{\"cName\":\"\",\"eName\":\"Bibox\"}]</string>
 
+    <!--ShareDialog-->
+    <string name="str_share_default_title">BCOIN</string>
+    <string name="str_share_default_content">BCOIN的分享</string>
+    <string name="str_share_nocontent">没有分享内容!</string>
+    <string name="str_share_qq">QQ好友</string>
+    <string name="str_share_qq_space">QQ好友</string>
+    <string name="str_share_wechat">微信好友</string>
+    <string name="str_share_wechat_circle">微信朋友圈</string>
+    <string name="str_share_sina">新浪微博</string>
+    <string name="str_share_no">暂无可分享平台</string>
+    <string name="str_share_no_img">暂无图片可分享</string>
+    <string name="str_share_no_load">图片还未加载成功，请稍后</string>
+    <!--Permission-->
+    <string name="str_permission_read_write">没有读写权限,请开启权限</string>
+    <string name="str_permission_default">没有相关权限,请开启权限后操作</string>
+    <!--file-->
+    <string name="str_file_save">已保存在sd卡根目录</string>
 
     <string-array name="price">
         <item>限价</item>

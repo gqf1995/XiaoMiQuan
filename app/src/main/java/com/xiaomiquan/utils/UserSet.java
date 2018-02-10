@@ -170,5 +170,16 @@ public class UserSet {
         return SaveUtil.getInstance().getBoolean("isUseCustomRate");
     }
 
+    //是否第一次使用 第一次为false
+    public boolean isFirst() {
+        boolean isFirst = SaveUtil.getInstance().getBoolean("isFirst");
+        if (!isFirst) {
+            setNight(true);
+        }
+        return isFirst;
+    }
 
+    public void setIsFirst(boolean isFirst) {
+        SaveUtil.getInstance().saveBoolean("isFirst", isFirst);
+    }
 }

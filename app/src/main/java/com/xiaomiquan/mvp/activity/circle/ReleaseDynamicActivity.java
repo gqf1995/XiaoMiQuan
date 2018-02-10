@@ -12,6 +12,7 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.view.AddPicAdapter;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.ReleaseDynamicAdapter;
 import com.xiaomiquan.mvp.databinder.circle.ReleaseDynamicBinder;
@@ -19,20 +20,19 @@ import com.xiaomiquan.mvp.delegate.circle.ReleaseDynamicDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.AlbumFile;
-import com.yanzhenjie.durban.Durban;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import top.zibin.luban.OnCompressListener;
-
 public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicDelegate, ReleaseDynamicBinder> {
 
     ReleaseDynamicAdapter releaseDynamicAdapter;
     Boolean isFirst = true;
 
+    AddPicAdapter addPicAdapter;
+    List<String> choosePaths;
 
     @Override
     protected Class<ReleaseDynamicDelegate> getDelegateClass() {
@@ -50,12 +50,23 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_release_dynamic)).setSubTitle(CommonUtils.getString(R.string.str_release)));
         getIntentData();
         initView();
+        choosePaths = new ArrayList<>();
+        addPicAdapter = new AddPicAdapter(this, choosePaths);
+        UiHeplUtils.initChoosePicRv(choosePaths,
+                addPicAdapter,
+                this,
+                viewDelegate.viewHolder.rv_img,
+                3,
+                R.dimen.trans_120px,
+                0,
+                true,
+                9
+        );
 
-
-        if (isFirst) {
-            ArrayList<AlbumFile> path = new ArrayList<>();
-            initImg(path);
-        }
+        //        if (isFirst) {
+        //            ArrayList<AlbumFile> path = new ArrayList<>();
+        //            initImg(path);
+        //        }
     }
 
     @Override
@@ -191,7 +202,7 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
             @Override
             public void onAction(int requestCode, @NonNull String result) {
                 //拍照
-//                UiHeplUtils.cropPhoto(ReleaseDynamicActivity.this, result);
+                //                UiHeplUtils.cropPhoto(ReleaseDynamicActivity.this, result);
                 releaseDynamicAdapter.albumFiles.remove(0);
                 releaseDynamicAdapter.albumFiles.add(UiHeplUtils.stringToAlbumFile(result));
                 isFirst = false;

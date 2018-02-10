@@ -62,7 +62,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+
     }
 
     @Override
@@ -88,7 +88,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
         allMyGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
             public void onClick(View view, int position, Object item) {
-                GroupDealActivity.startAct(getActivity(), (ArrayList)allMyGroupAdapter.getDatas(), position, true);
+                GroupDealActivity.startAct(getActivity(), (ArrayList) allMyGroupAdapter.getDatas(), position, true);
             }
         });
         viewDelegate.viewHolder.rv_my_group.setLayoutManager(new LinearLayoutManager(getActivity()) {
@@ -113,7 +113,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                         CombinationActivity.startAct(getActivity(), hotGroupAdapter.getDatas().get(position), false);
                     } else if (hotGroupAdapter.getDatas().get(position).getIsAttention() == 1) {
                         if (userLogin != null) {
-                            hotGroupAdapter.getDatas().get(position).setAttentionCount(0 + "");
+                            hotGroupAdapter.getDatas().get(position).setIsAttention(0);
                             //关注
                             addRequest(binder.demoattention(hotGroupAdapter.getDatas().get(position).getUserId() + "", null));
                             hotGroupAdapter.notifyItemChanged(position);
@@ -158,15 +158,11 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
             adapter.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
                 public void onClick(View view, int position, Object item) {
-                    GroupDealActivity.startAct(getActivity(), (ArrayList)adapter.getDatas(), position, true);
+                    GroupDealActivity.startAct(getActivity(), (ArrayList) adapter.getDatas(), position, true);
                 }
             });
-            initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            });
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+            initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         } else {
             getDataBack(adapter.getDatas(), datas, adapter);
         }
@@ -210,7 +206,6 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
         if (userLogin != null) {
             addRequest(binder.listDemo(this));
             addRequest(binder.dynamic(this));
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         } else {
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         }

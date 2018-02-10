@@ -8,6 +8,7 @@ import android.view.WindowManager;
 
 import com.fivefivelike.mybaselibrary.base.BaseActivity;
 import com.xiaomiquan.mvp.delegate.WelcomDelegate;
+import com.xiaomiquan.utils.UserSet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,13 +43,17 @@ public class WelcomActivity extends BaseActivity<WelcomDelegate> {
             }
         }
     };
+
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //viewDelegate.viewHolder.iv_pic.setImageResource(R.drawable.welcom);
         handler.sendEmptyMessageDelayed(1, 500);
-//        HttpUrl.setBaseUrl(httpBaseUrl4);
+        if (!UserSet.getinstance().isFirst()) {
+            UserSet.getinstance().setIsFirst(true);
+        }
+        //        HttpUrl.setBaseUrl(httpBaseUrl4);
     }
 
     private void doPing() {
@@ -93,7 +98,7 @@ public class WelcomActivity extends BaseActivity<WelcomDelegate> {
         //            Log.i("ping", "ipPing2" + ipPing2);
         //            HttpUrl.setBaseUrl(httpBaseUrl4);
         //        }
-       //PingUtil.getInstance().pingStart();
+        //PingUtil.getInstance().pingStart();
     }
 
     private void doAct() {

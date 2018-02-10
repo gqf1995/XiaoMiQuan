@@ -57,6 +57,7 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
                     } else if (type == R.id.tv_star) {
                         ExchangeData exchangeData = strDatas.get(position);
                         //取消自选
+                        onlyKey.remove(onlyKey.indexOf(exchangeData.getOnlyKey()));
                         binder.singlesubs(exchangeData.getOnlyKey(), SortingUserCoinActivity.this);
                         sortingAdapter.getDatas().remove(position);
                         sortingAdapter.notifyDataSetChanged();
@@ -114,7 +115,7 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
         for (int i = 0; i < sortingAdapter.getDatas().size(); i++) {
             onlyKey.add(sortingAdapter.getDatas().get(i).getOnlyKey());
         }
-        if(isSend) {
+        if (isSend) {
             disposable = binder.order(onlyKey, SortingUserCoinActivity.this);
         }
     }

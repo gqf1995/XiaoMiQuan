@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
@@ -20,7 +19,10 @@ import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 郭青枫 on 2018/1/10 0010.
@@ -30,15 +32,15 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
 
 
     private TextView tv_num;
-    private FontTextview tv_coin_type;
-    private FontTextview tv_coin_market_value;
-    private FontTextview tv_coin_price;
+    private TextView tv_coin_type;
+    private TextView tv_coin_market_value;
+    private TextView tv_coin_price;
     private RoundedImageView ic_piv;
-    private FontTextview tv_gains;
+    private TextView tv_gains;
     private LinearLayout lin_root;
     private FrameLayout fl_root;
-    private FontTextview tv_coin_probably;
-    private FontTextview tv_coin_unit;
+    private TextView tv_coin_probably;
+    private TextView tv_coin_unit;
 
     boolean isRedRise = false;
 
@@ -80,7 +82,7 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
         if (TextUtils.isEmpty(s2)) {
             tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  ");
         } else {
-            s2 = s2.substring(1, s2.length());
+            //s2 = s2.substring(1, s2.length());
             tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  " + s2);
         }
         if (TextUtils.isEmpty(s1)) {
@@ -88,6 +90,7 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
         } else {
             tv_coin_price.setText(s1);
         }
+        tv_coin_price.setTextColor(CommonUtils.getColor(R.color.color_font1));
         tv_coin_probably.setVisibility(View.GONE);
 
 
@@ -102,15 +105,77 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
             ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
         }
         tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getPercentChange24h()) + "%");
+
+
+        if (!isFirst) {
+            if (exchangeDataMap != null) {
+                ExchangeData oldData = null;
+                Iterator it = exchangeDataMap.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry entry = (Map.Entry) it.next();
+                    ExchangeData val = (ExchangeData) entry.getValue();
+                    if (val.getOnlyKey().equals(s.getOnlyKey())) {
+                        oldData = val;
+                        exchangeDataMap.remove(val);
+                        break;
+                    }
+                }
+                if (oldData != null) {
+                    if (s.getOnlyKey().equals(oldData.getOnlyKey())) {
+                        TextView tv_coin_price_color = holder.getView(R.id.tv_coin_price);
+                        BigUIUtil.getinstance().anim(tv_coin_price_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
+                    }
+                }
+            }
+        }
+
+
     }
+
+    boolean isFirst = false;
+    Map<Integer, ExchangeData> exchangeDataMap;
 
     public void updataOne(int position, ExchangeData data) {
         if (mDatas.size() > 0) {
-            mDatas.set(position, data);
+            if (exchangeDataMap == null) {
+                exchangeDataMap = new LinkedHashMap<>();
+            }
+            if (!data.getOnlyKey().equals(getDatas()
+                    .get(position).getOnlyKey())) {
+                return;
+            }
+            boolean isSameChange = false;
+            boolean isSameLast;
+            //涨幅 和 价格 如果为空则不变
+            if (TextUtils.isEmpty(data.getChange())) {
+                data.setChange(getDatas().get(position).getChange());
+                isSameChange = true;
+            } else {
+                if (getDatas().get(position).getChange().equals(data.getChange())) {
+                    isSameChange = true;
+                }
+            }
+            if (TextUtils.isEmpty(data.getLast())) {
+                data.setLast(getDatas().get(position).getLast());
+                isSameLast = true;
+            } else {
+                if (getDatas().get(position).getLast().equals(data.getLast())) {
+                    isSameLast = true;
+                } else {
+                    isSameLast = false;
+                }
+            }
+            if (isSameChange && isSameLast) {
+                return;
+            }
+            exchangeDataMap.put(position, getDatas().get(position));
+            getDatas().set(position, data);
             this.notifyItemChanged(position);
         }
     }
-
+    public void setFirst(boolean first) {
+        isFirst = first;
+    }
     public void setDatas(List<ExchangeData> datas) {
         mDatas.clear();
         mDatas.addAll(datas);

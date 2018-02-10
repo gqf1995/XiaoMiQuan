@@ -21,7 +21,7 @@ public class PersonalHomePageBinder extends BaseDataBind<PersonalHomePageDelegat
             String id,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("id",id);
+        baseMap.put("id", id);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().personCenter)
@@ -35,6 +35,7 @@ public class PersonalHomePageBinder extends BaseDataBind<PersonalHomePageDelegat
                 .build()
                 .RxSendRequest();
     }
+
     /**
      * 我的组合
      */
@@ -55,5 +56,26 @@ public class PersonalHomePageBinder extends BaseDataBind<PersonalHomePageDelegat
                 .RxSendRequest();
     }
 
+    /**
+     * 他人的组合
+     */
+    public Disposable getDemoByUserId(
+            String userId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("userId", userId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x125)
+                .setRequestUrl(HttpUrl.getIntance().getDemoByUserId)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("他人的组合")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 
 }

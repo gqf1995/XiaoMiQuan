@@ -87,10 +87,10 @@ public class GroupDynamicAdapter extends CommonAdapter<GroupDynamic> {
 
         if (Double.parseDouble(s.getPositionRateAfter()) < Double.parseDouble(s.getPositionRateBefore())) {
             tv_rate_ic.setText(CommonUtils.getString(R.string.ic_Combined));
-            tv_rate_ic.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+            tv_rate_ic.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
         } else {
             tv_rate_ic.setText(CommonUtils.getString(R.string.ic_down_zuhe));
-            tv_rate_ic.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+            tv_rate_ic.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
         }
 
     }

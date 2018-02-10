@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.GroupDealCurrencyAdapter;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
 import com.xiaomiquan.entity.bean.group.TradingResult;
@@ -106,6 +108,8 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
             viewDelegate.viewHolder.pull_recycleview.setHasFixedSize(true);
             viewDelegate.viewHolder.pull_recycleview.setNestedScrollingEnabled(false);
             viewDelegate.setIsPullDown(false);
+            viewDelegate.setNoDataImgId(0);
+            viewDelegate.setNoDataTxt(CommonUtils.getString(R.string.str_now_no_data));
             if (TYPE_CURRENCY_SELL.equals(type)) {
                 viewDelegate.setIsLoadMore(false);
             }

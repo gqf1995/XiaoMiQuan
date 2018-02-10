@@ -40,8 +40,8 @@ public abstract class BasePullDelegate extends BaseDelegate {
     private LoadingListItemCreator loadingListItemCreator;
     private int headerCount = 1;//头布局数量
     private View.OnClickListener noDataClickListener;
-    public int defaultPage=1;
-    private int noDataImgId = 0;
+    public int defaultPage = 1;
+    private int noDataImgId = -1;
 
     /**
      * 下拉刷新控件
@@ -166,6 +166,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
         RelativeLayout nodata = (RelativeLayout) mFootView.findViewById(R.id.no_data);
         if (noDataClickListener != null) {
             nodata.findViewById(R.id.ic_nodata).setOnClickListener(noDataClickListener);
+            nodata.findViewById(R.id.tv_nodata).setOnClickListener(noDataClickListener);
         }
         ViewGroup.LayoutParams layoutParams = nodata.getLayoutParams();
         int height = mPullRecyclerView.getHeight();
@@ -186,8 +187,10 @@ public abstract class BasePullDelegate extends BaseDelegate {
         if (!TextUtils.isEmpty(noDataTxt)) {
             ((TextView) mFootView.findViewById(R.id.tv_nodata)).setText(noDataTxt);
         }
-        if (noDataImgId != 0) {
+        if (noDataImgId != 0 && noDataImgId != -1) {
             ((ImageView) mFootView.findViewById(R.id.ic_nodata)).setBackgroundResource(noDataImgId);
+        } else if (noDataImgId == 0) {
+            ((ImageView) mFootView.findViewById(R.id.ic_nodata)).setVisibility(View.GONE);
         }
     }
 
@@ -322,6 +325,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
         this.noDataTxt = noDataTxt;
     }
 
+    //设置为0 不显示
     public void setNoDataImgId(int noDataImgId) {
         this.noDataImgId = noDataImgId;
     }
