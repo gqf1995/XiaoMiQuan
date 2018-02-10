@@ -83,10 +83,10 @@ public class RecommendBinder extends BaseDataBind<BaseFragentPullDelegate> {
      * 取消关注
      */
     public Disposable attentiondelete(
-            String id,
+            String userId,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("id", id);
+        baseMap.put("id", userId);
         return new HttpRequest.Builder()
                 .setRequestCode(0x126)
                 .setRequestUrl(HttpUrl.getIntance().attentiondelete)

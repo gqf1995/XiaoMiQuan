@@ -117,7 +117,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
 
         }
-        viewDelegate.viewHolder.tv_comment.setOnClickListener(this);
+        viewDelegate.viewHolder.lin_info_comment.setOnClickListener(this);
         viewDelegate.viewHolder.lin_praise.setOnClickListener(this);
         viewDelegate.viewHolder.tv_commit.setOnClickListener(this);
         viewDelegate.viewHolder.et_input2.setOnClickListener(this);
@@ -262,7 +262,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
                 }
                 addRequest(binder.savePraise(squareLive.getId(), TopicDetailActivity.this));
                 break;
-            case R.id.tv_comment:
+            case R.id.lin_info_comment:
                 initPop(true, "", "");
                 break;
             case R.id.tv_commit:

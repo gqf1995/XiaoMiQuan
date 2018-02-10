@@ -28,9 +28,6 @@ import java.util.List;
 
 public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicDelegate, ReleaseDynamicBinder> {
 
-    ReleaseDynamicAdapter releaseDynamicAdapter;
-    Boolean isFirst = true;
-
     AddPicAdapter addPicAdapter;
     List<String> choosePaths;
 
@@ -51,6 +48,12 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
         getIntentData();
         initView();
         choosePaths = new ArrayList<>();
+        initImg(choosePaths);
+
+
+    }
+
+    public void initImg(List<String> paths) {
         addPicAdapter = new AddPicAdapter(this, choosePaths);
         UiHeplUtils.initChoosePicRv(choosePaths,
                 addPicAdapter,
@@ -60,13 +63,8 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
                 R.dimen.trans_120px,
                 0,
                 true,
-                9
+                6
         );
-
-        //        if (isFirst) {
-        //            ArrayList<AlbumFile> path = new ArrayList<>();
-        //            initImg(path);
-        //        }
     }
 
     @Override
@@ -74,9 +72,16 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
         super.clickRightTv();
         if (check()) {
             if (platform.equals("1")) {
-                initRealeseSquare(releaseDynamicAdapter.fileList, String.valueOf(viewDelegate.viewHolder.ck_circle.isChecked()));
+                initRealeseSquare(UiHeplUtils.stringsToFiles(choosePaths), String.valueOf(viewDelegate.viewHolder.ck_circle.isChecked()));
             } else {
-                initRealeseCircle(releaseDynamicAdapter.fileList, String.valueOf(viewDelegate.viewHolder.ck_live.isChecked()));
+                if (choosePaths.size()>0) {
+                    UiHeplUtils.stringsToFiles(choosePaths);
+                    initRealeseCircle(UiHeplUtils.stringsToFiles(choosePaths), String.valueOf(viewDelegate.viewHolder.ck_live.isChecked()));
+
+                }else {
+                    initRealeseCircle(null, String.valueOf(viewDelegate.viewHolder.ck_live.isChecked()));
+                }
+
             }
         }
     }
@@ -128,59 +133,6 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
         }
     }
 
-    private void initImg(ArrayList<AlbumFile> files) {
-        files.add(0, null);
-        releaseDynamicAdapter = new ReleaseDynamicAdapter(ReleaseDynamicActivity.this, files);
-        releaseDynamicAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                if (position == 0) {
-                    if (releaseDynamicAdapter.albumFiles.size() < 7) {
-                        initPop(7 - releaseDynamicAdapter.albumFiles.size());
-                    } else {
-                        ToastUtil.show(CommonUtils.getString(R.string.str_rv_img));
-                    }
-                } else {
-                    /// TODO: 2018/2/2  删除图片操作
-                    UiHeplUtils.galleryPhoto(ReleaseDynamicActivity.this,
-                            new Action<ArrayList<String>>() { // 如果checkable(false)，那么action不用传。
-                                @Override
-                                public void onAction(int requestCode, @NonNull ArrayList<String> result) {
-                                    List<String> list = result;
-                                    releaseDynamicAdapter.albumFiles.removeAll(releaseDynamicAdapter.albumFiles);
-                                    releaseDynamicAdapter.albumFiles.addAll((UiHeplUtils.stringsToAlbumFiles(list)));
-                                    isFirst = false;
-                                    initImg(releaseDynamicAdapter.albumFiles);
-                                }
-                            }, new Action<String>() {
-                                @Override
-                                public void onAction(int requestCode, @NonNull String result) {
-                                }
-                            }, true,
-                            releaseDynamicAdapter.path,
-                            CommonUtils.getString(R.string.str_img_title)
-                    );
-                }
-
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
-        });
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(ReleaseDynamicActivity.this, 3) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        viewDelegate.viewHolder.rv_img.setLayoutManager(gridLayoutManager);
-        viewDelegate.viewHolder.rv_img.setAdapter(releaseDynamicAdapter);
-
-    }
-
-
     String type;
     String platform;
 
@@ -195,28 +147,6 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
         intent.putExtra("type", type);
         intent.putExtra("platform", platform);
         activity.startActivity(intent);
-    }
-
-    private void initPop(int num) {
-        UiHeplUtils.getPhoto(this, new Action<String>() {
-            @Override
-            public void onAction(int requestCode, @NonNull String result) {
-                //拍照
-                //                UiHeplUtils.cropPhoto(ReleaseDynamicActivity.this, result);
-                releaseDynamicAdapter.albumFiles.remove(0);
-                releaseDynamicAdapter.albumFiles.add(UiHeplUtils.stringToAlbumFile(result));
-                isFirst = false;
-                initImg(releaseDynamicAdapter.albumFiles);
-            }
-        }, new Action<ArrayList<AlbumFile>>() {
-            @Override
-            public void onAction(int requestCode, @NonNull ArrayList<AlbumFile> result) {
-                releaseDynamicAdapter.albumFiles.remove(0);
-                releaseDynamicAdapter.albumFiles.addAll(result);
-                isFirst = false;
-                initImg(releaseDynamicAdapter.albumFiles);
-            }
-        }, num);
     }
 
     @Override

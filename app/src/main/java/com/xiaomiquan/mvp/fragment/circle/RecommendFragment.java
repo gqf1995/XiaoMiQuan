@@ -98,18 +98,17 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
                         case R.id.tv_attention:
                             UserFriende userFriende = bigVListAdapter.userFriendes.get(position);
                             if (userFriende.getAttention()) {
-                                addRequest(binder.attentiondelete(userFriendes.get(position).getAttentionId(), RecommendFragment.this));
                                 bigVListAdapter.userFriendes.remove(position);
                                 userFriende.setAttention(false);
                                 userFriende.setAttentionedCount(userFriende.getAttentionedCount() - 1);
                                 bigVListAdapter.userFriendes.add(position, userFriende);
                             } else {
-                                addRequest(binder.attention(userFriendes.get(position).getId(), RecommendFragment.this));
                                 bigVListAdapter.userFriendes.remove(position);
                                 userFriende.setAttention(true);
                                 userFriende.setAttentionedCount(userFriende.getAttentionedCount() + 1);
                                 bigVListAdapter.userFriendes.add(position, userFriende);
                             }
+                            addRequest(binder.attention(userFriendes.get(position).getId(), RecommendFragment.this));
                             bigVListAdapter.notifyItemChanged(position);
                             break;
 

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.User;
 import com.xiaomiquan.utils.UiHeplUtils;
 import com.yanzhenjie.album.AlbumFile;
@@ -38,6 +39,12 @@ public class ReleaseDynamicAdapter extends CommonAdapter<AlbumFile> {
         this.path = new ArrayList<>();
         this.fileList = new ArrayList<>();
         this.albumFiles = datas;
+    }
+
+    public void setDatas(ArrayList<AlbumFile> datas) {
+        this.mDatas.clear();
+        this.mDatas.addAll(datas);
+        this.notifyDataSetChanged();
     }
 
     @Override

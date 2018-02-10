@@ -24,14 +24,16 @@
                 <ImageView
                     android:id="@+id/iv_img"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/trans_490px"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY" />
 
                 <LinearLayout
                     android:id="@+id/lin_photo"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_280px"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_img"
+                    android:layout_alignTop="@+id/iv_img"
                     android:layout_centerVertical="true"
                     android:layout_margin="@dimen/trans_40px"
                     android:background="@drawable/shape_imaginary_line"
