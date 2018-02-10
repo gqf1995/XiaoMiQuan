@@ -3,7 +3,6 @@ package com.fivefivelike.mybaselibrary.base;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.multidex.MultiDexApplication;
 
@@ -21,9 +20,9 @@ public abstract class BaseApp extends MultiDexApplication {
     @Override
     public Resources getResources() {
         Resources res = super.getResources();
-        Configuration config=new Configuration();
-        config.setToDefaults();
-        res.updateConfiguration(config,res.getDisplayMetrics() );
+//        Configuration config=new Configuration();
+//        config.setToDefaults();
+//        res.updateConfiguration(config,res.getDisplayMetrics());
         return res;
     }
     public abstract void startCustomerService(Activity activity);
