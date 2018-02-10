@@ -14,11 +14,14 @@ import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.ArtivleAdapter;
+import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.ArticleBinder;
 import com.xiaomiquan.mvp.delegate.circle.ArticleDelegate;
@@ -36,6 +39,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
     ArtivleAdapter artivleAdapter;
     LinearLayoutManager linearLayoutManager;
     HeaderAndFooterWrapper headerAndFooterWrapper;
+    UserLogin userLogin;
 
     @Override
     protected Class<ArticleDelegate> getDelegateClass() {
@@ -50,6 +54,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        userLogin = SingSettingDBUtil.getUserLogin();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_tv_article)).setSubTitle(CommonUtils.getString(R.string.str_release)));
         initArticle(new ArrayList<SquareLive>());
         addRequest(binder.getArticle(ArticleActivity.this));
@@ -184,6 +189,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
         lin_praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (userLogin != null) {
                 /**
                  * 用户是否点赞
                  //                 */
@@ -203,6 +209,9 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
 
                 }
                 addRequest(binder.savePraise(squareLive.getId(), ArticleActivity.this));
+                } else {
+                    ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+                }
             }
         });
 

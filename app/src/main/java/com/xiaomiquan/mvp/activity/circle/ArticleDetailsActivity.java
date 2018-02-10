@@ -15,18 +15,22 @@ import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CommentDetailAdapter;
+import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.Comment;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.ArticleDetailsBinder;
 import com.xiaomiquan.mvp.delegate.circle.ArticleDetailsDelegate;
 import com.xiaomiquan.widget.circle.CommentPopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDelegate, ArticleDetailsBinder> {
@@ -35,6 +39,8 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     protected Class<ArticleDetailsDelegate> getDelegateClass() {
         return ArticleDetailsDelegate.class;
     }
+
+    UserLogin userLogin;
 
     @Override
     public ArticleDetailsBinder getDataBinder(ArticleDetailsDelegate viewDelegate) {
@@ -45,13 +51,9 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_article)));
+        userLogin = SingSettingDBUtil.getUserLogin();
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         getIntentData();
-        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                addRequest(binder.getTopicContent(squareLive.getId(), ArticleDetailsActivity.this));
-            }
-        });
     }
 
     @Override
@@ -105,28 +107,23 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
         viewDelegate.viewHolder.tv_con.setText(Html.fromHtml(square.getContent()));
         viewDelegate.viewHolder.tv_name.setText(square.getNickName());
         viewDelegate.viewHolder.tv_title.setText(square.getTitle());
-
         initComment(square.getCommentVos());
     }
 
     CommentDetailAdapter commentAdapter;
 
     private void initComment(final List<Comment> comment) {
-
         if (commentAdapter == null) {
-            onRefresh();
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             commentAdapter = new CommentDetailAdapter(mContext, comment);
-            viewDelegate.viewHolder.rv_comment.setLayoutManager(new LinearLayoutManager(mContext) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            });
             commentAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                    initPop(false, comment.get(position).getCommentUserId(), comment.get(position).getNickName());
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+
+                    if (userLogin != null) {
+                        initPop(false, comment.get(position).getCommentUserId(), comment.get(position).getNickName());
+                    } else {
+                        ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+                    }
                 }
 
                 @Override
@@ -134,17 +131,17 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
                     return false;
                 }
             });
-
             commentAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
                 public void onClick(View view, int position, Object item) {
                     PersonalHomePageActivity.startAct(ArticleDetailsActivity.this, comment.get(position).getCommentUserId());
                 }
             });
-            viewDelegate.viewHolder.rv_comment.getItemAnimator().setChangeDuration(0);
-            viewDelegate.viewHolder.rv_comment.setAdapter(commentAdapter);
+            viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
+//            viewDelegate.viewHolder.rv_comment.setAdapter(commentAdapter);
+            initRecycleViewPull(commentAdapter, new LinearLayoutManager(ArticleDetailsActivity.this));
         } else {
-            commentAdapter.setDatas(comment);
+            getDataBack(commentAdapter.getDatas(), comment, commentAdapter);
         }
     }
 
@@ -154,6 +151,8 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
         Intent intent = getIntent();
         squareLive = (SquareLive) intent.getParcelableExtra("squareLive");
         initSquareLive(squareLive);
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+
     }
 
     public static void startAct(Activity activity,
@@ -168,39 +167,48 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.lin_praise:
-                if (squareLive.isUserPraise()) {
-                    squareLive.setUserPraise(false);
-                    squareLive.setGoodCount(squareLive.getGoodCount() - 1);
-                    viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
-                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
-                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
-                } else {
-                    squareLive.setUserPraise(true);
-                    squareLive.setGoodCount(squareLive.getGoodCount() + 1);
-                    viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
-                    viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                    viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                }
-                addRequest(binder.savePraise(squareLive.getId(), ArticleDetailsActivity.this));
-                break;
-            case R.id.lin_info_comment:
-                initPop(true, "", "");
-                break;
-            case R.id.tv_commit:
-                initPop(true, "", "");
-                break;
-            case R.id.et_input2:
-                initPop(true, "", "");
-                break;
-            case R.id.lin_comment:
-                initPop(true, "", "");
-                break;
+
             case R.id.lin_userinfo:
                 PersonalHomePageActivity.startAct(ArticleDetailsActivity.this, squareLive.getUserId());
                 break;
         }
+        if (userLogin != null) {
+            switch (v.getId()) {
+                case R.id.lin_praise:
+                    if (squareLive.isUserPraise()) {
+                        squareLive.setUserPraise(false);
+                        squareLive.setGoodCount(squareLive.getGoodCount() - 1);
+                        viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
+                        viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                        viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                    } else {
+                        squareLive.setUserPraise(true);
+                        squareLive.setGoodCount(squareLive.getGoodCount() + 1);
+                        viewDelegate.viewHolder.tv_praise_num.setText(squareLive.getGoodCount() + "");
+                        viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                        viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    }
+                    addRequest(binder.savePraise(squareLive.getId(), ArticleDetailsActivity.this));
+                    break;
+                case R.id.lin_info_comment:
+                    initPop(true, "", "");
+                    break;
+                case R.id.tv_commit:
+                    initPop(true, "", "");
+                    break;
+                case R.id.et_input2:
+                    initPop(true, "", "");
+                    break;
+                case R.id.lin_comment:
+                    initPop(true, "", "");
+                    break;
+            }
+        } else {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+        }
+
     }
+
 
     private void initPop(final Boolean comment, final String reId, final String reName) {
         final CommentPopupWindow commentPopupWindow = new CommentPopupWindow(ArticleDetailsActivity.this);

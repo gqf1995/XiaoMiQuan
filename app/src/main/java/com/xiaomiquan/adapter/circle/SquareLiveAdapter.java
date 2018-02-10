@@ -12,10 +12,13 @@ import android.widget.TextView;
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.server.HttpUrl;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.yanzhenjie.album.Album;
@@ -176,19 +179,24 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
                 }
             }
         });
+
         lin_praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (s.isUserPraise()) {
-                    s.setUserPraise(false);
-                    s.setGoodCount(s.getGoodCount() - 1);
+                if (SingSettingDBUtil.getUserLogin() != null) {
+                    if (s.isUserPraise()) {
+                        s.setUserPraise(false);
+                        s.setGoodCount(s.getGoodCount() - 1);
 
+                    } else {
+                        s.setUserPraise(true);
+                        s.setGoodCount(s.getGoodCount() + 1);
+                    }
+                    dataBind.addRequest(savePraise(dataBind, s.getId()));
+                    notifyItemChanged(position);
                 } else {
-                    s.setUserPraise(true);
-                    s.setGoodCount(s.getGoodCount() + 1);
+                    ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
                 }
-                dataBind.addRequest(savePraise(dataBind, s.getId()));
-                notifyItemChanged(position);
             }
         });
 
@@ -208,7 +216,6 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
                 }
             }
         });
-
 
 
     }

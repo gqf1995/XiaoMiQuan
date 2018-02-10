@@ -44,8 +44,12 @@
             android:scaleType="fitXY" />
 
         <LinearLayout
-            android:layout_width="@dimen/trans_220px"
-            android:layout_height="@dimen/trans_198px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_head"
+            android:layout_alignTop="@+id/iv_head"
+            android:layout_alignRight="@+id/iv_head"
+            android:layout_alignLeft="@+id/iv_head"
             android:layout_centerInParent="true"
             android:background="@color/black_transparent_50"
             android:gravity="center"

@@ -50,7 +50,7 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
         public IconFontTextview icf_shared;
         public TextView tv_shared;
         public LinearLayout lin_shared;
-        public RecyclerView rv_comment;
+        public RecyclerView rv_img;
         public SwipeRefreshLayout swipeRefreshLayout;
         public MaterialEditText et_input2;
         public TextView tv_commit;
@@ -73,7 +73,7 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
             this.icf_shared = (IconFontTextview) rootView.findViewById(R.id.icf_shared);
             this.tv_shared = (TextView) rootView.findViewById(R.id.tv_shared);
             this.lin_shared = (LinearLayout) rootView.findViewById(R.id.lin_shared);
-            this.rv_comment = (RecyclerView) rootView.findViewById(R.id.rv_comment);
+            this.rv_img = (RecyclerView) rootView.findViewById(R.id.rv_img);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
             this.et_input2 = (MaterialEditText) rootView.findViewById(R.id.et_input2);
             this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);

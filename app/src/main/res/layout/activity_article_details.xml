@@ -220,7 +220,7 @@
                     android:textSize="@dimen/trans_28px" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_comment"
+                    android:id="@+id/pull_recycleview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/album_dp_15"

@@ -16,7 +16,9 @@ import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.BigVListAdapter;
+import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.UserFriende;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.databinder.circle.BigVListBinder;
 import com.xiaomiquan.mvp.databinder.circle.LiveBinder;
 import com.xiaomiquan.mvp.delegate.circle.BigVListDelegate;
@@ -52,6 +54,7 @@ public class BigVListActivity extends BaseDataBindActivity<BigVListDelegate, Big
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_bigv)));
+
         initTablelayout();
     }
 

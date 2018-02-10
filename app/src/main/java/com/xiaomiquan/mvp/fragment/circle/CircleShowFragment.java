@@ -150,12 +150,6 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
             onRefresh();
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             circleDynamicAdapter = new CircleDynamicAdapter(binder, getActivity(), squareLives);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            };
             circleDynamicAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
@@ -186,9 +180,10 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
                     }
                 }
             });
-            viewDelegate.viewHolder.rv_circle.setLayoutManager(linearLayoutManager);
-            viewDelegate.viewHolder.rv_circle.getItemAnimator().setChangeDuration(0);
-            viewDelegate.viewHolder.rv_circle.setAdapter(circleDynamicAdapter);
+//            viewDelegate.viewHolder.rv_circle.setLayoutManager(linearLayoutManager);
+            viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
+//            viewDelegate.viewHolder.rv_circle.setAdapter(circleDynamicAdapter);
+            initRecycleViewPull(circleDynamicAdapter, new LinearLayoutManager(getActivity()));
         } else {
             circleDynamicAdapter.setDatas(squareLives);
         }
@@ -217,7 +212,7 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
                 }
             }
         });
-        joinPopupWindow.showAtLocation(viewDelegate.viewHolder.rv_circle, Gravity.BOTTOM, 0, 0);
+        joinPopupWindow.showAtLocation(viewDelegate.viewHolder.rv_mycircle, Gravity.BOTTOM, 0, 0);
     }
 
 }
