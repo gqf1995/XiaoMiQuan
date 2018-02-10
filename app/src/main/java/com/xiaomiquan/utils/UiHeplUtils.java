@@ -509,6 +509,20 @@ public class UiHeplUtils {
     }
 
     /**
+     *  path转File
+     * @param results
+     * @return
+     */
+    public static List<File> stringsToFiles(List<String> results) {
+        List<File> fileList = new ArrayList<>();
+        for (String result : results) {
+            File file = new File(result);
+            fileList.add(file);
+        }
+        return fileList;
+    }
+
+    /**
      * html 编码
      *
      * @param str

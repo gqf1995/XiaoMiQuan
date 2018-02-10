@@ -61,6 +61,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
             case 0x123:
                 SquareLive datas = GsonUtil.getInstance().toObj(data, SquareLive.class);
                 initSquareLive(datas);
+                squareLive = datas;
                 break;
             case 0x124:
                 viewDelegate.viewHolder.et_input2.setText("");
@@ -90,7 +91,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
 
         }
-        viewDelegate.viewHolder.tv_comment.setOnClickListener(this);
+        viewDelegate.viewHolder.lin_info_comment.setOnClickListener(this);
         viewDelegate.viewHolder.lin_praise.setOnClickListener(this);
         viewDelegate.viewHolder.tv_commit.setOnClickListener(this);
         viewDelegate.viewHolder.et_input2.setOnClickListener(this);
@@ -183,7 +184,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
                 }
                 addRequest(binder.savePraise(squareLive.getId(), ArticleDetailsActivity.this));
                 break;
-            case R.id.tv_comment:
+            case R.id.lin_info_comment:
                 initPop(true, "", "");
                 break;
             case R.id.tv_commit:

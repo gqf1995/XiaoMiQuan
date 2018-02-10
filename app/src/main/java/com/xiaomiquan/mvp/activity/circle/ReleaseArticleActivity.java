@@ -48,6 +48,7 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
     }
 
     private void initView() {
+
         viewDelegate.viewHolder.icf_update_img.setOnClickListener(this);
         viewDelegate.viewHolder.lin_photo.setOnClickListener(this);
         if (wechat.equals("0")) {

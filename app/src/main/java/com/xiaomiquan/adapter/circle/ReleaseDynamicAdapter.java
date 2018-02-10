@@ -31,13 +31,15 @@ public class ReleaseDynamicAdapter extends CommonAdapter<AlbumFile> {
 
     public List<String> path;
     public List<File> fileList;
+    public ArrayList<AlbumFile> albumFiles;
 
 
     public ReleaseDynamicAdapter(Context context, ArrayList<AlbumFile> datas) {
         super(context, R.layout.adapter_release_dynamic, datas);
         this.path = new ArrayList<>();
         this.fileList = new ArrayList<>();
-     }
+        this.albumFiles = datas;
+    }
 
     public void setDatas(ArrayList<AlbumFile> datas) {
         this.mDatas.clear();

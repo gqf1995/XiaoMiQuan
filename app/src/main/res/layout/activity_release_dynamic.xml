@@ -7,15 +7,14 @@
 
     <include layout="@layout/include_toolbar_with_statusbar" />
 
-    <com.xiaomiquan.widget.StickyScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
                 android:id="@+id/et_con"
@@ -25,8 +24,8 @@
                 android:gravity="left|top"
                 android:hint="@string/str_et_hint"
                 android:maxLength="140"
-                android:textColorHint="@color/color_font3"
                 android:padding="@dimen/trans_30px"
+                android:textColorHint="@color/color_font3"
                 android:textSize="@dimen/trans_32px"
                 app:met_baseColor="@color/white"
                 app:met_primaryColor="@color/color_blue"
@@ -102,7 +101,6 @@
             </LinearLayout>
 
         </LinearLayout>
-    </com.xiaomiquan.widget.StickyScrollView>
-
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

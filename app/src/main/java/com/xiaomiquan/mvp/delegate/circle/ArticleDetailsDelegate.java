@@ -31,28 +31,28 @@ public class ArticleDetailsDelegate extends BasePullDelegate {
 
     public static class ViewHolder {
         public View rootView;
-
         public ImageView iv_banner;
         public TextView tv_title;
         public CircleImageView cv_head;
         public TextView tv_name;
         public TextView tv_time;
+        public LinearLayout lin_userinfo;
         public TextView tv_con;
         public IconFontTextview tv_praise;
         public TextView tv_praise_num;
+        public LinearLayout lin_praise;
         public IconFontTextview tv_comment;
         public TextView tv_comment_num;
+        public LinearLayout lin_info_comment;
         public IconFontTextview icf_shared;
         public TextView tv_shared;
+        public LinearLayout lin_shared;
         public TextView tv_praise_person;
         public RecyclerView rv_comment;
         public SwipeRefreshLayout swipeRefreshLayout;
         public MaterialEditText et_input2;
         public TextView tv_commit;
         public LinearLayout lin_comment;
-        public LinearLayout lin_praise;
-        public LinearLayout lin_userinfo;
-
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -61,21 +61,23 @@ public class ArticleDetailsDelegate extends BasePullDelegate {
             this.cv_head = (CircleImageView) rootView.findViewById(R.id.cv_head);
             this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);
             this.tv_time = (TextView) rootView.findViewById(R.id.tv_time);
+            this.lin_userinfo = (LinearLayout) rootView.findViewById(R.id.lin_userinfo);
             this.tv_con = (TextView) rootView.findViewById(R.id.tv_con);
             this.tv_praise = (IconFontTextview) rootView.findViewById(R.id.tv_praise);
             this.tv_praise_num = (TextView) rootView.findViewById(R.id.tv_praise_num);
+            this.lin_praise = (LinearLayout) rootView.findViewById(R.id.lin_praise);
             this.tv_comment = (IconFontTextview) rootView.findViewById(R.id.tv_comment);
             this.tv_comment_num = (TextView) rootView.findViewById(R.id.tv_comment_num);
+            this.lin_info_comment = (LinearLayout) rootView.findViewById(R.id.lin_info_comment);
             this.icf_shared = (IconFontTextview) rootView.findViewById(R.id.icf_shared);
             this.tv_shared = (TextView) rootView.findViewById(R.id.tv_shared);
+            this.lin_shared = (LinearLayout) rootView.findViewById(R.id.lin_shared);
             this.tv_praise_person = (TextView) rootView.findViewById(R.id.tv_praise_person);
             this.rv_comment = (RecyclerView) rootView.findViewById(R.id.rv_comment);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
             this.et_input2 = (MaterialEditText) rootView.findViewById(R.id.et_input2);
             this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);
             this.lin_comment = (LinearLayout) rootView.findViewById(R.id.lin_comment);
-            this.lin_praise = (LinearLayout) rootView.findViewById(R.id.lin_praise);
-            this.lin_userinfo = (LinearLayout) rootView.findViewById(R.id.lin_userinfo);
         }
 
     }
