@@ -4,13 +4,13 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
-import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
@@ -41,7 +41,7 @@ public class SearchAddCoinAdapter extends CommonAdapter<ExchangeData> {
     FontTextview tv_name;
     FontTextview tv_coin_unit;
     FontTextview tv_coin_exchange;
-    IconFontTextview tv_isadd;
+    ImageView iv_isadd;
 
 
     private List<Integer> selectPostion;
@@ -92,7 +92,7 @@ public class SearchAddCoinAdapter extends CommonAdapter<ExchangeData> {
         tv_name = holder.getView(R.id.tv_name);
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
         tv_coin_unit = holder.getView(R.id.tv_coin_unit);
-        tv_isadd = holder.getView(R.id.tv_isadd);
+        iv_isadd = holder.getView(R.id.iv_isadd);
 
 
         ic_piv.setEnabled(false);
@@ -130,7 +130,7 @@ public class SearchAddCoinAdapter extends CommonAdapter<ExchangeData> {
         tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
 
 
-        tv_isadd.setOnClickListener(new View.OnClickListener() {
+        lin_root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (defaultClickLinsener != null) {
@@ -141,12 +141,12 @@ public class SearchAddCoinAdapter extends CommonAdapter<ExchangeData> {
 
         if (userSelectKeys != null) {
             if (userSelectKeys.contains(s.getOnlyKey())) {
-                tv_isadd.setText(CommonUtils.getString(R.string.ic_jianshao));
+                iv_isadd.setBackgroundResource(R.drawable.ic_combined_shape);
             } else {
-                tv_isadd.setText(CommonUtils.getString(R.string.ic_jia));
+                iv_isadd.setBackgroundResource(R.drawable.ic_hebingxingzhuang);
             }
         } else {
-            tv_isadd.setText(CommonUtils.getString(R.string.ic_jia));
+            iv_isadd.setBackgroundResource(R.drawable.ic_hebingxingzhuang);
         }
 
     }

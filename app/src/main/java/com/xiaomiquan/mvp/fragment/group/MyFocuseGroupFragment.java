@@ -69,6 +69,7 @@ public class MyFocuseGroupFragment extends BasePullFragment<BaseFragentPullDeleg
                     }
                 }
             });
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             initRecycleViewPull(myGroupAdapter, new LinearLayoutManager(getActivity()));
         } else {
             getDataBack(myGroupAdapter.getDatas(), datas, myGroupAdapter);

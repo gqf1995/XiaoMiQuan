@@ -7,12 +7,13 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/trans_70px"
-        android:background="@color/base_mask"
 
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <Space
@@ -38,6 +39,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <Space
@@ -63,6 +66,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <Space
@@ -89,6 +94,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <Space
@@ -115,6 +122,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <Space
@@ -139,6 +148,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <Space
@@ -160,10 +171,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="30"/>
         </LinearLayout>
-
-
-
-
 
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

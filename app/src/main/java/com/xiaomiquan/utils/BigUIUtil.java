@@ -85,6 +85,7 @@ public class BigUIUtil {
         }
     }
 
+
     //没动画变色
     public void noAnim(final TextView textView, String oldnum, String newnum, final int endColor, String onlyKey) {
         if (TextUtils.isEmpty(oldnum) || TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {
@@ -127,6 +128,7 @@ public class BigUIUtil {
                 animatorConcurrentHashMap.remove(key);
             }
         }
+        final String text = textView.getText().toString();
         if (oldnum.contains("¥") || oldnum.contains("$")) {
             oldnum = oldnum.substring(1);
         }
@@ -136,9 +138,11 @@ public class BigUIUtil {
         if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == 1) {
             //降价
             textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+            textView.setText(CommonUtils.getString(R.string.ic_up) + " " + text);
         } else if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == -1) {
             //涨价
             textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+            textView.setText(CommonUtils.getString(R.string.ic_down) + " " + text);
         } else {
             return;
         }
@@ -152,6 +156,7 @@ public class BigUIUtil {
                     //动画结束
                     if (textView != null) {
                         textView.setTextColor(endColor);
+                        textView.setText(text);
                     }
                 }
             }
@@ -378,7 +383,6 @@ public class BigUIUtil {
             return rateTwoPrice;
         }
 
-
         String unit = UserSet.getinstance().getUnit();
         if (setUnits == null) {
             setUnits = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
@@ -520,10 +524,10 @@ public class BigUIUtil {
             setUnits = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
         }
         if (-1 == setUnits.indexOf(unit)) {
-            return "$" +bigMarkValue(price);
+            return "$" + bigMarkValue(price);
         } else if (0 == setUnits.indexOf(unit)) {
             //  默认
-            return "$" +bigMarkValue(price);
+            return "$" + bigMarkValue(price);
         } else if (1 == setUnits.indexOf(unit)) {
             //    平台价格-cny=cny
             if (usdRate.containsKey(itemUnit)) {
@@ -590,6 +594,7 @@ public class BigUIUtil {
         }
         return price;
     }
+
     //仅市值页面调用
     public String rateMarketPrice(String price, String symbol, String itemUnit) {
         if (TextUtils.isEmpty(price) || TextUtils.isEmpty(itemUnit)) {
@@ -607,10 +612,10 @@ public class BigUIUtil {
             setUnits = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
         }
         if (-1 == setUnits.indexOf(unit)) {
-            return "$" +bigPrice(price);
+            return "$" + bigPrice(price);
         } else if (0 == setUnits.indexOf(unit)) {
             //  默认
-            return "$" +bigPrice(price);
+            return "$" + bigPrice(price);
         } else if (1 == setUnits.indexOf(unit)) {
             //    平台价格-cny=cny
             if (usdRate.containsKey(itemUnit)) {
@@ -677,6 +682,7 @@ public class BigUIUtil {
         }
         return price;
     }
+
     public String rate(String name, String unit) {
         if (!isHavaData) {
             return "";

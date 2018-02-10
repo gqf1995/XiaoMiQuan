@@ -61,14 +61,25 @@ public class JudgeNestedScrollView extends NestedScrollView {
         viewPager.setLayoutParams(layoutParams);
     }
 
-    public void setTabAndPager(View tab, int viewHeight,int bottomToolHeight, View viewPager, boolean isToolbarInside){
+    public void setTabAndPager(View tab, int viewHeight, int bottomToolHeight, View viewPager, boolean isToolbarInside) {
         this.view = tab;
         toolBarPositionY = viewHeight + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
         if (isToolbarInside) {
             toolBarPositionY = toolBarPositionY + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
         }
         ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) viewPager.getLayoutParams();
-        layoutParams.height = ScreenUtils.getScreenHeight() - viewHeight -bottomToolHeight- (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px) - BarUtils.getStatusBarHeight();
+        layoutParams.height = ScreenUtils.getScreenHeight() - viewHeight - bottomToolHeight - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px) - BarUtils.getStatusBarHeight();
+        viewPager.setLayoutParams(layoutParams);
+    }
+
+    public void setTabAndPager(View tab, int viewHeight, int bottomToolHeight, int tabHeight, View viewPager, boolean isToolbarInside) {
+        this.view = tab;
+        toolBarPositionY = viewHeight + tabHeight + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
+        if (isToolbarInside) {
+            toolBarPositionY = toolBarPositionY + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
+        }
+        ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) viewPager.getLayoutParams();
+        layoutParams.height = ScreenUtils.getScreenHeight() - viewHeight - tabHeight - bottomToolHeight - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px) - BarUtils.getStatusBarHeight();
         viewPager.setLayoutParams(layoutParams);
     }
 

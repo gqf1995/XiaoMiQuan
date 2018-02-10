@@ -376,6 +376,10 @@ public class HttpUrl {
      * 组合动态
      */
     public String dynamic = getBaseUrl() + demoUrl + "/dynamic";
+    /**
+     * 组合详情
+     */
+    public String getDemoByUserId = getBaseUrl() + demoUrl + "/getDemoByUserId";
 
 
 

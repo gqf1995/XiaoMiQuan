@@ -120,17 +120,17 @@ public class MarketDetailsDelegate extends BaseDelegate {
             viewHolder.tv_ma30.setVisibility(View.GONE);
             viewHolder.tv_boll.setVisibility(View.GONE);
         } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 2) {
-//            //BOLL
-//            viewHolder.tv_ma7.setText("BOLL:" + BigUIUtil.getinstance().bigPrice(data.getBollDataMB().get(position).getVal() + "") + "");
-//            viewHolder.tv_ma15.setText("UB:" + BigUIUtil.getinstance().bigPrice(data.getBollDataUP().get(position).getVal() + "") + "");
-//            viewHolder.tv_ma30.setText("LB:" + BigUIUtil.getinstance().bigPrice(data.getBollDataDN().get(position).getVal() + "") + "");
-//            setKDJMaLine(3, viewHolder.tv_ma7);
-//            setKDJMaLine(1, viewHolder.tv_ma30);
-//            setKDJMaLine(0, viewHolder.tv_ma30);
-//            viewHolder.tv_ma7.setVisibility(View.VISIBLE);
-//            viewHolder.tv_ma15.setVisibility(View.VISIBLE);
-//            viewHolder.tv_ma30.setVisibility(View.VISIBLE);
-//            viewHolder.tv_boll.setVisibility(View.VISIBLE);
+            //            //BOLL
+            //            viewHolder.tv_ma7.setText("BOLL:" + BigUIUtil.getinstance().bigPrice(data.getBollDataMB().get(position).getVal() + "") + "");
+            //            viewHolder.tv_ma15.setText("UB:" + BigUIUtil.getinstance().bigPrice(data.getBollDataUP().get(position).getVal() + "") + "");
+            //            viewHolder.tv_ma30.setText("LB:" + BigUIUtil.getinstance().bigPrice(data.getBollDataDN().get(position).getVal() + "") + "");
+            //            setKDJMaLine(3, viewHolder.tv_ma7);
+            //            setKDJMaLine(1, viewHolder.tv_ma30);
+            //            setKDJMaLine(0, viewHolder.tv_ma30);
+            //            viewHolder.tv_ma7.setVisibility(View.VISIBLE);
+            //            viewHolder.tv_ma15.setVisibility(View.VISIBLE);
+            //            viewHolder.tv_ma30.setVisibility(View.VISIBLE);
+            //            viewHolder.tv_boll.setVisibility(View.VISIBLE);
             //均线
             viewHolder.tv_ma7.setVisibility(View.GONE);
             viewHolder.tv_ma15.setVisibility(View.GONE);
@@ -190,41 +190,36 @@ public class MarketDetailsDelegate extends BaseDelegate {
                 viewHolder.tv_rise.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
             }
         }
-
         viewHolder.tv_rise.setText(stringBuffer.toString() + " " + end);
-
-
-
         //动画
         if (mExchangeData != null) {
-            if (!mExchangeData.getHigh().equals(exchangeData.getHigh())) {
-                BigUIUtil.getinstance().noAnim(viewHolder.tv_highest, mExchangeData.getHigh(), exchangeData.getHigh(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
-            }
-            if (!mExchangeData.getLow().equals(exchangeData.getLow())) {
-                BigUIUtil.getinstance().noAnim(viewHolder.tv_minimum, mExchangeData.getLow(), exchangeData.getLow(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
-            }
-            if (!mExchangeData.getBid().equals(exchangeData.getBid())) {
-                BigUIUtil.getinstance().noAnim(viewHolder.tv_buy_one, mExchangeData.getBid(), exchangeData.getBid(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
-            }
-            if (!mExchangeData.getAsk().equals(exchangeData.getAsk())) {
-                BigUIUtil.getinstance().noAnim(viewHolder.tv_sell_one, mExchangeData.getAsk(), exchangeData.getAsk(), CommonUtils.getColor(R.color.color_font2), exchangeData.getOnlyKey());
-            }
             if (!mExchangeData.getLast().equals(exchangeData.getLast())) {
                 BigUIUtil.getinstance().noAnim(viewHolder.tv_price, mExchangeData.getLast(), exchangeData.getLast(), CommonUtils.getColor(R.color.color_font3), exchangeData.getOnlyKey());
                 BigUIUtil.getinstance().noAnim(viewHolder.tv_price_ic, mExchangeData.getLast(), exchangeData.getLast(), CommonUtils.getColor(R.color.color_font3), exchangeData.getOnlyKey());
                 BigUIUtil.getinstance().noAnim(viewHolder.tv_rate, mExchangeData.getLast(), exchangeData.getLast(), CommonUtils.getColor(R.color.color_font3), exchangeData.getOnlyKey());
                 if (new BigDecimal(mExchangeData.getLast()).compareTo(new BigDecimal(exchangeData.getLast())) == 1) {
-                    viewHolder.tv_price_ic.setText(CommonUtils.getString(R.string.ic_down));
-                } else {
                     viewHolder.tv_price_ic.setText(CommonUtils.getString(R.string.ic_up));
+                } else {
+                    viewHolder.tv_price_ic.setText(CommonUtils.getString(R.string.ic_down));
                 }
             }
         }
         mExchangeData = exchangeData;
-        viewHolder.tv_volume.setText(BigUIUtil.getinstance().bigAmount(exchangeData.getVolume()));
-        viewHolder.tv_highest.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getHigh()));
-        viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow()));
-
+        if (TextUtils.isEmpty(exchangeData.getVolume())) {
+            viewHolder.tv_volume.setText("--");
+        } else {
+            viewHolder.tv_volume.setText(BigUIUtil.getinstance().bigAmount(exchangeData.getVolume()));
+        }
+        if (TextUtils.isEmpty(exchangeData.getHigh())) {
+            viewHolder.tv_highest.setText("--");
+        } else {
+            viewHolder.tv_highest.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getHigh()));
+        }
+        if (TextUtils.isEmpty(exchangeData.getLow())) {
+            viewHolder.tv_minimum.setText("--");
+        } else {
+            viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow()));
+        }
     }
 
     public static class ViewHolder {

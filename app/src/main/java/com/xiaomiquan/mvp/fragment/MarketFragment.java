@@ -2,6 +2,7 @@ package com.xiaomiquan.mvp.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.blankj.utilcode.util.CacheUtils;
-import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -24,8 +24,7 @@ import com.xiaomiquan.mvp.activity.market.SearchCoinMarketActivity;
 import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.TabViewpageBinder;
 import com.xiaomiquan.mvp.delegate.TabViewpageDelegate;
-import com.xiaomiquan.server.HttpUrl;
-import com.xiaomiquan.widget.CircleDialogHelper;
+import com.xiaomiquan.utils.UiHeplUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -187,13 +186,16 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     protected void clickRightIv() {
         super.clickRightIv1();
         // 分享
-        CircleDialogHelper.initDefaultInputDialog(getActivity(), "修改地址", "", "确定", new OnInputClickListener() {
-            @Override
-            public void onClick(String text, View v) {
-                HttpUrl.setBaseUrl(text);
-                //onHttpChangeLinsener.initSocket();
-            }
-        }).setDefaultInputTxt(HttpUrl.getBaseUrl()).show();
+//        CircleDialogHelper.initDefaultInputDialog(getActivity(), "修改地址", "", "确定", new OnInputClickListener() {
+//            @Override
+//            public void onClick(String text, View v) {
+//                HttpUrl.setBaseUrl(text);
+//                //onHttpChangeLinsener.initSocket();
+//            }
+//        }).setDefaultInputTxt(HttpUrl.getBaseUrl()).show();
+        List<Bitmap> bitmaps = new ArrayList<>();
+        bitmaps.add(UiHeplUtils.screenShot(getActivity()));
+        UiHeplUtils.shareImgs(getActivity(), bitmaps);
     }
 
     UserChooseFragment userChooseFragment;
@@ -201,8 +203,8 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     MarketValueFragment marketValueFragment;
     ExchangeNameListFragment exchangeNameListFragment;
 
-    private void initTablelayout(List<ExchangeName> exchangeNames) {
 
+    private void initTablelayout(List<ExchangeName> exchangeNames) {
         exchangeNameList = exchangeNames;
         fragments = new ArrayList<>();
         mTitles = new ArrayList<>();

@@ -1,6 +1,7 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -26,8 +27,14 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
         viewHolder.lin_my_group.setVisibility(View.GONE);
-//        viewHolder.nestedScrollView.setTabAndPager(viewHolder.view_tab,(int)CommonUtils.getDimensionPixelSize(R.dimen.trans_1px),
-//                (int)CommonUtils.getDimensionPixelSize(R.dimen.trans_80px),viewHolder.pull_recycleview, false);
+        viewHolder.nestedScrollView.setTabAndPager(viewHolder.view_tab,
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_1px),
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_79px),
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px),
+                viewHolder.pull_recycleview, true);
+        viewHolder.iv_title1.setBackgroundResource(R.drawable.ic_trophy2);
+        viewHolder.iv_title2.setBackgroundResource(R.drawable.ic_trophy);
+        viewHolder.iv_title3.setBackgroundResource(R.drawable.ic_quanzidongtai);
     }
 
     @Override
@@ -47,10 +54,13 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
 
     public static class ViewHolder {
         public View rootView;
+        public AppCompatImageView iv_title1;
         public LinearLayout lin_my_group;
         public RecyclerView rv_my_group;
+        public AppCompatImageView iv_title2;
         public CommonTabLayout tl_2;
         public RecyclerView rcv_hot_group;
+        public AppCompatImageView iv_title3;
         public View view_tab;
         public RecyclerView pull_recycleview;
         public StickyScrollView nestedScrollView;
@@ -60,10 +70,13 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
+            this.iv_title1 = (AppCompatImageView) rootView.findViewById(R.id.iv_title1);
             this.lin_my_group = (LinearLayout) rootView.findViewById(R.id.lin_my_group);
             this.rv_my_group = (RecyclerView) rootView.findViewById(R.id.rv_my_group);
+            this.iv_title2 = (AppCompatImageView) rootView.findViewById(R.id.iv_title2);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
             this.rcv_hot_group = (RecyclerView) rootView.findViewById(R.id.rcv_hot_group);
+            this.iv_title3 = (AppCompatImageView) rootView.findViewById(R.id.iv_title3);
             this.view_tab = (View) rootView.findViewById(R.id.view_tab);
             this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
             this.nestedScrollView = (StickyScrollView) rootView.findViewById(R.id.nestedScrollView);

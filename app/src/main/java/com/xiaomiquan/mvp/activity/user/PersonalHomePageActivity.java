@@ -39,6 +39,8 @@ public class PersonalHomePageActivity extends BaseDataBindActivity<PersonalHomeP
     CircleMyAdapter circleMyAdapter;
     SquareLiveAdapter squareLiveAdapter;
     PersonalHomePageLiveFragment personalHomePageLiveFragment;
+    boolean isMy = false;
+
 
     @Override
     protected Class<PersonalHomePageDelegate> getDelegateClass() {
@@ -69,6 +71,7 @@ public class PersonalHomePageActivity extends BaseDataBindActivity<PersonalHomeP
         if (userLogin != null) {
             if ((userLogin.getId() + "").equals(id)) {
                 //我的个人中心
+                isMy = true;
                 viewDelegate.viewHolder.tv_title_group.setText(CommonUtils.getString(R.string.str_my_group));
                 viewDelegate.viewHolder.tv_live_title.setText(CommonUtils.getString(R.string.str_my_live));
                 viewDelegate.viewHolder.tv_title_circle.setText(CommonUtils.getString(R.string.str_my_circle));
@@ -108,12 +111,24 @@ public class PersonalHomePageActivity extends BaseDataBindActivity<PersonalHomeP
                 initList(userHomePage.getArticleTopicVos());
                 initCircleList(userHomePage.getGroupVos());
                 initUser(userHomePage);
-                addRequest(binder.listDemo(this));
+                if (isMy) {
+                    addRequest(binder.listDemo(this));
+                } else {
+                    addRequest(binder.getDemoByUserId(id, this));
+                }
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 break;
             case 0x124:
+                //我的组合
                 List<GroupItem> groupItems = GsonUtil.getInstance().toList(data, GroupItem.class);
                 initGroupList(groupItems);
+                break;
+            case 0x125:
+                //他人组合 只显示一个
+                List<GroupItem> groupItems1 = new ArrayList<>();
+                GroupItem groupItem = GsonUtil.getInstance().toObj(data, GroupItem.class);
+                groupItems1.add(groupItem);
+                initGroupList(groupItems1);
                 break;
         }
     }

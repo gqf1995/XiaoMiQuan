@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
@@ -34,16 +33,16 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
     //implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder>
     int[] bgIds = {R.drawable.ic_value_bg1, R.drawable.ic_value_bg2, R.drawable.ic_value_bg3, R.drawable.ic_value_bg4, R.drawable.ic_value_bg5};
     boolean isFirst = false;
-    FontTextview tv_coin_type;
-    FontTextview tv_coin_price;
-    FontTextview tv_coin_probably;
-    FontTextview tv_gains;
-    FontTextview tv_coin_market_value;
+    TextView tv_coin_type;
+    TextView tv_coin_price;
+    TextView tv_coin_probably;
+    TextView tv_gains;
+    TextView tv_coin_market_value;
     LinearLayout lin_root;
     RoundedImageView ic_piv;
     FrameLayout fl_root;
-    FontTextview tv_name;
-    FontTextview tv_coin_unit;
+    TextView tv_name;
+    TextView tv_coin_unit;
     DecelerateInterpolator decelerateInterpolator;
     boolean isRedRise = false;
 
@@ -92,7 +91,8 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         } else {
             tv_coin_probably.setVisibility(View.VISIBLE);
         }
-
+        tv_coin_price.setTextColor(CommonUtils.getColor(R.color.color_font1));
+        tv_coin_probably.setTextColor(CommonUtils.getColor(R.color.color_font2));
         if (!TextUtils.isEmpty(s.getChange())) {
             if (new BigDecimal(s.getChange()).compareTo(new BigDecimal("0")) == 1) {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));

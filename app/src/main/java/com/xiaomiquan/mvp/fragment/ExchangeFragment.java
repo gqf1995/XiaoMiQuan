@@ -112,7 +112,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
         unitList = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
         tv_unit.setText(UserSet.getinstance().getShowUnit());
-        tv_rise.setText(CommonUtils.getString(R.string.str_rise));
+        tv_rise.setText(CommonUtils.getString(R.string.str_rise_24h));
         tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
         tv_rise.setOnClickListener(new View.OnClickListener() {
             @Override

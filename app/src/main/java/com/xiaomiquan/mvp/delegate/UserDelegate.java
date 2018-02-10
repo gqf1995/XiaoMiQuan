@@ -52,8 +52,10 @@ public class UserDelegate extends BaseDelegate {
         if (userLogin == null) {
             viewHolder.tv_nick_name.setText(CommonUtils.getString(R.string.str_nologin));
             viewHolder.tv_subtitle.setVisibility(View.GONE);
+            viewHolder.lin_set9.setVisibility(View.GONE);
             return;
         }
+        viewHolder.lin_set9.setVisibility(View.VISIBLE);
         viewHolder.tv_nick_name.setText(userLogin.getNickName());
         viewHolder.tv_subtitle.setVisibility(View.VISIBLE);
         if (!TextUtils.isEmpty(userLogin.getEmail())) {
@@ -61,7 +63,7 @@ public class UserDelegate extends BaseDelegate {
         } else if (!TextUtils.isEmpty(userLogin.getPhone())) {
             viewHolder.tv_subtitle.setText(userLogin.getPhone());
         }
-        GlideUtils.loadImage(userLogin.getAvatar(),viewHolder.ic_piv);
+        GlideUtils.loadImage(userLogin.getAvatar(), viewHolder.ic_piv);
 
     }
 

@@ -72,6 +72,7 @@ public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, B
                 getDataBack(adapter.getDatas(), data1, adapter);
                 break;
             case 0x124:
+                //撤单
                 onRefresh();
                 break;
         }

@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
@@ -30,17 +29,17 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
     //implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder>
     int[] bgIds = {R.drawable.ic_value_bg1, R.drawable.ic_value_bg2, R.drawable.ic_value_bg3, R.drawable.ic_value_bg4, R.drawable.ic_value_bg5};
     private String defaultUnit;
-    FontTextview tv_coin_type;
-    FontTextview tv_coin_price;
-    FontTextview tv_coin_probably;
-    FontTextview tv_gains;
-    FontTextview tv_coin_market_value;
+    TextView tv_coin_type;
+    TextView tv_coin_price;
+    TextView tv_coin_probably;
+    TextView tv_gains;
+    TextView tv_coin_market_value;
     LinearLayout lin_root;
     RoundedImageView ic_piv;
     FrameLayout fl_root;
     FrameLayout fl_change;
-    FontTextview tv_name;
-    FontTextview tv_coin_unit;
+    TextView tv_name;
+    TextView tv_coin_unit;
     boolean isFirst = false;
 
     //设置汇率
@@ -93,7 +92,8 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
         } else {
             tv_coin_probably.setVisibility(View.VISIBLE);
         }
-
+        tv_coin_price.setTextColor(CommonUtils.getColor(R.color.color_font1));
+        tv_coin_probably.setTextColor(CommonUtils.getColor(R.color.color_font2));
         if (!isFirst) {
             if (exchangeDataMap != null) {
                 ExchangeData oldData = null;
@@ -119,7 +119,9 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
         }
 
     }
+
     Map<Integer, ExchangeData> exchangeDataMap;
+
     public void updataOne(int position, ExchangeData data) {
         if (mDatas.size() > 0) {
             if (exchangeDataMap == null) {
@@ -130,7 +132,7 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
                 return;
             }
             boolean isSameChange = false;
-            boolean isSameLast ;
+            boolean isSameLast;
             //涨幅 和 价格 如果为空则不变
             if (TextUtils.isEmpty(data.getChange())) {
                 data.setChange(getDatas().get(position).getChange());
@@ -158,9 +160,11 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
             this.notifyItemChanged(position);
         }
     }
+
     public void setFirst(boolean first) {
         isFirst = first;
     }
+
     public void setDatas(List<ExchangeData> datas) {
         mDatas.clear();
         mDatas.addAll(datas);

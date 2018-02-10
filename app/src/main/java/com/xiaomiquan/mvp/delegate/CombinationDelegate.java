@@ -84,7 +84,14 @@ public class CombinationDelegate extends BaseDelegate {
         viewHolder.tv_focus_on_num.setText(groupItem.getAttentionCount() + CommonUtils.getString(R.string.str_people) + CommonUtils.getString(R.string.str_focuse));
         viewHolder.tv_label.setText(groupItem.getType());
         viewHolder.tv_create_time.setText(TimeUtils.millis2String(groupItem.getCreateTime(), DEFAULT_FORMAT));
-        viewHolder.tv_introduce.setText(groupItem.getBrief());
+
+        if(TextUtils.isEmpty(groupItem.getBrief())){
+            viewHolder.tv_introduce.setText(CommonUtils.getString(R.string.str_now_no_data));
+        }else{
+            viewHolder.tv_introduce.setText(groupItem.getBrief());
+        }
+
+
     }
 
     protected XAxis xAxisKline;
@@ -110,7 +117,7 @@ public class CombinationDelegate extends BaseDelegate {
         mChartKline.setBorderColor(CommonUtils.getColor(R.color.border_color));//边线颜色
         mChartKline.setDescription("");//右下角对图表的描述信息
         mChartKline.setMinOffset(0f);
-        mChartKline.setExtraOffsets(20f, 0f, 30f, 0f);
+        mChartKline.setExtraOffsets(20f, 10f, 30f, 0f);
 
         Legend lineChartLegend = mChartKline.getLegend();
         lineChartLegend.setEnabled(false);//是否绘制 Legend 图例

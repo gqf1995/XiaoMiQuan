@@ -6,12 +6,12 @@
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
     android:clickable="true"
+    android:id="@+id/lin_root"
     android:focusable="true"
     android:orientation="vertical">
 
 
     <LinearLayout
-        android:id="@+id/lin_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/trans_30px"
@@ -157,8 +157,8 @@
 
         </FrameLayout>
 
-        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-            android:id="@+id/tv_isadd"
+        <ImageView
+            android:id="@+id/iv_isadd"
             android:layout_width="@dimen/trans_96px"
             android:layout_height="match_parent"
             android:gravity="center"

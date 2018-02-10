@@ -79,7 +79,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                 tv_rise.onClick();
             }
         });
-        tv_rise.setText(CommonUtils.getString(R.string.str_rise));
+        tv_rise.setText(CommonUtils.getString(R.string.str_rise_24h));
         tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
         tv_rise.setOnChange(new GainsTabView.OnChange() {
             @Override
@@ -177,6 +177,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         switch (v.getId()) {
             case R.id.lin_add_coin_market:
             case R.id.ic_nodata:
+            case R.id.tv_nodata:
                 //添加自选
                 //检测登录
                 goChoose();
@@ -347,7 +348,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                     exchangeMarketAdapter.notifyDataSetChanged();
                 }
             }
-        } else if(!isVisible){
+        } else if (!isVisible) {
             binder.cancelpost();
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
             isOnRefush = false;

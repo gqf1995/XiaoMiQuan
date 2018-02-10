@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.DeviceUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
+import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
@@ -64,6 +65,22 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         initSocket();
         updata();
         netWorkLinsener();
+        viewDelegate.initBottom(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                viewDelegate.showFragment(position);
+                if (position != 0) {
+                    WebSocketRequest.getInstance().sendData(new ArrayList<String>());
+                }else{
+                    marketFragment.sendWebsocket();
+                }
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
     }
 
     PingUtil.NetworkConnectChangedReceiver mNetworkChangeListener;
@@ -111,9 +128,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
             }
         });
         WebSocketRequest.getInstance().setRegisterUrl(HttpUrl.getIntance().registerkeys);
-        //WebSocketRequest.getInstance().setUnregisterUrl(HttpUrl.getIntance().unregisterkeys);
         WebSocketRequest.getInstance().setUid(uid);
-        // WebSocketRequest.getInstance().unregister("");
     }
 
     MarketFragment marketFragment;

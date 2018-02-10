@@ -17,8 +17,7 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
 
@@ -46,7 +45,16 @@
                             android:background="@color/colorPrimary"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingLeft="@dimen/trans_40px">
+                            >
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/iv_title1"
+                                android:layout_width="@dimen/trans_40px"
+                                android:layout_height="@dimen/trans_40px"
+                                android:layout_marginLeft="@dimen/trans_40px"
+                                android:layout_marginRight="@dimen/trans_15px"
+                                app:srcCompat="@drawable/ic_trophy2"
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -91,7 +99,16 @@
                             android:background="@color/colorPrimary"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingLeft="@dimen/trans_40px">
+                            >
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/iv_title2"
+                                android:layout_width="@dimen/trans_40px"
+                                android:layout_height="@dimen/trans_40px"
+                                android:layout_marginLeft="@dimen/trans_40px"
+                                android:layout_marginRight="@dimen/trans_15px"
+                                app:srcCompat="@drawable/ic_trophy"
+                                />
 
                             <TextView
                                 android:layout_width="0dp"
@@ -145,7 +162,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/trans_85px"
                         android:orientation="vertical"
-                        android:tag="sticky">
+                        android:tag="sticky"
+                        >
 
                         <skin.support.widget.SkinCompatLinearLayout
                             android:layout_width="match_parent"
@@ -154,7 +172,16 @@
                             android:background="@color/colorPrimary"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingLeft="@dimen/trans_40px">
+                            >
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/iv_title3"
+                                android:layout_width="@dimen/trans_40px"
+                                android:layout_height="@dimen/trans_40px"
+                                android:layout_marginLeft="@dimen/trans_40px"
+                                android:layout_marginRight="@dimen/trans_15px"
+                                app:srcCompat="@drawable/ic_quanzidongtai"
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
