@@ -20,11 +20,10 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/trans_100px">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/ic_nodata"
                 android:layout_width="@dimen/trans_300px"
                 android:layout_height="@dimen/trans_300px"
-                app:srcCompat="@drawable/ic_nodata"
                 />
 
             <LinearLayout

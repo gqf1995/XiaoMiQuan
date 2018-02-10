@@ -18,7 +18,8 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/trans_45px"
-        android:paddingRight="@dimen/trans_30px">
+        android:paddingRight="@dimen/trans_30px"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="0dp"
@@ -46,7 +47,6 @@
             android:text="@string/ic_Next"
             android:textColor="@color/color_font3"
             android:textSize="@dimen/text_trans_30px"
-            android:visibility="invisible"
             />
 
 
@@ -57,7 +57,8 @@
         android:layout_height="@dimen/trans_1px"
         android:layout_marginLeft="@dimen/trans_25px"
         android:layout_marginRight="@dimen/trans_25px"
-        android:background="@color/base_mask"/>
+        android:background="@color/base_mask"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/lin_email"
@@ -69,7 +70,8 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/trans_45px"
-        android:paddingRight="@dimen/trans_30px">
+        android:paddingRight="@dimen/trans_30px"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="0dp"
@@ -107,7 +109,8 @@
         android:layout_height="@dimen/trans_1px"
         android:layout_marginLeft="@dimen/trans_25px"
         android:layout_marginRight="@dimen/trans_25px"
-        android:background="@color/base_mask"/>
+        android:background="@color/base_mask"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/lin_change_password"
@@ -139,7 +142,6 @@
             android:textColor="@color/color_font3"
             android:textSize="@dimen/text_trans_30px"
             />
-
 
     </LinearLayout>
 

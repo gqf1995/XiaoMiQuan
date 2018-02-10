@@ -138,11 +138,11 @@ public class BigUIUtil {
         if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == 1) {
             //降价
             textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
-            textView.setText(CommonUtils.getString(R.string.ic_up) + " " + text);
+            textView.setText("↘" + " " + text);
         } else if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == -1) {
             //涨价
             textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
-            textView.setText(CommonUtils.getString(R.string.ic_down) + " " + text);
+            textView.setText("↗" + " " + text);
         } else {
             return;
         }

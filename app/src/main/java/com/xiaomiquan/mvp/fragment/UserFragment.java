@@ -63,7 +63,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
     protected void bindEvenListener() {
         super.bindEvenListener();
         //更新用户信息
-        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_user)).setShowBack(false).setmRightImg1(CommonUtils.getString(R.string.ic_Chat)));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_user)));//.setShowBack(false).setmRightImg1(CommonUtils.getString(R.string.ic_Chat)));
         viewDelegate.setOnClickListener(this
                 , R.id.checkbox_night_model
                 , R.id.checkbox_red_sticker
@@ -119,7 +119,9 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 break;
             case R.id.lin_set4:
                 //在线客服
-                Application.getInstance().startCustomerService(getActivity());
+                if (SingSettingDBUtil.isLogin(getActivity())) {
+                    Application.getInstance().startCustomerService(getActivity());
+                }
                 //ConversationActivity.startAct(getActivity(), ConversationActivity.conversation_service, serviceId);
                 break;
             case R.id.lin_set5:

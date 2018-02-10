@@ -18,12 +18,10 @@ public class SecurityActivity extends BaseActivity<SecurityDelegate> {
 
     UserLogin userLogin;
 
-
     @Override
     protected Class<SecurityDelegate> getDelegateClass() {
         return SecurityDelegate.class;
     }
-
 
     @Override
     protected void bindEvenListener() {
@@ -42,7 +40,7 @@ public class SecurityActivity extends BaseActivity<SecurityDelegate> {
             viewDelegate.viewHolder.tv_phone_num.setEnabled(false);
         }
         if (TextUtils.isEmpty(userLogin.getEmail())) {
-            viewDelegate.viewHolder.tv_phone_num.setText(CommonUtils.getString(R.string.str_no_binding));
+            viewDelegate.viewHolder.tv_email.setText(CommonUtils.getString(R.string.str_no_binding));
         } else {
             viewDelegate.viewHolder.tv_email.setText(userLogin.getEmail());
             viewDelegate.viewHolder.tv_email.setEnabled(false);
@@ -63,7 +61,13 @@ public class SecurityActivity extends BaseActivity<SecurityDelegate> {
                 break;
             case R.id.lin_change_password:
                 //修改密码
-
+                if (TextUtils.isEmpty(userLogin.getEmail())) {
+                    //手机密码找回
+                    InputSetActivity.startAct(this, InputSetActivity.FIND_PASSWORD_PHONE);
+                } else {
+                    //邮箱密码找回
+                    InputSetActivity.startAct(this, InputSetActivity.FIND_PASSWORD_EMAIL);
+                }
                 break;
         }
     }

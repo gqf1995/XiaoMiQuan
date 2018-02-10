@@ -39,7 +39,7 @@ public class SearchCoinMarketResultFragment extends BasePullFragment<BaseFragent
             searchHistory = new ArrayList<>();
         }
         initList();
-        search();
+        onRefresh();
     }
 
 
@@ -68,6 +68,7 @@ public class SearchCoinMarketResultFragment extends BasePullFragment<BaseFragent
                     //订阅
                     binder.singlesubs(searchAddCoinAdapter.getDatas().get(position).getOnlyKey(), "1", null);
                     if (!searchHistory.contains(strSearch)) {
+                        //添加到搜索历史
                         searchHistory.add(strSearch);
                         CacheUtils.getInstance().put(CACHE_SEARCH_HISTORY, GsonUtil.getInstance().toJson(searchHistory));
                     }
@@ -83,14 +84,8 @@ public class SearchCoinMarketResultFragment extends BasePullFragment<BaseFragent
     public void searchInput(String txt) {
         strSearch = txt;
         if (searchAddCoinAdapter != null) {
-            search();
+            onRefresh();
         }
-    }
-
-    private void search() {
-        //搜索
-        binder.cancelpost();
-        addRequest(binder.getAllMarketByExchangeOrSymbol(strSearch, this));
     }
 
     @Override
@@ -105,6 +100,7 @@ public class SearchCoinMarketResultFragment extends BasePullFragment<BaseFragent
 
     @Override
     protected void refreshData() {
-
+        binder.cancelpost();
+        addRequest(binder.getAllMarketByExchangeOrSymbol(strSearch, this));
     }
 }

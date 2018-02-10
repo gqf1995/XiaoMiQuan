@@ -48,7 +48,7 @@ public class SortingUserCoinActivity extends BaseDataBindActivity<SortingUserCoi
                 @Override
                 public void onClick(View view, int position, Object item) {
                     int type = (int) item;
-                    if (type == R.id.iv_select) {
+                    if (type == R.id.tv_select) {
                         ExchangeData s = strDatas.get(position);
                         sortingAdapter.getDatas().remove(position);
                         sortingAdapter.getDatas().add(0, s);

@@ -86,7 +86,7 @@ public class SortingAdapter extends CommonAdapter<ExchangeData> {
             @Override
             public void onClick(View view) {
                 if (defaultClickLinsener != null) {
-                    defaultClickLinsener.onClick(view, position, R.id.iv_select);
+                    defaultClickLinsener.onClick(view, position, R.id.tv_select);
                 }
             }
         });

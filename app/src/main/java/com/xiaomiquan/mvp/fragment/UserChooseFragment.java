@@ -122,6 +122,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         });
         viewDelegate.setNoDataTxt(CommonUtils.getString(R.string.str_add_coin_market));
         viewDelegate.setNoDataClickListener(this);
+        viewDelegate.setNoDataImgId(R.drawable.ic_plus);
         headerAndFooterWrapper = new HeaderAndFooterWrapper(exchangeMarketAdapter);
         headerAndFooterWrapper.addFootView(initFootView());
         linearLayoutManager = new LinearLayoutManager(getActivity()) {
@@ -132,6 +133,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         };
         initRecycleViewPull(headerAndFooterWrapper, headerAndFooterWrapper.getHeadersCount() + headerAndFooterWrapper.getFootersCount(), linearLayoutManager);
         viewDelegate.setIsLoadMore(false);
+        viewDelegate.setShowNoData(false);
         defaultDatas = new ArrayList<>();
         onRefresh();
         initTool();
@@ -166,8 +168,9 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
         this.lin_sorting = (LinearLayout) rootView.findViewById(R.id.lin_sorting);
         lin_add_coin_market.setOnClickListener(this);
         lin_sorting.setOnClickListener(this);
-
-
+        lin_add_coin_market.setVisibility(View.GONE);
+        lin_sorting.setVisibility(View.GONE);
+        lin_root.setVisibility(View.GONE);
         return rootView;
     }
 
@@ -198,6 +201,12 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                 getDataBack(exchangeMarketAdapter.getDatas(), datas, headerAndFooterWrapper);
                 defaultDatas.clear();
                 defaultDatas.addAll(exchangeMarketAdapter.getDatas());
+                viewDelegate.getNoDataText().setPadding(0,(int)CommonUtils.getDimensionPixelSize(R.dimen.trans_30px),0,0);
+                viewDelegate.setShowNoData(true);
+                ViewGroup.LayoutParams layoutParams = viewDelegate.getNoDataImg().getLayoutParams();
+                layoutParams.height=(int)CommonUtils.getDimensionPixelSize(R.dimen.trans_150px);
+                layoutParams.width=(int)CommonUtils.getDimensionPixelSize(R.dimen.trans_150px);
+                viewDelegate.getNoDataImg().setLayoutParams(layoutParams);
                 if (defaultDatas.size() > 0) {
                     if (sortingType == 0) {
                         exchangeMarketAdapter.setDatas(defaultDatas);
@@ -209,21 +218,16 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                         exchangeMarketAdapter.setDatas(dropDatas);
                     }
                     headerAndFooterWrapper.notifyDataSetChanged();
+                    lin_add_coin_market.setVisibility(View.VISIBLE);
+                    lin_sorting.setVisibility(View.VISIBLE);
+                    lin_root.setVisibility(View.VISIBLE);
+                } else {
+                    lin_add_coin_market.setVisibility(View.GONE);
+                    lin_sorting.setVisibility(View.GONE);
+                    lin_root.setVisibility(View.GONE);
                 }
-                if (datas != null) {
-                    if (datas.size() > 0) {
-                        if (defaultDatas.size() > 0) {
-                            //如果有数据 则底部显示添加自选按钮
-                            lin_root.setVisibility(View.VISIBLE);
-                        } else {
-                            lin_root.setVisibility(View.GONE);
-                            viewDelegate.viewHolder.pull_recycleview.scrollToPosition(headerAndFooterWrapper.getItemCount() - 1);
-                        }
-                        //订阅推送
-                        sendWebSocket();
-                    }
-                }
-
+                //订阅推送
+                sendWebSocket();
                 break;
         }
     }
