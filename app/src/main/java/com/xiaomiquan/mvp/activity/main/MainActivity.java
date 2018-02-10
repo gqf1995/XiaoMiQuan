@@ -62,7 +62,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         initFragment();
         mainEventBusHelper = new MainEventBusHelper(this, viewDelegate, binder);
         uid = DeviceUtils.getAndroidID() + System.currentTimeMillis();
-        initSocket();
+        //initSocket();
         updata();
         netWorkLinsener();
         viewDelegate.initBottom(new OnTabSelectListener() {

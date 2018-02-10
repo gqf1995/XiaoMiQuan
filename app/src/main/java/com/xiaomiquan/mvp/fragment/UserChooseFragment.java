@@ -201,12 +201,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                 getDataBack(exchangeMarketAdapter.getDatas(), datas, headerAndFooterWrapper);
                 defaultDatas.clear();
                 defaultDatas.addAll(exchangeMarketAdapter.getDatas());
-                viewDelegate.getNoDataText().setPadding(0,(int)CommonUtils.getDimensionPixelSize(R.dimen.trans_30px),0,0);
-                viewDelegate.setShowNoData(true);
-                ViewGroup.LayoutParams layoutParams = viewDelegate.getNoDataImg().getLayoutParams();
-                layoutParams.height=(int)CommonUtils.getDimensionPixelSize(R.dimen.trans_150px);
-                layoutParams.width=(int)CommonUtils.getDimensionPixelSize(R.dimen.trans_150px);
-                viewDelegate.getNoDataImg().setLayoutParams(layoutParams);
+                setNodata();
                 if (defaultDatas.size() > 0) {
                     if (sortingType == 0) {
                         exchangeMarketAdapter.setDatas(defaultDatas);
@@ -229,6 +224,19 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                 //订阅推送
                 sendWebSocket();
                 break;
+        }
+    }
+
+    private void setNodata() {
+        if (viewDelegate.getNoDataText() != null) {
+            viewDelegate.getNoDataText().setPadding(0, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_30px), 0, 0);
+        }
+        viewDelegate.setShowNoData(true);
+        if (viewDelegate.getNoDataImg() != null) {
+            ViewGroup.LayoutParams layoutParams = viewDelegate.getNoDataImg().getLayoutParams();
+            layoutParams.height = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_150px);
+            layoutParams.width = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_150px);
+            viewDelegate.getNoDataImg().setLayoutParams(layoutParams);
         }
     }
 
@@ -257,13 +265,14 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
 
     @Override
     protected void refreshData() {
-        if (userLogin != null) {
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
-            addRequest(binder.marketdata(this));
-            isOnRefush = true;
-        } else {
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
-        }
+        // if (userLogin != null) {
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+        addRequest(binder.marketdata(this));
+        isOnRefush = true;
+        //        } else {
+        //            setNodata();
+        //            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+        //        }
     }
 
     public void sendWebSocket() {

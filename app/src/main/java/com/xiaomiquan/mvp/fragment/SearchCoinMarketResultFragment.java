@@ -78,7 +78,7 @@ public class SearchCoinMarketResultFragment extends BasePullFragment<BaseFragent
         });
         initRecycleViewPull(searchAddCoinAdapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsPullDown(false);
-        viewDelegate.setIsLoadMore(false);
+        viewDelegate.setDefaultPage(0);
     }
 
     public void searchInput(String txt) {

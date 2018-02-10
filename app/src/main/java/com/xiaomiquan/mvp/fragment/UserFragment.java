@@ -31,12 +31,6 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
 
     UserLogin userLogin;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
     public interface Linsener {
         void logout();
     }
@@ -63,7 +57,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
     protected void bindEvenListener() {
         super.bindEvenListener();
         //更新用户信息
-        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_user)));//.setShowBack(false).setmRightImg1(CommonUtils.getString(R.string.ic_Chat)));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_user)).setShowBack(false));//.setShowBack(false).setmRightImg1(CommonUtils.getString(R.string.ic_Chat)));
         viewDelegate.setOnClickListener(this
                 , R.id.checkbox_night_model
                 , R.id.checkbox_red_sticker

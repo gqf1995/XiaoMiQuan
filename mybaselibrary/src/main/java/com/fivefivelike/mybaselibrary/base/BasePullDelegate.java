@@ -262,10 +262,16 @@ public abstract class BasePullDelegate extends BaseDelegate {
     }
 
     public TextView getNoDataText() {
+        if(mFootView==null){
+            return null;
+        }
         return (TextView) mFootView.findViewById(R.id.tv_nodata);
     }
 
     public ImageView getNoDataImg() {
+        if(mFootView==null){
+            return null;
+        }
         return (ImageView) mFootView.findViewById(R.id.ic_nodata);
     }
 
