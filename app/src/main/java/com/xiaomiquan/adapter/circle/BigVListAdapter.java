@@ -45,17 +45,17 @@ public class BigVListAdapter extends CommonAdapter<UserFriende> {
     }
 
     @Override
-    protected void convert(ViewHolder holder, UserFriende s2, final int position) {
+    protected void convert(ViewHolder holder, UserFriende s, final int position) {
         cv_head = holder.getView(R.id.cv_head);
         tv_name = holder.getView(R.id.tv_name);
         tv_num = holder.getView(R.id.tv_num);
         tv_attention = holder.getView(R.id.tv_attention);
 
-        GlideUtils.loadImage(userFriendes.get(position).getAvatar(), cv_head);
-        tv_name.setText(userFriendes.get(position).getNickName());
-        tv_num.setText(userFriendes.get(position).getAttentionedCount() + "");
+        GlideUtils.loadImage(s.getAvatar(), cv_head);
+        tv_name.setText(s.getNickName());
+        tv_num.setText(s.getAttentionedCount() + "");
 
-        if (userFriendes.get(position).getAttention()) {
+        if (s.getAttention()) {
             tv_attention.setText("取消关注");
         } else {
             tv_attention.setText("关注");
@@ -67,6 +67,7 @@ public class BigVListAdapter extends CommonAdapter<UserFriende> {
                 if (defaultClickLinsener != null) {
                     defaultClickLinsener.onClick(view, position, null);
                 }
+
             }
         });
         cv_head.setOnClickListener(new View.OnClickListener() {

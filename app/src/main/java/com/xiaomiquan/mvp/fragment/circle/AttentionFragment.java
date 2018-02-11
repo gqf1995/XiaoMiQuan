@@ -101,9 +101,16 @@ public class AttentionFragment extends BasePullFragment<BaseFragentPullDelegate,
                     switch (view.getId()) {
                         case R.id.tv_attention:
                             if (userLogin != null) {
-                                addRequest(binder.attentiondelete(userFriendes.get(position).getAttentionId(), AttentionFragment.this));
-                                bigVListAdapter.userFriendes.remove(position);
-                                bigVListAdapter.notifyDataSetChanged();
+                                if (bigVListAdapter.getDatas().get(position).getAttention()) {
+                                    addRequest(binder.attentiondelete(bigVListAdapter.getDatas().get(position).getId(), AttentionFragment.this));
+                                    bigVListAdapter.getDatas().get(position).setAttention(false);
+                                    bigVListAdapter.getDatas().get(position).setAttentionedCount(bigVListAdapter.getDatas().get(position).getAttentionedCount() - 1);
+                                } else {
+                                    addRequest(binder.attention(bigVListAdapter.getDatas().get(position).getId(), AttentionFragment.this));
+                                    bigVListAdapter.getDatas().get(position).setAttention(true);
+                                    bigVListAdapter.getDatas().get(position).setAttentionedCount(bigVListAdapter.getDatas().get(position).getAttentionedCount() + 1);
+                                }
+                                bigVListAdapter.notifyItemChanged(position);
                             } else {
                                 ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
                             }

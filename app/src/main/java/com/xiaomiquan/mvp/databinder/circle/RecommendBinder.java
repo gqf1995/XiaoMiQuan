@@ -86,7 +86,7 @@ public class RecommendBinder extends BaseDataBind<BaseFragentPullDelegate> {
             String userId,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("id", userId);
+        baseMap.put("userId", userId);
         return new HttpRequest.Builder()
                 .setRequestCode(0x126)
                 .setRequestUrl(HttpUrl.getIntance().attentiondelete)
