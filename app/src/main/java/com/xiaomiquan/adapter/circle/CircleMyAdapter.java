@@ -62,7 +62,7 @@ public class CircleMyAdapter extends CommonAdapter<UserCircle> {
         } else {
             lin_creat.setVisibility(View.GONE);
             riv_info.setVisibility(View.VISIBLE);
-            GlideUtils.loadImage(userCircle.getAvatar(), iv_head);
+            GlideUtils.loadImage(userCircle.getAvatar(),iv_head);
             tv_title.setText(userCircle.getName());
             tv_name.setText(userCircle.getNickName());
             tv_num.setText(userCircle.getMemberCount());

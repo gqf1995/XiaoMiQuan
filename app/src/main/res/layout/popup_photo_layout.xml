@@ -25,14 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/album_dp_15"
-            android:layout_marginTop="@dimen/album_dp_50"
+            android:layout_marginTop="@dimen/trans_50px"
             android:orientation="horizontal">
 
             <skin.support.widget.SkinCompatCheckBox
                 android:id="@+id/ck_agree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/color_font1"
                 android:text="@string/str_ck_agree"
                 android:textColor="@color/color_font1"
                 android:theme="@style/BlueCheckBox" />
@@ -53,7 +52,7 @@
             android:padding="@dimen/trans_50px"
             android:text="@string/str_tv_treaty"
             android:textColor="@color/color_font2"
-            android:textSize="@dimen/trans_32px" />
+            android:textSize="@dimen/trans_28px" />
 
         <TextView
             android:layout_width="match_parent"
@@ -62,7 +61,8 @@
             android:paddingRight="@dimen/trans_40px"
             android:text="@string/str_tv_to_info"
             android:textColor="@color/color_blue"
-            android:textSize="@dimen/trans_32px" />
+            android:textSize="@dimen/trans_32px"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_next"
@@ -70,9 +70,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/trans_40px"
-            android:layout_marginTop="@dimen/trans_20px"
-            android:background="@color/color_blue"
-            android:padding="@dimen/trans_15px"
+            android:background="@drawable/select_commit"
+            android:paddingBottom="@dimen/trans_20px"
+            android:paddingLeft="@dimen/trans_40px"
+            android:paddingRight="@dimen/trans_40px"
+            android:paddingTop="@dimen/trans_20px"
             android:text="@string/str_tv_next"
             android:textColor="@color/white"
             android:textSize="@dimen/text_trans_30px" />

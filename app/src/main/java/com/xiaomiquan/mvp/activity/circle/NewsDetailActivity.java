@@ -48,7 +48,7 @@ public class NewsDetailActivity extends BasePullActivity<TopicDetailDelegate, To
         super.bindEvenListener();
         getIntentData();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_news)));
-        addRequest(binder.getTopicContent(squareLive.getId(), NewsDetailActivity.this));
+//        addRequest(binder.getTopicContent(squareLive.getId(), NewsDetailActivity.this));
 
         viewDelegate.viewHolder.tv_comment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +77,7 @@ public class NewsDetailActivity extends BasePullActivity<TopicDetailDelegate, To
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                addRequest(binder.getComment(squareLive.getId(), NewsDetailActivity.this));
+//                addRequest(binder.getComment(squareLive.getId(), NewsDetailActivity.this));
             }
         });
 
@@ -108,10 +108,10 @@ public class NewsDetailActivity extends BasePullActivity<TopicDetailDelegate, To
                 break;
             case 0x124:
                 viewDelegate.viewHolder.et_input2.setText("");
-                addRequest(binder.getComment(squareLive.getId(), NewsDetailActivity.this));
+//                addRequest(binder.getComment(squareLive.getId(), NewsDetailActivity.this));
                 break;
             case 0x125:
-                addRequest(binder.getComment(squareLive.getId(), NewsDetailActivity.this));
+//                addRequest(binder.getComment(squareLive.getId(), NewsDetailActivity.this));
                 break;
             case 0x126:
                 Praise praise = GsonUtil.getInstance().toObj(data, Praise.class);
@@ -206,7 +206,7 @@ public class NewsDetailActivity extends BasePullActivity<TopicDetailDelegate, To
 
     @Override
     protected void refreshData() {
-        addRequest(binder.getComment(squareLive.getId(), NewsDetailActivity.this));
+//        addRequest(binder.getComment(squareLive.getId(), NewsDetailActivity.this));
     }
 
     SquareLive squareLive;

@@ -13,16 +13,17 @@
         android:id="@+id/lin_choose"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/album_dp_50"
+            android:layout_height="@dimen/trans_80px"
             android:background="@color/increasing_color"
             android:gravity="center"
             android:text="@string/str_crete_hint"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_trans_35px" />
+            android:textSize="@dimen/text_trans_28px" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,9 +64,10 @@
                 android:orientation="vertical">
 
                 <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/civ_charges"
                     android:layout_width="@dimen/trans_164px"
                     android:layout_height="@dimen/trans_164px"
-                    app:srcCompat="@drawable/ic_charges" />
+                    app:srcCompat="@drawable/ic_circle_charges" />
 
                 <skin.support.widget.SkinCompatCheckBox
                     android:id="@+id/ck_charge"
@@ -87,50 +89,71 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/trans_200px"
-            android:background="@color/color_blue"
-            android:padding="@dimen/album_dp_15"
+            android:background="@drawable/select_commit"
+            android:paddingBottom="@dimen/trans_20px"
+            android:paddingLeft="@dimen/trans_40px"
+            android:paddingRight="@dimen/trans_40px"
+            android:paddingTop="@dimen/trans_20px"
             android:text="@string/str_tv_next"
-            android:textColor="@color/color_font1"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_trans_30px" />
 
 
     </LinearLayout>
 
 
-    <com.xiaomiquan.widget.StickyScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/lin_next"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/lin_next"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/text_trans_200px"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                    android:id="@+id/icv_change_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/trans_20px"
-                    android:layout_marginTop="@dimen/text_trans_20px"
-                    android:text="@string/ic_Search"
-                    android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_30px" />
+                <ImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_400px"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/lin_photo"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_trans_10px"
-                    android:text="点击更换圈子头像"
-                    android:textColor="@color/color_font2"
-                    android:textSize="@dimen/trans_32px" />
-            </LinearLayout>
+                    android:layout_alignBottom="@+id/iv_img"
+                    android:layout_alignTop="@+id/iv_img"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/trans_40px"
+                    android:background="@drawable/shape_imaginary_line"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:id="@+id/icf_update_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ic_Photo"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_40px" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/trans_10px"
+                        android:text="@string/str_tv_addimg"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/trans_32px" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -281,6 +304,6 @@
 
             </LinearLayout>
         </LinearLayout>
-    </com.xiaomiquan.widget.StickyScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

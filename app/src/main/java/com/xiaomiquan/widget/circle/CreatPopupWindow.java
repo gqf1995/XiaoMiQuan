@@ -12,6 +12,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
 
 import skin.support.widget.SkinCompatCheckBox;
@@ -49,6 +50,7 @@ public class CreatPopupWindow extends PopupWindow implements View.OnClickListene
         //绑定布局
         mPopView = inflater.inflate(R.layout.popup_photo_layout, null);
         ck_agree = (SkinCompatCheckBox) mPopView.findViewById(R.id.ck_agree);
+        ck_agree.setTextColor(CommonUtils.getColor(R.color.color_font1));
         tv_next = (TextView) mPopView.findViewById(R.id.tv_next);
     }
 

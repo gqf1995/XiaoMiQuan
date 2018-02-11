@@ -271,7 +271,10 @@
     <string name="str_release">发布</string>
     <string name="str_toast_article_name">请输入文章名称</string>
     <string name="str_toast_article_con">请输入内容</string>
+    <string name="str_toast_circle_title">请输入圈子标题</string>
+    <string name="str_toast_circle_con">请输入圈子内容</string>
     <string name="str_toast_img">为文章配一张图吧</string>
+    <string name="str_toast_cirlce_img">为圈子配一张图吧</string>
     <string name="str_et_con">输入正文</string>
     <string name="str_et_url">粘贴文章网址</string>
     <string name="str_et_title">输入标题</string>

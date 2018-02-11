@@ -11,6 +11,7 @@ import com.fivefivelike.mybaselibrary.base.BasePullDelegate;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText;
 import com.xiaomiquan.R;
+import com.xiaomiquan.widget.JudgeNestedScrollView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -20,7 +21,7 @@ public class ArticleDetailsDelegate extends BasePullDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-
+        viewHolder.scrollView_scroll.setTabAndPager(viewHolder.lin_tab, 0, viewHolder.pull_recycleview, false);
     }
 
     @Override
@@ -31,6 +32,7 @@ public class ArticleDetailsDelegate extends BasePullDelegate {
 
     public static class ViewHolder {
         public View rootView;
+
         public ImageView iv_banner;
         public TextView tv_title;
         public CircleImageView cv_head;
@@ -47,8 +49,10 @@ public class ArticleDetailsDelegate extends BasePullDelegate {
         public IconFontTextview icf_shared;
         public TextView tv_shared;
         public LinearLayout lin_shared;
+        public LinearLayout lin_tab;
         public TextView tv_praise_person;
         public RecyclerView pull_recycleview;
+        public JudgeNestedScrollView scrollView_scroll;
         public SwipeRefreshLayout swipeRefreshLayout;
         public MaterialEditText et_input2;
         public TextView tv_commit;
@@ -72,8 +76,10 @@ public class ArticleDetailsDelegate extends BasePullDelegate {
             this.icf_shared = (IconFontTextview) rootView.findViewById(R.id.icf_shared);
             this.tv_shared = (TextView) rootView.findViewById(R.id.tv_shared);
             this.lin_shared = (LinearLayout) rootView.findViewById(R.id.lin_shared);
+            this.lin_tab = (LinearLayout) rootView.findViewById(R.id.lin_tab);
             this.tv_praise_person = (TextView) rootView.findViewById(R.id.tv_praise_person);
             this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
+            this.scrollView_scroll = (JudgeNestedScrollView) rootView.findViewById(R.id.scrollView_scroll);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
             this.et_input2 = (MaterialEditText) rootView.findViewById(R.id.et_input2);
             this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);

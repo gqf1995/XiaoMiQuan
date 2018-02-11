@@ -52,7 +52,6 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_article)));
         userLogin = SingSettingDBUtil.getUserLogin();
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         getIntentData();
     }
 
@@ -66,18 +65,18 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
                 squareLive = datas;
                 break;
             case 0x124:
-                viewDelegate.viewHolder.et_input2.setText("");
-                addRequest(binder.getTopicContent(squareLive.getId(), ArticleDetailsActivity.this));
+//                viewDelegate.viewHolder.et_input2.setText("");
+//                addRequest(binder.getTopicContent(squareLive.getId(), ArticleDetailsActivity.this));
                 break;
             case 0x125:
-                addRequest(binder.getComment(squareLive.getId(), ArticleDetailsActivity.this));
+//                addRequest(binder.getComment(squareLive.getId(), ArticleDetailsActivity.this));
                 break;
             case 0x126:
                 break;
             case 0x127:
                 List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
                 initComment(comments);
-                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
+//                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
                 break;
         }
     }
@@ -107,7 +106,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
         viewDelegate.viewHolder.tv_con.setText(Html.fromHtml(square.getContent()));
         viewDelegate.viewHolder.tv_name.setText(square.getNickName());
         viewDelegate.viewHolder.tv_title.setText(square.getTitle());
-        initComment(square.getCommentVos());
+
     }
 
     CommentDetailAdapter commentAdapter;
@@ -139,7 +138,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
             });
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
 //            viewDelegate.viewHolder.rv_comment.setAdapter(commentAdapter);
-            initRecycleViewPull(commentAdapter, new LinearLayoutManager(ArticleDetailsActivity.this));
+            initRecycleViewPull(commentAdapter, new LinearLayoutManager(mContext) );
         } else {
             getDataBack(commentAdapter.getDatas(), comment, commentAdapter);
         }
@@ -151,8 +150,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
         Intent intent = getIntent();
         squareLive = (SquareLive) intent.getParcelableExtra("squareLive");
         initSquareLive(squareLive);
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
-
+        initComment(squareLive.getCommentVos());
     }
 
     public static void startAct(Activity activity,
@@ -242,6 +240,11 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
 
     @Override
     protected void refreshData() {
-        addRequest(binder.getTopicContent(squareLive.getId(), ArticleDetailsActivity.this));
+        if (userLogin != null) {
+            addRequest(binder.getTopicContent(squareLive.getId(), ArticleDetailsActivity.this));
+        } else {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+        }
     }
 }
