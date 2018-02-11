@@ -1,7 +1,5 @@
 package com.xiaomiquan.mvp.activity.circle;
 
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +14,7 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.ArtivleAdapter;
@@ -25,7 +24,6 @@ import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.ArticleBinder;
 import com.xiaomiquan.mvp.delegate.circle.ArticleDelegate;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
@@ -39,10 +37,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
     ArtivleAdapter artivleAdapter;
     LinearLayoutManager linearLayoutManager;
     HeaderAndFooterWrapper headerAndFooterWrapper;
-<<<<<<< Updated upstream
     UserLogin userLogin;
-=======
->>>>>>> Stashed changes
 
     @Override
     protected Class<ArticleDelegate> getDelegateClass() {

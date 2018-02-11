@@ -30,9 +30,8 @@
         android:layout_gravity="center_vertical"
         android:clickable="true"
         android:focusable="true"
-        android:gravity="left"
+        android:gravity="right"
         android:orientation="horizontal"
-        android:paddingRight="@dimen/trans_30px"
         android:text="1天"
         android:textColor="@color/color_font2"
         android:textSize="@dimen/text_trans_24px"
@@ -43,13 +42,11 @@
 
     <com.xiaomiquan.widget.GainsTabView
         android:id="@+id/tv_rise"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/trans_200px"
         android:layout_height="match_parent"
-        android:layout_weight="190"
-        android:clickable="true"
-        android:focusable="true"
+        android:clickable="false"
+        android:focusable="false"
         android:gravity="left"
-        android:paddingRight="@dimen/trans_30px"
         />
 
 

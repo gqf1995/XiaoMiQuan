@@ -68,6 +68,7 @@ public class UserDelegate extends BaseDelegate {
     }
 
     private void init() {
+        viewHolder.ic_piv.setImageResource(R.drawable.ic_no_login);
         height = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_210px);
         viewHolder.layout_title_bar.getBackground().mutate().setAlpha(0);
         viewHolder.toolbar_title.setAlpha(0);

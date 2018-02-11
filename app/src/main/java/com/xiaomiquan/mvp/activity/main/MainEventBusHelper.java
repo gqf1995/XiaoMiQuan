@@ -1,9 +1,18 @@
 package com.xiaomiquan.mvp.activity.main;
 
+import android.view.View;
+
+import com.circledialog.CircleDialogHelper;
+import com.circledialog.callback.ConfigText;
+import com.circledialog.params.TextParams;
 import com.fivefivelike.mybaselibrary.entity.ResultDialogEntity;
 import com.fivefivelike.mybaselibrary.utils.ActUtil;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.AppVersion;
 import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
+import com.xiaomiquan.utils.UiHeplUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,7 +47,32 @@ public class MainEventBusHelper {
         if ("0".equals(event.getCode())) {
             //去投资组合
             ActUtil.getInstance().killAllActivity(activity);
-            activity.toPage(2,3);
+            activity.toPage(1, 3);
         }
     }
+
+    //app更新是否失败
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onAppVersionEvent(final AppVersion event) {
+        CircleDialogHelper.initDefaultDialog(activity, CommonUtils.getString(R.string.update_app_error), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UiHeplUtils.startWeb(activity, event.getDownloadAddr());
+            }
+        })
+                .configText(new ConfigText() {
+                    @Override
+                    public void onConfig(TextParams params) {
+                        params.textColor = activity.getResources().getColor(R.color.color_font2);
+                    }
+                }).setNegative(CommonUtils.getString(R.string.str_cancel), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (activity.appVersion.isMustUpdate()) {
+                    ActUtil.getInstance().AppExit(activity);
+                }
+            }
+        }).show();
+    }
+
 }

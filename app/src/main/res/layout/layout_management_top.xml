@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/trans_35px">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_pic"
+            android:layout_width="@dimen/trans_100px"
+            android:layout_height="@dimen/trans_100px"
+            android:layout_marginRight="@dimen/trans_35px"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="战队名称"
+                android:textColor="@color/color_font1"
+                android:textSize="@dimen/text_trans_32px"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_22px"/>
+
+            <TextView
+                android:id="@+id/tv_team_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_look_team_home_page"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_24px"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/trans_45px"
+                android:layout_height="@dimen/trans_45px"
+                android:src="@drawable/revise"
+                />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_18px"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_edit_abstract"
+                android:textColor="@color/color_blue"
+                android:textSize="@dimen/text_trans_24px"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/trans_35px"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/lin_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/trans_45px"
+                android:layout_height="@dimen/trans_45px"
+                android:src="@drawable/invite"
+                />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_18px"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_invite_friends"
+                android:textColor="@color/color_blue"
+                android:textSize="@dimen/text_trans_24px"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_20px"
+        android:background="@color/base_mask"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_85px"
+        android:orientation="vertical"
+        android:tag="sticky">
+
+        <skin.support.widget.SkinCompatLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <View
+                android:layout_width="@dimen/trans_10px"
+                android:layout_height="@dimen/trans_35px"
+                android:layout_marginLeft="@dimen/trans_40px"
+                android:layout_marginRight="@dimen/trans_15px"
+                android:background="@color/toolbar_bg"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="270"
+                android:text="@string/str_examine_and_approve"
+                android:textColor="@color/color_font1"
+                android:textSize="@dimen/text_trans_28px"/>
+
+
+        </skin.support.widget.SkinCompatLinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/trans_1px"
+            android:background="@color/base_mask"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

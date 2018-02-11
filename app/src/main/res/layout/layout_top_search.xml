@@ -12,7 +12,7 @@
         android:id="@+id/lin_search_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/shape_mask_dark_maxradiu"
+        android:background="@drawable/shape_mask_maxradiu"
         android:gravity="center_vertical">
 
         <com.fivefivelike.mybaselibrary.view.IconFontTextview

@@ -3,6 +3,7 @@ package com.xiaomiquan.mvp.delegate;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.tablayout.CommonTabLayout;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -14,10 +15,12 @@ import java.util.ArrayList;
 
 public class MainDelegate extends IMDelegate {
     public ViewHolder viewHolder;
-    private String[] mTitles = {"", "", "", ""};
+    private String[] mTitles = {CommonUtils.getString(R.string.str_home),
+            CommonUtils.getString(R.string.str_market),
+            CommonUtils.getString(R.string.str_user)};
     private int[] mIconSelectIds = {
-            R.string.ic_Chart, R.string.ic_Layers,
-            R.string.ic_Inbox, R.string.ic_User};
+            R.string.ic_Box,
+            R.string.ic_Chart, R.string.ic_User};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Override
@@ -37,9 +40,10 @@ public class MainDelegate extends IMDelegate {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], 0));
         }
         viewHolder.tl_2.setIconVisible(false);
-        viewHolder.tl_2.setmIndicatorId(R.drawable.shape_blue_maxradiu);
+        //viewHolder.tl_2.setmIndicatorId(R.drawable.shape_blue_maxradiu);
         viewHolder.tl_2.setTabData(mTabEntities);
         viewHolder.tl_2.setOnTabSelectListener(onTabSelectListener);
+        viewHolder.tl_2.setCurrentTab(1);
     }
 
     @Override

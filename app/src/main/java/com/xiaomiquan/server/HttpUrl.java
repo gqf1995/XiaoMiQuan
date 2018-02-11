@@ -104,6 +104,11 @@ public class HttpUrl {
      * 获取用户主页信息
      */
     public String personCenter = getBaseUrl() + userUrl + "/personCenter";
+    /**
+     * 版本更新
+     */
+    public String getlatestversion = getBaseUrl() + "/appversion/getlatestversion";
+
 
     /**
      * 行情
@@ -154,7 +159,6 @@ public class HttpUrl {
      * 币种资料
      */
     public String getSymbolInfomation = getBaseUrl() + dataUrl + "/getSymbolInfomation";
-
 
 
     /**
@@ -287,7 +291,6 @@ public class HttpUrl {
     public String getDetails = getBaseUrl() + "/articleTopic/detail";
 
 
-
     /**
      * 组合跟投
      */
@@ -382,8 +385,6 @@ public class HttpUrl {
     public String getDemoByUserId = getBaseUrl() + demoUrl + "/getDemoByUserId";
 
 
-
-
     /**
      * 文章
      */
@@ -391,28 +392,28 @@ public class HttpUrl {
     /**
      * 文章列表
      */
-    public String listArticleByPage = getBaseUrl()+ articleUrl + "/listArticleByPage";
+    public String listArticleByPage = getBaseUrl() + articleUrl + "/listArticleByPage";
     /**
      * 发文章
      */
-    public String saveArticle = getBaseUrl()+ "/articleTopic/save";
+    public String saveArticle = getBaseUrl() + "/articleTopic/save";
     /**
      * 广场导入文章
      */
-    public String dealSquareArticle = getBaseUrl()+ "/articleTopic/reprintedSquare";
+    public String dealSquareArticle = getBaseUrl() + "/articleTopic/reprintedSquare";
     /**
      * 圈子导入文章
      */
-    public String dealCircleArticle = getBaseUrl()+ "/articleTopic/reprintedGroup";
+    public String dealCircleArticle = getBaseUrl() + "/articleTopic/reprintedGroup";
 
     /**
      * 发表评论
      */
-    public String saveComment = getBaseUrl()+ "/comment/saveComment";
+    public String saveComment = getBaseUrl() + "/comment/saveComment";
     /**
      * 点赞
      */
-    public String savePraise = getBaseUrl()+ "/praise/praiseOrCancel";
+    public String savePraise = getBaseUrl() + "/praise/praiseOrCancel";
     /**
      * 获取评论
      */
@@ -433,17 +434,17 @@ public class HttpUrl {
     /**
      * 取消关注
      */
-    public String attentiondelete = getBaseUrl()+ "/userAttention/delete";
+    public String attentiondelete = getBaseUrl() + "/userAttention/delete";
 
 
     /**
      * 获取文章
      */
-    public String getArticle = getBaseUrl()+ "/articleTopic/listArticleByPage";
+    public String getArticle = getBaseUrl() + "/articleTopic/listArticleByPage";
     /**
      * 获取文章
      */
-    public String getCircleMore = getBaseUrl()+ "/group/listMoreGroupByPage";
+    public String getCircleMore = getBaseUrl() + "/group/listMoreGroupByPage";
     /**
      * 获取用户主页信息
      */
@@ -455,12 +456,12 @@ public class HttpUrl {
     /**
      * 获取关注列表
      */
-    public String getAttention = getBaseUrl()+ "/user/listMyAttentionByPage";
+    public String getAttention = getBaseUrl() + "/user/listMyAttentionByPage";
 
     /**
      * 获取资讯
      */
-    public String getNews = getBaseUrl()+ "/news/list";
+    public String getNews = getBaseUrl() + "/news/list";
     /**
      * 利好
      */
@@ -475,4 +476,22 @@ public class HttpUrl {
     public String reComment = getBaseUrl() + "/news/comment/add";
 
 
+    String ip = "http://192.168.0.25:8080";
+
+    /**
+     * 战队
+     */
+    String gameTeamUrl = "/gameTeam";
+    /**
+     * 创建战队
+     */
+    public String createGameTeam = getBaseUrl() + gameTeamUrl + "/createGameTeam";
+    /**
+     * 广场
+     */
+    public String getSquareTeamGame = getBaseUrl() + gameTeamUrl + "/getSquareTeamGame";
+    /**
+     * 大赛
+     */
+    public String getBigGame = getBaseUrl() + gameTeamUrl + "/getBigGame";
 }

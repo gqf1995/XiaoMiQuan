@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.HistoryTrading;
@@ -46,7 +47,7 @@ public class LabelNotDealAdapter extends CommonAdapter<HistoryTrading> {
         tv_num = holder.getView(R.id.tv_num);
         tv_commit = holder.getView(R.id.tv_commit);
 
-        tv_type.setText(s.getType());
+        tv_type.setText("1".equals(s.getType()) ? CommonUtils.getString(R.string.str_buy) : CommonUtils.getString(R.string.str_sell));
         tv_currency.setText(s.getSymbol());
         tv_state.setText(s.getStatusText());
         tv_entrust_price.setText(BigUIUtil.getinstance().bigPrice(s.getPrice()));

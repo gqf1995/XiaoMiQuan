@@ -1,6 +1,7 @@
 package com.xiaomiquan.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -78,15 +79,15 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
 
         tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + BigUIUtil.getinstance().bigAmount(s.getVolume()));
 
-        tv_name.setText(CommonUtils.getString(R.string.str_rise) + BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
+        tv_name.setText(CommonUtils.getString(R.string.str_rise_24h) + BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
 
         List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(), s.getSymbol(), s.getUnit());
         if (TextUtils.isEmpty(strings.get(0))) {
             tv_coin_price.setText("--");
         } else {
-            tv_coin_price.setText(strings.get(0));
+            tv_coin_price.setText(Html.fromHtml(strings.get(0)));
         }
-        tv_coin_probably.setText(strings.get(1));
+        tv_coin_probably.setText(Html.fromHtml(strings.get(1)));
         if (TextUtils.isEmpty(strings.get(1))) {
             tv_coin_probably.setVisibility(View.GONE);
         } else {
@@ -111,8 +112,8 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
                     if (s.getOnlyKey().equals(oldData.getOnlyKey())) {
                         TextView tv_coin_price_color = holder.getView(R.id.tv_coin_price);
                         TextView tv_coin_probably_color = holder.getView(R.id.tv_coin_probably);
-                        BigUIUtil.getinstance().anim(tv_coin_price_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
-                        BigUIUtil.getinstance().anim(tv_coin_probably_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font2), s.getOnlyKey());
+                        BigUIUtil.getinstance().anim(s.getUnit(),tv_coin_price_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
+                        BigUIUtil.getinstance().anim(s.getUnit(),tv_coin_probably_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font2), s.getOnlyKey());
                     }
                 }
             }

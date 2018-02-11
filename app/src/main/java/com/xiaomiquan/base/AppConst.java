@@ -5,26 +5,13 @@ package com.xiaomiquan.base;
  */
 public class AppConst {
 
-    /**websocket  域名为http://topcoin.bicoin.com.cn/
-     topcoin的域名为  http://topcoin.bicoin.com.cn/topcoin/
+    /**
+     * websocket  域名为http://topcoin.bicoin.com.cn/
+     * topcoin的域名为  http://topcoin.bicoin.com.cn/topcoin/
      * 测试
      */
     public static final String httpBaseUrl = "http://topcoin.bicoin.com.cn/topcoin";
-//    public static final String httpBaseUrl = "http://topcoin.bicoin.com.cn/topcoin";
-//    public static final String httpBaseUrl2 = "http://47.97.169.136:1903";
-//    //public static final String httpBaseUrl2 = "http://192.168.31.12:1903/";
-//    //public static final String httpBaseUrl3 = "http://hk-topcoin.tokenboxes.com";
-//    //public static final String httpBaseUrl3 = "http://192.168.0.15:8080/";
-//    //public static final String httpBaseUrl3 = "http://120.55.45.178:1904";
-//    public static final String httpBaseUrl3 = "http://120.55.45.178:1904";
-//   // public static final String httpBaseUrl3 = "http://192.168.31.191:8080";
-//
-//    public static final String httpBaseUrl5 = "http://topcoin.tokenboxes.com/";
-//    public static final String httpBaseUrl7 = "http://192.168.0.15:8080/";
-//
-//    public static final String httpBaseUrl4 = "http://hk-exchange.tokenboxes.com/";
-//    public static final String httpBaseUrl6 = "http://120.55.45.178:1904";
-    //public static final String httpBaseUrl6 = "http://192.168.31.12:1901/";
+    //public static final String httpBaseUrl = "http://192.168.0.25:8080";
 
     public static final String serviceId = "KEFU151728371459995";
     public static final String rongId = "cpj2xarlc1xsn";

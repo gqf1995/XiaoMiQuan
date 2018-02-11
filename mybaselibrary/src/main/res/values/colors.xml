@@ -69,7 +69,7 @@
 
 
     <color name="increasing_color">#FF6960</color>
-    <color name="decreasing_color">#0DCE2B</color>
+    <color name="decreasing_color">#479c76</color>
 
 
     <color name="black_transparent_10">#0a000000</color>
@@ -92,7 +92,6 @@
 
     <color name="base_mask">#32ffffff</color><!--@color/white_transparent_50-->
     <color name="base_mask_dark">#32000000</color><!--@color/black_transparent_50-->
-
 
 
     <color name="color_font1">#FFFFFF</color><!--@color/white-->
@@ -137,6 +136,7 @@
 
     <!--顶部导航栏背景颜色-->
     <color name="toolbar_bg">#1E1E35</color>
+    <color name="navigation_color">#1E1E35</color>
 
 
 </resources>

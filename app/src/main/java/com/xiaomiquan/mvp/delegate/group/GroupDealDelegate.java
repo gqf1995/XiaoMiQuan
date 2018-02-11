@@ -99,7 +99,7 @@ public class GroupDealDelegate extends BaseDelegate {
 
         if (viewHolder.tl_1.getCurrentTab() == 0) {
             //买
-            buyBalance = CommonUtils.getString(R.string.str_tv_balance) + groupItem.getBalance() + "USD";
+            buyBalance = CommonUtils.getString(R.string.str_tv_balance) + BigUIUtil.getinstance().bigPrice(groupItem.getBalance()) + "USD";
             viewHolder.tv_balance.setText(buyBalance);
         } else {
             //卖

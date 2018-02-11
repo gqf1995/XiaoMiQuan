@@ -51,6 +51,11 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        for (int i = 0; i < fragments.size(); i++) {
+            if (fragments.get(i) instanceof BasePullFragment) {
+                ((BasePullFragment) fragments.get(i)).onRefresh();
+            }
+        }
         switch (requestCode) {
             case 0x123:
                 //买
@@ -58,6 +63,7 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
                 groupItems.get(position).setBalance(tradingResultBuy.getBalance());
                 //更新余额
                 viewDelegate.onSelectLinsener(viewDelegate.mCoinDetail, groupItems.get(position));
+                currencyFragmentSell.onRefresh();
                 break;
             case 0x124:
                 //卖
@@ -66,11 +72,6 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
                 currencyFragmentSell.setSellResult(tradingResultSell);
                 currencyFragmentSell.getSelectPositionData();
                 break;
-        }
-        for (int i = 0; i < fragments.size(); i++) {
-            if (fragments.get(i) instanceof BasePullFragment) {
-                ((BasePullFragment) fragments.get(i)).onRefresh();
-            }
         }
     }
 

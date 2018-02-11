@@ -47,13 +47,12 @@
                             android:orientation="horizontal"
                             >
 
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/iv_title1"
-                                android:layout_width="@dimen/trans_40px"
-                                android:layout_height="@dimen/trans_40px"
+                            <View
+                                android:layout_width="@dimen/trans_10px"
+                                android:layout_height="@dimen/trans_35px"
                                 android:layout_marginLeft="@dimen/trans_40px"
                                 android:layout_marginRight="@dimen/trans_15px"
-                                app:srcCompat="@drawable/ic_trophy2"
+                                android:background="@color/toolbar_bg"
                                 />
 
                             <TextView
@@ -85,6 +84,18 @@
                         android:layout_height="@dimen/trans_20px"
                         android:background="@color/base_mask"/>
 
+                    <cn.bingoogolapple.bgabanner.BGABanner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_240px"
+                        app:banner_pageChangeDuration="1000"
+                        app:banner_pointAutoPlayAble="true"
+                        app:banner_pointContainerBackground="@android:color/transparent"
+                        app:banner_pointDrawable="@android:color/transparent"
+                        app:banner_pointTopBottomMargin="15dp"
+                        app:banner_transitionEffect="alpha"
+                        />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -101,13 +112,71 @@
                             android:orientation="horizontal"
                             >
 
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/iv_title2"
-                                android:layout_width="@dimen/trans_40px"
-                                android:layout_height="@dimen/trans_40px"
+                            <View
+                                android:layout_width="@dimen/trans_10px"
+                                android:layout_height="@dimen/trans_35px"
                                 android:layout_marginLeft="@dimen/trans_40px"
                                 android:layout_marginRight="@dimen/trans_15px"
-                                app:srcCompat="@drawable/ic_trophy"
+                                android:background="@color/toolbar_bg"
+                                />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="270"
+                                android:text="@string/str_hot_team"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_28px"/>
+
+                            <TextView
+                                android:id="@+id/tv_more_team"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/trans_35px"
+                                android:paddingRight="@dimen/trans_35px"
+                                android:text="@string/str_more_team"
+                                android:textColor="@color/color_font3"
+                                android:textSize="@dimen/text_trans_28px"/>
+
+                        </skin.support.widget.SkinCompatLinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_1px"
+                            android:background="@color/base_mask"/>
+
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rcv_hot_team"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_85px"
+                        android:orientation="vertical"
+                        android:tag="sticky">
+
+                        <skin.support.widget.SkinCompatLinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            >
+
+                            <View
+                                android:layout_width="@dimen/trans_10px"
+                                android:layout_height="@dimen/trans_35px"
+                                android:layout_marginLeft="@dimen/trans_40px"
+                                android:layout_marginRight="@dimen/trans_15px"
+                                android:background="@color/toolbar_bg"
                                 />
 
                             <TextView
@@ -124,6 +193,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="bottom"
                                 android:layout_weight="400"
+                                android:visibility="invisible"
                                 app:tl_indicator_width="0dp"
                                 app:tl_textBold="BOTH"
                                 app:tl_underline_gravity="TOP"
@@ -174,13 +244,12 @@
                             android:orientation="horizontal"
                             >
 
-                            <android.support.v7.widget.AppCompatImageView
-                                android:id="@+id/iv_title3"
-                                android:layout_width="@dimen/trans_40px"
-                                android:layout_height="@dimen/trans_40px"
+                            <View
+                                android:layout_width="@dimen/trans_10px"
+                                android:layout_height="@dimen/trans_35px"
                                 android:layout_marginLeft="@dimen/trans_40px"
                                 android:layout_marginRight="@dimen/trans_15px"
-                                app:srcCompat="@drawable/ic_quanzidongtai"
+                                android:background="@color/toolbar_bg"
                                 />
 
                             <TextView

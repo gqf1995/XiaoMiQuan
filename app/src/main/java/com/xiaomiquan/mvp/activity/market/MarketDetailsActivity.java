@@ -288,7 +288,6 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 Log.i("KlineDraw", "onServiceSuccess");
                 setLog("请求成功" + TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss:SSS")));
                 List<KLineBean> newkLineBeans = GsonUtil.getInstance().toList(data, KLineBean.class);
-
                 if (newkLineBeans.size() == 0) {
                     viewDelegate.noKlineView();
                     return;
@@ -536,7 +535,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 break;
             case R.id.lin_currency_data:
                 //币种资料
-                CoinDetailActivity.startAct(this, exchangeData);
+                CoinDetailsActivity.startAct(this, exchangeData);
                 break;
             case R.id.lin_simulation:
                 //模拟交易

@@ -325,7 +325,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("demoId", demoId);
-        baseMap.put("status", status);// 1：已成交 2：未成交
+        baseMap.put("status", status);// 1：未成交 2：已成交
         baseMap.put("pageNum", viewDelegate.page);
         baseMap.put("pageSize", viewDelegate.pagesize);
         return new HttpRequest.Builder()
@@ -476,5 +476,23 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
-
+    /**
+     * 组合广场
+     */
+    public Disposable getSquareTeamGame(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().getSquareTeamGame)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("组合动态")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 }

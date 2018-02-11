@@ -40,4 +40,25 @@ public class CreatGroupBinder extends BaseDataBind<CreatGroupDelegate> {
                 .RxSendRequest();
     }
 
+    //创建战队
+    public Disposable createGameTeam(
+            String teamName,
+            String remark,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("teamName", teamName);// 组合简介
+        baseMap.put("remark", remark);// 组合简介
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().createGameTeam)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("创建组合")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 }

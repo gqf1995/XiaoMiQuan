@@ -44,7 +44,7 @@ public class LabelHistoryEntrustAdapter extends CommonAdapter<HistoryTrading> {
         tv_currency.setText(s.getSymbol());
         tv_entrust_price.setText(BigUIUtil.getinstance().bigPrice(s.getPrice()));
         tv_num.setText(s.getCount());
-        tv_show_time.setText(com.blankj.utilcode.util.TimeUtils.millis2String(s.getCreateTime() * 1000, TimeUtils.DEFAULT_FORMAT));
+        tv_show_time.setText(com.blankj.utilcode.util.TimeUtils.millis2String(s.getCreateTime(), TimeUtils.DEFAULT_FORMAT));
         tv_state.setText(s.getStatusText());
     }
 

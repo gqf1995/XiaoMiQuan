@@ -162,10 +162,12 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     @Override
     protected void refreshData() {
-        if (TYPE_CURRENCY_BUY.equals(type)) {
-            addRequest(binder.searchCoin(searchOrId, this));
-        } else if (TYPE_CURRENCY_SELL.equals(type)) {
-            addRequest(binder.myCoin(searchOrId, this));
+        if (adapter != null) {
+            if (TYPE_CURRENCY_BUY.equals(type)) {
+                addRequest(binder.searchCoin(searchOrId, this));
+            } else if (TYPE_CURRENCY_SELL.equals(type)) {
+                addRequest(binder.myCoin(searchOrId, this));
+            }
         }
         //addRequest(binder.listArticleByPage(this));
     }

@@ -79,7 +79,7 @@ public class HistoryEntrustFragment extends BasePullFragment<BaseFragentPullDele
 
     @Override
     protected void refreshData() {
-        addRequest(binder.listDeal(id, "1", this));
+        addRequest(binder.history(id, this));
     }
 
     public static HistoryEntrustFragment newInstance(

@@ -51,6 +51,7 @@ public class LoginAndRegisteredDelegate extends BaseDelegate {
         viewHolder.tv_commit.setOnClickListener(onClickListener);
         tablayout();
         initLogin();
+        initPhone();
     }
 
 

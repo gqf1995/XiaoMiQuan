@@ -15,7 +15,6 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
-import com.fivefivelike.mybaselibrary.view.dialog.LogDialog;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeName;
 import com.xiaomiquan.entity.bean.UserLogin;
@@ -71,10 +70,10 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     protected void bindEvenListener() {
         super.bindEvenListener();
         userLogin = SingSettingDBUtil.getUserLogin();
-        initToolbar(new ToolbarBuilder().setmRightImg2(CommonUtils.getString(R.string.ic_Filter2)).setmRightImg1(CommonUtils.getString(R.string.ic_Share))
+        initToolbar(new ToolbarBuilder().setmRightImg1(CommonUtils.getString(R.string.ic_Share))
                 .setTitle(CommonUtils.getString(R.string.str_title_market)).setShowBack(true));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
-        viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_Notifications));
+        viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_Filter2));
         initBarClick();
         initToolBarSearch();
         //网络获取交易所 名称
@@ -186,13 +185,13 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     protected void clickRightIv() {
         super.clickRightIv1();
         // 分享
-//        CircleDialogHelper.initDefaultInputDialog(getActivity(), "修改地址", "", "确定", new OnInputClickListener() {
-//            @Override
-//            public void onClick(String text, View v) {
-//                HttpUrl.setBaseUrl(text);
-//                //onHttpChangeLinsener.initSocket();
-//            }
-//        }).setDefaultInputTxt(HttpUrl.getBaseUrl()).show();
+        //        CircleDialogHelper.initDefaultInputDialog(getActivity(), "修改地址", "", "确定", new OnInputClickListener() {
+        //            @Override
+        //            public void onClick(String text, View v) {
+        //                HttpUrl.setBaseUrl(text);
+        //                //onHttpChangeLinsener.initSocket();
+        //            }
+        //        }).setDefaultInputTxt(HttpUrl.getBaseUrl()).show();
         List<Bitmap> bitmaps = new ArrayList<>();
         bitmaps.add(UiHeplUtils.screenShot(getActivity()));
         UiHeplUtils.shareImgs(getActivity(), bitmaps);
@@ -260,7 +259,11 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
             @Override
             public void onClick(View view) {
                 //通知
-                new LogDialog().show(getChildFragmentManager(), "");
+                //new LogDialog().show(getChildFragmentManager(), "");
+                // 排序
+                if (SingSettingDBUtil.isLogin(getActivity())) {
+                    gotoActivity(SortingUserCoinActivity.class).fragStartActResult(MarketFragment.this, 0x123);
+                }
             }
         });
     }
@@ -268,8 +271,10 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-        //钟
-        gotoActivity(SortingUserCoinActivity.class).startAct();
+        // 排序
+        if (SingSettingDBUtil.isLogin(getActivity())) {
+            gotoActivity(SortingUserCoinActivity.class).fragStartActResult(this, 0x123);
+        }
     }
 
     @Override

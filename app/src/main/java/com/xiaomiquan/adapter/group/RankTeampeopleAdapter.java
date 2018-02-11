@@ -1,0 +1,59 @@
+package com.xiaomiquan.adapter.group;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.TextView;
+
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.xiaomiquan.R;
+import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
+
+import java.util.List;
+
+/**
+ * Created by 郭青枫 on 2018/1/10 0010.
+ */
+
+public class RankTeampeopleAdapter extends CommonAdapter<String> {
+
+
+    private TextView tv_num;
+    private TextView tv_last_week_earnings;
+    private TextView tv_rate_title;
+    private TextView tv_name;
+    private TextView tv_focuse_num;
+    private TextView tv_focuse;
+
+    DefaultClickLinsener defaultClickLinsener;
+
+    public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
+        this.defaultClickLinsener = defaultClickLinsener;
+    }
+
+    public RankTeampeopleAdapter(Context context, List<String> datas) {
+        super(context, R.layout.adapter_hot_group, datas);
+    }
+
+    @Override
+    protected void convert(ViewHolder holder, String s, final int position) {
+        tv_num = holder.getView(R.id.tv_num);
+        tv_last_week_earnings = holder.getView(R.id.tv_last_week_earnings);
+        tv_rate_title = holder.getView(R.id.tv_rate_title);
+        tv_name = holder.getView(R.id.tv_name);
+        tv_focuse_num = holder.getView(R.id.tv_focuse_num);
+        tv_focuse = holder.getView(R.id.tv_focuse);
+        tv_rate_title.setText(CommonUtils.getString(R.string.str_cumulative_earnings));
+        tv_focuse.setText(CommonUtils.getString(R.string.str_details));
+        tv_focuse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(v, position, null);
+                }
+            }
+        });
+    }
+
+}

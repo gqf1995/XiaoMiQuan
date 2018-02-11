@@ -1,6 +1,7 @@
 package com.xiaomiquan.mvp.fragment.group;
 
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -44,7 +45,14 @@ public class InvestGroupFragment extends BaseDataBindFragment<ComTabViewpageDele
     protected void bindEvenListener() {
         super.bindEvenListener();
         isRedRise = UserSet.getinstance().isRedRise();
-        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_investment_combination)).setSubTitle(CommonUtils.getString(R.string.str_creat_combination)).setShowBack(false));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_investment_combination)).setSubTitle(CommonUtils.getString(R.string.str_creat_combination)));
+        viewDelegate.getmToolbarBack().setText(CommonUtils.getString(R.string.ic_Message));
+        viewDelegate.getmToolbarBack().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         initTablelayout();
     }
 

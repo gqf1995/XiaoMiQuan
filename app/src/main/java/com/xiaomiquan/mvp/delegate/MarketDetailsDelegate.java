@@ -1,6 +1,8 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.entity.bean.kline.DataParse;
 import com.xiaomiquan.entity.bean.kline.KLineBean;
+import com.xiaomiquan.mvp.fragment.CoinDetailFragment;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.DropDownView;
@@ -44,7 +47,6 @@ public class MarketDetailsDelegate extends BaseDelegate {
         viewHolder = new ViewHolder(getRootView());
         initCommonTabLayout();
         klineTypeData = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline_show_type));
-
     }
 
 
@@ -64,10 +66,18 @@ public class MarketDetailsDelegate extends BaseDelegate {
 
     }
 
+    CoinDetailFragment coinDetailFragment;
+
     //没有k线
     public void noKlineView() {
         viewHolder.lin_kbg.setVisibility(View.GONE);
-        viewHolder.lin_no_kline.setVisibility(View.VISIBLE);
+        viewHolder.fl_no_kline.setVisibility(View.VISIBLE);
+        //加载币种资料页面
+        initAddFragment(R.id.fl_root, ((FragmentActivity) viewHolder.rootView.getContext()).getSupportFragmentManager());
+        coinDetailFragment = new CoinDetailFragment();
+        coinDetailFragment.setExchangeData(mExchangeData);
+        addFragment(coinDetailFragment);
+        showFragment(0);
     }
 
     public int selectPosition = 0;
@@ -168,7 +178,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
             viewHolder.tv_rate.setVisibility(View.GONE);
         } else {
             viewHolder.tv_rate.setVisibility(View.VISIBLE);
-            viewHolder.tv_rate.setText(s);
+            viewHolder.tv_rate.setText(Html.fromHtml(s));
         }
 
         StringBuffer stringBuffer = new StringBuffer();
@@ -221,6 +231,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
             viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow()));
         }
     }
+
 
     public static class ViewHolder {
         public View rootView;
@@ -275,7 +286,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
         public LinearLayout lin_ma2;
         public KCombinedChart barchart;
         public LinearLayout lin_kbg;
-        public LinearLayout lin_no_kline;
+        public FrameLayout fl_no_kline;
         public LinearLayout lin_global_market;
         public LinearLayout lin_currency_data;
         public LinearLayout lin_simulation;
@@ -339,7 +350,7 @@ public class MarketDetailsDelegate extends BaseDelegate {
             this.lin_ma2 = (LinearLayout) rootView.findViewById(R.id.lin_ma2);
             this.barchart = (KCombinedChart) rootView.findViewById(R.id.barchart);
             this.lin_kbg = (LinearLayout) rootView.findViewById(R.id.lin_kbg);
-            this.lin_no_kline = (LinearLayout) rootView.findViewById(R.id.lin_no_kline);
+            this.fl_no_kline = (FrameLayout) rootView.findViewById(R.id.fl_no_kline);
             this.lin_global_market = (LinearLayout) rootView.findViewById(R.id.lin_global_market);
             this.lin_currency_data = (LinearLayout) rootView.findViewById(R.id.lin_currency_data);
             this.lin_simulation = (LinearLayout) rootView.findViewById(R.id.lin_simulation);

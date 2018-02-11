@@ -67,8 +67,8 @@
     <color name="color_purple_dark">#2e266f</color>
 
 
-    <color name="increasing_color">#FF6960</color>
-    <color name="decreasing_color">#0DCE2B</color>
+    <color name="increasing_color">#D64541</color>
+    <color name="decreasing_color">#3D9970</color>
 
 
     <color name="black_transparent_10">#0a000000</color>
@@ -127,7 +127,7 @@
 
 
     <!--顶部导航栏背景颜色-->
-    <color name="toolbar_bg">#3B5998</color>
-
+    <color name="toolbar_bg">#208DE3</color>
+    <color name="navigation_color">#208DE3</color>
 
 </resources>
