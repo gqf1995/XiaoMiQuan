@@ -39,7 +39,10 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
     ArtivleAdapter artivleAdapter;
     LinearLayoutManager linearLayoutManager;
     HeaderAndFooterWrapper headerAndFooterWrapper;
+<<<<<<< Updated upstream
     UserLogin userLogin;
+=======
+>>>>>>> Stashed changes
 
     @Override
     protected Class<ArticleDelegate> getDelegateClass() {

@@ -8,13 +8,10 @@ import android.view.View;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.BigVListAdapter;
-import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.UserFriende;
-import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.RecommendBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
@@ -28,7 +25,6 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
 
     BigVListAdapter bigVListAdapter;
     List<UserFriende> userFriendeList;
-    UserLogin userLogin;
 
     @Override
     public RecommendBinder getDataBinder(BaseFragentPullDelegate viewDelegate) {
@@ -43,7 +39,6 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        userLogin = SingSettingDBUtil.getUserLogin();
         addRequest(binder.getBigVlist(this));
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -101,25 +96,18 @@ public class RecommendFragment extends BasePullFragment<BaseFragentPullDelegate,
                 public void onClick(View view, int position, Object item) {
                     switch (view.getId()) {
                         case R.id.tv_attention:
-                            if (userLogin != null) {
-                                UserFriende userFriende = bigVListAdapter.userFriendes.get(position);
-                                if (userFriende.getAttention()) {
-                                    bigVListAdapter.userFriendes.remove(position);
-                                    userFriende.setAttention(false);
-                                    userFriende.setAttentionedCount(userFriende.getAttentionedCount() - 1);
-                                    bigVListAdapter.userFriendes.add(position, userFriende);
-                                } else {
-                                    bigVListAdapter.userFriendes.remove(position);
-                                    userFriende.setAttention(true);
-                                    userFriende.setAttentionedCount(userFriende.getAttentionedCount() + 1);
-                                    bigVListAdapter.userFriendes.add(position, userFriende);
-                                }
-                                addRequest(binder.attention(userFriendes.get(position).getId(), RecommendFragment.this));
-                                bigVListAdapter.notifyItemChanged(position);
+                            if (bigVListAdapter.getDatas().get(position).getAttention()) {
+                                addRequest(binder.attentiondelete(bigVListAdapter.getDatas().get(position).getId(), RecommendFragment.this));
+                                bigVListAdapter.getDatas().get(position).setAttention(false);
+                                bigVListAdapter.getDatas().get(position).setAttentionedCount(bigVListAdapter.getDatas().get(position).getAttentionedCount() - 1);
                             } else {
-                                ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+                                addRequest(binder.attention(bigVListAdapter.getDatas().get(position).getId(), RecommendFragment.this));
+                                bigVListAdapter.getDatas().get(position).setAttention(true);
+                                bigVListAdapter.getDatas().get(position).setAttentionedCount(bigVListAdapter.getDatas().get(position).getAttentionedCount() + 1);
                             }
+                            bigVListAdapter.notifyItemChanged(position);
                             break;
+
                         case R.id.cv_head:
                             PersonalHomePageActivity.startAct(getActivity(), userFriendes.get(position).getId());
                             break;

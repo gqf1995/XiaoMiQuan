@@ -46,7 +46,10 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
 
     public List<Boolean> isUserPraise;
     public List<Integer> praiseNum;
+<<<<<<< Updated upstream
     UserLogin userLogin;
+=======
+>>>>>>> Stashed changes
 
     BaseDataBind dataBind;
     private LinearLayout lin_praise;
@@ -61,7 +64,10 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
         dataBind = baseDataBind;
         isUserPraise = new ArrayList<>();
         praiseNum = new ArrayList<>();
+<<<<<<< Updated upstream
         userLogin = SingSettingDBUtil.getUserLogin();
+=======
+>>>>>>> Stashed changes
     }
 
     public void setDatas(List<SquareLive> datas) {
@@ -109,6 +115,7 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
         lin_praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< Updated upstream
                 if (userLogin != null) {
                     tv_praise = view.findViewById(R.id.tv_praise);
                     tv_praise_num = view.findViewById(R.id.tv_praise_num);
@@ -139,6 +146,34 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
                 if (defaultClickLinsener != null) {
                     defaultClickLinsener.onClick(view, position, null);
                 }
+=======
+                tv_praise = view.findViewById(R.id.tv_praise);
+                tv_praise_num = view.findViewById(R.id.tv_praise_num);
+                if (s.isUserPraise()) {
+                    s.setUserPraise(false);
+                    s.setGoodCount(s.getGoodCount() - 1);
+                    tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font2));
+                    tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font2));
+                    tv_praise_num.setText(s.getGoodCount() + "");
+                } else {
+                    s.setUserPraise(true);
+                    s.setGoodCount(s.getGoodCount() + 1);
+                    tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    tv_praise_num.setText(s.getGoodCount() + "");
+                }
+                dataBind.addRequest(savePraise(dataBind, s.getId()));
+//                notifyDataSetChanged();
+                notifyItemChanged(position - 1);
+            }
+        });
+        tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(view, position, null);
+                }
+>>>>>>> Stashed changes
             }
         });
 
