@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * Created by 郭青枫 on 2016/11/29.
@@ -34,7 +36,13 @@ public class GlideUtils {
 
     //http://forotc.com/avatar/23.png
     public static void loadImage(String url, ImageView icon) {
-        loadImage(url, icon, R.drawable.loaderror, null);
+        int errorId;
+        if (icon instanceof CircleImageView) {
+            errorId = R.drawable.ic_no_header;
+        } else {
+            errorId = R.drawable.loaderor;
+        }
+        loadImage(url, icon, errorId, null);
     }
 
     public static void loadImage(String url, ImageView icon, int errorId) {
@@ -58,7 +66,7 @@ public class GlideUtils {
     public static void loadImage(Uri url, ImageView icon) {
         Glide.with(GlobleContext.getInstance().getApplicationContext())
                 .load(url).
-                apply(new RequestOptions().centerCrop().error(R.drawable.loaderror))
+                apply(new RequestOptions().centerCrop().error(R.drawable.loaderor))
                 .into(icon);
     }
 

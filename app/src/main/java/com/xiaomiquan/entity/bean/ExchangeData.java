@@ -44,6 +44,53 @@ public class ExchangeData implements Parcelable {
     private String onlyKey;//市场的唯一标识 例如：Okex_ETH_BTC "choicePrice": null// 用户选择的市场价格
     private String key;//市场的唯一标识 例如：Okex_ETH_BTC "choicePrice": null// 用户选择的市场价格
 
+    @Override
+    public String toString() {
+        return "ExchangeData{" +
+                "id='" + id + '\'' +
+                ", exchange='" + exchange + '\'' +
+                ", exch='" + exch + '\'' +
+                ", name='" + name + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", sym='" + sym + '\'' +
+                ", unit='" + unit + '\'' +
+                ", tradePair='" + tradePair + '\'' +
+                ", side='" + side + '\'' +
+                ", last='" + last + '\'' +
+                ", la='" + la + '\'' +
+                ", high='" + high + '\'' +
+                ", h='" + h + '\'' +
+                ", low='" + low + '\'' +
+                ", l='" + l + '\'' +
+                ", open='" + open + '\'' +
+                ", o='" + o + '\'' +
+                ", close='" + close + '\'' +
+                ", c='" + c + '\'' +
+                ", volume='" + volume + '\'' +
+                ", vol='" + vol + '\'' +
+                ", amount='" + amount + '\'' +
+                ", amt='" + amt + '\'' +
+                ", ask='" + ask + '\'' +
+                ", bid='" + bid + '\'' +
+                ", change='" + change + '\'' +
+                ", ch='" + ch + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", ts='" + ts + '\'' +
+                ", onlyKey='" + onlyKey + '\'' +
+                ", key='" + key + '\'' +
+                ", availableSupply='" + availableSupply + '\'' +
+                ", lastUpdated='" + lastUpdated + '\'' +
+                ", marketCapUsd='" + marketCapUsd + '\'' +
+                ", maxSupply='" + maxSupply + '\'' +
+                ", percentChange1h='" + percentChange1h + '\'' +
+                ", percentChange24h='" + percentChange24h + '\'' +
+                ", percentChange7d='" + percentChange7d + '\'' +
+                ", priceBtc='" + priceBtc + '\'' +
+                ", priceUsd='" + priceUsd + '\'' +
+                ", rank='" + rank + '\'' +
+                ", totalSupply='" + totalSupply + '\'' +
+                '}';
+    }
 
     public String getExch() {
         return exch;

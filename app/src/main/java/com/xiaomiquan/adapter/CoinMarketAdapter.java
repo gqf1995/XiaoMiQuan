@@ -123,8 +123,12 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
                 }
                 if (oldData != null) {
                     if (s.getOnlyKey().equals(oldData.getOnlyKey())) {
-                        TextView tv_coin_price_color = holder.getView(R.id.tv_coin_price);
-                        BigUIUtil.getinstance().anim(s.getUnit(),tv_coin_price_color, oldData.getPriceUsd(), s.getPriceUsd(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
+                        BigUIUtil.getinstance().anim(s.getUnit(),
+                                (TextView) holder.getView(R.id.tv_coin_price),
+                                oldData.getPriceUsd(), s.getPriceUsd(),
+                                CommonUtils.getColor(R.color.color_font1),
+                                s.getOnlyKey(),position,
+                                (TextView) holder.getView(R.id.tv_coin_price).getTag());
                     }
                 }
             }

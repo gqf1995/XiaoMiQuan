@@ -55,7 +55,7 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
     }
 
     @Override
-    protected void convert(ViewHolder holder, ExchangeData s, final int position) {
+    protected void convert(final ViewHolder holder, ExchangeData s, final int position) {
         tv_coin_type = holder.getView(R.id.tv_coin_type);
         tv_coin_price = holder.getView(R.id.tv_coin_price);
         tv_coin_probably = holder.getView(R.id.tv_coin_probably);
@@ -110,10 +110,18 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
                 }
                 if (oldData != null) {
                     if (s.getOnlyKey().equals(oldData.getOnlyKey())) {
-                        TextView tv_coin_price_color = holder.getView(R.id.tv_coin_price);
-                        TextView tv_coin_probably_color = holder.getView(R.id.tv_coin_probably);
-                        BigUIUtil.getinstance().anim(s.getUnit(),tv_coin_price_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
-                        BigUIUtil.getinstance().anim(s.getUnit(),tv_coin_probably_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font2), s.getOnlyKey());
+                        BigUIUtil.getinstance().anim(s.getUnit(),
+                                (TextView)holder.getView(R.id.tv_coin_price),
+                                oldData.getLast(), s.getLast(),
+                                CommonUtils.getColor(R.color.color_font1),
+                                s.getOnlyKey(),position,
+                                (TextView)holder.getView(R.id.tv_coin_price).getTag());
+                        BigUIUtil.getinstance().anim(s.getUnit(),
+                                (TextView)holder.getView(R.id.tv_coin_probably),
+                                oldData.getLast(), s.getLast(),
+                                CommonUtils.getColor(R.color.color_font2),
+                                s.getOnlyKey(),position,
+                                (TextView)holder.getView(R.id.tv_coin_probably).getTag());
                     }
                 }
             }

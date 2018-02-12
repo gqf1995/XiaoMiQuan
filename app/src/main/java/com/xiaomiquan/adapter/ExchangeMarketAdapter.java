@@ -34,16 +34,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
     //implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder>
     int[] bgIds = {R.drawable.ic_value_bg1, R.drawable.ic_value_bg2, R.drawable.ic_value_bg3, R.drawable.ic_value_bg4, R.drawable.ic_value_bg5};
     boolean isFirst = false;
-    TextView tv_coin_type;
-    TextView tv_coin_price;
-    TextView tv_coin_probably;
-    TextView tv_gains;
-    TextView tv_coin_market_value;
-    LinearLayout lin_root;
-    RoundedImageView ic_piv;
-    FrameLayout fl_root;
-    TextView tv_name;
-    TextView tv_coin_unit;
+
     DecelerateInterpolator decelerateInterpolator;
     boolean isRedRise = false;
 
@@ -63,6 +54,17 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
 
     @Override
     protected void convert(final ViewHolder holder, ExchangeData s, final int position) {
+        TextView tv_coin_type;
+        TextView tv_coin_price;
+        TextView tv_coin_probably;
+        TextView tv_gains;
+        TextView tv_coin_market_value;
+        LinearLayout lin_root;
+        RoundedImageView ic_piv;
+        FrameLayout fl_root;
+        TextView tv_name;
+        TextView tv_coin_unit;
+
         tv_coin_type = holder.getView(R.id.tv_coin_type);
         tv_coin_price = holder.getView(R.id.tv_coin_price);
         tv_coin_probably = holder.getView(R.id.tv_coin_probably);
@@ -88,6 +90,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
             tv_coin_price.setText(Html.fromHtml(strings.get(0)));
         }
         tv_coin_probably.setText(Html.fromHtml(strings.get(1)));
+        tv_coin_probably.setVisibility(View.VISIBLE);
         if (TextUtils.isEmpty(strings.get(1))) {
             tv_coin_probably.setVisibility(View.GONE);
         } else {
@@ -99,7 +102,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         if (!TextUtils.isEmpty(s.getChange())) {
             if (new BigDecimal(s.getChange()).compareTo(new BigDecimal("0")) == 1) {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
-                tv_gains.setText("+"+BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
+                tv_gains.setText("+" + BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
             } else {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getDropColor()), 10, 10, 10, 10));
             }
@@ -122,10 +125,18 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                 }
                 if (oldData != null) {
                     if (s.getOnlyKey().equals(oldData.getOnlyKey())) {
-                        TextView tv_coin_price_color = holder.getView(R.id.tv_coin_price);
-                        TextView tv_coin_probably_color = holder.getView(R.id.tv_coin_probably);
-                        BigUIUtil.getinstance().anim(s.getUnit(),tv_coin_price_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
-                        BigUIUtil.getinstance().anim(s.getUnit(),tv_coin_probably_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font2), s.getOnlyKey());
+                        BigUIUtil.getinstance().anim(s.getUnit(),
+                                (TextView) holder.getView(R.id.tv_coin_price),
+                                oldData.getLast(), s.getLast(),
+                                CommonUtils.getColor(R.color.color_font1),
+                                s.getOnlyKey(), position,
+                                (TextView) holder.getView(R.id.tv_coin_price).getTag());
+                        BigUIUtil.getinstance().anim(s.getUnit(),
+                                (TextView) holder.getView(R.id.tv_coin_probably),
+                                oldData.getLast(), s.getLast(),
+                                CommonUtils.getColor(R.color.color_font2),
+                                s.getOnlyKey(), position,
+                                (TextView) holder.getView(R.id.tv_coin_probably).getTag());
                     }
                 }
             }

@@ -1,7 +1,9 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.graphics.Matrix;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,6 +13,7 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -23,8 +26,9 @@ import com.tablayout.CommonTabLayout;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.EarningsMovements;
 import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.mvp.activity.group.CreatTeamActivity;
+import com.xiaomiquan.mvp.activity.main.WebActivityActivity;
 import com.xiaomiquan.utils.BigUIUtil;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 import com.xiaomiquan.widget.chart.MyLeftRateMarkerView;
 
@@ -33,6 +37,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.xiaomiquan.base.AppConst.rulesUrl;
 import static com.xiaomiquan.utils.TimeUtils.DEFAULT_FORMAT;
 
 public class CombinationDelegate extends BaseDelegate {
@@ -84,14 +89,26 @@ public class CombinationDelegate extends BaseDelegate {
         viewHolder.tv_focus_on_num.setText(groupItem.getAttentionCount() + CommonUtils.getString(R.string.str_people) + CommonUtils.getString(R.string.str_focuse));
         viewHolder.tv_label.setText(groupItem.getType());
         viewHolder.tv_create_time.setText(TimeUtils.millis2String(groupItem.getCreateTime(), DEFAULT_FORMAT));
-
-        if(TextUtils.isEmpty(groupItem.getBrief())){
+        if (TextUtils.isEmpty(groupItem.getBrief())) {
             viewHolder.tv_introduce.setText(CommonUtils.getString(R.string.str_now_no_data));
-        }else{
+        } else {
             viewHolder.tv_introduce.setText(groupItem.getBrief());
         }
-
-
+        viewHolder.tv_toast.setText("该账户为永久账户\n如需参加大赛请点击创建大赛账户");
+        viewHolder.tv_create.setText("创建大赛账户");
+        viewHolder.tv_game.setText("炒币大赛规则");
+        viewHolder.tv_create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreatTeamActivity.startAct((FragmentActivity) viewHolder.rootView.getContext(), 0x123);
+            }
+        });
+        viewHolder.tv_game.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebActivityActivity.startAct((FragmentActivity) viewHolder.rootView.getContext(), rulesUrl);
+            }
+        });
     }
 
     protected XAxis xAxisKline;
@@ -197,6 +214,9 @@ public class CombinationDelegate extends BaseDelegate {
         public TextView tv_label;
         public TextView tv_create_time;
         public TextView tv_introduce;
+        public TextView tv_toast;
+        public TextView tv_create;
+        public TextView tv_game;
         public TextView tv_today_earnings;
         public TextView tv_daily_operation;
         public TextView tv_cumulative_earnings;
@@ -212,6 +232,7 @@ public class CombinationDelegate extends BaseDelegate {
         public LinearLayout lin_table;
         public ViewPager viewpager;
         public JudgeNestedScrollView nestedScrollView;
+        public SwipeRefreshLayout swipeRefreshLayout;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -221,6 +242,9 @@ public class CombinationDelegate extends BaseDelegate {
             this.tv_label = (TextView) rootView.findViewById(R.id.tv_label);
             this.tv_create_time = (TextView) rootView.findViewById(R.id.tv_create_time);
             this.tv_introduce = (TextView) rootView.findViewById(R.id.tv_introduce);
+            this.tv_toast = (TextView) rootView.findViewById(R.id.tv_toast);
+            this.tv_create = (TextView) rootView.findViewById(R.id.tv_create);
+            this.tv_game = (TextView) rootView.findViewById(R.id.tv_game);
             this.tv_today_earnings = (TextView) rootView.findViewById(R.id.tv_today_earnings);
             this.tv_daily_operation = (TextView) rootView.findViewById(R.id.tv_daily_operation);
             this.tv_cumulative_earnings = (TextView) rootView.findViewById(R.id.tv_cumulative_earnings);
@@ -236,6 +260,7 @@ public class CombinationDelegate extends BaseDelegate {
             this.lin_table = (LinearLayout) rootView.findViewById(R.id.lin_table);
             this.viewpager = (ViewPager) rootView.findViewById(R.id.viewpager);
             this.nestedScrollView = (JudgeNestedScrollView) rootView.findViewById(R.id.nestedScrollView);
+            this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         }
 
     }

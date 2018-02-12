@@ -14,10 +14,13 @@ import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.widget.StickyScrollView;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import cn.bingoogolapple.bgabanner.BGABanner;
 import skin.support.widget.SkinCompatLinearLayout;
 
 public class AllGroupDelegate extends BaseFragentPullDelegate {
@@ -33,11 +36,22 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
                 (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_79px),
                 (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_100px),
                 viewHolder.pull_recycleview, true);
+        initDefaultBanner();
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_all_group;
+    }
+
+    private void initDefaultBanner() {
+        Integer[] images = {R.drawable.banner1, R.drawable.banner2,
+                R.drawable.banner3, R.drawable.banner4};
+        viewHolder.banner.setImageLoader(new com.xiaomiquan.widget.GlideBannerImageLoader());
+        viewHolder.banner.setBannerStyle(BannerConfig.NOT_INDICATOR);
+        viewHolder.banner.setImages(Arrays.asList(images));
+        viewHolder.banner.setBannerAnimation(Transformer.Default);
+        viewHolder.banner.start();
     }
 
     public void initRank(OnTabSelectListener onTabSelectListener) {
@@ -55,7 +69,7 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
         public View rootView;
         public LinearLayout lin_my_group;
         public RecyclerView rv_my_group;
-        public BGABanner banner;
+        public Banner banner;
         public TextView tv_more_team;
         public RecyclerView rcv_hot_team;
         public CommonTabLayout tl_2;
@@ -71,7 +85,7 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
             this.rootView = rootView;
             this.lin_my_group = (LinearLayout) rootView.findViewById(R.id.lin_my_group);
             this.rv_my_group = (RecyclerView) rootView.findViewById(R.id.rv_my_group);
-            this.banner = (BGABanner) rootView.findViewById(R.id.banner);
+            this.banner = (Banner) rootView.findViewById(R.id.banner);
             this.tv_more_team = (TextView) rootView.findViewById(R.id.tv_more_team);
             this.rcv_hot_team = (RecyclerView) rootView.findViewById(R.id.rcv_hot_team);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);

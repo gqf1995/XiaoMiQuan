@@ -78,6 +78,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".mvp.activity.group.EditTeamIntroductionActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".mvp.activity.user.SecurityActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
@@ -99,6 +103,10 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.market.CoinIndexActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.group.TeamCombinationActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity

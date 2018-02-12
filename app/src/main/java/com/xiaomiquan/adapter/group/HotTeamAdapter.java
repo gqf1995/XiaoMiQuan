@@ -1,7 +1,10 @@
 package com.xiaomiquan.adapter.group;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -9,6 +12,7 @@ import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.HotTeam;
+import com.xiaomiquan.mvp.activity.group.TeamDetailActivity;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -34,6 +38,7 @@ public class HotTeamAdapter extends CommonAdapter<HotTeam> {
     private TextView tv_apply_to_join;
 
     DefaultClickLinsener defaultClickLinsener;
+    private FrameLayout fl_root;
 
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
         this.defaultClickLinsener = defaultClickLinsener;
@@ -41,6 +46,12 @@ public class HotTeamAdapter extends CommonAdapter<HotTeam> {
 
     public HotTeamAdapter(Context context, List<HotTeam> datas) {
         super(context, R.layout.adapter_hot_team, datas);
+    }
+
+    public void setDatas(List<HotTeam> datas){
+        getDatas().clear();
+        getDatas().addAll(datas);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -53,22 +64,28 @@ public class HotTeamAdapter extends CommonAdapter<HotTeam> {
         tv_team_people_num = holder.getView(R.id.tv_team_people_num);
         tv_team_earnings = holder.getView(R.id.tv_team_earnings);
         tv_apply_to_join = holder.getView(R.id.tv_apply_to_join);
+        fl_root = holder.getView(R.id.fl_root);
 
+        fl_root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TeamDetailActivity.startAct((FragmentActivity) mContext, getDatas().get(position).getId() + "");
+            }
+        });
         GlideUtils.loadImage(s.getAvatar(), ic_pic);
         tv_name.setText(s.getTeamName());
         tv_nick_name.setText(s.getNickName());
-        BigUIUtil.getinstance().rateTextView(Double.parseDouble(s.getTotalProfit()), tv_rate);
-        tv_content.setText(s.getBrief());
+        if (!TextUtils.isEmpty(s.getAverage())) {
+            BigUIUtil.getinstance().rateTextView(Double.parseDouble(s.getAverage()), tv_rate);
+        }
+        tv_content.setText(s.getRemark());
         tv_team_people_num.setText(s.getTeamCount() + CommonUtils.getString(R.string.str_people));
         tv_team_earnings.setText(s.getBonusPoolStr());
-
 
         tv_apply_to_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (defaultClickLinsener != null) {
-                    defaultClickLinsener.onClick(v, position, null);
-                }
+                TeamDetailActivity.startAct((FragmentActivity) mContext, getDatas().get(position).getId() + "");
             }
         });
     }

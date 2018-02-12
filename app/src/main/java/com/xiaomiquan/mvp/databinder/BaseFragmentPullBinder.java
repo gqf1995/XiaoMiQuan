@@ -20,6 +20,29 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
         super(viewDelegate);
     }
 
+    /**
+     * 加入战队
+     */
+    public Disposable join(
+            String teamId,
+            String reason,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("teamId", teamId);
+        baseMap.put("reason", reason);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x130)
+                .setRequestUrl(HttpUrl.getIntance().join)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("加入战队")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 
     /**
      * 市值
@@ -31,7 +54,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
         //baseMap.put("limit", viewDelegate.pagesize);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().getAllMarketCaps+"?offset="+viewDelegate.page+"&limit="+viewDelegate.pagesize)
+                .setRequestUrl(HttpUrl.getIntance().getAllMarketCaps + "?offset=" + viewDelegate.page + "&limit=" + viewDelegate.pagesize)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("获得所有市值信息 未做排序")
@@ -455,14 +478,15 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
+
     /**
      * 组合动态
      */
     public Disposable dynamic(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("pageNum",viewDelegate.page);
-        baseMap.put("pageSize",viewDelegate.pagesize);
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
         return new HttpRequest.Builder()
                 .setRequestCode(0x125)
                 .setRequestUrl(HttpUrl.getIntance().dynamic)
@@ -476,6 +500,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
+
     /**
      * 组合广场
      */
@@ -483,11 +508,34 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         return new HttpRequest.Builder()
-                .setRequestCode(0x123)
+                .setRequestCode(0x124)
                 .setRequestUrl(HttpUrl.getIntance().getSquareTeamGame)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("组合动态")
+                .setRequestName("组合广场")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+
+    /**
+     * 刷新币种 价格
+     */
+    public Disposable getCurrPrice(
+            String coinId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("coinId", coinId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().getCurrPrice)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("刷新币种 价格")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)

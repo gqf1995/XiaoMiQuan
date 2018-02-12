@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Andy on 2018/1/24.
  */
 
-public class IconTextPopWindow extends PopupWindow implements View.OnClickListener {
+public class IconTextPopWindow extends PopupWindow {
 
     private TextView btn_cancle;
     private View mPopView;
@@ -48,7 +48,6 @@ public class IconTextPopWindow extends PopupWindow implements View.OnClickListen
         mContent = context;
         init(context);
         setPopupWindow();
-        btn_cancle.setOnClickListener(this);
     }
 
     /**
@@ -151,6 +150,7 @@ public class IconTextPopWindow extends PopupWindow implements View.OnClickListen
     }
 
     public void setOnItemClickListener(View.OnClickListener onClickListener) {
+
     }
 
     /**
@@ -163,14 +163,4 @@ public class IconTextPopWindow extends PopupWindow implements View.OnClickListen
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener;
     }
-
-    @Override
-    public void onClick(View v) {
-        // TODO Auto-generated method stub
-        if (mListener != null) {
-            mListener.setOnItemClick(v);
-        }
-
-    }
-
 }

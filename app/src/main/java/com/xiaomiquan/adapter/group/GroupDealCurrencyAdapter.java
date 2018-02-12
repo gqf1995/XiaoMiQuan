@@ -26,6 +26,19 @@ public class GroupDealCurrencyAdapter extends CommonAdapter<CoinDetail> {
 
     int selectPosition = 0;
     private LinearLayout lin_root;
+    boolean isBut;
+
+    public void setBut(boolean but) {
+        isBut = but;
+    }
+
+    public void setSelectDefault(String unit){
+        for(int i=0;i<getDatas().size();i++){
+            if(getDatas().get(i).getSymbol().equals(unit)){
+                selectPosition=i;
+            }
+        }
+    }
 
     public GroupDealCurrencyAdapter(Context context, List<CoinDetail> datas) {
         super(context, R.layout.adapter_deal_currency, datas);
@@ -49,18 +62,19 @@ public class GroupDealCurrencyAdapter extends CommonAdapter<CoinDetail> {
         icf_check = holder.getView(R.id.icf_check);
         lin_root = holder.getView(R.id.lin_root);
 
-        if (position % 2 == 0) {
-            lin_root.setBackgroundColor(CommonUtils.getColor(R.color.base_mask));
-        } else {
-            lin_root.setBackground(null);
-        }
-
         tv_type.setText(s.getSymbol());
-
         if (selectPosition == position) {
             icf_check.setVisibility(View.VISIBLE);
+            tv_type.setTextColor(CommonUtils.getColor(R.color.white));
+            lin_root.setBackgroundColor(isBut ? CommonUtils.getColor(R.color.decreasing_color) : CommonUtils.getColor(R.color.increasing_color));
         } else {
             icf_check.setVisibility(View.INVISIBLE);
+            tv_type.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            if (position % 2 == 0) {
+                lin_root.setBackgroundColor(CommonUtils.getColor(R.color.base_mask));
+            } else {
+                lin_root.setBackground(null);
+            }
         }
     }
 }

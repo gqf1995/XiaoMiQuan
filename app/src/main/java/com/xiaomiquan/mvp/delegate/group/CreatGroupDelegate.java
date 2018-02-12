@@ -62,7 +62,6 @@ public class CreatGroupDelegate extends BaseDelegate {
         public SwitchButton checkbox_synchronous;
         public TextView tv_input_label1;
         public TextView tv_notice1;
-        public TextView tv_notice2;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -76,7 +75,6 @@ public class CreatGroupDelegate extends BaseDelegate {
             this.checkbox_synchronous = (SwitchButton) rootView.findViewById(R.id.checkbox_synchronous);
             this.tv_input_label1 = (TextView) rootView.findViewById(R.id.tv_input_label1);
             this.tv_notice1 = (TextView) rootView.findViewById(R.id.tv_notice1);
-            this.tv_notice2 = (TextView) rootView.findViewById(R.id.tv_notice2);
         }
 
     }

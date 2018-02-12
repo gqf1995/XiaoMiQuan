@@ -22,8 +22,8 @@ import java.util.List;
 
 public class LoginAndRegisteredDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
-    public boolean isLoginInputPhone = false;
-    public boolean isRegisteredInputPhone = false;
+    public boolean isLoginInputPhone = true;
+    public boolean isRegisteredInputPhone = true;
 
     private List<String> mTitles = new ArrayList<>();
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();

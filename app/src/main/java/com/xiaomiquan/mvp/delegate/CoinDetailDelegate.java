@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
+import com.fivefivelike.mybaselibrary.view.IconFontTextview;
+import com.fivefivelike.mybaselibrary.view.SingleLineZoomTextView;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.CoinData;
 import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.UserSet;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -45,7 +47,6 @@ public class CoinDetailDelegate extends BaseDelegate {
         }
         String s2 = BigUIUtil.getinstance().rateOnePrice(exchangeData.getMarketCapUsd(), UserSet.getinstance().getUSDUnit(), UserSet.getinstance().getUSDUnit());
 
-
         viewHolder.tv_name.setText(name.toString());
         viewHolder.lin_rank.setVisibility(TextUtils.isEmpty(exchangeData.getRank()) ? View.GONE : View.VISIBLE);
         viewHolder.lin_market_value.setVisibility(TextUtils.isEmpty(s2) ? View.GONE : View.VISIBLE);
@@ -74,24 +75,21 @@ public class CoinDetailDelegate extends BaseDelegate {
 
         List<String> strings = BigUIUtil.getinstance().rateUSDAndCNY(exchangeData.getPriceUsd(), exchangeData.getSymbol(), UserSet.getinstance().getUSDUnit());
 
-        viewHolder.tv_price_usd.setText(strings.get(0));
+        viewHolder.tv_price_usd.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getPriceUsd()));
         viewHolder.tv_price_cny.setText(strings.get(1));
 
-        String s = strings.get(0);
-        String symbol = "";
-        if (strings.get(0).contains("$") || strings.get(0).contains("¥")) {
-            s = s.substring(1, strings.get(0).length());
-            symbol = s.substring(0, 1);
-        } else {
-            s = exchangeData.getLast();
-        }
+
+
+        String risePrice=BigUIUtil.getinstance().risePrice(exchangeData.getPriceUsd(),exchangeData.getPercentChange24h());
+
+
         StringBuffer stringBuffer = new StringBuffer();
         String end = "";
         if (!TextUtils.isEmpty(exchangeData.getPercentChange24h())) {
             if (new BigDecimal("0").compareTo(new BigDecimal(exchangeData.getPercentChange24h())) == 1) {
                 //跌
-                stringBuffer.append("- ")
-                        .append(symbol + BigUIUtil.getinstance().risePrice(s, exchangeData.getPercentChange24h()))
+                stringBuffer.append("")
+                        .append( risePrice+"$")
                         .append("(")
                         .append(BigUIUtil.getinstance().changeAmount(exchangeData.getPercentChange24h()))
                         .append("%) ");
@@ -100,7 +98,7 @@ public class CoinDetailDelegate extends BaseDelegate {
             } else {
                 //涨
                 stringBuffer.append("+ ")
-                        .append(symbol + BigUIUtil.getinstance().risePrice(s, exchangeData.getPercentChange24h()))
+                        .append( risePrice+"$")
                         .append("(+")
                         .append(BigUIUtil.getinstance().changeAmount(exchangeData.getPercentChange24h()))
                         .append("%) ");
@@ -113,12 +111,14 @@ public class CoinDetailDelegate extends BaseDelegate {
 
     }
 
+
     public static class ViewHolder {
         public View rootView;
+        public SingleLineZoomTextView tv_toast;
         public TextView tv_name;
         public TextView tv_price_usd;
         public TextView tv_price_cny;
-        public TextView tv_change;
+        public IconFontTextview tv_change;
         public ImageView iv_coin_icon;
         public RecyclerView rv_global_market;
         public TextView tv_look_more_global_market;
@@ -146,10 +146,11 @@ public class CoinDetailDelegate extends BaseDelegate {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
+            this.tv_toast = (SingleLineZoomTextView) rootView.findViewById(R.id.tv_toast);
             this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);
             this.tv_price_usd = (TextView) rootView.findViewById(R.id.tv_price_usd);
             this.tv_price_cny = (TextView) rootView.findViewById(R.id.tv_price_cny);
-            this.tv_change = (TextView) rootView.findViewById(R.id.tv_change);
+            this.tv_change = (IconFontTextview) rootView.findViewById(R.id.tv_change);
             this.iv_coin_icon = (ImageView) rootView.findViewById(R.id.iv_coin_icon);
             this.rv_global_market = (RecyclerView) rootView.findViewById(R.id.rv_global_market);
             this.tv_look_more_global_market = (TextView) rootView.findViewById(R.id.tv_look_more_global_market);

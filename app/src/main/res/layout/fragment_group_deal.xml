@@ -161,11 +161,13 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
+                            android:paddingBottom="@dimen/trans_20px"
                             android:paddingLeft="@dimen/trans_40px"
                             android:paddingRight="@dimen/trans_30px"
-                            android:paddingTop="@dimen/trans_55px">
+                            android:paddingTop="@dimen/trans_35px">
 
                             <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/ic_pic"
                                 android:layout_width="@dimen/trans_65px"
                                 android:layout_height="@dimen/trans_65px"
                                 app:srcCompat="@drawable/dogecoin"
@@ -236,35 +238,11 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/trans_100px"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingLeft="@dimen/trans_40px"
-                            >
-
-
-                            <TextView
-                                android:id="@+id/tv_balance"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="24USD"
-                                android:textColor="@color/color_font3"
-                                android:textSize="@dimen/text_trans_24px"/>
-
-                        </LinearLayout>
-
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/trans_1px"
                             android:background="@color/base_mask"/>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/trans_1px"
-                            android:background="@color/base_mask"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -348,6 +326,11 @@
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_1px"
+                            android:background="@color/base_mask"/>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/trans_100px"
@@ -396,9 +379,64 @@
                                 android:visibility="invisible"
                                 >
 
-
                             </Space>
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_70px"
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/trans_20px"
+                            android:paddingLeft="@dimen/trans_40px"
+                            android:paddingRight="@dimen/trans_40px">
+
+
+                            <TextView
+                                android:id="@+id/tv_all"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/shape_grey_border_radiu5"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/trans_35px"
+                                android:paddingRight="@dimen/trans_35px"
+                                android:text="@string/str_all_hold"
+                                android:textColor="@color/color_font3"
+                                android:textSize="@dimen/text_trans_24px"/>
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/tv_half_hold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/shape_grey_border_radiu5"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/trans_35px"
+                                android:paddingRight="@dimen/trans_35px"
+                                android:text="@string/str_half_hold"
+                                android:textColor="@color/color_font3"
+                                android:textSize="@dimen/text_trans_24px"/>
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/tv_half_half_hold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/shape_grey_border_radiu5"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/trans_35px"
+                                android:paddingRight="@dimen/trans_35px"
+                                android:text="@string/str_half_half_hold"
+                                android:textColor="@color/color_font3"
+                                android:textSize="@dimen/text_trans_24px"/>
 
                         </LinearLayout>
 
@@ -409,24 +447,81 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/trans_130px"
+                            android:layout_height="@dimen/trans_160px"
                             android:orientation="vertical"
-                            android:padding="@dimen/trans_25px">
+                            android:paddingBottom="@dimen/trans_20px"
+                            android:paddingLeft="@dimen/trans_45px"
+                            android:paddingRight="@dimen/trans_45px"
+                            android:paddingTop="@dimen/trans_20px"
+                            >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/str_hold"
+                                    android:textColor="@color/color_font3"
+                                    android:textSize="@dimen/text_trans_24px"/>
+
+                                <TextView
+                                    android:id="@+id/tv_hole"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text=""
+                                    android:textColor="@color/color_font2"
+                                    android:textSize="@dimen/text_trans_24px"/>
+
+                                <TextView
+                                    android:id="@+id/tv_hold_unit"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="BTC"
+                                    android:textColor="@color/color_font3"
+                                    android:textSize="@dimen/text_trans_24px"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/str_poundage"
+                                    android:textColor="@color/color_font3"
+                                    android:textSize="@dimen/text_trans_24px"/>
+
+                                <TextView
+                                    android:id="@+id/tv_poundage"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text=""
+                                    android:textColor="@color/color_font2"
+                                    android:textSize="@dimen/text_trans_24px"/>
+                            </LinearLayout>
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/trans_20px"/>
 
                             <TextView
                                 android:id="@+id/tv_commit"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_gravity="center"
-                                android:layout_marginLeft="@dimen/trans_100px"
-                                android:layout_marginRight="@dimen/trans_100px"
-                                android:background="@drawable/select_commit"
+                                android:layout_weight="1"
+                                android:background="@drawable/select_green_btn_radiu10"
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:gravity="center"
                                 android:text="@string/str_tv_commit"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_28px"/>
+
                         </LinearLayout>
 
 

@@ -19,7 +19,7 @@ public class HotTeam {
      * teamName : 琅琊战队
      */
 
-    private int average;
+    private String average;
     private String averageStr;
     private int bonusPool;
     private String bonusPoolStr;
@@ -60,13 +60,14 @@ public class HotTeam {
     private int sync;
     private String totalProfit;
     private int type;
-    private Object updateTime;
+    private long updateTime;
+    private boolean isSelf;
 
-    public int getAverage() {
+    public String getAverage() {
         return average;
     }
 
-    public void setAverage(int average) {
+    public void setAverage(String average) {
         this.average = average;
     }
 
@@ -254,11 +255,19 @@ public class HotTeam {
         this.type = type;
     }
 
-    public Object getUpdateTime() {
+    public long getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Object updateTime) {
+    public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public boolean isSelf() {
+        return isSelf;
+    }
+
+    public void setSelf(boolean self) {
+        isSelf = self;
     }
 }

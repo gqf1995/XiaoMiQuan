@@ -232,32 +232,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_trans_31px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2"
-                        android:textColor="@color/color_font2"
-                        android:textSize="@dimen/trans_24px"/>
-
-                    <TextView
-                        android:id="@+id/tv_notice2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/text_trans_8px"
-                        android:layout_marginRight="@dimen/text_trans_70px"
-                        android:lineSpacingExtra="@dimen/text_trans_6px"
-                        android:text="@string/str_tv_notice1"
-                        android:textColor="@color/color_font2"
-                        android:textSize="@dimen/trans_24px"/>
-
-                </LinearLayout>
-
 
             </LinearLayout>
         </LinearLayout>

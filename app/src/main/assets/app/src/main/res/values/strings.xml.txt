@@ -42,6 +42,7 @@
     <string name="str_toast_need_invite_code">请输入邀请码</string>
     <string name="str_toast_no_change">请修改后再保存</string>
     <string name="str_toast_no_select_coin">当前没有选择币种</string>
+    <string name="str_toast_no_kline">温馨提示: 数据维护中,该币种k线将在近期更新,敬请期待</string>
     <string name="str_now_no_data">暂无</string>
     <string name="str_look_detail">查看详情 >></string>
     <string name="str_detail">详情 >></string>
@@ -210,6 +211,8 @@
     <string name="str_tv_balance">您当前可用余额</string>
     <string name="str_tv_balance_amount">您当前持有数量</string>
     <string name="str_et_buy_price">输入价格</string>
+    <string name="str_hold">持有</string>
+    <string name="str_poundage">手续费</string>
     <string name="str_et_buy_num">输入数量</string>
     <string name="str_tv_sell_price">卖出价格</string>
     <string name="str_tv_buy_price">买入价格</string>
@@ -235,6 +238,9 @@
     <string name="str_hot_team">热门战队</string>
     <string name="str_all_team">全部战队</string>
     <string name="str_invite_friends">邀请好友</string>
+    <string name="str_all_hold">全仓</string>
+    <string name="str_half_hold">1/2仓</string>
+    <string name="str_half_half_hold">1/4仓</string>
     <string name="str_group_dynamic">我关注的账户动态</string>
     <string name="str_my_management_team">我的战队管理</string>
     <string name="str_save">保存</string>
@@ -243,6 +249,7 @@
     <string name="str_fucose">关注</string>
     <string name="str_cancel_fucose">取消关注</string>
     <string name="str_already_fucose">已关注</string>
+    <string name="str_agreed">已同意</string>
     <string name="str_fucose_people_num">关注人数</string>
     <string name="str_average_rate">平均收益率</string>
     <string name="str_team_people_num">战队人数</string>
@@ -290,6 +297,7 @@
     <string name="str_more_team">更多战队</string>
     <string name="str_my_reward">我的奖励</string>
     <string name="str_activity_rules">活动规则</string>
+    <string name="str_team_detail">战队详情</string>
     <string name="str_tv_peoplenum">人加入</string>
     <string name="str_tv_edit">编辑资料</string>
     <string name="str_average">均线</string>
@@ -351,6 +359,8 @@
     <string name="str_toast_user">请阅读用户规范</string>
     <string name="str_title_square">广场</string>
     <string name="str_toast_need_login">登录后才能使用此功能</string>
+    <string name="str_toast_have_team">您已拥有战队 </string>
+    <string name="str_toast_no_msg">您没有未读消息</string>
     <string name="str_eNames">[{\"cName\":\"\",\"eName\":\"Bitfinex\"},{\"cName\":\"\",\"eName\":\"Binance\"},{\"cName\":\"\",\"eName\":\"Okex\"},{\"cName\":\"\",\"eName\":\"Huobi\"},{\"cName\":\"\",\"eName\":\"Bittrex\"},{\"cName\":\"\",\"eName\":\"Bigone\"},{\"cName\":\"\",\"eName\":\"Poloniex\"},{\"cName\":\"\",\"eName\":\"Zb\"},{\"cName\":\"\",\"eName\":\"Gate\"},{\"cName\":\"\",\"eName\":\"Bitz\"},{\"cName\":\"\",\"eName\":\"Coinegg\"},{\"cName\":\"\",\"eName\":\"Kucoin\"},{\"cName\":\"\",\"eName\":\"Bibox\"},{\"cName\":\"\",\"eName\":\"Liqui\"},{\"cName\":\"\",\"eName\":\"Bcex\"},{\"cName\":\"\",\"eName\":\"Coin900\"},{\"cName\":\"\",\"eName\":\"Bitflyer\"},{\"cName\":\"\",\"eName\":\"Korbit\"},{\"cName\":\"\",\"eName\":\"Bithumb\"},{\"cName\":\"\",\"eName\":\"Bitmex\"},{\"cName\":\"\",\"eName\":\"Bitstamp\"},{\"cName\":\"\",\"eName\":\"Cex\"},{\"cName\":\"\",\"eName\":\"Exx\"},{\"cName\":\"\",\"eName\":\"Coincheck\"},{\"cName\":\"\",\"eName\":\"Kraken\"},{\"cName\":\"\",\"eName\":\"Coinw\"}]</string>
     <!--ShareDialog-->
     <string name="str_share_default_title">BCOIN</string>

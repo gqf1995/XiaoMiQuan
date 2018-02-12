@@ -39,6 +39,12 @@ public class AllGroupMyGroupAdapter extends CommonAdapter<GroupItem> {
         ints = UiHeplUtils.cacularWidAndHei(mContext, R.dimen.trans_3px, 3, R.dimen.trans_10px, R.dimen.trans_10px);
     }
 
+    public void setDatas( List<GroupItem> datas){
+        getDatas().clear();
+        getDatas().addAll(datas);
+        notifyDataSetChanged();
+    }
+
     @Override
     protected void convert(ViewHolder holder, GroupItem s, final int position) {
         tv_name = holder.getView(R.id.tv_name);

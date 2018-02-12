@@ -21,6 +21,7 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
@@ -288,7 +289,8 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 Log.i("KlineDraw", "onServiceSuccess");
                 setLog("请求成功" + TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss:SSS")));
                 List<KLineBean> newkLineBeans = GsonUtil.getInstance().toList(data, KLineBean.class);
-                if (newkLineBeans.size() == 0) {
+                if (!ListUtils.isEmpty(newkLineBeans)) {
+                    //没有数据
                     viewDelegate.noKlineView();
                     return;
                 }

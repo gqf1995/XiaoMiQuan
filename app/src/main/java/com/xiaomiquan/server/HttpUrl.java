@@ -383,6 +383,10 @@ public class HttpUrl {
      * 组合详情
      */
     public String getDemoByUserId = getBaseUrl() + demoUrl + "/getDemoByUserId";
+    /**
+     * 更新币种 价格
+     */
+    public String getCurrPrice = getBaseUrl() + demoUrl + "/getCurrPrice";
 
 
     /**
@@ -476,8 +480,6 @@ public class HttpUrl {
     public String reComment = getBaseUrl() + "/news/comment/add";
 
 
-    String ip = "http://192.168.0.25:8080";
-
     /**
      * 战队
      */
@@ -494,4 +496,48 @@ public class HttpUrl {
      * 大赛
      */
     public String getBigGame = getBaseUrl() + gameTeamUrl + "/getBigGame";
+    /**
+     * 热门战队
+     */
+    public String listHotGameTeam = getBaseUrl() + gameTeamUrl + "/listHotGameTeam";
+    /**
+     * 战队成员 排序
+     */
+    public String getPlayers = getBaseUrl() + gameTeamUrl + "/getPlayers";
+    /**
+     * 申请加入
+     */
+    public String join = getBaseUrl() + gameTeamUrl + "/join";
+    /**
+     * 获取战队邀请码  返回图片
+     */
+    public String getInviteCode = getBaseUrl() + gameTeamUrl + "/getInviteCode";
+    /**
+     * 我的战队管理页面
+     */
+    public String teamManage = getBaseUrl() + gameTeamUrl + "/teamManage";
+    /**
+     * 审批分页数据
+     */
+    public String approvePage = getBaseUrl() + gameTeamUrl + "/approvePage";
+    /**
+     * 通过邀请码查找战队
+     */
+    public String searchTemaCode = getBaseUrl() + gameTeamUrl + "/searchTemaCode";
+    /**
+     * 加入战队审批
+     */
+    public String teamApprove = getBaseUrl() + gameTeamUrl + "/teamApprove";
+    /**
+     * 编辑战队简介
+     */
+    public String editRemark = getBaseUrl() + gameTeamUrl + "/editRemark";
+    /**
+     * 获取指定用的战队明细
+     */
+    public String getTeamDetail = getBaseUrl() + gameTeamUrl + "/getTeamDetail";
+    /**
+     * 战队待审核人数
+     */
+    public String getToAuditCount = getBaseUrl() + gameTeamUrl + "/getToAuditCount";
 }

@@ -43,7 +43,7 @@ public class MainDelegate extends IMDelegate {
         //viewHolder.tl_2.setmIndicatorId(R.drawable.shape_blue_maxradiu);
         viewHolder.tl_2.setTabData(mTabEntities);
         viewHolder.tl_2.setOnTabSelectListener(onTabSelectListener);
-        viewHolder.tl_2.setCurrentTab(1);
+        viewHolder.tl_2.setCurrentTab(0);
     }
 
     @Override

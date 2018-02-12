@@ -68,8 +68,10 @@
     <color name="color_purple_dark">#2e266f</color>
 
 
-    <color name="increasing_color">#FF6960</color>
-    <color name="decreasing_color">#479c76</color>
+    <color name="increasing_color">#FF766F</color>
+    <color name="increasing_color_dark">#fc5f57</color>
+    <color name="decreasing_color">#3D9970</color>
+    <color name="decreasing_color_dark">#289c69</color>
 
 
     <color name="black_transparent_10">#0a000000</color>

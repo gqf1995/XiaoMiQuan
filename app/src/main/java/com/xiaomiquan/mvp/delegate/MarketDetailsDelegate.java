@@ -72,10 +72,12 @@ public class MarketDetailsDelegate extends BaseDelegate {
     public void noKlineView() {
         viewHolder.lin_kbg.setVisibility(View.GONE);
         viewHolder.fl_no_kline.setVisibility(View.VISIBLE);
+        getmToolbarSubTitle().setVisibility(View.GONE);
         //加载币种资料页面
-        initAddFragment(R.id.fl_root, ((FragmentActivity) viewHolder.rootView.getContext()).getSupportFragmentManager());
+        initAddFragment(R.id.fl_no_kline, ((FragmentActivity) viewHolder.rootView.getContext()).getSupportFragmentManager());
         coinDetailFragment = new CoinDetailFragment();
         coinDetailFragment.setExchangeData(mExchangeData);
+        coinDetailFragment.setShowToast(true);
         addFragment(coinDetailFragment);
         showFragment(0);
     }

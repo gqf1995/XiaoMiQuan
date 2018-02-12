@@ -8,22 +8,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
-import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.HotTeamAdapter;
 import com.xiaomiquan.entity.bean.group.HotTeam;
+import com.xiaomiquan.mvp.activity.main.WebActivityActivity;
 import com.xiaomiquan.mvp.databinder.BaseActivityPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseActivityPullDelegate;
-import com.xiaomiquan.widget.CircleDialogHelper;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.xiaomiquan.base.AppConst.rulesUrl;
 
 public class AddTeamActivity extends BasePullActivity<BaseActivityPullDelegate, BaseActivityPullBinder> {
 
@@ -34,6 +35,7 @@ public class AddTeamActivity extends BasePullActivity<BaseActivityPullDelegate, 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        getIntentData();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_apply_to_join_team)));
         initList(new ArrayList<HotTeam>());
     }
@@ -41,34 +43,15 @@ public class AddTeamActivity extends BasePullActivity<BaseActivityPullDelegate, 
     private void initList(List<HotTeam> datas) {
         if (adapter == null) {
             hotTeamAdapter = new HotTeamAdapter(this, datas);
-            hotTeamAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
-                @Override
-                public void onClick(View view, int position, Object item) {
-                    joinTeam();
-                }
-            });
             adapter = new HeaderAndFooterWrapper(hotTeamAdapter);
             adapter.addHeaderView(initTop());
+            onRefresh();
             initRecycleViewPull(adapter, adapter.getHeadersCount(), new LinearLayoutManager(this));
         } else {
             getDataBack(hotTeamAdapter.getDatas(), datas, adapter);
         }
     }
 
-    private void joinTeam() {
-        CircleDialogHelper.initDefaultInputDialog(this,
-                CommonUtils.getString(R.string.str_apply_to_join_team_reason),
-                CommonUtils.getString(R.string.str_toast_input_reason),
-                CommonUtils.getString(R.string.str_determine),
-                new OnInputClickListener() {
-                    @Override
-                    public void onClick(String text, View v) {
-                        //申请加入战队
-
-                    }
-                }
-        ).show();
-    }
 
     public EditText et_invite_code;
     public TextView tv_commit;
@@ -89,7 +72,7 @@ public class AddTeamActivity extends BasePullActivity<BaseActivityPullDelegate, 
             @Override
             public void onClick(View v) {
                 //更多比赛规则
-
+                WebActivityActivity.startAct(AddTeamActivity.this, rulesUrl);
             }
         });
         return rootView;
@@ -100,25 +83,44 @@ public class AddTeamActivity extends BasePullActivity<BaseActivityPullDelegate, 
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_invite_code));
             return;
         }
+        addRequest(binder.searchTemaCode(et_invite_code.getText().toString(), this));
     }
 
+    String rules;
+
     public static void startAct(Fragment activity,
+                                String rules,
                                 int requestCode) {
         Intent intent = new Intent(activity.getActivity(), AddTeamActivity.class);
+        intent.putExtra("rules", rules);
         activity.startActivityForResult(intent, requestCode);
     }
 
+    private void getIntentData() {
+        Intent intent = getIntent();
+        rules = intent.getStringExtra("rules");
+    }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
-
+            case 0x123:
+                //热门战队
+                List<HotTeam> list = GsonUtil.getInstance().toList(data, HotTeam.class);
+                initList(list);
+                break;
+            case 0x124:
+                //搜索出战队
+                HotTeam team = GsonUtil.getInstance().toObj(data, HotTeam.class);
+                TeamDetailActivity.startAct(this, team.getId() + "");
+                break;
         }
     }
 
     @Override
     protected void refreshData() {
-
+        addRequest(binder.listHotGameTeam(this));
     }
 
     @Override

@@ -45,7 +45,14 @@ public class LabelHistoryTradingAdapter extends CommonAdapter<HistoryTrading> {
         tv_entrust_price.setText(BigUIUtil.getinstance().bigPrice(s.getPrice()));
         tv_num.setText(s.getCount());
         tv_deal_time.setText(com.blankj.utilcode.util.TimeUtils.millis2String(s.getDealTime(), TimeUtils.DEFAULT_FORMAT));
-        tv_hold_proportion_change.setText(s.getPositionRateBefore() + CommonUtils.getString(R.string.ic_Right) + s.getPositionRateAfter());
+
+
+        tv_hold_proportion_change.setText(s.getPositionRateBefore()+"%" + CommonUtils.getString(R.string.ic_Right) + s.getPositionRateAfter()+"%");
+
+
+
+
+
     }
 
 }

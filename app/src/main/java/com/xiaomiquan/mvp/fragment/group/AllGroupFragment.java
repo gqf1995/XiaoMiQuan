@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.Gravity;
 import android.view.View;
 
-import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -31,7 +30,6 @@ import com.xiaomiquan.mvp.activity.group.CreatGroupActivity;
 import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.AllGroupDelegate;
-import com.xiaomiquan.widget.CircleDialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +41,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     AllGroupMyGroupAdapter allMyGroupAdapter;
     HotGroupAdapter hotGroupAdapter;
     String[] types = {"1", "2", "3"};
-    int index = 0;
+
     UserLogin userLogin;
     GroupDynamicAdapter adapter;
     HotTeamAdapter hotTeamAdapter;
@@ -64,12 +62,12 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     protected void bindEvenListener() {
         super.bindEvenListener();
         initList(new ArrayList<GroupDynamic>());
+
     }
 
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
-
     }
 
     @Override
@@ -91,45 +89,29 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     }
 
     private void initHotTeam(List<HotTeam> dats) {
-        hotTeamAdapter = new HotTeamAdapter(getActivity(), dats);
-        hotTeamAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
-            @Override
-            public void onClick(View view, int position, Object item) {
-                joinTeam();
-            }
-        });
-        viewDelegate.viewHolder.rcv_hot_team.setLayoutManager(new LinearLayoutManager(getActivity()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-        viewDelegate.viewHolder.rcv_hot_team.setAdapter(hotTeamAdapter);
-        viewDelegate.viewHolder.tv_more_team.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //更多战队
-                gotoActivity(AllTeamActivity.class).startAct();
-            }
-        });
-    }
-
-    private void joinTeam() {
-        CircleDialogHelper.initDefaultInputDialog(getActivity(),
-                CommonUtils.getString(R.string.str_apply_to_join_team_reason),
-                CommonUtils.getString(R.string.str_toast_input_reason),
-                CommonUtils.getString(R.string.str_determine),
-                new OnInputClickListener() {
-                    @Override
-                    public void onClick(String text, View v) {
-                        //申请加入战队
-
-                    }
+        if (hotTeamAdapter == null) {
+            hotTeamAdapter = new HotTeamAdapter(getActivity(), dats);
+            viewDelegate.viewHolder.rcv_hot_team.setLayoutManager(new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
                 }
-        ).show();
+            });
+            viewDelegate.viewHolder.rcv_hot_team.setAdapter(hotTeamAdapter);
+            viewDelegate.viewHolder.tv_more_team.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //更多战队
+                    gotoActivity(AllTeamActivity.class).startAct();
+                }
+            });
+        } else {
+            hotTeamAdapter.setDatas(dats);
+        }
     }
 
     IconTextPopWindow iconTextPopWindow;
+
 
     private void addOrCreateTeam() {
         if (iconTextPopWindow == null) {
@@ -147,7 +129,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                         CreatGroupActivity.startAct(AllGroupFragment.this, 0x123);
                     } else if (position == 1) {
                         //加入战队
-                        AddTeamActivity.startAct(AllGroupFragment.this, 0x123);
+                        AddTeamActivity.startAct(AllGroupFragment.this, "", 0x123);
                     }
                 }
             });
@@ -158,27 +140,31 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
 
     private void initAllMyGroup(List<GroupItem> datas) {
         datas.add(null);
-        allMyGroupAdapter = new AllGroupMyGroupAdapter(getActivity(), datas);
-        allMyGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
-            @Override
-            public void onClick(View view, int position, Object item) {
-                if (view.getId() == R.id.tv_commit) {
-                    //立即交易
-                    GroupDealActivity.startAct(getActivity(), (ArrayList) allMyGroupAdapter.getDatas(), position, true);
-                } else if (view.getId() == R.id.lin_add) {
-                    //创建账户 或者 加入战队
-                    addOrCreateTeam();
+        if (allMyGroupAdapter == null) {
+            allMyGroupAdapter = new AllGroupMyGroupAdapter(getActivity(), datas);
+            allMyGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, int position, Object item) {
+                    if (view.getId() == R.id.tv_commit) {
+                        //立即交易
+                        GroupDealActivity.startAct(getActivity(), (ArrayList) allMyGroupAdapter.getDatas(), position, true);
+                    } else if (view.getId() == R.id.lin_add) {
+                        //创建账户 或者 加入战队
+                        addOrCreateTeam();
+                    }
                 }
-            }
-        });
-        viewDelegate.viewHolder.rv_my_group.setLayoutManager(new GridLayoutManager(getActivity(), 3) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-        viewDelegate.viewHolder.rv_my_group.setAdapter(allMyGroupAdapter);
-        viewDelegate.viewHolder.lin_my_group.setVisibility(View.VISIBLE);
+            });
+            viewDelegate.viewHolder.rv_my_group.setLayoutManager(new GridLayoutManager(getActivity(), 3) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            viewDelegate.viewHolder.rv_my_group.setAdapter(allMyGroupAdapter);
+            viewDelegate.viewHolder.lin_my_group.setVisibility(View.VISIBLE);
+        } else {
+            allMyGroupAdapter.setDatas(datas);
+        }
     }
 
     private void initHotList(List<GroupItem> tops) {
@@ -192,6 +178,17 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                         CombinationActivity.startAct(getActivity(), hotGroupAdapter.getDatas().get(position), false);
                     } else if (hotGroupAdapter.getDatas().get(position).getIsAttention() == 0) {
                         if (userLogin != null) {
+                            for (int i = 0; i < hotGroupAdapter.getDatas().size(); i++) {
+                                if (allGroupData.getTopWeeks().get(i).getId().equals(hotGroupAdapter.getDatas().get(position).getId())) {
+                                    allGroupData.getTopWeeks().get(i).setIsAttention(1);
+                                }
+                                if (allGroupData.getTopMonth().get(i).getId().equals(hotGroupAdapter.getDatas().get(position).getId())) {
+                                    allGroupData.getTopWeeks().get(i).setIsAttention(1);
+                                }
+                                if (allGroupData.getTopTotal().get(i).getId().equals(hotGroupAdapter.getDatas().get(position).getId())) {
+                                    allGroupData.getTopWeeks().get(i).setIsAttention(1);
+                                }
+                            }
                             hotGroupAdapter.getDatas().get(position).setIsAttention(1);
                             //关注
                             addRequest(binder.demoattention(hotGroupAdapter.getDatas().get(position).getUserId() + "", null));
@@ -253,6 +250,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 List<GroupDynamic> list = GsonUtil.getInstance().toList(data, GroupDynamic.class);
@@ -264,6 +262,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                 initHotTeam(allGroupData.getHotTeams());
                 initAllMyGroup(allGroupData.getUserDemoList());
                 initHotList(allGroupData.getTopWeeks());
+                initList(allGroupData.getUserDemoDynamicList());
                 break;
         }
     }
@@ -272,7 +271,8 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     protected void refreshData() {
         if (viewDelegate.page == viewDelegate.defaultPage) {
             addRequest(binder.getSquareTeamGame(this));
+        } else {
+            addRequest(binder.dynamic(this));
         }
-        addRequest(binder.dynamic(this));
     }
 }

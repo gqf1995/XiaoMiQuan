@@ -2,6 +2,8 @@ package com.xiaomiquan.mvp.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
@@ -19,8 +21,12 @@ import com.xiaomiquan.mvp.activity.user.SecurityActivity;
 import com.xiaomiquan.mvp.activity.user.SetActivity;
 import com.xiaomiquan.mvp.databinder.UserBinder;
 import com.xiaomiquan.mvp.delegate.UserDelegate;
+import com.xiaomiquan.utils.UiHeplUtils;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.CircleDialogHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -76,7 +82,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
-        if(isVisible){
+        if (isVisible) {
             userLogin = SingSettingDBUtil.getUserLogin();
             viewDelegate.initUserMsg(userLogin);
         }
@@ -120,6 +126,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 break;
             case R.id.lin_set5:
                 //推荐给朋友
+                share();
                 break;
             case R.id.lin_set6:
                 //语言切换
@@ -140,6 +147,12 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 logout();
                 break;
         }
+    }
+
+    private void share() {
+        List<Bitmap> bitmaps = new ArrayList<>();
+        bitmaps.add(((BitmapDrawable) CommonUtils.getDrawable(R.drawable.user_center_share)).getBitmap());
+        UiHeplUtils.shareImgs(getActivity(), bitmaps);
     }
 
     @Override

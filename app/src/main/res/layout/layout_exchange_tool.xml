@@ -39,7 +39,6 @@
 
     </TextView>
 
-
     <com.xiaomiquan.widget.GainsTabView
         android:id="@+id/tv_rise"
         android:layout_width="@dimen/trans_200px"

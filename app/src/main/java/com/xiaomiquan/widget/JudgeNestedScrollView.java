@@ -101,6 +101,7 @@ public class JudgeNestedScrollView extends NestedScrollView {
 
     private void init() {
         setFocusable(true);
+        setFocusableInTouchMode(true);
         this.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -146,7 +147,7 @@ public class JudgeNestedScrollView extends NestedScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if(toolBarPositionY==0){
+        if (toolBarPositionY == 0) {
             return super.onInterceptTouchEvent(ev);
         }
         switch (ev.getAction()) {

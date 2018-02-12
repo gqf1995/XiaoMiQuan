@@ -15,12 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="18"/>
+                android:layout_weight="8"/>
 
             <TextView
                 android:id="@+id/tv_type"
@@ -34,7 +35,7 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="684"/>
+                android:layout_weight="694"/>
         </LinearLayout>
 
         <LinearLayout
@@ -46,7 +47,7 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="92"/>
+                android:layout_weight="62"/>
 
             <TextView
                 android:id="@+id/tv_currency"
@@ -60,19 +61,20 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="610"/>
+                android:layout_weight="640"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="180"/>
+                android:layout_weight="140"/>
 
             <TextView
                 android:id="@+id/tv_entrust_price"
@@ -86,7 +88,7 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="474"/>
+                android:layout_weight="514"/>
         </LinearLayout>
 
 
@@ -94,12 +96,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="314"/>
+                android:layout_weight="284"/>
 
             <TextView
                 android:id="@+id/tv_num"
@@ -113,7 +116,7 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="388"/>
+                android:layout_weight="418"/>
         </LinearLayout>
 
 
@@ -121,12 +124,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="448"/>
+                android:layout_weight="458"/>
 
             <TextView
                 android:id="@+id/tv_deal_time"
@@ -140,13 +144,13 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="306"/>
+                android:layout_weight="296"/>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <Space
@@ -154,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="576"/>
 
-            <TextView
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
                 android:id="@+id/tv_hold_proportion_change"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,6 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="30"/>
         </LinearLayout>
+
 
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

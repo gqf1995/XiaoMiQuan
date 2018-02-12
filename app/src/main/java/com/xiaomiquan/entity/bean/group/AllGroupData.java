@@ -8,10 +8,19 @@ import java.util.List;
 
 public class AllGroupData {
     List<HotTeam> hotTeams;
+    List<GroupDynamic> userDemoDynamicList;
     List<GroupItem> userDemoList;//用户账号
     List<GroupItem> topTotal;
     List<GroupItem> topMonth;
     List<GroupItem> topWeeks;
+
+    public List<GroupDynamic> getUserDemoDynamicList() {
+        return userDemoDynamicList;
+    }
+
+    public void setUserDemoDynamicList(List<GroupDynamic> userDemoDynamicList) {
+        this.userDemoDynamicList = userDemoDynamicList;
+    }
 
     public List<HotTeam> getHotTeams() {
         return hotTeams;

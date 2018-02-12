@@ -41,38 +41,24 @@ public class EditTeamIntroductionActivity extends BaseDataBindActivity<EditIntro
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_team_introduction));
             return;
         }
-        addRequest(binder.updateDemoBrief(id, viewDelegate.viewHolder.et_introduction.getText().toString(),
-                viewDelegate.viewHolder.checkbox_synchronous.isChecked() ? "1" : "0", this));
+        addRequest(binder.editRemark(viewDelegate.viewHolder.et_introduction.getText().toString(), this));
     }
 
     public static void startAct(Activity activity,
-                                String id,
                                 String content,
-                                String sync,
                                 int requstcode
     ) {
         Intent intent = new Intent(activity, EditTeamIntroductionActivity.class);
-        intent.putExtra("id", id);
         intent.putExtra("content", content);
-        intent.putExtra("sync", sync);
         activity.startActivityForResult(intent, requstcode);
     }
 
-    private String id;
     private String content;
-    private String sync;
 
     private void getIntentData() {
         Intent intent = getIntent();
-        id = intent.getStringExtra("id");
         content = intent.getStringExtra("content");
-        sync = intent.getStringExtra("sync");
         viewDelegate.viewHolder.et_introduction.setText(content);
-        if ("0".equals(sync)) {
-            viewDelegate.viewHolder.checkbox_synchronous.setChecked(false);
-        } else {
-            viewDelegate.viewHolder.checkbox_synchronous.setChecked(true);
-        }
     }
 
     @Override
@@ -80,8 +66,7 @@ public class EditTeamIntroductionActivity extends BaseDataBindActivity<EditIntro
         switch (requestCode) {
             case 0x123:
                 Intent intent = new Intent();
-                intent.putExtra("brief", viewDelegate.viewHolder.et_introduction.getText().toString());
-                intent.putExtra("sync", viewDelegate.viewHolder.checkbox_synchronous.isChecked() ? "1" : "0");
+                intent.putExtra("remark", viewDelegate.viewHolder.et_introduction.getText().toString());
                 setResult(RESULT_OK, intent);
                 onBackPressed();
                 break;

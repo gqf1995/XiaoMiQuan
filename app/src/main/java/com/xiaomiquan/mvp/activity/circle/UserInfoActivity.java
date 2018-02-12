@@ -72,6 +72,7 @@ public class UserInfoActivity extends BasePullActivity<UserInfoDelegate, UserInf
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 String userInfoGroupVos = GsonUtil.getInstance().getValue(data, "groupVos");

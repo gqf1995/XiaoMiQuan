@@ -84,18 +84,11 @@
                         android:layout_height="@dimen/trans_20px"
                         android:background="@color/base_mask"/>
 
-                    <cn.bingoogolapple.bgabanner.BGABanner
+                    <com.youth.banner.Banner
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/trans_240px"
-                        app:banner_pageChangeDuration="1000"
-                        app:banner_pointAutoPlayAble="true"
-                        app:banner_pointContainerBackground="@android:color/transparent"
-                        app:banner_pointDrawable="@android:color/transparent"
-                        app:banner_pointTopBottomMargin="15dp"
-                        app:banner_transitionEffect="alpha"
-                        />
-
+                        android:layout_height="@dimen/trans_240px" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

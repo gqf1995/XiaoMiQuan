@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.tablayout.widget.MsgView;
 import com.xiaomiquan.R;
@@ -77,25 +76,25 @@ public class GainsTabView extends SkinCompatRelativeLayout {
     }
 
     public void onClick() {
-        isTop++;
-        if (isTop > 2) {
-            isTop = 0;
-        }
-        if (isTop == 0) {
-            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_font4));
-            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_font4));
-        }
-        if (isTop == 1) {
-            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_blue));
-            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_font4));
-        }
-        if (isTop == 2) {
-            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_font4));
-            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_blue));
-        }
-        if (onChange != null) {
-            onChange.onChange(isTop);
-        }
+//        isTop++;
+//        if (isTop > 2) {
+//            isTop = 0;
+//        }
+//        if (isTop == 0) {
+//            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_font4));
+//            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_font4));
+//        }
+//        if (isTop == 1) {
+//            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_blue));
+//            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_font4));
+//        }
+//        if (isTop == 2) {
+//            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_font4));
+//            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_blue));
+//        }
+//        if (onChange != null) {
+//            onChange.onChange(isTop);
+//        }
     }
 
 

@@ -6,10 +6,10 @@ import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.utils.BigUIUtil;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -49,7 +49,7 @@ public class MyGroupAdapter extends CommonAdapter<GroupItem> {
         this.defaultClickLinsener = defaultClickLinsener;
     }
 
-    public void setDatas(List<GroupItem> datas){
+    public void setDatas(List<GroupItem> datas) {
         getDatas().clear();
         getDatas().addAll(datas);
         notifyDataSetChanged();
@@ -67,14 +67,15 @@ public class MyGroupAdapter extends CommonAdapter<GroupItem> {
         tv_deal = holder.getView(R.id.tv_deal);
         tv_look = holder.getView(R.id.tv_look);
         tv_look.setText(CommonUtils.getString(R.string.str_tv_info) + "  " + CommonUtils.getString(R.string.ic_Next));
+
         tv_title.setText(s.getName());
         GlideUtils.loadImage(s.getAvatar(), cv_head);
         tv_name.setText(s.getNickName());
         tv_time.setText(com.blankj.utilcode.util.TimeUtils.millis2String(s.getCreateTime(), DEFAULT_FORMAT));
         tv_num.setText(s.getAttentionCount());
 
-        BigUIUtil.getinstance().rateTextView(s.getTotalProfit(),tv_add_percent);
-        BigUIUtil.getinstance().rateTextView(s.getCurrProfit(),tv_today_percent);
+        BigUIUtil.getinstance().rateTextView(s.getTotalProfit(), tv_add_percent);
+        BigUIUtil.getinstance().rateTextView(s.getCurrProfit(), tv_today_percent);
 
 
         tv_deal.setText(CommonUtils.getString(R.string.str_tv_deal));

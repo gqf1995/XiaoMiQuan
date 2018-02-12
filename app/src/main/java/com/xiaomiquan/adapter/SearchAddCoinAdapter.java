@@ -1,6 +1,7 @@
 package com.xiaomiquan.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -79,8 +80,6 @@ public class SearchAddCoinAdapter extends CommonAdapter<ExchangeData> {
 
     @Override
     protected void convert(ViewHolder holder, ExchangeData s, final int position) {
-
-
         tv_coin_type = holder.getView(R.id.tv_coin_type);
         tv_coin_price = holder.getView(R.id.tv_coin_price);
         tv_coin_probably = holder.getView(R.id.tv_coin_probably);
@@ -93,7 +92,6 @@ public class SearchAddCoinAdapter extends CommonAdapter<ExchangeData> {
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
         tv_coin_unit = holder.getView(R.id.tv_coin_unit);
         iv_isadd = holder.getView(R.id.iv_isadd);
-
 
         ic_piv.setEnabled(false);
 
@@ -110,9 +108,9 @@ public class SearchAddCoinAdapter extends CommonAdapter<ExchangeData> {
         if (TextUtils.isEmpty(strings.get(0))) {
             tv_coin_price.setText("--");
         } else {
-            tv_coin_price.setText(strings.get(0));
+            tv_coin_price.setText(Html.fromHtml(strings.get(0)));
         }
-        tv_coin_probably.setText(strings.get(1));
+        tv_coin_probably.setText(Html.fromHtml(strings.get(1)));
         if (TextUtils.isEmpty(strings.get(1))) {
             tv_coin_probably.setVisibility(View.GONE);
         } else {

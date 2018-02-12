@@ -57,6 +57,8 @@ public class BigUIUtil {
     ConcurrentHashMap<String, BigDecimal> usdRate;
     ConcurrentHashMap<String, BigDecimal> btcRate;
     ConcurrentHashMap<String, ValueAnimator> animatorConcurrentHashMap;
+    ConcurrentHashMap<String, String> animatorTextHashMap;
+    ConcurrentHashMap<String, TextView> animatorTextViewHashMap;
     LinkedHashMap<String, String> symbol;
 
     private static class helper {
@@ -80,7 +82,7 @@ public class BigUIUtil {
     public void rateTextView(double rate, TextView textView) {
         if (rate > 0) {
             textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
-            textView.setText("+" + rate + "%");
+            textView.setText("+" + new BigDecimal(rate).setScale(2, BigDecimal.ROUND_UP) + "%");
         } else {
             textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
             textView.setText(rate + "%");
@@ -107,6 +109,7 @@ public class BigUIUtil {
         symbol.put("LTC", "Ł");
         symbol.put("BTC", "฿");
         symbol.put("ETH", "E");
+        symbol.put("USDT", "₮");
     }
 
     private String getSymbol(String unit) {
@@ -119,7 +122,7 @@ public class BigUIUtil {
         for (Map.Entry<String, String> entry : symbol.entrySet()) {
             String k = entry.getKey();
             String v = entry.getValue();
-            if (unit.equals(unit)) {
+            if (k.equals(unit)) {
                 return v;
             }
         }
@@ -131,10 +134,10 @@ public class BigUIUtil {
         if (TextUtils.isEmpty(oldnum) || TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {
             return;
         }
-        if (oldnum.contains("¥") || oldnum.contains("$")) {
+        if (oldnum.contains("￥") || oldnum.contains("$")) {
             oldnum = oldnum.substring(1);
         }
-        if (newnum.contains("¥") || newnum.contains("$")) {
+        if (newnum.contains("￥") || newnum.contains("$")) {
             newnum = oldnum.substring(1);
         }
         if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == 1) {
@@ -149,12 +152,16 @@ public class BigUIUtil {
     }
 
     //动画
-    public void anim(final String unit, final TextView textView, String oldnum, String newnum, final int endColor, String onlyKey) {
+    public void anim(final String unit, final TextView textView, String oldnum,
+                     String newnum, final int endColor, final String onlyKey,
+                     final int position, final Object tag) {
         if (TextUtils.isEmpty(oldnum) || TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {
             return;
         }
         if (animatorConcurrentHashMap == null) {
             animatorConcurrentHashMap = new ConcurrentHashMap<>();
+            animatorTextHashMap = new ConcurrentHashMap<>();
+            animatorTextViewHashMap = new ConcurrentHashMap<>();
         }
         Iterator it = animatorConcurrentHashMap.entrySet().iterator();
         while (it.hasNext()) {
@@ -168,8 +175,11 @@ public class BigUIUtil {
                 animatorConcurrentHashMap.remove(key);
             }
         }
+
         String symbol = getSymbol(unit);
-        final String text = textView.getText().toString();
+        String text = textView.getText().toString();
+        final String key = textView.getId() + onlyKey + position + unit;
+
         oldnum = oldnum.replaceAll(symbol, "");
         newnum = newnum.replaceAll(symbol, "");
         if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == 1) {
@@ -191,31 +201,46 @@ public class BigUIUtil {
                 float currentValue = (float) animation.getAnimatedValue();
                 if (currentValue == 1f) {
                     //动画结束
+                    String text = animatorTextHashMap.get(key);
+                    TextView textView = animatorTextViewHashMap.get(key);
                     if (textView != null) {
-                        textView.setTextColor(endColor);
-                        if (!TextUtils.isEmpty(text)) {
-                            if (text.length() > 0) {
-                                String first = getSymbol(unit);
-                                if (first.equals("-")) {
-                                    textView.setText(text);
-                                } else if (text.contains(first)) {
-                                    String end = text.substring(1, text.length());
-                                    textView.setText(Html.fromHtml("<font color=#999999>" + first + "<font/>" + end));
+                        if (tag == null) {
+                            return;
+                        }
+                        if (textView.getTag() == null) {
+                            return;
+                        }
+                        if (textView.getTag().equals(tag)) {
+                            animatorTextViewHashMap.remove(key);
+                            textView.setTextColor(endColor);
+                            if (textView.getText().toString().contains(text)) {
+                                if (!TextUtils.isEmpty(text)) {
+                                    if (text.length() > 0) {
+                                        String first = getSymbol(unit);
+                                        if (first.equals("-")) {
+                                            textView.setText(text);
+                                        } else if (text.contains(first)) {
+                                            String end = text.substring(1, text.length());
+                                            textView.setText(Html.fromHtml("<font color=#999999>" + first + "<font/>" + end));
+                                        } else {
+                                            textView.setText(text);
+                                        }
+                                    } else {
+                                        textView.setText(text);
+                                    }
                                 } else {
                                     textView.setText(text);
                                 }
-                            } else {
-                                textView.setText(text);
                             }
-                        } else {
-                            textView.setText(text);
                         }
                     }
                 }
             }
         });
         anim.start();
-        animatorConcurrentHashMap.put(textView.getId() + onlyKey, anim);
+        animatorConcurrentHashMap.put(key, anim);
+        animatorTextHashMap.put(key, text);
+        animatorTextViewHashMap.put(key, textView);
     }
 
 
@@ -334,8 +359,10 @@ public class BigUIUtil {
         }
         BigDecimal endPriceBig = new BigDecimal(endPrice);
         BigDecimal changeBig = new BigDecimal(change);
-        BigDecimal subtract = endPriceBig.subtract(endPriceBig.divide(changeBig.add(new BigDecimal("1")), 8, BigDecimal.ROUND_HALF_DOWN));
-        return bigPrice(subtract.toString());
+
+        BigDecimal subtract = endPriceBig.multiply(new BigDecimal("0.01")).multiply(changeBig);
+        // BigDecimal subtract = endPriceBig.subtract(endPriceBig.divide(changeBig.add(new BigDecimal("1")), 8, BigDecimal.ROUND_HALF_DOWN));
+        return bigPrice(subtract.toPlainString());
     }
 
     //获取 对比单位的 简写符号
@@ -347,7 +374,7 @@ public class BigUIUtil {
             return "";
         }
         if ("CNY".equals(unit)) {
-            return "¥";
+            return "￥";
         }
         if ("USD".equals(unit)) {
             return "$";
@@ -393,16 +420,16 @@ public class BigUIUtil {
             return rateTwoPrice;
         }
         if (usdRate.containsKey(itemUnit)) {
-            rateTwoPrice.add(getSymbol(itemUnit) + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()));
+            rateTwoPrice.add("$" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()));
         } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-            rateTwoPrice.add(getSymbol(itemUnit) + bigPrice(rate(symbol, "USD")));
+            rateTwoPrice.add("$" + bigPrice(rate(symbol, "USD")));
         } else {
             rateTwoPrice.add("");
         }
         if (usdRate.containsKey(itemUnit)) {
-            rateTwoPrice.add(getSymbol(itemUnit) + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+            rateTwoPrice.add("￥" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
         } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-            rateTwoPrice.add(getSymbol(itemUnit) + bigPrice(rate(symbol, "CNY")));
+            rateTwoPrice.add("￥" + bigPrice(rate(symbol, "CNY")));
         } else {
             rateTwoPrice.add("");
         }
@@ -455,9 +482,9 @@ public class BigUIUtil {
             rateTwoPrice.add("<font color=#999999>" + getSymbol(itemUnit) + "<font/>" + bigPrice(price));
             if (usdRate.containsKey(itemUnit)) {
                 //可直接换算
-                rateTwoPrice.add("<font color=#999999>¥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>¥<font/>" + bigPrice(rate(symbol, "CNY")));
+                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY")));
             } else {
                 rateTwoPrice.add("");
             }
@@ -477,9 +504,9 @@ public class BigUIUtil {
         } else if (3 == setUnits.indexOf(unit)) {
             //    cny-平台价格=cny
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>¥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>¥<font/>" + bigPrice(rate(symbol, "CNY")));
+                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY")));
             } else {
                 rateTwoPrice.add("");
             }
@@ -506,9 +533,9 @@ public class BigUIUtil {
                 rateTwoPrice.add("");
             }
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>¥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>¥<font/>" + bigPrice(rate(symbol, "CNY")));
+                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY")));
             } else {
                 rateTwoPrice.add("");
             }
@@ -516,9 +543,9 @@ public class BigUIUtil {
         } else if (6 == setUnits.indexOf(unit)) {
             //    cny-usd=cny
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>¥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>¥<font/>" + bigPrice(rate(symbol, "CNY")));
+                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY")));
             } else {
                 rateTwoPrice.add("");
             }
@@ -544,9 +571,9 @@ public class BigUIUtil {
         } else if (8 == setUnits.indexOf(unit)) {
             //    仅cny=cny
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>¥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>¥<font/>" + bigPrice(rate(symbol, "CNY")));
+                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY")));
             } else {
                 rateTwoPrice.add("");
             }
@@ -585,9 +612,9 @@ public class BigUIUtil {
         } else if (1 == setUnits.indexOf(unit)) {
             //    平台价格-cny=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "¥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "￥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "¥" + bigMarkValue(rate(symbol, "CNY"));
+                return "￥" + bigMarkValue(rate(symbol, "CNY"));
             }
         } else if (2 == setUnits.indexOf(unit)) {
             //    平台价格-usd=usd
@@ -599,9 +626,9 @@ public class BigUIUtil {
         } else if (3 == setUnits.indexOf(unit)) {
             //    cny-平台价格=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "¥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "￥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "¥" + bigMarkValue(rate(symbol, "CNY"));
+                return "￥" + bigMarkValue(rate(symbol, "CNY"));
             }
         } else if (4 == setUnits.indexOf(unit)) {
             //    usd-平台价格=usd
@@ -620,9 +647,9 @@ public class BigUIUtil {
         } else if (6 == setUnits.indexOf(unit)) {
             //    cny-usd=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "¥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "￥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "¥" + bigMarkValue(rate(symbol, "CNY"));
+                return "￥" + bigMarkValue(rate(symbol, "CNY"));
             }
         } else if (7 == setUnits.indexOf(unit)) {
             //    仅usd=usd
@@ -634,9 +661,9 @@ public class BigUIUtil {
         } else if (8 == setUnits.indexOf(unit)) {
             //    仅cny=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "¥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "￥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "¥" + bigMarkValue(rate(symbol, "CNY"));
+                return "￥" + bigMarkValue(rate(symbol, "CNY"));
             }
         } else if (9 == setUnits.indexOf(unit)) {
             //    仅平台价格=usd
@@ -676,9 +703,9 @@ public class BigUIUtil {
         } else if (1 == setUnits.indexOf(unit)) {
             //    平台价格-cny=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>¥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>¥<font/>" + bigPrice(rate(symbol, "CNY"));
+                return "<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY"));
             }
         } else if (2 == setUnits.indexOf(unit)) {
             //    平台价格-usd=usd
@@ -690,9 +717,9 @@ public class BigUIUtil {
         } else if (3 == setUnits.indexOf(unit)) {
             //    cny-平台价格=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>¥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>¥<font/>" + bigPrice(rate(symbol, "CNY"));
+                return "<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY"));
             }
         } else if (4 == setUnits.indexOf(unit)) {
             //    usd-平台价格=usd
@@ -711,9 +738,9 @@ public class BigUIUtil {
         } else if (6 == setUnits.indexOf(unit)) {
             //    cny-usd=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>¥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>¥<font/>" + bigPrice(rate(symbol, "CNY"));
+                return "<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY"));
             }
         } else if (7 == setUnits.indexOf(unit)) {
             //    仅usd=usd
@@ -725,9 +752,9 @@ public class BigUIUtil {
         } else if (8 == setUnits.indexOf(unit)) {
             //    仅cny=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>¥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>¥<font/>" + bigPrice(rate(symbol, "CNY"));
+                return "<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY"));
             }
         } else if (9 == setUnits.indexOf(unit)) {
             //    仅平台价格=usd
@@ -864,6 +891,16 @@ public class BigUIUtil {
         } else if (new BigDecimal("0.001").compareTo(bigDecimal) == -1) {
             stringBuffer.append(bigDecimal.setScale(6, BigDecimal.ROUND_DOWN).toPlainString());
         } else if (new BigDecimal("0.00000001").compareTo(bigDecimal) == -1) {
+            stringBuffer.append(bigDecimal.setScale(8, BigDecimal.ROUND_DOWN).toPlainString());
+        } else if (new BigDecimal("-100").compareTo(bigDecimal) == 1) {
+            stringBuffer.append(bigDecimal.setScale(2, BigDecimal.ROUND_DOWN).toPlainString());
+        } else if (new BigDecimal("-0.1").compareTo(bigDecimal) == 1) {
+            stringBuffer.append(bigDecimal.setScale(4, BigDecimal.ROUND_DOWN).toPlainString());
+        } else if (new BigDecimal("-0.01").compareTo(bigDecimal) == 1) {
+            stringBuffer.append(bigDecimal.setScale(5, BigDecimal.ROUND_DOWN).toPlainString());
+        } else if (new BigDecimal("-0.001").compareTo(bigDecimal) == 1) {
+            stringBuffer.append(bigDecimal.setScale(6, BigDecimal.ROUND_DOWN).toPlainString());
+        } else if (new BigDecimal("-0.00000001").compareTo(bigDecimal) == 1) {
             stringBuffer.append(bigDecimal.setScale(8, BigDecimal.ROUND_DOWN).toPlainString());
         } else {
             return "0";

@@ -2,8 +2,11 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
     >
 
 
@@ -201,7 +204,7 @@
                 android:paddingLeft="@dimen/trans_25px"
                 android:paddingRight="@dimen/trans_25px"
                 android:paddingTop="@dimen/trans_15px"
-                android:text="@string/str_apply_to_join"
+                android:text="@string/str_team_detail"
                 android:textColor="@color/color_blue"
                 android:textSize="@dimen/text_trans_30px"/>
 

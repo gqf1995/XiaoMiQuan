@@ -5,9 +5,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.xiaomiquan.R;
 import com.xiaomiquan.mvp.databinder.InviteFriendsBinder;
 import com.xiaomiquan.mvp.delegate.InviteFriendsDelegate;
@@ -34,6 +36,7 @@ public class InviteFriendsActivity extends BaseDataBindActivity<InviteFriendsDel
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_invite_friends)));
+        addRequest(binder.getInviteCode(this));
         viewDelegate.setOnClickListener(this, R.id.tv_save, R.id.tv_send);
     }
 
@@ -77,8 +80,12 @@ public class InviteFriendsActivity extends BaseDataBindActivity<InviteFriendsDel
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+            case 0x123:
+                Glide.with(GlobleContext.getInstance().getApplicationContext())
+                        .load(data)
+                        .into(viewDelegate.viewHolder.iv_pic);
+                break;
         }
     }
 

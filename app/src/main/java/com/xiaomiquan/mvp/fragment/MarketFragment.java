@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -103,6 +102,8 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                         ((MarketValueFragment) fragments.get(i)).checkRedRise();
                     }
                 }
+            }else {
+
             }
         } else {
             //页面切换停止websocket
@@ -111,6 +112,9 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     }
 
     public void sendWebsocket() {
+        if (fragments == null) {
+            return;
+        }
         for (int i = 0; i < fragments.size(); i++) {
             if (i == viewDelegate.viewHolder.tl_2.getCurrentTab()) {
                 if (fragments.get(i) instanceof ExchangeFragment) {
@@ -233,7 +237,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
 
         viewDelegate.viewHolder.vp_sliding.setOffscreenPageLimit(1);
         viewDelegate.viewHolder.tl_2.setViewPager(viewDelegate.viewHolder.vp_sliding,
-                mTitles.toArray(new String[mTitles.size()]), (FragmentActivity) viewDelegate.viewHolder.rootView.getContext(), fragments);
+                mTitles.toArray(new String[mTitles.size()]), this, fragments);
 
         exchangeNameListFragment.setDefaultClickLinsener(new DefaultClickLinsener() {
             @Override
@@ -282,15 +286,15 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         switch (requestCode) {
             case 0x123:
                 //保存行情列表
-                List<ExchangeName> exchangeNames = GsonUtil.getInstance().toList(data, ExchangeName.class);
-                if (exchangeNameList == null) {
-                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-                    initTablelayout(exchangeNames);
-                } else {
-                    if (exchangeNames.size() != exchangeNameList.size()) {
-                        CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-                    }
-                }
+//                List<ExchangeName> exchangeNames = GsonUtil.getInstance().toList(data, ExchangeName.class);
+//                if (exchangeNameList == null) {
+//                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
+//                    initTablelayout(exchangeNames);
+//                } else {
+//                    if (exchangeNames.size() != exchangeNameList.size()) {
+//                        CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
+//                    }
+//                }
                 break;
         }
     }

@@ -39,4 +39,28 @@ public class EditIntroductionBinder extends BaseDataBind<EditIntroductionDelegat
                 .build()
                 .RxSendRequest();
     }
+
+
+    /**
+     * 编辑战队简介
+     */
+    public Disposable editRemark(
+            String remark,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("remark", remark);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().editRemark)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("修改组合信息")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
 }

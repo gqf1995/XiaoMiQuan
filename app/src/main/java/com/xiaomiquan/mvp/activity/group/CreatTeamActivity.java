@@ -2,6 +2,7 @@ package com.xiaomiquan.mvp.activity.group;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -74,7 +75,11 @@ public class CreatTeamActivity extends BaseDataBindActivity<CreatGroupDelegate, 
         Intent intent = new Intent(activity.getActivity(), CreatTeamActivity.class);
         activity.startActivityForResult(intent, requestCode);
     }
-
+    public static void startAct(FragmentActivity activity,
+                                int requestCode) {
+        Intent intent = new Intent(activity ,CreatTeamActivity.class);
+        activity.startActivityForResult(intent, requestCode);
+    }
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {

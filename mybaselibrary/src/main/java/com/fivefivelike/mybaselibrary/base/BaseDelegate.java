@@ -45,6 +45,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
     private View viewImg2Point;
     private View viewImg1Point;
     private View viewImgPoint;
+    private View viewBackPoint;
     private DialogFragment netConnectDialog;
     private LinearLayout layoutTitleBar;
     private FrameLayout fl_content;
@@ -135,6 +136,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
         viewImg2Point = getViewById(R.id.view_img2_point);
         viewImg1Point = getViewById(R.id.view_img1_point);
         viewImgPoint = getViewById(R.id.view_img_point);
+        viewBackPoint=getViewById(R.id.view_back_point);
         fl_content = getViewById(R.id.fl_content);
 
 
@@ -446,5 +448,9 @@ public abstract class BaseDelegate extends IDelegateImpl {
 
     public FrameLayout getFl_content() {
         return fl_content;
+    }
+
+    public View getViewBackPoint() {
+        return viewBackPoint;
     }
 }

@@ -8,12 +8,15 @@
 
     <com.xiaomiquan.widget.StickyScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
 
@@ -192,7 +195,8 @@
                     android:paddingRight="@dimen/trans_35px"
                     android:text="@string/str_learn_more"
                     android:textColor="@color/color_blue"
-                    android:textSize="@dimen/text_trans_30px"/>
+                    android:textSize="@dimen/text_trans_30px"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
@@ -202,6 +206,7 @@
                 android:background="@color/base_mask"/>
 
             <LinearLayout
+                android:id="@+id/lin_my_create"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/trans_85px"
                 android:orientation="vertical"
@@ -245,8 +250,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="@string/ic_tianjiahaoyou"
                             android:paddingRight="@dimen/trans_10px"
+                            android:text="@string/ic_tianjiahaoyou"
                             android:textColor="@color/color_blue"
                             android:textSize="@dimen/text_trans_28px"/>
 
@@ -278,6 +283,7 @@
                 />
 
             <LinearLayout
+                android:id="@+id/lin_my_join"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/trans_85px"
                 android:orientation="vertical"

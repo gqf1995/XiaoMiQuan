@@ -172,7 +172,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         viewDelegate.addFragment(marketFragment = new MarketFragment());
         viewDelegate.addFragment(userFragment = new UserFragment());
         //显示第0个
-        viewDelegate.showFragment(1);
+        viewDelegate.showFragment(0);
         doubleClickActList.add(this.getClass().getName());//两次返回推出act注册
     }
 

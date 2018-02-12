@@ -93,7 +93,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="$14,525.08888"
-                                android:textColor="@color/white"
+                                android:textColor="@color/color_font2"
                                 android:textSize="@dimen/text_trans_56px"/>
 
                             <com.fivefivelike.mybaselibrary.view.IconFontTextview
