@@ -24,7 +24,6 @@ import java.util.List;
 /**
  * Created by 郭青枫 on 2017/7/7.
  */
-
 public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPresenter<T> implements View.OnClickListener, CircleDialog.CircleDialogLinsener {
     public static List<String> doubleClickActList = new ArrayList<>();
     public Activity mContext;
