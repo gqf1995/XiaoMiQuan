@@ -46,12 +46,24 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             return;
         }
         for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
+            if (TextUtils.isEmpty(exchangeMarketAdapter.getDatas().get(i).getOnlyKey())) {
+                return;
+            }
+            if (TextUtils.isEmpty(data.getOnlyKey())) {
+                return;
+            }
             if (exchangeMarketAdapter.getDatas().get(i).getOnlyKey().equals(data.getOnlyKey())) {
                 updataPosition = i;
                 break;
             }
         }
         for (int i = 0; i < defaultDatas.size(); i++) {
+            if (TextUtils.isEmpty(defaultDatas.get(i).getOnlyKey())) {
+                return;
+            }
+            if (TextUtils.isEmpty(data.getOnlyKey())) {
+                return;
+            }
             if (defaultDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
                 defaultDatas.set(i, data);
                 break;
@@ -148,7 +160,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data,info,status,requestCode);
+        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);

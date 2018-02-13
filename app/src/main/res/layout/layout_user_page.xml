@@ -15,7 +15,7 @@
             android:id="@+id/iv_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/trans_226px"
-            android:background="@drawable/user_bg_dark"/>
+            android:background="@drawable/user_home"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                         android:layout_marginRight="@dimen/trans_4px"
                         android:gravity="center"
                         android:text="@string/str_fans"
-                        android:textColor="@color/color_999999"
+                        android:textColor="@color/color_e4e4e4"
                         android:textSize="@dimen/text_trans_22px"/>
 
 
@@ -102,7 +102,7 @@
                         android:layout_marginRight="@dimen/trans_4px"
                         android:gravity="center"
                         android:text="@string/str_focuse"
-                        android:textColor="@color/color_999999"
+                        android:textColor="@color/color_e4e4e4"
                         android:textSize="@dimen/text_trans_22px"/>
 
                     <TextView
@@ -179,7 +179,8 @@
                     android:layout_marginRight="@dimen/trans_30px"
                     android:text="@string/ic_Next"
                     android:textColor="@color/color_font2"
-                    android:textSize="@dimen/text_trans_30px"/>
+                    android:textSize="@dimen/text_trans_30px"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

@@ -24,7 +24,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/trans_320px"
-                    android:background="@drawable/user_bg_dark"
+                    android:background="@drawable/user_bg"
                     android:padding="@dimen/trans_40px"
                     >
 
@@ -40,7 +40,6 @@
                             android:id="@+id/ic_piv"
                             android:layout_width="@dimen/trans_100px"
                             android:layout_height="@dimen/trans_100px"
-                            android:src="@drawable/artboard"
                             />
 
                         <LinearLayout
@@ -85,10 +84,12 @@
                     </LinearLayout>
 
                 </FrameLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/trans_20px"
                     android:background="@color/base_mask"/>
+
                 <LinearLayout
                     android:id="@+id/lin_set0"
                     android:layout_width="match_parent"

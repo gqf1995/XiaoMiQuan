@@ -1,6 +1,6 @@
 package com.xiaomiquan.mvp.delegate;
 
-import android.graphics.Matrix;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,7 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
+import com.fivefivelike.mybaselibrary.base.BaseApp;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.entity.ResultDialogEntity;
+import com.fivefivelike.mybaselibrary.utils.ActUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
@@ -21,16 +24,19 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.tablayout.CommonTabLayout;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.EarningsMovements;
 import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.entity.bean.group.TeamInfo;
+import com.xiaomiquan.mvp.activity.group.CreatGroupActivity;
 import com.xiaomiquan.mvp.activity.group.CreatTeamActivity;
 import com.xiaomiquan.mvp.activity.main.WebActivityActivity;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 import com.xiaomiquan.widget.chart.MyLeftRateMarkerView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +93,7 @@ public class CombinationDelegate extends BaseDelegate {
         GlideUtils.loadImage(groupItem.getAvatar(), viewHolder.ic_pic);
         viewHolder.tv_name.setText(groupItem.getName());
         viewHolder.tv_focus_on_num.setText(groupItem.getAttentionCount() + CommonUtils.getString(R.string.str_people) + CommonUtils.getString(R.string.str_focuse));
-        viewHolder.tv_label.setText(groupItem.getType());
+
         viewHolder.tv_create_time.setText(TimeUtils.millis2String(groupItem.getCreateTime(), DEFAULT_FORMAT));
         if (TextUtils.isEmpty(groupItem.getBrief())) {
             viewHolder.tv_introduce.setText(CommonUtils.getString(R.string.str_now_no_data));
@@ -194,15 +200,78 @@ public class CombinationDelegate extends BaseDelegate {
 
     }
 
-    private void setHandler(LineChart combinedChart) {
-        final ViewPortHandler viewPortHandlerBar = combinedChart.getViewPortHandler();
-        Matrix touchmatrix = viewPortHandlerBar.getMatrixTouch();
-        touchmatrix.postScale(1f, 1f);
-    }
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_combination;
+    }
+
+
+    public void initTeaminfo(TeamInfo teamInfo){
+        double monthRate, totalRate, weekRate, yesterdayRate;
+        if (!TextUtils.isEmpty(teamInfo.getMonthProfit())) {
+            monthRate = Double.parseDouble(teamInfo.getMonthProfit());
+        } else {
+            monthRate = 0;
+        }
+        if (!TextUtils.isEmpty(teamInfo.getTotalProfit())) {
+            totalRate = Double.parseDouble(teamInfo.getTotalProfit());
+        } else {
+            totalRate = 0;
+        }
+        if (!TextUtils.isEmpty(teamInfo.getWeekProfit())) {
+            weekRate = Double.parseDouble(teamInfo.getWeekProfit());
+        } else {
+            weekRate = 0;
+        }
+        if (!TextUtils.isEmpty(teamInfo.getYesterdayProfit())) {
+            yesterdayRate = Double.parseDouble(teamInfo.getYesterdayProfit());
+        } else {
+            yesterdayRate = 0;
+        }
+        BigUIUtil.getinstance().rateTextView(monthRate, viewHolder.tv_month_earnings);
+        BigUIUtil.getinstance().rateTextView(totalRate, viewHolder.tv_cumulative_earnings);
+        BigUIUtil.getinstance().rateTextView(weekRate, viewHolder.tv_week_earnings);
+        BigUIUtil.getinstance().rateTextView(yesterdayRate, viewHolder.tv_yesterday_earnings);
+
+
+        EarningsMovements earningsMovements=new EarningsMovements();
+        earningsMovements.setEndTime(teamInfo.getEndTime());
+        earningsMovements.setStartTime(teamInfo.getStartTime());
+        earningsMovements.setRates(teamInfo.getRates());
+        initEarningsMovements(earningsMovements);
+
+
+        GlideUtils.loadImage(teamInfo.getAvatar(), viewHolder.ic_pic);
+        viewHolder.tv_name.setText(teamInfo.getName());
+        viewHolder.tv_focus_on_num.setText(teamInfo.getAttentionCount() + CommonUtils.getString(R.string.str_people) + CommonUtils.getString(R.string.str_focuse));
+
+        viewHolder.tv_create_time.setText(TimeUtils.millis2String(teamInfo.getCreateTime(), DEFAULT_FORMAT));
+        if (TextUtils.isEmpty(teamInfo.getBrief())) {
+            viewHolder.tv_introduce.setText(CommonUtils.getString(R.string.str_now_no_data));
+        } else {
+            viewHolder.tv_introduce.setText(teamInfo.getBrief());
+        }
+        viewHolder.tv_toast.setText("该账户为大赛账户,将在比赛结束后关闭\n比赛结束时间为: " + TimeUtils.millis2String(teamInfo.getGameEndTime(), com.xiaomiquan.utils.TimeUtils.DEFAULT_FORMAT));
+        viewHolder.tv_create.setText("创建永久账户");
+        viewHolder.tv_game.setText("炒币大赛规则");
+        viewHolder.tv_create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreatGroupActivity.startAct((FragmentActivity) viewHolder.rootView.getContext(), 0x123);
+            }
+        });
+        viewHolder.tv_game.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent((FragmentActivity) viewHolder.rootView.getContext(), BaseApp.getInstance().getLoginActivityClass());
+                ActUtil.getInstance().killAllActivity((FragmentActivity) viewHolder.rootView.getContext());
+                ((FragmentActivity) viewHolder.rootView.getContext()).startActivity(intent);
+                ((FragmentActivity) viewHolder.rootView.getContext()).finish();
+                ResultDialogEntity resultDialogEntity = new ResultDialogEntity();
+                resultDialogEntity.setCode("1");
+                EventBus.getDefault().post(resultDialogEntity);
+            }
+        });
     }
 
 

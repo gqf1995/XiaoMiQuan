@@ -10,15 +10,15 @@ public class AppConst {
      * topcoin的域名为  http://topcoin.bicoin.com.cn/topcoin/
      * 测试
      */
-    //public static final String httpBaseUrl = "http://topcoin.bicoin.com.cn/topcoin";
-    public static final String httpBaseUrl = "http://192.168.0.25:8080";
+    public static final String httpBaseUrl = "http://topcoin.bicoin.com.cn/topcoin";
+    //public static final String httpBaseUrl = "http://47.97.169.136:1904";
 
-    public static final String serviceId = "KEFU151728371459995";
+    public static final String serviceId = "KEFU151849750997586";
     public static final String rulesUrl = "http://rule.bicoin.com.cn";
     public static final String myRewardUrl = "http://rule.bicoin.com.cn/35/16/p501606933c9693";
-    public static final String rongId = "cpj2xarlc1xsn";
+    public static final String rongId = "pgyu6atqp96nu";
     public static final boolean isLog = true;
-    public static final boolean isEditUrl = true;
+    public static final boolean isEditUrl = false;
 
     /**
      * 正式

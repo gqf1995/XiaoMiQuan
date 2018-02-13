@@ -79,6 +79,7 @@ public class CombinationBinder extends BaseDataBind<CombinationDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
     /**
      * 取消关注组合
      */
@@ -100,6 +101,7 @@ public class CombinationBinder extends BaseDataBind<CombinationDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
     /**
      * 关注组合
      */
@@ -121,4 +123,29 @@ public class CombinationBinder extends BaseDataBind<CombinationDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
+
+    /**
+     * 大赛组合
+     */
+    public Disposable demoInfo(
+            String demoId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("demoId", demoId);
+        baseMap.put("type", "3");
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().demoInfo)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("大赛组合")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
 }

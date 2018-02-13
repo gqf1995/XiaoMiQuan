@@ -89,17 +89,19 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
     }
 
     public TextView tv_unit;
+    public TextView tv_rise_title;
     public GainsTabView tv_rise;
     public SkinCompatLinearLayout lin_root;
 
     private void initTool() {
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_exchange_tool, null);
         this.tv_unit = (TextView) rootView.findViewById(R.id.tv_unit);
+        this.tv_rise_title = (TextView) rootView.findViewById(R.id.tv_rise_title);
         this.tv_rise = (GainsTabView) rootView.findViewById(R.id.tv_rise);
         this.lin_root = (SkinCompatLinearLayout) rootView.findViewById(R.id.lin_root);
+        tv_rise_title.setVisibility(View.GONE);
         List<String> dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
         tv_unit.setText(UserSet.getinstance().getShowUnit());
-        tv_unit.setPadding(0, 0, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_40px), 0);
         tv_rise.setText(CommonUtils.getString(R.string.str_rise_24h));
         tv_rise.setTextColor(CommonUtils.getColor(R.color.color_font2));
         tv_rise.setOnClickListener(new View.OnClickListener() {

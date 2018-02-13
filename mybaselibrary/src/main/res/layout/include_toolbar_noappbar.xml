@@ -36,7 +36,8 @@
 
                 <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/trans_90px"
+                    >
 
 
                     <com.fivefivelike.mybaselibrary.view.IconFontTextview
@@ -56,7 +57,7 @@
                         android:layout_width="@dimen/trans_10px"
                         android:layout_height="@dimen/trans_10px"
                         android:layout_gravity="right"
-                        android:layout_margin="@dimen/trans_30px"
+                        android:layout_marginTop="@dimen/trans_30px"
                         android:background="@drawable/shape_red_max_radiu"
                         android:visibility="gone"/>
 

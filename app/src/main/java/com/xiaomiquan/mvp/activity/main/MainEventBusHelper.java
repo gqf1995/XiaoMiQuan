@@ -47,7 +47,10 @@ public class MainEventBusHelper {
         if ("0".equals(event.getCode())) {
             //去投资组合
             ActUtil.getInstance().killAllActivity(activity);
-            activity.toPage(1, 3);
+            activity.toPage(0, 3);
+        } else if ("1".equals(event.getCode())) {
+            //去大赛页面
+            activity.toPage(0, 1);
         }
     }
 

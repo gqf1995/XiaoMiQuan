@@ -185,11 +185,11 @@ public class BigUIUtil {
         if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == 1) {
             //降价
             textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
-            textView.setText(Html.fromHtml("<small><small>↘</small></small>" + " " + text));
+            textView.setText(Html.fromHtml("<small><small>↘</small></small>" + " " + text + ""));
         } else if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == -1) {
             //涨价
             textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
-            textView.setText(Html.fromHtml("<small><small>↗</small></small>" + " " + text));
+            textView.setText(Html.fromHtml("<small><small>↗</small></small>" + " " + text + ""));
         } else {
             return;
         }
@@ -204,10 +204,39 @@ public class BigUIUtil {
                     String text = animatorTextHashMap.get(key);
                     TextView textView = animatorTextViewHashMap.get(key);
                     if (textView != null) {
+                        textView.setTextColor(endColor);
                         if (tag == null) {
+                            if (textView.getText().toString().contains("↘") || textView.getText().toString().contains("↗")) {
+                                String s = textView.getText().toString().substring(1);
+                                for (int i = 0; i < s.length(); i++) {
+                                    char a = s.charAt(i);
+                                    if (a >= '0' && a <= '9') {
+                                        String textUnit = s.substring(0, i);
+                                        String textNum = s.substring(i, s.length());
+                                        textView.setText(Html.fromHtml("<small><font color=#c1c4d0>" +
+                                                textUnit + "<font/></small>" +
+                                                textNum + ""));
+                                        break;
+                                    }
+                                }
+                            }
                             return;
                         }
                         if (textView.getTag() == null) {
+                            if (textView.getText().toString().contains("↘") || textView.getText().toString().contains("↗")) {
+                                String s = textView.getText().toString().substring(1);
+                                for (int i = 0; i < s.length(); i++) {
+                                    char a = s.charAt(i);
+                                    if (a >= '0' && a <= '9') {
+                                        String textUnit = s.substring(0, i);
+                                        String textNum = s.substring(i, s.length());
+                                        textView.setText(Html.fromHtml("<small><font color=#c1c4d0>" +
+                                                textUnit + "<font/></small>" +
+                                                textNum + ""));
+                                        break;
+                                    }
+                                }
+                            }
                             return;
                         }
                         if (textView.getTag().equals(tag)) {
@@ -218,18 +247,19 @@ public class BigUIUtil {
                                     if (text.length() > 0) {
                                         String first = getSymbol(unit);
                                         if (first.equals("-")) {
-                                            textView.setText(text);
+                                            textView.setText(Html.fromHtml(text));
                                         } else if (text.contains(first)) {
                                             String end = text.substring(1, text.length());
-                                            textView.setText(Html.fromHtml("<font color=#999999>" + first + "<font/>" + end));
+                                            textView.setText(Html.fromHtml("<small><font color=#c1c4d0>"
+                                                    + first + "<font/></small>" + end + ""));
                                         } else {
-                                            textView.setText(text);
+                                            textView.setText(Html.fromHtml(text));
                                         }
                                     } else {
-                                        textView.setText(text);
+                                        textView.setText(Html.fromHtml(text));
                                     }
                                 } else {
-                                    textView.setText(text);
+                                    textView.setText(Html.fromHtml(text));
                                 }
                             }
                         }
@@ -243,6 +273,128 @@ public class BigUIUtil {
         animatorTextViewHashMap.put(key, textView);
     }
 
+    public void animNoArrow(final String unit, final TextView textView, String oldnum,
+                            String newnum, final int endColor, final String onlyKey,
+                            final int position, final Object tag) {
+        if (TextUtils.isEmpty(oldnum) || TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {
+            return;
+        }
+        if (animatorConcurrentHashMap == null) {
+            animatorConcurrentHashMap = new ConcurrentHashMap<>();
+            animatorTextHashMap = new ConcurrentHashMap<>();
+            animatorTextViewHashMap = new ConcurrentHashMap<>();
+        }
+        Iterator it = animatorConcurrentHashMap.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            ValueAnimator val = (ValueAnimator) entry.getValue();
+            String key = (String) entry.getKey();
+            if (!val.isRunning()) {
+                animatorConcurrentHashMap.remove(key);
+            } else if (key.equals(textView.getId() + onlyKey)) {
+                val.cancel();
+                animatorConcurrentHashMap.remove(key);
+            }
+        }
+
+        String symbol = getSymbol(unit);
+        String text = textView.getText().toString();
+        final String key = textView.getId() + onlyKey + position + unit;
+
+        oldnum = oldnum.replaceAll(symbol, "");
+        newnum = newnum.replaceAll(symbol, "");
+        if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == 1) {
+            //降价
+            textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+            textView.setText(Html.fromHtml(" " + text + ""));
+        } else if (new BigDecimal(oldnum).compareTo(new BigDecimal(newnum)) == -1) {
+            //涨价
+            textView.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+            textView.setText(Html.fromHtml(" " + text + ""));
+        } else {
+            return;
+        }
+        ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f);
+        anim.setDuration(3000);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float currentValue = (float) animation.getAnimatedValue();
+                if (currentValue == 1f) {
+                    //动画结束
+                    String text = animatorTextHashMap.get(key);
+                    TextView textView = animatorTextViewHashMap.get(key);
+                    if (textView != null) {
+                        textView.setTextColor(endColor);
+                        if (tag == null) {
+                            if (!TextUtils.isEmpty(textView.getText().toString())) {
+                                String s = textView.getText().toString();
+                                for (int i = 0; i < s.length(); i++) {
+                                    char a = s.charAt(i);
+                                    if (a >= '0' && a <= '9') {
+                                        String textUnit = s.substring(0, i);
+                                        String textNum = s.substring(i, s.length());
+                                        textView.setText(Html.fromHtml("<small><font color=#c1c4d0>" +
+                                                textUnit + "<font/></small>" +
+                                                textNum + ""));
+                                        break;
+                                    }
+                                }
+                            }
+                            return;
+                        }
+                        if (textView.getTag() == null) {
+                            if (!TextUtils.isEmpty(textView.getText().toString())) {
+                                String s = textView.getText().toString();
+                                for (int i = 0; i < s.length(); i++) {
+                                    char a = s.charAt(i);
+                                    if (a >= '0' && a <= '9') {
+                                        String textUnit = s.substring(0, i);
+                                        String textNum = s.substring(i, s.length());
+                                        textView.setText(Html.fromHtml("<small><font color=#c1c4d0>" +
+                                                textUnit + "<font/></small>" +
+                                                textNum + ""));
+                                        break;
+                                    }
+                                }
+                            }
+                            return;
+                        }
+                        if (textView.getTag().equals(tag)) {
+                            animatorTextViewHashMap.remove(key);
+                            textView.setTextColor(endColor);
+                            if (textView.getText().toString().contains(text)) {
+                                if (!TextUtils.isEmpty(text)) {
+                                    if (text.length() > 0) {
+                                        String first = getSymbol(unit);
+                                        if (first.equals("-")) {
+                                            textView.setText(Html.fromHtml(text));
+                                        } else if (text.contains(first)) {
+                                            String end = text.substring(1, text.length());
+                                            textView.setText(Html.fromHtml(
+                                                    "<small><font color=#c1c4d0>"
+                                                            + first + "<font/></small>"
+                                                            + end + ""));
+                                        } else {
+                                            textView.setText(Html.fromHtml(text));
+                                        }
+                                    } else {
+                                        textView.setText(Html.fromHtml(text));
+                                    }
+                                } else {
+                                    textView.setText(Html.fromHtml(text));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        anim.start();
+        animatorConcurrentHashMap.put(key, anim);
+        animatorTextHashMap.put(key, text);
+        animatorTextViewHashMap.put(key, textView);
+    }
 
     public boolean IsHavaData() {
         return isHavaData;
@@ -459,7 +611,7 @@ public class BigUIUtil {
             return rateTwoPrice;
         }
         if (TextUtils.isEmpty(price) || TextUtils.isEmpty(itemUnit)) {
-            rateTwoPrice.add("<font color=#999999>" + getSymbol(itemUnit) + "<font/>" + bigPrice(price));
+            rateTwoPrice.add("<small><font color=#c1c4d0>" + getSymbol(itemUnit) + "<font/></small>" + bigPrice(price) + "");
             rateTwoPrice.add("");
             return rateTwoPrice;
         }
@@ -469,22 +621,22 @@ public class BigUIUtil {
             setUnits = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
         }
         if (-1 == setUnits.indexOf(unit)) {
-            rateTwoPrice.add("<font color=#999999>" + getSymbol(itemUnit) + "<font/>" + bigPrice(price));
+            rateTwoPrice.add("<small><font color=#c1c4d0>" + getSymbol(itemUnit) + "<font/></small>" + bigPrice(price) + "");
             rateTwoPrice.add("");
             return rateTwoPrice;
         } else if (0 == setUnits.indexOf(unit)) {
             //  默认
-            rateTwoPrice.add("<font color=#999999>" + getSymbol(itemUnit) + "<font/>" + bigPrice(price));
+            rateTwoPrice.add("<small><font color=#c1c4d0>" + getSymbol(itemUnit) + "<font/></small>" + bigPrice(price) + "");
             rateTwoPrice.add("");
             return rateTwoPrice;
         } else if (1 == setUnits.indexOf(unit)) {
             //    平台价格-cny=cny
-            rateTwoPrice.add("<font color=#999999>" + getSymbol(itemUnit) + "<font/>" + bigPrice(price));
+            rateTwoPrice.add("<small><font color=#c1c4d0>" + getSymbol(itemUnit) + "<font/></small>" + bigPrice(price) + "");
             if (usdRate.containsKey(itemUnit)) {
                 //可直接换算
-                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+                rateTwoPrice.add("<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()) + "");
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY")));
+                rateTwoPrice.add("<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(rate(symbol, "CNY")) + "");
             } else {
                 rateTwoPrice.add("");
             }
@@ -492,11 +644,11 @@ public class BigUIUtil {
 
         } else if (2 == setUnits.indexOf(unit)) {
             //    平台价格-usd=usd
-            rateTwoPrice.add("<font color=#999999>" + getSymbol(itemUnit) + "<font/>" + bigPrice(price));
+            rateTwoPrice.add("<small><font color=#c1c4d0>" + getSymbol(itemUnit) + "<font/></small>" + bigPrice(price) + "");
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>$<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()));
+                rateTwoPrice.add("<small><font color=#c1c4d0>$<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()) + "");
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>$<font/>" + bigPrice(rate(symbol, "USD")));
+                rateTwoPrice.add("<small><font color=#c1c4d0>$<font/></small>" + bigPrice(rate(symbol, "USD")) + "");
             } else {
                 rateTwoPrice.add("");
             }
@@ -504,38 +656,38 @@ public class BigUIUtil {
         } else if (3 == setUnits.indexOf(unit)) {
             //    cny-平台价格=cny
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+                rateTwoPrice.add("<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()) + "");
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY")));
+                rateTwoPrice.add("<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(rate(symbol, "CNY")) + "");
             } else {
                 rateTwoPrice.add("");
             }
-            rateTwoPrice.add("<font color=#999999>" + getSymbol(itemUnit) + "<font/>" + bigPrice(price));
+            rateTwoPrice.add("<small><font color=#c1c4d0>" + getSymbol(itemUnit) + "<font/></small>" + bigPrice(price) + "");
             return rateTwoPrice;
         } else if (4 == setUnits.indexOf(unit)) {
             //    usd-平台价格=usd
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>$<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()));
+                rateTwoPrice.add("<small><font color=#c1c4d0>$<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()) + "");
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>$<font/>" + bigPrice(rate(symbol, "USD")));
+                rateTwoPrice.add("<small><font color=#c1c4d0>$<font/></small>" + bigPrice(rate(symbol, "USD")) + "");
             } else {
                 rateTwoPrice.add("");
             }
-            rateTwoPrice.add("<font color=#999999>" + getSymbol(itemUnit) + "<font/>" + bigPrice(price));
+            rateTwoPrice.add("<small><font color=#c1c4d0>" + getSymbol(itemUnit) + "<font/></small>" + bigPrice(price) + "");
             return rateTwoPrice;
         } else if (5 == setUnits.indexOf(unit)) {
             //    usd-cny=usd
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>$<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()));
+                rateTwoPrice.add("<small><font color=#c1c4d0>$<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()) + "");
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>$<font/>" + bigPrice(rate(symbol, "USD")));
+                rateTwoPrice.add("<small><font color=#c1c4d0>$<font/></small>" + bigPrice(rate(symbol, "USD")) + "");
             } else {
                 rateTwoPrice.add("");
             }
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+                rateTwoPrice.add("<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()) + "");
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY")));
+                rateTwoPrice.add("<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(rate(symbol, "CNY")) + "");
             } else {
                 rateTwoPrice.add("");
             }
@@ -543,16 +695,16 @@ public class BigUIUtil {
         } else if (6 == setUnits.indexOf(unit)) {
             //    cny-usd=cny
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+                rateTwoPrice.add("<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()) + "");
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY")));
+                rateTwoPrice.add("<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(rate(symbol, "CNY")) + "");
             } else {
                 rateTwoPrice.add("");
             }
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>$<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()));
+                rateTwoPrice.add("<small><font color=#c1c4d0>$<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()) + "");
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>$<font/>" + bigPrice(rate(symbol, "USD")));
+                rateTwoPrice.add("<small><font color=#c1c4d0>$<font/></small>" + bigPrice(rate(symbol, "USD")) + "");
             } else {
                 rateTwoPrice.add("");
             }
@@ -560,9 +712,9 @@ public class BigUIUtil {
         } else if (7 == setUnits.indexOf(unit)) {
             //    仅usd=usd
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>$<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()));
+                rateTwoPrice.add("<small><font color=#c1c4d0>$<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString()) + "");
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>$<font/>" + bigPrice(rate(symbol, "USD")));
+                rateTwoPrice.add("<small><font color=#c1c4d0>$<font/></small>" + bigPrice(rate(symbol, "USD")) + "");
             } else {
                 rateTwoPrice.add("");
             }
@@ -571,9 +723,9 @@ public class BigUIUtil {
         } else if (8 == setUnits.indexOf(unit)) {
             //    仅cny=cny
             if (usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()));
+                rateTwoPrice.add("<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString()) + "");
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                rateTwoPrice.add("<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY")));
+                rateTwoPrice.add("<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(rate(symbol, "CNY")) + "");
             } else {
                 rateTwoPrice.add("");
             }
@@ -581,7 +733,7 @@ public class BigUIUtil {
             return rateTwoPrice;
         } else if (9 == setUnits.indexOf(unit)) {
             //    仅平台价格=usd
-            rateTwoPrice.add("<font color=#999999>" + getSymbol(itemUnit) + "<font/>" + bigPrice(price));
+            rateTwoPrice.add("<small><font color=#c1c4d0>" + getSymbol(itemUnit) + "<font/></small>" + bigPrice(price) + "");
             rateTwoPrice.add("");
             return rateTwoPrice;
         }
@@ -605,72 +757,72 @@ public class BigUIUtil {
             setUnits = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
         }
         if (-1 == setUnits.indexOf(unit)) {
-            return "$" + bigMarkValue(price);
+            return "<small><font color=#c1c4d0>$<font/></small>" + bigMarkValue(price)+ "";
         } else if (0 == setUnits.indexOf(unit)) {
             //  默认
-            return "$" + bigMarkValue(price);
+            return "<small><font color=#c1c4d0>$<font/></small>" + bigMarkValue(price)+ "";
         } else if (1 == setUnits.indexOf(unit)) {
             //    平台价格-cny=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "￥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "￥" + bigMarkValue(rate(symbol, "CNY"));
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigMarkValue(rate(symbol, "CNY"))+ "";
             }
         } else if (2 == setUnits.indexOf(unit)) {
             //    平台价格-usd=usd
             if (usdRate.containsKey(itemUnit)) {
-                return "$" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "$" + bigMarkValue(rate(symbol, "USD"));
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigMarkValue(rate(symbol, "USD"))+ "";
             }
         } else if (3 == setUnits.indexOf(unit)) {
             //    cny-平台价格=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "￥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "￥" + bigMarkValue(rate(symbol, "CNY"));
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigMarkValue(rate(symbol, "CNY"))+ "";
             }
         } else if (4 == setUnits.indexOf(unit)) {
             //    usd-平台价格=usd
             if (usdRate.containsKey(itemUnit)) {
-                return "$" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "$" + bigMarkValue(rate(symbol, "USD"));
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigMarkValue(rate(symbol, "USD"))+ "";
             }
         } else if (5 == setUnits.indexOf(unit)) {
             //    usd-cny=usd
             if (usdRate.containsKey(itemUnit)) {
-                return "$" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "$" + bigMarkValue(rate(symbol, "USD"));
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigMarkValue(rate(symbol, "USD"))+ "";
             }
         } else if (6 == setUnits.indexOf(unit)) {
             //    cny-usd=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "￥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "￥" + bigMarkValue(rate(symbol, "CNY"));
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigMarkValue(rate(symbol, "CNY"))+ "";
             }
         } else if (7 == setUnits.indexOf(unit)) {
             //    仅usd=usd
             if (usdRate.containsKey(itemUnit)) {
-                return "$" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "$" + bigMarkValue(rate(symbol, "USD"));
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigMarkValue(rate(symbol, "USD"))+ "";
             }
         } else if (8 == setUnits.indexOf(unit)) {
             //    仅cny=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "￥" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "￥" + bigMarkValue(rate(symbol, "CNY"));
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigMarkValue(rate(symbol, "CNY"))+ "";
             }
         } else if (9 == setUnits.indexOf(unit)) {
             //    仅平台价格=usd
             if (usdRate.containsKey(itemUnit)) {
-                return "$" + bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+                return "<small><font color=#c1c4d0>$<font/></small>"+ bigMarkValue(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "$" + bigMarkValue(rate(symbol, "USD"));
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigMarkValue(rate(symbol, "USD"))+ "";
             }
         }
         return price;
@@ -696,72 +848,72 @@ public class BigUIUtil {
             setUnits = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
         }
         if (-1 == setUnits.indexOf(unit)) {
-            return "<font color=#999999>$<font/>" + bigPrice(price);
+            return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(price)+ "";
         } else if (0 == setUnits.indexOf(unit)) {
             //  默认
-            return "<font color=#999999>$<font/>" + bigPrice(price);
+            return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(price)+ "";
         } else if (1 == setUnits.indexOf(unit)) {
             //    平台价格-cny=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY"));
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(rate(symbol, "CNY"))+ "";
             }
         } else if (2 == setUnits.indexOf(unit)) {
             //    平台价格-usd=usd
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>$<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>$<font/>" + bigPrice(rate(symbol, "USD"));
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(rate(symbol, "USD"))+ "";
             }
         } else if (3 == setUnits.indexOf(unit)) {
             //    cny-平台价格=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY"));
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(rate(symbol, "CNY"))+ "";
             }
         } else if (4 == setUnits.indexOf(unit)) {
             //    usd-平台价格=usd
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>$<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>$<font/>" + bigPrice(rate(symbol, "USD"));
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(rate(symbol, "USD"))+ "";
             }
         } else if (5 == setUnits.indexOf(unit)) {
             //    usd-cny=usd
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>$<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>$<font/>" + bigPrice(rate(symbol, "USD"));
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(rate(symbol, "USD"))+ "";
             }
         } else if (6 == setUnits.indexOf(unit)) {
             //    cny-usd=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY"));
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(rate(symbol, "CNY"))+ "";
             }
         } else if (7 == setUnits.indexOf(unit)) {
             //    仅usd=usd
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>$<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>$<font/>" + bigPrice(rate(symbol, "USD"));
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(rate(symbol, "USD"))+ "";
             }
         } else if (8 == setUnits.indexOf(unit)) {
             //    仅cny=cny
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>￥<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString());
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "CNY"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>￥<font/>" + bigPrice(rate(symbol, "CNY"));
+                return "<small><font color=#c1c4d0>￥<font/></small>" + bigPrice(rate(symbol, "CNY"))+ "";
             }
         } else if (9 == setUnits.indexOf(unit)) {
             //    仅平台价格=usd
             if (usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>$<font/>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString());
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(new BigDecimal(price).multiply(new BigDecimal(rate(itemUnit, "USD"))).toPlainString())+ "";
             } else if (usdRate.containsKey(symbol) && !usdRate.containsKey(itemUnit)) {
-                return "<font color=#999999>$<font/>" + bigPrice(rate(symbol, "USD"));
+                return "<small><font color=#c1c4d0>$<font/></small>" + bigPrice(rate(symbol, "USD"))+ "";
             }
         }
         return price;

@@ -13,6 +13,15 @@ public class AllGroupData {
     List<GroupItem> topTotal;
     List<GroupItem> topMonth;
     List<GroupItem> topWeeks;
+    List<BannerEntity> turnPicturesList;
+
+    public List<BannerEntity> getTurnPicturesList() {
+        return turnPicturesList;
+    }
+
+    public void setTurnPicturesList(List<BannerEntity> turnPicturesList) {
+        this.turnPicturesList = turnPicturesList;
+    }
 
     public List<GroupDynamic> getUserDemoDynamicList() {
         return userDemoDynamicList;

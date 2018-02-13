@@ -155,7 +155,7 @@ public class LoginAndRegisteredDelegate extends BaseDelegate {
         saveInput();
         viewHolder.tv_commit.setText(CommonUtils.getString(R.string.str_registered));
         viewHolder.tv_forget_pass.setVisibility(View.GONE);
-        viewHolder.lin_agreement.setVisibility(View.VISIBLE);
+        viewHolder.lin_agreement.setVisibility(View.GONE);
         setInput();
         if (isRegisteredInputPhone) {
             initPhone();

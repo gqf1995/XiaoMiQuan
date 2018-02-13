@@ -1,7 +1,6 @@
 package com.xiaomiquan.adapter.group;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,7 +11,6 @@ import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.HotTeam;
-import com.xiaomiquan.mvp.activity.group.TeamDetailActivity;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -48,7 +46,7 @@ public class HotTeamAdapter extends CommonAdapter<HotTeam> {
         super(context, R.layout.adapter_hot_team, datas);
     }
 
-    public void setDatas(List<HotTeam> datas){
+    public void setDatas(List<HotTeam> datas) {
         getDatas().clear();
         getDatas().addAll(datas);
         notifyDataSetChanged();
@@ -66,10 +64,21 @@ public class HotTeamAdapter extends CommonAdapter<HotTeam> {
         tv_apply_to_join = holder.getView(R.id.tv_apply_to_join);
         fl_root = holder.getView(R.id.fl_root);
 
+        ic_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(v, position, null);
+                }
+            }
+        });
         fl_root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TeamDetailActivity.startAct((FragmentActivity) mContext, getDatas().get(position).getId() + "");
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(v, position, null);
+                    // TeamDetailActivity.startAct((FragmentActivity) mContext, getDatas().get(position).getId() + "");
+                }
             }
         });
         GlideUtils.loadImage(s.getAvatar(), ic_pic);
@@ -85,7 +94,10 @@ public class HotTeamAdapter extends CommonAdapter<HotTeam> {
         tv_apply_to_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TeamDetailActivity.startAct((FragmentActivity) mContext, getDatas().get(position).getId() + "");
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(v, position, null);
+                    // TeamDetailActivity.startAct((FragmentActivity) mContext, getDatas().get(position).getId() + "");
+                }
             }
         });
     }

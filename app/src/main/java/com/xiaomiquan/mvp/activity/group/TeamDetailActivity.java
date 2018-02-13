@@ -14,6 +14,7 @@ import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
@@ -24,6 +25,8 @@ import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.entity.bean.group.HotTeam;
 import com.xiaomiquan.entity.bean.group.TeamDetails;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
+import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.BaseActivityPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseActivityPullDelegate;
 import com.xiaomiquan.utils.BigUIUtil;
@@ -41,6 +44,7 @@ public class TeamDetailActivity extends BasePullActivity<BaseActivityPullDelegat
     RankTeampeopleAdapter rankTeampeopleAdapter;
     HeaderAndFooterWrapper adapter;
     UserLogin userLogin;
+    boolean isJsoin = false;
 
     @Override
     protected Class<BaseActivityPullDelegate> getDelegateClass() {
@@ -63,10 +67,17 @@ public class TeamDetailActivity extends BasePullActivity<BaseActivityPullDelegat
     private void initRankTeam(List<TeamDetails.Player> datas) {
         if (rankTeampeopleAdapter == null) {
             rankTeampeopleAdapter = new RankTeampeopleAdapter(this, datas);
+            rankTeampeopleAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, int position, Object item) {
+                    TeamCombinationActivity.startAct(TeamDetailActivity.this, rankTeampeopleAdapter.getDatas().get(position - adapter.getHeadersCount()).getDemoId() + "");
+                }
+            });
             adapter = new HeaderAndFooterWrapper(rankTeampeopleAdapter);
             adapter.addHeaderView(initTop());
             initRecycleViewPull(adapter, adapter.getHeadersCount(), new LinearLayoutManager(this));
             viewDelegate.setIsLoadMore(false);
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             onRefresh();
         } else {
             getDataBack(rankTeampeopleAdapter.getDatas(), datas, adapter);
@@ -106,6 +117,12 @@ public class TeamDetailActivity extends BasePullActivity<BaseActivityPullDelegat
         mHotTeam = hotTeam;
         initToolbar(new ToolbarBuilder().setTitle(hotTeam.getTeamName()).setSubTitle(CommonUtils.getString(R.string.str_apply_to_join_team)));
         GlideUtils.loadImage(hotTeam.getAvatar(), ic_pic);
+        ic_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PersonalHomePageActivity.startAct(TeamDetailActivity.this,mHotTeam.getOwnerId()+"");
+            }
+        });
         tv_name.setText(hotTeam.getTeamName());
         tv_nick_name.setText(hotTeam.getNickName());
         if (!TextUtils.isEmpty(hotTeam.getAverage())) {
@@ -115,18 +132,20 @@ public class TeamDetailActivity extends BasePullActivity<BaseActivityPullDelegat
         tv_team_people_num.setText(hotTeam.getTeamCount() + CommonUtils.getString(R.string.str_people));
         tv_team_earnings.setText(hotTeam.getBonusPoolStr());
         if (teamDetails.isSelf()) {
-            lin_my.setVisibility(View.VISIBLE);
             tv_apply_to_join.setText(CommonUtils.getString(R.string.str_invite_friends));
             initToolbar(new ToolbarBuilder().setTitle(hotTeam.getTeamName()).setSubTitle(CommonUtils.getString(R.string.str_edit_abstract)));
+        } else if (isJsoin) {
+            //邀请好友
+            tv_apply_to_join.setText(CommonUtils.getString(R.string.str_invite_friends));
+            initToolbar(new ToolbarBuilder().setTitle(""));
         } else {
-            lin_my.setVisibility(View.GONE);
             tv_apply_to_join.setText(CommonUtils.getString(R.string.str_apply_to_join));
             initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(CommonUtils.getString(R.string.str_apply_to_join_team)));
         }
         tv_apply_to_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (teamDetails.isSelf()) {
+                if (teamDetails.isSelf() || isJsoin) {
                     //邀请好友
                     gotoActivity(InviteFriendsActivity.class).startAct();
                 } else {
@@ -143,6 +162,14 @@ public class TeamDetailActivity extends BasePullActivity<BaseActivityPullDelegat
     }
 
     private void initMyGroup(GroupItem item) {
+        if (item == null) {
+            lin_my.setVisibility(View.GONE);
+            return;
+        }
+        if (TextUtils.isEmpty(item.getName())) {
+            lin_my.setVisibility(View.GONE);
+            return;
+        }
         List<GroupItem> datas = new ArrayList<>();
         datas.add(item);
         if (myGroupAdapter == null) {
@@ -202,6 +229,10 @@ public class TeamDetailActivity extends BasePullActivity<BaseActivityPullDelegat
     }
 
     private void join() {
+        if (SingSettingDBUtil.getUserLogin() == null) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+            return;
+        }
         CircleDialogHelper.initDefaultInputDialog(this,
                 CommonUtils.getString(R.string.str_apply_to_join_team_reason),
                 CommonUtils.getString(R.string.str_toast_input_reason),
@@ -230,6 +261,15 @@ public class TeamDetailActivity extends BasePullActivity<BaseActivityPullDelegat
             case 0x124:
                 //战队信息
                 teamDetails = GsonUtil.getInstance().toObj(data, TeamDetails.class);
+                UserLogin userLogin = SingSettingDBUtil.getUserLogin();
+                if (userLogin != null) {
+                    for (int i = 0; i < teamDetails.getPlayerList().size(); i++) {
+                        if (teamDetails.getPlayerList().get(i).getUserId() == userLogin.getId()) {
+                            isJsoin = true;
+                            break;
+                        }
+                    }
+                }
                 initMyGroup(teamDetails.getMyAccount());
                 initDatas(teamDetails.getGameTeamOwnerVo());
                 initRankTeam(teamDetails.getPlayerList());
