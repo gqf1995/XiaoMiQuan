@@ -1,25 +1,38 @@
 package com.xiaomiquan.mvp.delegate;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.entity.ResultDialogEntity;
+import com.fivefivelike.mybaselibrary.utils.AndroidUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GlobleContext;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.tablayout.CommonTabLayout;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.group.BannerEntity;
+import com.xiaomiquan.mvp.activity.main.WebActivityActivity;
 import com.xiaomiquan.widget.StickyScrollView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import skin.support.widget.SkinCompatLinearLayout;
 
@@ -51,7 +64,40 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
         viewHolder.banner.setBannerStyle(BannerConfig.NOT_INDICATOR);
         viewHolder.banner.setImages(Arrays.asList(images));
         viewHolder.banner.setBannerAnimation(Transformer.Default);
+        ViewGroup.LayoutParams layoutParams = viewHolder.banner.getLayoutParams();
+        layoutParams.height = AndroidUtil.getScreenW(GlobleContext.getInstance().getApplicationContext(), false) * 240 / 750;
+        viewHolder.banner.setLayoutParams(layoutParams);
         viewHolder.banner.start();
+    }
+
+    List<BannerEntity> bannerDatas;
+
+    public void setBanner(List<BannerEntity> datas) {
+        if (!ListUtils.isEmpty(datas)) {
+            return;
+        }
+        bannerDatas = datas;
+        List<String> imgs = new ArrayList<>();
+        for (int i = 0; i < datas.size(); i++) {
+            imgs.add(datas.get(i).getPictureUrl());
+        }
+        viewHolder.banner.setImages(imgs);
+        viewHolder.banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                if (TextUtils.isEmpty(bannerDatas.get(position).getTurnUrl())) {
+                    return;
+                }
+                if ("cjzd".equals(bannerDatas.get(position).getTurnUrl())) {
+                    //跳转到大赛页面
+                    ResultDialogEntity resultDialogEntity = new ResultDialogEntity();
+                    resultDialogEntity.setCode("1");
+                    EventBus.getDefault().post(resultDialogEntity);
+                } else {
+                    WebActivityActivity.startAct((FragmentActivity) viewHolder.rootView.getContext(), bannerDatas.get(position).getTurnUrl());
+                }
+            }
+        });
     }
 
     public void initRank(OnTabSelectListener onTabSelectListener) {

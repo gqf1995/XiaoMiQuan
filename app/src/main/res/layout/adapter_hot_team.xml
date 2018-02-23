@@ -149,6 +149,7 @@
                     android:text="17人"
                     android:textColor="@color/increasing_color"
                     android:textSize="@dimen/text_trans_48px"
+                    android:textStyle="bold"
                     app:TypeFace="SemiBold"/>
 
             </LinearLayout>
@@ -184,6 +185,7 @@
                     android:text="1.24ETH"
                     android:textColor="@color/increasing_color"
                     android:textSize="@dimen/text_trans_48px"
+                    android:textStyle="bold"
                     app:TypeFace="SemiBold"/>
 
             </LinearLayout>

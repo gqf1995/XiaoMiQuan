@@ -2,13 +2,13 @@ package com.xiaomiquan.entity.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 /**
  * Created by 郭青枫 on 2018/1/16 0016.
  */
 
 public class ExchangeData implements Parcelable {
-
 
 
     private String id;
@@ -38,167 +38,12 @@ public class ExchangeData implements Parcelable {
     private String bid;//买一
     private String change;//24小时涨跌幅
     private String ch;//24小时涨跌幅
-    private String timestamp;
-    private String ts;
+    private long timestamp;
+    private long ts;
 
     private String onlyKey;//市场的唯一标识 例如：Okex_ETH_BTC "choicePrice": null// 用户选择的市场价格
     private String key;//市场的唯一标识 例如：Okex_ETH_BTC "choicePrice": null// 用户选择的市场价格
 
-    @Override
-    public String toString() {
-        return "ExchangeData{" +
-                "id='" + id + '\'' +
-                ", exchange='" + exchange + '\'' +
-                ", exch='" + exch + '\'' +
-                ", name='" + name + '\'' +
-                ", symbol='" + symbol + '\'' +
-                ", sym='" + sym + '\'' +
-                ", unit='" + unit + '\'' +
-                ", tradePair='" + tradePair + '\'' +
-                ", side='" + side + '\'' +
-                ", last='" + last + '\'' +
-                ", la='" + la + '\'' +
-                ", high='" + high + '\'' +
-                ", h='" + h + '\'' +
-                ", low='" + low + '\'' +
-                ", l='" + l + '\'' +
-                ", open='" + open + '\'' +
-                ", o='" + o + '\'' +
-                ", close='" + close + '\'' +
-                ", c='" + c + '\'' +
-                ", volume='" + volume + '\'' +
-                ", vol='" + vol + '\'' +
-                ", amount='" + amount + '\'' +
-                ", amt='" + amt + '\'' +
-                ", ask='" + ask + '\'' +
-                ", bid='" + bid + '\'' +
-                ", change='" + change + '\'' +
-                ", ch='" + ch + '\'' +
-                ", timestamp='" + timestamp + '\'' +
-                ", ts='" + ts + '\'' +
-                ", onlyKey='" + onlyKey + '\'' +
-                ", key='" + key + '\'' +
-                ", availableSupply='" + availableSupply + '\'' +
-                ", lastUpdated='" + lastUpdated + '\'' +
-                ", marketCapUsd='" + marketCapUsd + '\'' +
-                ", maxSupply='" + maxSupply + '\'' +
-                ", percentChange1h='" + percentChange1h + '\'' +
-                ", percentChange24h='" + percentChange24h + '\'' +
-                ", percentChange7d='" + percentChange7d + '\'' +
-                ", priceBtc='" + priceBtc + '\'' +
-                ", priceUsd='" + priceUsd + '\'' +
-                ", rank='" + rank + '\'' +
-                ", totalSupply='" + totalSupply + '\'' +
-                '}';
-    }
-
-    public String getExch() {
-        return exch;
-    }
-
-    public void setExch(String exch) {
-        this.exch = exch;
-        this.exchange = exch;
-    }
-
-    public String getSym() {
-        return sym;
-    }
-
-    public void setSym(String sym) {
-        this.sym = sym;
-        this.symbol = sym;
-    }
-
-    public String getLa() {
-        return la;
-    }
-
-    public void setLa(String la) {
-        this.la = la;
-        this.last = la;
-    }
-
-    public String getH() {
-        return h;
-    }
-
-    public void setH(String h) {
-        this.h = h;
-        this.high = h;
-    }
-
-    public String getL() {
-        return l;
-    }
-
-    public void setL(String l) {
-        this.l = l;
-        this.low = l;
-    }
-
-    public String getO() {
-        return o;
-    }
-
-    public void setO(String o) {
-        this.o = o;
-        this.open = o;
-    }
-
-    public String getC() {
-        return c;
-    }
-
-    public void setC(String c) {
-        this.c = c;
-        this.close = c;
-    }
-
-    public String getVol() {
-        return vol;
-    }
-
-    public void setVol(String vol) {
-        this.vol = vol;
-        this.volume = vol;
-    }
-
-    public String getAmt() {
-        return amt;
-    }
-
-    public void setAmt(String amt) {
-        this.amt = amt;
-        this.amount = amt;
-    }
-
-    public String getCh() {
-        return ch;
-    }
-
-    public void setCh(String ch) {
-        this.ch = ch;
-        this.change = ch;
-    }
-
-    public String getTs() {
-        return ts;
-    }
-
-    public void setTs(String ts) {
-        this.ts = ts;
-        this.timestamp = ts;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-        this.onlyKey = key;
-    }
 
     /**
      * 24h_volume_usd : 8932820000
@@ -237,11 +82,23 @@ public class ExchangeData implements Parcelable {
     }
 
     public String getExchange() {
+        if (TextUtils.isEmpty(exchange)) {
+            return exch;
+        }
         return exchange;
     }
 
     public void setExchange(String exchange) {
         this.exchange = exchange;
+    }
+
+    public String getExch() {
+        return exch;
+    }
+
+    public void setExch(String exch) {
+        this.exch = exch;
+        this.exchange = exch;
     }
 
     public String getName() {
@@ -253,11 +110,23 @@ public class ExchangeData implements Parcelable {
     }
 
     public String getSymbol() {
+        if (TextUtils.isEmpty(symbol)) {
+            return sym;
+        }
         return symbol;
     }
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
+    }
+
+    public String getSym() {
+        return sym;
+    }
+
+    public void setSym(String sym) {
+        this.sym = sym;
+        this.symbol = sym;
     }
 
     public String getUnit() {
@@ -285,6 +154,9 @@ public class ExchangeData implements Parcelable {
     }
 
     public String getLast() {
+        if (TextUtils.isEmpty(last)) {
+            return la;
+        }
         return last;
     }
 
@@ -292,7 +164,19 @@ public class ExchangeData implements Parcelable {
         this.last = last;
     }
 
+    public String getLa() {
+        return la;
+    }
+
+    public void setLa(String la) {
+        this.la = la;
+        this.last = la;
+    }
+
     public String getHigh() {
+        if (TextUtils.isEmpty(high)) {
+            return h;
+        }
         return high;
     }
 
@@ -300,7 +184,19 @@ public class ExchangeData implements Parcelable {
         this.high = high;
     }
 
+    public String getH() {
+        return h;
+    }
+
+    public void setH(String h) {
+        this.h = h;
+        this.high = h;
+    }
+
     public String getLow() {
+        if (TextUtils.isEmpty(low)) {
+            return l;
+        }
         return low;
     }
 
@@ -308,7 +204,19 @@ public class ExchangeData implements Parcelable {
         this.low = low;
     }
 
+    public String getL() {
+        return l;
+    }
+
+    public void setL(String l) {
+        this.l = l;
+        this.low = l;
+    }
+
     public String getOpen() {
+        if (TextUtils.isEmpty(open)) {
+            return o;
+        }
         return open;
     }
 
@@ -316,7 +224,19 @@ public class ExchangeData implements Parcelable {
         this.open = open;
     }
 
+    public String getO() {
+        return o;
+    }
+
+    public void setO(String o) {
+        this.o = o;
+        this.open = o;
+    }
+
     public String getClose() {
+        if (TextUtils.isEmpty(close)) {
+            return c;
+        }
         return close;
     }
 
@@ -324,7 +244,19 @@ public class ExchangeData implements Parcelable {
         this.close = close;
     }
 
+    public String getC() {
+        return c;
+    }
+
+    public void setC(String c) {
+        this.c = c;
+        this.close = c;
+    }
+
     public String getVolume() {
+        if (TextUtils.isEmpty(volume)) {
+            return vol;
+        }
         return volume;
     }
 
@@ -332,12 +264,33 @@ public class ExchangeData implements Parcelable {
         this.volume = volume;
     }
 
+    public String getVol() {
+        return vol;
+    }
+
+    public void setVol(String vol) {
+        this.vol = vol;
+        this.volume = vol;
+    }
+
     public String getAmount() {
+        if (TextUtils.isEmpty(amount)) {
+            return amt;
+        }
         return amount;
     }
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getAmt() {
+        return amt;
+    }
+
+    public void setAmt(String amt) {
+        this.amt = amt;
+        this.amount = amt;
     }
 
     public String getAsk() {
@@ -357,6 +310,9 @@ public class ExchangeData implements Parcelable {
     }
 
     public String getChange() {
+        if (TextUtils.isEmpty(change)) {
+            return ch;
+        }
         return change;
     }
 
@@ -364,20 +320,53 @@ public class ExchangeData implements Parcelable {
         this.change = change;
     }
 
-    public String getTimestamp() {
+    public String getCh() {
+        return ch;
+    }
+
+    public void setCh(String ch) {
+        this.ch = ch;
+        this.change = ch;
+    }
+
+    public long getTimestamp() {
+        if (timestamp == 0) {
+            return ts;
+        }
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
+    public long getTs() {
+        return ts;
+    }
+
+    public void setTs(long ts) {
+        this.ts = ts;
+        this.timestamp = ts;
+    }
+
     public String getOnlyKey() {
+        if (TextUtils.isEmpty(onlyKey)) {
+            return key;
+        }
         return onlyKey;
     }
 
     public void setOnlyKey(String onlyKey) {
         this.onlyKey = onlyKey;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+        this.onlyKey = key;
     }
 
     public String getAvailableSupply() {
@@ -503,8 +492,8 @@ public class ExchangeData implements Parcelable {
         dest.writeString(this.bid);
         dest.writeString(this.change);
         dest.writeString(this.ch);
-        dest.writeString(this.timestamp);
-        dest.writeString(this.ts);
+        dest.writeLong(this.timestamp);
+        dest.writeLong(this.ts);
         dest.writeString(this.onlyKey);
         dest.writeString(this.key);
         dest.writeString(this.availableSupply);
@@ -551,8 +540,8 @@ public class ExchangeData implements Parcelable {
         this.bid = in.readString();
         this.change = in.readString();
         this.ch = in.readString();
-        this.timestamp = in.readString();
-        this.ts = in.readString();
+        this.timestamp = in.readLong();
+        this.ts = in.readLong();
         this.onlyKey = in.readString();
         this.key = in.readString();
         this.availableSupply = in.readString();

@@ -13,10 +13,13 @@ import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.bean.group.EarningsMovements;
+import com.xiaomiquan.entity.bean.group.TeamInfo;
 import com.xiaomiquan.mvp.databinder.CombinationBinder;
 import com.xiaomiquan.mvp.delegate.CombinationDelegate;
-import com.xiaomiquan.utils.BigUIUtil;
+import com.xiaomiquan.mvp.fragment.group.GroupDetailListFragment;
+import com.xiaomiquan.mvp.fragment.group.GroupHistoryEntrustFragment;
+import com.xiaomiquan.mvp.fragment.group.GroupHistoryTradingFragment;
+import com.xiaomiquan.mvp.fragment.group.GroupNotDealFragment;
 
 import java.util.ArrayList;
 
@@ -40,27 +43,28 @@ public class TeamCombinationActivity extends BaseDataBindActivity<CombinationDel
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-//        if (isMy) {
-//            //修改简介
-//            EditIntroductionActivity.startAct(this, groupItem.getId(), groupItem.getBrief(), groupItem.getSync(), 0x123);
-//        } else {
-//            //取消关注 或 关注
-//            if (groupItem.getIsAttention() == 0) {
-//                binder.cancelAttention(groupItem.getId(), null);
-//                viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_focuse));
-//            } else if (groupItem.getIsAttention() == 1) {
-//                binder.demoattention(groupItem.getUserId(), null);
-//                viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_cancel_fucose));
-//            } else if (groupItem.getIsAttention() == 2) {
-//
-//            }
-//        }
+        //        if (isMy) {
+        //            //修改简介
+        //            EditIntroductionActivity.startAct(this, groupItem.getId(), groupItem.getBrief(), groupItem.getSync(), 0x123);
+        //        } else {
+        //            //取消关注 或 关注
+        //            if (groupItem.getIsAttention() == 0) {
+        //                binder.cancelAttention(groupItem.getId(), null);
+        //                viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_focuse));
+        //            } else if (groupItem.getIsAttention() == 1) {
+        //                binder.demoattention(groupItem.getUserId(), null);
+        //                viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_cancel_fucose));
+        //            } else if (groupItem.getIsAttention() == 2) {
+        //
+        //            }
+        //        }
     }
 
     public static void startAct(Activity activity,
                                 String id
     ) {
         Intent intent = new Intent(activity, TeamCombinationActivity.class);
+        intent.putExtra("id", id);
         activity.startActivity(intent);
     }
 
@@ -68,10 +72,12 @@ public class TeamCombinationActivity extends BaseDataBindActivity<CombinationDel
 
     private void getIntentData() {
         Intent intent = getIntent();
-        id=intent.getStringExtra("id");
+        id = intent.getStringExtra("id");
+        addRequest(binder.demoInfo(id, this));
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                addRequest(binder.demoInfo(id, TeamCombinationActivity.this));
             }
         });
     }
@@ -81,7 +87,7 @@ public class TeamCombinationActivity extends BaseDataBindActivity<CombinationDel
     protected void bindEvenListener() {
         super.bindEvenListener();
         getIntentData();
-        initToolbar(new ToolbarBuilder().setTitle("").setSubTitle(true ? CommonUtils.getString(R.string.str_change_introduction) : CommonUtils.getString(R.string.str_cancel_fucose)));
+        initToolbar(new ToolbarBuilder().setTitle(""));
         initViews();
     }
 
@@ -107,18 +113,9 @@ public class TeamCombinationActivity extends BaseDataBindActivity<CombinationDel
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
-                //今日收益&日均操作次数
-                BigUIUtil.getinstance().rateTextView(Double.parseDouble(GsonUtil.getInstance().getValue(data, "todayRate")), viewDelegate.viewHolder.tv_today_earnings);
-                viewDelegate.viewHolder.tv_daily_operation.setText(GsonUtil.getInstance().getValue(data, "count"));
-                break;
-            case 0x124:
-                //分期收益
-                viewDelegate.initRate(data);
-                break;
-            case 0x125:
-                //收益走势
-                EarningsMovements earningsMovements = GsonUtil.getInstance().toObj(data, EarningsMovements.class);
-                viewDelegate.initEarningsMovements(earningsMovements);
+                TeamInfo teamInfo = GsonUtil.getInstance().toObj(data, TeamInfo.class);
+                viewDelegate.initTeaminfo(teamInfo);
+                initToolbar(new ToolbarBuilder().setTitle(teamInfo.getName()));
                 break;
         }
     }
@@ -126,10 +123,10 @@ public class TeamCombinationActivity extends BaseDataBindActivity<CombinationDel
     private void initViews() {
         String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_combination);
         fragments = new ArrayList<>();
-        //fragments.add(GroupDetailListFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
-        //fragments.add(GroupNotDealFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
-        //fragments.add(GroupHistoryTradingFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
-        //fragments.add(GroupHistoryEntrustFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
+        fragments.add(GroupDetailListFragment.newInstance(id));
+        fragments.add(GroupNotDealFragment.newInstance(id));
+        fragments.add(GroupHistoryTradingFragment.newInstance(id));
+        fragments.add(GroupHistoryEntrustFragment.newInstance(id));
         for (int i = 0; i < stringArray.length; i++) {
             mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
         }

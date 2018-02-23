@@ -73,11 +73,11 @@ public class MyTeamAdapter extends CommonAdapter<HotTeam> {
         lin_root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TeamDetailActivity.startAct((FragmentActivity) mContext, getDatas().get(position).getId()+"");
+                TeamDetailActivity.startAct((FragmentActivity) mContext, getDatas().get(position).getId() + "");
             }
         });
 
-        tv_name.setText(s.getName());
+        tv_name.setText(s.getTeamName());
         tv_nick_name.setText(s.getNickName());
 
         if (!TextUtils.isEmpty(s.getAverage())) {

@@ -80,7 +80,7 @@ public class ManagementTeamActivity extends BasePullActivity<BaseActivityPullDel
                 public void onClick(View view, int position, Object item) {
                     //同意加入
                     agreedPosition = position - adapter.getHeadersCount();
-                    addRequest(binder.teamApprove(applyForPeopleAdapter.getDatas().get(agreedPosition).getId() + "", ManagementTeamActivity.this));
+                    addRequest(binder.teamApprove(applyForPeopleAdapter.getDatas().get(agreedPosition).getUserId() + "", ManagementTeamActivity.this));
                 }
             });
             adapter = new HeaderAndFooterWrapper(applyForPeopleAdapter);

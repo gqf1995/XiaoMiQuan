@@ -12,6 +12,7 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -23,6 +24,7 @@ import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.ActUtil;
 import com.fivefivelike.mybaselibrary.utils.AppUtil;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
@@ -176,11 +178,20 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         doubleClickActList.add(this.getClass().getName());//两次返回推出act注册
     }
 
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        if (viewDelegate != null) {
+            if (ListUtils.isEmpty(viewDelegate.getFragmentList())) {
+                viewDelegate.showFragment(viewDelegate.viewHolder.tl_2.getCurrentTab());
+            }
+        }
+    }
 
     public void toPage(int pagePosition, int childPosition) {
         viewDelegate.showFragment(pagePosition);
         viewDelegate.viewHolder.tl_2.setCurrentTab(pagePosition);
-        if (pagePosition == 1) {
+        if (pagePosition == 0) {
             InvestGroupFragment fragment = (InvestGroupFragment) viewDelegate.getFragmentList().get(pagePosition);
             fragment.toPage(childPosition);
         }
@@ -196,7 +207,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     IMDelegate.IMLinsener imLinsener = new IMDelegate.IMLinsener() {
         @Override
         public void ImError() {
-
+            addRequest(binder.imToken(MainActivity.this));
         }
 
         @Override
@@ -224,6 +235,8 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
             if (!TextUtils.isEmpty(userLogin.getImToken())) {
                 viewDelegate.setImLinsener(imLinsener);
                 binder.connect(userLogin.getImToken());
+            } else {
+                addRequest(binder.imToken(this));
             }
         }
     }
@@ -235,8 +248,15 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
                 //更新本地缓存汇率表
                 BigUIUtil.getinstance().upData(data);
                 break;
-            case 0x124:
-
+            case 0x125:
+                String token = GsonUtil.getInstance().getValue(data, "token");
+                if (!TextUtils.isEmpty(token)) {
+                    if (userLogin != null) {
+                        userLogin.setImToken(token);
+                        SingSettingDBUtil.setNewUserLogin(userLogin);
+                        initIm();
+                    }
+                }
                 break;
             case 0x126:
                 //版本更新
@@ -249,7 +269,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         UpdateService.
                 Builder.create(appVersion.getDownloadAddr())
                 .setStoreDir("update")
-                .setIcoResId(R.drawable.artboard)
+                .setIcoResId(R.mipmap.artboard)
                 .setDownloadSuccessNotificationFlag(Notification.DEFAULT_ALL)
                 .setDownloadErrorNotificationFlag(Notification.DEFAULT_ALL)
                 .setAppVersion(appVersion)

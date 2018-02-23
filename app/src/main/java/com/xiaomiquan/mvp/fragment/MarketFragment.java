@@ -13,6 +13,7 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeName;
@@ -63,7 +64,15 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     public TabViewpageBinder getDataBinder(TabViewpageDelegate viewDelegate) {
         return new TabViewpageBinder(viewDelegate);
     }
-
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+        if (viewDelegate != null) {
+            if (ListUtils.isEmpty(viewDelegate.getFragmentList())) {
+                viewDelegate.showFragment(viewDelegate.viewHolder.tl_2.getCurrentTab());
+            }
+        }
+    }
 
     @Override
     protected void bindEvenListener() {
@@ -92,24 +101,9 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
-        if (isVisible) {
-            if (fragments != null) {
-                for (int i = 0; i < fragments.size(); i++) {
-                    if (fragments.get(i) instanceof ExchangeFragment) {
-                        ((ExchangeFragment) fragments.get(i)).checkRedRise();
-                    }
-                    if (fragments.get(i) instanceof MarketValueFragment) {
-                        ((MarketValueFragment) fragments.get(i)).checkRedRise();
-                    }
-                }
-            }else {
-
-            }
-        } else {
-            //页面切换停止websocket
-            //WebSocketRequest.getInstance().sendData(new ArrayList<String>());
-        }
     }
+
+
 
     public void sendWebsocket() {
         if (fragments == null) {

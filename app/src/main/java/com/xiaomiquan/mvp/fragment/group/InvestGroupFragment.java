@@ -6,6 +6,7 @@ import android.view.View;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -51,6 +52,15 @@ public class InvestGroupFragment extends BaseDataBindFragment<ComTabViewpageDele
         return new ComTabViewpageBinder(viewDelegate);
     }
 
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+        if (viewDelegate != null) {
+            if (ListUtils.isEmpty(viewDelegate.getFragmentList())) {
+                viewDelegate.showFragment(viewDelegate.viewHolder.tl_2.getCurrentTab());
+            }
+        }
+    }
 
     @Override
     protected void bindEvenListener() {

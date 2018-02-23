@@ -51,6 +51,10 @@ public class ApplyForPeopleAdapter extends CommonAdapter<ManageTeam.ApprovesData
 
         tv_commit.setText(s.isPassFlag() ? CommonUtils.getString(R.string.str_agreed) : CommonUtils.getString(R.string.str_consent));
         tv_commit.setEnabled(!s.isPassFlag());
+
+        tv_commit.setBackground(s.isPassFlag() ? CommonUtils.getDrawable(R.color.colorPrimary) : CommonUtils.getDrawable(R.drawable.select_commit));
+        tv_commit.setTextColor(s.isPassFlag() ? CommonUtils.getColor(R.color.color_font1) : CommonUtils.getColor(R.color.white));
+
         tv_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

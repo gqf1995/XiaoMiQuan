@@ -4,7 +4,6 @@ import com.blankj.utilcode.util.LogUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.mvp.databind.IDataBind;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.xiaomiquan.base.Application;
 import com.xiaomiquan.mvp.delegate.IMDelegate;
 
@@ -42,7 +41,7 @@ public abstract class IMBinder<T extends IMDelegate> extends BaseDataBind<T> imp
                 @Override
                 public void onTokenIncorrect() {
                     LogUtils.e("--onTokenIncorrect");
-                    ToastUtil.show("登陆信息过期，请重新登陆！");
+                    //ToastUtil.show("登陆信息过期，请重新登陆！");
                     viewDelegate.ImError();
                 }
 

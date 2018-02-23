@@ -13,10 +13,12 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.HotTeamAdapter;
 import com.xiaomiquan.entity.bean.group.HotTeam;
 import com.xiaomiquan.mvp.activity.main.WebActivityActivity;
+import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.BaseActivityPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseActivityPullDelegate;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
@@ -43,6 +45,17 @@ public class AddTeamActivity extends BasePullActivity<BaseActivityPullDelegate, 
     private void initList(List<HotTeam> datas) {
         if (adapter == null) {
             hotTeamAdapter = new HotTeamAdapter(this, datas);
+            hotTeamAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, int position, Object item) {
+                    if(view.getId()==R.id.fl_root||view.getId()==R.id.tv_apply_to_join){
+                        TeamDetailActivity.startAct(AddTeamActivity.this, hotTeamAdapter.getDatas().get(position-adapter.getHeadersCount()).getId() + "");
+                    }else if(view.getId()==R.id.ic_pic){
+                        PersonalHomePageActivity.startAct(AddTeamActivity.this,hotTeamAdapter.getDatas().get(position-adapter.getHeadersCount()).getOwnerId()+"");
+                    }
+
+                }
+            });
             adapter = new HeaderAndFooterWrapper(hotTeamAdapter);
             adapter.addHeaderView(initTop());
             onRefresh();

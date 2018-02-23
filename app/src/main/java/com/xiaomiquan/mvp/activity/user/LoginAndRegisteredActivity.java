@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.activity.user;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -83,7 +84,8 @@ public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndReg
                 //登录成功
                 UserLogin userLogin = GsonUtil.getInstance().toObj(data, UserLogin.class);
                 SingSettingDBUtil.setNewUserLogin(userLogin);
-                gotoActivity(MainActivity.class).setIsFinish(true).startAct();
+                startActivity(new Intent(LoginAndRegisteredActivity.this, MainActivity.class));
+                finish();
                 break;
         }
     }

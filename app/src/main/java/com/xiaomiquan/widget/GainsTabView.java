@@ -66,6 +66,10 @@ public class GainsTabView extends SkinCompatRelativeLayout {
         tv_gains_top = findViewById(R.id.tv_gains_top);
         tv_gains_up = findViewById(R.id.tv_gains_up);
         rtv_msg_tip = findViewById(R.id.rtv_msg_tip);
+        if (!isClickable()) {
+            tv_gains_up.setVisibility(GONE);
+            tv_gains_top.setVisibility(GONE);
+        }
     }
 
     public void setDefault(View view) {
@@ -76,25 +80,25 @@ public class GainsTabView extends SkinCompatRelativeLayout {
     }
 
     public void onClick() {
-//        isTop++;
-//        if (isTop > 2) {
-//            isTop = 0;
-//        }
-//        if (isTop == 0) {
-//            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_font4));
-//            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_font4));
-//        }
-//        if (isTop == 1) {
-//            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_blue));
-//            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_font4));
-//        }
-//        if (isTop == 2) {
-//            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_font4));
-//            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_blue));
-//        }
-//        if (onChange != null) {
-//            onChange.onChange(isTop);
-//        }
+        //        isTop++;
+        //        if (isTop > 2) {
+        //            isTop = 0;
+        //        }
+        //        if (isTop == 0) {
+        //            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_font4));
+        //            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_font4));
+        //        }
+        //        if (isTop == 1) {
+        //            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_blue));
+        //            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_font4));
+        //        }
+        //        if (isTop == 2) {
+        //            tv_gains_top.setTextColor(CommonUtils.getColor(R.color.color_font4));
+        //            tv_gains_up.setTextColor(CommonUtils.getColor(R.color.color_blue));
+        //        }
+        //        if (onChange != null) {
+        //            onChange.onChange(isTop);
+        //        }
     }
 
 

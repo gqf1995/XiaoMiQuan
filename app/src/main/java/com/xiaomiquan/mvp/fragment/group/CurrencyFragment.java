@@ -106,14 +106,6 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
             };
             layoutManager.setSmoothScrollbarEnabled(true);
             layoutManager.setAutoMeasureEnabled(true);
-            //设置分页长度
-            if (TYPE_CURRENCY_BUY.equals(type)) {
-                viewDelegate.pagesize = 50;
-                adapter.setBut(true);
-            } else if (TYPE_CURRENCY_SELL.equals(type)) {
-                viewDelegate.pagesize = 999;
-                adapter.setBut(false);
-            }
             initRecycleViewPull(adapter, layoutManager);
             viewDelegate.viewHolder.pull_recycleview.setHasFixedSize(true);
             viewDelegate.viewHolder.pull_recycleview.setNestedScrollingEnabled(false);

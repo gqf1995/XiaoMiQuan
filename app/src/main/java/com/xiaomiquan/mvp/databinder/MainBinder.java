@@ -31,19 +31,16 @@ public class MainBinder extends IMBinder<MainDelegate> {
                 .RxSendRequest();
     }
 
-    public Disposable unregisterkeys(
-            String uid,
+    public Disposable imToken(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("uid", uid);
-        baseMap.put("keys", "");
         return new HttpRequest.Builder()
-                .setRequestCode(0x124)
-                .setRequestUrl(HttpUrl.getIntance().unregisterkeys)
+                .setRequestCode(0x125)
+                .setRequestUrl(HttpUrl.getIntance().imToken)
                 .setShowDialog(false)
-                .setRequestName("获取汇率")
-                .setRequestMode(HttpRequest.RequestMode.POST)
-                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestName("获取imtoken")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
                 .build()

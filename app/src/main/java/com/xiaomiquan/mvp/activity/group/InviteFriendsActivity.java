@@ -1,11 +1,15 @@
 package com.xiaomiquan.mvp.activity.group;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -35,8 +39,8 @@ public class InviteFriendsActivity extends BaseDataBindActivity<InviteFriendsDel
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_invite_friends)));
-        addRequest(binder.getInviteCode(this));
+        getIntentData();
+
         viewDelegate.setOnClickListener(this, R.id.tv_save, R.id.tv_send);
     }
 
@@ -52,6 +56,31 @@ public class InviteFriendsActivity extends BaseDataBindActivity<InviteFriendsDel
                 //发送给好友
                 send();
                 break;
+        }
+    }
+
+
+    public static void startAct(Activity activity,
+                                String type) {
+        Intent intent = new Intent(activity, InviteFriendsActivity.class);
+        intent.putExtra("type", type);
+        activity.startActivity(intent);
+    }
+
+    private String type;
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        type = intent.getStringExtra("type");
+        if (TextUtils.isEmpty(type)) {
+            initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_invite_friends)));
+            addRequest(binder.getInviteCode(this));
+        } else {
+            Glide.with(GlobleContext.getInstance().getApplicationContext())
+                    .load(type)
+                    .apply(new RequestOptions().skipMemoryCache(true))
+                    .into(viewDelegate.viewHolder.iv_pic);
+            initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_recommended)));
         }
     }
 
@@ -84,6 +113,7 @@ public class InviteFriendsActivity extends BaseDataBindActivity<InviteFriendsDel
             case 0x123:
                 Glide.with(GlobleContext.getInstance().getApplicationContext())
                         .load(data)
+                        .apply(new RequestOptions().skipMemoryCache(true))
                         .into(viewDelegate.viewHolder.iv_pic);
                 break;
         }

@@ -84,11 +84,22 @@
                         android:layout_height="@dimen/trans_20px"
                         android:background="@color/base_mask"/>
 
-                    <com.youth.banner.Banner
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/banner"
+                    <LinearLayout
+                        android:id="@+id/lin_banner"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/trans_240px" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.youth.banner.Banner
+                            android:id="@+id/banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_240px"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_20px"
+                            android:background="@color/base_mask"/>
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -148,6 +159,11 @@
                         android:layout_height="wrap_content"
                         android:scrollbars="none"
                         />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_20px"
+                        android:background="@color/base_mask"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"

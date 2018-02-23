@@ -37,6 +37,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
     List<ExchangeData> riseDatas;
     List<ExchangeData> dropDatas;
     List<String> sendKeys;
+    boolean isChangeWeb;
     private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
 
     //新数据推送 更新
@@ -46,12 +47,24 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             return;
         }
         for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
+            if (TextUtils.isEmpty(exchangeMarketAdapter.getDatas().get(i).getOnlyKey())) {
+                return;
+            }
+            if (TextUtils.isEmpty(data.getOnlyKey())) {
+                return;
+            }
             if (exchangeMarketAdapter.getDatas().get(i).getOnlyKey().equals(data.getOnlyKey())) {
                 updataPosition = i;
                 break;
             }
         }
         for (int i = 0; i < defaultDatas.size(); i++) {
+            if (TextUtils.isEmpty(defaultDatas.get(i).getOnlyKey())) {
+                return;
+            }
+            if (TextUtils.isEmpty(data.getOnlyKey())) {
+                return;
+            }
             if (defaultDatas.get(i).getOnlyKey().equals(data.getOnlyKey())) {
                 defaultDatas.set(i, data);
                 break;
@@ -84,6 +97,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     // MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
+                    isChangeWeb=false;
                     CoinDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
                 }
 
@@ -94,11 +108,13 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
+
             viewDelegate.setIsLoadMore(true);
             initTool();
             viewDelegate.setDefaultPage(0);
         } else {
             getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);
+            isChangeWeb=true;
         }
     }
 
@@ -148,7 +164,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data,info,status,requestCode);
+        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
@@ -202,7 +218,9 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             HandlerHelper.getinstance().initHander(MarketValueFragment.this.getClass().getName(), exchangeDataMap, viewDelegate.getPullRecyclerView(), new HandlerHelper.OnUpdataLinsener() {
                 @Override
                 public void onUpdataLinsener(ExchangeData val) {
-                    updataNew(val);
+                    if (isChangeWeb) {
+                        updataNew(val);
+                    }
                 }
             });
             WebSocketRequest.getInstance().addCallBack(MarketValueFragment.this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
@@ -256,8 +274,10 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
+        isChangeWeb=isVisible;
         if (isVisible) {
             onRefresh();
+            checkRedRise();
             //同步用户所选 单位
             if (exchangeMarketAdapter != null) {
                 tv_unit.setText(UserSet.getinstance().getUnit());
@@ -284,6 +304,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
 
     @Override
     protected void refreshData() {
+        isChangeWeb=false;
         addRequest(binder.getAllMarketCaps(this));
     }
 

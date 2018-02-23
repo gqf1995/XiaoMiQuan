@@ -106,6 +106,7 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
+        android:visibility="gone"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/trans_45px"
         android:paddingRight="@dimen/trans_30px">
@@ -135,6 +136,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/trans_1px"
+        android:visibility="gone"
         android:layout_marginLeft="@dimen/trans_25px"
         android:layout_marginRight="@dimen/trans_25px"
         android:background="@color/base_mask"/>

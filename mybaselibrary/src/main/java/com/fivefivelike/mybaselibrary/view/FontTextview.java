@@ -58,7 +58,7 @@ public class FontTextview extends SkinCompatTextView {
         if (type != 0) {
             Typeface typeface = getTypeface(context, type);
             if (typeface != null) {
-                this.setTypeface(typeface);
+                // this.setTypeface(typeface);
             }
         }
         setIncludeFontPadding(false);
@@ -113,7 +113,7 @@ public class FontTextview extends SkinCompatTextView {
         } else if (type == 14) {
             name = "Regular";
         } else if (type == 15) {
-            name = "SemiBold";
+            name = "font/EINPro-Bold";
         } else if (type == 16) {
             name = "SemiBoldItalic";
         } else if (type == 17) {
@@ -122,7 +122,7 @@ public class FontTextview extends SkinCompatTextView {
             name = "ThinItalic";
         }
         try {
-            Typeface ttfTypeface = Typeface.createFromAsset(context.getAssets(), "font/Exo2-" + name + ".ttf");
+            Typeface ttfTypeface = Typeface.createFromAsset(context.getAssets(),   name+ ".ttf");
             return ttfTypeface;
         } catch (Exception e) {
             return null;

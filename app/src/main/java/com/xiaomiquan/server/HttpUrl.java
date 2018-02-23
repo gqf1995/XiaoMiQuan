@@ -108,6 +108,10 @@ public class HttpUrl {
      * 版本更新
      */
     public String getlatestversion = getBaseUrl() + "/appversion/getlatestversion";
+    /**
+     * 获取imtoken
+     */
+    public String imToken = getBaseUrl() + userUrl + "/imToken";
 
 
     /**
@@ -387,6 +391,10 @@ public class HttpUrl {
      * 更新币种 价格
      */
     public String getCurrPrice = getBaseUrl() + demoUrl + "/getCurrPrice";
+    /**
+     * 大赛详情
+     */
+    public String demoInfo = getBaseUrl() + demoUrl + "/demoInfo";
 
 
     /**

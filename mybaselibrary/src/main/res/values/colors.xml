@@ -104,6 +104,11 @@
     <color name="color_font2_dark">#6A7180</color>
     <color name="color_font3_dark">#999999</color>
     <color name="color_font4_dark">#cccccc</color>
+
+    <color name="big_price_color">#555c7d</color>
+    <color name="little_price_color">#7d839f</color>
+
+
     <!-- chart -->
     <color name="marker_bg">#1C232E</color>
     <color name="marker_line_bg">#000000</color>

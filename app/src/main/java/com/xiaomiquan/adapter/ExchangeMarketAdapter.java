@@ -96,8 +96,8 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         } else {
             tv_coin_probably.setVisibility(View.VISIBLE);
         }
-        tv_coin_price.setTextColor(CommonUtils.getColor(R.color.color_font1));
-        tv_coin_probably.setTextColor(CommonUtils.getColor(R.color.color_font2));
+        tv_coin_price.setTextColor(CommonUtils.getColor(R.color.big_price_color));
+        tv_coin_probably.setTextColor(CommonUtils.getColor(R.color.little_price_color));
         tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
         if (!TextUtils.isEmpty(s.getChange())) {
             if (new BigDecimal(s.getChange()).compareTo(new BigDecimal("0")) == 1) {
@@ -128,13 +128,13 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                         BigUIUtil.getinstance().anim(s.getUnit(),
                                 (TextView) holder.getView(R.id.tv_coin_price),
                                 oldData.getLast(), s.getLast(),
-                                CommonUtils.getColor(R.color.color_font1),
+                                CommonUtils.getColor(R.color.big_price_color),
                                 s.getOnlyKey(), position,
                                 (TextView) holder.getView(R.id.tv_coin_price).getTag());
-                        BigUIUtil.getinstance().anim(s.getUnit(),
+                        BigUIUtil.getinstance().animNoArrow(s.getUnit(),
                                 (TextView) holder.getView(R.id.tv_coin_probably),
                                 oldData.getLast(), s.getLast(),
-                                CommonUtils.getColor(R.color.color_font2),
+                                CommonUtils.getColor(R.color.little_price_color),
                                 s.getOnlyKey(), position,
                                 (TextView) holder.getView(R.id.tv_coin_probably).getTag());
                     }
@@ -159,6 +159,10 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                     .get(position).getOnlyKey())) {
                 return;
             }
+            if(data.getTimestamp()<getDatas()
+                    .get(position).getTimestamp()){
+                return;
+            }
             boolean isSameChange = false;
             boolean isSameLast;
             //涨幅 和 价格 如果为空则不变
@@ -166,7 +170,8 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                 data.setChange(getDatas().get(position).getChange());
                 isSameChange = true;
             } else {
-                if (getDatas().get(position).getChange().equals(data.getChange())) {
+                if(BigUIUtil.getinstance().rateText(getDatas().get(position).getChange()).equals(BigUIUtil.getinstance().rateText(data.getChange()))){
+                    //涨幅经计算后一样
                     isSameChange = true;
                 }
             }

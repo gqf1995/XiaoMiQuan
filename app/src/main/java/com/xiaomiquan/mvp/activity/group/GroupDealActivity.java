@@ -25,6 +25,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
 import com.xiaomiquan.entity.bean.group.GroupBaseDeal;
 import com.xiaomiquan.entity.bean.group.TradingResult;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.ShareHistoryTradingActivity;
 import com.xiaomiquan.mvp.databinder.group.GroupDealBinder;
 import com.xiaomiquan.mvp.delegate.group.GroupDealDelegate;
@@ -267,6 +268,10 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
                                 int position,
                                 boolean isMy
     ) {
+        if (SingSettingDBUtil.getUserLogin() == null) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+            return;
+        }
         Intent intent = new Intent(activity, GroupDealActivity.class);
         intent.putParcelableArrayListExtra("groupItems", (ArrayList<? extends Parcelable>) groupItems);
         intent.putExtra("isMy", isMy);

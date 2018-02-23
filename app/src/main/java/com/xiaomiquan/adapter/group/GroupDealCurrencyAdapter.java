@@ -26,11 +26,6 @@ public class GroupDealCurrencyAdapter extends CommonAdapter<CoinDetail> {
 
     int selectPosition = 0;
     private LinearLayout lin_root;
-    boolean isBut;
-
-    public void setBut(boolean but) {
-        isBut = but;
-    }
 
     public void setSelectDefault(String unit){
         for(int i=0;i<getDatas().size();i++){
@@ -66,7 +61,7 @@ public class GroupDealCurrencyAdapter extends CommonAdapter<CoinDetail> {
         if (selectPosition == position) {
             icf_check.setVisibility(View.VISIBLE);
             tv_type.setTextColor(CommonUtils.getColor(R.color.white));
-            lin_root.setBackgroundColor(isBut ? CommonUtils.getColor(R.color.decreasing_color) : CommonUtils.getColor(R.color.increasing_color));
+            lin_root.setBackgroundColor(getDatas().size()>=50 ? CommonUtils.getColor(R.color.decreasing_color) : CommonUtils.getColor(R.color.increasing_color));
         } else {
             icf_check.setVisibility(View.INVISIBLE);
             tv_type.setTextColor(CommonUtils.getColor(R.color.color_font1));

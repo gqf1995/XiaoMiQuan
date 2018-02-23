@@ -91,7 +91,8 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
         } else {
             tv_coin_price.setText(Html.fromHtml(s1));
         }
-        tv_coin_price.setTextColor(CommonUtils.getColor(R.color.color_font1));
+        tv_coin_price.setTextColor(CommonUtils.getColor(R.color.big_price_color));
+        tv_coin_probably.setTextColor(CommonUtils.getColor(R.color.little_price_color));
         tv_coin_probably.setVisibility(View.GONE);
 
         tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getPercentChange24h()) + "%");
@@ -126,7 +127,7 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
                         BigUIUtil.getinstance().anim(s.getUnit(),
                                 (TextView) holder.getView(R.id.tv_coin_price),
                                 oldData.getPriceUsd(), s.getPriceUsd(),
-                                CommonUtils.getColor(R.color.color_font1),
+                                CommonUtils.getColor(R.color.big_price_color),
                                 s.getOnlyKey(),position,
                                 (TextView) holder.getView(R.id.tv_coin_price).getTag());
                     }

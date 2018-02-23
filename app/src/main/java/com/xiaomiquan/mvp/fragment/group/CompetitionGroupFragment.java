@@ -8,7 +8,6 @@ import android.view.View;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
@@ -60,10 +59,10 @@ public class CompetitionGroupFragment extends BaseDataBindFragment<CompetitionGr
                 HotTeam hotTeam = GsonUtil.getInstance().toObj(data, "gameTeam", HotTeam.class);
                 String gameOverTime = GsonUtil.getInstance().getValue(data, "gameOverTime");
                 viewDelegate.viewHolder.tv_end_time.setText(CommonUtils.getString(R.string.str_closing_time) + "  " + gameOverTime + "");
+                type = GsonUtil.getInstance().getValue(data, "type");
                 if (hotTeam == null) {
                     return;
                 }
-                type = GsonUtil.getInstance().getValue(data, "type");
                 datas = new ArrayList<>();
                 //String myRewardUrl = GsonUtil.getInstance().getValue(data, "myRewardUrl");
                 //String activityRuleUrl = GsonUtil.getInstance().getValue(data, "activityRuleUrl");
@@ -103,8 +102,10 @@ public class CompetitionGroupFragment extends BaseDataBindFragment<CompetitionGr
                 }
             });
             viewDelegate.viewHolder.rv_my_create_team.setAdapter(myCreateTeam);
+            viewDelegate.viewHolder.lin_my_create.setVisibility(View.GONE);
         } else {
             myCreateTeam.setDatas(datas);
+            viewDelegate.viewHolder.lin_my_create.setVisibility(View.VISIBLE);
         }
 
     }
@@ -142,8 +143,10 @@ public class CompetitionGroupFragment extends BaseDataBindFragment<CompetitionGr
                 }
             });
             viewDelegate.viewHolder.rv_my_join_team.setAdapter(myJoinTeam);
+            viewDelegate.viewHolder.lin_my_join.setVisibility(View.GONE);
         } else {
             myJoinTeam.setDatas(datas);
+            viewDelegate.viewHolder.lin_my_join.setVisibility(View.VISIBLE);
         }
     }
 
@@ -178,18 +181,16 @@ public class CompetitionGroupFragment extends BaseDataBindFragment<CompetitionGr
                 break;
             case R.id.lin_create_team:
                 //创建战队
-                if (ListUtils.isEmpty(datas)) {
-                    if (SingSettingDBUtil.getUserLogin() != null) {
-                        if ("3".equals(type)) {
-                            CreatTeamActivity.startAct(this, 0x123);
-                        } else {
-                            ToastUtil.show(CommonUtils.getString(R.string.str_toast_have_team));
-                            return;
-                        }
+                if (SingSettingDBUtil.getUserLogin() != null) {
+                    if ("3".equals(type)) {
+                        CreatTeamActivity.startAct(this, 0x123);
                     } else {
-                        ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+                        ToastUtil.show(CommonUtils.getString(R.string.str_toast_have_team));
                         return;
                     }
+                } else {
+                    ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+                    return;
                 }
                 break;
             case R.id.lin_my_reward:

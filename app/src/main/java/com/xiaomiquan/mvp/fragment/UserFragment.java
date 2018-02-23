@@ -2,8 +2,6 @@ package com.xiaomiquan.mvp.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
@@ -13,6 +11,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.base.Application;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
+import com.xiaomiquan.mvp.activity.group.InviteFriendsActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeUserInfoActivity;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
@@ -21,12 +20,8 @@ import com.xiaomiquan.mvp.activity.user.SecurityActivity;
 import com.xiaomiquan.mvp.activity.user.SetActivity;
 import com.xiaomiquan.mvp.databinder.UserBinder;
 import com.xiaomiquan.mvp.delegate.UserDelegate;
-import com.xiaomiquan.utils.UiHeplUtils;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.CircleDialogHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -36,6 +31,7 @@ import static android.app.Activity.RESULT_OK;
 public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder> {
 
     UserLogin userLogin;
+    String defaultSharePath = "http://topcoin.oss-cn-hangzhou.aliyuncs.com/topcoin/share/template/invite.png";
 
     public interface Linsener {
         void logout();
@@ -126,7 +122,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 break;
             case R.id.lin_set5:
                 //推荐给朋友
-                share();
+                InviteFriendsActivity.startAct(getActivity(), defaultSharePath);
                 break;
             case R.id.lin_set6:
                 //语言切换
@@ -148,13 +144,6 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 break;
         }
     }
-
-    private void share() {
-        List<Bitmap> bitmaps = new ArrayList<>();
-        bitmaps.add(((BitmapDrawable) CommonUtils.getDrawable(R.drawable.user_center_share)).getBitmap());
-        UiHeplUtils.shareImgs(getActivity(), bitmaps);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

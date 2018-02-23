@@ -17,7 +17,6 @@ import com.xiaomiquan.adapter.group.AllGroupMyGroupAdapter;
 import com.xiaomiquan.adapter.group.GroupDynamicAdapter;
 import com.xiaomiquan.adapter.group.HotGroupAdapter;
 import com.xiaomiquan.adapter.group.HotTeamAdapter;
-import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.group.AllGroupData;
 import com.xiaomiquan.entity.bean.group.GroupDynamic;
 import com.xiaomiquan.entity.bean.group.GroupItem;
@@ -28,6 +27,8 @@ import com.xiaomiquan.mvp.activity.group.AllTeamActivity;
 import com.xiaomiquan.mvp.activity.group.CombinationActivity;
 import com.xiaomiquan.mvp.activity.group.CreatGroupActivity;
 import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
+import com.xiaomiquan.mvp.activity.group.TeamDetailActivity;
+import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.AllGroupDelegate;
 
@@ -42,7 +43,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     HotGroupAdapter hotGroupAdapter;
     String[] types = {"1", "2", "3"};
 
-    UserLogin userLogin;
+    //UserLogin userLogin;
     GroupDynamicAdapter adapter;
     HotTeamAdapter hotTeamAdapter;
     AllGroupData allGroupData;
@@ -65,19 +66,10 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
 
     }
 
+
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
-    }
-
-    @Override
-    protected void onFragmentVisibleChange(boolean isVisible) {
-        userLogin = SingSettingDBUtil.getUserLogin();
-        if (isVisible) {
-            onRefresh();
-        } else {
-            binder.cancelpost();
-        }
     }
 
     public void notifyDataSetChanged() {
@@ -91,6 +83,16 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     private void initHotTeam(List<HotTeam> dats) {
         if (hotTeamAdapter == null) {
             hotTeamAdapter = new HotTeamAdapter(getActivity(), dats);
+            hotTeamAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, int position, Object item) {
+                    if(view.getId()==R.id.fl_root||view.getId()==R.id.tv_apply_to_join){
+                        TeamDetailActivity.startAct(getActivity(), hotTeamAdapter.getDatas().get(position).getId() + "");
+                    }else if(view.getId()==R.id.ic_pic){
+                        PersonalHomePageActivity.startAct(getActivity(),hotTeamAdapter.getDatas().get(position).getOwnerId()+"");
+                    }
+                }
+            });
             viewDelegate.viewHolder.rcv_hot_team.setLayoutManager(new LinearLayoutManager(getActivity()) {
                 @Override
                 public boolean canScrollVertically() {
@@ -145,12 +147,19 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
             allMyGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
                 public void onClick(View view, int position, Object item) {
-                    if (view.getId() == R.id.tv_commit) {
-                        //立即交易
-                        GroupDealActivity.startAct(getActivity(), (ArrayList) allMyGroupAdapter.getDatas(), position, true);
-                    } else if (view.getId() == R.id.lin_add) {
-                        //创建账户 或者 加入战队
-                        addOrCreateTeam();
+                    if (SingSettingDBUtil.getUserLogin() != null) {
+                        if (view.getId() == R.id.tv_commit) {
+                            //立即交易
+                            List<GroupItem> datas = new ArrayList<>();
+                            datas.addAll(allMyGroupAdapter.getDatas());
+                            datas.remove(datas.size() - 1);
+                            GroupDealActivity.startAct(getActivity(), (ArrayList) datas, position, true);
+                        } else if (view.getId() == R.id.lin_add) {
+                            //创建账户 或者 加入战队
+                            addOrCreateTeam();
+                        }
+                    }else{
+                        ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
                     }
                 }
             });
@@ -177,7 +186,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                         //查看详情
                         CombinationActivity.startAct(getActivity(), hotGroupAdapter.getDatas().get(position), false);
                     } else if (hotGroupAdapter.getDatas().get(position).getIsAttention() == 0) {
-                        if (userLogin != null) {
+                        if (SingSettingDBUtil.getUserLogin() != null) {
                             for (int i = 0; i < hotGroupAdapter.getDatas().size(); i++) {
                                 if (allGroupData.getTopWeeks().get(i).getId().equals(hotGroupAdapter.getDatas().get(position).getId())) {
                                     allGroupData.getTopWeeks().get(i).setIsAttention(1);
@@ -256,13 +265,14 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                 List<GroupDynamic> list = GsonUtil.getInstance().toList(data, GroupDynamic.class);
                 initList(list);
                 break;
-            case 0x124:
+            case 0x124://bkg klc wd
                 //我的组合
                 allGroupData = GsonUtil.getInstance().toObj(data, AllGroupData.class);
                 initHotTeam(allGroupData.getHotTeams());
                 initAllMyGroup(allGroupData.getUserDemoList());
                 initHotList(allGroupData.getTopWeeks());
                 initList(allGroupData.getUserDemoDynamicList());
+                viewDelegate.setBanner(allGroupData.getTurnPicturesList());
                 break;
         }
     }

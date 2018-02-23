@@ -57,14 +57,16 @@ public class RankTeampeopleAdapter extends CommonAdapter<TeamDetails.Player> {
         GlideUtils.loadImage(s.getAvatar(), ic_pic);
         BigUIUtil.getinstance().rateTextView(Double.parseDouble(s.getTotalIncome() + ""), tv_last_week_earnings);
         tv_name.setText(s.getNickName());
-
-
+        tv_num.setText(position + "");
+        tv_num.setBackground(CommonUtils.getDrawable(R.drawable.shape_yellow_t5radiu));
         tv_rate_title.setText(CommonUtils.getString(R.string.str_cumulative_earnings));
         tv_focuse.setText(CommonUtils.getString(R.string.str_details));
         tv_focuse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TeamCombinationActivity.startAct((FragmentActivity) mContext, getDatas().get(position).getDemoId() + "");
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(v,position,null);
+                }
             }
         });
     }

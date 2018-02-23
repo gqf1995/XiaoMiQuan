@@ -92,6 +92,7 @@ public class VerificationCodeActivity extends BaseDataBindActivity<VerificationC
             toast = CommonUtils.getString(R.string.str_send_code_toast, CommonUtils.getString(R.string.str_login_label_email));
             addRequest(binder.sendCodeForRegister(content, false, this));
         }
+        viewDelegate.viewHolder.tv_toast.setText(toast);
     }
 
 
