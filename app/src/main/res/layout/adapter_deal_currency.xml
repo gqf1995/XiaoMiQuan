@@ -32,6 +32,6 @@
         android:layout_height="@dimen/trans_28px"
         android:layout_marginLeft="@dimen/text_trans_10px"
         android:text="@string/ic_Check"
-        android:textColor="@color/color_font1"/>
+        android:textColor="@color/white"/>
 
 </LinearLayout>

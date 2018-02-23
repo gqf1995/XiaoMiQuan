@@ -24,11 +24,20 @@ public class CoinDetail {
      * updateTime : 1517040680000
      */
 
-    private String id;
     private String name;
     private String priceUsd;
     private String createTime;
     private String updateTime;
+    /**
+     * coinId : 1
+     * count : 9.474
+     * fee : 20
+     * picUrl : http://topcoin.oss-cn-hangzhou.aliyuncs.com/symbol/bitcoin.png
+     * priceUsd : 8850.59
+     */
+
+    private int fee;
+    private String picUrl;
 
     public String getSymbol() {
         return symbol;
@@ -52,14 +61,6 @@ public class CoinDetail {
 
     public void setCoinId(String coinId) {
         this.coinId = coinId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -92,5 +93,21 @@ public class CoinDetail {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public int getFee() {
+        return fee;
+    }
+
+    public void setFee(int fee) {
+        this.fee = fee;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 }

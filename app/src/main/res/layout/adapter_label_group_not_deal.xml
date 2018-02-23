@@ -27,7 +27,7 @@
                 android:gravity="center"
                 android:text="@string/str_type"
                 android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_24px"/>
+                android:textSize="@dimen/text_trans_20px"/>
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 android:gravity="center"
                 android:text="@string/str_currency"
                 android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_24px"/>
+                android:textSize="@dimen/text_trans_20px"/>
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                 android:gravity="center"
                 android:text="@string/str_state"
                 android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_24px"/>
+                android:textSize="@dimen/text_trans_20px"/>
 
             <Space
                 android:layout_width="0dp"
@@ -101,7 +101,7 @@
                 android:gravity="center"
                 android:text="@string/str_entrust_price"
                 android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_24px"/>
+                android:textSize="@dimen/text_trans_20px"/>
 
 
             <Space
@@ -128,7 +128,7 @@
                 android:gravity="center"
                 android:text="@string/str_tv_num"
                 android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_24px"/>
+                android:textSize="@dimen/text_trans_20px"/>
 
 
             <Space
@@ -159,7 +159,7 @@
                 android:gravity="center"
                 android:text="@string/str_delect_order"
                 android:textColor="@color/color_blue"
-                android:textSize="@dimen/text_trans_24px"/>
+                android:textSize="@dimen/text_trans_20px"/>
 
 
             <Space

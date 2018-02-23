@@ -2,12 +2,15 @@ package com.xiaomiquan.mvp.activity.group;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.circledialog.res.drawable.SelectorBtn;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -43,6 +46,56 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
     CurrencyFragment currencyFragmentSell;
     CoinDetail coinDetail;
     InnerPagerAdapter innerPagerAdapter;
+    int index = 0;
+
+    private Handler handler = new Handler() {//进行延时跳转
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    upData(false);
+                    break;
+            }
+        }
+    };
+
+
+    //更新币种价格
+    public void upData(boolean isUpdataNow) {
+        if (!isUpdataNow) {
+            index++;
+            if (index == 15) {
+                index = 0;
+                //更新
+                if (viewDelegate.viewHolder.tl_1.getCurrentTab() == 0) {
+                    currencyFragmentBuy.onUpdata();
+                    currencyFragmentSell.canalUpdata();
+                } else {
+                    currencyFragmentSell.onUpdata();
+                    currencyFragmentBuy.canalUpdata();
+                }
+            }
+            handler.sendEmptyMessageDelayed(1, 1000);
+        } else {
+            index = 0;
+            //直接更新
+            if (viewDelegate.viewHolder.tl_1.getCurrentTab() == 0) {
+                currencyFragmentBuy.onUpdata();
+                currencyFragmentSell.canalUpdata();
+            } else {
+                currencyFragmentSell.onUpdata();
+                currencyFragmentBuy.canalUpdata();
+            }
+            handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
+            handler.sendEmptyMessageDelayed(1, 1000);
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
+    }
 
     @Override
     public GroupDealBinder getDataBinder(GroupDealDelegate viewDelegate) {
@@ -51,6 +104,11 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        for (int i = 0; i < fragments.size(); i++) {
+            if (fragments.get(i) instanceof BasePullFragment) {
+                ((BasePullFragment) fragments.get(i)).onRefresh();
+            }
+        }
         switch (requestCode) {
             case 0x123:
                 //买
@@ -58,19 +116,16 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
                 groupItems.get(position).setBalance(tradingResultBuy.getBalance());
                 //更新余额
                 viewDelegate.onSelectLinsener(viewDelegate.mCoinDetail, groupItems.get(position));
+                currencyFragmentSell.onRefresh();
+                currencyFragmentBuy.getSelectPositionData(coinDetail == null ? "" : coinDetail.getSymbol());
                 break;
             case 0x124:
                 //卖
                 TradingResult tradingResultSell = GsonUtil.getInstance().toObj(data, TradingResult.class);
                 //刷新卖列表
                 currencyFragmentSell.setSellResult(tradingResultSell);
-                currencyFragmentSell.getSelectPositionData();
+                currencyFragmentSell.getSelectPositionData(coinDetail == null ? "" : coinDetail.getSymbol());
                 break;
-        }
-        for (int i = 0; i < fragments.size(); i++) {
-            if (fragments.get(i) instanceof BasePullFragment) {
-                ((BasePullFragment) fragments.get(i)).onRefresh();
-            }
         }
     }
 
@@ -94,6 +149,7 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         viewDelegate.viewHolder.tv_title.setText(groupItems.get(position).getName());
         initTablelayout();
         initCurrency();
+        upData(false);
         viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +191,7 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         }
         addRequest(binder.deal(groupItems.get(position).getId(),
                 viewDelegate.viewHolder.tl_1.getCurrentTab() == 0 ? "1" : "2",
-                viewDelegate.viewHolder.tl_1.getCurrentTab() == 0 ? viewDelegate.mCoinDetail.getId() : viewDelegate.mCoinDetail.getCoinId(),
+                viewDelegate.viewHolder.tl_1.getCurrentTab() == 0 ? viewDelegate.mCoinDetail.getCoinId() : viewDelegate.mCoinDetail.getCoinId(),
                 viewDelegate.viewHolder.et_sell_price.getText().toString(),
                 viewDelegate.selectType + 1 + "",
                 viewDelegate.viewHolder.et_sell_num.getText().toString(),
@@ -172,9 +228,27 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
                     viewDelegate.changeType(position == 0);
                     viewDelegate.showFragment(position);
                     if (position == 0) {
-                        currencyFragmentBuy.getSelectPositionData();
+                        currencyFragmentBuy.getSelectPositionData(coinDetail == null ? "" : coinDetail.getSymbol());
+                        viewDelegate.viewHolder.tl_1.setIndicatorColor(CommonUtils.getColor(R.color.decreasing_color));
+                        viewDelegate.viewHolder.tl_1.setTextSelectColor(CommonUtils.getColor(R.color.decreasing_color));
+                        viewDelegate.viewHolder.tv_commit.setBackground(new SelectorBtn(
+                                CommonUtils.getColor(R.color.decreasing_color),
+                                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
+                                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
+                                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
+                                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px)
+                        ));
                     } else {
-                        currencyFragmentSell.getSelectPositionData();
+                        currencyFragmentSell.getSelectPositionData(coinDetail == null ? "" : coinDetail.getSymbol());
+                        viewDelegate.viewHolder.tl_1.setIndicatorColor(CommonUtils.getColor(R.color.increasing_color));
+                        viewDelegate.viewHolder.tl_1.setTextSelectColor(CommonUtils.getColor(R.color.increasing_color));
+                        viewDelegate.viewHolder.tv_commit.setBackground(new SelectorBtn(
+                                CommonUtils.getColor(R.color.increasing_color),
+                                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
+                                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
+                                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
+                                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px)
+                        ));
                     }
                 }
 
@@ -212,7 +286,6 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
         viewDelegate.onSelectLinsener(null, null);
     }
 
-
     public void initCurrency() {
         if (viewDelegate.getFragmentList() == null) {
             viewDelegate.initAddFragment(R.id.fl_currency, getSupportFragmentManager());
@@ -234,6 +307,12 @@ public class GroupDealActivity extends BaseDataBindActivity<GroupDealDelegate, G
     public void onSelectLinsener(CoinDetail coinDetail) {
         this.coinDetail = coinDetail;
         viewDelegate.onSelectLinsener(coinDetail, groupItems.get(position));
+    }
+
+    //价格更新
+    @Override
+    public void onUpdata(String data) {
+        viewDelegate.setUpdata(data);
     }
 
 

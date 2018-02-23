@@ -53,6 +53,7 @@ public class ExchangeNameListFragment extends BasePullFragment<BaseFragentPullDe
         });
         initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsLoadMore(false);
+        viewDelegate.setIsPullDown(false);
         viewDelegate.setShowNoData(false);
     }
 
@@ -63,6 +64,7 @@ public class ExchangeNameListFragment extends BasePullFragment<BaseFragentPullDe
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 List<ExchangeName> datas = GsonUtil.getInstance().toList(data, ExchangeName.class);

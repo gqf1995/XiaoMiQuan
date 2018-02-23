@@ -15,7 +15,7 @@ import com.xiaomiquan.adapter.CoinMarketAdapter;
 import com.xiaomiquan.entity.Drop24ChangeSort;
 import com.xiaomiquan.entity.Rise24ChangeSort;
 import com.xiaomiquan.entity.bean.ExchangeData;
-import com.xiaomiquan.mvp.activity.market.CoinDetailActivity;
+import com.xiaomiquan.mvp.activity.market.CoinDetailsActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
@@ -84,7 +84,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     // MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
-                    CoinDetailActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
+                    CoinDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
                 }
 
                 @Override
@@ -148,6 +148,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);

@@ -70,6 +70,7 @@ public class BaseActivityPullBinder<T extends BaseActivityPullDelegate> extends 
                 .build()
                 .RxSendRequest();
     }
+
     /**
      * 我的组合
      */
@@ -97,7 +98,7 @@ public class BaseActivityPullBinder<T extends BaseActivityPullDelegate> extends 
             String id,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("id",id);
+        baseMap.put("id", id);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().personCenter)
@@ -111,4 +112,181 @@ public class BaseActivityPullBinder<T extends BaseActivityPullDelegate> extends 
                 .build()
                 .RxSendRequest();
     }
+
+    /**
+     * 热门战队
+     */
+    public Disposable listHotGameTeam(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("page", viewDelegate.page);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().listHotGameTeam)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("热门战队")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 通过邀请码查找战队
+     */
+    public Disposable searchTemaCode(
+            String inviteCode,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("inviteCode", inviteCode);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().searchTemaCode)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("通过邀请码查找战队")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 战队 风云榜
+     */
+    public Disposable getPlayers(
+            String teamId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("teamId", teamId);
+        baseMap.put("page", viewDelegate.page);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().getPlayers)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("战队 风云榜")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 我的战队管理页
+     */
+    public Disposable teamManage(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().teamManage)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("我的战队管理页")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 战队详情
+     */
+    public Disposable getTeamDetail(
+            String teamId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("teamId", teamId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().getTeamDetail)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("我的战队管理页")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 加入战队审批
+     */
+    public Disposable teamApprove(
+            String joinid,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("joinid", joinid);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x125)
+                .setRequestUrl(HttpUrl.getIntance().teamApprove)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("加入战队审批")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 审批分页数据
+     */
+    public Disposable approvePage(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("page", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().approvePage)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("加入战队审批")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 加入战队
+     */
+    public Disposable join(
+            String teamId,
+            String reason,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("teamId", teamId);
+        baseMap.put("reason", reason);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x130)
+                .setRequestUrl(HttpUrl.getIntance().join)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("加入战队")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
 }

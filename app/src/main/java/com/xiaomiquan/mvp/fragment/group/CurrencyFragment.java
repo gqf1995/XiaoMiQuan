@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.GroupDealCurrencyAdapter;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
@@ -41,6 +43,10 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     public interface OnSelectLinsener {
         void onSelectLinsener(CoinDetail coinDetail);
+
+        void upData(boolean isUpdataNow);
+
+        void onUpdata(String data);
     }
 
     OnSelectLinsener onSelectLinsener;
@@ -83,6 +89,8 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     adapter.setSelectPosition(position);
                     onSelectLinsener.onSelectLinsener(adapter.getDatas().get(position));
+                    //单个刷新
+                    onSelectLinsener.upData(true);
                 }
 
                 @Override
@@ -101,8 +109,10 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
             //设置分页长度
             if (TYPE_CURRENCY_BUY.equals(type)) {
                 viewDelegate.pagesize = 50;
+                adapter.setBut(true);
             } else if (TYPE_CURRENCY_SELL.equals(type)) {
                 viewDelegate.pagesize = 999;
+                adapter.setBut(false);
             }
             initRecycleViewPull(adapter, layoutManager);
             viewDelegate.viewHolder.pull_recycleview.setHasFixedSize(true);
@@ -125,9 +135,14 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
         }
     }
 
-    public void getSelectPositionData() {
+    public void getSelectPositionData(String unit) {
         if (onSelectLinsener != null && adapter != null) {
             if (adapter.getDatas().size() > 0) {
+                if (TYPE_CURRENCY_SELL.equals(type)) {
+                    if (!TextUtils.isEmpty(unit)) {
+                        adapter.setSelectDefault(unit);
+                    }
+                }
                 onSelectLinsener.onSelectLinsener(adapter.getDatas().get(adapter.getSelectPosition()));
             } else {
                 onSelectLinsener.onSelectLinsener(null);
@@ -144,6 +159,7 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 List<CoinDetail> datas = GsonUtil.getInstance().toList(data, CoinDetail.class);
@@ -156,20 +172,37 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
                     }
                 }
                 break;
+            case 0x124:
+                onSelectLinsener.onUpdata(data);
+                break;
         }
     }
 
 
     @Override
     protected void refreshData() {
-        if (TYPE_CURRENCY_BUY.equals(type)) {
-            addRequest(binder.searchCoin(searchOrId, this));
-        } else if (TYPE_CURRENCY_SELL.equals(type)) {
-            addRequest(binder.myCoin(searchOrId, this));
+        if (adapter != null) {
+            if (TYPE_CURRENCY_BUY.equals(type)) {
+                addRequest(binder.searchCoin(searchOrId, this));
+            } else if (TYPE_CURRENCY_SELL.equals(type)) {
+                addRequest(binder.myCoin(searchOrId, this));
+            }
         }
-        //addRequest(binder.listArticleByPage(this));
     }
 
+    public void onUpdata() {
+        if (adapter != null) {
+            if (ListUtils.isEmpty(adapter.getDatas())) {
+                addRequest(binder.getCurrPrice(adapter.getDatas().get(adapter.getSelectPosition()).getCoinId(), this));
+            }
+        }
+    }
+
+    public void canalUpdata() {
+        if (binder != null) {
+            binder.cancelpost();
+        }
+    }
 
     public static CurrencyFragment newInstance(
             String type,

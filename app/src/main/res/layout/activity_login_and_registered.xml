@@ -67,11 +67,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:enabled="false"
             android:gravity="center"
             android:paddingBottom="@dimen/trans_20px"
             android:paddingTop="@dimen/trans_20px"
             android:textColor="@drawable/color_select_blue"
-            android:textSize="@dimen/text_trans_28px"/>
+            android:textSize="@dimen/text_trans_28px"
+            android:visibility="invisible"/>
 
 
     </LinearLayout>

@@ -48,7 +48,6 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     HeaderAndFooterWrapper headerAndFooterWrapper;
     LinearLayoutManager linearLayoutManager;
     List<String> sendKeys;
-    ArrayList<String> strings;
     UserLogin userLogin;
     boolean isOnRefush = false;//第一个页面 使用onFragmentVisibleChange有问题
     int sortingType = 0;
@@ -140,20 +139,6 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     }
 
 
-    private void goChoose() {
-        if (SingSettingDBUtil.isLogin(getActivity())) {
-            if (strings == null) {
-                strings = new ArrayList<>();
-            } else {
-                strings.clear();
-            }
-            for (int i = 0; i < exchangeMarketAdapter.getDatas().size(); i++) {
-                strings.add(exchangeMarketAdapter.getDatas().get(i).getOnlyKey());
-            }
-            CacheUtils.getInstance().put(CACHE_CHOOSE, GsonUtil.getInstance().toJson(strings));
-            AddCoinActivity.startAct(this, strings, 0x123);
-        }
-    }
 
     View rootView;
     private LinearLayout lin_add_coin_market;
@@ -183,7 +168,9 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
             case R.id.tv_nodata:
                 //添加自选
                 //检测登录
-                goChoose();
+                if (SingSettingDBUtil.isLogin(getActivity())) {
+                    AddCoinActivity.startAct(this, (ArrayList)sendKeys, 0x123);
+                }
                 break;
             case R.id.lin_sorting:
                 //列表排序
@@ -223,6 +210,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                 }
                 //订阅推送
                 sendWebSocket();
+                CacheUtils.getInstance().put(CACHE_CHOOSE, GsonUtil.getInstance().toJson(sendKeys));
                 break;
         }
     }
@@ -265,14 +253,9 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
 
     @Override
     protected void refreshData() {
-        // if (userLogin != null) {
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         addRequest(binder.marketdata(this));
         isOnRefush = true;
-        //        } else {
-        //            setNodata();
-        //            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
-        //        }
     }
 
     public void sendWebSocket() {

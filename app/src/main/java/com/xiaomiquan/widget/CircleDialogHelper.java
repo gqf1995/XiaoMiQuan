@@ -165,7 +165,11 @@ public class CircleDialogHelper {
                 });
     }
 
-    public static CircleDialog.Builder initDefaultInputDialog(FragmentActivity activity, String title, String hint, String okBtnStr, OnInputClickListener onInputClickListener) {
+    public static CircleDialog.Builder initDefaultInputDialog(FragmentActivity activity,
+                                                              String title,
+                                                              String hint,
+                                                              String okBtnStr,
+                                                              OnInputClickListener onInputClickListener) {
         return new CircleDialog.Builder(activity)
                 .setCanceledOnTouchOutside(false)
                 .setCancelable(true)

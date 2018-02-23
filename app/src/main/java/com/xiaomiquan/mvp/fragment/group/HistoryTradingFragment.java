@@ -57,6 +57,7 @@ public class HistoryTradingFragment extends BasePullFragment<BaseFragentPullDele
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 List<HistoryTrading> data1 = GsonUtil.getInstance().toList(data,HistoryTrading.class);
@@ -77,7 +78,7 @@ public class HistoryTradingFragment extends BasePullFragment<BaseFragentPullDele
 
     @Override
     protected void refreshData() {
-        addRequest(binder.history(id, this));
+        addRequest(binder.listDeal(id, "2", this));
     }
 
     public static HistoryTradingFragment newInstance(

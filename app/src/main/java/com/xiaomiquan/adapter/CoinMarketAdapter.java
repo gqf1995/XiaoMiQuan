@@ -2,6 +2,7 @@ package com.xiaomiquan.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -83,28 +84,28 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
             tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  ");
         } else {
             //s2 = s2.substring(1, s2.length());
-            tv_coin_market_value.setText(CommonUtils.getString(R.string.str_market_value) + "  " + s2);
+            tv_coin_market_value.setText(Html.fromHtml(CommonUtils.getString(R.string.str_market_value) + "  " + s2));
         }
         if (TextUtils.isEmpty(s1)) {
             tv_coin_price.setText("--");
         } else {
-            tv_coin_price.setText(s1);
+            tv_coin_price.setText(Html.fromHtml(s1));
         }
         tv_coin_price.setTextColor(CommonUtils.getColor(R.color.color_font1));
         tv_coin_probably.setVisibility(View.GONE);
 
-
+        tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getPercentChange24h()) + "%");
         ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
         if (!TextUtils.isEmpty(s.getPercentChange24h())) {
             if (new BigDecimal(s.getPercentChange24h()).compareTo(new BigDecimal("0")) == 1) {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
+                tv_gains.setText(BigUIUtil.getinstance().changeAmount("+" + s.getPercentChange24h()) + "%");
             } else {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getDropColor()), 10, 10, 10, 10));
             }
         } else {
             ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
         }
-        tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getPercentChange24h()) + "%");
 
 
         if (!isFirst) {
@@ -122,8 +123,12 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
                 }
                 if (oldData != null) {
                     if (s.getOnlyKey().equals(oldData.getOnlyKey())) {
-                        TextView tv_coin_price_color = holder.getView(R.id.tv_coin_price);
-                        BigUIUtil.getinstance().anim(tv_coin_price_color, oldData.getPriceUsd(), s.getPriceUsd(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
+                        BigUIUtil.getinstance().anim(s.getUnit(),
+                                (TextView) holder.getView(R.id.tv_coin_price),
+                                oldData.getPriceUsd(), s.getPriceUsd(),
+                                CommonUtils.getColor(R.color.color_font1),
+                                s.getOnlyKey(),position,
+                                (TextView) holder.getView(R.id.tv_coin_price).getTag());
                     }
                 }
             }
@@ -163,9 +168,11 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
             this.notifyItemChanged(position);
         }
     }
+
     public void setFirst(boolean first) {
         isFirst = first;
     }
+
     public void setDatas(List<ExchangeData> datas) {
         mDatas.clear();
         mDatas.addAll(datas);

@@ -2,6 +2,7 @@ package com.xiaomiquan.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -33,16 +34,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
     //implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder>
     int[] bgIds = {R.drawable.ic_value_bg1, R.drawable.ic_value_bg2, R.drawable.ic_value_bg3, R.drawable.ic_value_bg4, R.drawable.ic_value_bg5};
     boolean isFirst = false;
-    TextView tv_coin_type;
-    TextView tv_coin_price;
-    TextView tv_coin_probably;
-    TextView tv_gains;
-    TextView tv_coin_market_value;
-    LinearLayout lin_root;
-    RoundedImageView ic_piv;
-    FrameLayout fl_root;
-    TextView tv_name;
-    TextView tv_coin_unit;
+
     DecelerateInterpolator decelerateInterpolator;
     boolean isRedRise = false;
 
@@ -52,6 +44,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         }
         isRedRise = UserSet.getinstance().isRedRise();
     }
+
     public ExchangeMarketAdapter(Context context, List<ExchangeData> datas) {
         super(context, R.layout.adapter_exchange_coin, datas);
         decelerateInterpolator = new DecelerateInterpolator();
@@ -61,6 +54,17 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
 
     @Override
     protected void convert(final ViewHolder holder, ExchangeData s, final int position) {
+        TextView tv_coin_type;
+        TextView tv_coin_price;
+        TextView tv_coin_probably;
+        TextView tv_gains;
+        TextView tv_coin_market_value;
+        LinearLayout lin_root;
+        RoundedImageView ic_piv;
+        FrameLayout fl_root;
+        TextView tv_name;
+        TextView tv_coin_unit;
+
         tv_coin_type = holder.getView(R.id.tv_coin_type);
         tv_coin_price = holder.getView(R.id.tv_coin_price);
         tv_coin_probably = holder.getView(R.id.tv_coin_probably);
@@ -83,9 +87,10 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         if (TextUtils.isEmpty(strings.get(0))) {
             tv_coin_price.setText("--");
         } else {
-            tv_coin_price.setText(strings.get(0));
+            tv_coin_price.setText(Html.fromHtml(strings.get(0)));
         }
-        tv_coin_probably.setText(strings.get(1));
+        tv_coin_probably.setText(Html.fromHtml(strings.get(1)));
+        tv_coin_probably.setVisibility(View.VISIBLE);
         if (TextUtils.isEmpty(strings.get(1))) {
             tv_coin_probably.setVisibility(View.GONE);
         } else {
@@ -93,16 +98,17 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         }
         tv_coin_price.setTextColor(CommonUtils.getColor(R.color.color_font1));
         tv_coin_probably.setTextColor(CommonUtils.getColor(R.color.color_font2));
+        tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
         if (!TextUtils.isEmpty(s.getChange())) {
             if (new BigDecimal(s.getChange()).compareTo(new BigDecimal("0")) == 1) {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
+                tv_gains.setText("+" + BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
             } else {
                 ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getDropColor()), 10, 10, 10, 10));
             }
         } else {
             ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
         }
-        tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
 
         if (!isFirst) {
             if (exchangeDataMap != null) {
@@ -119,10 +125,18 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                 }
                 if (oldData != null) {
                     if (s.getOnlyKey().equals(oldData.getOnlyKey())) {
-                        TextView tv_coin_price_color = holder.getView(R.id.tv_coin_price);
-                        TextView tv_coin_probably_color = holder.getView(R.id.tv_coin_probably);
-                        BigUIUtil.getinstance().anim(tv_coin_price_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font1), s.getOnlyKey());
-                        BigUIUtil.getinstance().anim(tv_coin_probably_color, oldData.getLast(), s.getLast(), CommonUtils.getColor(R.color.color_font2), s.getOnlyKey());
+                        BigUIUtil.getinstance().anim(s.getUnit(),
+                                (TextView) holder.getView(R.id.tv_coin_price),
+                                oldData.getLast(), s.getLast(),
+                                CommonUtils.getColor(R.color.color_font1),
+                                s.getOnlyKey(), position,
+                                (TextView) holder.getView(R.id.tv_coin_price).getTag());
+                        BigUIUtil.getinstance().anim(s.getUnit(),
+                                (TextView) holder.getView(R.id.tv_coin_probably),
+                                oldData.getLast(), s.getLast(),
+                                CommonUtils.getColor(R.color.color_font2),
+                                s.getOnlyKey(), position,
+                                (TextView) holder.getView(R.id.tv_coin_probably).getTag());
                     }
                 }
             }
@@ -146,7 +160,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                 return;
             }
             boolean isSameChange = false;
-            boolean isSameLast ;
+            boolean isSameLast;
             //涨幅 和 价格 如果为空则不变
             if (TextUtils.isEmpty(data.getChange())) {
                 data.setChange(getDatas().get(position).getChange());

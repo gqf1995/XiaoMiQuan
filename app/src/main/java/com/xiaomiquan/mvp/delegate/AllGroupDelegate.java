@@ -1,11 +1,11 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.tablayout.CommonTabLayout;
@@ -14,8 +14,12 @@ import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.widget.StickyScrollView;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import skin.support.widget.SkinCompatLinearLayout;
 
@@ -30,11 +34,9 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
         viewHolder.nestedScrollView.setTabAndPager(viewHolder.view_tab,
                 (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_1px),
                 (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_79px),
-                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px),
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_100px),
                 viewHolder.pull_recycleview, true);
-        viewHolder.iv_title1.setBackgroundResource(R.drawable.ic_trophy2);
-        viewHolder.iv_title2.setBackgroundResource(R.drawable.ic_trophy);
-        viewHolder.iv_title3.setBackgroundResource(R.drawable.ic_quanzidongtai);
+        initDefaultBanner();
     }
 
     @Override
@@ -42,11 +44,22 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
         return R.layout.fragment_all_group;
     }
 
+    private void initDefaultBanner() {
+        Integer[] images = {R.drawable.banner1, R.drawable.banner2,
+                R.drawable.banner3, R.drawable.banner4};
+        viewHolder.banner.setImageLoader(new com.xiaomiquan.widget.GlideBannerImageLoader());
+        viewHolder.banner.setBannerStyle(BannerConfig.NOT_INDICATOR);
+        viewHolder.banner.setImages(Arrays.asList(images));
+        viewHolder.banner.setBannerAnimation(Transformer.Default);
+        viewHolder.banner.start();
+    }
+
     public void initRank(OnTabSelectListener onTabSelectListener) {
         String[] string = CommonUtils.getStringArray(R.array.sa_select_group_rank);
         for (int i = 0; i < string.length; i++) {
             mTabEntities.add(new TabEntity(string[i], 0, 0));
         }
+        viewHolder.tl_2.setVisibility(View.VISIBLE);
         viewHolder.tl_2.setTabData(mTabEntities);
         viewHolder.tl_2.setOnTabSelectListener(onTabSelectListener);
     }
@@ -54,13 +67,13 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
 
     public static class ViewHolder {
         public View rootView;
-        public AppCompatImageView iv_title1;
         public LinearLayout lin_my_group;
         public RecyclerView rv_my_group;
-        public AppCompatImageView iv_title2;
+        public Banner banner;
+        public TextView tv_more_team;
+        public RecyclerView rcv_hot_team;
         public CommonTabLayout tl_2;
         public RecyclerView rcv_hot_group;
-        public AppCompatImageView iv_title3;
         public View view_tab;
         public RecyclerView pull_recycleview;
         public StickyScrollView nestedScrollView;
@@ -70,13 +83,13 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.iv_title1 = (AppCompatImageView) rootView.findViewById(R.id.iv_title1);
             this.lin_my_group = (LinearLayout) rootView.findViewById(R.id.lin_my_group);
             this.rv_my_group = (RecyclerView) rootView.findViewById(R.id.rv_my_group);
-            this.iv_title2 = (AppCompatImageView) rootView.findViewById(R.id.iv_title2);
+            this.banner = (Banner) rootView.findViewById(R.id.banner);
+            this.tv_more_team = (TextView) rootView.findViewById(R.id.tv_more_team);
+            this.rcv_hot_team = (RecyclerView) rootView.findViewById(R.id.rcv_hot_team);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
             this.rcv_hot_group = (RecyclerView) rootView.findViewById(R.id.rcv_hot_group);
-            this.iv_title3 = (AppCompatImageView) rootView.findViewById(R.id.iv_title3);
             this.view_tab = (View) rootView.findViewById(R.id.view_tab);
             this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
             this.nestedScrollView = (StickyScrollView) rootView.findViewById(R.id.nestedScrollView);

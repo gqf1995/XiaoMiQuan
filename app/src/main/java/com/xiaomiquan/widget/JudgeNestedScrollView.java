@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -25,11 +24,8 @@ public class JudgeNestedScrollView extends NestedScrollView {
     View view;
     private float xDistance, yDistance, xLast, yLast;
     int toolBarPositionY = 0;
-    ViewPager viewPager;
     View noScollView = null;
     int[] locationNoScollView = new int[2];
-
-
     int noWidth = 0;
     int noHeight = 0;
 
@@ -104,13 +100,20 @@ public class JudgeNestedScrollView extends NestedScrollView {
     }
 
     private void init() {
-        setFocusableInTouchMode(true);
         setFocusable(true);
+        setFocusableInTouchMode(true);
         this.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 int[] location = new int[2];
-                view.getLocationOnScreen(location);
+                if (onScrollChangeListener != null) {
+                    onScrollChangeListener.onScrollChangeListener(v, scrollX, scrollY, oldScrollX, oldScrollY);
+                }
+                if (view != null) {
+                    view.getLocationOnScreen(location);
+                } else {
+                    return;
+                }
                 int xPosition = location[0];
                 int yPosition = location[1];
 
@@ -124,9 +127,7 @@ public class JudgeNestedScrollView extends NestedScrollView {
                     setNeedScroll(true);
                 }
 
-                if (onScrollChangeListener != null) {
-                    onScrollChangeListener.onScrollChangeListener(v, scrollX, scrollY, oldScrollX, oldScrollY);
-                }
+
             }
         });
     }
@@ -146,7 +147,12 @@ public class JudgeNestedScrollView extends NestedScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (toolBarPositionY == 0) {
+            return super.onInterceptTouchEvent(ev);
+        }
         switch (ev.getAction()) {
+            case MotionEvent.ACTION_UP:
+                return super.onInterceptTouchEvent(ev);
             case MotionEvent.ACTION_DOWN:
                 xDistance = yDistance = 0f;
                 xLast = ev.getX();
@@ -157,6 +163,10 @@ public class JudgeNestedScrollView extends NestedScrollView {
                 final float curY = ev.getY();
                 xDistance += Math.abs(curX - xLast);
                 yDistance += Math.abs(curY - yLast);
+                if (Math.abs(curX - xLast) < 5 && Math.abs(curY - yLast) < 5) {
+                    //防止处理点击
+                    break;
+                }
                 xLast = curX;
                 yLast = curY;
                 if (noScollView != null && locationNoScollView != null && noWidth != 0) {
@@ -177,6 +187,7 @@ public class JudgeNestedScrollView extends NestedScrollView {
                     }
                     return isNeedScroll;
                 }
+                break;
         }
         return super.onInterceptTouchEvent(ev);
     }

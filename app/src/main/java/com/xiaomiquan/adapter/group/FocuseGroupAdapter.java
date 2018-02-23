@@ -68,7 +68,7 @@ public class FocuseGroupAdapter extends CommonAdapter<GroupItem> {
         BigUIUtil.getinstance().rateTextView(s.getCurrProfit(),tv_today_percent);
 
         if (s.getIsAttention() == 0) {
-            tv_deal.setText(CommonUtils.getString(R.string.str_detail));
+            tv_deal.setText(CommonUtils.getString(R.string.str_details));
         } else if (s.getIsAttention() == 1) {
             tv_deal.setText(CommonUtils.getString(R.string.str_focuse));
         } else if (s.getIsAttention() == 2) {

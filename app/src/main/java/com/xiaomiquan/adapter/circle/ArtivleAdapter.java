@@ -47,6 +47,7 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
     public List<Boolean> isUserPraise;
     public List<Integer> praiseNum;
     UserLogin userLogin;
+
     BaseDataBind dataBind;
     private LinearLayout lin_praise;
 
@@ -167,6 +168,15 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
                 }
             }
         });
+        tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(view, position, null);
+                }
+            }
+        });
+
 
 
         cv_head.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,8 @@
 package com.xiaomiquan.mvp.fragment.group;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.Gravity;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
@@ -8,17 +10,23 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.fivefivelike.mybaselibrary.view.popupWindow.IconTextPopWindow;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.group.AllMyGroupAdapter;
+import com.xiaomiquan.adapter.group.AllGroupMyGroupAdapter;
 import com.xiaomiquan.adapter.group.GroupDynamicAdapter;
 import com.xiaomiquan.adapter.group.HotGroupAdapter;
+import com.xiaomiquan.adapter.group.HotTeamAdapter;
 import com.xiaomiquan.entity.bean.UserLogin;
+import com.xiaomiquan.entity.bean.group.AllGroupData;
 import com.xiaomiquan.entity.bean.group.GroupDynamic;
 import com.xiaomiquan.entity.bean.group.GroupItem;
-import com.xiaomiquan.entity.bean.group.GroupRank;
+import com.xiaomiquan.entity.bean.group.HotTeam;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
+import com.xiaomiquan.mvp.activity.group.AddTeamActivity;
+import com.xiaomiquan.mvp.activity.group.AllTeamActivity;
 import com.xiaomiquan.mvp.activity.group.CombinationActivity;
+import com.xiaomiquan.mvp.activity.group.CreatGroupActivity;
 import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.AllGroupDelegate;
@@ -30,16 +38,14 @@ import java.util.List;
  * 全部组合
  */
 public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFragmentPullBinder> {
-    AllMyGroupAdapter allMyGroupAdapter;
+    AllGroupMyGroupAdapter allMyGroupAdapter;
     HotGroupAdapter hotGroupAdapter;
     String[] types = {"1", "2", "3"};
-    int index = 0;
-    GroupRank list7;
-    GroupRank list30;
-    GroupRank listall;
+
     UserLogin userLogin;
     GroupDynamicAdapter adapter;
-
+    HotTeamAdapter hotTeamAdapter;
+    AllGroupData allGroupData;
 
     @Override
     protected Class<AllGroupDelegate> getDelegateClass() {
@@ -56,13 +62,12 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
     protected void bindEvenListener() {
         super.bindEvenListener();
         initList(new ArrayList<GroupDynamic>());
-        addRequest(binder.top(types[index++], this));
+
     }
 
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
-
     }
 
     @Override
@@ -83,37 +88,108 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
         }
     }
 
-    private void initAllMyGroup(List<GroupItem> datas) {
-        allMyGroupAdapter = new AllMyGroupAdapter(getActivity(), datas);
-        allMyGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
-            @Override
-            public void onClick(View view, int position, Object item) {
-                GroupDealActivity.startAct(getActivity(), (ArrayList) allMyGroupAdapter.getDatas(), position, true);
-            }
-        });
-        viewDelegate.viewHolder.rv_my_group.setLayoutManager(new LinearLayoutManager(getActivity()) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-        viewDelegate.viewHolder.rv_my_group.setAdapter(allMyGroupAdapter);
-        viewDelegate.viewHolder.lin_my_group.setVisibility(View.VISIBLE);
+    private void initHotTeam(List<HotTeam> dats) {
+        if (hotTeamAdapter == null) {
+            hotTeamAdapter = new HotTeamAdapter(getActivity(), dats);
+            viewDelegate.viewHolder.rcv_hot_team.setLayoutManager(new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            viewDelegate.viewHolder.rcv_hot_team.setAdapter(hotTeamAdapter);
+            viewDelegate.viewHolder.tv_more_team.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //更多战队
+                    gotoActivity(AllTeamActivity.class).startAct();
+                }
+            });
+        } else {
+            hotTeamAdapter.setDatas(dats);
+        }
     }
 
-    private void initHotList(GroupRank data) {
-        GroupRank groupRank = new GroupRank(data.getCode(), data.getTopName(), data.getTops());
+    IconTextPopWindow iconTextPopWindow;
+
+
+    private void addOrCreateTeam() {
+        if (iconTextPopWindow == null) {
+            iconTextPopWindow = new IconTextPopWindow(getActivity());
+            List<IconTextPopWindow.Entity> datas = new ArrayList<>();
+            String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_add_or_create_team);
+            datas.add(new IconTextPopWindow.Entity(R.drawable.create_team, stringArray[0]));
+            datas.add(new IconTextPopWindow.Entity(R.drawable.join_team, stringArray[1]));
+            iconTextPopWindow.setDatas(datas);
+            iconTextPopWindow.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, int position, Object item) {
+                    if (position == 0) {
+                        //创建战队
+                        CreatGroupActivity.startAct(AllGroupFragment.this, 0x123);
+                    } else if (position == 1) {
+                        //加入战队
+                        AddTeamActivity.startAct(AllGroupFragment.this, "", 0x123);
+                    }
+                }
+            });
+        }
+        iconTextPopWindow.showAtLocation(viewDelegate.viewHolder.pull_recycleview, Gravity.BOTTOM, 0, 0);
+    }
+
+
+    private void initAllMyGroup(List<GroupItem> datas) {
+        datas.add(null);
+        if (allMyGroupAdapter == null) {
+            allMyGroupAdapter = new AllGroupMyGroupAdapter(getActivity(), datas);
+            allMyGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
+                @Override
+                public void onClick(View view, int position, Object item) {
+                    if (view.getId() == R.id.tv_commit) {
+                        //立即交易
+                        GroupDealActivity.startAct(getActivity(), (ArrayList) allMyGroupAdapter.getDatas(), position, true);
+                    } else if (view.getId() == R.id.lin_add) {
+                        //创建账户 或者 加入战队
+                        addOrCreateTeam();
+                    }
+                }
+            });
+            viewDelegate.viewHolder.rv_my_group.setLayoutManager(new GridLayoutManager(getActivity(), 3) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            viewDelegate.viewHolder.rv_my_group.setAdapter(allMyGroupAdapter);
+            viewDelegate.viewHolder.lin_my_group.setVisibility(View.VISIBLE);
+        } else {
+            allMyGroupAdapter.setDatas(datas);
+        }
+    }
+
+    private void initHotList(List<GroupItem> tops) {
         if (hotGroupAdapter == null) {
-            hotGroupAdapter = new HotGroupAdapter(getActivity(), groupRank.getTops());
+            hotGroupAdapter = new HotGroupAdapter(getActivity(), tops);
             hotGroupAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
                 public void onClick(View view, int position, Object item) {
-                    if (hotGroupAdapter.getDatas().get(position).getIsAttention() == 0) {
+                    if (hotGroupAdapter.getDatas().get(position).getIsAttention() == 1) {
                         //查看详情
                         CombinationActivity.startAct(getActivity(), hotGroupAdapter.getDatas().get(position), false);
-                    } else if (hotGroupAdapter.getDatas().get(position).getIsAttention() == 1) {
+                    } else if (hotGroupAdapter.getDatas().get(position).getIsAttention() == 0) {
                         if (userLogin != null) {
-                            hotGroupAdapter.getDatas().get(position).setIsAttention(0);
+                            for (int i = 0; i < hotGroupAdapter.getDatas().size(); i++) {
+                                if (allGroupData.getTopWeeks().get(i).getId().equals(hotGroupAdapter.getDatas().get(position).getId())) {
+                                    allGroupData.getTopWeeks().get(i).setIsAttention(1);
+                                }
+                                if (allGroupData.getTopMonth().get(i).getId().equals(hotGroupAdapter.getDatas().get(position).getId())) {
+                                    allGroupData.getTopWeeks().get(i).setIsAttention(1);
+                                }
+                                if (allGroupData.getTopTotal().get(i).getId().equals(hotGroupAdapter.getDatas().get(position).getId())) {
+                                    allGroupData.getTopWeeks().get(i).setIsAttention(1);
+                                }
+                            }
+                            hotGroupAdapter.getDatas().get(position).setIsAttention(1);
                             //关注
                             addRequest(binder.demoattention(hotGroupAdapter.getDatas().get(position).getUserId() + "", null));
                             hotGroupAdapter.notifyItemChanged(position);
@@ -133,12 +209,15 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
             viewDelegate.initRank(new OnTabSelectListener() {
                 @Override
                 public void onTabSelect(int position) {
+                    if (allGroupData == null) {
+                        return;
+                    }
                     if (position == 0) {
-                        initHotList(list7);
+                        initHotList(allGroupData.getTopWeeks());
                     } else if (position == 1) {
-                        initHotList(list30);
+                        initHotList(allGroupData.getTopMonth());
                     } else {
-                        initHotList(listall);
+                        initHotList(allGroupData.getTopMonth());
                     }
                 }
 
@@ -148,7 +227,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                 }
             });
         } else {
-            hotGroupAdapter.setDatas(groupRank.getTops());
+            hotGroupAdapter.setDatas(tops);
         }
     }
 
@@ -163,6 +242,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
+            onRefresh();
         } else {
             getDataBack(adapter.getDatas(), datas, adapter);
         }
@@ -170,44 +250,29 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
-                //我的组合
-                List<GroupItem> datas = GsonUtil.getInstance().toList(data, GroupItem.class);
-                initAllMyGroup(datas);
+                List<GroupDynamic> list = GsonUtil.getInstance().toList(data, GroupDynamic.class);
+                initList(list);
                 break;
             case 0x124:
-                //排行
-                if (index == 1) {
-                    list7 = GsonUtil.getInstance().toObj(data, GroupRank.class);
-                } else if (index == 2) {
-                    list30 = GsonUtil.getInstance().toObj(data, GroupRank.class);
-                } else if (index == 3) {
-                    listall = GsonUtil.getInstance().toObj(data, GroupRank.class);
-                    if (hotGroupAdapter == null) {
-                        initHotList(list7);
-                    }
-                }
-                if (index < 3) {
-                    addRequest(binder.top(types[index++], this));
-                } else if (index == 3) {
-                    index = 0;
-                }
-                break;
-            case 0x125:
-                List<GroupDynamic> groupDynamics = GsonUtil.getInstance().toList(data, GroupDynamic.class);
-                initList(groupDynamics);
+                //我的组合
+                allGroupData = GsonUtil.getInstance().toObj(data, AllGroupData.class);
+                initHotTeam(allGroupData.getHotTeams());
+                initAllMyGroup(allGroupData.getUserDemoList());
+                initHotList(allGroupData.getTopWeeks());
+                initList(allGroupData.getUserDemoDynamicList());
                 break;
         }
     }
 
     @Override
     protected void refreshData() {
-        if (userLogin != null) {
-            addRequest(binder.listDemo(this));
-            addRequest(binder.dynamic(this));
+        if (viewDelegate.page == viewDelegate.defaultPage) {
+            addRequest(binder.getSquareTeamGame(this));
         } else {
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+            addRequest(binder.dynamic(this));
         }
     }
 }

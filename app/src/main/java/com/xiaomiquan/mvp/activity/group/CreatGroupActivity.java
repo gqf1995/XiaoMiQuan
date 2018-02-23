@@ -1,5 +1,7 @@
 package com.xiaomiquan.mvp.activity.group;
 
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -72,11 +74,17 @@ public class CreatGroupActivity extends BaseDataBindActivity<CreatGroupDelegate,
                 this));
     }
 
+    public static void startAct(Fragment activity,
+            int requestCode){
+        Intent intent =new Intent(activity.getActivity(),CreatGroupActivity.class);
+        activity.startActivityForResult(intent,requestCode);
+    }
+
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
+                setResult(RESULT_OK);
                 onBackPressed();
                 break;
         }

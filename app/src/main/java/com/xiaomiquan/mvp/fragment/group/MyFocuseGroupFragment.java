@@ -30,6 +30,7 @@ public class MyFocuseGroupFragment extends BasePullFragment<BaseFragentPullDeleg
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 List<GroupItem> datas = GsonUtil.getInstance().toList(data, GroupItem.class);

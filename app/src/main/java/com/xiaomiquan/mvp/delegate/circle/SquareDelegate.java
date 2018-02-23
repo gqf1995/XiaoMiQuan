@@ -4,13 +4,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 
@@ -28,7 +26,10 @@ public class SquareDelegate extends BaseMyPullDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-        viewHolder.scrollView_scroll.setTabAndPager(viewHolder.lin_tab, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_100px), (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px), viewHolder.pull_recycleview, false);
+        viewHolder.scrollView_scroll.setTabAndPager(viewHolder.lin_tab,
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_100px),
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
+                viewHolder.pull_recycleview, false);
 
     }
 

@@ -114,6 +114,7 @@ public class SearchCoinMarketDefaultFragment extends BasePullFragment<BaseFragen
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
 

@@ -2,6 +2,9 @@
     <string name="app_name">BCOIN</string>
     <string name="action_settings">Settings</string>
 
+    <string name="str_home">首页</string>
+    <string name="str_market">行情</string>
+    <string name="str_user">个人</string>
 
     <string name="str_login_label_email">邮箱</string>
     <string name="str_login_et_email">请输入邮箱</string>
@@ -16,6 +19,7 @@
     <string name="str_et_new_pass_error">两次输入密码不一致</string>
     <string name="str_registered">注册</string>
     <string name="str_login">登录</string>
+    <string name="str_consent">同意</string>
     <string name="str_forget_pass">忘记密码?</string>
     <string name="str_code_not_received">收不到验证码?</string>
     <string name="str_agreement">用户协议</string>
@@ -27,13 +31,18 @@
     <string name="str_warning_issave">确认保存吗?</string>
     <string name="str_toast_group_name">请输入组合名称</string>
     <string name="str_toast_group_introduction">请输入组合简介</string>
+    <string name="str_toast_team_introduction">请输入战队简介</string>
     <string name="str_toast_group_type">请选择组合类型</string>
     <string name="str_toast_input_num">请输入数量</string>
+    <string name="str_toast_input_reason">一句话简单描述</string>
     <string name="str_toast_input_price">请输入价格</string>
     <string name="str_toast_select_history">请选择分享内容</string>
     <string name="str_toast_input_nike_name">请输入昵称</string>
+    <string name="str_toast_input_invite_code">在此输入邀请码</string>
+    <string name="str_toast_need_invite_code">请输入邀请码</string>
     <string name="str_toast_no_change">请修改后再保存</string>
     <string name="str_toast_no_select_coin">当前没有选择币种</string>
+    <string name="str_toast_no_kline">温馨提示: 数据维护中,该币种k线将在近期更新,敬请期待</string>
     <string name="str_now_no_data">暂无</string>
     <string name="str_look_detail">查看详情 >></string>
     <string name="str_detail">详情 >></string>
@@ -44,11 +53,8 @@
     <string name="str_free_subscription">免费订阅</string>
     <string name="str_my_subscribe_management">我的订阅管理</string>
     <string name="str_gallery">图库</string>
+    <string name="str_management">管理</string>
 
-
-    <string name="str_confirm">确认</string>
-    <string name="str_determine">确定</string>
-    <string name="str_cancel">取消</string>
 
     <string name="str_new">新</string>
     <string name="str_complete">完成</string>
@@ -125,6 +131,7 @@
     <string name="str_list_sorting">列表排序</string>
     <string name="str_change_coin_market">币行情自选</string>
     <string name="str_search_coin_market">币行情搜索</string>
+    <string name="str_look_team_home_page">查看战队主页>></string>
     <string name="str_search_coin_market_hint">搜索平台、币种</string>
     <string name="str_search_history">搜索历史</string>
     <string name="str_search">搜索</string>
@@ -176,6 +183,8 @@
     <string name="str_simulation">模拟交易</string>
     <string name="str_default">默认</string>
     <string name="str_edit_introduction">编辑组合简介</string>
+    <string name="str_edit_abstract">编辑简介</string>
+    <string name="str_edit_team_introduction">编辑战队简介</string>
     <string name="str_change_introduction">修改简介</string>
     <string name="str_title_share_history">请选择需要分享的内容</string>
     <string name="str_competition_group">模拟组合大赛即将开启\n敬请期待</string>
@@ -185,8 +194,10 @@
     <string name="str_tv_today_percent">今日收益</string>
     <string name="str_tv_info">查看</string>
     <string name="str_tv_group_name">组合名称</string>
+    <string name="str_tv_team_name">战队名称</string>
     <string name="str_et_group_title">数字/字母/中文组成，不超过12个字符</string>
     <string name="str_tv_group_info">组合简介</string>
+    <string name="str_tv_team_info">战队简介</string>
     <string name="str_et_group_info">简单介绍下你的组合</string>
     <string name="str_ck_open">公开组合</string>
     <string name="str_ck_private">隐藏组合</string>
@@ -200,6 +211,8 @@
     <string name="str_tv_balance">您当前可用余额</string>
     <string name="str_tv_balance_amount">您当前持有数量</string>
     <string name="str_et_buy_price">输入价格</string>
+    <string name="str_hold">持有</string>
+    <string name="str_poundage">手续费</string>
     <string name="str_et_buy_num">输入数量</string>
     <string name="str_tv_sell_price">卖出价格</string>
     <string name="str_tv_buy_price">买入价格</string>
@@ -215,18 +228,32 @@
     <string name="str_tv_operation">操作</string>
     <string name="str_delect_order">撤单</string>
     <string name="str_create_order">下单</string>
-    <string name="str_creat_combination">创建组合</string>
-    <string name="str_investment_combination">投资组合</string>
-    <string name="str_my_group">我的组合</string>
+    <string name="str_creat_combination">创建账户</string>
+    <string name="str_creat_team">创建战队</string>
+    <string name="str_investment_combination">模拟炒币</string>
+    <string name="str_my_group">我的模拟账户</string>
     <string name="str_my_live">我的直播</string>
     <string name="str_my_circle">我的圈子</string>
-    <string name="str_hot_group">热门组合</string>
-    <string name="str_group_dynamic">组合动态</string>
+    <string name="str_hot_group">炒币风云</string>
+    <string name="str_hot_team">热门战队</string>
+    <string name="str_all_team">全部战队</string>
+    <string name="str_invite_friends">邀请好友</string>
+    <string name="str_all_hold">全仓</string>
+    <string name="str_half_hold">1/2仓</string>
+    <string name="str_half_half_hold">1/4仓</string>
+    <string name="str_group_dynamic">我关注的账户动态</string>
+    <string name="str_my_management_team">我的战队管理</string>
     <string name="str_save">保存</string>
+    <string name="str_save_local">保存本地</string>
+    <string name="str_send_friends">发送给好友</string>
     <string name="str_fucose">关注</string>
     <string name="str_cancel_fucose">取消关注</string>
     <string name="str_already_fucose">已关注</string>
+    <string name="str_agreed">已同意</string>
     <string name="str_fucose_people_num">关注人数</string>
+    <string name="str_average_rate">平均收益率</string>
+    <string name="str_team_people_num">战队人数</string>
+    <string name="str_team_reward">战队奖池累计</string>
     <string name="str_deal_time">成交时间</string>
     <string name="str_come_from">来自:  </string>
     <string name="str_hold_proportion_from">持仓比例从</string>
@@ -237,6 +264,7 @@
     <string name="str_deal_price">成交价</string>
     <string name="str_no_kline">该币种暂无K线</string>
     <string name="str_no_kline_toast">程序员已经在努力优化了</string>
+    <string name="str_more_competitio_rules">更多比赛规则 >></string>
 
 
     <string name="str_search_circle">查找圈子</string>
@@ -262,9 +290,22 @@
     <string name="str_tv_member">圈子成员</string>
     <string name="str_tv_main">圈主</string>
     <string name="str_tv_shared">分享圈子</string>
+    <string name="str_apply_to_join">申请加入</string>
+    <string name="str_apply_to_join_team">加入战队</string>
+    <string name="str_apply_to_join_team_reason">请填写加入理由</string>
+    <string name="str_create_team">创建战队</string>
+    <string name="str_more_team">更多战队</string>
+    <string name="str_my_reward">我的奖励</string>
+    <string name="str_activity_rules">活动规则</string>
+    <string name="str_team_detail">战队详情</string>
     <string name="str_tv_peoplenum">人加入</string>
     <string name="str_tv_edit">编辑资料</string>
     <string name="str_average">均线</string>
+    <string name="str_learn_more">了解更多</string>
+    <string name="str_my_create_team">我创建的战队</string>
+    <string name="str_my_join_team">我加入的战队</string>
+    <string name="str_examine_and_approve">报名审批</string>
+    <string name="str_closing_time">比赛结束时间: </string>
 
     <string name="str_release_article">发布文章</string>
     <string name="str_deal_article">导入文章</string>
@@ -279,6 +320,8 @@
     <string name="str_et_url">粘贴文章网址</string>
     <string name="str_et_title">输入标题</string>
     <string name="str_tv_addimg">添加封面</string>
+    <string name="str_my_account">我的账户</string>
+    <string name="str_team_rank">战队风云榜</string>
 
 
     <string name="str_release_dynamic">发布动态</string>
@@ -319,6 +362,8 @@
     <string name="str_toast_user">请阅读用户规范</string>
     <string name="str_title_square">广场</string>
     <string name="str_toast_need_login">登录后才能使用此功能</string>
+    <string name="str_toast_have_team">您已拥有战队 </string>
+    <string name="str_toast_no_msg">您没有未读消息</string>
     <string name="str_eNames">[{\"cName\":\"\",\"eName\":\"Bitfinex\"},{\"cName\":\"\",\"eName\":\"Binance\"},{\"cName\":\"\",\"eName\":\"Okex\"},{\"cName\":\"\",\"eName\":\"Huobi\"},{\"cName\":\"\",\"eName\":\"Bittrex\"},{\"cName\":\"\",\"eName\":\"Bigone\"},{\"cName\":\"\",\"eName\":\"Poloniex\"},{\"cName\":\"\",\"eName\":\"Zb\"},{\"cName\":\"\",\"eName\":\"Gate\"},{\"cName\":\"\",\"eName\":\"Bitz\"},{\"cName\":\"\",\"eName\":\"Coinegg\"},{\"cName\":\"\",\"eName\":\"Kucoin\"},{\"cName\":\"\",\"eName\":\"Bibox\"},{\"cName\":\"\",\"eName\":\"Liqui\"},{\"cName\":\"\",\"eName\":\"Bcex\"},{\"cName\":\"\",\"eName\":\"Coin900\"},{\"cName\":\"\",\"eName\":\"Bitflyer\"},{\"cName\":\"\",\"eName\":\"Korbit\"},{\"cName\":\"\",\"eName\":\"Bithumb\"},{\"cName\":\"\",\"eName\":\"Bitmex\"},{\"cName\":\"\",\"eName\":\"Bitstamp\"},{\"cName\":\"\",\"eName\":\"Cex\"},{\"cName\":\"\",\"eName\":\"Exx\"},{\"cName\":\"\",\"eName\":\"Coincheck\"},{\"cName\":\"\",\"eName\":\"Kraken\"},{\"cName\":\"\",\"eName\":\"Coinw\"}]</string>
     <!--ShareDialog-->
     <string name="str_share_default_title">BCOIN</string>
@@ -338,6 +383,16 @@
     <!--file-->
     <string name="str_file_save">已保存在sd卡根目录</string>
 
+
+    <string name="browser_download">浏览器打开</string>
+    <string name="loacation_download">本地下载</string>
+    <string name="update_app_model_prepare">准备下载</string>
+    <string name="update_app_model_progress">正在下载 %1$d%2$s</string>
+    <string name="update_app_model_success">下载成功(点击安装)</string>
+    <string name="update_app_model_error">下载失败(点击浏览器下载)</string>
+    <string name="update_app_error">下载失败，是否去官网下载</string>
+    <string name="downloading_apk">正在后台下载...</string>
+
     <string-array name="price">
         <item>限价</item>
         <item>限价 </item>
@@ -353,10 +408,10 @@
         <item>LTC</item>
     </string-array>
     <string-array name="sa_select_group">
-        <item>全部组合</item>
-        <item>大赛组合</item>
-        <item>我的关注</item>
-        <item>我的组合</item>
+        <item>广场</item>
+        <item>大赛</item>
+        <item>关注</item>
+        <item>我的</item>
     </string-array>
     <string-array name="sa_select_deal">
         <item>未成交</item>
@@ -378,14 +433,14 @@
 
     <string-array name="sa_select_unit">
         <item>默认</item>
-        <item>平台价格-CNY价格</item>
-        <item>平台价格-USD价格</item>
-        <item>CNY价格-平台价格</item>
-        <item>USD价格-平台价格</item>
-        <item>USD价格-CNY价格</item>
-        <item>CNY价格-USD价格</item>
-        <item>仅USD价格</item>
-        <item>仅CNY价格</item>
+        <item>平台价格-CNY</item>
+        <item>平台价格-USD</item>
+        <item>CNY-平台价格</item>
+        <item>USD-平台价格</item>
+        <item>USD-CNY</item>
+        <item>CNY-USD</item>
+        <item>仅USD</item>
+        <item>仅CNY</item>
         <item>仅平台价格</item>
     </string-array>
 
@@ -489,6 +544,9 @@
         <item>EMA</item>
         <item>均线</item>
     </string-array>
-
+    <string-array name="sa_select_add_or_create_team">
+        <item>创建账户</item>
+        <item>加入战队</item>
+    </string-array>
 
 </resources>

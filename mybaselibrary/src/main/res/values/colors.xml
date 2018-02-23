@@ -68,8 +68,10 @@
     <color name="color_purple_dark">#2e266f</color>
 
 
-    <color name="increasing_color">#FF6960</color>
-    <color name="decreasing_color">#0DCE2B</color>
+    <color name="increasing_color">#FF766F</color>
+    <color name="increasing_color_dark">#fc5f57</color>
+    <color name="decreasing_color">#3D9970</color>
+    <color name="decreasing_color_dark">#289c69</color>
 
 
     <color name="black_transparent_10">#0a000000</color>
@@ -92,7 +94,6 @@
 
     <color name="base_mask">#32ffffff</color><!--@color/white_transparent_50-->
     <color name="base_mask_dark">#32000000</color><!--@color/black_transparent_50-->
-
 
 
     <color name="color_font1">#FFFFFF</color><!--@color/white-->
@@ -137,6 +138,7 @@
 
     <!--顶部导航栏背景颜色-->
     <color name="toolbar_bg">#1E1E35</color>
+    <color name="navigation_color">#1E1E35</color>
 
 
 </resources>

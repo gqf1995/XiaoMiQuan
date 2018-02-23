@@ -39,7 +39,7 @@
                     android:paddingRight="@dimen/trans_15px"
                     android:text="BTC"
                     android:textColor="@color/color_font1"
-                    android:textSize="@dimen/text_trans_36px"
+                    android:textSize="@dimen/text_trans_32px"
                     app:TypeFace="SemiBold"/>
 
                 <com.fivefivelike.mybaselibrary.view.FontTextview

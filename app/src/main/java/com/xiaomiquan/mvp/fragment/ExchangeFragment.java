@@ -152,6 +152,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);

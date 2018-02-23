@@ -3,7 +3,6 @@ package com.xiaomiquan.mvp.activity.circle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -30,7 +29,6 @@ import com.xiaomiquan.mvp.delegate.circle.ArticleDetailsDelegate;
 import com.xiaomiquan.widget.circle.CommentPopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDelegate, ArticleDetailsBinder> {
@@ -57,7 +55,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 SquareLive datas = GsonUtil.getInstance().toObj(data, SquareLive.class);

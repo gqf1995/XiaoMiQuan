@@ -3,6 +3,7 @@ package com.xiaomiquan.mvp.activity.group;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -50,7 +51,7 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         } else {
             //取消关注 或 关注
             if (groupItem.getIsAttention() == 0) {
-                binder.cancelAttention(groupItem.getUserId(), null);
+                binder.cancelAttention(groupItem.getId(), null);
                 viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_focuse));
             } else if (groupItem.getIsAttention() == 1) {
                 binder.demoattention(groupItem.getUserId(), null);
@@ -79,6 +80,13 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         groupItem = intent.getParcelableExtra("groupItem");
         isMy = intent.getBooleanExtra("isMy", false);
         viewDelegate.initData(groupItem);
+
+        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                addRequest(binder.getTodayInfo(isMy ? groupItem.getId() : groupItem.getUserId(), CombinationActivity.this));
+            }
+        });
         addRequest(binder.getTodayInfo(isMy ? groupItem.getId() : groupItem.getUserId(), this));
     }
 
@@ -105,14 +113,18 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         }
     }
 
+    @Override
+    protected void onServiceError(String data, String info, int status, int requestCode) {
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+    }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
                 //今日收益&日均操作次数
-                BigUIUtil.getinstance().rateTextView(Double.parseDouble(GsonUtil.getInstance().getValue(data, "todayRate")),viewDelegate.viewHolder.tv_today_earnings);
+                BigUIUtil.getinstance().rateTextView(Double.parseDouble(GsonUtil.getInstance().getValue(data, "todayRate")), viewDelegate.viewHolder.tv_today_earnings);
                 viewDelegate.viewHolder.tv_daily_operation.setText(GsonUtil.getInstance().getValue(data, "count"));
                 addRequest(binder.rateTrend(isMy ? groupItem.getId() : groupItem.getUserId(), this));
                 break;

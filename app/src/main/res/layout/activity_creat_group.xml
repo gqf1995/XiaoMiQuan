@@ -26,6 +26,7 @@
                 android:paddingTop="@dimen/text_trans_28px">
 
                 <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/text_trans_20px"
@@ -70,6 +71,7 @@
                 android:paddingTop="@dimen/text_trans_28px">
 
                 <TextView
+                    android:id="@+id/tv_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/text_trans_20px"
@@ -103,43 +105,51 @@
                 android:background="@color/base_mask"/>
 
             <LinearLayout
+                android:id="@+id/lin_select"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/text_trans_40px">
+                android:orientation="vertical">
 
-                <skin.support.widget.SkinCompatCheckBox
-                    android:id="@+id/ck_live"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_ck_open"
-                    android:textColor="@color/color_font1"
-                    android:theme="@style/BlueCheckBox"/>
+                    android:orientation="horizontal"
+                    android:padding="@dimen/text_trans_40px">
 
-                <skin.support.widget.SkinCompatCheckBox
-                    android:id="@+id/ck_circle"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/text_trans_100px"
-                    android:text="@string/str_ck_private"
-                    android:textColor="@color/color_font1"
-                    android:theme="@style/BlueCheckBox"/>
+                    <skin.support.widget.SkinCompatCheckBox
+                        android:id="@+id/ck_live"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/str_ck_open"
+                        android:textColor="@color/color_font1"
+                        android:theme="@style/BlueCheckBox"/>
+
+                    <skin.support.widget.SkinCompatCheckBox
+                        android:id="@+id/ck_circle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/text_trans_100px"
+                        android:layout_weight="1"
+                        android:text="@string/str_ck_private"
+                        android:textColor="@color/color_font1"
+                        android:theme="@style/BlueCheckBox"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/text_trans_20px"
+                    android:background="@color/base_mask"/>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/text_trans_20px"
-                android:background="@color/base_mask"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/trans_140px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/trans_45px"
-                android:visibility="gone"
-                android:paddingRight="@dimen/trans_30px">
+                android:paddingRight="@dimen/trans_30px"
+                android:visibility="gone">
 
 
                 <TextView
@@ -171,8 +181,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/text_trans_20px"
-                android:visibility="gone"
-                android:background="@color/base_mask"/>
+                android:background="@color/base_mask"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -210,31 +220,7 @@
                         android:textSize="@dimen/trans_24px"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/text_trans_8px"
-                        android:layout_marginRight="@dimen/text_trans_70px"
-                        android:lineSpacingExtra="@dimen/text_trans_6px"
-                        android:text="@string/str_tv_notice1"
-                        android:textColor="@color/color_font2"
-                        android:textSize="@dimen/trans_24px"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_trans_31px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2"
-                        android:textColor="@color/color_font2"
-                        android:textSize="@dimen/trans_24px"/>
-
-                    <TextView
+                        android:id="@+id/tv_notice1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/text_trans_8px"

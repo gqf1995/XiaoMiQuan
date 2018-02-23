@@ -85,11 +85,14 @@
                     </LinearLayout>
 
                 </FrameLayout>
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_20px"
+                    android:background="@color/base_mask"/>
                 <LinearLayout
                     android:id="@+id/lin_set0"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_140px"
+                    android:layout_height="@dimen/trans_90px"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
@@ -125,14 +128,13 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_1px"
-                    android:layout_marginLeft="@dimen/trans_45px"
+                    android:layout_height="@dimen/trans_20px"
                     android:background="@color/base_mask"/>
 
                 <LinearLayout
                     android:id="@+id/lin_set1"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_140px"
+                    android:layout_height="@dimen/trans_90px"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/trans_45px"
@@ -179,7 +181,7 @@
                 <LinearLayout
                     android:id="@+id/lin_set2"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_140px"
+                    android:layout_height="@dimen/trans_90px"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/trans_45px"
@@ -228,7 +230,7 @@
                 <LinearLayout
                     android:id="@+id/lin_set3"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_140px"
+                    android:layout_height="@dimen/trans_90px"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
@@ -274,13 +276,59 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_40px"
+                    android:layout_height="@dimen/trans_1px"
+                    android:layout_marginLeft="@dimen/trans_45px"
+                    android:background="@color/base_mask"/>
+
+                <LinearLayout
+                    android:id="@+id/lin_set8"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_90px"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_45px"
+                    android:paddingRight="@dimen/trans_30px">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/trans_52px"
+                        android:layout_height="@dimen/trans_52px"
+                        app:srcCompat="@drawable/ic_setting"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/trans_25px"
+                        android:text="@string/str_setting"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_28px"/>
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/ic_Next"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_30px"
+                        />
+
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_20px"
                     android:background="@color/base_mask"/>
 
                 <LinearLayout
                     android:id="@+id/lin_set4"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_140px"
+                    android:layout_height="@dimen/trans_90px"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
@@ -323,7 +371,7 @@
                 <LinearLayout
                     android:id="@+id/lin_set5"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_140px"
+                    android:layout_height="@dimen/trans_90px"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
@@ -366,7 +414,7 @@
                 <LinearLayout
                     android:id="@+id/lin_set6"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_140px"
+                    android:layout_height="@dimen/trans_90px"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
@@ -422,7 +470,7 @@
                 <LinearLayout
                     android:id="@+id/lin_set7"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_140px"
+                    android:layout_height="@dimen/trans_90px"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
@@ -466,55 +514,11 @@
                     android:background="@color/base_mask"
                     />
 
-                <LinearLayout
-                    android:id="@+id/lin_set8"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_140px"
-                    android:background="?selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/trans_45px"
-                    android:paddingRight="@dimen/trans_30px">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="@dimen/trans_52px"
-                        android:layout_height="@dimen/trans_52px"
-                        app:srcCompat="@drawable/ic_setting"
-                        />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingLeft="@dimen/trans_25px"
-                        android:text="@string/str_setting"
-                        android:textColor="@color/color_font1"
-                        android:textSize="@dimen/text_trans_28px"/>
-
-                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="@string/ic_Next"
-                        android:textColor="@color/color_font3"
-                        android:textSize="@dimen/text_trans_30px"
-                        />
-
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_1px"
-                    android:layout_marginLeft="@dimen/trans_45px"
-                    android:background="@color/base_mask"/>
 
                 <LinearLayout
                     android:id="@+id/lin_set9"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_140px"
+                    android:layout_height="@dimen/trans_90px"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"

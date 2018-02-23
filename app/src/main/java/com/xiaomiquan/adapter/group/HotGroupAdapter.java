@@ -51,9 +51,9 @@ public class HotGroupAdapter extends CommonAdapter<GroupItem> {
         tv_name.setText(s.getName());
         tv_focuse_num.setText(s.getAttentionCount() + CommonUtils.getString(R.string.str_people) + CommonUtils.getString(R.string.str_focuse));
 
-        if (s.getIsAttention() == 0) {
+        if (s.getIsAttention() == 1) {
             tv_focuse.setText(CommonUtils.getString(R.string.str_details));
-        } else if (s.getIsAttention() == 1) {
+        } else if (s.getIsAttention() == 0) {
             tv_focuse.setText(CommonUtils.getString(R.string.str_focuse));
         } else if (s.getIsAttention() == 2) {
             tv_focuse.setVisibility(View.GONE);

@@ -34,17 +34,33 @@
                 android:paddingRight="@dimen/trans_30px"
                 android:visibility="gone">
 
-                <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                    android:id="@+id/toolbar_back"
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/trans_90px"
-                    android:layout_gravity="left|center_vertical"
-                    android:layout_marginLeft="@dimen/trans_40px"
-                    android:gravity="center"
-                    android:text="@string/ic_Back"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_trans_32px"
-                    />
+                    android:layout_height="wrap_content">
+
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:id="@+id/toolbar_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/trans_90px"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="@dimen/trans_40px"
+                        android:gravity="center"
+                        android:text="@string/ic_Back"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_trans_32px"
+                        />
+
+                    <View
+                        android:id="@+id/view_back_point"
+                        android:layout_width="@dimen/trans_10px"
+                        android:layout_height="@dimen/trans_10px"
+                        android:layout_gravity="right"
+                        android:layout_margin="@dimen/trans_30px"
+                        android:background="@drawable/shape_red_max_radiu"
+                        android:visibility="gone"/>
+
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/toolbar_back_txt"

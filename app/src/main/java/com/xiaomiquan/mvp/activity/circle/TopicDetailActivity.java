@@ -3,7 +3,6 @@ package com.xiaomiquan.mvp.activity.circle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -79,7 +78,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 SquareLive datas = GsonUtil.getInstance().toObj(data, SquareLive.class);

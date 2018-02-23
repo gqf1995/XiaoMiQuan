@@ -100,7 +100,7 @@ public class NewsDetailActivity extends BasePullActivity<TopicDetailDelegate, To
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 SquareLive datas = GsonUtil.getInstance().toObj(data, SquareLive.class);

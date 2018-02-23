@@ -34,7 +34,7 @@
                 <TextView
                     android:id="@+id/tv_num"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/trans_35px"
+                    android:layout_height="@dimen/trans_30px"
                     android:layout_marginRight="@dimen/trans_15px"
                     android:minWidth="@dimen/trans_35px"
                     android:background="@drawable/select_commit"
@@ -43,7 +43,7 @@
                     android:paddingRight="@dimen/trans_3px"
                     android:text="01"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_trans_20px"/>
+                    android:textSize="@dimen/text_trans_16px"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                         android:paddingRight="@dimen/trans_10px"
                         android:text="BTC"
                         android:textColor="@color/color_font1"
-                        android:textSize="@dimen/text_trans_36px"
+                        android:textSize="@dimen/text_trans_32px"
                         app:TypeFace="SemiBold"/>
 
                     <com.fivefivelike.mybaselibrary.view.FontTextview
@@ -88,7 +88,7 @@
                 android:paddingTop="@dimen/trans_10px"
                 android:text="市值$58,497,247,500"
                 android:textColor="@color/color_font2"
-                android:textSize="@dimen/text_trans_24px"
+                android:textSize="@dimen/text_trans_22px"
                 app:TypeFace="Medium"/>
 
         </LinearLayout>
@@ -108,7 +108,7 @@
                 android:gravity="center"
                 android:text="0.00000008"
                 android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_32px"
+                android:textSize="@dimen/text_trans_36px"
                 app:TypeFace="SemiBold"/>
 
             <com.fivefivelike.mybaselibrary.view.FontTextview
@@ -124,7 +124,7 @@
 
         <FrameLayout
             android:layout_width="@dimen/trans_144px"
-            android:layout_height="@dimen/trans_70px"
+            android:layout_height="@dimen/trans_60px"
             android:layout_gravity="center">
 
             <com.makeramen.roundedimageview.RoundedImageView
@@ -142,7 +142,7 @@
                 android:gravity="center"
                 android:text="+ 50.79%"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_trans_28px"
+                android:textSize="@dimen/text_trans_26px"
                 app:TypeFace="SemiBold"/>
 
 

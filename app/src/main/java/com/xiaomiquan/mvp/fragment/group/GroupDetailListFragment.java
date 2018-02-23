@@ -61,6 +61,7 @@ public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDel
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 List<HoldDetail> data1 = GsonUtil.getInstance().toList(data, HoldDetail.class);

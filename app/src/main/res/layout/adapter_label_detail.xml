@@ -25,7 +25,7 @@
             android:gravity="center"
             android:text="@string/str_currency"
             android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_24px"/>
+            android:textSize="@dimen/text_trans_20px"/>
 
         <Space
             android:layout_width="0dp"
@@ -50,7 +50,7 @@
             android:gravity="center"
             android:text="@string/str_storage_quantity"
             android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_24px"/>
+            android:textSize="@dimen/text_trans_20px"/>
 
         <Space
             android:layout_width="0dp"
@@ -75,7 +75,7 @@
             android:gravity="center"
             android:text="@string/str_storage_price"
             android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_24px"/>
+            android:textSize="@dimen/text_trans_20px"/>
 
         <Space
             android:layout_width="0dp"
@@ -100,7 +100,7 @@
             android:gravity="center"
             android:text="@string/str_now_price"
             android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_24px"/>
+            android:textSize="@dimen/text_trans_20px"/>
 
         <Space
             android:layout_width="0dp"
@@ -125,7 +125,7 @@
             android:gravity="center"
             android:text="@string/str_earnings_ratio"
             android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_24px"/>
+            android:textSize="@dimen/text_trans_20px"/>
 
         <Space
             android:layout_width="0dp"

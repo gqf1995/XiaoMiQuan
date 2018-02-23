@@ -12,6 +12,7 @@ import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText;
 import com.xiaomiquan.R;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
+import com.xiaomiquan.widget.StickyScrollView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -26,7 +27,7 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-        viewHolder.scrollView_scroll.setTabAndPager(viewHolder.lin_tab, 0, viewHolder.pull_recycleview, false);
+        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_tab, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_81px), viewHolder.pull_recycleview, true);
     }
 
     @Override
@@ -54,7 +55,7 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
         public TextView tv_shared;
         public LinearLayout lin_shared;
         public RecyclerView pull_recycleview;
-        public JudgeNestedScrollView scrollView_scroll;
+        public StickyScrollView nestedScrollView;
         public SwipeRefreshLayout swipeRefreshLayout;
         public MaterialEditText et_input2;
         public TextView tv_commit;
@@ -78,7 +79,7 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
             this.tv_shared = (TextView) rootView.findViewById(R.id.tv_shared);
             this.lin_shared = (LinearLayout) rootView.findViewById(R.id.lin_shared);
             this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
-            this.scrollView_scroll = (JudgeNestedScrollView) rootView.findViewById(R.id.scrollView_scroll);
+            this.nestedScrollView = (StickyScrollView) rootView.findViewById(R.id.nestedScrollView);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
             this.et_input2 = (MaterialEditText) rootView.findViewById(R.id.et_input2);
             this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);
