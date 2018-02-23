@@ -3,6 +3,8 @@ package com.xiaomiquan.mvp.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
@@ -154,6 +156,11 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 getActivity().overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
             }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        //super.onSaveInstanceState(outState);
     }
 
     @Override

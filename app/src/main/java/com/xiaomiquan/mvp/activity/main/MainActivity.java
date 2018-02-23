@@ -12,7 +12,6 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -24,7 +23,6 @@ import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.ActUtil;
 import com.fivefivelike.mybaselibrary.utils.AppUtil;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
@@ -134,7 +132,26 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         WebSocketRequest.getInstance().sendData(new ArrayList<String>());
     }
 
+    public void onAttachFragment(android.support.v4.app.Fragment fragment) {
+        if (marketFragment == null && fragment instanceof MarketFragment) {
+            marketFragment = (MarketFragment) fragment;
+        }
+        if (investGroupFragment == null && fragment instanceof InvestGroupFragment) {
+            investGroupFragment = (InvestGroupFragment) fragment;
+        }
+        if (userFragment == null && fragment instanceof UserFragment) {
+            userFragment = (UserFragment) fragment;
+        }
+    }
 
+    //    protected void onSaveInstanceState(Bundle outState) {
+    //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    //        transaction.remove(marketFragment);
+    //        transaction.remove(investGroupFragment);
+    //        transaction.remove(userFragment);
+    //        transaction.commitAllowingStateLoss();
+    //        super.onSaveInstanceState(outState);
+    //    }
     boolean isLoad = true;//是否更新汇率
 
     private void updata() {
@@ -176,16 +193,6 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         //显示第0个
         viewDelegate.showFragment(0);
         doubleClickActList.add(this.getClass().getName());//两次返回推出act注册
-    }
-
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        if (viewDelegate != null) {
-            if (ListUtils.isEmpty(viewDelegate.getFragmentList())) {
-                viewDelegate.showFragment(viewDelegate.viewHolder.tl_2.getCurrentTab());
-            }
-        }
     }
 
     public void toPage(int pagePosition, int childPosition) {

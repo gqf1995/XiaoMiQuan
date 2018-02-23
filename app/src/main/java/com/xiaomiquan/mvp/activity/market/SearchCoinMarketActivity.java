@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -52,6 +53,18 @@ public class SearchCoinMarketActivity extends BaseDataBindActivity<SearchCoinMar
         initFragment();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            //弹出 edittext
+            this.et_search.setFocusable(true);
+            this.et_search.setFocusableInTouchMode(true);
+            this.et_search.requestFocus();
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
     public EditText et_search;
     public TextView subTitle;
 
@@ -62,6 +75,7 @@ public class SearchCoinMarketActivity extends BaseDataBindActivity<SearchCoinMar
         layoutParams.leftMargin = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_40px);
         rootView.setLayoutParams(layoutParams);
         this.et_search = (EditText) rootView.findViewById(R.id.et_search);
+
         subTitle = viewDelegate.getmToolbarSubTitle();
         et_search.addTextChangedListener(new TextWatcher() {
             @Override
