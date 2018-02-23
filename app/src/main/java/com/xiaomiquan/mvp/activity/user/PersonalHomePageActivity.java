@@ -68,6 +68,7 @@ public class PersonalHomePageActivity extends BaseDataBindActivity<PersonalHomeP
         userLogin = SingSettingDBUtil.getUserLogin();
         viewDelegate.viewHolder.tv_high_quality.setVisibility(View.GONE);
         viewDelegate.viewHolder.tv_free_subscription.setVisibility(View.GONE);
+        viewDelegate.viewHolder.tv_is_focuse.setVisibility(View.GONE);
         if (userLogin != null) {
             if ((userLogin.getId() + "").equals(id)) {
                 //我的个人中心
@@ -75,7 +76,6 @@ public class PersonalHomePageActivity extends BaseDataBindActivity<PersonalHomeP
                 viewDelegate.viewHolder.tv_title_group.setText(CommonUtils.getString(R.string.str_my_group));
                 viewDelegate.viewHolder.tv_live_title.setText(CommonUtils.getString(R.string.str_my_live));
                 viewDelegate.viewHolder.tv_title_circle.setText(CommonUtils.getString(R.string.str_my_circle));
-                viewDelegate.viewHolder.tv_is_focuse.setVisibility(View.GONE);
                 viewDelegate.viewHolder.tv_my_subscribe.setVisibility(View.GONE);
             }
         }

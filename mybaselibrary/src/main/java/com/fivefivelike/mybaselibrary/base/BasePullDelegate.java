@@ -2,6 +2,7 @@ package com.fivefivelike.mybaselibrary.base;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -106,6 +107,8 @@ public abstract class BasePullDelegate extends BaseDelegate {
     public void initRecycleviewPull(RecyclerView.Adapter adapter, RecyclerView.LayoutManager manager, final LoadMoreListView.Callback callback, int headerCount, SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
         mWwipeRefreshLayout = getViewById(R.id.swipeRefreshLayout);
         mPullRecyclerView = getViewById(R.id.pull_recycleview);
+        ((SimpleItemAnimator) mPullRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        mPullRecyclerView.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
         mPullRecyclerView.setLayoutManager(manager);
         mPullRecyclerView.setAdapter(adapter);
         this.headerCount = headerCount;
@@ -262,14 +265,14 @@ public abstract class BasePullDelegate extends BaseDelegate {
     }
 
     public TextView getNoDataText() {
-        if(mFootView==null){
+        if (mFootView == null) {
             return null;
         }
         return (TextView) mFootView.findViewById(R.id.tv_nodata);
     }
 
     public ImageView getNoDataImg() {
-        if(mFootView==null){
+        if (mFootView == null) {
             return null;
         }
         return (ImageView) mFootView.findViewById(R.id.ic_nodata);

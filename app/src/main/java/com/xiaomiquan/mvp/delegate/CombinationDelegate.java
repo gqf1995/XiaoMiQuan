@@ -272,6 +272,9 @@ public class CombinationDelegate extends BaseDelegate {
                 EventBus.getDefault().post(resultDialogEntity);
             }
         });
+
+        BigUIUtil.getinstance().rateTextView(Double.parseDouble(teamInfo.getCurrProfit()), viewHolder.tv_today_earnings);
+        viewHolder.tv_daily_operation.setText(teamInfo.getCount()+"");
     }
 
 

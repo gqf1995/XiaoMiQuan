@@ -1,5 +1,8 @@
 package com.fivefivelike.mybaselibrary.http;
 
+import android.os.Handler;
+import android.os.Message;
+
 import com.dhh.websocket.RxWebSocketUtil;
 import com.dhh.websocket.WebSocketInfo;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
@@ -38,6 +41,26 @@ public class WebSocketRequest {
     String registerUrl;
     String unregisterUrl;
     Disposable disposable;
+    int heartBeatIndex = 0;
+
+
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (((String) msg.obj).equals(REQUEST_TAG)) {
+                heartBeatIndex++;
+                if (heartBeatIndex > 5) {
+                    //重连
+                    heartBeatIndex = 0;
+                    startSocket();
+                }
+                sendWebsocket("ping");
+                Message message = new Message();
+                message.obj = REQUEST_TAG;
+                handler.sendMessageDelayed(message, 3000);
+            }
+        }
+    };
+
 
     public void setRegisterUrl(String registerUrl) {
         this.registerUrl = registerUrl;
@@ -101,6 +124,10 @@ public class WebSocketRequest {
                     @Override
                     public void success(int requestCode, String data) {
                         KLog.i(REQUEST_TAG, "success  " + "register");
+                        Message message = new Message();
+                        message.obj = REQUEST_TAG;
+                        handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
+                        handler.sendMessageDelayed(message, 3000);
                     }
 
                     @Override
@@ -200,6 +227,16 @@ public class WebSocketRequest {
         startSocket();
     }
 
+    private void sendWebsocket(String txt) {
+        if (isOpen) {
+            if (client != null) {
+                if(client.isConnecting()) {
+                    client.send(txt);
+                }
+            }
+        }
+    }
+
     private void startSocket() {
         isOpen = false;
         //        KLog.i(REQUEST_TAG, "startSocket  " + mUrl);
@@ -208,7 +245,11 @@ public class WebSocketRequest {
             public void onMessage(String message) {
                 KLog.i(REQUEST_TAG, "success  " + message);
                 isOpen = true;
-                serviceSuccess(message);
+                if (message.equals("pong")) {
+                    heartBeatIndex = 0;
+                } else {
+                    serviceSuccess(message);
+                }
             }
 
             @Override

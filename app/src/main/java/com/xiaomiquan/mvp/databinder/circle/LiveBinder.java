@@ -3,7 +3,6 @@ package com.xiaomiquan.mvp.databinder.circle;
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.http.RequestCallback;
-import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.xiaomiquan.mvp.delegate.circle.LiveDelegate;
 import com.xiaomiquan.server.HttpUrl;
 
@@ -105,7 +104,6 @@ public class LiveBinder extends BaseDataBind<LiveDelegate> {
                 .setRequestCallback(requestCallback)
                 .build()
                 .RxSendRequest();
-
     }
 
 

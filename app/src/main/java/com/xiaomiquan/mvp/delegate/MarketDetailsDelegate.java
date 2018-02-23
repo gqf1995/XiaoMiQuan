@@ -105,8 +105,8 @@ public class MarketDetailsDelegate extends BaseDelegate {
         viewHolder.tv_krise.setText(v + "");
         viewHolder.tv_kamplitude.setText(((kLineBean.high.floatValue() - kLineBean.low.floatValue()) / kLineBean.open.floatValue()) + "");
 
-        viewHolder.tv_ma5.setText(BigUIUtil.getinstance().bigAmount(data.getMa5DataV().get(position).getVal() + "") + "");
-        viewHolder.tv_ma10.setText(BigUIUtil.getinstance().bigAmount(data.getMa10DataV().get(position).getVal() + "") + "");
+        viewHolder.tv_ma5.setText("MA5:" + BigUIUtil.getinstance().bigAmount(data.getMa5DataV().get(position).getVal() + "") + "");
+        viewHolder.tv_ma10.setText("MA10:" + BigUIUtil.getinstance().bigAmount(data.getMa10DataV().get(position).getVal() + "") + "");
         viewHolder.tv_kvolume.setText(CommonUtils.getString(R.string.str_kvolume) + BigUIUtil.getinstance().bigAmount(data.getKLineDatas().get(position).volume.toPlainString()));
 
 
@@ -174,8 +174,10 @@ public class MarketDetailsDelegate extends BaseDelegate {
     public void initData(ExchangeData exchangeData) {
         viewHolder.tv_title.setText(exchangeData.getExchange());
         viewHolder.tv_subtitle.setText(exchangeData.getSymbol() + "/" + exchangeData.getUnit());
-        viewHolder.tv_price.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLast()));
+        viewHolder.tv_price.setText(BigUIUtil.getinstance().getUnitSymbol(exchangeData.getUnit()) + BigUIUtil.getinstance().bigPrice(exchangeData.getLast()));
+
         String s = BigUIUtil.getinstance().rateMarketPrice(exchangeData.getLast(), exchangeData.getSymbol(), exchangeData.getUnit());
+
         if (TextUtils.isEmpty(s)) {
             viewHolder.tv_rate.setVisibility(View.GONE);
         } else {
@@ -183,26 +185,10 @@ public class MarketDetailsDelegate extends BaseDelegate {
             viewHolder.tv_rate.setText(Html.fromHtml(s));
         }
 
-        StringBuffer stringBuffer = new StringBuffer();
-        String end = "";
         if (!TextUtils.isEmpty(exchangeData.getChange())) {
-            if (new BigDecimal("0").compareTo(new BigDecimal(exchangeData.getChange())) == 1) {
-                //跌
-                stringBuffer.append("")
-                        .append(BigUIUtil.getinstance().changeAmount(exchangeData.getChange()))
-                        .append("% ");
-                end = CommonUtils.getString(R.string.ic_Fall);
-                viewHolder.tv_rise.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
-            } else {
-                //涨
-                stringBuffer.append("+ ")
-                        .append(BigUIUtil.getinstance().changeAmount(exchangeData.getChange()))
-                        .append("% ");
-                end = CommonUtils.getString(R.string.ic_Climb);
-                viewHolder.tv_rise.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
-            }
+            BigUIUtil.getinstance().rateTextView(Double.parseDouble(exchangeData.getChange()), viewHolder.tv_rise);
         }
-        viewHolder.tv_rise.setText(stringBuffer.toString() + " " + end);
+
         //动画
         if (mExchangeData != null) {
             if (!mExchangeData.getLast().equals(exchangeData.getLast())) {

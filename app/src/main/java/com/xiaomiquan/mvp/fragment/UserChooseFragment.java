@@ -51,6 +51,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
     UserLogin userLogin;
     boolean isOnRefush = false;//第一个页面 使用onFragmentVisibleChange有问题
     int sortingType = 0;
+    boolean isChangeWeb;//是否更新web推送
 
     @Override
     protected void bindEvenListener() {
@@ -110,6 +111,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                 if (position > -1) {
+                    isChangeWeb = false;
                     MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
                 }
             }
@@ -131,13 +133,13 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
             }
         };
         initRecycleViewPull(headerAndFooterWrapper, headerAndFooterWrapper.getHeadersCount() + headerAndFooterWrapper.getFootersCount(), linearLayoutManager);
+
         viewDelegate.setIsLoadMore(false);
         viewDelegate.setShowNoData(false);
         defaultDatas = new ArrayList<>();
         onRefresh();
         initTool();
     }
-
 
 
     View rootView;
@@ -169,7 +171,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                 //添加自选
                 //检测登录
                 if (SingSettingDBUtil.isLogin(getActivity())) {
-                    AddCoinActivity.startAct(this, (ArrayList)sendKeys, 0x123);
+                    AddCoinActivity.startAct(this, (ArrayList) sendKeys, 0x123);
                 }
                 break;
             case R.id.lin_sorting:
@@ -186,6 +188,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
                 isOnRefush = false;
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
                 getDataBack(exchangeMarketAdapter.getDatas(), datas, headerAndFooterWrapper);
+                isChangeWeb = true;
                 defaultDatas.clear();
                 defaultDatas.addAll(exchangeMarketAdapter.getDatas());
                 setNodata();
@@ -253,6 +256,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
 
     @Override
     protected void refreshData() {
+        isChangeWeb = false;
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         addRequest(binder.marketdata(this));
         isOnRefush = true;
@@ -309,7 +313,9 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
             HandlerHelper.getinstance().initHander(UserChooseFragment.this.getClass().getName(), exchangeDataMap, viewDelegate.getPullRecyclerView(), new HandlerHelper.OnUpdataLinsener() {
                 @Override
                 public void onUpdataLinsener(ExchangeData val) {
-                    updataNew(val);
+                    if (isChangeWeb) {
+                        updataNew(val);
+                    }
                 }
             });
             WebSocketRequest.getInstance().addCallBack(UserChooseFragment.this.getClass().getName(), new WebSocketRequest.WebSocketCallBack() {
@@ -335,6 +341,7 @@ public class UserChooseFragment extends BasePullFragment<BaseFragentPullDelegate
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
+        isChangeWeb = isVisible;
         if (isVisible && !isOnRefush) {
             binder.cancelpost();
             onRefresh();

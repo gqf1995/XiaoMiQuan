@@ -111,17 +111,17 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
                 if (oldData != null) {
                     if (s.getOnlyKey().equals(oldData.getOnlyKey())) {
                         BigUIUtil.getinstance().anim(s.getUnit(),
-                                (TextView)holder.getView(R.id.tv_coin_price),
+                                (TextView) holder.getView(R.id.tv_coin_price),
                                 oldData.getLast(), s.getLast(),
                                 CommonUtils.getColor(R.color.big_price_color),
-                                s.getOnlyKey(),position,
-                                (TextView)holder.getView(R.id.tv_coin_price).getTag());
+                                s.getOnlyKey(), position,
+                                (TextView) holder.getView(R.id.tv_coin_price).getTag());
                         BigUIUtil.getinstance().animNoArrow(s.getUnit(),
-                                (TextView)holder.getView(R.id.tv_coin_probably),
+                                (TextView) holder.getView(R.id.tv_coin_probably),
                                 oldData.getLast(), s.getLast(),
                                 CommonUtils.getColor(R.color.little_price_color),
-                                s.getOnlyKey(),position,
-                                (TextView)holder.getView(R.id.tv_coin_probably).getTag());
+                                s.getOnlyKey(), position,
+                                (TextView) holder.getView(R.id.tv_coin_probably).getTag());
                     }
                 }
             }
@@ -140,8 +140,8 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
                     .get(position).getOnlyKey())) {
                 return;
             }
-            if(data.getTimestamp()<getDatas()
-                    .get(position).getTimestamp()){
+            if (data.getTimestamp() < getDatas()
+                    .get(position).getTimestamp()) {
                 return;
             }
             boolean isSameChange = false;
@@ -151,7 +151,7 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
                 data.setChange(getDatas().get(position).getChange());
                 isSameChange = true;
             } else {
-                if (getDatas().get(position).getChange().equals(data.getChange())) {
+                if (BigUIUtil.getinstance().rateText(getDatas().get(position).getChange()).equals(BigUIUtil.getinstance().rateText(data.getChange()))) {
                     isSameChange = true;
                 }
             }

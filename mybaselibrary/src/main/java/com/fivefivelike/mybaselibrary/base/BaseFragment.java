@@ -190,7 +190,6 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
      *                  false 可见  -> 不可见
      */
     protected void onFragmentVisibleChange(boolean isVisible) {
-
     }
 
     /**

@@ -17,7 +17,7 @@ public class AppConst {
     public static final String rulesUrl = "http://rule.bicoin.com.cn";
     public static final String myRewardUrl = "http://rule.bicoin.com.cn/35/16/p501606933c9693";
     public static final String rongId = "pgyu6atqp96nu";
-    public static final boolean isLog = true;
+    public static final boolean isLog = false;
     public static final boolean isEditUrl = false;
 
     /**

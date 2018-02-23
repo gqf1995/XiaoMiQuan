@@ -265,7 +265,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                 List<GroupDynamic> list = GsonUtil.getInstance().toList(data, GroupDynamic.class);
                 initList(list);
                 break;
-            case 0x124:
+            case 0x124://bkg klc wd
                 //我的组合
                 allGroupData = GsonUtil.getInstance().toObj(data, AllGroupData.class);
                 initHotTeam(allGroupData.getHotTeams());

@@ -170,7 +170,8 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                 data.setChange(getDatas().get(position).getChange());
                 isSameChange = true;
             } else {
-                if (getDatas().get(position).getChange().equals(data.getChange())) {
+                if(BigUIUtil.getinstance().rateText(getDatas().get(position).getChange()).equals(BigUIUtil.getinstance().rateText(data.getChange()))){
+                    //涨幅经计算后一样
                     isSameChange = true;
                 }
             }

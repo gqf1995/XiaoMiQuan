@@ -1,6 +1,7 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -69,18 +70,18 @@ public class CoinDetailDelegate extends BaseDelegate {
         viewHolder.tv_browser.setText(data.getBlockBrowserUrl());
         viewHolder.tv_website.setText(data.getOfficalWebsiteUrl());
         viewHolder.tv_wallet_address.setText(data.getWhitePaperUrl());
+        viewHolder.tv_content.setText(data.getDecription() + "");
 
         GlideUtils.loadImage(data.getPicUrl(), viewHolder.iv_coin_icon);
 
 
         List<String> strings = BigUIUtil.getinstance().rateUSDAndCNY(exchangeData.getPriceUsd(), exchangeData.getSymbol(), UserSet.getinstance().getUSDUnit());
 
-        viewHolder.tv_price_usd.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getPriceUsd()));
+        viewHolder.tv_price_usd.setText(Html.fromHtml(BigUIUtil.getinstance().bigPrice(exchangeData.getPriceUsd())));
         viewHolder.tv_price_cny.setText(strings.get(1));
 
 
-
-        String risePrice=BigUIUtil.getinstance().risePrice(exchangeData.getPriceUsd(),exchangeData.getPercentChange24h());
+        String risePrice = BigUIUtil.getinstance().risePrice(exchangeData.getPriceUsd(), exchangeData.getPercentChange24h());
 
 
         StringBuffer stringBuffer = new StringBuffer();
@@ -89,7 +90,7 @@ public class CoinDetailDelegate extends BaseDelegate {
             if (new BigDecimal("0").compareTo(new BigDecimal(exchangeData.getPercentChange24h())) == 1) {
                 //跌
                 stringBuffer.append("")
-                        .append( risePrice+"$")
+                        .append(risePrice + "$")
                         .append("(")
                         .append(BigUIUtil.getinstance().changeAmount(exchangeData.getPercentChange24h()))
                         .append("%) ");
@@ -98,7 +99,7 @@ public class CoinDetailDelegate extends BaseDelegate {
             } else {
                 //涨
                 stringBuffer.append("+ ")
-                        .append( risePrice+"$")
+                        .append(risePrice + "$")
                         .append("(+")
                         .append(BigUIUtil.getinstance().changeAmount(exchangeData.getPercentChange24h()))
                         .append("%) ");

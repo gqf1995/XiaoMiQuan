@@ -48,11 +48,10 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
     List<ExchangeData> dropDatas;
     List<String> sendKeys;
     List<String> unitList;
-    final int whatIndex = 1025;
+    boolean isChangeWeb;
     String onlyKeys;
     int sortingType = 0;
     private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
-
 
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
@@ -79,6 +78,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     if (position > -1) {
+                        isChangeWeb=false;
                         MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
                     }
                 }
@@ -90,11 +90,13 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
+
             initTool();
             viewDelegate.setDefaultPage(0);
         } else {
             exchangeMarketAdapter.setFirst(true);
             getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);
+            isChangeWeb=true;
         }
         exchangeMarketAdapter.setFirst(false);
     }
@@ -152,7 +154,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data,info,status,requestCode);
+        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
@@ -183,13 +185,13 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
         }
     }
 
-    boolean isVisible;
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
-        this.isVisible = isVisible;
+        isChangeWeb=isVisible;
         if (isVisible) {
             onRefresh();
+            checkRedRise();
             //同步用户所选 单位
             if (exchangeMarketAdapter != null) {
                 tv_unit.setText(UserSet.getinstance().getShowUnit());
@@ -211,7 +213,9 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
             HandlerHelper.getinstance().initHander(exchangeName.getEname(), exchangeDataMap, viewDelegate.getPullRecyclerView(), new HandlerHelper.OnUpdataLinsener() {
                 @Override
                 public void onUpdataLinsener(ExchangeData val) {
-                    updataNew(val);
+                    if (isChangeWeb) {
+                        updataNew(val);
+                    }
                 }
             });
             WebSocketRequest.getInstance().addCallBack(exchangeName.getEname(), new WebSocketRequest.WebSocketCallBack() {
@@ -286,6 +290,7 @@ public class ExchangeFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     @Override
     protected void refreshData() {
+        isChangeWeb=false;
         addRequest(binder.getAllMarketByExchange(exchangeName.getEname(), this));
     }
 

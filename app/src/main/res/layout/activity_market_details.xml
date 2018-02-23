@@ -466,7 +466,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical|left"
                                 android:text="-"
-                                android:textColor="@color/color_font4"
+                                android:textColor="@color/color_font2"
                                 android:textSize="@dimen/text_trans_16px"/>
 
                             <Space
@@ -480,7 +480,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical|left"
                                 android:text="-"
-                                android:textColor="@color/color_font4"
+                                android:textColor="@color/color_font2"
                                 android:textSize="@dimen/text_trans_16px"/>
 
                             <Space
@@ -494,7 +494,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical|left"
                                 android:text="-"
-                                android:textColor="@color/color_font4"
+                                android:textColor="@color/color_font2"
                                 android:textSize="@dimen/text_trans_16px"/>
 
                             <Space
@@ -508,7 +508,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical|left"
                                 android:text="-"
-                                android:textColor="@color/color_font4"
+                                android:textColor="@color/color_font2"
                                 android:textSize="@dimen/text_trans_16px"/>
 
                             <Space
@@ -610,7 +610,7 @@
                                 android:gravity="center"
                                 android:paddingRight="@dimen/trans_15px"
                                 android:text="-"
-                                android:textColor="@color/color_font4"
+                                android:textColor="@color/color_font2"
                                 android:textSize="@dimen/text_trans_20px"/>
                         </LinearLayout>
 
@@ -689,10 +689,9 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/trans_10px"
-                            android:layout_gravity="bottom"
-                            android:background="@drawable/shadow_line"
-                            android:rotation="180"/>
+                            android:layout_height="@dimen/trans_1px"
+                            android:background="@color/base_mask"
+                            />
 
                     </LinearLayout>
 
@@ -702,7 +701,6 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:visibility="gone">
-
 
 
                     </FrameLayout>

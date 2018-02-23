@@ -36,8 +36,8 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
     CoinExchangeAdapter exchangeMarketAdapter;
     String coinName;
     private ConcurrentHashMap<String, ExchangeData> exchangeDataMap;
-    final int whatIndex = 1026;
     List<String> sendKeys;
+    boolean isChangeWeb;//是否更新web推送
 
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
@@ -65,6 +65,7 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     if (position > -1) {
+                        isChangeWeb=false;
                         MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
                     }
                 }
@@ -78,12 +79,14 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
             //viewDelegate.viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
             //viewDelegate.viewHolder.recycler_view.setAdapter(exchangeMarketAdapter);
             initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
+
             initTool();
             viewDelegate.setDefaultPage(0);
         } else {
             //exchangeMarketAdapter.setDatas(strDatas);
             exchangeMarketAdapter.setFirst(true);
             getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);
+            isChangeWeb=true;
         }
         exchangeMarketAdapter.setFirst(false);
     }
@@ -137,11 +140,11 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
         }
     }
 
-    boolean isVisible;
+
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
-        this.isVisible = isVisible;
+        isChangeWeb=isVisible;
         if (isVisible) {
             onRefresh();
             if (exchangeMarketAdapter != null) {
@@ -197,7 +200,9 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
             HandlerHelper.getinstance().initHander(coinName, exchangeDataMap, viewDelegate.getPullRecyclerView(), new HandlerHelper.OnUpdataLinsener() {
                 @Override
                 public void onUpdataLinsener(ExchangeData val) {
-                    updataNew(val);
+                    if(isChangeWeb) {
+                        updataNew(val);
+                    }
                 }
             });
             WebSocketRequest.getInstance().addCallBack(coinName, new WebSocketRequest.WebSocketCallBack() {
@@ -229,6 +234,7 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
 
     @Override
     protected void refreshData() {
+        isChangeWeb=false;
         addRequest(binder.getAllMarketBySymbol(coinName, this));
     }
     //    protected void onRefresh() {
