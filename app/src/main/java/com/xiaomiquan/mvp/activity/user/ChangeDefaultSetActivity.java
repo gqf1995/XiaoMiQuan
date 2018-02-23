@@ -82,6 +82,7 @@ public class ChangeDefaultSetActivity extends BaseActivity<ChangeDefaultSetDeleg
                     UserSet.getinstance().setLanguage(Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_language_abbreviations)).get(position));
                 } else if (TYPE_UNIT.equals(type)) {
                     UserSet.getinstance().setUnit(data.get(position));
+                    onBackPressed();
                 }
             }
 
