@@ -14,25 +14,27 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleContentAdapter;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.mvp.databinder.circle.CircleContentBinder;
 import com.xiaomiquan.mvp.delegate.circle.CircleContentDelegate;
+import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.xiaomiquan.widget.circle.SquarePopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class CircleContentActivity extends BasePullActivity<CircleContentDelegate, CircleContentBinder> {
 
     CircleContentAdapter circleContentAdapter;
-    HeaderAndFooterWrapper headerAndFooterWrapper;
     List<SquareLive> squareLiveList;
     UserCircle userCircle;
     public static String groupId;
@@ -53,28 +55,22 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
         super.bindEvenListener();
         getIntentData();
         floatBtn();
-        initUserTopic(new ArrayList<SquareLive>());
+
         initToolbar(new ToolbarBuilder().setTitle(userCircle.getName()).setmRightImg2(CommonUtils.getString(R.string.ic_Notifications)).setSubTitle("+"));
         groupId = userCircle.getId();
-        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                addRequest(binder.getCicleContent("1", userCircle.getId(), CircleContentActivity.this));
-            }
-        });
 
     }
 
     @Override
     protected void clickRightIv1() {
         super.clickRightIv1();
-        EditCircleActivity.startAct(CircleContentActivity.this, userCircle);
+        CreatCircleActivity.startAct(CircleContentActivity.this, userCircle);
     }
 
     @Override
     protected void clickRightIv2() {
         super.clickRightIv2();
-        EditCircleActivity.startAct(CircleContentActivity.this, userCircle);
+        CreatCircleActivity.startAct(CircleContentActivity.this, userCircle);
     }
 
     @Override
@@ -122,7 +118,7 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data,info,status,requestCode);
+        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
@@ -143,13 +139,7 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
         if (circleContentAdapter == null) {
             onRefresh();
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
-            circleContentAdapter = new CircleContentAdapter(CircleContentActivity.this, squareLives);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CircleContentActivity.this) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            };
+            circleContentAdapter = new CircleContentAdapter(binder, CircleContentActivity.this, squareLives);
             circleContentAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -181,11 +171,11 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
                     }
                 }
             });
-            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
-            viewDelegate.viewHolder.pull_recycleview.setAdapter(circleContentAdapter);
-            viewDelegate.setIsLoadMore(false);
+//            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
+//            viewDelegate.viewHolder.pull_recycleview.setAdapter(circleContentAdapter);
+            initRecycleViewPull(circleContentAdapter, new LinearLayoutManager(CircleContentActivity.this));
         } else {
-            circleContentAdapter.setDatas(squareLives);
+            getDataBack(circleContentAdapter.getDatas(), squareLives, circleContentAdapter);
         }
     }
 
@@ -208,10 +198,36 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
         activity.startActivity(intent);
     }
 
+    List<String> dataset1;//选择 条件
+    List<String> dataset2;//选择 时间
+
     private void initCircle(UserCircle userCircle) {
+        dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.circle_show_type));
+        dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.circle_show_type));
+
+
+        viewDelegate.viewHolder.lin_time
+                .setDefaultClickLinsener(new DefaultClickLinsener() {
+                    @Override
+                    public void onClick(View view, int position, Object item) {
+                        viewDelegate.viewHolder.lin_time.setText(dataset2.get(position));
+                    }
+                })
+                .setDatas(dataset2, null);
+        viewDelegate.viewHolder.lin_type
+                .setDefaultClickLinsener(new DefaultClickLinsener() {
+                    @Override
+                    public void onClick(View view, int position, Object item) {
+                        viewDelegate.viewHolder.lin_time.setText(dataset1.get(position));
+                    }
+                })
+                .setDatas(dataset1, null);
+
         viewDelegate.viewHolder.tv_name.setText(userCircle.getName());
         viewDelegate.viewHolder.tv_creator.setText(userCircle.getNickName());
         viewDelegate.viewHolder.tv_num.setText(userCircle.getMemberCount());
+        GlideUtils.loadImage(userCircle.getAvatar(), viewDelegate.viewHolder.iv_bg);
+        initUserTopic(new ArrayList<SquareLive>());
     }
 
 

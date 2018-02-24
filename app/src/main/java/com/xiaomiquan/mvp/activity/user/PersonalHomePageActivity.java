@@ -108,8 +108,8 @@ public class PersonalHomePageActivity extends BaseDataBindActivity<PersonalHomeP
         switch (requestCode) {
             case 0x123:
                 UserHomePage userHomePage = GsonUtil.getInstance().toObj(data, UserHomePage.class);
-                //initList(userHomePage.getArticleTopicVos());
-                //initCircleList(userHomePage.getGroupVos());
+                initList(userHomePage.getArticleTopicVos());
+                initCircleList(userHomePage.getGroupVos());
                 initUser(userHomePage);
                 if (isMy) {
                     addRequest(binder.listDemo(this));

@@ -39,7 +39,6 @@
                     android:id="@+id/lin_tab"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/trans_81px"
-                    android:visibility="invisible"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -88,7 +87,6 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
-                    android:visibility="gone"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
@@ -97,7 +95,8 @@
         </com.xiaomiquan.widget.JudgeNestedScrollView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
     <include layout="@layout/include_toolbar_with_statusbar"/>
+
+
 
 </FrameLayout>

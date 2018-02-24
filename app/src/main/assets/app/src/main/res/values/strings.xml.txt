@@ -359,6 +359,7 @@
     <string name="str_tv_join">立即加入</string>
     <string name="str_tv_code">我有加圈码</string>
     <string name="str_title_create_circle">创建圈子</string>
+    <string name="str_title_edit_circle">修改圈子</string>
     <string name="str_toast_user">请阅读用户规范</string>
     <string name="str_title_square">广场</string>
     <string name="str_toast_need_login">登录后才能使用此功能</string>
@@ -393,10 +394,22 @@
     <string name="update_app_error">下载失败，是否去官网下载</string>
     <string name="downloading_apk">正在后台下载...</string>
 
+
+    <string-array name="circle_show_type">
+        <item>全部</item>
+        <item>圈主</item>
+    </string-array>
+    <string-array name="circle_show_time">
+        <item>时间</item>
+        <item>回复数量</item>
+        <item>点赞数量</item>
+    </string-array>
+
     <string-array name="price">
         <item>限价</item>
         <item>限价 </item>
     </string-array>
+
 
     <string-array name="sa_select_market">
         <item>自选</item>

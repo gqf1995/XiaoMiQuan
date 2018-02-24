@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.activity.circle;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.mvp.databinder.circle.CreatCircleBinder;
 import com.xiaomiquan.mvp.delegate.circle.CreatCircleDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -46,8 +48,23 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_create_circle)).setSubTitle(CommonUtils.getString(R.string.str_complete)));
-        initView();
+        getIntentData();
+        if (userCircle != null) {
+            initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_edit_circle)).setSubTitle(CommonUtils.getString(R.string.str_complete)));
+            editCircle(userCircle);
+        } else {
+            initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_create_circle)).setSubTitle(CommonUtils.getString(R.string.str_complete)));
+            initView();
+        }
+
+    }
+
+    private void editCircle(UserCircle userCircle) {
+        viewDelegate.viewHolder.lin_choose.setVisibility(View.GONE);
+        viewDelegate.viewHolder.lin_next.setVisibility(View.VISIBLE);
+        viewDelegate.viewHolder.et_name.setText(userCircle.getName());
+        viewDelegate.viewHolder.et_brief.setText(userCircle.getBrief());
+        GlideUtils.loadImage(userCircle.getAvatar(), viewDelegate.viewHolder.iv_img);
     }
 
     @Override
@@ -184,6 +201,21 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
             return false;
         }
         return true;
+    }
+
+    public static void startAct(Activity activity,
+                                UserCircle userCircle
+    ) {
+        Intent intent = new Intent(activity, CreatCircleActivity.class);
+        intent.putExtra("userCircle", userCircle);
+        activity.startActivity(intent);
+    }
+
+    UserCircle userCircle;
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        userCircle = intent.getParcelableExtra("userCircle");
     }
 
 }

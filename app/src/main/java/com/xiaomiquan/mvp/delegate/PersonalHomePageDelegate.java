@@ -112,7 +112,7 @@ public class PersonalHomePageDelegate extends BaseDelegate {
         public IconFontTextview tv_time_live;
         public LinearLayout lin_tab;
         public RecyclerView recycler_view;
-        public StickyScrollView nestedScrollView;
+        public JudgeNestedScrollView nestedScrollView;
         public SwipeRefreshLayout swipeRefreshLayout;
         public View v_status;
         public IconFontTextview toolbar_back;
@@ -153,7 +153,7 @@ public class PersonalHomePageDelegate extends BaseDelegate {
             this.tv_time_live = (IconFontTextview) rootView.findViewById(R.id.tv_time_live);
             this.lin_tab = (LinearLayout) rootView.findViewById(R.id.lin_tab);
             this.recycler_view = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-            this.nestedScrollView = (StickyScrollView) rootView.findViewById(R.id.nestedScrollView);
+            this.nestedScrollView = (JudgeNestedScrollView) rootView.findViewById(R.id.nestedScrollView);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
             this.v_status = (View) rootView.findViewById(R.id.v_status);
             this.toolbar_back = (IconFontTextview) rootView.findViewById(R.id.toolbar_back);

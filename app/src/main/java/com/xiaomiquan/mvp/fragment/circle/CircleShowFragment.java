@@ -203,7 +203,7 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
                         joinPopupWindow.dismiss();
                         break;
                     case R.id.lin_creat:
-                        gotoActivity(CreatCircleActivity.class).startAct();
+                        CreatCircleActivity.startAct(getActivity(),null);
                         joinPopupWindow.dismiss();
                         break;
                     case R.id.btn_cancel:

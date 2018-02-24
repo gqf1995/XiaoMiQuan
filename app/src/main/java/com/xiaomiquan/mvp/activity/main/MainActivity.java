@@ -186,8 +186,8 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     public void initFragment() {
         //设置 以哪个FrameLayout 作为展示
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
-        //viewDelegate.addFragment(squareFragment = new CircleFragment());
-        viewDelegate.addFragment(investGroupFragment = new InvestGroupFragment());
+        viewDelegate.addFragment(squareFragment = new CircleFragment());
+//        viewDelegate.addFragment(investGroupFragment = new InvestGroupFragment());
         viewDelegate.addFragment(marketFragment = new MarketFragment());
         viewDelegate.addFragment(userFragment = new UserFragment());
         //显示第0个

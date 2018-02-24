@@ -286,9 +286,9 @@ public class HttpUrl {
     public String getSomeBodyIn = getBaseUrl() + groupMemberUrl + "/getSomeBodyIn";
 
     /**
-     * 获得帖子
+     * 获得圈子内帖子
      */
-    public String getUsertopic = getBaseUrl() + "/usertopic/list/group/usertopic";
+    public String getUsertopic = getBaseUrl() + "/articleTopic/listForGroupByPage";
     /**
      * 发帖子
      */

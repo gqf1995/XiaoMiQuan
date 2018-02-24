@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/lin_comment"
     android:layout_height="wrap_content">
+
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="我:"
+        android:text=""
         android:textColor="@color/color_blue"
-        android:textSize="@dimen/text_trans_32px"/>
+        android:textSize="@dimen/text_trans_32px" />
+
+    <TextView
+        android:id="@+id/tv_re"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="回复"
+        android:textColor="@color/color_font1"
+        android:textSize="@dimen/text_trans_32px" />
+
+    <TextView
+        android:id="@+id/tv_rename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/color_blue"
+        android:textSize="@dimen/text_trans_32px" />
+
     <TextView
         android:id="@+id/tv_con"
         android:layout_width="wrap_content"
@@ -17,5 +38,5 @@
         android:gravity="center"
         android:text="hhhhh"
         android:textColor="@color/color_font1"
-        android:textSize="@dimen/text_trans_32px"/>
+        android:textSize="@dimen/text_trans_32px" />
 </LinearLayout>
