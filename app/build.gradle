@@ -165,7 +165,7 @@ dependencies {
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
     compile 'com.gavin.com.library:stickyDecoration:1.2.1'
     compile 'jp.wasabeef:richeditor-android:1.2.2'
-
+    compile 'com.zhy:autolayout:1.4.5'
 
 }
 task cleanExampleAssets(type: Delete) {

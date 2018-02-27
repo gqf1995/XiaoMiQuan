@@ -23,6 +23,7 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.mvp.view.IDelegateImpl;
 import com.fivefivelike.mybaselibrary.utils.AndroidUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.dialog.NetWorkDialog;
 
@@ -63,6 +64,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
     private IconFontTextview mToolbarBack;
     private View mViewSubtitlePoint;
 
+    private String FRAGMENT_TAG = "fragment_tag";
 
     public NetWorkDialog getNetConnectDialog() {
         return initDialog("加载中...");
@@ -136,7 +138,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
         viewImg2Point = getViewById(R.id.view_img2_point);
         viewImg1Point = getViewById(R.id.view_img1_point);
         viewImgPoint = getViewById(R.id.view_img_point);
-        viewBackPoint=getViewById(R.id.view_back_point);
+        viewBackPoint = getViewById(R.id.view_back_point);
         fl_content = getViewById(R.id.fl_content);
 
 
@@ -309,6 +311,27 @@ public abstract class BaseDelegate extends IDelegateImpl {
         fragmentList.add(fragment);
     }
 
+    public void initFromSave() {
+        if (fragmentContainId == -1) {//没有设置容器
+            return;
+        }
+        if (fragmentManager == null) {//没有初始化管理器
+            return;
+        }
+        if (fragmentList == null) {
+            fragmentList = new ArrayList<>();
+        }
+        if (!ListUtils.isEmpty(fragmentList)) {
+            if (fragmentManager.getFragments() != null) {
+                if (fragmentManager.getFragments().size() > 0) {
+                    for (int i = 0; i < fragmentManager.getFragments().size(); i++) {
+                        fragmentList.add(fragmentManager.getFragments().get(i));
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * 显示某一个fragment
      * 在{@link #addFragment(Fragment)}之后使用
@@ -332,8 +355,11 @@ public abstract class BaseDelegate extends IDelegateImpl {
         Fragment frl = fragmentList.get(index);
         if (frl.isAdded()) {
             frl.onResume();
-        } else {
-            transaction.add(fragmentContainId, frl);
+        }
+        if (!ListUtils.isEmpty(fragmentManager.getFragments())) {
+            for (int i = 0; i < fragmentList.size(); i++) {
+                transaction.add(fragmentContainId, fragmentList.get(i), FRAGMENT_TAG + index);
+            }
         }
         for (int i = 0; i < fragmentList.size(); i++) {
             Fragment fragment = fragmentList.get(i);
@@ -349,6 +375,26 @@ public abstract class BaseDelegate extends IDelegateImpl {
         cuurentFragmentPosition = index;
     }
 
+    public String getFramentTag(int index) {
+        return FRAGMENT_TAG + index;
+    }
+
+    public Fragment getFragmentByTag(String tag) {
+        if (fragmentManager == null) {
+            return null;
+        }
+        return fragmentManager.findFragmentByTag(tag);
+    }
+
+    public Fragment getFragmentByIndex(int index) {
+        if (!ListUtils.isEmpty(fragmentList)) {
+            return null;
+        }
+        if (index > fragmentList.size()) {
+            return null;
+        }
+        return fragmentList.get(index);
+    }
 
     public void replaceFragment(int index, Fragment fragment) {
         if (fragmentContainId == -1) {//没有设置容器

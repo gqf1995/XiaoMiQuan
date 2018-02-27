@@ -97,7 +97,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     // MarketDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
-                    isChangeWeb=false;
+                    isChangeWeb = false;
                     CoinDetailsActivity.startAct(getActivity(), exchangeMarketAdapter.getDatas().get(position));
                 }
 
@@ -108,14 +108,15 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
             initRecycleViewPull(exchangeMarketAdapter, new LinearLayoutManager(getActivity()));
-
             viewDelegate.setIsLoadMore(true);
             initTool();
             viewDelegate.setDefaultPage(0);
         } else {
+            exchangeMarketAdapter.setFirst(true);
             getDataBack(exchangeMarketAdapter.getDatas(), strDatas, exchangeMarketAdapter);
-            isChangeWeb=true;
+            isChangeWeb = true;
         }
+        exchangeMarketAdapter.setFirst(false);
     }
 
     public TextView tv_unit;
@@ -169,7 +170,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
             case 0x123:
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
-                getDataBack(exchangeMarketAdapter.getDatas(), datas, exchangeMarketAdapter);
+                initList(datas);
                 defaultDatas.clear();
                 defaultDatas.addAll(exchangeMarketAdapter.getDatas());
                 if (defaultDatas.size() > 0) {
@@ -274,7 +275,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
 
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
-        isChangeWeb=isVisible;
+        isChangeWeb = isVisible;
         if (isVisible) {
             onRefresh();
             checkRedRise();
@@ -304,7 +305,7 @@ public class MarketValueFragment extends BasePullFragment<BaseFragentPullDelegat
 
     @Override
     protected void refreshData() {
-        isChangeWeb=false;
+        isChangeWeb = false;
         addRequest(binder.getAllMarketCaps(this));
     }
 

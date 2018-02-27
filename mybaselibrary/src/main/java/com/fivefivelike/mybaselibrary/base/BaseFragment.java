@@ -2,6 +2,7 @@ package com.fivefivelike.mybaselibrary.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -125,10 +126,30 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
         onFragmentVisibleChange(isFragmentVisible);
     }
 
+    private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initVariable();
+        if (savedInstanceState != null) {
+            boolean isSupportHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
+            //fragment 自己对自己
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            if (isSupportHidden) {
+                ft.hide(this);
+            } else {
+                ft.show(this);
+            }
+            ft.commit();
+        }
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
     }
 
     @Override

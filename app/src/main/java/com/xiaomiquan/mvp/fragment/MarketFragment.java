@@ -66,6 +66,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     public TabViewpageBinder getDataBinder(TabViewpageDelegate viewDelegate) {
         return new TabViewpageBinder(viewDelegate);
     }
+
     @Override
     public void onAttachFragment(Fragment childFragment) {
         super.onAttachFragment(childFragment);
@@ -106,21 +107,24 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     }
 
 
-
     public void sendWebsocket() {
         if (fragments == null) {
             return;
         }
-        for (int i = 0; i < fragments.size(); i++) {
-            if (i == viewDelegate.viewHolder.tl_2.getCurrentTab()) {
-                if (fragments.get(i) instanceof ExchangeFragment) {
-                    ((ExchangeFragment) fragments.get(i)).sendWebSocket();
-                } else if (fragments.get(i) instanceof MarketValueFragment) {
-                    ((MarketValueFragment) fragments.get(i)).sendWebSocket();
-                } else if (fragments.get(i) instanceof UserChooseFragment) {
-                    ((UserChooseFragment) fragments.get(i)).sendWebSocket();
-                } else if (fragments.get(i) instanceof CoinExchangeFragment) {
-                    ((CoinExchangeFragment) fragments.get(i)).sendWebSocket();
+        if (viewDelegate != null) {
+            if (viewDelegate.viewHolder.tl_2 != null) {
+                for (int i = 0; i < fragments.size(); i++) {
+                    if (i == viewDelegate.viewHolder.tl_2.getCurrentTab()) {
+                        if (fragments.get(i) instanceof ExchangeFragment) {
+                            ((ExchangeFragment) fragments.get(i)).sendWebSocket();
+                        } else if (fragments.get(i) instanceof MarketValueFragment) {
+                            ((MarketValueFragment) fragments.get(i)).sendWebSocket();
+                        } else if (fragments.get(i) instanceof UserChooseFragment) {
+                            ((UserChooseFragment) fragments.get(i)).sendWebSocket();
+                        } else if (fragments.get(i) instanceof CoinExchangeFragment) {
+                            ((CoinExchangeFragment) fragments.get(i)).sendWebSocket();
+                        }
+                    }
                 }
             }
         }
@@ -287,15 +291,15 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         switch (requestCode) {
             case 0x123:
                 //保存行情列表
-//                List<ExchangeName> exchangeNames = GsonUtil.getInstance().toList(data, ExchangeName.class);
-//                if (exchangeNameList == null) {
-//                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-//                    initTablelayout(exchangeNames);
-//                } else {
-//                    if (exchangeNames.size() != exchangeNameList.size()) {
-//                        CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-//                    }
-//                }
+                //                List<ExchangeName> exchangeNames = GsonUtil.getInstance().toList(data, ExchangeName.class);
+                //                if (exchangeNameList == null) {
+                //                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
+                //                    initTablelayout(exchangeNames);
+                //                } else {
+                //                    if (exchangeNames.size() != exchangeNameList.size()) {
+                //                        CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
+                //                    }
+                //                }
                 break;
         }
     }

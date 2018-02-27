@@ -39,7 +39,7 @@
                     android:paddingRight="@dimen/trans_15px"
                     android:text="BTC"
                     android:textColor="@color/color_font1"
-                    android:textSize="@dimen/text_trans_32px"
+                    android:textSize="@dimen/text_trans_31px"
                     />
 
                 <com.fivefivelike.mybaselibrary.view.FontTextview
@@ -49,7 +49,7 @@
                     android:gravity="center"
                     android:text="BTC"
                     android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_24px"
+                    android:textSize="@dimen/text_trans_23px"
                     />
 
             </LinearLayout>
@@ -69,7 +69,7 @@
                     android:paddingTop="@dimen/trans_10px"
                     android:text="市值$58,497,247,500"
                     android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_22px"
+                    android:textSize="@dimen/text_trans_21px"
                     />
 
                 <com.fivefivelike.mybaselibrary.view.FontTextview
@@ -79,7 +79,7 @@
                     android:gravity="center"
                     android:text="BTC"
                     android:textColor="@color/color_font3"
-                    android:textSize="@dimen/text_trans_22px"
+                    android:textSize="@dimen/text_trans_21px"
                     />
 
             </LinearLayout>
@@ -103,7 +103,7 @@
                 android:text="0.00000008"
                 android:includeFontPadding="false"
                 android:textColor="@color/big_price_color"
-                android:textSize="@dimen/text_trans_36px"
+                android:textSize="@dimen/text_trans_34px"
                 android:textStyle="bold"
                 app:TypeFace="SemiBold"/>
 
@@ -115,7 +115,7 @@
                 android:includeFontPadding="false"
                 android:text="≈¥14.7345"
                 android:textColor="@color/little_price_color"
-                android:textSize="@dimen/text_trans_24px"
+                android:textSize="@dimen/text_trans_23px"
                 android:textStyle="bold"
                 app:TypeFace="SemiBold"/>
 
@@ -142,7 +142,7 @@
                 android:gravity="center"
                 android:text="+ 50.79%"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_trans_26px"
+                android:textSize="@dimen/text_trans_25px"
                 android:textStyle="bold"
                 app:TypeFace="SemiBold"
                 />

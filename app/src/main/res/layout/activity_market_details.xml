@@ -854,7 +854,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:paddingLeft="@dimen/trans_5px"
-                            android:text="@string/str_add"
+                            android:text="@string/str_add_coin_market"
                             android:textColor="@color/color_font2"
                             android:textSize="@dimen/text_trans_20px"/>
 
