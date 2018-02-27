@@ -41,8 +41,6 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
         return new CreatCircleBinder(viewDelegate);
     }
 
-    String isFree = "true";
-
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
@@ -85,7 +83,7 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
                             viewDelegate.viewHolder.et_name.getText().toString(),
                             "科技",
                             viewDelegate.viewHolder.et_brief.getText().toString(),
-                            isFree,
+                            viewDelegate.viewHolder.ck_free.isChecked(),
                             "0",
                             CreatCircleActivity.this
                     ));
@@ -97,7 +95,7 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
                                     viewDelegate.viewHolder.et_name.getText().toString(),
                                     "科技",
                                     viewDelegate.viewHolder.et_brief.getText().toString(),
-                                    isFree,
+                                    viewDelegate.viewHolder.ck_free.isChecked(),
                                     text,
                                     CreatCircleActivity.this
                             ));

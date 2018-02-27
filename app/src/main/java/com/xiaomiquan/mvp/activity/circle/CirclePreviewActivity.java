@@ -38,9 +38,8 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initUserTopic(new ArrayList<SquareLive>());
-        getIntentData();
 
+        getIntentData();
 //        addRequest(binder.getCicleInfo(userCircle.getId(), CirclePreviewActivity.this));
     }
 
@@ -57,20 +56,11 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
         viewDelegate.viewHolder.tv_con.setText(userCircle.getBrief());
         viewDelegate.viewHolder.tv_creator.setText(userCircle.getNickName());
         viewDelegate.viewHolder.tv_num.setText(userCircle.getMemberCount());
-        GlideUtils.loadImage(userCircle.getAvatar(), viewDelegate.viewHolder.iv_head);
+        GlideUtils.loadImage(userCircle.getOwnerAvatar(), viewDelegate.viewHolder.iv_head);
 
         viewDelegate.viewHolder.tv_free.setOnClickListener(this);
         viewDelegate.viewHolder.tv_code.setOnClickListener(this);
         viewDelegate.viewHolder.tv_pay.setOnClickListener(this);
-
-        if (userCircle.getArticleTopicVos().size() >= 3) {
-            List<SquareLive> data = new ArrayList<>();
-            data.add(userCircle.getArticleTopicVos().get(0));
-            data.add(userCircle.getArticleTopicVos().get(1));
-            data.add(userCircle.getArticleTopicVos().get(2));
-        } else {
-            initUserTopic(userCircle.getArticleTopicVos());
-        }
 
     }
 
@@ -78,8 +68,12 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
-                initUserTopic(datas);
+                List<SquareLive> datas = GsonUtil.getInstance().toList(GsonUtil.getInstance().getValue(data,"articleTopicVos"), SquareLive.class);
+                if (datas.size()>=3){
+                    initUserTopic(datas.subList(0,3));
+                }else {
+                    initUserTopic(datas);
+                }
                 break;
             case 0x124:
                 CircleContentActivity.startAct(CirclePreviewActivity.this, userCircle);
@@ -90,6 +84,7 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
 
     private void initUserTopic(List<SquareLive> squareLives) {
         if (circleDynamicAdapter == null) {
+            addRequest(binder.getCicleInfo(userCircle.getId(),CirclePreviewActivity.this));
             circleDynamicAdapter = new CircleDynamicAdapter(binder, CirclePreviewActivity.this, squareLives);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CirclePreviewActivity.this) {
                 @Override
@@ -118,6 +113,7 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
         Intent intent = getIntent();
         userCircle = intent.getParcelableExtra("userCircle");
         initToolbar(new ToolbarBuilder().setTitle(userCircle.getName()));
+        initUserTopic(new ArrayList<SquareLive>());
         initView();
     }
 

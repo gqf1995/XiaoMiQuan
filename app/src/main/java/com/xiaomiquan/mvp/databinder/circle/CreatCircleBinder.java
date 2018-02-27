@@ -27,7 +27,7 @@ public class CreatCircleBinder extends BaseDataBind<CreatCircleDelegate> {
             String name,
             String type,
             String brief,
-            String isFree,
+            Boolean isFree,
             String chargeMoney,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
@@ -37,7 +37,7 @@ public class CreatCircleBinder extends BaseDataBind<CreatCircleDelegate> {
         baseMap.put("isFree", isFree);
         baseMap.put("chargeMoney", chargeMoney);
         Map<String, Object> map = new HashMap<>();
-        map.put("files", file);
+        map.put("file", file);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().creatCircle)
