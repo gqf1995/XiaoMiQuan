@@ -4,7 +4,6 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.http.RequestCallback;
 import com.xiaomiquan.mvp.delegate.circle.ArticleDelegate;
-import com.xiaomiquan.mvp.delegate.circle.LiveDelegate;
 import com.xiaomiquan.server.HttpUrl;
 
 import io.reactivex.disposables.Disposable;

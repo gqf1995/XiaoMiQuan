@@ -7,8 +7,6 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.RadioGroup;
 
 import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
@@ -49,6 +47,7 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
     protected void bindEvenListener() {
         super.bindEvenListener();
         getIntentData();
+        creatPopupWindow = new CreatPopupWindow(CreatCircleActivity.this);
         if (userCircle != null) {
             initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_edit_circle)).setSubTitle(CommonUtils.getString(R.string.str_complete)));
             editCircle(userCircle);
@@ -79,35 +78,45 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-        if (check()) {
-            if (viewDelegate.viewHolder.ck_free.isChecked()) {
-                addRequest(binder.creatCircle(file,
+        if (userCircle == null) {
+            if (check()) {
+                if (viewDelegate.viewHolder.ck_free.isChecked()) {
+                    addRequest(binder.creatCircle(file,
+                            viewDelegate.viewHolder.et_name.getText().toString(),
+                            "科技",
+                            viewDelegate.viewHolder.et_brief.getText().toString(),
+                            isFree,
+                            "0",
+                            CreatCircleActivity.this
+                    ));
+                } else if (viewDelegate.viewHolder.ck_charge.isChecked()) {
+                    CircleDialogHelper.initDefaultInputDialog(CreatCircleActivity.this, "设置入圈费用", "请输入金额", "创建", new OnInputClickListener() {
+                        @Override
+                        public void onClick(String text, View v) {
+                            addRequest(binder.creatCircle(file,
+                                    viewDelegate.viewHolder.et_name.getText().toString(),
+                                    "科技",
+                                    viewDelegate.viewHolder.et_brief.getText().toString(),
+                                    isFree,
+                                    text,
+                                    CreatCircleActivity.this
+                            ));
+                        }
+                    }).show();
+                }
+            }
+        } else {
+            if (editCheck()) {
+                addRequest(binder.editCircle(file,
+                        userCircle.getId(),
                         viewDelegate.viewHolder.et_name.getText().toString(),
-                        "科技",
                         viewDelegate.viewHolder.et_brief.getText().toString(),
-                        isFree,
-                        "0",
-                        CreatCircleActivity.this
-                ));
-            } else if (viewDelegate.viewHolder.ck_charge.isChecked()) {
-                CircleDialogHelper.initDefaultInputDialog(CreatCircleActivity.this, "设置入圈费用", "请输入金额", "创建", new OnInputClickListener() {
-                    @Override
-                    public void onClick(String text, View v) {
-                        addRequest(binder.creatCircle(file,
-                                viewDelegate.viewHolder.et_name.getText().toString(),
-                                "科技",
-                                viewDelegate.viewHolder.et_brief.getText().toString(),
-                                isFree,
-                                text,
-                                CreatCircleActivity.this
-                        ));
-                    }
-                }).show();
-            } else {
-                ToastUtil.show("选择个类型吧");
+                        CreatCircleActivity.this));
             }
         }
     }
+
+    CreatPopupWindow creatPopupWindow;
 
     private void initView() {
         viewDelegate.viewHolder.icf_update_img.setOnClickListener(this);
@@ -117,24 +126,27 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
         viewDelegate.viewHolder.tv_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final CreatPopupWindow creatPopupWindow = new CreatPopupWindow(CreatCircleActivity.this);
-                creatPopupWindow.setOnItemClickListener(new CreatPopupWindow.OnItemClickListener() {
-                    @Override
-                    public void setOnItemClick(View v) {
-                        switch (v.getId()) {
-                            case R.id.tv_next:
-                                if (creatPopupWindow.ck_agree.isChecked()) {
-                                    creatPopupWindow.dismiss();
-                                    viewDelegate.viewHolder.lin_choose.setVisibility(View.GONE);
-                                    viewDelegate.viewHolder.lin_next.setVisibility(View.VISIBLE);
-                                } else {
-                                    ToastUtil.show(CommonUtils.getString(R.string.str_toast_user));
-                                }
-                                break;
+                if (viewDelegate.viewHolder.ck_charge.isChecked() || viewDelegate.viewHolder.ck_free.isChecked()) {
+                    creatPopupWindow.setOnItemClickListener(new CreatPopupWindow.OnItemClickListener() {
+                        @Override
+                        public void setOnItemClick(View v) {
+                            switch (v.getId()) {
+                                case R.id.tv_next:
+                                    if (creatPopupWindow.ck_agree.isChecked()) {
+                                        creatPopupWindow.dismiss();
+                                        viewDelegate.viewHolder.lin_choose.setVisibility(View.GONE);
+                                        viewDelegate.viewHolder.lin_next.setVisibility(View.VISIBLE);
+                                    } else {
+                                        ToastUtil.show(CommonUtils.getString(R.string.str_toast_user));
+                                    }
+                                    break;
+                            }
                         }
-                    }
-                });
-                creatPopupWindow.showAtLocation(viewDelegate.viewHolder.ck_free, Gravity.BOTTOM, 0, 0);
+                    });
+                    creatPopupWindow.showAtLocation(viewDelegate.viewHolder.ck_free, Gravity.BOTTOM, 0, 0);
+                } else {
+                    ToastUtil.show("选择个类型吧");
+                }
             }
         });
     }
@@ -187,7 +199,7 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
         }
     }
 
-    private boolean check() {
+    private boolean editCheck() {
         if (TextUtils.isEmpty(viewDelegate.viewHolder.et_brief.getText().toString())) {
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_circle_con));
             return false;
@@ -196,11 +208,25 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_circle_title));
             return false;
         }
-        if (!file.exists()) {
-            ToastUtil.show(CommonUtils.getString(R.string.str_toast_cirlce_img));
+        return true;
+    }
+
+    private boolean check() {
+        if (viewDelegate.viewHolder.ck_charge.isChecked() || viewDelegate.viewHolder.ck_free.isChecked()) {
+
+        } else {
+            ToastUtil.show("选择个类型吧");
             return false;
         }
-        return true;
+        if (!creatPopupWindow.ck_agree.isChecked()) {
+            ToastUtil.show("请阅读用户手册");
+            return false;
+        }
+//        if (!file.exists()) {
+//            ToastUtil.show(CommonUtils.getString(R.string.str_toast_cirlce_img));
+//            return false;
+//        }
+        return editCheck();
     }
 
     public static void startAct(Activity activity,

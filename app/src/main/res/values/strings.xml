@@ -360,6 +360,7 @@
     <string name="str_tv_code">我有加圈码</string>
     <string name="str_title_create_circle">创建圈子</string>
     <string name="str_title_edit_circle">修改圈子</string>
+    <string name="str_search_edit_circle">搜索圈子</string>
     <string name="str_toast_user">请阅读用户规范</string>
     <string name="str_title_square">广场</string>
     <string name="str_toast_need_login">登录后才能使用此功能</string>

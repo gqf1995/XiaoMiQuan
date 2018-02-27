@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -14,7 +13,6 @@ import com.xiaomiquan.entity.bean.circle.UserFriende;
 import com.xiaomiquan.mvp.databinder.circle.LiveBinder;
 import com.xiaomiquan.mvp.delegate.circle.LiveDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
-
 import java.util.List;
 
 public class FansActivity extends BaseDataBindActivity<LiveDelegate, LiveBinder> {

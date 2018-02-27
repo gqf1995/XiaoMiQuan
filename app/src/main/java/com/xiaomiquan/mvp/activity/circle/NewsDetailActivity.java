@@ -10,7 +10,6 @@ import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -25,7 +24,6 @@ import com.xiaomiquan.mvp.delegate.circle.TopicDetailDelegate;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.widget.circle.CommentPopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
-
 import java.util.List;
 
 

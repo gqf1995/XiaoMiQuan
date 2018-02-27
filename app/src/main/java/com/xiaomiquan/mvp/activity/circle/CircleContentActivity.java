@@ -2,12 +2,10 @@ package com.xiaomiquan.mvp.activity.circle;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-
 import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -21,12 +19,9 @@ import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.mvp.databinder.circle.CircleContentBinder;
 import com.xiaomiquan.mvp.delegate.circle.CircleContentDelegate;
-import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.CircleDialogHelper;
 import com.xiaomiquan.widget.circle.SquarePopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
-import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,10 +50,8 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
         super.bindEvenListener();
         getIntentData();
         floatBtn();
-
-        initToolbar(new ToolbarBuilder().setTitle(userCircle.getName()).setmRightImg2(CommonUtils.getString(R.string.ic_Notifications)).setSubTitle("+"));
+        initToolbar(new ToolbarBuilder().setTitle(userCircle.getName()).setmRightImg2(CommonUtils.getString(R.string.ic_Message)).setmRightImg1(CommonUtils.getString(R.string.ic_Filter2)));
         groupId = userCircle.getId();
-
     }
 
     @Override
@@ -203,7 +196,7 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
 
     private void initCircle(UserCircle userCircle) {
         dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.circle_show_type));
-        dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.circle_show_type));
+        dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.circle_show_time));
 
 
         viewDelegate.viewHolder.lin_time
@@ -218,7 +211,7 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
                 .setDefaultClickLinsener(new DefaultClickLinsener() {
                     @Override
                     public void onClick(View view, int position, Object item) {
-                        viewDelegate.viewHolder.lin_time.setText(dataset1.get(position));
+                        viewDelegate.viewHolder.lin_type.setText(dataset1.get(position));
                     }
                 })
                 .setDatas(dataset1, null);

@@ -35,6 +35,8 @@
             android:paddingLeft="@dimen/trans_15px"
             android:textColor="@color/color_e5e5e5"
             android:textColorHint="@color/color_cccccc"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
             android:textSize="@dimen/text_trans_26px"/>
 
     </LinearLayout>

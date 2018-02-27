@@ -6,70 +6,17 @@
 
     <include layout="@layout/include_toolbar_with_statusbar" />
 
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="@dimen/trans_70px"
-            android:layout_margin="@dimen/trans_30px"
-            android:layout_weight="1"
-            android:background="@drawable/shape_mask_t20radiu"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/trans_20px"
-                android:gravity="center"
-                android:text="@string/ic_Search"
-                android:textColor="@color/color_font3"
-                android:textSize="@dimen/text_trans_30px" />
-
-            <EditText
-                android:id="@+id/et_search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null"
-                android:gravity="center_vertical|left"
-                android:hint="输入圈子ID/名称"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:paddingLeft="@dimen/trans_20px"
-                android:paddingRight="@dimen/trans_20px"
-                android:textColor="@color/color_font1"
-                android:textColorHint="@color/color_font3"
-                android:textSize="@dimen/text_trans_28px" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_commit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/trans_20px"
-            android:paddingRight="@dimen/trans_40px"
-            android:text="@string/str_cancel"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_28px"
-            android:visibility="gone" />
-
-    </LinearLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/fl_rcv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -91,12 +38,12 @@
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_circle"
+                android:id="@+id/pull_recycleview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:scrollbars="none" />
 
-        </LinearLayout>
+        </FrameLayout>
 
-    </android.support.v4.widget.NestedScrollView>
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

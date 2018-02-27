@@ -2,34 +2,18 @@ package com.xiaomiquan.mvp.activity.circle;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.circle.BigVListAdapter;
-import com.xiaomiquan.entity.bean.UserLogin;
-import com.xiaomiquan.entity.bean.circle.UserFriende;
-import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.databinder.circle.BigVListBinder;
-import com.xiaomiquan.mvp.databinder.circle.LiveBinder;
 import com.xiaomiquan.mvp.delegate.circle.BigVListDelegate;
-import com.xiaomiquan.mvp.delegate.circle.LiveDelegate;
 import com.xiaomiquan.mvp.fragment.circle.AttentionFragment;
 import com.xiaomiquan.mvp.fragment.circle.RecommendFragment;
-import com.xiaomiquan.mvp.fragment.group.GroupDealChooseFragment;
-import com.xiaomiquan.widget.CircleDialogHelper;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

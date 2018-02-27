@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
@@ -37,12 +38,13 @@ public class CircleContentDelegate extends BaseMyPullDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-
         height = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_150px);
         viewHolder.layout_title_bar.getBackground().mutate().setAlpha(0);
         viewHolder.toolbar_title.setAlpha(0);
         viewHolder.swipeRefreshLayout.setProgressViewEndTarget(false, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_250px));
-        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_tab, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_81px), viewHolder.pull_recycleview, true);
+        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_tab,
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_100px),
+                viewHolder.pull_recycleview, false);
         viewHolder.nestedScrollView.setOnScrollChangeListener(new JudgeNestedScrollView.OnScrollChangeListener() {
             // 将透明度声明成局部变量用于判断
             int alpha = 0;

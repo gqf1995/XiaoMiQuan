@@ -2,7 +2,6 @@ package com.xiaomiquan.mvp.activity.circle;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -12,7 +11,6 @@ import com.xiaomiquan.adapter.circle.NewsAdapter;
 import com.xiaomiquan.entity.bean.circle.News;
 import com.xiaomiquan.mvp.databinder.circle.NewsBinder;
 import com.xiaomiquan.mvp.delegate.circle.NewsDelegate;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -2,7 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -95,18 +97,13 @@
 
                 </FrameLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_20px"
-                    android:background="@color/base_mask" />
 
                 <LinearLayout
                     android:id="@+id/lin_tab"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/trans_90px"
-                    android:focusable="false"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/trans_20px">
+                    android:layout_height="@dimen/trans_80px"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <com.xiaomiquan.widget.DropDownView
                         android:id="@+id/lin_type"
@@ -114,7 +111,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
-
 
                     </com.xiaomiquan.widget.DropDownView>
 
@@ -128,21 +124,25 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical">
-                    </com.xiaomiquan.widget.DropDownView>
+                        android:orientation="vertical"></com.xiaomiquan.widget.DropDownView>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_20px"
+                    android:background="@color/base_mask" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/pull_recycleview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none" />
-
             </LinearLayout>
-
 
         </com.xiaomiquan.widget.JudgeNestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include layout="@layout/include_toolbar_with_statusbar" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/civ_send"
@@ -152,8 +152,6 @@
         android:layout_marginBottom="@dimen/trans_80px"
         android:layout_marginRight="@dimen/trans_80px"
         app:srcCompat="@drawable/ic_write" />
-
-    <include layout="@layout/include_toolbar_with_statusbar" />
 
 
 </FrameLayout>
