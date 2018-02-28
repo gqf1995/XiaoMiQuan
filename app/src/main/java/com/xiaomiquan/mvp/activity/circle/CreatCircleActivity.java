@@ -88,7 +88,7 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
                             CreatCircleActivity.this
                     ));
                 } else if (viewDelegate.viewHolder.ck_charge.isChecked()) {
-                    CircleDialogHelper.initDefaultInputDialog(CreatCircleActivity.this, "设置入圈费用", "请输入金额", "创建", new OnInputClickListener() {
+                    CircleDialogHelper.initDefaultInputDialog(CreatCircleActivity.this, CommonUtils.getString(R.string.str_diolog_charge_circle),CommonUtils.getString(R.string.str_diolog_charge_num), CommonUtils.getString(R.string.str_tv_creat), new OnInputClickListener() {
                         @Override
                         public void onClick(String text, View v) {
                             addRequest(binder.creatCircle(file,
@@ -143,7 +143,7 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
                     });
                     creatPopupWindow.showAtLocation(viewDelegate.viewHolder.ck_free, Gravity.BOTTOM, 0, 0);
                 } else {
-                    ToastUtil.show("选择个类型吧");
+                    ToastUtil.show(CommonUtils.getString(R.string.str_toast_type));
                 }
             }
         });
@@ -213,11 +213,11 @@ public class CreatCircleActivity extends BaseDataBindActivity<CreatCircleDelegat
         if (viewDelegate.viewHolder.ck_charge.isChecked() || viewDelegate.viewHolder.ck_free.isChecked()) {
 
         } else {
-            ToastUtil.show("选择个类型吧");
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_type));
             return false;
         }
         if (!creatPopupWindow.ck_agree.isChecked()) {
-            ToastUtil.show("请阅读用户手册");
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_user));
             return false;
         }
 //        if (!file.exists()) {

@@ -285,11 +285,13 @@
     <string name="str_tv_more">>查看全部</string>
     <string name="str_tv_jurisdiction">圈子权限</string>
     <string name="str_tv_dynamic">接收圈子动态</string>
+    <string name="str_title_dynamic">圈子动态</string>
     <string name="str_tv_notice3">圈子名称可以包括中文、英文、数字或下划线，但组合名字不能为纯数字，且字数不能超过12个字母、数字或6个汉字。</string>
     <string name="str_tv_director">管理员</string>
     <string name="str_tv_member">圈子成员</string>
     <string name="str_tv_main">圈主</string>
     <string name="str_tv_shared">分享圈子</string>
+    <string name="str_tv_add_circle">添加圈子</string>
     <string name="str_apply_to_join">申请加入</string>
     <string name="str_apply_to_join_team">加入战队</string>
     <string name="str_apply_to_join_team_reason">请填写加入理由</string>

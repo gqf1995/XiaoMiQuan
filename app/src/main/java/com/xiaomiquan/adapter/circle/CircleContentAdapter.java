@@ -177,7 +177,7 @@ public class CircleContentAdapter extends CommonAdapter<SquareLive> {
          * 判断 文章、帖子
          */
         if (s.getType().equals("1")) {
-            tv_dynamic.setText("发表了文章");
+            tv_dynamic.setText(CommonUtils.getString(R.string.str_tv_release_article));
             lin_article.setVisibility(View.VISIBLE);
             rv_img.setVisibility(View.GONE);
             GlideUtils.loadImage(s.getImg(), iv_article);
@@ -233,11 +233,12 @@ public class CircleContentAdapter extends CommonAdapter<SquareLive> {
                 if (s.isUserPraise()) {
                     s.setUserPraise(false);
                     s.setGoodCount(s.getGoodCount() - 1);
-                    s.setPraiseStr(SingSettingDBUtil.getUserLogin().getNickName()+"、"+s.getPraiseStr());
+                    s.setPraiseStr(s.getPraiseStr().replace(SingSettingDBUtil.getUserLogin().getNickName()+"、",""));
+                    s.setPraiseStr(s.getPraiseStr().replace("、"+SingSettingDBUtil.getUserLogin().getNickName(),""));
                 } else {
                     s.setUserPraise(true);
                     s.setGoodCount(s.getGoodCount() + 1);
-                    s.setPraiseStr(s.getPraiseStr().replace(SingSettingDBUtil.getUserLogin().getNickName()+"、",""));
+                    s.setPraiseStr(SingSettingDBUtil.getUserLogin().getNickName()+"、"+s.getPraiseStr());
                 }
                 dataBind.addRequest(savePraise(dataBind, s.getId()));
                 notifyItemChanged(position);

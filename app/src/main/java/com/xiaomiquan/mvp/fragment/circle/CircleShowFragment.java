@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
@@ -104,7 +105,7 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
      */
     private void initMyCircle(final List<UserCircle> userCircles) {
         UserCircle userCircle = new UserCircle();
-        userCircle.setName("添加圈子");
+        userCircle.setName(CommonUtils.getString(R.string.str_tv_add_circle));
         userCircles.add(0, userCircle);
         if (circleMyAdapter == null) {
             onRefresh();

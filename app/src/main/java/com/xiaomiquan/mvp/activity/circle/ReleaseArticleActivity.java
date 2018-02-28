@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
+
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -18,6 +19,7 @@ import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.durban.Durban;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -46,7 +48,6 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
     }
 
     private void initView() {
-
         viewDelegate.viewHolder.icf_update_img.setOnClickListener(this);
         viewDelegate.viewHolder.lin_photo.setOnClickListener(this);
         if (wechat.equals("0")) {
@@ -63,13 +64,11 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
             viewDelegate.viewHolder.ck_circle.setChecked(false);
             viewDelegate.viewHolder.ck_live.setClickable(false);
             viewDelegate.viewHolder.ck_circle.setClickable(true);
-
         } else {
             viewDelegate.viewHolder.ck_live.setChecked(false);
             viewDelegate.viewHolder.ck_circle.setChecked(true);
             viewDelegate.viewHolder.ck_live.setClickable(true);
             viewDelegate.viewHolder.ck_circle.setClickable(false);
-
         }
     }
 

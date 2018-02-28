@@ -80,7 +80,6 @@ public class CircleContentDelegate extends BaseMyPullDelegate {
         return R.layout.activity_circle_content;
     }
 
-
     public static class ViewHolder {
         public View rootView;
         public ImageView iv_bg;

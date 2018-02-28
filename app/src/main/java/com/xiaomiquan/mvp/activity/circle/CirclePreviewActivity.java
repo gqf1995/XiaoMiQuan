@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
@@ -127,7 +128,7 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
                 addRequest(binder.joinCircle(userCircle.getId(), "", CirclePreviewActivity.this));
                 break;
             case R.id.tv_code:
-                CircleDialogHelper.initDefaultInputDialog(CirclePreviewActivity.this, "请输入加圈码", "请输入加圈码", "加入", new OnInputClickListener() {
+                CircleDialogHelper.initDefaultInputDialog(CirclePreviewActivity.this, CommonUtils.getString(R.string.str_tv_circle_code), CommonUtils.getString(R.string.str_tv_circle_code), CommonUtils.getString(R.string.str_diolog_circle), new OnInputClickListener() {
                     @Override
                     public void onClick(String text, View v) {
                         addRequest(binder.joinCircle(userCircle.getId(), text, CirclePreviewActivity.this));

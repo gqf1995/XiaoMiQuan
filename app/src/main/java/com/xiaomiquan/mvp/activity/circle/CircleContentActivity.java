@@ -138,34 +138,20 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     TopicDetailActivity.startAct(CircleContentActivity.this, squareLives.get(position));
                 }
-
                 @Override
                 public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
                     return false;
                 }
             });
-
             circleContentAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
                 public void onClick(View view, final int position, Object item) {
-                    if (view.getId() == R.id.tv_comment) {
-                        CircleDialogHelper.initDefaultInputDialog(CircleContentActivity.this, "评论", "请输入评论", "发布", new OnInputClickListener() {
-                            @Override
-                            public void onClick(String text, View v) {
-                                addRequest(binder.saveComment(circleContentAdapter.getDatas().get(position).getId(), text, CircleContentActivity.this));
-                            }
-                        }).show();
-                    }
-                    if (view.getId() == R.id.tv_praise) {
-                        addRequest(binder.savePraise(circleContentAdapter.getDatas().get(position).getId(), CircleContentActivity.this));
-                    }
                     if (view.getId() == R.id.cv_head) {
                         UserInfoActivity.startAct(CircleContentActivity.this, squareLives.get(position));
                     }
                 }
             });
-//            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(linearLayoutManager);
-//            viewDelegate.viewHolder.pull_recycleview.setAdapter(circleContentAdapter);
+
             initRecycleViewPull(circleContentAdapter, new LinearLayoutManager(CircleContentActivity.this));
         } else {
             getDataBack(circleContentAdapter.getDatas(), squareLives, circleContentAdapter);

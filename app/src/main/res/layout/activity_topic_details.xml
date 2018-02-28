@@ -59,7 +59,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:singleLine="true"
-                                    android:text="名字"
+                                    android:text=""
                                     android:textColor="@color/color_font1"
                                     android:textSize="@dimen/text_trans_28px" />
 
@@ -83,7 +83,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/trans_8px"
                                 android:singleLine="true"
-                                android:text="12"
+                                android:text=""
                                 android:textColor="@color/color_font4"
                                 android:textSize="@dimen/text_trans_24px" />
 
@@ -92,7 +92,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/trans_15px"
-                                android:text="cont"
+                                android:text=""
                                 android:textColor="@color/color_font1"
                                 android:textSize="@dimen/text_trans_32px" />
 

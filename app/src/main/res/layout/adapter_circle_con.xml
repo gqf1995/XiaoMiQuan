@@ -45,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:text="名字"
+                        android:text=""
                         android:textColor="@color/color_font1"
                         android:textSize="@dimen/text_trans_28px" />
 
@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/trans_7px"
                         android:singleLine="true"
-                        android:text="23:23"
+                        android:text=""
                         android:textColor="@color/color_font3"
                         android:textSize="@dimen/text_trans_24px" />
 
@@ -83,7 +83,7 @@
                 android:layout_marginTop="@dimen/trans_24px"
                 android:lineSpacingExtra="@dimen/trans_6px"
                 android:maxLines="4"
-                android:text="文章"
+                android:text=""
                 android:textColor="@color/color_font1"
                 android:textSize="@dimen/text_trans_28px" />
 
@@ -121,7 +121,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:text="文章"
+                        android:text=""
                         android:textColor="@color/color_font1"
                         android:textSize="@dimen/trans_32px"
                         android:textStyle="bold" />
@@ -133,7 +133,7 @@
                         android:layout_marginTop="@dimen/trans_16px"
                         android:lineSpacingExtra="@dimen/trans_6px"
                         android:maxLines="2"
-                        android:text="内容"
+                        android:text=""
                         android:textColor="@color/color_font2"
                         android:textSize="@dimen/trans_28px" />
 
@@ -267,7 +267,7 @@
                         android:id="@+id/tv_praise_people"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="等"
+                        android:text=""
                         android:textColor="@color/color_font1"
                         android:textSize="@dimen/text_trans_28px" />
                 </LinearLayout>

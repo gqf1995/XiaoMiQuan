@@ -40,7 +40,7 @@
                             android:id="@+id/tv_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="名字"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_trans_35px"
                             android:textStyle="bold" />
@@ -55,7 +55,7 @@
                                 android:id="@+id/tv_creator"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="娃娃"
+                                android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_28px" />
 
@@ -78,7 +78,7 @@
                                 android:id="@+id/tv_num"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="111"
+                                android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/text_trans_28px" />
 
@@ -110,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/trans_20px"
-                    android:text="名字"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_trans_28px" />
             </LinearLayout>

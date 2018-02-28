@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-
 import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -26,11 +25,9 @@ import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.TabViewpageBinder;
 import com.xiaomiquan.mvp.delegate.TabViewpageDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static android.app.Activity.RESULT_OK;
 import static com.xiaomiquan.base.AppConst.CACHE_EXCHANGENAME;
 

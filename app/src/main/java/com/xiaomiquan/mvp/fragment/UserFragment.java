@@ -14,6 +14,7 @@ import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.group.InviteFriendsActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeUserInfoActivity;
+import com.xiaomiquan.mvp.activity.user.ConversationActivity;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.activity.user.SecurityActivity;
@@ -24,6 +25,7 @@ import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.CircleDialogHelper;
 
 import static android.app.Activity.RESULT_OK;
+import static com.xiaomiquan.base.AppConst.serviceId;
 
 /**
  * 个人中心
@@ -118,7 +120,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
                 if (SingSettingDBUtil.isLogin(getActivity())) {
                     Application.getInstance().startCustomerService(getActivity());
                 }
-                //ConversationActivity.startAct(getActivity(), ConversationActivity.conversation_service, serviceId);
+//                ConversationActivity.startAct(getActivity(), ConversationActivity.conversation_service, serviceId);
                 break;
             case R.id.lin_set5:
                 //推荐给朋友

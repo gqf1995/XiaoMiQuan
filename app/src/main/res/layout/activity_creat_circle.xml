@@ -214,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/text_trans_20px"
-                    android:text="圈子简介"
+                    android:text="@string/str_title_circle_brief"
                     android:textColor="@color/color_font1"
                     android:textSize="@dimen/trans_34px" />
 
@@ -229,7 +229,7 @@
                     android:layout_height="@dimen/text_trans_200px"
                     android:layout_marginTop="@dimen/text_trans_29px"
                     android:gravity="left|top"
-                    android:hint="简单介绍下你的圈子"
+                    android:hint="@string/str_tv_circle_brief"
                     android:inputType="textImeMultiLine"
                     android:maxLength="12"
                     android:singleLine="true"

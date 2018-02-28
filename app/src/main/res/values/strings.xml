@@ -268,6 +268,8 @@
 
 
     <string name="str_search_circle">查找圈子</string>
+    <string name="str_tv_circle_code">请输入加圈码</string>
+    <string name="str_diolog_circle">加入</string>
     <string name="str_input_limit">/140字</string>
     <string name="str_ck_live">发布到我的直播</string>
     <string name="str_ck_circle">发布到小密圈</string>
@@ -285,11 +287,13 @@
     <string name="str_tv_more">>查看全部</string>
     <string name="str_tv_jurisdiction">圈子权限</string>
     <string name="str_tv_dynamic">接收圈子动态</string>
+    <string name="str_title_dynamic">圈子动态</string>
     <string name="str_tv_notice3">圈子名称可以包括中文、英文、数字或下划线，但组合名字不能为纯数字，且字数不能超过12个字母、数字或6个汉字。</string>
     <string name="str_tv_director">管理员</string>
     <string name="str_tv_member">圈子成员</string>
     <string name="str_tv_main">圈主</string>
     <string name="str_tv_shared">分享圈子</string>
+    <string name="str_tv_add_circle">添加圈子</string>
     <string name="str_apply_to_join">申请加入</string>
     <string name="str_apply_to_join_team">加入战队</string>
     <string name="str_apply_to_join_team_reason">请填写加入理由</string>
@@ -308,6 +312,7 @@
     <string name="str_closing_time">比赛结束时间: </string>
 
     <string name="str_release_article">发布文章</string>
+    <string name="str_tv_release_article">发表了文章</string>
     <string name="str_deal_article">导入文章</string>
     <string name="str_release">发布</string>
     <string name="str_toast_article_name">请输入文章名称</string>
@@ -359,9 +364,14 @@
     <string name="str_tv_join">立即加入</string>
     <string name="str_tv_code">我有加圈码</string>
     <string name="str_title_create_circle">创建圈子</string>
+    <string name="str_title_circle_brief">圈子简介</string>
+    <string name="str_tv_circle_brief">简单介绍下你的圈子</string>
     <string name="str_title_edit_circle">修改圈子</string>
+    <string name="str_diolog_charge_circle">设置入圈费用</string>
+    <string name="str_diolog_charge_num">输入金额</string>
     <string name="str_search_edit_circle">搜索圈子</string>
     <string name="str_toast_user">请阅读用户规范</string>
+    <string name="str_toast_type">选择个类型吧</string>
     <string name="str_title_square">广场</string>
     <string name="str_toast_need_login">登录后才能使用此功能</string>
     <string name="str_toast_have_team">您已拥有战队 </string>
