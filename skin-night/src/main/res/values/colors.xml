@@ -110,10 +110,12 @@
     <color name="minute_blue">#00D0FC</color>
     <color name="minute_yellow">#E7B448</color>
 
-    <color name="ma5">#823E66</color>
-    <color name="ma10">#B99C7A</color>
+    <color name="ma5">#FFA209</color>
+    <color name="ma7">#FFA209</color>
+    <color name="ma10">#34A9FF</color>
     <color name="ma20">#3C7193</color>
-    <color name="ma30">#7F9976</color>
+    <color name="ma30">#101419</color>
+
 
     <color name="minute_grayLine">#2D3945</color>
     <color name="minute_black">#101419</color>

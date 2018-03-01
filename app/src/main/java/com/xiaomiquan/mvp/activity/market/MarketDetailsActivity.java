@@ -78,7 +78,6 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
     public MarketDetailsBinder getDataBinder(MarketDetailsDelegate viewDelegate) {
         return new MarketDetailsBinder(viewDelegate);
     }
-
     int timeIndex = -1;
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {//进行延时跳转
@@ -101,6 +100,9 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                     if (viewDelegate != null) {
                         viewDelegate.initData((ExchangeData) msg.obj);
                     }
+                    break;
+                case 0x126:
+
                     break;
             }
         }
@@ -280,6 +282,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
             updata();
         }
     }
+
 
 
     @Override
@@ -591,4 +594,5 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
             isAddView(true);
         }
     }
+
 }

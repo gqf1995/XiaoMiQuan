@@ -98,8 +98,8 @@ public class KlineDraw {
         initChartVolume();
         setChartListener();
 
-        setMarkerViewButtom(mData, chartKline);
-        setMarkerView(mData, chartVolume);
+        setMarkerViewButtom(mData, chartVolume);
+        setMarkerView(mData, chartKline);
 
         setKLineByChart(mChartKline);
         setVolumeByChart(mChartVolume);
@@ -201,10 +201,10 @@ public class KlineDraw {
 
         if (lineBeans.size() > 0) {
             //mData.initLineDatas(lineBeans);
-            if(mData==null){
+            if (mData == null) {
                 return;
             }
-            if(mData.getKLineDatas()==null){
+            if (mData.getKLineDatas() == null) {
                 return;
             }
             kLineDatas = mData.getKLineDatas();
@@ -512,7 +512,7 @@ public class KlineDraw {
         mChartKline.setBorderColor(CommonUtils.getColor(R.color.border_color));//边线颜色
         mChartKline.setDescription("");//右下角对图表的描述信息
         mChartKline.setMinOffset(0f);
-        mChartKline.setExtraOffsets(0f, 0f, 0f, 0f);
+        mChartKline.setExtraOffsets(0f, 0f, 10f, 0f);
 
 
         Legend lineChartLegend = mChartKline.getLegend();
@@ -521,7 +521,8 @@ public class KlineDraw {
 
         //bar x y轴
         xAxisKline = mChartKline.getXAxis();
-        xAxisKline.setDrawLabels(true); //是否显示X坐标轴上的刻度，默认是true
+        xAxisKline.setEnabled(false);
+        xAxisKline.setDrawLabels(false); //是否显示X坐标轴上的刻度，默认是true
         xAxisKline.setDrawGridLines(false);//是否显示X坐标轴上的刻度竖线，默认是true
         xAxisKline.setDrawAxisLine(false); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
         xAxisKline.enableGridDashedLine(10f, 10f, 0f);//虚线表示X轴上的刻度竖线(float lineLength, float spaceLength, float phase)三个参数，1.线长，2.虚线间距，3.虚线开始坐标
@@ -531,16 +532,15 @@ public class KlineDraw {
 
         axisLeftKline = mChartKline.getAxisRight();
         axisLeftKline.setDrawGridLines(false);
-        axisLeftKline.setDrawAxisLine(false);
+        axisLeftKline.setDrawAxisLine(true);
         axisLeftKline.setDrawZeroLine(false);
         axisLeftKline.setDrawLabels(true);
         axisLeftKline.enableGridDashedLine(10f, 10f, 0f);
         axisLeftKline.setTextColor(CommonUtils.getColor(R.color.color_font4));
-        axisLeftKline.setTextSize(10);
+        axisLeftKline.setTextSize(8);
         //        axisLeftKline.setGridColor(CommonUtils.getColor(R.color.minute_grayLine));
         axisLeftKline.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        axisLeftKline.setLabelCount(5, false); //第一个参数是Y轴坐标的个数，第二个参数是 是否不均匀分布，true是不均匀分布
-        axisLeftKline.setSpaceTop(10f);//距离顶部留白
+        axisLeftKline.setLabelCount(6, false); //第一个参数是Y轴坐标的个数，第二个参数是 是否不均匀分布，true是不均匀分布
 
         axisRightKline = mChartKline.getAxisLeft();
         axisRightKline.setDrawLabels(false);
@@ -565,46 +565,42 @@ public class KlineDraw {
         mChartVolume.setDragEnabled(true);// 是否可以拖拽
         mChartVolume.setScaleYEnabled(false); //是否可以缩放 仅y轴
         mChartVolume.setMinOffset(3f);
-        mChartVolume.setExtraOffsets(0f, 0f, 0f, 0f);
-        mChartVolume.setDrawHighlightArrow(true);
+        mChartVolume.setExtraOffsets(0f, 0f, 10f, 10f);
+        mChartVolume.setDrawHighlightArrow(false);
+        mChartVolume.setDrawMarkerViews(true);
 
         Legend combinedchartLegend = mChartVolume.getLegend(); // 设置比例图标示，就是那个一组y的value的
         combinedchartLegend.setEnabled(false);//是否绘制比例图
+        combinedchartLegend.setForm(Legend.LegendForm.CIRCLE);
+
 
         //bar x y轴
         xAxisVolume = mChartVolume.getXAxis();
-        xAxisVolume.setEnabled(false);
-        //        xAxisVolume.setDrawLabels(false); //是否显示X坐标轴上的刻度，默认是true
-        //        xAxisVolume.setDrawGridLines(false);//是否显示X坐标轴上的刻度竖线，默认是true
-        //        xAxisVolume.setDrawAxisLine(false); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
-        //        xAxisVolume.enableGridDashedLine(10f, 10f, 0f);//虚线表示X轴上的刻度竖线(float lineLength, float spaceLength, float phase)三个参数，1.线长，2.虚线间距，3.虚线开始坐标
-        //        xAxisVolume.setTextColor(CommonUtils.getColor(R.color.text_color_common));//设置字的颜色
-        //        xAxisVolume.setPosition(XAxis.XAxisPosition.BOTTOM);//设置值显示在什么位置
+        xAxisVolume.setDrawGridLines(false);//是否显示X坐标轴上的刻度竖线，默认是true
+        xAxisVolume.setDrawAxisLine(true); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
+        xAxisVolume.setDrawLabels(true); //是否显示X坐标轴上的刻度，默认是true
+        xAxisVolume.setTextColor(CommonUtils.getColor(R.color.color_font4));//设置字的颜色
+        xAxisVolume.setPosition(XAxis.XAxisPosition.BOTTOM);//设置值显示在什么位置
         xAxisVolume.setAvoidFirstLastClipping(true);//设置首尾的值是否自动调整，避免被遮挡
+        xAxisVolume.setAxisLineColor(CommonUtils.getColor(R.color.color_font4));
+        xAxisVolume.setTextSize(8);
 
         axisLeftVolume = mChartVolume.getAxisRight();
-        //axisLeftVolume.setAxisMinValue(0);//设置Y轴坐标最小为多少
-        //        axisLeftVolume.setShowOnlyMinMax(true);//设置Y轴坐标最小为多少
+        axisLeftVolume.setAxisMinValue(0);//设置Y轴坐标最小为多少
         axisLeftVolume.setDrawGridLines(false);
-        axisLeftVolume.setDrawAxisLine(false);
+        axisLeftVolume.setDrawAxisLine(true);
+        axisLeftVolume.setDrawZeroLine(false);
         axisLeftVolume.setDrawLabels(true);
-        axisLeftVolume.setTextSize(10);
+        axisLeftVolume.setTextSize(8);
         axisLeftVolume.enableGridDashedLine(10f, 10f, 0f);
         axisLeftVolume.setTextColor(CommonUtils.getColor(R.color.color_font4));
-        //        axisLeftVolume.setGridColor(CommonUtils.getColor(R.color.minute_grayLine));
         axisLeftVolume.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        axisLeftVolume.setLabelCount(4, false); //第一个参数是Y轴坐标的个数，第二个参数是 是否不均匀分布，true是不均匀分布
-        axisLeftVolume.setSpaceTop(10f);//距离顶部留白
-        axisLeftVolume.setDrawZeroLine(false);
-        //        axisLeftVolume.setSpaceBottom(0);//距离顶部留白
+        axisLeftVolume.setLabelCount(6, false); //第一个参数是Y轴坐标的个数，第二个参数是 是否不均匀分布，true是不均匀分布
 
         axisRightVolume = mChartVolume.getAxisLeft();
         axisRightVolume.setDrawLabels(false);
         axisRightVolume.setDrawGridLines(false);
         axisRightVolume.setDrawAxisLine(false);
-
-        axisRightVolume.setAxisMinValue(0);
-        axisLeftVolume.setAxisMinValue(0);
 
         mChartVolume.setDragDecelerationEnabled(true);
         mChartVolume.setDragDecelerationFrictionCoef(0.2f);
@@ -624,8 +620,8 @@ public class KlineDraw {
         set.setIncreasingPaintStyle(Paint.Style.FILL);
         set.setNeutralColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));//设置开盘价等于收盘价的颜色
         set.setShadowColorSameAsCandle(true);
-        set.setHighlightLineWidth(1f);
-        set.setHighLightColor(CommonUtils.getColor(R.color.color_font2));
+        set.setHighlightLineWidth(0.5f);
+        set.setHighLightColor(CommonUtils.getColor(R.color.color_e5e5e5));
         set.setDrawValues(false);
         set.setValueTextColor(CommonUtils.getColor(R.color.color_font2));
         CandleData candleData = new CandleData(mData.getXVals(), set);
@@ -689,42 +685,45 @@ public class KlineDraw {
 
 
     private void setVolumeByChart(CombinedChart combinedChart) {
-        String unit = MyUtils.getVolUnit(mData.getVolmax());
-        String wan = CommonUtils.getString(R.string.wan_unit);
-        String yi = CommonUtils.getString(R.string.yi_unit);
-        int u = 1;
-        if (wan.equals(unit)) {
-            u = 4;
-        } else if (yi.equals(unit)) {
-            u = 8;
-        }
-        combinedChart.getAxisLeft().setValueFormatter(new VolFormatter((int) Math.pow(10, u)));
+        //        String unit = MyUtils.getVolUnit(mData.getVolmax());
+        //        String wan = CommonUtils.getString(R.string.wan_unit);
+        //        String yi = CommonUtils.getString(R.string.yi_unit);
+        //        int u = 1;
+        //        if (wan.equals(unit)) {
+        //            u = 4;
+        //        } else if (yi.equals(unit)) {
+        //            u = 8;
+        //        }
+        //        combinedChart.getAxisLeft().setValueFormatter(new VolFormatter((int) Math.pow(10, u)));
 
         BarDataSet set = new BarDataSet(mData.getBarEntries(), "成交量");
         set.setBarSpacePercent(20); //bar空隙
         set.setHighlightEnabled(true);
-        set.setHighLightAlpha(255);
-        set.setHighLightColor(CommonUtils.getColor(R.color.color_font2));
         set.setDrawValues(false);
+        set.setValueTextColor(CommonUtils.getColor(R.color.color_font2));
+        //set.setHighLightColor(CommonUtils.getColor(R.color.color_e5e5e5));
 
         List<Integer> list = new ArrayList<>();
         list.add(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
-        list.add(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+        for (int i = 1; i < mData.getBarEntries().size(); i++) {
+            if (mData.getBarEntries().get(i).getVal() > mData.getBarEntries().get(i - 1).getVal()) {
+                list.add(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+            } else {
+                list.add(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+            }
+        }
         set.setColors(list);
 
-
         BarData barData = new BarData(mData.getXVals(), set);
-
         mData.initVlumeMA(kLineDatas);
-
-
         ArrayList<ILineDataSet> sets = new ArrayList<>();
 
         /******此处修复如果显示的点的个数达不到MA均线的位置所有的点都从0开始计算最小值的问题******************************/
-        sets.add(MyUtils.setMaLine(7, mData.getXVals(), mData.getMa7DataV()));
+        sets.add(MyUtils.setMaLine(5, mData.getXVals(), mData.getMa5DataV()));
         sets.add(MyUtils.setMaLine(10, mData.getXVals(), mData.getMa10DataV()));
 
         LineData lineData = new LineData(mData.getXVals(), sets);
+
         CombinedData combinedData = new CombinedData(mData.getXVals());
         combinedData.setData(barData);
         combinedData.setData(lineData);
@@ -744,15 +743,17 @@ public class KlineDraw {
         touchmatrix.postScale(xscale, 1f);
     }
 
+
     private void setMarkerViewButtom(DataParse mData, KCombinedChart combinedChart) {
+        MyBottomMarkerView bottomMarkerView;
         MyLeftMarkerView leftMarkerView = new MyLeftMarkerView(mContext, R.layout.mymarkerview);
         MyHMarkerView hMarkerView = new MyHMarkerView(mContext, R.layout.mymarkerview_line);
-        MyBottomMarkerView bottomMarkerView = new MyBottomMarkerView(mContext, R.layout.mymarkerview);
+        bottomMarkerView = new MyBottomMarkerView(mContext, R.layout.mymarkerview);
         combinedChart.setMarker(leftMarkerView, bottomMarkerView, hMarkerView, mData);
     }
 
     private void setMarkerView(DataParse mData, KCombinedChart combinedChart) {
-        MyLeftMarkerView leftMarkerView = new MyLeftMarkerView(mContext, R.layout.mymarkerview);
+        MyLeftMarkerView leftMarkerView = new MyLeftMarkerView(mContext, R.layout.mymarkerview_price);
         MyHMarkerView hMarkerView = new MyHMarkerView(mContext, R.layout.mymarkerview_line);
         combinedChart.setMarker(leftMarkerView, hMarkerView, mData);
     }
@@ -807,33 +808,31 @@ public class KlineDraw {
         // 将交易量控件的滑动事件传递给K线控件
         mChartVolume.setOnChartGestureListener(new CoupleChartGestureListener(mChartVolume, new Chart[]{mChartKline}));
 
-
         mChartKline.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                mChartVolume.highlightValues(new Highlight[]{h});
+                Highlight highlight = new Highlight(h.getXIndex(), h.getValue(),0, h.getDataSetIndex());
+                mChartVolume.highlightValues(new Highlight[]{highlight});
             }
 
             @Override
             public void onNothingSelected() {
                 mChartVolume.highlightValue(null);
-                mChartKline.highlightValue(null);
             }
         });
 
         mChartVolume.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                mChartKline.highlightValues(new Highlight[]{h});
+                Highlight highlight = new Highlight(h.getXIndex(), h.getValue(), 1, h.getDataSetIndex());
+                mChartKline.highlightValues(new Highlight[]{highlight});
             }
 
             @Override
             public void onNothingSelected() {
                 mChartKline.highlightValue(null);
-                mChartVolume.highlightValue(null);
             }
         });
-
     }
 
 
@@ -869,8 +868,8 @@ public class KlineDraw {
             mChartVolume.setExtraRightOffset(offsetRight);
             transRight = kbRight;
         }
-        mChartKline.setViewPortOffsets(transLeft, 15, transRight, CommonUtils.getDimensionPixelSize(R.dimen.trans_45px));
-        mChartVolume.setViewPortOffsets(transLeft, 15, transRight, kbBottom);
+        mChartKline.setViewPortOffsets(transLeft, 0, transRight, mChartKline.getViewPortHandler().offsetBottom());
+        mChartVolume.setViewPortOffsets(transLeft, 0, transRight, mChartVolume.getViewPortHandler().offsetBottom());
     }
 
 }

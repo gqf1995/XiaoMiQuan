@@ -30,6 +30,7 @@ public class DataParse {
     private ArrayList<Entry> ma20DataL;
     private ArrayList<Entry> ma30DataL;
 
+    private ArrayList<Entry> ma1DataV;
     private ArrayList<Entry> ma5DataV;
     private ArrayList<Entry> ma7DataV;
     private ArrayList<Entry> ma10DataV;
@@ -215,6 +216,11 @@ public class DataParse {
         if (null == datas) {
             return;
         }
+        if (ma1DataV == null) {
+            ma1DataV = new ArrayList<>();
+        } else {
+            ma1DataV.clear();
+        }
         if (ma5DataV == null) {
             ma5DataV = new ArrayList<>();
         } else {
@@ -246,6 +252,7 @@ public class DataParse {
             ma30DataV.clear();
         }
 
+        VMAEntity vmaEntity1 = new VMAEntity(datas, 1);
         VMAEntity vmaEntity5 = new VMAEntity(datas, 5);
         VMAEntity vmaEntity7 = new VMAEntity(datas, 7);
         VMAEntity vmaEntity10 = new VMAEntity(datas, 10);
@@ -254,6 +261,7 @@ public class DataParse {
         VMAEntity vmaEntity30 = new VMAEntity(datas, 30);
 
         for (int i = 0; i < vmaEntity5.getMAs().size(); i++) {
+            ma1DataV.add(new Entry(vmaEntity1.getMAs().get(i), i));
             ma5DataV.add(new Entry(vmaEntity5.getMAs().get(i), i));
             ma7DataV.add(new Entry(vmaEntity7.getMAs().get(i), i));
             ma10DataV.add(new Entry(vmaEntity10.getMAs().get(i), i));
@@ -846,5 +854,9 @@ public class DataParse {
 
     public ArrayList<Entry> getMa15DataV() {
         return ma15DataV;
+    }
+
+    public ArrayList<Entry> getMa1DataV() {
+        return ma1DataV;
     }
 }

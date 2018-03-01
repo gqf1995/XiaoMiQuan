@@ -65,6 +65,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".mvp.activity.market.MarketDetailsXActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".mvp.activity.main.WelcomActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>

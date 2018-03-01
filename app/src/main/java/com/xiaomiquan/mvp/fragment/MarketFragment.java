@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
@@ -134,9 +137,13 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     //给toolbar添加搜索布局
     private void initToolBarSearch() {
         viewDelegate.getFl_content().addView(getActivity().getLayoutInflater().inflate(R.layout.layout_top_search, null));
+        LinearLayout lin_search_root=viewDelegate.getFl_content().findViewById(R.id.lin_search_root);
         EditText et_search = viewDelegate.getFl_content().findViewById(R.id.et_search);
+        et_search.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.MATCH_PARENT));
         et_search.setFocusable(false);
-        et_search.setOnClickListener(new View.OnClickListener() {
+        lin_search_root.setGravity(Gravity.CENTER);
+        lin_search_root.setPadding(lin_search_root.getLeft(),lin_search_root.getTop(),lin_search_root.getRight()+(int)CommonUtils.getDimensionPixelSize(R.dimen.trans_30px),lin_search_root.getBottom());
+        lin_search_root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goSearch();

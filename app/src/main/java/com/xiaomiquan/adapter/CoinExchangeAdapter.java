@@ -73,7 +73,13 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
 
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
 
-        tv_coin_type.setText(s.getExchange());
+        if (s == null) {
+            return;
+        }
+
+        if (!TextUtils.isEmpty(s.getExchange())) {
+            tv_coin_type.setText(s.getExchange());
+        }
 
         tv_coin_unit.setText(s.getUnit());
 
