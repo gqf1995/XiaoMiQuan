@@ -13,6 +13,7 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -37,6 +38,7 @@ import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.IMDelegate;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
 import com.xiaomiquan.mvp.dialog.UpdateDialog;
+import com.xiaomiquan.mvp.fragment.HomeFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
 import com.xiaomiquan.mvp.fragment.circle.CircleFragment;
@@ -82,7 +84,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         ignoreBatteryOptimization(this);
         mainEventBusHelper = new MainEventBusHelper(this, viewDelegate, binder);
         uid = UUIDS.getUUID() + System.currentTimeMillis();
-       // initSocket();
+        initSocket();
         updata();
         netWorkLinsener();
         addRequest(binder.getlatestversion(AppUtils.getAppVersionName(), this));
@@ -155,6 +157,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     CircleFragment squareFragment;
     InvestGroupFragment investGroupFragment;
     UserFragment userFragment;
+    HomeFragment homeFragment;
 
     //添加主页4个基础页面
     public void initFragment(boolean isInit) {
@@ -162,19 +165,34 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
         //viewDelegate.addFragment(squareFragment = new CircleFragment());
         if (isInit) {
-            viewDelegate.addFragment(investGroupFragment = new InvestGroupFragment());
+            viewDelegate.addFragment(homeFragment = new HomeFragment());
             viewDelegate.addFragment(marketFragment = new MarketFragment());
             viewDelegate.addFragment(userFragment = new UserFragment());
+            loadDrawerLayout(true);
         } else {
             viewDelegate.initFromSave();
-            investGroupFragment = (InvestGroupFragment) viewDelegate.getFragmentByIndex(0);
+            homeFragment = (HomeFragment) viewDelegate.getFragmentByIndex(0);
             marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
             userFragment = (UserFragment) viewDelegate.getFragmentByIndex(2);
+            loadDrawerLayout(false);
         }
         viewDelegate.showFragment(showPosition);
         initBottom();
         doubleClickActList.add(this.getClass().getName());//两次返回推出act注册
     }
+
+    private void loadDrawerLayout(boolean isFirst) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (isFirst) {
+            userFragment = new UserFragment();
+            transaction.add(R.id.fl_left, userFragment, "UserFragment");
+        } else {
+            userFragment = (UserFragment) getSupportFragmentManager().findFragmentByTag("UserFragment");
+            transaction.show(userFragment);
+        }
+        transaction.commitAllowingStateLoss();
+    }
+
 
     private void initBottom() {
         viewDelegate.initBottom(new OnTabSelectListener() {

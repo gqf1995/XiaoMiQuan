@@ -108,7 +108,11 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewDelegate.setStatusBg(R.color.toolbar_bg, false);
+    }
 
     public void sendWebsocket() {
         if (fragments == null) {

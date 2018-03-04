@@ -144,6 +144,7 @@
 
     <!--顶部导航栏背景颜色-->
     <color name="toolbar_bg">#1E1E35</color>
+    <color name="status_bg">#ffffff</color>
     <color name="navigation_color">#1E1E35</color>
 
 

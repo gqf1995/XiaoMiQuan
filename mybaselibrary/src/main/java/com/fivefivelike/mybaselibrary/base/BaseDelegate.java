@@ -26,6 +26,7 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.dialog.NetWorkDialog;
+import com.githang.statusbar.StatusBarCompat;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -202,9 +203,11 @@ public abstract class BaseDelegate extends IDelegateImpl {
             showBack(activity, builder.getBackTxt());
 
         }
-        //设置标题栏的背景颜色
+        //        //设置标题栏的背景颜色
         if (builder.getmToolbarBackColor() != 0) {
             mToolbar.setBackgroundColor(builder.getmToolbarBackColor());
+        } else {
+            mToolbar.setBackgroundColor(CommonUtils.getColor(R.color.toolbar_bg));
         }
         //设置标题是否显示
         if (!builder.isTitleShow()) {
@@ -230,6 +233,26 @@ public abstract class BaseDelegate extends IDelegateImpl {
                 v_status.getLayoutParams().height = 0;
             }
             v_status.requestLayout();
+        }
+    }
+
+    public View getStatus() {
+        View v_status = getViewById(R.id.v_status);
+        return v_status;
+    }
+
+
+    public void setStatusBg(int colorId, boolean isLight) {
+        View v_status = getViewById(R.id.v_status);
+        v_status.setBackgroundColor(CommonUtils.getColor(colorId));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            StatusBarCompat.setLightStatusBar(getActivity().getWindow(), isLight);
+            if (isLight) {
+                if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)) {
+                    StatusBarCompat.setLightStatusBar(getActivity().getWindow(), false);
+                    v_status.setBackgroundColor(CommonUtils.getColor(R.color.font_grey));
+                }
+            }
         }
     }
 
@@ -325,7 +348,9 @@ public abstract class BaseDelegate extends IDelegateImpl {
             if (fragmentManager.getFragments() != null) {
                 if (fragmentManager.getFragments().size() > 0) {
                     for (int i = 0; i < fragmentManager.getFragments().size(); i++) {
-                        fragmentList.add(fragmentManager.getFragments().get(i));
+                        if (fragmentManager.getFragments().get(i).getTag().contains(FRAGMENT_TAG)) {
+                            fragmentList.add(fragmentManager.getFragments().get(i));
+                        }
                     }
                 }
             }
@@ -362,14 +387,16 @@ public abstract class BaseDelegate extends IDelegateImpl {
             }
         }
         for (int i = 0; i < fragmentList.size(); i++) {
-            Fragment fragment = fragmentList.get(i);
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            if (index == i) {
-                ft.show(fragment);
-            } else {
-                ft.hide(fragment);
+            if (fragmentList.get(i).getTag().contains(FRAGMENT_TAG)) {
+                Fragment fragment = fragmentList.get(i);
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                if (index == i) {
+                    ft.show(fragment);
+                } else {
+                    ft.hide(fragment);
+                }
+                ft.commitAllowingStateLoss();
             }
-            ft.commitAllowingStateLoss();
         }
         transaction.commitAllowingStateLoss();
         cuurentFragmentPosition = index;
