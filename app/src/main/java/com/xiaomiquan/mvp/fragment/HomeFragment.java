@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
@@ -33,15 +34,20 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        baseWebFragment = BaseWebFragment.newInstance(url);
-        viewDelegate.initAddFragment(R.id.fl_root, getChildFragmentManager());
-        viewDelegate.addFragment(baseWebFragment);
         initToolBarSearch();
         if (SingSettingDBUtil.getUserLogin() != null) {
             AgentWebConfig.syncCookie(url, "token=" + "44cf54dbdcbeb90c2e448655a2e54f5c");
             //AgentWebConfig.syncCookie(url, "token=" + SaveUtil.getInstance().getString("token"));
         }
-        viewDelegate.showFragment(0);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        if(getChildFragmentManager().findFragmentByTag("BaseWebFragment")==null) {
+            baseWebFragment = BaseWebFragment.newInstance(url);
+            transaction.add(R.id.fl_web, baseWebFragment, "BaseWebFragment");
+        }else{
+            baseWebFragment = (BaseWebFragment) getChildFragmentManager().findFragmentByTag("BaseWebFragment");
+            transaction.show(baseWebFragment);
+        }
+        transaction.commitAllowingStateLoss();
         bridgeWeb();
     }
 
@@ -62,11 +68,12 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
         viewDelegate.getFl_content().addView(getActivity().getLayoutInflater().inflate(R.layout.layout_home_top, null));
     }
 
-
     @Override
-    public void onResume() {
-        super.onResume();
-        viewDelegate.setStatusBg(R.color.status_bg, true);
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        super.onFragmentVisibleChange(isVisible);
+        if (isVisible) {
+            viewDelegate.setStatusBg(R.color.status_bg, true);
+        }
     }
 
     @Override
