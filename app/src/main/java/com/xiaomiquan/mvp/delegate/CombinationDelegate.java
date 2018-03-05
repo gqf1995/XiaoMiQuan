@@ -31,6 +31,7 @@ import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.entity.bean.group.TeamInfo;
 import com.xiaomiquan.mvp.activity.group.CreatGroupActivity;
 import com.xiaomiquan.mvp.activity.group.CreatTeamActivity;
+import com.xiaomiquan.mvp.activity.group.MyPropertyDetailActivity;
 import com.xiaomiquan.mvp.activity.main.WebActivityActivity;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
@@ -112,7 +113,8 @@ public class CombinationDelegate extends BaseDelegate {
         viewHolder.tv_game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WebActivityActivity.startAct((FragmentActivity) viewHolder.rootView.getContext(), rulesUrl);
+//                WebActivityActivity.startAct((FragmentActivity) viewHolder.rootView.getContext(), rulesUrl);
+                viewHolder.rootView.getContext().startActivity(new Intent(viewHolder.rootView.getContext(),MyPropertyDetailActivity.class));
             }
         });
     }

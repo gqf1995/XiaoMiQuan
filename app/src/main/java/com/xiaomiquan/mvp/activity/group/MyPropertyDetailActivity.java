@@ -1,9 +1,15 @@
 package com.xiaomiquan.mvp.activity.group;
 
+import android.support.v7.widget.LinearLayoutManager;
+
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.xiaomiquan.adapter.group.MyPropertyDetailAdapter;
 import com.xiaomiquan.mvp.databinder.group.MyPropertyDetailBinder;
 import com.xiaomiquan.mvp.delegate.group.MyPropertyDetailDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyPropertyDetailActivity extends BaseDataBindActivity<MyPropertyDetailDelegate, MyPropertyDetailBinder> {
 
@@ -17,18 +23,25 @@ public class MyPropertyDetailActivity extends BaseDataBindActivity<MyPropertyDet
         return new MyPropertyDetailBinder(viewDelegate);
     }
 
-
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(""));
-
+        initList();
     }
 
+    private void initList() {
+        List<String> str = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            str.add("" + i);
+        }
+        MyPropertyDetailAdapter myPropertyDetailAdapter = new MyPropertyDetailAdapter(this, str);
+        viewDelegate.viewHolder.pull_recycleview.setLayoutManager(new LinearLayoutManager(this));
+        viewDelegate.viewHolder.pull_recycleview.setAdapter(myPropertyDetailAdapter);
+    }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
         }
     }

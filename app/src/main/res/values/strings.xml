@@ -331,6 +331,7 @@
     <string name="str_tv_property_appraisement">资产估值</string>
     <string name="str_tv_usd">USD</string>
     <string name="str_tv_usable_usd">可用USD</string>
+    <string name="str_tv_dodeal">去交易</string>
 
 
     <string name="str_release_dynamic">发布动态</string>
