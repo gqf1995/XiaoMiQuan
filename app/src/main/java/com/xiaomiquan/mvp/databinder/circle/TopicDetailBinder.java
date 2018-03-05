@@ -124,12 +124,10 @@ public class TopicDetailBinder extends BaseDataBind<TopicDetailDelegate> {
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("linkId", linkId);
-        baseMap.put("page", 1);
+        baseMap.put("page", viewDelegate.page);
         return new HttpRequest.Builder()
                 .setRequestCode(0x127)
                 .setRequestUrl(HttpUrl.getIntance().getComment)
-                .setShowDialog(true)
-                .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("获取评论")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)

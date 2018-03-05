@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -62,6 +63,7 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
         isUserPraise = new ArrayList<>();
         praiseNum = new ArrayList<>();
         userLogin = SingSettingDBUtil.getUserLogin();
+
     }
 
     public void setDatas(List<SquareLive> datas) {
@@ -167,6 +169,15 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
                 }
             }
         });
+        tv_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (defaultClickLinsener != null) {
+                    defaultClickLinsener.onClick(view, position, null);
+                }
+            }
+        });
+
 
 
         cv_head.setOnClickListener(new View.OnClickListener() {

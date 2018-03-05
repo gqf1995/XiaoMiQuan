@@ -1,175 +1,157 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <include layout="@layout/include_toolbar_with_statusbar" />
-
-    <RelativeLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
+        <com.xiaomiquan.widget.JudgeNestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="354dp"
-            tools:layout_editor_absoluteY="541dp">
+            android:layout_height="match_parent">
 
-            <com.xiaomiquan.widget.StickyScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_400px"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY" />
 
                     <LinearLayout
-                        android:id="@+id/lin_my_circle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/album_dp_10">
+                        android:layout_gravity="bottom"
+                        android:orientation="vertical"
+                        android:padding="@dimen/trans_20px">
 
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/album_dp_10"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:singleLine="true"
+                            android:text="币圈神探"
+                            android:textColor="@color/color_font1"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/album_dp_10"
+                            android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tv_name"
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
-                                android:text="币圈神探"
+                                android:text="@string/str_creater"
                                 android:textColor="@color/color_font1"
                                 android:textSize="15sp" />
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/tv_creator"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/album_dp_10"
-                                android:orientation="horizontal">
+                                android:layout_marginLeft="@dimen/album_dp_6"
+                                android:singleLine="true"
+                                android:text="啊啊"
+                                android:textColor="@color/color_blue"
+                                android:textSize="15sp" />
 
-                                <TextView
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/text_trans_50px"
+                                android:singleLine="true"
+                                android:text="@string/str_fucose_people_num"
+                                android:textColor="@color/color_font1"
+                                android:textSize="15sp" />
 
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:singleLine="true"
-                                    android:text="@string/str_creater"
-                                    android:textColor="@color/color_font1"
-                                    android:textSize="15sp" />
-
-                                <TextView
-                                    android:id="@+id/tv_creator"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/album_dp_6"
-                                    android:singleLine="true"
-                                    android:text="啊啊"
-                                    android:textColor="@color/color_blue"
-                                    android:textSize="15sp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/text_trans_50px"
-                                    android:singleLine="true"
-                                    android:text="@string/str_fucose_people_num"
-                                    android:textColor="@color/color_font1"
-                                    android:textSize="15sp" />
-
-                                <TextView
-                                    android:id="@+id/tv_num"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/album_dp_15"
-                                    android:singleLine="true"
-                                    android:text="200"
-                                    android:textColor="@color/color_font1"
-                                    android:textSize="15sp" />
-
-                            </LinearLayout>
-
+                            <TextView
+                                android:id="@+id/tv_num"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/album_dp_15"
+                                android:singleLine="true"
+                                android:text="200"
+                                android:textColor="@color/color_font1"
+                                android:textSize="15sp" />
                         </LinearLayout>
-
                     </LinearLayout>
+
+                </FrameLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/lin_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_80px"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.xiaomiquan.widget.DropDownView
+                        android:id="@+id/lin_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                    </com.xiaomiquan.widget.DropDownView>
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/album_dp_10"
-                        android:background="@color/album_FontHint" />
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/album_dp_1"
+                        android:layout_weight="1" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/trans_90px"
-                        android:layout_marginLeft="@dimen/album_dp_10"
-                        android:layout_marginRight="@dimen/album_dp_10"
-                        android:orientation="horizontal">
-
-                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
-                            android:id="@+id/tv_all"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="全部"
-                            android:textColor="@color/decreasing_color"
-                            android:textSize="@dimen/text_trans_32px" />
-
-                        <View
-                            android:layout_width="@dimen/trans_1px"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="@dimen/trans_20px"
-                            android:layout_marginTop="@dimen/trans_20px"
-                            android:background="@color/base_mask"
-                            android:paddingBottom="@dimen/trans_20px" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/album_dp_1"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:id="@+id/tv_rank"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="回复时间排序"
-                            android:textColor="@color/color_font2"
-                            android:textSize="@dimen/trans_32px" />
-                    </LinearLayout>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/pull_recycleview"
-                        android:layout_width="match_parent"
+                    <com.xiaomiquan.widget.DropDownView
+                        android:id="@+id/lin_time"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/album_dp_10"
-                        android:layout_marginRight="@dimen/album_dp_10"
-                        android:scrollbars="none" />
-
+                        android:layout_weight="1"
+                        android:orientation="vertical"></com.xiaomiquan.widget.DropDownView>
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_20px"
+                    android:background="@color/base_mask" />
 
-            </com.xiaomiquan.widget.StickyScrollView>
-        </android.support.v4.widget.SwipeRefreshLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/pull_recycleview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none" />
+            </LinearLayout>
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/civ_send"
-            android:layout_width="@dimen/trans_92px"
-            android:layout_height="@dimen/trans_92px"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/trans_300px"
-            android:layout_marginRight="@dimen/trans_80px"
-            app:srcCompat="@drawable/ic_write" />
+        </com.xiaomiquan.widget.JudgeNestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-    </RelativeLayout>
-</LinearLayout>
+    <include layout="@layout/include_toolbar_with_statusbar" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/civ_send"
+        android:layout_width="@dimen/trans_92px"
+        android:layout_height="@dimen/trans_92px"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="@dimen/trans_80px"
+        android:layout_marginRight="@dimen/trans_80px"
+        app:srcCompat="@drawable/ic_write" />
+
+
+</FrameLayout>

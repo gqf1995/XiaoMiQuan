@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.fragment.circle;
 
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,7 +10,9 @@ import android.view.Gravity;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleDynamicAdapter;
@@ -48,14 +51,6 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
     protected void bindEvenListener() {
         super.bindEvenListener();
         userLogin = SingSettingDBUtil.getUserLogin();
-        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                addRequest(binder.getCircleTopic(CircleShowFragment.this));
-                addRequest(binder.getMyCircle(CircleShowFragment.this));
-            }
-        });
-
     }
 
     @Override
@@ -110,7 +105,7 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
      */
     private void initMyCircle(final List<UserCircle> userCircles) {
         UserCircle userCircle = new UserCircle();
-        userCircle.setName("添加圈子");
+        userCircle.setName(CommonUtils.getString(R.string.str_tv_add_circle));
         userCircles.add(0, userCircle);
         if (circleMyAdapter == null) {
             onRefresh();
@@ -185,7 +180,7 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
 //            viewDelegate.viewHolder.rv_circle.setAdapter(circleDynamicAdapter);
             initRecycleViewPull(circleDynamicAdapter, new LinearLayoutManager(getActivity()));
         } else {
-            circleDynamicAdapter.setDatas(squareLives);
+            getDataBack(circleDynamicAdapter.getDatas(), squareLives, circleDynamicAdapter);
         }
 
     }
@@ -203,7 +198,7 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
                         joinPopupWindow.dismiss();
                         break;
                     case R.id.lin_creat:
-                        gotoActivity(CreatCircleActivity.class).startAct();
+                        CreatCircleActivity.startAct(getActivity(), null);
                         joinPopupWindow.dismiss();
                         break;
                     case R.id.btn_cancel:

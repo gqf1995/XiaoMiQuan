@@ -2,7 +2,6 @@ package com.xiaomiquan.mvp.activity.circle;
 
 import android.content.Intent;
 import android.view.View;
-
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.xiaomiquan.R;

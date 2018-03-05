@@ -27,8 +27,8 @@ public class SquareDelegate extends BaseMyPullDelegate {
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
         viewHolder.scrollView_scroll.setTabAndPager(viewHolder.lin_tab,
-                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_100px),
-                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px),
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px),
                 viewHolder.pull_recycleview, false);
 
     }

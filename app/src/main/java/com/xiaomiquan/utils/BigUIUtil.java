@@ -206,7 +206,7 @@ public class BigUIUtil {
                 if (a >= '0' && a <= '9') {
                     String textUnit = s.substring(0, i);
                     String textNum = s.substring(i, s.length());
-                    textView.setText(Html.fromHtml("<small><small>↘</small></small>" + "<small>" +
+                    textView.setText(Html.fromHtml("<small>" +
                             textUnit + "</small>" +
                             textNum + ""));
                     break;
@@ -221,7 +221,7 @@ public class BigUIUtil {
                 if (a >= '0' && a <= '9') {
                     String textUnit = s.substring(0, i);
                     String textNum = s.substring(i, s.length());
-                    textView.setText(Html.fromHtml("<small><small>↗</small></small>" + "<small>" +
+                    textView.setText(Html.fromHtml("<small>" +
                             textUnit + "</small>" +
                             textNum + ""));
                     break;
@@ -242,6 +242,7 @@ public class BigUIUtil {
                     TextView textView = animatorTextViewHashMap.get(key);
                     if (textView != null) {
                         textView.setTextColor(endColor);
+
                         if (tag == null) {
                             if (textView.getText().toString().contains("↘") || textView.getText().toString().contains("↗")) {
                                 String s = textView.getText().toString().substring(1);

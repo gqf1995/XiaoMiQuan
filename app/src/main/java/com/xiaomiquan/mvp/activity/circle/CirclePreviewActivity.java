@@ -4,21 +4,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-
 import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.CircleDynamicAdapter;
-import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.circle.UserCircle;
 import com.xiaomiquan.mvp.databinder.circle.CirclePreviewBinder;
 import com.xiaomiquan.mvp.delegate.circle.CirclePreviewDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.xiaomiquan.widget.CircleDialogHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +39,8 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initUserTopic(new ArrayList<SquareLive>());
-        getIntentData();
 
+        getIntentData();
 //        addRequest(binder.getCicleInfo(userCircle.getId(), CirclePreviewActivity.this));
     }
 
@@ -60,20 +57,11 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
         viewDelegate.viewHolder.tv_con.setText(userCircle.getBrief());
         viewDelegate.viewHolder.tv_creator.setText(userCircle.getNickName());
         viewDelegate.viewHolder.tv_num.setText(userCircle.getMemberCount());
-        GlideUtils.loadImage(userCircle.getAvatar(), viewDelegate.viewHolder.iv_head);
+        GlideUtils.loadImage(userCircle.getOwnerAvatar(), viewDelegate.viewHolder.iv_head);
 
         viewDelegate.viewHolder.tv_free.setOnClickListener(this);
         viewDelegate.viewHolder.tv_code.setOnClickListener(this);
         viewDelegate.viewHolder.tv_pay.setOnClickListener(this);
-
-        if (userCircle.getArticleTopicVos().size() >= 3) {
-            List<SquareLive> data = new ArrayList<>();
-            data.add(userCircle.getArticleTopicVos().get(0));
-            data.add(userCircle.getArticleTopicVos().get(1));
-            data.add(userCircle.getArticleTopicVos().get(2));
-        } else {
-            initUserTopic(userCircle.getArticleTopicVos());
-        }
 
     }
 
@@ -81,8 +69,12 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
-                initUserTopic(datas);
+                List<SquareLive> datas = GsonUtil.getInstance().toList(GsonUtil.getInstance().getValue(data,"articleTopicVos"), SquareLive.class);
+                if (datas.size()>=3){
+                    initUserTopic(datas.subList(0,3));
+                }else {
+                    initUserTopic(datas);
+                }
                 break;
             case 0x124:
                 CircleContentActivity.startAct(CirclePreviewActivity.this, userCircle);
@@ -93,6 +85,7 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
 
     private void initUserTopic(List<SquareLive> squareLives) {
         if (circleDynamicAdapter == null) {
+            addRequest(binder.getCicleInfo(userCircle.getId(),CirclePreviewActivity.this));
             circleDynamicAdapter = new CircleDynamicAdapter(binder, CirclePreviewActivity.this, squareLives);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CirclePreviewActivity.this) {
                 @Override
@@ -121,6 +114,7 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
         Intent intent = getIntent();
         userCircle = intent.getParcelableExtra("userCircle");
         initToolbar(new ToolbarBuilder().setTitle(userCircle.getName()));
+        initUserTopic(new ArrayList<SquareLive>());
         initView();
     }
 
@@ -134,7 +128,7 @@ public class CirclePreviewActivity extends BaseDataBindActivity<CirclePreviewDel
                 addRequest(binder.joinCircle(userCircle.getId(), "", CirclePreviewActivity.this));
                 break;
             case R.id.tv_code:
-                CircleDialogHelper.initDefaultInputDialog(CirclePreviewActivity.this, "请输入加圈码", "请输入加圈码", "加入", new OnInputClickListener() {
+                CircleDialogHelper.initDefaultInputDialog(CirclePreviewActivity.this, CommonUtils.getString(R.string.str_tv_circle_code), CommonUtils.getString(R.string.str_tv_circle_code), CommonUtils.getString(R.string.str_diolog_circle), new OnInputClickListener() {
                     @Override
                     public void onClick(String text, View v) {
                         addRequest(binder.joinCircle(userCircle.getId(), text, CirclePreviewActivity.this));

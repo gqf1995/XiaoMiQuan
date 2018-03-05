@@ -5,15 +5,13 @@ import android.content.ClipboardManager;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.blankj.utilcode.util.CleanUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.StringUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
-import com.xiaomiquan.entity.bean.circle.UserFriende;
 import com.xiaomiquan.mvp.databinder.circle.CreatCodeBinder;
 import com.xiaomiquan.mvp.delegate.circle.CreatCodeDelegate;
-
-import java.util.List;
 
 public class CreatCodeActivity extends BaseDataBindActivity<CreatCodeDelegate, CreatCodeBinder> {
 
@@ -44,6 +42,7 @@ public class CreatCodeActivity extends BaseDataBindActivity<CreatCodeDelegate, C
                 addRequest(binder.creatCircleCode(CircleContentActivity.groupId,CreatCodeActivity.this));
             }
         });
+
         viewDelegate.viewHolder.tv_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

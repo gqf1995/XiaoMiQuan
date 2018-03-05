@@ -57,9 +57,6 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
     protected void bindEvenListener() {
         super.bindEvenListener();
         userLogin = SingSettingDBUtil.getUserLogin();
-        initComment(new ArrayList<Comment>());
-        initImgs(new ArrayList<String>());
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         getIntentData();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_topic)));
     }
@@ -88,11 +85,11 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
                 initSquareLive(datas);
                 break;
             case 0x124:
-                viewDelegate.viewHolder.et_input2.setText("");
-                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
+//                viewDelegate.viewHolder.et_input2.setText("");
+//                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
                 break;
             case 0x125:
-                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
+//                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
                 break;
             case 0x126:
 
@@ -100,7 +97,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
             case 0x127:
                 List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
                 initComment(comments);
-                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
+//                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
                 break;
         }
     }
@@ -126,11 +123,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
         viewDelegate.viewHolder.tv_praise_num.setText(square.getGoodCount() + "");
         viewDelegate.viewHolder.tv_time.setText(square.getCreateTimeStr());
         viewDelegate.viewHolder.tv_con.setText(Html.fromHtml(square.getContent()));
-
         viewDelegate.viewHolder.tv_name.setText(square.getNickName());
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
-        initComment(square.getCommentVos());
-        initImgs(square.getImgList());
     }
 
     DynamicPhotoAdapter dynamicPhotoAdapter;
@@ -174,7 +167,6 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
     private void initComment(final List<Comment> comments) {
         if (commentAdapter == null) {
             commentAdapter = new CommentDetailAdapter(mContext, comments);
-
             commentAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -201,8 +193,6 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
             initRecycleViewPull(commentAdapter, new LinearLayoutManager(mContext));
         } else {
             getDataBack(commentAdapter.getDatas(), comments, commentAdapter);
-
-
         }
     }
 
@@ -211,7 +201,6 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
         commentPopupWindow.setOnItemClickListener(new CommentPopupWindow.OnItemClickListener() {
             @Override
             public void setOnItemClick(View v) {
-
                 if (comment) {
                     addRequest(binder.saveComment(squareLive.getId(), commentPopupWindow.et_input2.getText().toString(), TopicDetailActivity.this));
                 } else {
@@ -222,6 +211,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
                             reId,
                             TopicDetailActivity.this));
                 }
+                commentPopupWindow.et_input2.setText(null);
             }
         });
         if (comment) {
@@ -251,7 +241,8 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
     private void getIntentData() {
         Intent intent = getIntent();
         squareLive = (SquareLive) intent.getParcelableExtra(("squareLive"));
-
+        initComment(squareLive.getCommentVos());
+        initImgs(squareLive.getImgList());
         initSquareLive(squareLive);
     }
 

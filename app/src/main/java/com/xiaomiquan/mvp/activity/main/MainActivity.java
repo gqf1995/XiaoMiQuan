@@ -42,6 +42,7 @@ import com.xiaomiquan.mvp.fragment.HomeFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
 import com.xiaomiquan.mvp.fragment.circle.CircleFragment;
+import com.xiaomiquan.mvp.fragment.circle.SquareWebFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.server.UpdateService;
@@ -154,10 +155,10 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     }
 
     MarketFragment marketFragment;
-    CircleFragment squareFragment;
     InvestGroupFragment investGroupFragment;
     UserFragment userFragment;
     HomeFragment homeFragment;
+    SquareWebFragment squareWebFragment;
 
     //添加主页4个基础页面
     public void initFragment(boolean isInit) {
@@ -167,13 +168,15 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         if (isInit) {
             viewDelegate.addFragment(homeFragment = new HomeFragment());
             viewDelegate.addFragment(marketFragment = new MarketFragment());
+            viewDelegate.addFragment(squareWebFragment = new SquareWebFragment());
             viewDelegate.addFragment(userFragment = new UserFragment());
             loadDrawerLayout(true);
         } else {
             viewDelegate.initFromSave();
             homeFragment = (HomeFragment) viewDelegate.getFragmentByIndex(0);
             marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
-            userFragment = (UserFragment) viewDelegate.getFragmentByIndex(2);
+            squareWebFragment = (SquareWebFragment) viewDelegate.getFragmentByIndex(2);
+            userFragment = (UserFragment) viewDelegate.getFragmentByIndex(3);
             loadDrawerLayout(false);
         }
         viewDelegate.showFragment(showPosition);

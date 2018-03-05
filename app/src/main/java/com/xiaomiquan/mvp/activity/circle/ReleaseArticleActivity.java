@@ -48,7 +48,6 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
     }
 
     private void initView() {
-
         viewDelegate.viewHolder.icf_update_img.setOnClickListener(this);
         viewDelegate.viewHolder.lin_photo.setOnClickListener(this);
         if (wechat.equals("0")) {
@@ -65,13 +64,11 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
             viewDelegate.viewHolder.ck_circle.setChecked(false);
             viewDelegate.viewHolder.ck_live.setClickable(false);
             viewDelegate.viewHolder.ck_circle.setClickable(true);
-
         } else {
             viewDelegate.viewHolder.ck_live.setChecked(false);
             viewDelegate.viewHolder.ck_circle.setChecked(true);
             viewDelegate.viewHolder.ck_live.setClickable(true);
             viewDelegate.viewHolder.ck_circle.setClickable(false);
-
         }
     }
 

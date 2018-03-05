@@ -23,8 +23,8 @@ public class CircleShowDelegate extends BaseMyPullDelegate {
     public void initView() {
         viewHolder = new ViewHolder(rootView);
         viewHolder.judgeNested_scroll.setTabAndPager(viewHolder.lin_tab,
-                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_100px),
-                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_100px),
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px),
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px),
                 viewHolder.pull_recycleview, false);
     }
 

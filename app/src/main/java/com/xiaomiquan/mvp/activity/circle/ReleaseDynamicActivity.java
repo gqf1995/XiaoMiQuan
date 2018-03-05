@@ -11,6 +11,7 @@ import android.view.View;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.view.AddPicAdapter;
 import com.xiaomiquan.R;
@@ -25,6 +26,13 @@ import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.Luban;
 
 public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicDelegate, ReleaseDynamicBinder> {
 
@@ -72,13 +80,13 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
         super.clickRightTv();
         if (check()) {
             if (platform.equals("1")) {
-                initRealeseSquare(UiHeplUtils.stringsToFiles(choosePaths), String.valueOf(viewDelegate.viewHolder.ck_circle.isChecked()));
+                imgLuban(choosePaths);
             } else {
-                if (choosePaths.size()>0) {
+                if (choosePaths.size() > 0) {
                     UiHeplUtils.stringsToFiles(choosePaths);
                     initRealeseCircle(UiHeplUtils.stringsToFiles(choosePaths), String.valueOf(viewDelegate.viewHolder.ck_live.isChecked()));
 
-                }else {
+                } else {
                     initRealeseCircle(null, String.valueOf(viewDelegate.viewHolder.ck_live.isChecked()));
                 }
 
@@ -163,6 +171,26 @@ public class ReleaseDynamicActivity extends BaseDataBindActivity<ReleaseDynamicD
             return false;
         }
         return true;
+    }
+
+    //图片压缩
+    private void imgLuban(List<String> paths) {
+        Flowable.just(paths)
+                .observeOn(Schedulers.io())
+                .map(new Function<List<String>, List<File>>() {
+                    @Override
+                    public List<File> apply(@io.reactivex.annotations.NonNull List<String> list) throws Exception {
+                        // 同步方法直接返回压缩后的文件
+                        return Luban.with(GlobleContext.getInstance().getApplicationContext()).load(list).get();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<File>>() {//onNext()
+                    @Override
+                    public void accept(@io.reactivex.annotations.NonNull List<File> stringResponse) throws Exception {
+                        initRealeseSquare(stringResponse, String.valueOf(viewDelegate.viewHolder.ck_circle.isChecked()));
+                    }
+                });
     }
 
 }

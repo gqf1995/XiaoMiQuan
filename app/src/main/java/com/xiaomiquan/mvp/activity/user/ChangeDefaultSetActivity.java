@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.fivefivelike.mybaselibrary.base.BaseActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -14,7 +13,6 @@ import com.xiaomiquan.adapter.ChangeSetAdapter;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.mvp.delegate.ChangeDefaultSetDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
-
 import java.util.Arrays;
 import java.util.List;
 

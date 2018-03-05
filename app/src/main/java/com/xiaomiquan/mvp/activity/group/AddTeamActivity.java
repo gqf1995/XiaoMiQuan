@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -22,7 +21,6 @@ import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.BaseActivityPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseActivityPullDelegate;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
-
 import java.util.ArrayList;
 import java.util.List;
 

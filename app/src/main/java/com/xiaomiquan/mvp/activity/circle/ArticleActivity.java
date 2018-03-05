@@ -149,6 +149,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
         this.tv_praise_num = (TextView) rootView.findViewById(R.id.tv_praise_num);
         this.lin_praise = (LinearLayout) rootView.findViewById(R.id.lin_praise);
 
+
         return rootView;
     }
 

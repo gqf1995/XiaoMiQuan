@@ -7,9 +7,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText;
 import com.xiaomiquan.R;
+import com.xiaomiquan.widget.JudgeNestedScrollView;
+import com.xiaomiquan.widget.StickyScrollView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -24,7 +27,7 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-
+        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_tab, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_81px), viewHolder.pull_recycleview, true);
     }
 
     @Override
@@ -40,17 +43,19 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
         public TextView tv_master;
         public TextView tv_time;
         public TextView tv_con;
-        public RecyclerView pull_recycleview;
+        public RecyclerView rv_img;
         public IconFontTextview tv_praise;
         public TextView tv_praise_num;
         public LinearLayout lin_praise;
+        public LinearLayout lin_tab;
         public IconFontTextview tv_comment;
         public TextView tv_comment_num;
         public LinearLayout lin_info_comment;
         public IconFontTextview icf_shared;
         public TextView tv_shared;
         public LinearLayout lin_shared;
-        public RecyclerView rv_img;
+        public RecyclerView pull_recycleview;
+        public StickyScrollView nestedScrollView;
         public SwipeRefreshLayout swipeRefreshLayout;
         public MaterialEditText et_input2;
         public TextView tv_commit;
@@ -63,7 +68,7 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
             this.tv_master = (TextView) rootView.findViewById(R.id.tv_master);
             this.tv_time = (TextView) rootView.findViewById(R.id.tv_time);
             this.tv_con = (TextView) rootView.findViewById(R.id.tv_con);
-            this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
+            this.rv_img = (RecyclerView) rootView.findViewById(R.id.rv_img);
             this.tv_praise = (IconFontTextview) rootView.findViewById(R.id.tv_praise);
             this.tv_praise_num = (TextView) rootView.findViewById(R.id.tv_praise_num);
             this.lin_praise = (LinearLayout) rootView.findViewById(R.id.lin_praise);
@@ -73,11 +78,13 @@ public class TopicDetailDelegate extends BaseMyPullDelegate {
             this.icf_shared = (IconFontTextview) rootView.findViewById(R.id.icf_shared);
             this.tv_shared = (TextView) rootView.findViewById(R.id.tv_shared);
             this.lin_shared = (LinearLayout) rootView.findViewById(R.id.lin_shared);
-            this.rv_img = (RecyclerView) rootView.findViewById(R.id.rv_img);
+            this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
+            this.nestedScrollView = (StickyScrollView) rootView.findViewById(R.id.nestedScrollView);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
             this.et_input2 = (MaterialEditText) rootView.findViewById(R.id.et_input2);
             this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);
             this.lin_comment = (LinearLayout) rootView.findViewById(R.id.lin_comment);
+            this.lin_tab = (LinearLayout) rootView.findViewById(R.id.lin_tab);
         }
 
     }

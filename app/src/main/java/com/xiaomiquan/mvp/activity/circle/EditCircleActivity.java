@@ -3,7 +3,6 @@ package com.xiaomiquan.mvp.activity.circle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
-
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.circle.UserCircle;

@@ -120,7 +120,7 @@ public class ArticleDetailsBinder extends BaseDataBind<ArticleDetailsDelegate> {
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("linkId", linkId);
-        baseMap.put("page", 1);
+        baseMap.put("page", viewDelegate.page);
         return new HttpRequest.Builder()
                 .setRequestCode(0x127)
                 .setRequestUrl(HttpUrl.getIntance().getComment)

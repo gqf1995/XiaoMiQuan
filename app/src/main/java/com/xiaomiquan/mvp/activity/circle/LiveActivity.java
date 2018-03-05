@@ -3,7 +3,6 @@ package com.xiaomiquan.mvp.activity.circle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -17,7 +16,6 @@ import com.xiaomiquan.mvp.databinder.circle.NewsBinder;
 import com.xiaomiquan.mvp.delegate.circle.NewsDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -15,6 +15,7 @@ import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
+import com.xiaomiquan.widget.StickyScrollView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import skin.support.widget.SkinCompatToolbar;

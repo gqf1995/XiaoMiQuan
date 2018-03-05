@@ -1,7 +1,6 @@
 package com.xiaomiquan.mvp.activity.main;
 
 import android.view.View;
-
 import com.circledialog.CircleDialogHelper;
 import com.circledialog.callback.ConfigText;
 import com.circledialog.params.TextParams;
@@ -13,7 +12,6 @@ import com.xiaomiquan.entity.bean.AppVersion;
 import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
