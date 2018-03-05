@@ -167,7 +167,9 @@ public class BigUIUtil {
     public void anim(final String unit, final TextView textView, String oldnum,
                      String newnum, final int endColor, final String onlyKey,
                      final int position, final Object tag) {
-        if (TextUtils.isEmpty(oldnum) || TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {
+        if (TextUtils.isEmpty(oldnum) ||
+                TextUtils.isEmpty(unit) ||
+                TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {
             return;
         }
         if (animatorConcurrentHashMap == null) {
@@ -312,7 +314,7 @@ public class BigUIUtil {
     public void animNoArrow(final String unit, final TextView textView, String oldnum,
                             String newnum, final int endColor, final String onlyKey,
                             final int position, final Object tag) {
-        if (TextUtils.isEmpty(oldnum) || TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {
+        if (TextUtils.isEmpty(oldnum) || TextUtils.isEmpty(unit) || TextUtils.isEmpty(newnum) || TextUtils.isEmpty(onlyKey) || textView == null) {
             return;
         }
         if (animatorConcurrentHashMap == null) {

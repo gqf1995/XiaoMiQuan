@@ -7,9 +7,9 @@
     <ImageView
         android:id="@+id/marker_tv"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/color_font3"
+        android:layout_height="@dimen/trans_1px"
+        android:background="@color/color_e5e5e5"
         android:text=""
-        android:textColor="@color/color_font3"/>
+        android:textColor="@color/color_e5e5e5"/>
 
 </LinearLayout>

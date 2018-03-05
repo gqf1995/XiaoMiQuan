@@ -61,7 +61,7 @@ public class CoinDetailDelegate extends BaseDelegate {
         viewHolder.lin_wallet_address.setVisibility(TextUtils.isEmpty(data.getWhitePaperUrl()) ? View.GONE : View.VISIBLE);
 
         viewHolder.tv_rank.setText(exchangeData.getRank());
-        viewHolder.tv_market_value.setText(s2);
+        viewHolder.tv_market_value.setText(Html.fromHtml(s2));
         viewHolder.tv_circulation_amount.setText(data.getExistingCirculationVolume());
         viewHolder.tv_total_amount.setText(data.getMonetaryTotal());
         viewHolder.tv_ico_time.setText(data.getIcoTime());

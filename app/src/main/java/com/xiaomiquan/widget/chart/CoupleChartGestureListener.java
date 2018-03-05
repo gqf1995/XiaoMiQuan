@@ -56,13 +56,13 @@ public class CoupleChartGestureListener implements OnChartGestureListener {
 
     @Override
     public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
-//        Log.d(TAG, "onChartScale " + scaleX + "/" + scaleY + " X=" + me.getX() + "Y=" + me.getY());
+        //        Log.d(TAG, "onChartScale " + scaleX + "/" + scaleY + " X=" + me.getX() + "Y=" + me.getY());
         syncCharts();
     }
 
     @Override
     public void onChartTranslate(MotionEvent me, float dX, float dY) {
-//        Log.d(TAG, "onChartTranslate " + dX + "/" + dY + " X=" + me.getX() + "Y=" + me.getY());
+        //        Log.d(TAG, "onChartTranslate " + dX + "/" + dY + " X=" + me.getX() + "Y=" + me.getY());
         syncCharts();
     }
 

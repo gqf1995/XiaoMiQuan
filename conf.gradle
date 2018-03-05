@@ -51,6 +51,10 @@ ext {
             "flowlayout"                    : "com.hyman:flowlayout-lib:1.1.2",//导航栏
             "Luban"                         : "top.zibin:Luban:1.1.3",//图片压缩
             "androidbootstrap"              : "com.beardedhen:androidbootstrap:2.0.1",//按钮库 https://github.com/Bearded-Hen/Android-Bootstrap
+            "agentweb"                      : "com.just.agentweb:agentweb:4.0.1",//webview https://github.com/Justson/AgentWeb
+            "sonic"                         : "com.tencent.sonic:sdk:2.0.0",
+            "jsbridge"                      : "com.github.lzyzsd:jsbridge:1.0.4",
+
             "skin-support"                  : "skin.support:skin-support:2.2.3",//皮肤库
             "skin-support-design"           : "skin.support:skin-support-design:2.2.3",
             "skin-support-cardview"         : "skin.support:skin-support-cardview:2.2.3",

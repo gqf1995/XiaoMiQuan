@@ -7,8 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+
 import com.blankj.utilcode.util.CacheUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -25,9 +29,11 @@ import com.xiaomiquan.mvp.activity.market.SortingUserCoinActivity;
 import com.xiaomiquan.mvp.databinder.TabViewpageBinder;
 import com.xiaomiquan.mvp.delegate.TabViewpageDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import static android.app.Activity.RESULT_OK;
 import static com.xiaomiquan.base.AppConst.CACHE_EXCHANGENAME;
 
@@ -63,6 +69,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     public TabViewpageBinder getDataBinder(TabViewpageDelegate viewDelegate) {
         return new TabViewpageBinder(viewDelegate);
     }
+
     @Override
     public void onAttachFragment(Fragment childFragment) {
         super.onAttachFragment(childFragment);
@@ -101,23 +108,30 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
     }
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewDelegate.setStatusBg(R.color.toolbar_bg, false);
+    }
 
     public void sendWebsocket() {
         if (fragments == null) {
             return;
         }
-        for (int i = 0; i < fragments.size(); i++) {
-            if (i == viewDelegate.viewHolder.tl_2.getCurrentTab()) {
-                if (fragments.get(i) instanceof ExchangeFragment) {
-                    ((ExchangeFragment) fragments.get(i)).sendWebSocket();
-                } else if (fragments.get(i) instanceof MarketValueFragment) {
-                    ((MarketValueFragment) fragments.get(i)).sendWebSocket();
-                } else if (fragments.get(i) instanceof UserChooseFragment) {
-                    ((UserChooseFragment) fragments.get(i)).sendWebSocket();
-                } else if (fragments.get(i) instanceof CoinExchangeFragment) {
-                    ((CoinExchangeFragment) fragments.get(i)).sendWebSocket();
+        if (viewDelegate != null) {
+            if (viewDelegate.viewHolder.tl_2 != null) {
+                for (int i = 0; i < fragments.size(); i++) {
+                    if (i == viewDelegate.viewHolder.tl_2.getCurrentTab()) {
+                        if (fragments.get(i) instanceof ExchangeFragment) {
+                            ((ExchangeFragment) fragments.get(i)).sendWebSocket();
+                        } else if (fragments.get(i) instanceof MarketValueFragment) {
+                            ((MarketValueFragment) fragments.get(i)).sendWebSocket();
+                        } else if (fragments.get(i) instanceof UserChooseFragment) {
+                            ((UserChooseFragment) fragments.get(i)).sendWebSocket();
+                        } else if (fragments.get(i) instanceof CoinExchangeFragment) {
+                            ((CoinExchangeFragment) fragments.get(i)).sendWebSocket();
+                        }
+                    }
                 }
             }
         }
@@ -127,9 +141,13 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     //给toolbar添加搜索布局
     private void initToolBarSearch() {
         viewDelegate.getFl_content().addView(getActivity().getLayoutInflater().inflate(R.layout.layout_top_search, null));
+        LinearLayout lin_search_root=viewDelegate.getFl_content().findViewById(R.id.lin_search_root);
         EditText et_search = viewDelegate.getFl_content().findViewById(R.id.et_search);
+        et_search.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.MATCH_PARENT));
         et_search.setFocusable(false);
-        et_search.setOnClickListener(new View.OnClickListener() {
+        lin_search_root.setGravity(Gravity.CENTER);
+        lin_search_root.setPadding(lin_search_root.getLeft(),lin_search_root.getTop(),lin_search_root.getRight()+(int)CommonUtils.getDimensionPixelSize(R.dimen.trans_30px),lin_search_root.getBottom());
+        lin_search_root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goSearch();
@@ -284,15 +302,15 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
         switch (requestCode) {
             case 0x123:
                 //保存行情列表
-//                List<ExchangeName> exchangeNames = GsonUtil.getInstance().toList(data, ExchangeName.class);
-//                if (exchangeNameList == null) {
-//                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-//                    initTablelayout(exchangeNames);
-//                } else {
-//                    if (exchangeNames.size() != exchangeNameList.size()) {
-//                        CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
-//                    }
-//                }
+                //                List<ExchangeName> exchangeNames = GsonUtil.getInstance().toList(data, ExchangeName.class);
+                //                if (exchangeNameList == null) {
+                //                    CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
+                //                    initTablelayout(exchangeNames);
+                //                } else {
+                //                    if (exchangeNames.size() != exchangeNameList.size()) {
+                //                        CacheUtils.getInstance().put(CACHE_EXCHANGENAME, data, 60 * 60 * 24);
+                //                    }
+                //                }
                 break;
         }
     }

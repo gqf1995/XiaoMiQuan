@@ -268,6 +268,8 @@
 
 
     <string name="str_search_circle">查找圈子</string>
+    <string name="str_tv_circle_code">请输入加圈码</string>
+    <string name="str_diolog_circle">加入</string>
     <string name="str_input_limit">/140字</string>
     <string name="str_ck_live">发布到我的直播</string>
     <string name="str_ck_circle">发布到小密圈</string>
@@ -310,6 +312,7 @@
     <string name="str_closing_time">比赛结束时间: </string>
 
     <string name="str_release_article">发布文章</string>
+    <string name="str_tv_release_article">发表了文章</string>
     <string name="str_deal_article">导入文章</string>
     <string name="str_release">发布</string>
     <string name="str_toast_article_name">请输入文章名称</string>
@@ -361,9 +364,14 @@
     <string name="str_tv_join">立即加入</string>
     <string name="str_tv_code">我有加圈码</string>
     <string name="str_title_create_circle">创建圈子</string>
+    <string name="str_title_circle_brief">圈子简介</string>
+    <string name="str_tv_circle_brief">简单介绍下你的圈子</string>
     <string name="str_title_edit_circle">修改圈子</string>
+    <string name="str_diolog_charge_circle">设置入圈费用</string>
+    <string name="str_diolog_charge_num">输入金额</string>
     <string name="str_search_edit_circle">搜索圈子</string>
     <string name="str_toast_user">请阅读用户规范</string>
+    <string name="str_toast_type">选择个类型吧</string>
     <string name="str_title_square">广场</string>
     <string name="str_toast_need_login">登录后才能使用此功能</string>
     <string name="str_toast_have_team">您已拥有战队 </string>

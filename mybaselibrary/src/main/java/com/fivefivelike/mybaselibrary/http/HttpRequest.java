@@ -404,7 +404,9 @@ public class HttpRequest {
                         //调用成功 返回json
                         if (lunban != null) {
                             lunban.success(stringResponse);
+
                         }
+
                     }
                 }, new Consumer<Throwable>() {//onError()
                     @Override

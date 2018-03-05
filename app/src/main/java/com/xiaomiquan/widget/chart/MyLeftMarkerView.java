@@ -9,8 +9,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.xiaomiquan.R;
 import com.xiaomiquan.utils.BigUIUtil;
 
-import java.text.DecimalFormat;
-
 /**
  * Created by loro on 2017/2/8.
  */
@@ -26,10 +24,9 @@ public class MyLeftMarkerView extends MarkerView {
 
     public MyLeftMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
-
         //mFormat=new DecimalFormat("#0.00");
         markerTv = (TextView) findViewById(R.id.marker_tv);
-        markerTv.setTextSize(10);
+        markerTv.setTextSize(8);
     }
 
     public void setData(float num) {

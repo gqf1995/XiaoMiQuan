@@ -26,7 +26,6 @@ public class MyHMarkerView extends MarkerView {
     private DecimalFormat mFormat;
     public MyHMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
-        mFormat=new DecimalFormat("#0.00");
         markerTv = (ImageView) findViewById(R.id.marker_tv);
     }
 
@@ -35,6 +34,7 @@ public class MyHMarkerView extends MarkerView {
     }
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
+        markerTv.setVisibility(VISIBLE);
     }
 
     public void setTvWidth(int width){

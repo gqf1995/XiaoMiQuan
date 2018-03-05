@@ -39,6 +39,32 @@ public class MarketDetailsBinder extends BaseDataBind<MarketDetailsDelegate> {
 
     }
 
+
+    public Disposable getKlineByOnlyKey(
+            String onlyKey,
+            String timeType,
+            String lastTime,
+            int code,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("onlyKey", onlyKey);
+        baseMap.put("timeType", "kline_" + timeType);
+        baseMap.put("lastTime", lastTime);
+        return new HttpRequest.Builder()
+                .setRequestCode(code)
+                .setRequestUrl(HttpUrl.getIntance().getKlineByOnlyKey)
+                .setCacheMode(CacheMode.ONLY_REQUEST_NETWORK)
+                .setShowDialog(false)
+                .setRequestName("获取K线")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
     /**
      * 单独订阅/取消
      */

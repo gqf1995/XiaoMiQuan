@@ -23,7 +23,7 @@ public class MyBottomMarkerView extends MarkerView {
     public MyBottomMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
         markerTv = (TextView) findViewById(R.id.marker_tv);
-        markerTv.setTextSize(10);
+        markerTv.setTextSize(8);
     }
 
     public void setData(String time){

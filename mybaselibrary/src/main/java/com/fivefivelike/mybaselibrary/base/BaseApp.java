@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.multidex.MultiDexApplication;
 
+import com.fivefivelike.mybaselibrary.utils.UUIDS;
+
 /**
  * @创建者 CSDN_LQR
  * @描述 Application基类
@@ -49,6 +51,7 @@ public abstract class BaseApp extends MultiDexApplication {
         //对全局属性赋值
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
             instance = this;
+            UUIDS.buidleID(this).check();
         }
     }
 

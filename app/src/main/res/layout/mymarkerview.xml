@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/markerview_bg_shape"
         android:padding="3dp"
+        android:layout_marginRight="@dimen/trans_1px"
         android:text=""
-        android:textColor="@color/color_font2" />
+        android:textColor="@color/color_font4" />
 
 </LinearLayout>

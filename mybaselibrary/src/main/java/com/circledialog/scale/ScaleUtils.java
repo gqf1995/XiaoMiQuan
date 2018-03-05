@@ -12,7 +12,8 @@ import android.view.WindowManager;
  */
 public class ScaleUtils {
     public static int scaleValue(int val) {
-        return (int) (val * ScaleLayoutConfig.getInstance().getScale());
+        // return (int) (val * ScaleLayoutConfig.getInstance().getScale());
+        return val;
     }
 
     public static int[] getRealScreenSize(Context context) {

@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -24,6 +26,7 @@ import com.fivefivelike.mybaselibrary.utils.ActUtil;
 import com.fivefivelike.mybaselibrary.utils.AppUtil;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.UUIDS;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.tablayout.listener.OnTabSelectListener;
@@ -35,9 +38,11 @@ import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.IMDelegate;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
 import com.xiaomiquan.mvp.dialog.UpdateDialog;
+import com.xiaomiquan.mvp.fragment.HomeFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
 import com.xiaomiquan.mvp.fragment.circle.CircleFragment;
+import com.xiaomiquan.mvp.fragment.circle.SquareWebFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.server.UpdateService;
@@ -61,7 +66,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     UserLogin userLogin;
     MainEventBusHelper mainEventBusHelper;
     AppVersion appVersion;
-
+    int showPosition = 0;
 
     @Override
     protected Class<MainDelegate> getDelegateClass() {
@@ -73,35 +78,26 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         return new MainBinder(viewDelegate);
     }
 
-
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         //提示是否电池优化
         ignoreBatteryOptimization(this);
-        initFragment();
         mainEventBusHelper = new MainEventBusHelper(this, viewDelegate, binder);
-        uid = DeviceUtils.getAndroidID() + System.currentTimeMillis();
+        uid = UUIDS.getUUID() + System.currentTimeMillis();
         initSocket();
         updata();
         netWorkLinsener();
-        viewDelegate.initBottom(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                viewDelegate.showFragment(position);
-                if (position != 1) {
-                    WebSocketRequest.getInstance().sendData(new ArrayList<String>());
-                } else {
-                    marketFragment.sendWebsocket();
-                }
-            }
-
-            @Override
-            public void onTabReselect(int position) {
-
-            }
-        });
         addRequest(binder.getlatestversion(AppUtils.getAppVersionName(), this));
+    }
+
+    @Override
+    protected void bindEvenListenerBuyState(Bundle savedInstanceState) {
+        super.bindEvenListenerBuyState(savedInstanceState);
+        if (savedInstanceState != null) {
+            showPosition = savedInstanceState.getInt("position", 0);
+        }
+        initFragment(savedInstanceState == null);
     }
 
     PingUtil.NetworkConnectChangedReceiver mNetworkChangeListener;
@@ -129,29 +125,10 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     protected void onStop() {
         super.onStop();
         isLoad = false;
+        DeviceUtils.getAndroidID();
         WebSocketRequest.getInstance().sendData(new ArrayList<String>());
     }
 
-    public void onAttachFragment(android.support.v4.app.Fragment fragment) {
-        if (marketFragment == null && fragment instanceof MarketFragment) {
-            marketFragment = (MarketFragment) fragment;
-        }
-        if (investGroupFragment == null && fragment instanceof InvestGroupFragment) {
-            investGroupFragment = (InvestGroupFragment) fragment;
-        }
-        if (userFragment == null && fragment instanceof UserFragment) {
-            userFragment = (UserFragment) fragment;
-        }
-    }
-
-    //    protected void onSaveInstanceState(Bundle outState) {
-    //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    //        transaction.remove(marketFragment);
-    //        transaction.remove(investGroupFragment);
-    //        transaction.remove(userFragment);
-    //        transaction.commitAllowingStateLoss();
-    //        super.onSaveInstanceState(outState);
-    //    }
     boolean isLoad = true;//是否更新汇率
 
     private void updata() {
@@ -178,21 +155,72 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     }
 
     MarketFragment marketFragment;
-    CircleFragment squareFragment;
     InvestGroupFragment investGroupFragment;
     UserFragment userFragment;
+    HomeFragment homeFragment;
+    SquareWebFragment squareWebFragment;
 
     //添加主页4个基础页面
-    public void initFragment() {
+    public void initFragment(boolean isInit) {
         //设置 以哪个FrameLayout 作为展示
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
-        viewDelegate.addFragment(squareFragment = new CircleFragment());
-//        viewDelegate.addFragment(investGroupFragment = new InvestGroupFragment());
-        viewDelegate.addFragment(marketFragment = new MarketFragment());
-        viewDelegate.addFragment(userFragment = new UserFragment());
-        //显示第0个
-        viewDelegate.showFragment(0);
+        //viewDelegate.addFragment(squareFragment = new CircleFragment());
+        if (isInit) {
+            viewDelegate.addFragment(homeFragment = new HomeFragment());
+            viewDelegate.addFragment(marketFragment = new MarketFragment());
+            viewDelegate.addFragment(squareWebFragment = new SquareWebFragment());
+            viewDelegate.addFragment(userFragment = new UserFragment());
+            loadDrawerLayout(true);
+        } else {
+            viewDelegate.initFromSave();
+            homeFragment = (HomeFragment) viewDelegate.getFragmentByIndex(0);
+            marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
+            squareWebFragment = (SquareWebFragment) viewDelegate.getFragmentByIndex(2);
+            userFragment = (UserFragment) viewDelegate.getFragmentByIndex(3);
+            loadDrawerLayout(false);
+        }
+        viewDelegate.showFragment(showPosition);
+        initBottom();
         doubleClickActList.add(this.getClass().getName());//两次返回推出act注册
+    }
+
+    private void loadDrawerLayout(boolean isFirst) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (isFirst) {
+            userFragment = new UserFragment();
+            transaction.add(R.id.fl_left, userFragment, "UserFragment");
+        } else {
+            userFragment = (UserFragment) getSupportFragmentManager().findFragmentByTag("UserFragment");
+            transaction.show(userFragment);
+        }
+        transaction.commitAllowingStateLoss();
+    }
+
+
+    private void initBottom() {
+        viewDelegate.initBottom(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                viewDelegate.showFragment(position);
+                if (position != 1) {
+                    WebSocketRequest.getInstance().sendData(new ArrayList<String>());
+                } else {
+                    marketFragment.sendWebsocket();
+                }
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
+        viewDelegate.viewHolder.tl_2.setCurrentTab(showPosition);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("position", viewDelegate.viewHolder.tl_2.getCurrentTab());
+        super.onSaveInstanceState(outState);
     }
 
     public void toPage(int pagePosition, int childPosition) {
@@ -225,6 +253,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
             }
         }
     };
+
 
     @Override
     protected void onResume() {

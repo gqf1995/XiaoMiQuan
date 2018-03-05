@@ -17,7 +17,7 @@ import java.util.List;
 
 public class KlineDaoUtil {
 
-    public static final int selectNum=180;
+    public static final int selectNum = 180;
 
     public static List<KLineBean> getList(String onlyKey, String time) {
         QueryBuilder<KLineBean> kLineBeanQueryBuilder = DaoManager.getInstance().getDaoSession().getKLineBeanDao()
@@ -56,35 +56,35 @@ public class KlineDaoUtil {
                     .orderAsc(KLineBeanDao.Properties.Timestamp)
                     .list();
             if (list.size() > 0) {
-                long time = list.get(list.size() - 1).getTimestamp();
+                long time = System.currentTimeMillis()/1000;
                 for (int j = 0; j < list.size(); j++) {
                     //删除 540条以前
                     if (i == 0) {
-                        time = time - 60 * selectNum*3;
+                        time = time - 60 * selectNum * 1;
                     } else if (i == 1) {
-                        time = time - 60 * 3 * selectNum*3;
+                        time = time - 60 * 3 * selectNum * 1;
                     } else if (i == 2) {
-                        time = time - 60 * 5 * selectNum*3;
+                        time = time - 60 * 5 * selectNum * 1;
                     } else if (i == 3) {
-                        time = time - 60 * 15 * selectNum*3;
+                        time = time - 60 * 15 * selectNum * 1;
                     } else if (i == 4) {
-                        time = time - 60 * 30 * selectNum*3;
+                        time = time - 60 * 30 * selectNum * 1;
                     } else if (i == 5) {
-                        time = time - 60 * 60 * selectNum*3;
+                        time = time - 60 * 60 * selectNum * 1;
                     } else if (i == 6) {
-                        time = time - 60 * 60 * 2 * selectNum*3;
+                        time = time - 60 * 60 * 2 * selectNum * 1;
                     } else if (i == 7) {
-                        time = time - 60 * 60 * 4 * selectNum*3;
+                        time = time - 60 * 60 * 4 * selectNum * 1;
                     } else if (i == 8) {
-                        time = time - 60 * 60 * 6 * selectNum*3;
+                        time = time - 60 * 60 * 6 * selectNum * 1;
                     } else if (i == 9) {
-                        time = time - 60 * 60 * 12 * selectNum*3;
+                        time = time - 60 * 60 * 12 * selectNum * 1;
                     } else if (i == 10) {
-                        time = time - 60 * 60 * 24 * selectNum*3;
+                        time = time - 60 * 60 * 24 * selectNum * 1;
                     } else if (i == 11) {
-                        time = time - 60 * 60 * 24 * 3 * selectNum*3;
+                        time = time - 60 * 60 * 24 * 3 * selectNum * 1;
                     } else if (i == 12) {
-                        time = time - 60 * 60 * 24 * 7 * selectNum*3;
+                        time = time - 60 * 60 * 24 * 7 * selectNum * 1;
                     }
                     if (list.get(j).timestamp < time) {
                         DaoManager.getInstance().getDaoSession().getKLineBeanDao().delete(list.get(j));

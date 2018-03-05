@@ -23,8 +23,10 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.mvp.view.IDelegateImpl;
 import com.fivefivelike.mybaselibrary.utils.AndroidUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.dialog.NetWorkDialog;
+import com.githang.statusbar.StatusBarCompat;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -63,6 +65,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
     private IconFontTextview mToolbarBack;
     private View mViewSubtitlePoint;
 
+    private String FRAGMENT_TAG = "fragment_tag";
 
     public NetWorkDialog getNetConnectDialog() {
         return initDialog("加载中...");
@@ -136,7 +139,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
         viewImg2Point = getViewById(R.id.view_img2_point);
         viewImg1Point = getViewById(R.id.view_img1_point);
         viewImgPoint = getViewById(R.id.view_img_point);
-        viewBackPoint=getViewById(R.id.view_back_point);
+        viewBackPoint = getViewById(R.id.view_back_point);
         fl_content = getViewById(R.id.fl_content);
 
 
@@ -200,9 +203,11 @@ public abstract class BaseDelegate extends IDelegateImpl {
             showBack(activity, builder.getBackTxt());
 
         }
-        //设置标题栏的背景颜色
+        //        //设置标题栏的背景颜色
         if (builder.getmToolbarBackColor() != 0) {
             mToolbar.setBackgroundColor(builder.getmToolbarBackColor());
+        } else {
+            mToolbar.setBackgroundColor(CommonUtils.getColor(R.color.toolbar_bg));
         }
         //设置标题是否显示
         if (!builder.isTitleShow()) {
@@ -228,6 +233,26 @@ public abstract class BaseDelegate extends IDelegateImpl {
                 v_status.getLayoutParams().height = 0;
             }
             v_status.requestLayout();
+        }
+    }
+
+    public View getStatus() {
+        View v_status = getViewById(R.id.v_status);
+        return v_status;
+    }
+
+
+    public void setStatusBg(int colorId, boolean isLight) {
+        View v_status = getViewById(R.id.v_status);
+        v_status.setBackgroundColor(CommonUtils.getColor(colorId));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            StatusBarCompat.setLightStatusBar(getActivity().getWindow(), isLight);
+            if (isLight) {
+                if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)) {
+                    StatusBarCompat.setLightStatusBar(getActivity().getWindow(), false);
+                    v_status.setBackgroundColor(CommonUtils.getColor(R.color.font_grey));
+                }
+            }
         }
     }
 
@@ -309,6 +334,29 @@ public abstract class BaseDelegate extends IDelegateImpl {
         fragmentList.add(fragment);
     }
 
+    public void initFromSave() {
+        if (fragmentContainId == -1) {//没有设置容器
+            return;
+        }
+        if (fragmentManager == null) {//没有初始化管理器
+            return;
+        }
+        if (fragmentList == null) {
+            fragmentList = new ArrayList<>();
+        }
+        if (!ListUtils.isEmpty(fragmentList)) {
+            if (fragmentManager.getFragments() != null) {
+                if (fragmentManager.getFragments().size() > 0) {
+                    for (int i = 0; i < fragmentManager.getFragments().size(); i++) {
+                        if (fragmentManager.getFragments().get(i).getTag().contains(FRAGMENT_TAG)) {
+                            fragmentList.add(fragmentManager.getFragments().get(i));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * 显示某一个fragment
      * 在{@link #addFragment(Fragment)}之后使用
@@ -332,23 +380,48 @@ public abstract class BaseDelegate extends IDelegateImpl {
         Fragment frl = fragmentList.get(index);
         if (frl.isAdded()) {
             frl.onResume();
-        } else {
-            transaction.add(fragmentContainId, frl);
+        }
+        if (!ListUtils.isEmpty(fragmentManager.getFragments())) {
+            for (int i = 0; i < fragmentList.size(); i++) {
+                transaction.add(fragmentContainId, fragmentList.get(i), FRAGMENT_TAG + index);
+            }
         }
         for (int i = 0; i < fragmentList.size(); i++) {
-            Fragment fragment = fragmentList.get(i);
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            if (index == i) {
-                ft.show(fragment);
-            } else {
-                ft.hide(fragment);
+            if (fragmentList.get(i).getTag().contains(FRAGMENT_TAG)) {
+                Fragment fragment = fragmentList.get(i);
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                if (index == i) {
+                    ft.show(fragment);
+                } else {
+                    ft.hide(fragment);
+                }
+                ft.commitAllowingStateLoss();
             }
-            ft.commitAllowingStateLoss();
         }
         transaction.commitAllowingStateLoss();
         cuurentFragmentPosition = index;
     }
 
+    public String getFramentTag(int index) {
+        return FRAGMENT_TAG + index;
+    }
+
+    public Fragment getFragmentByTag(String tag) {
+        if (fragmentManager == null) {
+            return null;
+        }
+        return fragmentManager.findFragmentByTag(tag);
+    }
+
+    public Fragment getFragmentByIndex(int index) {
+        if (!ListUtils.isEmpty(fragmentList)) {
+            return null;
+        }
+        if (index > fragmentList.size()) {
+            return null;
+        }
+        return fragmentList.get(index);
+    }
 
     public void replaceFragment(int index, Fragment fragment) {
         if (fragmentContainId == -1) {//没有设置容器

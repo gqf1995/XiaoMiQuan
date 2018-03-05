@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
 import android.view.WindowManager;
-
 import com.circledialog.CircleDialog;
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -17,13 +16,13 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.githang.statusbar.StatusBarCompat;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by 郭青枫 on 2017/7/7.
  */
+
 public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPresenter<T> implements View.OnClickListener, CircleDialog.CircleDialogLinsener {
     public static List<String> doubleClickActList = new ArrayList<>();
     public Activity mContext;
