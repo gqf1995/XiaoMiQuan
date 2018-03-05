@@ -327,6 +327,9 @@
     <string name="str_tv_addimg">添加封面</string>
     <string name="str_my_account">我的账户</string>
     <string name="str_team_rank">战队风云榜</string>
+    <string name="str_tv_property_appraisement">资产估值</string>
+    <string name="str_tv_usd">USD</string>
+    <string name="str_tv_usable_usd">可用USD</string>
 
 
     <string name="str_release_dynamic">发布动态</string>
