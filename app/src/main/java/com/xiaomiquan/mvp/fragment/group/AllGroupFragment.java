@@ -259,7 +259,6 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 List<GroupDynamic> list = GsonUtil.getInstance().toList(data, GroupDynamic.class);

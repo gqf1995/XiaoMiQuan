@@ -123,6 +123,39 @@ public abstract class BaseDelegate extends IDelegateImpl {
         }
     }
 
+    int mColorId;
+    boolean mIslight;
+
+    public void checkToolColor() {
+        setToolColor(mColorId, mIslight);
+    }
+
+    public void setToolColor(int colorId, boolean isLight) {
+        mColorId = colorId;
+        mIslight = isLight;
+        if (mToolbar != null) {
+            setStatusBg(colorId, isLight);
+            mToolbar.setBackgroundColor(CommonUtils.getColor(colorId));
+            if (isLight) {
+                mToolbarTitle.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                mToolbarSubTitle.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                mToolbarRightImg1.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                mToolbarRightImg2.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                mToolbarRightImg3.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                mToolbarBackTxt.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                mToolbarBack.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            } else {
+                mToolbarTitle.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+                mToolbarSubTitle.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+                mToolbarRightImg1.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+                mToolbarRightImg2.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+                mToolbarRightImg3.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+                mToolbarBackTxt.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+                mToolbarBack.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+            }
+        }
+    }
+
     /**
      * 初始化标题栏
      *

@@ -48,7 +48,7 @@
                         android:layout_marginLeft="@dimen/trans_40px"
                         android:gravity="center"
                         android:text="@string/ic_Back"
-                        android:textColor="@color/white"
+                        android:textColor="@color/color_font1"
                         android:textSize="@dimen/text_trans_32px"
                         />
 
@@ -71,7 +71,7 @@
                     android:gravity="center"
                     android:paddingLeft="@dimen/trans_10px"
                     android:text=""
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_28px"
                     />
 
@@ -101,7 +101,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="subtitle"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_30px"
                     android:visibility="gone"/>
 
@@ -126,7 +126,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="subtitle"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_32px"
                     android:visibility="gone"
                     />
@@ -153,7 +153,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="subtitle"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_32px"
                     android:visibility="gone"
                     />
@@ -180,7 +180,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="subtitle"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_font1"
                     android:textSize="@dimen/text_trans_32px"
                     android:visibility="gone"
                     />
@@ -205,7 +205,7 @@
             android:ellipsize="end"
             android:lines="1"
             android:text="title"
-            android:textColor="@color/white"
+            android:textColor="@color/color_font1"
             android:textSize="@dimen/text_trans_32px"/>
     </FrameLayout>
 

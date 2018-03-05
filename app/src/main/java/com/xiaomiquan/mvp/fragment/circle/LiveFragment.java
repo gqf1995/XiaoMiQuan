@@ -41,7 +41,6 @@ public class LiveFragment extends BasePullFragment<BaseFragentPullDelegate, Base
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 List<LiveData> data1 = GsonUtil.getInstance().toList(data, LiveData.class);

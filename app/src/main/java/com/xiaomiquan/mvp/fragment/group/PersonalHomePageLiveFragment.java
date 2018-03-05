@@ -35,7 +35,6 @@ public class PersonalHomePageLiveFragment extends BasePullFragment<BaseFragentPu
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data,info,status,requestCode);
     }
 
     @Override

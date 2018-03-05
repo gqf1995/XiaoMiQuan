@@ -151,7 +151,6 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 List<CoinDetail> datas = GsonUtil.getInstance().toList(data, CoinDetail.class);

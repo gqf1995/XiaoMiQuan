@@ -66,7 +66,6 @@ public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, B
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 List<HistoryTrading> data1 = GsonUtil.getInstance().toList(data, HistoryTrading.class);

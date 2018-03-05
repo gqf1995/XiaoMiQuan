@@ -91,17 +91,17 @@ public abstract class BasePullFragment<T extends BasePullDelegate, D extends IDa
     @Override
     public void error(int requestCode, Throwable exThrowable) {
         super.error(requestCode, exThrowable);
+
+    }
+
+    public void onStopLoading() {
         viewDelegate.stopRefresh();
     }
 
-    @Override
-    protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        viewDelegate.stopRefresh();
-    }
+    protected abstract void onServiceSuccess(String data, String info, int status, int requestCode);
 
     @Override
     protected void onServiceError(String data, String info, int status, int requestCode) {
         super.onServiceError(data, info, status, requestCode);
-        viewDelegate.stopRefresh();
     }
 }
