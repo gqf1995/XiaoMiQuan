@@ -19,8 +19,11 @@ public class MainDelegate extends IMDelegate {
             CommonUtils.getString(R.string.str_market),
             CommonUtils.getString(R.string.str_user)};
     private int[] mIconSelectIds = {
-            R.string.ic_Box,
-            R.string.ic_Chart, R.string.ic_User};
+            R.drawable.ic_hebingxingzhuang,
+            R.drawable.ic_hebingxingzhuang,R.drawable.ic_hebingxingzhuang};
+    private int[] mIconUnSelectIds = {
+            R.drawable.ic_combined_shape,
+            R.drawable.ic_combined_shape,R.drawable.ic_combined_shape};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Override
@@ -37,9 +40,9 @@ public class MainDelegate extends IMDelegate {
 
     public void initBottom(OnTabSelectListener onTabSelectListener) {
         for (int i = 0; i < mTitles.length; i++) {
-            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], 0));
+            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnSelectIds[i]));
         }
-        viewHolder.tl_2.setIconVisible(false);
+        viewHolder.tl_2.setIconVisible(true);
         //viewHolder.tl_2.setmIndicatorId(R.drawable.shape_blue_maxradiu);
         viewHolder.tl_2.setTabData(mTabEntities);
         viewHolder.tl_2.setOnTabSelectListener(onTabSelectListener);

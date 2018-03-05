@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
-import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.base.Application;
@@ -14,7 +13,6 @@ import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.group.InviteFriendsActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeUserInfoActivity;
-import com.xiaomiquan.mvp.activity.user.ConversationActivity;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.activity.user.SecurityActivity;
@@ -25,7 +23,6 @@ import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.CircleDialogHelper;
 
 import static android.app.Activity.RESULT_OK;
-import static com.xiaomiquan.base.AppConst.serviceId;
 
 /**
  * 个人中心
@@ -61,7 +58,6 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
     protected void bindEvenListener() {
         super.bindEvenListener();
         //更新用户信息
-        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_user)).setShowBack(false));//.setShowBack(false).setmRightImg1(CommonUtils.getString(R.string.ic_Chat)));
         viewDelegate.setOnClickListener(this
                 , R.id.checkbox_night_model
                 , R.id.checkbox_red_sticker

@@ -72,33 +72,33 @@ public class UserDelegate extends BaseDelegate {
         height = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_210px);
         viewHolder.layout_title_bar.getBackground().mutate().setAlpha(0);
         viewHolder.toolbar_title.setAlpha(0);
-        viewHolder.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            // 将透明度声明成局部变量用于判断
-            int alpha = 0;
-            int count = 0;
-            float scale = 0;
-
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                viewHolder.layout_title_bar.setVisibility(View.VISIBLE);
-                if (scrollY <= height) {
-                    scale = (float) scrollY / height;
-                    alpha = (int) (255 * scale);
-                    // 随着滑动距离改变透明度
-                    // Log.e("al=","="+alpha);
-                    viewHolder.layout_title_bar.getBackground().mutate().setAlpha(alpha);
-                    viewHolder.toolbar_title.setAlpha(scale);
-
-                } else {
-                    if (alpha < 255) {
-                        // 防止频繁重复设置相同的值影响性能
-                        alpha = 255;
-                        viewHolder.layout_title_bar.getBackground().mutate().setAlpha(alpha);
-                        viewHolder.toolbar_title.setAlpha(scale);
-                    }
-                }
-            }
-        });
+//        viewHolder.nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            // 将透明度声明成局部变量用于判断
+//            int alpha = 0;
+//            int count = 0;
+//            float scale = 0;
+//
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                viewHolder.layout_title_bar.setVisibility(View.VISIBLE);
+//                if (scrollY <= height) {
+//                    scale = (float) scrollY / height;
+//                    alpha = (int) (255 * scale);
+//                    // 随着滑动距离改变透明度
+//                    // Log.e("al=","="+alpha);
+//                    viewHolder.layout_title_bar.getBackground().mutate().setAlpha(alpha);
+//                    viewHolder.toolbar_title.setAlpha(scale);
+//
+//                } else {
+//                    if (alpha < 255) {
+//                        // 防止频繁重复设置相同的值影响性能
+//                        alpha = 255;
+//                        viewHolder.layout_title_bar.getBackground().mutate().setAlpha(alpha);
+//                        viewHolder.toolbar_title.setAlpha(scale);
+//                    }
+//                }
+//            }
+//        });
         viewHolder.checkbox_night_model.setChecked(!UserSet.getinstance().isNight());
         viewHolder.checkbox_red_sticker.setChecked(UserSet.getinstance().isRedRise());
     }

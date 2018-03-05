@@ -84,6 +84,9 @@
 
 
     <!--皮肤包颜色-->
+    <color name="mark_color">#208DE3</color>
+    <color name="navigation_color">#208DE3</color>
+
     <color name="color_Primary">#ffffff</color>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#ffffff</color>
@@ -129,7 +132,7 @@
 
 
     <!--顶部导航栏背景颜色-->
-    <color name="toolbar_bg">#208DE3</color>
-    <color name="navigation_color">#208DE3</color>
+    <color name="toolbar_bg">#ffffff</color>
+    <color name="status_bg">#ffffff</color>
 
 </resources>

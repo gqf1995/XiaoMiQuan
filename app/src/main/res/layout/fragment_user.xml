@@ -561,7 +561,6 @@
         </android.support.v4.widget.NestedScrollView>
 
 
-        <include layout="@layout/include_toolbar_with_statusbar"/>
 
     </FrameLayout>
 

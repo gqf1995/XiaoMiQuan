@@ -1,17 +1,24 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.base.BaseWebFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.just.agentweb.AgentWebConfig;
 import com.xiaomiquan.R;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.databinder.HomeBinder;
 import com.xiaomiquan.mvp.delegate.HomeDelegate;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.fivefivelike.mybaselibrary.utils.glide.GlideUtils.BASE_URL;
 
 public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder> {
 
@@ -33,15 +40,20 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        baseWebFragment = BaseWebFragment.newInstance(url);
-        viewDelegate.initAddFragment(R.id.fl_root, getChildFragmentManager());
-        viewDelegate.addFragment(baseWebFragment);
         initToolBarSearch();
         if (SingSettingDBUtil.getUserLogin() != null) {
             AgentWebConfig.syncCookie(url, "token=" + "44cf54dbdcbeb90c2e448655a2e54f5c");
             //AgentWebConfig.syncCookie(url, "token=" + SaveUtil.getInstance().getString("token"));
         }
-        viewDelegate.showFragment(0);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        if (getChildFragmentManager().findFragmentByTag("BaseWebFragment") == null) {
+            baseWebFragment = BaseWebFragment.newInstance(url);
+            transaction.add(R.id.fl_web, baseWebFragment, "BaseWebFragment");
+        } else {
+            baseWebFragment = (BaseWebFragment) getChildFragmentManager().findFragmentByTag("BaseWebFragment");
+            transaction.show(baseWebFragment);
+        }
+        transaction.commitAllowingStateLoss();
         bridgeWeb();
     }
 
@@ -51,23 +63,33 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
 
     }
 
+    @Override
+    protected void clickRightTv() {
+        super.clickRightTv();
+
+    }
+
+    public CircleImageView ic_pic;
+    public FrameLayout fl_pic;
+
     //给toolbar添加搜索布局
     private void initToolBarSearch() {
         initToolbar(new ToolbarBuilder()
+                .setTitle(CommonUtils.getString(R.string.str_comprehensive))
                 .setSubTitle(CommonUtils.getString(R.string.ic_Share))
                 .setmToolbarBackColor(CommonUtils.getColor(R.color.white))
                 .setShowBack(false));
-        viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
-        viewDelegate.getmToolbarSubTitle().setTextColor(CommonUtils.getColor(R.color.color_font1));
-        viewDelegate.getFl_content().addView(getActivity().getLayoutInflater().inflate(R.layout.layout_home_top, null));
+        View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_home_top, null);
+        viewDelegate.getFl_content().addView(rootView);
+        this.ic_pic = (CircleImageView) rootView.findViewById(R.id.ic_pic);
+        this.fl_pic = (FrameLayout) rootView.findViewById(R.id.fl_pic);
+        if (SingSettingDBUtil.getUserLogin() != null) {
+            GlideUtils.loadImage(SingSettingDBUtil.getUserLogin().getAvatar(), ic_pic);
+        } else {
+            GlideUtils.loadImage(BASE_URL, ic_pic);
+        }
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        viewDelegate.setStatusBg(R.color.status_bg, true);
-    }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {

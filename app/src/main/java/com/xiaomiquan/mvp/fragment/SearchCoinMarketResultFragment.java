@@ -90,7 +90,6 @@ public class SearchCoinMarketResultFragment extends BasePullFragment<BaseFragent
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 List<ExchangeData> exchangeData = GsonUtil.getInstance().toList(data, ExchangeData.class);

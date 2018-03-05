@@ -88,6 +88,7 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
                 .setTitle(CommonUtils.getString(R.string.str_title_market)).setShowBack(true));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
         viewDelegate.setBackIconFontText(CommonUtils.getString(R.string.ic_Filter2));
+        viewDelegate.setToolColor(R.color.mark_color, false);
         initBarClick();
         initToolBarSearch();
         //网络获取交易所 名称
@@ -103,16 +104,6 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     }
 
     ArrayList<String> strings;
-
-    @Override
-    protected void onFragmentVisibleChange(boolean isVisible) {
-        super.onFragmentVisibleChange(isVisible);
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
-        viewDelegate.setStatusBg(R.color.toolbar_bg, false);
-    }
 
     public void sendWebsocket() {
         if (fragments == null) {
@@ -141,12 +132,12 @@ public class MarketFragment extends BaseDataBindFragment<TabViewpageDelegate, Ta
     //给toolbar添加搜索布局
     private void initToolBarSearch() {
         viewDelegate.getFl_content().addView(getActivity().getLayoutInflater().inflate(R.layout.layout_top_search, null));
-        LinearLayout lin_search_root=viewDelegate.getFl_content().findViewById(R.id.lin_search_root);
+        LinearLayout lin_search_root = viewDelegate.getFl_content().findViewById(R.id.lin_search_root);
         EditText et_search = viewDelegate.getFl_content().findViewById(R.id.et_search);
-        et_search.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.MATCH_PARENT));
+        et_search.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
         et_search.setFocusable(false);
         lin_search_root.setGravity(Gravity.CENTER);
-        lin_search_root.setPadding(lin_search_root.getLeft(),lin_search_root.getTop(),lin_search_root.getRight()+(int)CommonUtils.getDimensionPixelSize(R.dimen.trans_30px),lin_search_root.getBottom());
+        lin_search_root.setPadding(lin_search_root.getLeft(), lin_search_root.getTop(), lin_search_root.getRight() + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_30px), lin_search_root.getBottom());
         lin_search_root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

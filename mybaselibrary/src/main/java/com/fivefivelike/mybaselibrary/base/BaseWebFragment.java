@@ -34,6 +34,7 @@ public class BaseWebFragment extends BaseFragment<BaseWebViewDelegate> {
     }
 
     public interface WebLinsener {
+        void onLoadEndPage();
 
         void onLoadTitle(String title);
     }
@@ -133,6 +134,11 @@ public class BaseWebFragment extends BaseFragment<BaseWebViewDelegate> {
         public void onProgressChanged(WebView view, int newProgress) {
             //  super.onProgressChanged(view, newProgress);
             Log.i("BaseWebFragment", "onProgressChanged:" + newProgress + "  view:" + view);
+            if (newProgress == 100) {
+                if (webLinsener != null) {
+                    webLinsener.onLoadEndPage();
+                }
+            }
         }
 
         @Override

@@ -32,7 +32,7 @@
         <com.tablayout.CommonTabLayout
             android:id="@+id/tl_2"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/trans_80px"
+            android:layout_height="@dimen/trans_100px"
             android:layout_gravity="bottom"
             android:background="@color/base_mask"
             android:paddingTop="@dimen/trans_10px"
@@ -51,11 +51,6 @@
 
         </com.tablayout.CommonTabLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/trans_20px"
-            android:background="@color/base_mask"
-            />
 
 
     </LinearLayout>
@@ -63,12 +58,10 @@
     <FrameLayout
         android:id="@+id/fl_left"
         android:layout_width="match_parent"
-        android:layout_marginRight="@dimen/trans_50px"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:layout_marginRight="@dimen/trans_50px"
         android:background="@color/colorPrimary">
-
-
 
 
     </FrameLayout>

@@ -41,7 +41,6 @@ import com.xiaomiquan.mvp.dialog.UpdateDialog;
 import com.xiaomiquan.mvp.fragment.HomeFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.UserFragment;
-import com.xiaomiquan.mvp.fragment.circle.CircleFragment;
 import com.xiaomiquan.mvp.fragment.circle.SquareWebFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
@@ -169,14 +168,12 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
             viewDelegate.addFragment(homeFragment = new HomeFragment());
             viewDelegate.addFragment(marketFragment = new MarketFragment());
             viewDelegate.addFragment(squareWebFragment = new SquareWebFragment());
-            viewDelegate.addFragment(userFragment = new UserFragment());
             loadDrawerLayout(true);
         } else {
             viewDelegate.initFromSave();
             homeFragment = (HomeFragment) viewDelegate.getFragmentByIndex(0);
             marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
             squareWebFragment = (SquareWebFragment) viewDelegate.getFragmentByIndex(2);
-            userFragment = (UserFragment) viewDelegate.getFragmentByIndex(3);
             loadDrawerLayout(false);
         }
         viewDelegate.showFragment(showPosition);
