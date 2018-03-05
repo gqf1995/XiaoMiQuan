@@ -102,7 +102,7 @@
                     android:maxLines="1"
                     android:text="subtitle"
                     android:textColor="@color/color_font1"
-                    android:textSize="@dimen/text_trans_30px"
+                    android:textSize="@dimen/text_trans_28px"
                     android:visibility="gone"/>
 
                 <View

@@ -170,7 +170,6 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
             viewDelegate.addFragment(squareWebFragment = new SquareWebFragment());
             loadDrawerLayout(true);
         } else {
-            viewDelegate.initFromSave();
             homeFragment = (HomeFragment) viewDelegate.getFragmentByIndex(0);
             marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
             squareWebFragment = (SquareWebFragment) viewDelegate.getFragmentByIndex(2);

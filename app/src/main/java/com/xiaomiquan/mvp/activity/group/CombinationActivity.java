@@ -9,6 +9,7 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -80,7 +81,6 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         groupItem = intent.getParcelableExtra("groupItem");
         isMy = intent.getBooleanExtra("isMy", false);
         viewDelegate.initData(groupItem);
-
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -142,18 +142,21 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
     }
 
     private void initViews() {
-        String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_combination);
-        fragments = new ArrayList<>();
-        fragments.add(GroupDetailListFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
-        fragments.add(GroupNotDealFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
-        fragments.add(GroupHistoryTradingFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
-        fragments.add(GroupHistoryEntrustFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
-        for (int i = 0; i < stringArray.length; i++) {
-            mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
+        if (!ListUtils.isEmpty(getSupportFragmentManager().getFragments())) {
+            String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_combination);
+            fragments = new ArrayList<>();
+            fragments.add(GroupDetailListFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
+            fragments.add(GroupNotDealFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
+            fragments.add(GroupHistoryTradingFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
+            fragments.add(GroupHistoryEntrustFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
+            for (int i = 0; i < stringArray.length; i++) {
+                mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
+            }
+            viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
+            InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
+            viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
+
         }
-        viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
-        InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
-        viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
     }
 
 }

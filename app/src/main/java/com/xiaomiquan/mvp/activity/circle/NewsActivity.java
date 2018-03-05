@@ -46,7 +46,6 @@ public class NewsActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 break;

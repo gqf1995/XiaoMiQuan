@@ -150,6 +150,7 @@
     <string name="str_srot_toast">取消请点击星星,排序请长按拖动</string>
     <string name="str_is_clean_cache">是否清理缓存?</string>
     <string name="str_select_complete">选好了</string>
+    <string name="str_online_people">人在线</string>
 
     <string name="str_language_zhcn">简体中文</string>
     <string name="str_market_value">市值</string>
@@ -159,7 +160,7 @@
     <string name="str_amount">量</string>
     <string name="str_buy_one">买一</string>
     <string name="str_sell_one">卖一</string>
-    <string name="str_kvolume">量(5,10)</string>
+    <string name="str_kvolume">量</string>
     <string name="str_no_choose">请选择后再提交</string>
     <string name="str_currency">币种</string>
     <string name="str_type">类型</string>
@@ -238,6 +239,8 @@
     <string name="str_hot_group">炒币风云</string>
     <string name="str_hot_team">热门战队</string>
     <string name="str_all_team">全部战队</string>
+    <string name="str_chat_live_list">大v聊天室</string>
+    <string name="str_my_chat_live">我的聊天室</string>
     <string name="str_invite_friends">邀请好友</string>
     <string name="str_all_hold">全仓</string>
     <string name="str_half_hold">1/2仓</string>

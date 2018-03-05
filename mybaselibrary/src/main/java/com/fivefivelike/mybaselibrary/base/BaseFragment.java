@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.mvp.presenter.FragmentPresenter;
-import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 
 /**
  * Created by 郭青枫 on 2017/7/7.
@@ -64,8 +63,6 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
      */
     protected void initToolbar(ToolbarBuilder toolbarBuilder) {
         viewDelegate.initToolBar((AppCompatActivity) getActivity(), onClickListener, toolbarBuilder);
-        boolean isNight = SaveUtil.getInstance().getBoolean("isNight");
-        viewDelegate.setToolColor(R.color.toolbar_bg, isNight);
     }
 
     @Override
@@ -126,7 +123,9 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
         } else {
             clearNoStatusBarFlag();
         }
-        viewDelegate.checkToolColor();
+        if(isFragmentVisible){
+            viewDelegate.checkToolColor();
+        }
         onFragmentVisibleChange(isFragmentVisible);
     }
 

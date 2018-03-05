@@ -78,7 +78,6 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data,info,status,requestCode);
         switch (requestCode) {
             case 0x123:
                 SquareLive datas = GsonUtil.getInstance().toObj(data, SquareLive.class);
