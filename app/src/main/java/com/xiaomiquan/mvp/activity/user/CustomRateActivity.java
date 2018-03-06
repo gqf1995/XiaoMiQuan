@@ -1,4 +1,4 @@
-package com.xiaomiquan.mvp.activity;
+package com.xiaomiquan.mvp.activity.user;
 
 import android.text.TextUtils;
 import android.view.View;

@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.fragment;
 
+import android.app.Activity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -25,6 +26,18 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
     BaseWebFragment baseWebFragment;
     String url = "http://47.96.180.179:1904/gameTeam/showWebViewIndex";
     BridgeWebView mBridgeWebView;
+
+    public interface Linsener {
+        void openDrawerLayout();
+    }
+
+    Linsener linsener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        linsener = (Linsener) activity;
+    }
 
     @Override
     protected Class<HomeDelegate> getDelegateClass() {
@@ -88,6 +101,13 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
         } else {
             GlideUtils.loadImage(BASE_URL, ic_pic);
         }
+        ic_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //打开抽屉
+                linsener.openDrawerLayout();
+            }
+        });
     }
 
 

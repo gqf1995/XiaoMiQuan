@@ -23,10 +23,12 @@ public class ChangeUserInfoBinder extends BaseDataBind<ChangeUserInfoDelegate> {
      */
     public Disposable editUserInfo(
             String nickName,
+            String brief,
             File file,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("nickName", nickName);
+        baseMap.put("brief", brief);
         Map<String, Object> objectMap = null;
         if (file != null) {
             objectMap = new LinkedHashMap<>();

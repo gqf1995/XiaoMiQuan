@@ -79,6 +79,12 @@ public final class RecyclerPaginate extends Paginate {
         int firstVisibleItemPosition;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
             firstVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+        }else if(recyclerView.getLayoutManager() instanceof GridLayoutManager){
+            if (recyclerView.getLayoutManager().getChildCount() > 0) {
+                firstVisibleItemPosition = ((GridLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+            } else {
+                firstVisibleItemPosition = 0;
+            }
         } else if (recyclerView.getLayoutManager() instanceof StaggeredGridLayoutManager) {
             // https://code.google.com/p/android/issues/detail?id=181461
             if (recyclerView.getLayoutManager().getChildCount() > 0) {

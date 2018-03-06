@@ -15,6 +15,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 
 import com.blankj.utilcode.util.AppUtils;
@@ -28,7 +29,6 @@ import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.UUIDS;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.AppVersion;
@@ -40,7 +40,7 @@ import com.xiaomiquan.mvp.delegate.MainDelegate;
 import com.xiaomiquan.mvp.dialog.UpdateDialog;
 import com.xiaomiquan.mvp.fragment.HomeFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
-import com.xiaomiquan.mvp.fragment.UserFragment;
+import com.xiaomiquan.mvp.fragment.UserDrawerFragment;
 import com.xiaomiquan.mvp.fragment.circle.SquareWebFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
@@ -59,7 +59,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 
-public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener, UserFragment.Linsener {
+public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener, UserDrawerFragment.Linsener, HomeFragment.Linsener {
 
     String uid;
     UserLogin userLogin;
@@ -155,7 +155,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
 
     MarketFragment marketFragment;
     InvestGroupFragment investGroupFragment;
-    UserFragment userFragment;
+    UserDrawerFragment userFragment;
     HomeFragment homeFragment;
     SquareWebFragment squareWebFragment;
 
@@ -183,10 +183,10 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     private void loadDrawerLayout(boolean isFirst) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (isFirst) {
-            userFragment = new UserFragment();
+            userFragment = new UserDrawerFragment();
             transaction.add(R.id.fl_left, userFragment, "UserFragment");
         } else {
-            userFragment = (UserFragment) getSupportFragmentManager().findFragmentByTag("UserFragment");
+            userFragment = (UserDrawerFragment) getSupportFragmentManager().findFragmentByTag("UserFragment");
             transaction.show(userFragment);
         }
         transaction.commitAllowingStateLoss();
@@ -245,18 +245,17 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         public void ImSuccess() {
             if (userLogin != null) {
                 //添加用户信息 到消息体中
-                RongIM.getInstance().setCurrentUserInfo(new UserInfo(userLogin.getId() + "u", userLogin.getNickName(), Uri.parse(GlideUtils.getBaseUrl() + userLogin.getAvatar())));
+                RongIM.getInstance().setCurrentUserInfo(new UserInfo(userLogin.getId() + "", userLogin.getNickName(), Uri.parse(userLogin.getAvatar())));
             }
         }
     };
-
 
     @Override
     protected void onResume() {
         super.onResume();
         initIm();
         isLoad = true;
-        if (viewDelegate.getCuurentFragmentPosition() == 0) {
+        if (viewDelegate.getCuurentFragmentPosition() == 1) {
             marketFragment.sendWebsocket();
         }
     }
@@ -383,4 +382,16 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         }
     }
 
+    @Override
+    public void openDrawerLayout() {
+        viewDelegate.viewHolder.main_drawer_layout.openDrawer(Gravity.LEFT);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            homeFragment.checkToolbarColor();
+        }
+    }
 }

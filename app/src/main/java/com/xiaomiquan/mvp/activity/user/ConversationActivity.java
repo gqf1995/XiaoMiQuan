@@ -4,9 +4,11 @@ import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 
-import com.fivefivelike.mybaselibrary.base.BaseActivity;
+import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.xiaomiquan.R;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
+import com.xiaomiquan.mvp.databinder.IMBinder;
 import com.xiaomiquan.mvp.delegate.CustomerServiceActDelegate;
 import com.xiaomiquan.utils.UserSet;
 
@@ -20,7 +22,7 @@ import static com.xiaomiquan.base.AppConst.serviceId;
  * Created by 郭青枫 on 2017/11/14.
  * 聊天页面
  */
-public class ConversationActivity extends BaseActivity<CustomerServiceActDelegate> {
+public class ConversationActivity extends BaseDataBindActivity<CustomerServiceActDelegate,IMBinder> {
 
 
     @Override
@@ -63,12 +65,26 @@ public class ConversationActivity extends BaseActivity<CustomerServiceActDelegat
 
         /* 加载 ConversationFragment */
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.rong_content, fragment);
+        transaction.replace(R.id.rong_content, fragment);
         transaction.commit();
 
         RongExtension rongExtension = findViewById(R.id.rc_extension);
 
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        binder.connect(SingSettingDBUtil.getUserLogin().getImToken());
+    }
+    @Override
+    public IMBinder getDataBinder(CustomerServiceActDelegate viewDelegate) {
+        return new IMBinder(viewDelegate) {
+        };
+    }
 
+    @Override
+    protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+
+    }
 }

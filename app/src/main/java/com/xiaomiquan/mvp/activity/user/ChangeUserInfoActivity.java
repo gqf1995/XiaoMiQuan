@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.activity.user;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -45,7 +46,8 @@ public class ChangeUserInfoActivity extends BaseDataBindActivity<ChangeUserInfoD
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_user_info)).setSubTitle(CommonUtils.getString(R.string.str_save)));
         userLogin = SingSettingDBUtil.getUserLogin();
         GlideUtils.loadImage(userLogin.getAvatar(), viewDelegate.viewHolder.ic_pic);
-        viewDelegate.viewHolder.tv_nick_name.setText(userLogin.getNickName());
+        viewDelegate.viewHolder.tv_nick_name.setText(userLogin.getNickName() + "");
+        viewDelegate.viewHolder.tv_introduction.setText(userLogin.getBrief() + "");
         viewDelegate.viewHolder.ic_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +67,7 @@ public class ChangeUserInfoActivity extends BaseDataBindActivity<ChangeUserInfoD
             public void onAction(int requestCode, @NonNull ArrayList<AlbumFile> result) {
                 showPic(result.get(0).getPath());
             }
-        },1);
+        }, 1);
     }
 
     File pictureFile;
@@ -74,7 +76,7 @@ public class ChangeUserInfoActivity extends BaseDataBindActivity<ChangeUserInfoD
         pictureFile = new File(path);
         //Bitmap bitmap = BitmapFactory.decodeFile(path);
         //viewDelegate.viewHolder.ic_pic.setImageBitmap(bitmap);
-        GlideUtils.loadImage(Uri.fromFile(pictureFile),viewDelegate.viewHolder.ic_pic);
+        GlideUtils.loadImage(Uri.fromFile(pictureFile), viewDelegate.viewHolder.ic_pic);
     }
 
 
@@ -86,12 +88,20 @@ public class ChangeUserInfoActivity extends BaseDataBindActivity<ChangeUserInfoD
             CommonUtils.getString(R.string.str_toast_input_nike_name);
             return;
         }
-        if (pictureFile == null && userLogin.getNickName().equals(viewDelegate.viewHolder.tv_nick_name.getText().toString())) {
+        if (TextUtils.isEmpty(viewDelegate.viewHolder.tv_introduction.getText().toString())) {
+            CommonUtils.getString(R.string.str_toast_introduction);
+            return;
+        }
+        if (pictureFile == null &&
+                viewDelegate.viewHolder.tv_nick_name.getText().toString().equals(userLogin.getNickName()) &&
+                viewDelegate.viewHolder.tv_introduction.getText().toString().equals(userLogin.getBrief())
+                ) {
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_no_change));
             return;
         }
         addRequest(binder.editUserInfo(
-                userLogin.getNickName().equals(viewDelegate.viewHolder.tv_nick_name.getText().toString()) ? null : viewDelegate.viewHolder.tv_nick_name.getText().toString(),
+                 viewDelegate.viewHolder.tv_nick_name.getText().toString(),
+                 viewDelegate.viewHolder.tv_introduction.getText().toString(),
                 pictureFile, this));
     }
 
@@ -112,5 +122,9 @@ public class ChangeUserInfoActivity extends BaseDataBindActivity<ChangeUserInfoD
         Intent intent = new Intent(activity.getContext(), ChangeUserInfoActivity.class);
         activity.startActivityForResult(intent, requestCode);
     }
-
+    public static void startAct(Activity activity,
+                                int requestCode) {
+        Intent intent = new Intent(activity, ChangeUserInfoActivity.class);
+        activity.startActivityForResult(intent, requestCode);
+    }
 }

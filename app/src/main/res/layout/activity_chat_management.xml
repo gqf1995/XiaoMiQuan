@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ic_pic"
+                android:layout_width="@dimen/trans_250px"
+                android:layout_height="@dimen/trans_250px"
+                android:layout_marginTop="@dimen/trans_60px"/>
+
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/trans_60px"
+                android:layout_marginTop="@dimen/trans_40px"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/color_font1"
+                android:textSize="@dimen/text_trans_34px"/>
+
+
+            <LinearLayout
+                android:id="@+id/lin1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_140px"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/trans_45px"
+                android:paddingRight="@dimen/trans_35px">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/str_chat_room_status"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/text_trans_28px"/>
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/checkbox_status"
+                    style="@style/SwitchButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    app:kswAnimationDuration="300"
+                    app:kswBackDrawable="@drawable/ios_back_drawable"
+                    app:kswBackMeasureRatio="1.4"
+                    app:kswThumbDrawable="@drawable/ios_thumb_selector"
+                    app:kswThumbMarginBottom="-8dp"
+                    app:kswThumbMarginLeft="-5dp"
+                    app:kswThumbMarginRight="-5dp"
+                    app:kswThumbMarginTop="-2.5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_140px"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/trans_45px"
+                android:paddingRight="@dimen/trans_35px">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/str_chat_room_name"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/text_trans_28px"/>
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingRight="@dimen/trans_40px"
+                    android:text=""
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_28px"/>
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/ic_Next"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_28px"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_140px"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/trans_45px"
+                android:paddingRight="@dimen/trans_35px">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/str_chat_room_introduce"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/text_trans_28px"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingRight="@dimen/trans_40px"
+                    android:text="@string/str_click_view_or_modify"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_28px"/>
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/ic_Next"
+                    android:textColor="@color/color_font3"
+                    android:textSize="@dimen/text_trans_28px"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

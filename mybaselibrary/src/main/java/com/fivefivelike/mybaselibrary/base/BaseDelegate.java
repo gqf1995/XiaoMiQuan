@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -124,19 +125,22 @@ public abstract class BaseDelegate extends IDelegateImpl {
         }
     }
 
-    int mColorId;
-    boolean mIslight;
+    public int mColorId = 0;
+    public boolean mIslight;
 
     public void checkToolColor() {
-        setToolColor(mColorId, mIslight);
+        if (mColorId != 0) {
+            setToolColor(mColorId, mIslight);
+        }
     }
 
     public void setToolColor(int colorId, boolean isLight) {
         mColorId = colorId;
         mIslight = isLight;
-        if (mToolbar != null) {
-            setStatusBg(colorId, isLight);
-            mToolbar.setBackgroundColor(CommonUtils.getColor(colorId));
+        Log.i("setToolColor", "setToolColor" + colorId + "isLight" + isLight + "mToolbar != null" + (mToolbar != null));
+        if (layoutTitleBar != null) {
+            setStatusBg(isLight);
+            layoutTitleBar.setBackgroundColor(CommonUtils.getColor(colorId));
             if (isLight) {
                 mToolbarTitle.setTextColor(CommonUtils.getColor(R.color.color_font1));
                 mToolbarSubTitle.setTextColor(CommonUtils.getColor(R.color.color_font1));
@@ -237,12 +241,12 @@ public abstract class BaseDelegate extends IDelegateImpl {
             showBack(activity, builder.getBackTxt());
 
         }
-        //        //设置标题栏的背景颜色
-        if (builder.getmToolbarBackColor() != 0) {
-            mToolbar.setBackgroundColor(builder.getmToolbarBackColor());
-        } else {
-            mToolbar.setBackgroundColor(CommonUtils.getColor(R.color.toolbar_bg));
-        }
+//        //        //设置标题栏的背景颜色
+//        if (builder.getmToolbarBackColor() != 0) {
+//            mToolbar.setBackgroundColor(builder.getmToolbarBackColor());
+//        } else {
+//            mToolbar.setBackgroundColor(CommonUtils.getColor(R.color.toolbar_bg));
+//        }
         //设置标题是否显示
         if (!builder.isTitleShow()) {
             mToolbarTitle.setVisibility(View.GONE);
@@ -279,9 +283,8 @@ public abstract class BaseDelegate extends IDelegateImpl {
     }
 
 
-    public void setStatusBg(int colorId, boolean isLight) {
+    public void setStatusBg(boolean isLight) {
         View v_status = getViewById(R.id.v_status);
-        v_status.setBackgroundColor(CommonUtils.getColor(colorId));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             StatusBarCompat.setLightStatusBar(getActivity().getWindow(), isLight);
             if (isLight) {
@@ -357,6 +360,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
                 }
             }
         }
+        initFromSave();
     }
 
     /**
@@ -424,6 +428,9 @@ public abstract class BaseDelegate extends IDelegateImpl {
             }
         }
         for (int i = 0; i < fragmentList.size(); i++) {
+            if (TextUtils.isEmpty(fragmentList.get(i).getTag())) {
+                continue;
+            }
             if (fragmentList.get(i).getTag().contains(FRAGMENT_TAG)) {
                 Fragment fragment = fragmentList.get(i);
                 FragmentTransaction ft = fragmentManager.beginTransaction();

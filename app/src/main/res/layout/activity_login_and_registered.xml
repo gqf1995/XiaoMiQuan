@@ -13,7 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/include_toolbar_with_statusbar"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/include_toolbar_with_statusbar"/>
+        </FrameLayout>
 
         <com.tablayout.CommonTabLayout
             android:id="@+id/tl_2"
@@ -21,6 +26,7 @@
             android:layout_height="@dimen/trans_90px"
             android:layout_gravity="bottom|center_horizontal"
             android:orientation="horizontal"
+            app:tl_indicator_corner_radius="@dimen/trans_100px"
             tl:tl_indicator_color="@color/mark_color"
             tl:tl_indicator_height="@dimen/trans_5px"
             tl:tl_indicator_margin_bottom="@dimen/trans_5px"

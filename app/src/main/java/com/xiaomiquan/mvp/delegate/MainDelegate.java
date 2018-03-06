@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.delegate;
 
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -20,10 +21,10 @@ public class MainDelegate extends IMDelegate {
             CommonUtils.getString(R.string.str_user)};
     private int[] mIconSelectIds = {
             R.drawable.ic_hebingxingzhuang,
-            R.drawable.ic_hebingxingzhuang,R.drawable.ic_hebingxingzhuang};
+            R.drawable.ic_hebingxingzhuang, R.drawable.ic_hebingxingzhuang};
     private int[] mIconUnSelectIds = {
             R.drawable.ic_combined_shape,
-            R.drawable.ic_combined_shape,R.drawable.ic_combined_shape};
+            R.drawable.ic_combined_shape, R.drawable.ic_combined_shape};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Override
@@ -62,15 +63,20 @@ public class MainDelegate extends IMDelegate {
         }
     }
 
+
     public static class ViewHolder {
         public View rootView;
         public FrameLayout fl_root;
         public CommonTabLayout tl_2;
+        public FrameLayout fl_left;
+        public DrawerLayout main_drawer_layout;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.fl_root = (FrameLayout) rootView.findViewById(R.id.fl_root);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
+            this.fl_left = (FrameLayout) rootView.findViewById(R.id.fl_left);
+            this.main_drawer_layout = (DrawerLayout) rootView.findViewById(R.id.main_drawer_layout);
         }
 
     }

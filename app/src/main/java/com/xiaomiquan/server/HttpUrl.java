@@ -113,7 +113,6 @@ public class HttpUrl {
      */
     public String imToken = getBaseUrl() + userUrl + "/imToken";
 
-
     /**
      * 行情
      */
@@ -548,4 +547,19 @@ public class HttpUrl {
      * 战队待审核人数
      */
     public String getToAuditCount = getBaseUrl() + gameTeamUrl + "/getToAuditCount";
+
+
+    /**
+     * 聊天
+     */
+    String chatroomUrl = "/chatroom";
+    /**
+     * 直播列表
+     */
+    public String chatRoomList = getBaseUrl() + chatroomUrl + "/chatRoomList";
+    /**
+     * 通过积分判断能否继续操作
+     */
+    public String checkScore = getBaseUrl() + chatroomUrl + "/checkScore";
+
 }

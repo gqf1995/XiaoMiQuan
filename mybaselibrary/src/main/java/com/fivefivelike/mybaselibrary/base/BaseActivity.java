@@ -71,14 +71,10 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
         ActUtil.getInstance().addActivity(this);
         setStatusBarLightOrNight(SaveUtil.getInstance().getBoolean("isNight"));
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            viewDelegate.initFromSave();
-        }
     }
 
     public void setStatusBarLightOrNight(boolean lightStatuBar) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-
             if (viewDelegate.isNoStatusBarFlag()) {
                 addNoStatusBarFlag();
             } else {
@@ -153,6 +149,29 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
         if ("帮助".equals(viewDelegate.getmToolbarSubTitle().getText().toString())) {
             //gotoActivity(helpCls).startAct();
             BaseApp.getInstance().startCustomerService(mContext);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("colorId", viewDelegate.mColorId);
+        outState.putBoolean("isLight", viewDelegate.mIslight);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        int colorId = savedInstanceState.getInt("colorId");
+        boolean isLight = savedInstanceState.getBoolean("isLight");
+        viewDelegate.setToolColor(colorId, isLight);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            viewDelegate.checkToolColor();
         }
     }
 

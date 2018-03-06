@@ -1,6 +1,7 @@
 package com.fivefivelike.mybaselibrary.base;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.text.TextUtils;
@@ -14,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.R;
+import com.fivefivelike.mybaselibrary.utils.AndroidUtil;
+import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.paginate.LoadingListItemCreator;
 import com.fivefivelike.mybaselibrary.utils.paginate.LoadingListItemSpanLookup;
 import com.fivefivelike.mybaselibrary.utils.paginate.Paginate;
@@ -154,14 +157,17 @@ public abstract class BasePullDelegate extends BaseDelegate {
                 .setPagesize(pagesize)
                 .setHeaderCount(headerCount)
                 .build();
-
-
         mWwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
     }
 
     private void addFoot(ViewGroup parent) {
         mFootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.footer_layout, parent, false);//初始化尾布局
         mFootView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        if (mPullRecyclerView.getLayoutManager() instanceof GridLayoutManager) {
+            ViewGroup.LayoutParams layoutParams = mFootView.getLayoutParams();
+            layoutParams.width = AndroidUtil.getScreenW(GlobleContext.getInstance().getApplicationContext(), false);
+            mFootView.setLayoutParams(layoutParams);
+        }
         ProgressView loadingView = new ProgressView(parent.getContext());//尾部加载中状态
         loadingView.setIndicatorId(ProgressView.BallPulse);
         loadingView.setIndicatorColor(0xff69b3e0);

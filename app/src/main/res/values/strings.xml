@@ -14,6 +14,13 @@
     <string name="str_login_label_phone">手机号</string>
     <string name="str_login_et_phone">请输入手机号</string>
     <string name="str_people">人</string>
+    <string name="str_Introduction">简介</string>
+    <string name="str_chat_room_status">聊天室状态</string>
+    <string name="str_chat_room_name">聊天室名称</string>
+    <string name="str_chat_room_introduce">聊天室介绍</string>
+    <string name="str_chat_room_management">聊天室管理</string>
+    <string name="str_chat_room_online_people">共有%1$s人</string>
+    <string name="str_click_view_or_modify">点击查看或修改</string>
 
     <string name="str_et_new_pass">请输入新密码</string>
     <string name="str_et_new_pass_again">请再次输入新密码</string>
@@ -39,10 +46,13 @@
     <string name="str_toast_input_price">请输入价格</string>
     <string name="str_toast_select_history">请选择分享内容</string>
     <string name="str_toast_input_nike_name">请输入昵称</string>
+    <string name="str_toast_introduction">请输入简介</string>
     <string name="str_toast_input_invite_code">在此输入邀请码</string>
     <string name="str_toast_need_invite_code">请输入邀请码</string>
     <string name="str_toast_no_change">请修改后再保存</string>
     <string name="str_toast_no_select_coin">当前没有选择币种</string>
+    <string name="str_toast_cannot_talk">您的积分不够,不能够发言</string>
+    <string name="str_toast_cannot_join_group">温馨提示,您不能够加入该聊天室</string>
     <string name="str_toast_no_kline">温馨提示: 数据维护中,该币种k线将在近期更新,敬请期待</string>
     <string name="str_now_no_data">暂无</string>
     <string name="str_look_detail">查看详情 >></string>
@@ -102,6 +112,7 @@
     <string name="str_title_setpasswordagain">重置密码</string>
     <string name="str_title_registeredvalidation">注册验证</string>
     <string name="str_title_market">币价行情</string>
+    <string name="str_title_coin_circle_index">币圈指数</string>
     <string name="str_title_user">个人中心</string>
     <string name="str_title_user_info">个人资料</string>
     <string name="wan_unit">万手</string>
@@ -112,13 +123,20 @@
     <string name="str_rank">排名</string>
     <string name="str_price_model">默认显示价格</string>
     <string name="str_customer_service">在线客服</string>
+    <string name="str_my_fans">我的粉丝</string>
+    <string name="str_my_home_page">我的主页</string>
     <string name="str_user_home_page">我的个人主页</string>
+    <string name="str_other_home_page">他的主页</string>
+    <string name="str_my_focuse_people">我关注的人</string>
     <string name="str_change_header">点击头像更换</string>
     <string name="str_nike_name">昵称</string>
     <string name="str_recommended">推荐给朋友</string>
     <string name="str_language">语言切换</string>
     <string name="str_security">安全中心</string>
     <string name="str_setting">设置</string>
+    <string name="str_setting_center">设置中心</string>
+    <string name="str_kline_setting">行情显示设置</string>
+    <string name="str_other_setting">其它设置</string>
     <string name="str_logout">退出登录</string>
     <string name="str_about_us">关于我们</string>
     <string name="str_custom_rate">自定义汇率</string>
@@ -151,6 +169,7 @@
     <string name="str_is_clean_cache">是否清理缓存?</string>
     <string name="str_select_complete">选好了</string>
     <string name="str_online_people">人在线</string>
+    <string name="str_time">时间</string>
 
     <string name="str_language_zhcn">简体中文</string>
     <string name="str_market_value">市值</string>
@@ -308,6 +327,7 @@
     <string name="str_team_detail">战队详情</string>
     <string name="str_tv_peoplenum">人加入</string>
     <string name="str_tv_edit">编辑资料</string>
+    <string name="str_edit">编辑</string>
     <string name="str_average">均线</string>
     <string name="str_learn_more">了解更多</string>
     <string name="str_my_create_team">我创建的战队</string>
@@ -550,7 +570,13 @@
         <item>成交历史</item>
         <item>历史委托</item>
     </string-array>
-
+    <string-array name="sa_select_user_center">
+        <item>全部</item>
+        <item>操作</item>
+        <item>观点</item>
+        <item>预测</item>
+        <item>文章</item>
+    </string-array>
     <string-array name="sa_select_group_rank">
         <item>周榜</item>
         <item>月榜</item>

@@ -151,7 +151,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".mvp.activity.CustomRateActivity"
+            android:name=".mvp.activity.user.CustomRateActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity
@@ -255,6 +255,14 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".mvp.activity.user.KlineSetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.chat.GroupChatActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".mvp.activity.user.ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
@@ -285,6 +293,9 @@
         <activity android:name=".mvp.activity.group.InviteFriendsActivity"/>
         <activity android:name=".mvp.activity.group.TeamDetailActivity"/>
         <activity android:name=".mvp.activity.group.AllTeamActivity"/>
+        <activity android:name=".mvp.activity.user.PersonalDetailsActivity"/>
+        <activity android:name=".mvp.activity.chat.ChatManagementActivity"/>
+        <activity android:name=".mvp.activity.chat.CoinCircleIndexActivity"/>
     </application>
 
 </manifest>

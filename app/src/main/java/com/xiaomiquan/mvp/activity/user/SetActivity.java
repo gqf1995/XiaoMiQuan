@@ -2,6 +2,7 @@ package com.xiaomiquan.mvp.activity.user;
 
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.CacheUtils;
@@ -10,7 +11,7 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideCacheUtil;
 import com.xiaomiquan.R;
-import com.xiaomiquan.mvp.activity.CustomRateActivity;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.delegate.SetDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
 import com.xiaomiquan.widget.CircleDialogHelper;
@@ -42,7 +43,7 @@ public class SetActivity extends BaseActivity<SetDelegate> {
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_setting)));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_setting_center)));
         viewDelegate.setOnClickListener(this, R.id.lin_custom_rate, R.id.lin_clean_cache, R.id.lin_about_us);
         getCacheSize();
     }
@@ -83,8 +84,16 @@ public class SetActivity extends BaseActivity<SetDelegate> {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.lin_custom_rate:
-                //自定义汇率
-                gotoActivity(CustomRateActivity.class).startAct();
+                if (SingSettingDBUtil.isLogin(this)) {
+                    //修改密码
+                    if (TextUtils.isEmpty(SingSettingDBUtil.getUserLogin().getEmail())) {
+                        //手机密码找回
+                        InputSetActivity.startAct(this, InputSetActivity.FIND_PASSWORD_PHONE);
+                    } else {
+                        //邮箱密码找回
+                        InputSetActivity.startAct(this, InputSetActivity.FIND_PASSWORD_EMAIL);
+                    }
+                }
                 break;
             case R.id.lin_clean_cache:
                 //清理缓存

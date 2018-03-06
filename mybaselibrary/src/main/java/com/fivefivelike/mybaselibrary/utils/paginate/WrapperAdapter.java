@@ -28,7 +28,7 @@ class WrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == ITEM_VIEW_TYPE_LOADING ) {
+        if (viewType == ITEM_VIEW_TYPE_LOADING) {
             return loadingListItemCreator.onCreateViewHolder(parent, viewType);
         } else {
             return wrappedAdapter.onCreateViewHolder(parent, viewType);
@@ -95,4 +95,28 @@ class WrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private int getLoadingRowPosition() {
         return displayLoadingRow && wrappedAdapter.getItemCount() >= pagesize ? getItemCount() - 1 : -1;
     }
+
+
+//    @Override
+//    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+//        super.onAttachedToRecyclerView(recyclerView);
+//        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+//        if (manager instanceof GridLayoutManager) {
+//            final GridLayoutManager layout = ((GridLayoutManager) manager);
+//            GridLayoutManager.SpanSizeLookup mGridSpanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
+//                @Override
+//                public int getSpanSize(int position) {
+////                    if (position < wrappedAdapter.getItemCount()) {
+////                        return layout.getSpanCount();
+////                    } else {
+////                        //The number of spans occupied by the item at the provided position，Default Each item occupies 1 span.
+////                        //在某个位置的item所占用的跨度的数量，默认情况下占用一个跨度。
+////                        return 1;
+////                    }
+//                    return layout.getSpanCount();
+//                }
+//            };
+//            layout.setSpanSizeLookup(mGridSpanSizeLookup);
+//        }
+//    }
 }

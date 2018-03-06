@@ -25,11 +25,16 @@ public class UserLoginDao extends AbstractDao<UserLogin, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, long.class, "id", true, "_id");
-        public final static Property Phone = new Property(1, String.class, "phone", false, "PHONE");
-        public final static Property Avatar = new Property(2, String.class, "avatar", false, "AVATAR");
-        public final static Property Email = new Property(3, String.class, "email", false, "EMAIL");
-        public final static Property ImToken = new Property(4, String.class, "imToken", false, "IM_TOKEN");
-        public final static Property NickName = new Property(5, String.class, "nickName", false, "NICK_NAME");
+        public final static Property Brief = new Property(1, String.class, "brief", false, "BRIEF");
+        public final static Property Score = new Property(2, int.class, "score", false, "SCORE");
+        public final static Property Phone = new Property(3, String.class, "phone", false, "PHONE");
+        public final static Property NickName = new Property(4, String.class, "nickName", false, "NICK_NAME");
+        public final static Property ImToken = new Property(5, String.class, "imToken", false, "IM_TOKEN");
+        public final static Property VBrief = new Property(6, String.class, "vBrief", false, "V_BRIEF");
+        public final static Property AttentionCount = new Property(7, int.class, "attentionCount", false, "ATTENTION_COUNT");
+        public final static Property FansCount = new Property(8, int.class, "fansCount", false, "FANS_COUNT");
+        public final static Property Avatar = new Property(9, String.class, "avatar", false, "AVATAR");
+        public final static Property Email = new Property(10, String.class, "email", false, "EMAIL");
     }
 
 
@@ -46,11 +51,16 @@ public class UserLoginDao extends AbstractDao<UserLogin, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER_LOGIN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
-                "\"PHONE\" TEXT," + // 1: phone
-                "\"AVATAR\" TEXT," + // 2: avatar
-                "\"EMAIL\" TEXT," + // 3: email
-                "\"IM_TOKEN\" TEXT," + // 4: imToken
-                "\"NICK_NAME\" TEXT);"); // 5: nickName
+                "\"BRIEF\" TEXT," + // 1: brief
+                "\"SCORE\" INTEGER NOT NULL ," + // 2: score
+                "\"PHONE\" TEXT," + // 3: phone
+                "\"NICK_NAME\" TEXT," + // 4: nickName
+                "\"IM_TOKEN\" TEXT," + // 5: imToken
+                "\"V_BRIEF\" TEXT," + // 6: vBrief
+                "\"ATTENTION_COUNT\" INTEGER NOT NULL ," + // 7: attentionCount
+                "\"FANS_COUNT\" INTEGER NOT NULL ," + // 8: fansCount
+                "\"AVATAR\" TEXT," + // 9: avatar
+                "\"EMAIL\" TEXT);"); // 10: email
     }
 
     /** Drops the underlying database table. */
@@ -64,29 +74,42 @@ public class UserLoginDao extends AbstractDao<UserLogin, Long> {
         stmt.clearBindings();
         stmt.bindLong(1, entity.getId());
  
+        String brief = entity.getBrief();
+        if (brief != null) {
+            stmt.bindString(2, brief);
+        }
+        stmt.bindLong(3, entity.getScore());
+ 
         String phone = entity.getPhone();
         if (phone != null) {
-            stmt.bindString(2, phone);
-        }
- 
-        String avatar = entity.getAvatar();
-        if (avatar != null) {
-            stmt.bindString(3, avatar);
-        }
- 
-        String email = entity.getEmail();
-        if (email != null) {
-            stmt.bindString(4, email);
-        }
- 
-        String imToken = entity.getImToken();
-        if (imToken != null) {
-            stmt.bindString(5, imToken);
+            stmt.bindString(4, phone);
         }
  
         String nickName = entity.getNickName();
         if (nickName != null) {
-            stmt.bindString(6, nickName);
+            stmt.bindString(5, nickName);
+        }
+ 
+        String imToken = entity.getImToken();
+        if (imToken != null) {
+            stmt.bindString(6, imToken);
+        }
+ 
+        String vBrief = entity.getVBrief();
+        if (vBrief != null) {
+            stmt.bindString(7, vBrief);
+        }
+        stmt.bindLong(8, entity.getAttentionCount());
+        stmt.bindLong(9, entity.getFansCount());
+ 
+        String avatar = entity.getAvatar();
+        if (avatar != null) {
+            stmt.bindString(10, avatar);
+        }
+ 
+        String email = entity.getEmail();
+        if (email != null) {
+            stmt.bindString(11, email);
         }
     }
 
@@ -95,29 +118,42 @@ public class UserLoginDao extends AbstractDao<UserLogin, Long> {
         stmt.clearBindings();
         stmt.bindLong(1, entity.getId());
  
+        String brief = entity.getBrief();
+        if (brief != null) {
+            stmt.bindString(2, brief);
+        }
+        stmt.bindLong(3, entity.getScore());
+ 
         String phone = entity.getPhone();
         if (phone != null) {
-            stmt.bindString(2, phone);
-        }
- 
-        String avatar = entity.getAvatar();
-        if (avatar != null) {
-            stmt.bindString(3, avatar);
-        }
- 
-        String email = entity.getEmail();
-        if (email != null) {
-            stmt.bindString(4, email);
-        }
- 
-        String imToken = entity.getImToken();
-        if (imToken != null) {
-            stmt.bindString(5, imToken);
+            stmt.bindString(4, phone);
         }
  
         String nickName = entity.getNickName();
         if (nickName != null) {
-            stmt.bindString(6, nickName);
+            stmt.bindString(5, nickName);
+        }
+ 
+        String imToken = entity.getImToken();
+        if (imToken != null) {
+            stmt.bindString(6, imToken);
+        }
+ 
+        String vBrief = entity.getVBrief();
+        if (vBrief != null) {
+            stmt.bindString(7, vBrief);
+        }
+        stmt.bindLong(8, entity.getAttentionCount());
+        stmt.bindLong(9, entity.getFansCount());
+ 
+        String avatar = entity.getAvatar();
+        if (avatar != null) {
+            stmt.bindString(10, avatar);
+        }
+ 
+        String email = entity.getEmail();
+        if (email != null) {
+            stmt.bindString(11, email);
         }
     }
 
@@ -130,11 +166,16 @@ public class UserLoginDao extends AbstractDao<UserLogin, Long> {
     public UserLogin readEntity(Cursor cursor, int offset) {
         UserLogin entity = new UserLogin( //
             cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // phone
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // avatar
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // email
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // imToken
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // nickName
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // brief
+            cursor.getInt(offset + 2), // score
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // phone
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // nickName
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // imToken
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // vBrief
+            cursor.getInt(offset + 7), // attentionCount
+            cursor.getInt(offset + 8), // fansCount
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // avatar
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // email
         );
         return entity;
     }
@@ -142,11 +183,16 @@ public class UserLoginDao extends AbstractDao<UserLogin, Long> {
     @Override
     public void readEntity(Cursor cursor, UserLogin entity, int offset) {
         entity.setId(cursor.getLong(offset + 0));
-        entity.setPhone(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setAvatar(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setEmail(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setImToken(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setNickName(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setBrief(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setScore(cursor.getInt(offset + 2));
+        entity.setPhone(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setNickName(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setImToken(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setVBrief(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setAttentionCount(cursor.getInt(offset + 7));
+        entity.setFansCount(cursor.getInt(offset + 8));
+        entity.setAvatar(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setEmail(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
      }
     
     @Override

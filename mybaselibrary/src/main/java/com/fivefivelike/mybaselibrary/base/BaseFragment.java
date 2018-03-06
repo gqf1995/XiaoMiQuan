@@ -1,6 +1,7 @@
 package com.fivefivelike.mybaselibrary.base;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
     protected void clearNoStatusBarFlag() {
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
+
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -123,10 +125,14 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
         } else {
             clearNoStatusBarFlag();
         }
-        if(isFragmentVisible){
+        if (isFragmentVisible) {
             viewDelegate.checkToolColor();
         }
         onFragmentVisibleChange(isFragmentVisible);
+    }
+
+    public void checkToolbarColor() {
+        viewDelegate.checkToolColor();
     }
 
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
@@ -145,14 +151,20 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
                 ft.show(this);
             }
             ft.commit();
+
+            int colorId = savedInstanceState.getInt("colorId");
+            boolean isLight = savedInstanceState.getBoolean("isLight");
+            viewDelegate.setToolColor(colorId, isLight);
         }
 
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
+        outState.putInt("colorId", viewDelegate.mColorId);
+        outState.putBoolean("isLight", viewDelegate.mIslight);
     }
 
     @Override

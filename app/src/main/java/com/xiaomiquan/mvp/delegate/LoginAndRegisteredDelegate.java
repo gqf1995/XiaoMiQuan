@@ -118,8 +118,11 @@ public class LoginAndRegisteredDelegate extends BaseDelegate {
             mTabEntities.add(new TabEntity(mTitles.get(i), 0, 0));
         }
         viewHolder.tl_2.setIconVisible(false);
-        viewHolder.tl_2.setmIndicatorId(R.drawable.shape_white_maxradiu);
+        //viewHolder.tl_2.setmIndicatorId(R.drawable.shape_white_maxradiu);
         viewHolder.tl_2.setTabData(mTabEntities);
+        viewHolder.tl_2.setTextSelectColor(CommonUtils.getColor(R.color.mark_color));
+        viewHolder.tl_2.setTextUnselectColor(CommonUtils.getColor(R.color.color_font2));
+        viewHolder.tl_2.setIndicatorColor(CommonUtils.getColor(R.color.mark_color));
         viewHolder.tl_2.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
