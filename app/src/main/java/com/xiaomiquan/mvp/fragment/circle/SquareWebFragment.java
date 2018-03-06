@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.fragment.circle;
 
+import android.support.v4.app.FragmentTransaction;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -38,13 +39,17 @@ public class SquareWebFragment extends BasePullFragment<SquareWebDelegate, Squar
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        baseWebFragment = BaseWebFragment.newInstance(url);
-        viewDelegate.initAddFragment(R.id.fl_root, getChildFragmentManager());
-        viewDelegate.addFragment(baseWebFragment);
         if (SingSettingDBUtil.getUserLogin() != null) {
             AgentWebConfig.syncCookie(url, "token=" + "44cf54dbdcbeb90c2e448655a2e54f5c");
         }
-        viewDelegate.showFragment(0);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        if (getChildFragmentManager().findFragmentByTag("SquareWebFragment") == null) {
+            baseWebFragment = BaseWebFragment.newInstance(url);
+            transaction.add(R.id.fl_web, baseWebFragment, "SquareWebFragment");
+        } else {
+            baseWebFragment = (BaseWebFragment) getChildFragmentManager().findFragmentByTag("SquareWebFragment");
+            transaction.show(baseWebFragment);
+        }
         bridgeWeb();
     }
 
@@ -60,7 +65,6 @@ public class SquareWebFragment extends BasePullFragment<SquareWebDelegate, Squar
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
         }
     }

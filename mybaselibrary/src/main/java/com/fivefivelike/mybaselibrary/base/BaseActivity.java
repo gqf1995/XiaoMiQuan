@@ -71,7 +71,9 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
         ActUtil.getInstance().addActivity(this);
         setStatusBarLightOrNight(SaveUtil.getInstance().getBoolean("isNight"));
         super.onCreate(savedInstanceState);
-
+        if (savedInstanceState != null) {
+            viewDelegate.initFromSave();
+        }
     }
 
     public void setStatusBarLightOrNight(boolean lightStatuBar) {
@@ -128,8 +130,6 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
         if (viewDelegate != null) {
             if (onClickListener != null) {
                 viewDelegate.initToolBar(this, onClickListener, toolbarBuilder);
-                boolean isNight = SaveUtil.getInstance().getBoolean("isNight");
-                viewDelegate.setToolColor(R.color.toolbar_bg, isNight);
             }
         }
     }

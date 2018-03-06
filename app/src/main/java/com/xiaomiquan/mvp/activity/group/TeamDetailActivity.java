@@ -70,7 +70,7 @@ public class TeamDetailActivity extends BasePullActivity<BaseActivityPullDelegat
             rankTeampeopleAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
                 public void onClick(View view, int position, Object item) {
-                    TeamCombinationActivity.startAct(TeamDetailActivity.this, rankTeampeopleAdapter.getDatas().get(position - adapter.getHeadersCount()).getDemoId() + "");
+                    HisAccountActivity.startAct(TeamDetailActivity.this, rankTeampeopleAdapter.getDatas().get(position - adapter.getHeadersCount()).getDemoId() + "");
                 }
             });
             adapter = new HeaderAndFooterWrapper(rankTeampeopleAdapter);
@@ -178,7 +178,7 @@ public class TeamDetailActivity extends BasePullActivity<BaseActivityPullDelegat
                 @Override
                 public void onClick(View view, final int position, Object item) {
                     if (view.getId() == R.id.tv_deal) {
-                        GroupDealActivity.startAct(TeamDetailActivity.this, (ArrayList) myGroupAdapter.getDatas(), position, true);
+                        SimulatedTradingActivity.startAct(TeamDetailActivity.this, (ArrayList) myGroupAdapter.getDatas(), position, true);
                     }
                     if (view.getId() == R.id.tv_look) {
                         CombinationActivity.startAct(TeamDetailActivity.this, myGroupAdapter.getDatas().get(position), true);
@@ -251,7 +251,6 @@ public class TeamDetailActivity extends BasePullActivity<BaseActivityPullDelegat
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 //成员信息

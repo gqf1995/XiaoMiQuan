@@ -42,10 +42,10 @@
         tools:replace="android:icon, android:theme">
         <meta-data
             android:name="design_width"
-            android:value="750"></meta-data>
+            android:value="750" />
         <meta-data
             android:name="design_height"
-            android:value="1334"></meta-data>
+            android:value="1334" />
 
         <activity
             android:name=".mvp.activity.user.LoginAndRegisteredActivity"
@@ -137,7 +137,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.activity.group.GroupDealActivity"
+            android:name=".mvp.activity.group.SimulatedTradingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
@@ -249,6 +249,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".mvp.activity.chat.ChatLiveListActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".mvp.activity.user.ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
@@ -280,6 +284,9 @@
         <activity android:name=".mvp.activity.group.TeamDetailActivity" />
         <activity android:name=".mvp.activity.group.AllTeamActivity" />
         <activity android:name=".mvp.activity.group.MyPropertyDetailActivity" />
+        <activity android:name=".mvp.activity.group.RevenueRankingActivity" />
+        <activity android:name=".mvp.activity.group.HisAccountActivity" />
+        <activity android:name=".mvp.activity.group.MyAccountActivity" />
     </application>
 
 </manifest>

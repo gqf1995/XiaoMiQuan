@@ -170,7 +170,6 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
             viewDelegate.addFragment(userFragment = new UserFragment());
             loadDrawerLayout(true);
         } else {
-            viewDelegate.initFromSave();
             investGroupFragment = (InvestGroupFragment) viewDelegate.getFragmentByIndex(0);
             marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
             userFragment = (UserFragment) viewDelegate.getFragmentByIndex(2);
@@ -250,7 +249,6 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
             }
         }
     };
-
 
     @Override
     protected void onResume() {

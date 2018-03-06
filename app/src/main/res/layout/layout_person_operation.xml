@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/trans_20px">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/trans_40px">
+
+            <TextView
+                android:id="@+id/tv_today_earnings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="@dimen/trans_10px"
+                android:text=""
+                android:textColor="@color/increasing_color"
+                android:textSize="@dimen/text_trans_40px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/trans_20px"
+                android:gravity="center"
+                android:text="@string/str_today_earnings"
+                android:textColor="@color/color_font4"
+                android:textSize="@dimen/text_trans_24px" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/trans_40px">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/trans_10px">
+
+                <TextView
+                    android:id="@+id/tv_daily_operation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/text_trans_40px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/str_number"
+                    android:textColor="@color/color_font4"
+                    android:textSize="@dimen/text_trans_24px" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/trans_20px"
+                android:gravity="center"
+                android:text="@string/str_daily_operation"
+                android:textColor="@color/color_font4"
+                android:textSize="@dimen/text_trans_24px" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_1px"
+        android:background="@color/base_mask" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/trans_20px"
+            android:paddingTop="@dimen/trans_20px">
+
+            <TextView
+                android:id="@+id/tv_cumulative_earnings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="--"
+                android:textColor="@color/increasing_color"
+                android:textSize="@dimen/text_trans_20px" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_15px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_cumulative_earnings"
+                android:textColor="@color/color_font4"
+                android:textSize="@dimen/text_trans_18px" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/trans_1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/trans_25px"
+            android:layout_marginTop="@dimen/trans_25px"
+            android:background="@color/base_mask" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/trans_20px"
+            android:paddingTop="@dimen/trans_20px">
+
+            <TextView
+                android:id="@+id/tv_yesterday_earnings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="--"
+                android:textColor="@color/increasing_color"
+                android:textSize="@dimen/text_trans_20px" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_15px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_yesterday_earnings"
+                android:textColor="@color/color_font4"
+                android:textSize="@dimen/text_trans_18px" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/trans_1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/trans_25px"
+            android:layout_marginTop="@dimen/trans_25px"
+            android:background="@color/base_mask" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/trans_20px"
+            android:paddingTop="@dimen/trans_20px">
+
+            <TextView
+                android:id="@+id/tv_week_earnings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="--"
+                android:textColor="@color/increasing_color"
+                android:textSize="@dimen/text_trans_20px" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_15px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_week_earnings"
+                android:textColor="@color/color_font4"
+                android:textSize="@dimen/text_trans_18px" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/trans_1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/trans_25px"
+            android:layout_marginTop="@dimen/trans_25px"
+            android:background="@color/base_mask" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/trans_20px"
+            android:paddingTop="@dimen/trans_20px">
+
+            <TextView
+                android:id="@+id/tv_month_earnings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="--"
+                android:textColor="@color/increasing_color"
+                android:textSize="@dimen/text_trans_20px" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_15px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_month_earnings"
+                android:textColor="@color/color_font4"
+                android:textSize="@dimen/text_trans_18px" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_1px"
+        android:background="@color/base_mask" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/trans_40px">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/str_earnings_chart"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/text_trans_30px" />
+
+
+        <TextView
+            android:id="@+id/tv_chart_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="---"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/text_trans_20px" />
+
+
+    </LinearLayout>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/linechart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_280px">
+
+    </com.github.mikephil.charting.charts.LineChart>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/trans_10px">
+
+        <TextView
+            android:id="@+id/tv_start_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/trans_60px"
+            android:text=""
+            android:textColor="@color/color_font3"
+            android:textSize="@dimen/text_trans_20px" />
+
+        <TextView
+            android:id="@+id/tv_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/trans_25px"
+            android:text=""
+            android:textColor="@color/color_font3"
+            android:textSize="@dimen/text_trans_20px" />
+    </LinearLayout>
+
+</LinearLayout>

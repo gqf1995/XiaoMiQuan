@@ -1,9 +1,13 @@
 package com.xiaomiquan.mvp.activity.group;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.xiaomiquan.adapter.group.MyPropertyDetailAdapter;
+import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.mvp.databinder.group.MyPropertyDetailBinder;
 import com.xiaomiquan.mvp.delegate.group.MyPropertyDetailDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -45,5 +49,21 @@ public class MyPropertyDetailActivity extends BaseDataBindActivity<MyPropertyDet
         switch (requestCode) {
         }
     }
+    public static void startAct(Activity activity,
+                                GroupItem groupItem
+    ) {
+        Intent intent = new Intent(activity, MyPropertyDetailActivity.class);
+        intent.putExtra("groupItem", groupItem);
+        activity.startActivity(intent);
+    }
+
+    private GroupItem groupItem;
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        groupItem = intent.getParcelableExtra("groupItem");
+
+    }
+
 
 }

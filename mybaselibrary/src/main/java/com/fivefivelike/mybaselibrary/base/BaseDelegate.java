@@ -24,6 +24,7 @@ import com.fivefivelike.mybaselibrary.mvp.view.IDelegateImpl;
 import com.fivefivelike.mybaselibrary.utils.AndroidUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ListUtils;
+import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.dialog.NetWorkDialog;
 import com.githang.statusbar.StatusBarCompat;
@@ -247,6 +248,9 @@ public abstract class BaseDelegate extends IDelegateImpl {
             mToolbarTitle.setVisibility(View.GONE);
             activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
+        boolean isNight = SaveUtil.getInstance().getBoolean("isNight");
+        setToolColor(R.color.toolbar_bg, isNight);
     }
 
     /**

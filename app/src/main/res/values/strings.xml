@@ -150,6 +150,7 @@
     <string name="str_srot_toast">取消请点击星星,排序请长按拖动</string>
     <string name="str_is_clean_cache">是否清理缓存?</string>
     <string name="str_select_complete">选好了</string>
+    <string name="str_online_people">人在线</string>
 
     <string name="str_language_zhcn">简体中文</string>
     <string name="str_market_value">市值</string>
@@ -159,15 +160,17 @@
     <string name="str_amount">量</string>
     <string name="str_buy_one">买一</string>
     <string name="str_sell_one">卖一</string>
-    <string name="str_kvolume">量(5,10)</string>
+    <string name="str_kvolume">量</string>
     <string name="str_no_choose">请选择后再提交</string>
     <string name="str_currency">币种</string>
     <string name="str_type">类型</string>
     <string name="str_state">状态</string>
     <string name="str_entrust_price">委托价格</string>
     <string name="str_storage_quantity">持仓量</string>
+    <string name="str_storage_quantity_scale">持仓量(比例)</string>
     <string name="str_show_time">挂单时间</string>
     <string name="str_storage_price">持仓价</string>
+    <string name="str_position_storage_price">持仓价格</string>
     <string name="str_now_price">当前价格</string>
     <string name="str_earnings_ratio">收益率</string>
     <string name="str_today_earnings">今日收益</string>
@@ -220,6 +223,7 @@
     <string name="str_et_sell_price">卖出价格</string>
     <string name="str_tv_sell_num">卖出数量</string>
     <string name="str_tv_buy_num">买入数量</string>
+    <string name="str_tv_single_price">单价</string>
     <string name="str_tv_commit">立即交易</string>
     <string name="str_tv_type">类型</string>
     <string name="str_tv_currency">币种</string>
@@ -238,6 +242,8 @@
     <string name="str_hot_group">炒币风云</string>
     <string name="str_hot_team">热门战队</string>
     <string name="str_all_team">全部战队</string>
+    <string name="str_chat_live_list">大v聊天室</string>
+    <string name="str_my_chat_live">我的聊天室</string>
     <string name="str_invite_friends">邀请好友</string>
     <string name="str_all_hold">全仓</string>
     <string name="str_half_hold">1/2仓</string>
@@ -332,6 +338,13 @@
     <string name="str_tv_usd">USD</string>
     <string name="str_tv_usable_usd">可用USD</string>
     <string name="str_tv_dodeal">去交易</string>
+    <string name="str_tv_creat_for">创建于</string>
+    <string name="str_tv_position_structure">持仓结构</string>
+    <string name="str_tv_time_end">截止</string>
+    <string name="str_tv_gameplay_introduced">玩法介绍</string>
+    <string name="str_tv_revenue_ranking">收益排行</string>
+    <string name="str_tv_total_assets">资产总值（USDT）</string>
+    <string name="str_tv_assets_report">资产明细</string>
 
 
     <string name="str_release_dynamic">发布动态</string>
@@ -551,8 +564,19 @@
         <item>成交历史</item>
         <item>历史委托</item>
     </string-array>
+    <string-array name="sa_select_hisaccount">
+        <item>收益走势</item>
+        <item>持仓明细</item>
+        <item>操作明细</item>
+    </string-array>
 
     <string-array name="sa_select_group_rank">
+        <item>周榜</item>
+        <item>月榜</item>
+        <item>总榜</item>
+    </string-array>
+    <string-array name="sa_select_rank">
+        <item>日榜</item>
         <item>周榜</item>
         <item>月榜</item>
         <item>总榜</item>

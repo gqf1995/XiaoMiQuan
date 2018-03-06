@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import skin.support.widget.SkinCompatEditText;
+import skin.support.widget.SkinCompatImageView;
 
 /**
  * Created by Andy on 2018/1/25.
@@ -44,18 +45,10 @@ public class GroupDealDelegate extends BaseDelegate {
 
     private ArrayList<CustomTabEntity> mTabEntitiesTop = new ArrayList<>();
     public CoinDetail mCoinDetail;
-    String buyBalance = "";
-    String sellBalance = "";
     public int selectType = 0;
     List<String> dataset2;
 
     public void initTop() {
-        viewHolder.tl_1.setIconVisible(false);
-        mTabEntitiesTop.add(new TabEntity(CommonUtils.getString(R.string.str_buy), R.string.ic_Download, 0));
-        mTabEntitiesTop.add(new TabEntity(CommonUtils.getString(R.string.str_sell), R.string.ic_Upload, 0));
-        viewHolder.tl_1.setTabData(mTabEntitiesTop);
-        viewHolder.nestedScrollView.setNoScollView(viewHolder.fl_currency);
-        changeType(true);
         viewHolder.et_coin_search.setBackground(new RadiuBg(CommonUtils.getColor(R.color.base_mask), 1000, 1000, 1000, 1000));
         dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_price_type));
         selectType = 0;
@@ -155,33 +148,8 @@ public class GroupDealDelegate extends BaseDelegate {
 
         GlideUtils.loadImage(coinDetail.getPicUrl(), viewHolder.ic_pic);
         viewHolder.tv_poundage.setText(coinDetail.getFee() + "%");
-        if (viewHolder.tl_1.getCurrentTab() == 0) {
-            //买
-            buyBalance = BigUIUtil.getinstance().bigPrice(groupItem.getBalance());
-            viewHolder.tv_hole.setText(BigUIUtil.getinstance().bigPrice(groupItem.getBalance()));
-            viewHolder.tv_hold_unit.setText("USD");
-        } else {
-            //卖
-            buyBalance = BigUIUtil.getinstance().bigPrice(coinDetail.getCount());
-            viewHolder.tv_hole.setText(coinDetail.getCount());
-            viewHolder.tv_hold_unit.setText(coinDetail.getSymbol());
-        }
-        viewHolder.tv_coin_type.setText(coinDetail.getSymbol());
-    }
 
-    public void changeType(boolean isBuy) {
-        viewHolder.tv_price_label.setText(CommonUtils.getString(isBuy ? R.string.str_tv_buy_price : R.string.str_tv_sell_price));
-        viewHolder.tv_num_label.setText(CommonUtils.getString(isBuy ? R.string.str_tv_buy_num : R.string.str_tv_sell_num));
-        viewHolder.et_coin_search.setVisibility(isBuy ? View.VISIBLE : View.INVISIBLE);
-        if (isBuy) {
-            if (!TextUtils.isEmpty(buyBalance)) {
-                viewHolder.tv_hole.setText(buyBalance);
-            }
-        } else {
-            if (!TextUtils.isEmpty(sellBalance)) {
-                viewHolder.tv_hole.setText(sellBalance);
-            }
-        }
+        viewHolder.tv_coin_type.setText(coinDetail.getSymbol());
     }
 
     @Override
@@ -199,31 +167,19 @@ public class GroupDealDelegate extends BaseDelegate {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.tv_all:
-                    if (viewHolder.tl_1.getCurrentTab() == 0) {
-                        //买全部
-                        buyChoose(v.getId());
-                    } else {
-                        //卖全部
-                        sellChoose(v.getId());
-                    }
+                    //买全部
+                    sellChoose(v.getId());
+
                     break;
                 case R.id.tv_half_hold:
-                    if (viewHolder.tl_1.getCurrentTab() == 0) {
-                        //买一半
-                        buyChoose(v.getId());
-                    } else {
-                        //卖一半
-                        sellChoose(v.getId());
-                    }
+                    //买一半
+                    sellChoose(v.getId());
+
                     break;
                 case R.id.tv_half_half_hold:
-                    if (viewHolder.tl_1.getCurrentTab() == 0) {
-                        //买四分之一
-                        buyChoose(v.getId());
-                    } else {
-                        //卖四分之一
-                        sellChoose(v.getId());
-                    }
+                    //买四分之一
+                    sellChoose(v.getId());
+
                     break;
             }
         }
@@ -256,6 +212,10 @@ public class GroupDealDelegate extends BaseDelegate {
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_price));
             return;
         }
+        if (viewHolder.tv_hole.getText().toString().equals("暂无")) {
+            ToastUtil.show("暂无");
+            return;
+        }
         BigDecimal hold = new BigDecimal(viewHolder.tv_hole.getText().toString());
         if (id == R.id.tv_all) {
         } else if (id == R.id.tv_half_hold) {
@@ -270,16 +230,17 @@ public class GroupDealDelegate extends BaseDelegate {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_group_deal;
+        return R.layout.activity_simulated_trading;
     }
 
 
     public static class ViewHolder {
         public View rootView;
-        public IconFontTextview tv_left;
-        public TextView tv_title;
-        public IconFontTextview tv_right;
-        public CommonTabLayout tl_1;
+
+        public TextView tv_total_assets;
+        public TextView tv_usable;
+        public TextView tv_assets_report;
+        public SkinCompatImageView iv_banner;
         public TextView tv_input_label1;
         public SkinCompatEditText et_coin_search;
         public NoParentsTouchFramelayout fl_currency;
@@ -302,7 +263,8 @@ public class GroupDealDelegate extends BaseDelegate {
         public TextView tv_hole;
         public TextView tv_hold_unit;
         public TextView tv_poundage;
-        public TextView tv_commit;
+        public TextView tv_sale;
+        public TextView tv_buy;
         public CommonTabLayout tl_2;
         public LinearLayout lin_table;
         public ViewPager vp_sliding;
@@ -310,10 +272,10 @@ public class GroupDealDelegate extends BaseDelegate {
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.tv_left = (IconFontTextview) rootView.findViewById(R.id.tv_left);
-            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
-            this.tv_right = (IconFontTextview) rootView.findViewById(R.id.tv_right);
-            this.tl_1 = (CommonTabLayout) rootView.findViewById(R.id.tl_1);
+            this.tv_total_assets = (TextView) rootView.findViewById(R.id.tv_total_assets);
+            this.tv_usable = (TextView) rootView.findViewById(R.id.tv_usable);
+            this.tv_assets_report = (TextView) rootView.findViewById(R.id.tv_assets_report);
+            this.iv_banner = (SkinCompatImageView) rootView.findViewById(R.id.iv_banner);
             this.tv_input_label1 = (TextView) rootView.findViewById(R.id.tv_input_label1);
             this.et_coin_search = (SkinCompatEditText) rootView.findViewById(R.id.et_coin_search);
             this.fl_currency = (NoParentsTouchFramelayout) rootView.findViewById(R.id.fl_currency);
@@ -336,7 +298,8 @@ public class GroupDealDelegate extends BaseDelegate {
             this.tv_hole = (TextView) rootView.findViewById(R.id.tv_hole);
             this.tv_hold_unit = (TextView) rootView.findViewById(R.id.tv_hold_unit);
             this.tv_poundage = (TextView) rootView.findViewById(R.id.tv_poundage);
-            this.tv_commit = (TextView) rootView.findViewById(R.id.tv_commit);
+            this.tv_sale = (TextView) rootView.findViewById(R.id.tv_sale);
+            this.tv_buy = (TextView) rootView.findViewById(R.id.tv_buy);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
             this.lin_table = (LinearLayout) rootView.findViewById(R.id.lin_table);
             this.vp_sliding = (ViewPager) rootView.findViewById(R.id.vp_sliding);

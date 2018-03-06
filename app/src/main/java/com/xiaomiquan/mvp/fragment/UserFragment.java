@@ -89,7 +89,6 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
             case R.id.checkbox_night_model:
                 //选择夜间模式
                 UserSet.getinstance().setNight(!viewDelegate.viewHolder.checkbox_night_model.isChecked());
-                viewDelegate.viewHolder.layout_title_bar.setVisibility(View.GONE);
                 break;
             case R.id.checkbox_red_sticker:
                 //红涨绿跌

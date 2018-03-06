@@ -62,7 +62,6 @@ public class AllTeamActivity extends BasePullActivity<BaseActivityPullDelegate, 
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceSuccess(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 List<HotTeam> list = GsonUtil.getInstance().toList(data, HotTeam.class);

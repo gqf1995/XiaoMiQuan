@@ -134,13 +134,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
         initView();
         //删除 无效记录
         KlineDaoUtil.delectHistory(exchangeData.getOnlyKey());
-        initToolbar(new ToolbarBuilder().setTitle("").setSubTitle("10s").setBackTxt(exchangeData.getExchange() + "  " + exchangeData.getSymbol() + "/" + exchangeData.getUnit()));//.setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
-        viewDelegate.getmToolbarBackTxt().setText(Html.fromHtml("<big>" + exchangeData.getExchange() + "</big>  <small>" + exchangeData.getSymbol() + "/" + exchangeData.getUnit() + "<small/>"));
-        viewDelegate.getmToolbarBack().setText(CommonUtils.getString(R.string.ic_Left));
-        viewDelegate.getmToolbarBack().setVisibility(View.VISIBLE);
-        viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
-        viewDelegate.setOnClickListener(this, R.id.lin_add, R.id.lin_global_market, R.id.lin_currency_data, R.id.lin_simulation);
-        initCollection();
+
     }
 
     @Override
@@ -418,7 +412,14 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
 
             }
         });
-
+        initToolbar(new ToolbarBuilder().setTitle("").setSubTitle("10s").setBackTxt(exchangeData.getExchange() + "  " + exchangeData.getSymbol() + "/" + exchangeData.getUnit()));//.setSubTitle(CommonUtils.getString(R.string.ic_Star) + " " + CommonUtils.getString(R.string.str_add)));
+        viewDelegate.getmToolbarBackTxt().setText(Html.fromHtml("<big>" + exchangeData.getExchange() + "</big>  <small>" + exchangeData.getSymbol() + "/" + exchangeData.getUnit() + "<small/>"));
+        viewDelegate.getmToolbarBack().setText(CommonUtils.getString(R.string.ic_Left));
+        viewDelegate.getmToolbarBack().setVisibility(View.VISIBLE);
+        viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
+        viewDelegate.setOnClickListener(this, R.id.lin_add, R.id.lin_global_market, R.id.lin_currency_data, R.id.lin_simulation);
+        initCollection();
+        viewDelegate.setToolColor(R.color.mark_color, false);
     }
 
     List<String> sendKeys;

@@ -8,6 +8,22 @@
 
     <include layout="@layout/include_toolbar_with_statusbar"/>
 
+    //ChatLivelistActivity
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="聊天列表"
+            />
+
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/fl_web"
         android:layout_width="match_parent"

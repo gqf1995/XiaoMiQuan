@@ -40,6 +40,7 @@ public class AddCoinActivity extends BaseDataBindActivity<TabViewpageDelegate, T
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_add_coin_market)).setSubTitle(CommonUtils.getString(R.string.str_complete)));
+        viewDelegate.setToolColor(R.color.mark_color, false);
         //从缓存中获取交易所名单
         String exchangeNamesStr = CacheUtils.getInstance().getString(CACHE_EXCHANGENAME);
         getIntentData();

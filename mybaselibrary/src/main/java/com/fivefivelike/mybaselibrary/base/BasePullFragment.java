@@ -95,13 +95,8 @@ public abstract class BasePullFragment<T extends BasePullDelegate, D extends IDa
     }
 
     public void onStopLoading() {
+        super.onStopLoading();
         viewDelegate.stopRefresh();
     }
 
-    protected abstract void onServiceSuccess(String data, String info, int status, int requestCode);
-
-    @Override
-    protected void onServiceError(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
-    }
 }
