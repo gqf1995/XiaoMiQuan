@@ -391,6 +391,9 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if(hasFocus){
+
+
+
             homeFragment.checkToolbarColor();
         }
     }
