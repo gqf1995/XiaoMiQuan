@@ -11,12 +11,14 @@ import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideAlbumLoader;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.event.ChatControlEvent;
+import com.xiaomiquan.entity.bean.event.CustomerServiceEvent;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideAlbumLoader;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumConfig;
 import com.yanzhenjie.nohttp.NoHttp;
@@ -26,7 +28,10 @@ import java.util.Locale;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.CSCustomServiceInfo;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
+import io.rong.message.TextMessage;
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCardViewInflater;
 import skin.support.constraint.app.SkinConstraintViewInflater;
@@ -128,6 +133,21 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
 
     @Override
     public boolean onReceived(Message message, int i) {
+        MessageContent messageContent = message.getContent();
+        if (messageContent instanceof TextMessage) {
+            if (message.getConversationType() == Conversation.ConversationType.CUSTOMER_SERVICE) {
+                org.greenrobot.eventbus.EventBus.getDefault().post(new CustomerServiceEvent(CommonUtils.getString(R.string.str_get_customer_service_msg), ((TextMessage) messageContent).getContent()));
+            } else if (message.getConversationType() == Conversation.ConversationType.GROUP) {
+                String extra = ((TextMessage) messageContent).getExtra();
+                if ("mgp:open".equals(extra)) {
+                    //聊天室开启
+                    org.greenrobot.eventbus.EventBus.getDefault().post(new ChatControlEvent(false, extra));
+                } else if ("mgp:close".equals(extra)) {
+                    //聊天室关闭
+                    org.greenrobot.eventbus.EventBus.getDefault().post(new ChatControlEvent(true, extra));
+                }
+            }
+        }
         return false;
     }
 

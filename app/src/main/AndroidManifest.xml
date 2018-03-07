@@ -275,7 +275,16 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-
+        <receiver
+            android:name=".server.SealNotificationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED"/>
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED"/>
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED"/>
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED"/>
+            </intent-filter>
+        </receiver>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.xiaomiquan.FileProvider"
@@ -295,11 +304,6 @@
         <activity android:name=".mvp.activity.user.PersonalDetailsActivity"/>
         <activity android:name=".mvp.activity.chat.ChatManagementActivity"/>
         <activity android:name=".mvp.activity.chat.CoinCircleIndexActivity"/>
-        <activity android:name=".mvp.activity.group.AddTeamActivity" />
-        <activity android:name=".mvp.activity.group.ManagementTeamActivity" />
-        <activity android:name=".mvp.activity.group.InviteFriendsActivity" />
-        <activity android:name=".mvp.activity.group.TeamDetailActivity" />
-        <activity android:name=".mvp.activity.group.AllTeamActivity" />
         <activity android:name=".mvp.activity.group.MyPropertyDetailActivity" />
         <activity android:name=".mvp.activity.group.RevenueRankingActivity" />
         <activity android:name=".mvp.activity.group.HisAccountActivity" />

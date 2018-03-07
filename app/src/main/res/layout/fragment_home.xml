@@ -21,6 +21,12 @@
             android:text="聊天列表"
             />
 
+        <Button
+            android:id="@+id/fabu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发布"
+            />
     </LinearLayout>
 
     <FrameLayout

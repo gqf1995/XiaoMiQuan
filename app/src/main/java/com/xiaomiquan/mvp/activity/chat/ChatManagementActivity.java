@@ -2,19 +2,33 @@ package com.xiaomiquan.mvp.activity.chat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.chat.ChatGroupInfo;
 import com.xiaomiquan.mvp.databinder.ChatManagementBinder;
 import com.xiaomiquan.mvp.delegate.ChatManagementDelegate;
+import com.xiaomiquan.utils.UiHeplUtils;
 import com.xiaomiquan.widget.CircleDialogHelper;
+import com.yanzhenjie.album.Action;
+import com.yanzhenjie.album.AlbumFile;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class ChatManagementActivity extends BaseDataBindActivity<ChatManagementDelegate, ChatManagementBinder> {
+    ChatGroupInfo chatGroupInfo;
+    File pictureFile;
 
     @Override
     protected Class<ChatManagementDelegate> getDelegateClass() {
@@ -25,7 +39,6 @@ public class ChatManagementActivity extends BaseDataBindActivity<ChatManagementD
     public ChatManagementBinder getDataBinder(ChatManagementDelegate viewDelegate) {
         return new ChatManagementBinder(viewDelegate);
     }
-
 
     @Override
     protected void bindEvenListener() {
@@ -38,14 +51,17 @@ public class ChatManagementActivity extends BaseDataBindActivity<ChatManagementD
     public static void startAct(Activity activity,
                                 boolean isMy,
                                 String headPortrait,
+                                String id,
                                 String onlineTotal,
+                                String introduce,
                                 String title,
                                 int code) {
         Intent intent = new Intent(activity, ChatManagementActivity.class);
+        intent.putExtra("id", id);
         intent.putExtra("isMy", isMy);
         intent.putExtra("headPortrait", headPortrait);
         intent.putExtra("title", title);
-        intent.putExtra("introduce", headPortrait);
+        intent.putExtra("introduce", introduce);
         intent.putExtra("onlineTotal", onlineTotal);
         activity.startActivityForResult(intent, code);
     }
@@ -54,6 +70,7 @@ public class ChatManagementActivity extends BaseDataBindActivity<ChatManagementD
     private String headPortrait;
     private String onlineTotal;
     private String title;
+    private String id;
     private boolean isMy;
 
     private void getIntentData() {
@@ -62,55 +79,117 @@ public class ChatManagementActivity extends BaseDataBindActivity<ChatManagementD
         headPortrait = intent.getStringExtra("headPortrait");
         onlineTotal = intent.getStringExtra("onlineTotal");
         title = intent.getStringExtra("title");
+        id = intent.getStringExtra("id");
         isMy = intent.getBooleanExtra("isMy", false);
         if (!isMy) {
             viewDelegate.viewHolder.lin1.setVisibility(View.GONE);
+        } else {
+            viewDelegate.viewHolder.lin3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CircleDialogHelper.initDefaultInputDialog(ChatManagementActivity.this,
+                            CommonUtils.getString(R.string.str_chat_room_introduce),
+                            introduce, CommonUtils.getString(R.string.str_confirm), new OnInputClickListener() {
+                                @Override
+                                public void onClick(String text, View v) {
+                                    //修改简介
+                                    introduce = text;
+                                    addRequest(binder.editChatroomBrief(id, title, text, ChatManagementActivity.this));
+                                }
+                            }
+                    ).show();
+                }
+            });
+            viewDelegate.viewHolder.lin2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CircleDialogHelper.initDefaultInputDialog(ChatManagementActivity.this,
+                            CommonUtils.getString(R.string.str_chat_room_name),
+                            title, CommonUtils.getString(R.string.str_confirm), new OnInputClickListener() {
+                                @Override
+                                public void onClick(String text, View v) {
+                                    //名称
+                                    if (TextUtils.isEmpty(text)) {
+                                        ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_group_name));
+                                        return;
+                                    }
+                                    title = text;
+                                    addRequest(binder.editChatroomBrief(id, text, introduce, ChatManagementActivity.this));
+                                }
+                            }
+                    ).show();
+                }
+            });
+            viewDelegate.viewHolder.ic_pic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //上传头像
+                    getPic();
+                }
+            });
+            viewDelegate.viewHolder.checkbox_status.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (viewDelegate.viewHolder.checkbox_status.isChecked()) {
+                        //开启
+                        addRequest(binder.openChatroom(id));
+                    } else {
+                        //关闭
+                        addRequest(binder.closeChatroom(id));
+                    }
+                }
+            });
+            addRequest(binder.getChatroom(id, this));
         }
         GlideUtils.loadImage(headPortrait, viewDelegate.viewHolder.ic_pic);
-        viewDelegate.viewHolder.lin3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CircleDialogHelper.initDefaultInputDialog(ChatManagementActivity.this,
-                        CommonUtils.getString(R.string.str_chat_room_introduce),
-                        introduce, CommonUtils.getString(R.string.str_confirm), new OnInputClickListener() {
-                            @Override
-                            public void onClick(String text, View v) {
-                                //修改简介
-
-                            }
-                        }
-                ).show();
-            }
-        });
         viewDelegate.viewHolder.tv_name.setText(title);
         viewDelegate.viewHolder.tv_num.setText(CommonUtils.getString(R.string.str_chat_room_online_people, onlineTotal));
-        viewDelegate.viewHolder.lin2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CircleDialogHelper.initDefaultInputDialog(ChatManagementActivity.this,
-                        CommonUtils.getString(R.string.str_chat_room_name),
-                        title, CommonUtils.getString(R.string.str_confirm), new OnInputClickListener() {
-                            @Override
-                            public void onClick(String text, View v) {
-                                //名称
-
-                            }
-                        }
-                ).show();
-            }
-        });
-        viewDelegate.viewHolder.ic_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
+
+    private void getPic() {
+        UiHeplUtils.getPhoto(this, new Action<String>() {
+            @Override
+            public void onAction(int requestCode, @NonNull String result) {
+                showPic(result);
+            }
+        }, new Action<ArrayList<AlbumFile>>() {
+            @Override
+            public void onAction(int requestCode, @NonNull ArrayList<AlbumFile> result) {
+                showPic(result.get(0).getPath());
+            }
+        }, 1);
+    }
+
+    private void showPic(String path) {
+        pictureFile = new File(path);
+        GlideUtils.loadImage(Uri.fromFile(pictureFile), viewDelegate.viewHolder.ic_pic);
+        addRequest(binder.editGroupAvatar(id, pictureFile, ChatManagementActivity.this));
+    }
+
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+            case 0x123:
+                //修改信息
+                Intent intent = new Intent();
+                intent.putExtra("title", title);
+                setResult(RESULT_OK, intent);
+                break;
+            case 0x124:
+                //头像
+                setResult(RESULT_OK);
+                break;
+            case 0x125:
+                chatGroupInfo = GsonUtil.getInstance().toObj(data, ChatGroupInfo.class);
+                if (1 == chatGroupInfo.getStatus()) {
+                    //开启
+                    viewDelegate.viewHolder.checkbox_status.setChecked(true);
+                } else if (2 == chatGroupInfo.getStatus()) {
+                    //关闭
+                    viewDelegate.viewHolder.checkbox_status.setChecked(false);
+                }
+                break;
         }
     }
 

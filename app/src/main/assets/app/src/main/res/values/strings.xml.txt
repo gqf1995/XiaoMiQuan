@@ -37,6 +37,7 @@
     <string name="str_nologin">点击登录</string>
     <string name="str_warning_islogout">确定退出登陆吗?</string>
     <string name="str_warning_issave">确认保存吗?</string>
+    <string name="str_warning_no_my_group">你没有聊天室</string>
     <string name="str_toast_group_name">请输入组合名称</string>
     <string name="str_toast_group_introduction">请输入组合简介</string>
     <string name="str_toast_team_introduction">请输入战队简介</string>
@@ -46,12 +47,14 @@
     <string name="str_toast_input_price">请输入价格</string>
     <string name="str_toast_select_history">请选择分享内容</string>
     <string name="str_toast_input_nike_name">请输入昵称</string>
+    <string name="str_toast_input_group_name">聊天室名称不能为空</string>
     <string name="str_toast_introduction">请输入简介</string>
     <string name="str_toast_input_invite_code">在此输入邀请码</string>
     <string name="str_toast_need_invite_code">请输入邀请码</string>
     <string name="str_toast_no_change">请修改后再保存</string>
     <string name="str_toast_no_select_coin">当前没有选择币种</string>
     <string name="str_toast_cannot_talk">您的积分不够,不能够发言</string>
+    <string name="str_toast_close_chat">聊天室已关闭,不能够发言</string>
     <string name="str_toast_cannot_join_group">温馨提示,您不能够加入该聊天室</string>
     <string name="str_toast_no_kline">温馨提示: 数据维护中,该币种k线将在近期更新,敬请期待</string>
     <string name="str_now_no_data">暂无</string>
@@ -444,6 +447,9 @@
     <string name="downloading_apk">正在后台下载...</string>
 
 
+    <string name="str_get_customer_service_msg">收到一条客服消息</string>
+
+
     <string-array name="circle_show_type">
         <item>全部</item>
         <item>圈主</item>
@@ -584,7 +590,7 @@
         <item>成交历史</item>
         <item>历史委托</item>
     </string-array>
-<<<<<<< HEAD
+
     <string-array name="sa_select_user_center">
         <item>全部</item>
         <item>操作</item>
@@ -592,14 +598,14 @@
         <item>预测</item>
         <item>文章</item>
     </string-array>
-=======
+
     <string-array name="sa_select_hisaccount">
         <item>收益走势</item>
         <item>持仓明细</item>
         <item>操作明细</item>
     </string-array>
 
->>>>>>> guleyuan
+
     <string-array name="sa_select_group_rank">
         <item>周榜</item>
         <item>月榜</item>

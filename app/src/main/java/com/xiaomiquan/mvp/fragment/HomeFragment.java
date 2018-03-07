@@ -77,10 +77,12 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
     }
 
     @Override
-    protected void clickRightTv() {
-        super.clickRightTv();
+    protected void clickRightIv() {
+        super.clickRightIv();
+        //消息
 
     }
+
 
     public CircleImageView ic_pic;
     public FrameLayout fl_pic;
@@ -89,7 +91,7 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
     private void initToolBarSearch() {
         initToolbar(new ToolbarBuilder()
                 .setTitle(CommonUtils.getString(R.string.str_comprehensive))
-                .setSubTitle(CommonUtils.getString(R.string.ic_Share))
+                .setmRightImg1(CommonUtils.getString(R.string.ic_Message))
                 .setmToolbarBackColor(CommonUtils.getColor(R.color.white))
                 .setShowBack(false));
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_home_top, null);

@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/lin_set1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/trans_90px"
+        android:layout_height="@dimen/trans_144px"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/trans_45px"
@@ -53,7 +53,7 @@
     <LinearLayout
         android:id="@+id/lin_set2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/trans_90px"
+        android:layout_height="@dimen/trans_144px"
         android:background="?selectableItemBackground"
         android:clickable="true"
         android:focusable="true"

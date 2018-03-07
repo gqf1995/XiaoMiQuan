@@ -41,6 +41,8 @@ public class UserDrawerDelegate extends BaseDelegate {
         viewHolder.lin8.setVisibility(View.VISIBLE);
         viewHolder.tv_content.setVisibility(View.VISIBLE);
         viewHolder.tv_content.setText(userLogin.getBrief());
+        viewHolder.tv_fans_num.setText(userLogin.getFansCount() + CommonUtils.getString(R.string.str_people));
+        viewHolder.tv_focuse_num.setText(userLogin.getAttentionCount() + CommonUtils.getString(R.string.str_people));
         GlideUtils.loadImage(userLogin.getAvatar(), viewHolder.ic_pic);
 
     }

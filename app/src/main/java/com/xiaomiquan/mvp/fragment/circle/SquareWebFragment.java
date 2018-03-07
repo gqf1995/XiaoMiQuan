@@ -1,12 +1,6 @@
 package com.xiaomiquan.mvp.fragment.circle;
 
 import android.support.v4.app.FragmentTransaction;
-<<<<<<< HEAD
-=======
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
->>>>>>> guleyuan
-
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.base.BaseWebFragment;
 import com.github.lzyzsd.jsbridge.BridgeWebView;

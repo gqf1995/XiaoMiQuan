@@ -9,11 +9,13 @@ import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.view.GridSpacingItemDecoration;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.ChatLiveListAdapter;
 import com.xiaomiquan.entity.bean.chat.ChatLiveItem;
 import com.xiaomiquan.entity.bean.chat.CheckScore;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.databinder.BaseActivityPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseActivityPullDelegate;
 import com.xiaomiquan.widget.CircleDialogHelper;
@@ -25,6 +27,7 @@ import java.util.List;
 public class ChatLiveListActivity extends BasePullActivity<BaseActivityPullDelegate, BaseActivityPullBinder> {
     ChatLiveListAdapter chatLiveListAdapter;
     int selectPosition = 0;
+    ChatLiveItem myGroup;
 
     @Override
     protected Class<BaseActivityPullDelegate> getDelegateClass() {
@@ -61,9 +64,11 @@ public class ChatLiveListActivity extends BasePullActivity<BaseActivityPullDeleg
             chatLiveListAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    selectPosition = position;
-                    //网络请求检测
-                    addRequest(binder.checkScore(chatLiveListAdapter.getDatas().get(position).getGroupId(), ChatLiveListActivity.this));
+                    if (SingSettingDBUtil.isLogin(ChatLiveListActivity.this)) {
+                        selectPosition = position;
+                        //网络请求检测
+                        addRequest(binder.checkScore(chatLiveListAdapter.getDatas().get(position).getGroupId(), ChatLiveListActivity.this));
+                    }
                 }
 
                 @Override
@@ -83,13 +88,35 @@ public class ChatLiveListActivity extends BasePullActivity<BaseActivityPullDeleg
         }
     }
 
+    @Override
+    protected void clickRightTv() {
+        super.clickRightTv();
+        //进入我的聊天室
+        if (SingSettingDBUtil.isLogin(ChatLiveListActivity.this)) {
+            if (myGroup != null) {
+                GroupChatActivity.startAct(ChatLiveListActivity.this,
+                        myGroup.getGroupId(),
+                        myGroup.getGroupName(),
+                        myGroup.getAvatar(),
+                        myGroup.getTitle(),
+                        myGroup.getOnlineTotal() + "",
+                        true,
+                        true,
+                        0x123
+                );
+            } else {
+                ToastUtil.show(CommonUtils.getString(R.string.str_warning_no_my_group));
+            }
+        }
+    }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                List<ChatLiveItem> list = GsonUtil.getInstance().toList(data, ChatLiveItem.class);
+                List<ChatLiveItem> list = GsonUtil.getInstance().toList(data, "list", ChatLiveItem.class);
                 initList(list);
+                myGroup = GsonUtil.getInstance().toObj(data, "myGroup", ChatLiveItem.class);
                 break;
             case 0x124:
                 //检测进群条件结果

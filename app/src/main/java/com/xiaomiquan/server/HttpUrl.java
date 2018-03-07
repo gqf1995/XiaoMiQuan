@@ -561,5 +561,25 @@ public class HttpUrl {
      * 通过积分判断能否继续操作
      */
     public String checkScore = getBaseUrl() + chatroomUrl + "/checkScore";
+    /**
+     * 修改群简介
+     */
+    public String editChatroomBrief = getBaseUrl() + chatroomUrl + "/editChatroomBrief";
+    /**
+     * 修改群组头像
+     */
+    public String editGroupAvatar = getBaseUrl() + chatroomUrl + "/editGroupAvatar";
+    /**
+     * 关闭聊天室
+     */
+    public String closeChatroom = getBaseUrl() + chatroomUrl + "/closeChatroom";
+    /**
+     * 开放聊天室
+     */
+    public String openChatroom = getBaseUrl() + chatroomUrl + "/openChatroom";
+    /**
+     * 查询群明细
+     */
+    public String getChatroom = getBaseUrl() + chatroomUrl + "/getChatroom";
 
 }

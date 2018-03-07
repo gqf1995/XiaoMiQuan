@@ -1,5 +1,7 @@
 package com.xiaomiquan.entity.bean;
 
+import android.text.TextUtils;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
@@ -41,8 +43,8 @@ public class UserLogin {
 
     @Generated(hash = 512927053)
     public UserLogin(long id, String brief, int score, String phone, String nickName,
-            String imToken, String vBrief, int attentionCount, int fansCount, String avatar,
-            String email) {
+                     String imToken, String vBrief, int attentionCount, int fansCount, String avatar,
+                     String email) {
         this.id = id;
         this.brief = brief;
         this.score = score;
@@ -69,6 +71,9 @@ public class UserLogin {
     }
 
     public String getBrief() {
+        if (TextUtils.isEmpty(brief)) {
+            return "";
+        }
         return brief;
     }
 
