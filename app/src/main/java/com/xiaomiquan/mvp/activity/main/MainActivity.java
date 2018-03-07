@@ -165,14 +165,14 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
         //viewDelegate.addFragment(squareFragment = new CircleFragment());
         if (isInit) {
-            viewDelegate.addFragment(investGroupFragment = new InvestGroupFragment());
+            viewDelegate.addFragment(homeFragment = new HomeFragment());
             viewDelegate.addFragment(marketFragment = new MarketFragment());
-            viewDelegate.addFragment(userFragment = new UserFragment());
+            viewDelegate.addFragment(squareWebFragment = new SquareWebFragment());
             loadDrawerLayout(true);
         } else {
-            investGroupFragment = (InvestGroupFragment) viewDelegate.getFragmentByIndex(0);
+            homeFragment = (HomeFragment) viewDelegate.getFragmentByIndex(0);
             marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
-            userFragment = (UserFragment) viewDelegate.getFragmentByIndex(2);
+            squareWebFragment = (SquareWebFragment) viewDelegate.getFragmentByIndex(2);
             loadDrawerLayout(false);
         }
         viewDelegate.showFragment(showPosition);
@@ -390,10 +390,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus){
-
-
-
+        if (hasFocus) {
             homeFragment.checkToolbarColor();
         }
     }
