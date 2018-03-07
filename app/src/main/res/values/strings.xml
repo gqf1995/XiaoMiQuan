@@ -186,8 +186,10 @@
     <string name="str_state">状态</string>
     <string name="str_entrust_price">委托价格</string>
     <string name="str_storage_quantity">持仓量</string>
+    <string name="str_storage_quantity_scale">持仓量(比例)</string>
     <string name="str_show_time">挂单时间</string>
     <string name="str_storage_price">持仓价</string>
+    <string name="str_position_storage_price">持仓价格</string>
     <string name="str_now_price">当前价格</string>
     <string name="str_earnings_ratio">收益率</string>
     <string name="str_today_earnings">今日收益</string>
@@ -240,6 +242,7 @@
     <string name="str_et_sell_price">卖出价格</string>
     <string name="str_tv_sell_num">卖出数量</string>
     <string name="str_tv_buy_num">买入数量</string>
+    <string name="str_tv_single_price">单价</string>
     <string name="str_tv_commit">立即交易</string>
     <string name="str_tv_type">类型</string>
     <string name="str_tv_currency">币种</string>
@@ -351,6 +354,17 @@
     <string name="str_tv_addimg">添加封面</string>
     <string name="str_my_account">我的账户</string>
     <string name="str_team_rank">战队风云榜</string>
+    <string name="str_tv_property_appraisement">资产估值</string>
+    <string name="str_tv_usd">USD</string>
+    <string name="str_tv_usable_usd">可用USD</string>
+    <string name="str_tv_dodeal">去交易</string>
+    <string name="str_tv_creat_for">创建于</string>
+    <string name="str_tv_position_structure">持仓结构</string>
+    <string name="str_tv_time_end">截止</string>
+    <string name="str_tv_gameplay_introduced">玩法介绍</string>
+    <string name="str_tv_revenue_ranking">收益排行</string>
+    <string name="str_tv_total_assets">资产总值（USDT）</string>
+    <string name="str_tv_assets_report">资产明细</string>
 
 
     <string name="str_release_dynamic">发布动态</string>
@@ -570,6 +584,7 @@
         <item>成交历史</item>
         <item>历史委托</item>
     </string-array>
+
     <string-array name="sa_select_user_center">
         <item>全部</item>
         <item>操作</item>
@@ -577,7 +592,21 @@
         <item>预测</item>
         <item>文章</item>
     </string-array>
+
+    <string-array name="sa_select_hisaccount">
+        <item>收益走势</item>
+        <item>持仓明细</item>
+        <item>操作明细</item>
+    </string-array>
+
+
     <string-array name="sa_select_group_rank">
+        <item>周榜</item>
+        <item>月榜</item>
+        <item>总榜</item>
+    </string-array>
+    <string-array name="sa_select_rank">
+        <item>日榜</item>
         <item>周榜</item>
         <item>月榜</item>
         <item>总榜</item>

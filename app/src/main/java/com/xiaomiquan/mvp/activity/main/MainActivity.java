@@ -165,14 +165,14 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         viewDelegate.initAddFragment(R.id.fl_root, getSupportFragmentManager());
         //viewDelegate.addFragment(squareFragment = new CircleFragment());
         if (isInit) {
-            viewDelegate.addFragment(homeFragment = new HomeFragment());
+            viewDelegate.addFragment(investGroupFragment = new InvestGroupFragment());
             viewDelegate.addFragment(marketFragment = new MarketFragment());
-            viewDelegate.addFragment(squareWebFragment = new SquareWebFragment());
+            viewDelegate.addFragment(userFragment = new UserFragment());
             loadDrawerLayout(true);
         } else {
-            homeFragment = (HomeFragment) viewDelegate.getFragmentByIndex(0);
+            investGroupFragment = (InvestGroupFragment) viewDelegate.getFragmentByIndex(0);
             marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
-            squareWebFragment = (SquareWebFragment) viewDelegate.getFragmentByIndex(2);
+            userFragment = (UserFragment) viewDelegate.getFragmentByIndex(2);
             loadDrawerLayout(false);
         }
         viewDelegate.showFragment(showPosition);

@@ -1,22 +1,14 @@
-package com.xiaomiquan.mvp.delegate;
+package com.xiaomiquan.mvp.delegate.group;
 
-import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
-import com.fivefivelike.mybaselibrary.base.BaseApp;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
-import com.fivefivelike.mybaselibrary.entity.ResultDialogEntity;
-import com.fivefivelike.mybaselibrary.utils.ActUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -24,36 +16,20 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.tablayout.CommonTabLayout;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.EarningsMovements;
-import com.xiaomiquan.entity.bean.group.GroupItem;
-import com.xiaomiquan.entity.bean.group.TeamInfo;
-import com.xiaomiquan.mvp.activity.group.CreatGroupActivity;
-import com.xiaomiquan.mvp.activity.group.CreatTeamActivity;
-import com.xiaomiquan.mvp.activity.group.MyPropertyDetailActivity;
-import com.xiaomiquan.mvp.activity.main.WebActivityActivity;
 import com.xiaomiquan.utils.BigUIUtil;
-import com.xiaomiquan.widget.JudgeNestedScrollView;
 import com.xiaomiquan.widget.chart.MyLeftRateMarkerView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.xiaomiquan.base.AppConst.rulesUrl;
-import static com.xiaomiquan.utils.TimeUtils.DEFAULT_FORMAT;
-
-public class CombinationDelegate extends BaseDelegate {
+public class MyAccountDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
 
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_110px), viewHolder.viewpager, false);
         viewHolder.linechart.setNoDataText(CommonUtils.getString(R.string.str_chart_nodata));
     }
 
@@ -88,35 +64,6 @@ public class CombinationDelegate extends BaseDelegate {
         BigUIUtil.getinstance().rateTextView(weekRate, viewHolder.tv_week_earnings);
         BigUIUtil.getinstance().rateTextView(yesterdayRate, viewHolder.tv_yesterday_earnings);
 
-    }
-
-    public void initData(GroupItem groupItem) {
-        GlideUtils.loadImage(groupItem.getAvatar(), viewHolder.ic_pic);
-        viewHolder.tv_name.setText(groupItem.getName());
-        viewHolder.tv_focus_on_num.setText(groupItem.getAttentionCount() + CommonUtils.getString(R.string.str_people) + CommonUtils.getString(R.string.str_focuse));
-
-        viewHolder.tv_create_time.setText(TimeUtils.millis2String(groupItem.getCreateTime(), DEFAULT_FORMAT));
-        if (TextUtils.isEmpty(groupItem.getBrief())) {
-            viewHolder.tv_introduce.setText(CommonUtils.getString(R.string.str_now_no_data));
-        } else {
-            viewHolder.tv_introduce.setText(groupItem.getBrief());
-        }
-        viewHolder.tv_toast.setText("该账户为永久账户\n如需参加大赛请点击创建大赛账户");
-        viewHolder.tv_create.setText("创建大赛账户");
-        viewHolder.tv_game.setText("炒币大赛规则");
-        viewHolder.tv_create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CreatTeamActivity.startAct((FragmentActivity) viewHolder.rootView.getContext(), 0x123);
-            }
-        });
-        viewHolder.tv_game.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                WebActivityActivity.startAct((FragmentActivity) viewHolder.rootView.getContext(), rulesUrl);
-                viewHolder.rootView.getContext().startActivity(new Intent(viewHolder.rootView.getContext(),MyPropertyDetailActivity.class));
-            }
-        });
     }
 
     protected XAxis xAxisKline;
@@ -204,93 +151,17 @@ public class CombinationDelegate extends BaseDelegate {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_combination;
-    }
-
-
-    public void initTeaminfo(TeamInfo teamInfo){
-        double monthRate, totalRate, weekRate, yesterdayRate;
-        if (!TextUtils.isEmpty(teamInfo.getMonthProfit())) {
-            monthRate = Double.parseDouble(teamInfo.getMonthProfit());
-        } else {
-            monthRate = 0;
-        }
-        if (!TextUtils.isEmpty(teamInfo.getTotalProfit())) {
-            totalRate = Double.parseDouble(teamInfo.getTotalProfit());
-        } else {
-            totalRate = 0;
-        }
-        if (!TextUtils.isEmpty(teamInfo.getWeekProfit())) {
-            weekRate = Double.parseDouble(teamInfo.getWeekProfit());
-        } else {
-            weekRate = 0;
-        }
-        if (!TextUtils.isEmpty(teamInfo.getYesterdayProfit())) {
-            yesterdayRate = Double.parseDouble(teamInfo.getYesterdayProfit());
-        } else {
-            yesterdayRate = 0;
-        }
-        BigUIUtil.getinstance().rateTextView(monthRate, viewHolder.tv_month_earnings);
-        BigUIUtil.getinstance().rateTextView(totalRate, viewHolder.tv_cumulative_earnings);
-        BigUIUtil.getinstance().rateTextView(weekRate, viewHolder.tv_week_earnings);
-        BigUIUtil.getinstance().rateTextView(yesterdayRate, viewHolder.tv_yesterday_earnings);
-
-
-        EarningsMovements earningsMovements=new EarningsMovements();
-        earningsMovements.setEndTime(teamInfo.getEndTime());
-        earningsMovements.setStartTime(teamInfo.getStartTime());
-        earningsMovements.setRates(teamInfo.getRates());
-        initEarningsMovements(earningsMovements);
-
-
-        GlideUtils.loadImage(teamInfo.getAvatar(), viewHolder.ic_pic);
-        viewHolder.tv_name.setText(teamInfo.getName());
-        viewHolder.tv_focus_on_num.setText(teamInfo.getAttentionCount() + CommonUtils.getString(R.string.str_people) + CommonUtils.getString(R.string.str_focuse));
-
-        viewHolder.tv_create_time.setText(TimeUtils.millis2String(teamInfo.getCreateTime(), DEFAULT_FORMAT));
-        if (TextUtils.isEmpty(teamInfo.getBrief())) {
-            viewHolder.tv_introduce.setText(CommonUtils.getString(R.string.str_now_no_data));
-        } else {
-            viewHolder.tv_introduce.setText(teamInfo.getBrief());
-        }
-        viewHolder.tv_toast.setText("该账户为大赛账户,将在比赛结束后关闭\n比赛结束时间为: " + TimeUtils.millis2String(teamInfo.getGameEndTime(), com.xiaomiquan.utils.TimeUtils.DEFAULT_FORMAT));
-        viewHolder.tv_create.setText("创建永久账户");
-        viewHolder.tv_game.setText("炒币大赛规则");
-        viewHolder.tv_create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CreatGroupActivity.startAct((FragmentActivity) viewHolder.rootView.getContext(), 0x123);
-            }
-        });
-        viewHolder.tv_game.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent((FragmentActivity) viewHolder.rootView.getContext(), BaseApp.getInstance().getLoginActivityClass());
-                ActUtil.getInstance().killAllActivity((FragmentActivity) viewHolder.rootView.getContext());
-                ((FragmentActivity) viewHolder.rootView.getContext()).startActivity(intent);
-                ((FragmentActivity) viewHolder.rootView.getContext()).finish();
-                ResultDialogEntity resultDialogEntity = new ResultDialogEntity();
-                resultDialogEntity.setCode("1");
-                EventBus.getDefault().post(resultDialogEntity);
-            }
-        });
-
-        BigUIUtil.getinstance().rateTextView(Double.parseDouble(teamInfo.getCurrProfit()), viewHolder.tv_today_earnings);
-        viewHolder.tv_daily_operation.setText(teamInfo.getCount()+"");
+        return R.layout.activity_my_account;
     }
 
 
     public static class ViewHolder {
         public View rootView;
-        public CircleImageView ic_pic;
-        public TextView tv_name;
-        public TextView tv_focus_on_num;
-        public TextView tv_label;
-        public TextView tv_create_time;
-        public TextView tv_introduce;
-        public TextView tv_toast;
-        public TextView tv_create;
-        public TextView tv_game;
+        public LinearLayout lin_gameplay_introduced;
+        public LinearLayout lin_revenue_ranking;
+        public TextView tv_total_assets;
+        public TextView tv_usable;
+        public TextView tv_input_label1;
         public TextView tv_today_earnings;
         public TextView tv_daily_operation;
         public TextView tv_cumulative_earnings;
@@ -301,24 +172,15 @@ public class CombinationDelegate extends BaseDelegate {
         public LineChart linechart;
         public TextView tv_start_time;
         public TextView tv_end_time;
-        public LinearLayout lin_top;
-        public CommonTabLayout tl_2;
-        public LinearLayout lin_table;
-        public ViewPager viewpager;
-        public JudgeNestedScrollView nestedScrollView;
-        public SwipeRefreshLayout swipeRefreshLayout;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.ic_pic = (CircleImageView) rootView.findViewById(R.id.ic_pic);
-            this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);
-            this.tv_focus_on_num = (TextView) rootView.findViewById(R.id.tv_focus_on_num);
-            this.tv_label = (TextView) rootView.findViewById(R.id.tv_label);
-            this.tv_create_time = (TextView) rootView.findViewById(R.id.tv_create_time);
-            this.tv_introduce = (TextView) rootView.findViewById(R.id.tv_introduce);
-            this.tv_toast = (TextView) rootView.findViewById(R.id.tv_toast);
-            this.tv_create = (TextView) rootView.findViewById(R.id.tv_create);
-            this.tv_game = (TextView) rootView.findViewById(R.id.tv_game);
+
+            this.lin_gameplay_introduced = (LinearLayout) rootView.findViewById(R.id.lin_gameplay_introduced);
+            this.lin_revenue_ranking = (LinearLayout) rootView.findViewById(R.id.lin_revenue_ranking);
+            this.tv_total_assets = (TextView) rootView.findViewById(R.id.tv_total_assets);
+            this.tv_usable = (TextView) rootView.findViewById(R.id.tv_usable);
+            this.tv_input_label1 = (TextView) rootView.findViewById(R.id.tv_input_label1);
             this.tv_today_earnings = (TextView) rootView.findViewById(R.id.tv_today_earnings);
             this.tv_daily_operation = (TextView) rootView.findViewById(R.id.tv_daily_operation);
             this.tv_cumulative_earnings = (TextView) rootView.findViewById(R.id.tv_cumulative_earnings);
@@ -329,12 +191,6 @@ public class CombinationDelegate extends BaseDelegate {
             this.linechart = (LineChart) rootView.findViewById(R.id.linechart);
             this.tv_start_time = (TextView) rootView.findViewById(R.id.tv_start_time);
             this.tv_end_time = (TextView) rootView.findViewById(R.id.tv_end_time);
-            this.lin_top = (LinearLayout) rootView.findViewById(R.id.lin_top);
-            this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
-            this.lin_table = (LinearLayout) rootView.findViewById(R.id.lin_table);
-            this.viewpager = (ViewPager) rootView.findViewById(R.id.viewpager);
-            this.nestedScrollView = (JudgeNestedScrollView) rootView.findViewById(R.id.nestedScrollView);
-            this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         }
 
     }

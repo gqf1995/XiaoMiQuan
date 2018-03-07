@@ -18,6 +18,8 @@ import com.xiaomiquan.mvp.activity.group.AddTeamActivity;
 import com.xiaomiquan.mvp.activity.group.CreatTeamActivity;
 import com.xiaomiquan.mvp.activity.group.InviteFriendsActivity;
 import com.xiaomiquan.mvp.activity.group.ManagementTeamActivity;
+import com.xiaomiquan.mvp.activity.group.MyPropertyDetailActivity;
+import com.xiaomiquan.mvp.activity.group.RevenueRankingActivity;
 import com.xiaomiquan.mvp.activity.group.TeamDetailActivity;
 import com.xiaomiquan.mvp.activity.main.WebActivityActivity;
 import com.xiaomiquan.mvp.databinder.group.CompetitionGroupBinder;
@@ -199,7 +201,8 @@ public class CompetitionGroupFragment extends BaseDataBindFragment<CompetitionGr
                 break;
             case R.id.lin_activity_rules:
                 //比赛规则
-                WebActivityActivity.startAct(getActivity(), rulesUrl);
+//                WebActivityActivity.startAct(getActivity(), rulesUrl);
+                startActivity(new Intent(getActivity(), RevenueRankingActivity.class));
                 break;
             case R.id.lin_invite_friends:
                 //邀请好友

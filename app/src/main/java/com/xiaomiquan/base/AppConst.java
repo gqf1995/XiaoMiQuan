@@ -26,7 +26,6 @@ public class AppConst {
     public static final boolean isEditUrl = false;
     public static final boolean isSSL = true;
 
-
     public static final String CACHE_EXCHANGENAME = "cache_exchangeName";//交易所 名称缓存
     public static final String CACHE_EXCHANGE_RATE = "cache_exchange_rate";//汇率缓存
     public static final String CACHE_KLINE = "cache_Kline";//

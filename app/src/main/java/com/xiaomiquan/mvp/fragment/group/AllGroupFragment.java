@@ -26,7 +26,7 @@ import com.xiaomiquan.mvp.activity.group.AddTeamActivity;
 import com.xiaomiquan.mvp.activity.group.AllTeamActivity;
 import com.xiaomiquan.mvp.activity.group.CombinationActivity;
 import com.xiaomiquan.mvp.activity.group.CreatGroupActivity;
-import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
+import com.xiaomiquan.mvp.activity.group.SimulatedTradingActivity;
 import com.xiaomiquan.mvp.activity.group.TeamDetailActivity;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
@@ -153,7 +153,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
                             List<GroupItem> datas = new ArrayList<>();
                             datas.addAll(allMyGroupAdapter.getDatas());
                             datas.remove(datas.size() - 1);
-                            GroupDealActivity.startAct(getActivity(), (ArrayList) datas, position, true);
+                            SimulatedTradingActivity.startAct(getActivity(), (ArrayList) datas, position, true);
                         } else if (view.getId() == R.id.lin_add) {
                             //创建账户 或者 加入战队
                             addOrCreateTeam();
@@ -246,7 +246,7 @@ public class AllGroupFragment extends BasePullFragment<AllGroupDelegate, BaseFra
             adapter.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
                 public void onClick(View view, int position, Object item) {
-                    GroupDealActivity.startAct(getActivity(), (ArrayList) adapter.getDatas(), position, true);
+                    SimulatedTradingActivity.startAct(getActivity(), (ArrayList) adapter.getDatas(), position, true);
                 }
             });
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);

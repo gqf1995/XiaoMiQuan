@@ -25,7 +25,7 @@ import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
 import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
 import com.xiaomiquan.mvp.activity.group.CombinationActivity;
-import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
+import com.xiaomiquan.mvp.activity.group.SimulatedTradingActivity;
 import com.xiaomiquan.mvp.databinder.PersonalHomePageBinder;
 import com.xiaomiquan.mvp.delegate.PersonalHomePageDelegate;
 import com.xiaomiquan.mvp.fragment.group.PersonalHomePageLiveFragment;
@@ -163,7 +163,7 @@ public class PersonalHomePageActivity extends BaseDataBindActivity<PersonalHomeP
                 @Override
                 public void onClick(View view, int position, Object item) {
                     if (view.getId() == R.id.tv_deal) {
-                        GroupDealActivity.startAct(PersonalHomePageActivity.this, (ArrayList) myGroupAdapter.getDatas(), position, true);
+                        SimulatedTradingActivity.startAct(PersonalHomePageActivity.this, (ArrayList) myGroupAdapter.getDatas(), position, true);
                     }
                     if (view.getId() == R.id.tv_look) {
                         CombinationActivity.startAct(PersonalHomePageActivity.this, myGroupAdapter.getDatas().get(position), true);

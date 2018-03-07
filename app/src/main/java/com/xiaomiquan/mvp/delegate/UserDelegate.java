@@ -26,7 +26,7 @@ public class UserDelegate extends BaseDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-        init();
+//        init();
     }
 
     @Override

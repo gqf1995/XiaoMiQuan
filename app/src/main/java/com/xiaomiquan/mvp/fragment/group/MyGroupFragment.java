@@ -11,8 +11,9 @@ import com.xiaomiquan.adapter.group.MyGroupAdapter;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
-import com.xiaomiquan.mvp.activity.group.CombinationActivity;
-import com.xiaomiquan.mvp.activity.group.GroupDealActivity;
+import com.xiaomiquan.mvp.activity.group.HisAccountActivity;
+import com.xiaomiquan.mvp.activity.group.MyAccountActivity;
+import com.xiaomiquan.mvp.activity.group.SimulatedTradingActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
@@ -50,11 +51,13 @@ public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, B
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         }
     }
+
     public void notifyDataSetChanged() {
-        if (myGroupAdapter != null ) {
+        if (myGroupAdapter != null) {
             myGroupAdapter.notifyDataSetChanged();
         }
     }
+
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
         return BaseFragentPullDelegate.class;
@@ -67,10 +70,10 @@ public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, B
                 @Override
                 public void onClick(View view, final int position, Object item) {
                     if (view.getId() == R.id.tv_deal) {
-                        GroupDealActivity.startAct(getActivity(), (ArrayList)myGroupAdapter.getDatas(),position, true);
+                        SimulatedTradingActivity.startAct(getActivity(), (ArrayList)myGroupAdapter.getDatas(),position, true);
                     }
                     if (view.getId() == R.id.tv_look) {
-                        CombinationActivity.startAct(getActivity(), myGroupAdapter.getDatas().get(position), true);
+                        MyAccountActivity.startAct(getActivity(), myGroupAdapter.getDatas().get(position));
                     }
                 }
             });

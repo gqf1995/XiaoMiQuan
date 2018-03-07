@@ -1,6 +1,11 @@
 package com.xiaomiquan.mvp.fragment.circle;
 
 import android.support.v4.app.FragmentTransaction;
+<<<<<<< HEAD
+=======
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+>>>>>>> guleyuan
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.base.BaseWebFragment;
@@ -62,7 +67,6 @@ public class SquareWebFragment extends BasePullFragment<SquareWebDelegate, Squar
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
         }
     }
