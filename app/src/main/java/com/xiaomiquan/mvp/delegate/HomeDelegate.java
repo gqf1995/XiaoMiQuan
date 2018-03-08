@@ -79,6 +79,8 @@ public class HomeDelegate extends BaseDelegate {
 
     @Override
     protected int getLayoutId() {
+
+
         return R.layout.fragment_home;
     }
 
