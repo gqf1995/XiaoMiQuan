@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.adapter.group.PositionDetailAdapter;
+import com.xiaomiquan.entity.bean.group.HoldDetail;
 import com.xiaomiquan.mvp.databinder.group.PositionDetailBinder;
 import com.xiaomiquan.mvp.delegate.group.PositionDetailDelegate;
 
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PositionDetailFragment extends BaseDataBindFragment<PositionDetailDelegate, PositionDetailBinder> {
+
+    PositionDetailAdapter positionDetailAdapter;
 
     @Override
     protected Class<PositionDetailDelegate> getDelegateClass() {
@@ -27,23 +31,31 @@ public class PositionDetailFragment extends BaseDataBindFragment<PositionDetailD
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initList();
     }
 
-    private void initList() {
-        List<String> str = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            str.add("" + i);
+    @Override
+    protected void onFragmentFirstVisible() {
+        initList(new ArrayList<HoldDetail>());
+    }
+
+    private void initList(List<HoldDetail> holdDetails) {
+        if (positionDetailAdapter == null) {
+            addRequest(binder.listPosition(id, this));
+            positionDetailAdapter = new PositionDetailAdapter(getActivity(), holdDetails);
+            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(new LinearLayoutManager(getActivity()));
+            viewDelegate.viewHolder.pull_recycleview.setAdapter(positionDetailAdapter);
+        } else {
+            positionDetailAdapter.setDatas(holdDetails);
         }
-        PositionDetailAdapter positionDetailAdapter = new PositionDetailAdapter(getActivity(), str);
-        viewDelegate.viewHolder.pull_recycleview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        viewDelegate.viewHolder.pull_recycleview.setAdapter(positionDetailAdapter);
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+            case 0x123:
+                List<HoldDetail> data1 = GsonUtil.getInstance().toList(data, HoldDetail.class);
+                initList(data1);
+                break;
         }
     }
 

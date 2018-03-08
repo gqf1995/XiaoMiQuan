@@ -47,7 +47,7 @@ public class MyAccountActivity extends BaseDataBindActivity<MyAccountDelegate, M
     }
 
     public static void startAct(Activity activity,
-                                 GroupItem groupItem
+                                GroupItem groupItem
     ) {
         Intent intent = new Intent(activity, MyAccountActivity.class);
         intent.putExtra("groupItem", groupItem);
@@ -60,6 +60,7 @@ public class MyAccountActivity extends BaseDataBindActivity<MyAccountDelegate, M
         Intent intent = getIntent();
         groupItem = intent.getParcelableExtra("groupItem");
         addRequest(binder.listDemo(this));
+        addRequest(binder.getTodayInfo(groupItem.getId(), this));
     }
 
     @Override
@@ -81,9 +82,9 @@ public class MyAccountActivity extends BaseDataBindActivity<MyAccountDelegate, M
                 viewDelegate.initEarningsMovements(earningsMovements);
                 addRequest(binder.allRate(groupItem.getId(), this));
                 break;
-                case 0x126:
-                    //我的组合
-                    List<GroupItem> groupItems = GsonUtil.getInstance().toList(data, GroupItem.class);
+            case 0x126:
+                //我的组合
+                List<GroupItem> groupItems = GsonUtil.getInstance().toList(data, GroupItem.class);
                 break;
         }
     }

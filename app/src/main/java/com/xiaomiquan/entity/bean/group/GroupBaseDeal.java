@@ -37,7 +37,6 @@ public class GroupBaseDeal implements Parcelable {
         this.name = name;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -59,4 +58,15 @@ public class GroupBaseDeal implements Parcelable {
         this.name = in.readString();
     }
 
+    public static final Parcelable.Creator<GroupBaseDeal> CREATOR = new Parcelable.Creator<GroupBaseDeal>() {
+        @Override
+        public GroupBaseDeal createFromParcel(Parcel source) {
+            return new GroupBaseDeal(source);
+        }
+
+        @Override
+        public GroupBaseDeal[] newArray(int size) {
+            return new GroupBaseDeal[size];
+        }
+    };
 }

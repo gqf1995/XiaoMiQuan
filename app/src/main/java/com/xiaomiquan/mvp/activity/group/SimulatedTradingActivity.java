@@ -9,7 +9,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import com.circledialog.res.drawable.SelectorBtn;
+
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -23,6 +23,7 @@ import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
 import com.xiaomiquan.entity.bean.group.GroupBaseDeal;
+import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.entity.bean.group.TradingResult;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.ShareHistoryTradingActivity;
@@ -32,7 +33,9 @@ import com.xiaomiquan.mvp.fragment.group.CurrencyFragment;
 import com.xiaomiquan.mvp.fragment.group.HistoryEntrustFragment;
 import com.xiaomiquan.mvp.fragment.group.HistoryTradingFragment;
 import com.xiaomiquan.mvp.fragment.group.NotDealFragment;
+import com.xiaomiquan.utils.BigUIUtil;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,13 +68,13 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
             if (index == 15) {
                 index = 0;
                 //更新
-                    currencyFragmentBuy.onUpdata();
-                }
+                currencyFragmentBuy.onUpdata();
+            }
             handler.sendEmptyMessageDelayed(1, 1000);
         } else {
             index = 0;
             //直接更新
-                currencyFragmentBuy.onUpdata();
+            currencyFragmentBuy.onUpdata();
 
             handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
             handler.sendEmptyMessageDelayed(1, 1000);
@@ -97,18 +100,26 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
                 ((BasePullFragment) fragments.get(i)).onRefresh();
             }
         }
+        viewDelegate.viewHolder.et_sell_num.setText(null);
+        viewDelegate.viewHolder.et_sell_num.setHint("50%仓");
         switch (requestCode) {
             case 0x123:
                 //买
                 TradingResult tradingResultBuy = GsonUtil.getInstance().toObj(data, TradingResult.class);
-                groupItems.get(position).setBalance(tradingResultBuy.getBalance());
+//                groupItems.get(position).setBalance(tradingResultBuy.getBalance());
                 //更新余额
-                viewDelegate.onSelectLinsener(viewDelegate.mCoinDetail, groupItems.get(position));
+//                viewDelegate.onSelectLinsener(viewDelegate.mCoinDetail, groupItems.get(position));
+//                viewDelegate.onSelectLinsener(viewDelegate.mCoinDetail, groupItems.get(position));
+                currencyFragmentBuy.setSellResult(tradingResultBuy);
                 currencyFragmentBuy.getSelectPositionData(coinDetail == null ? "" : coinDetail.getSymbol());
                 break;
             case 0x124:
                 //卖
                 TradingResult tradingResultSell = GsonUtil.getInstance().toObj(data, TradingResult.class);
+                //刷新卖列表
+                currencyFragmentBuy.setSellResult(tradingResultSell);
+                currencyFragmentBuy.getSelectPositionData(coinDetail == null ? "" : coinDetail.getSymbol());
+
 
                 break;
         }
@@ -119,6 +130,25 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
         super.bindEvenListener();
         getIntentData();
         initToolbar(new ToolbarBuilder().setTitle("").setmRightImg1(CommonUtils.getString(R.string.ic_Share1)));
+        viewDelegate.viewHolder.tv_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                commit(0);
+
+            }
+        });
+        viewDelegate.viewHolder.tv_sale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                commit(1);
+            }
+        });
+        viewDelegate.viewHolder.tv_assets_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               MyAccountActivity.startAct(SimulatedTradingActivity.this,groupItems.get(position));
+            }
+        });
         initGroup();
     }
 
@@ -159,7 +189,10 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
         });
     }
 
-    private void commit() {
+    /**
+     * @param type 0 buy 1 sale
+     */
+    private void commit(int type) {
         if (TextUtils.isEmpty(viewDelegate.viewHolder.et_sell_price.getText().toString())) {
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_price));
             return;
@@ -172,14 +205,21 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_no_select_coin));
             return;
         }
-//        addRequest(binder.deal(groupItems.get(position).getId(),
-//                viewDelegate.viewHolder.tl_1.getCurrentTab() == 0 ? "1" : "2",
-//                viewDelegate.viewHolder.tl_1.getCurrentTab() == 0 ? viewDelegate.mCoinDetail.getCoinId() : viewDelegate.mCoinDetail.getCoinId(),
-//                viewDelegate.viewHolder.et_sell_price.getText().toString(),
-//                viewDelegate.selectType + 1 + "",
-//                viewDelegate.viewHolder.et_sell_num.getText().toString(),
-//                viewDelegate.viewHolder.tl_1.getCurrentTab() == 0 ? 0x123 : 0x124,
-//                this));
+        if (type == 1) {
+            if (CommonUtils.getString(R.string.str_now_no_data).equals(viewDelegate.salenum)) {
+                ToastUtil.show(CommonUtils.getString(R.string.str_now_no_data));
+                return;
+            }
+        }
+
+        addRequest(binder.deal(groupItems.get(position).getId(),
+                type == 0 ? "1" : "2",
+                type == 0 ? viewDelegate.mCoinDetail.getCoinId() : viewDelegate.mCoinDetail.getCoinId(),
+                viewDelegate.viewHolder.et_sell_price.getText().toString(),
+                viewDelegate.selectType + 1 + "",
+                type == 0 ? viewDelegate.buynum : viewDelegate.salenum,
+                type == 0 ? 0x123 : 0x124,
+                this));
     }
 
     @Override
@@ -211,7 +251,7 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
     }
 
     public static void startAct(Activity activity,
-                                List<GroupBaseDeal> groupItems,
+                                List<GroupItem> groupItems,
                                 int position,
                                 boolean isMy
     ) {
@@ -226,7 +266,7 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
         activity.startActivity(intent);
     }
 
-    private List<GroupBaseDeal> groupItems;
+    private List<GroupItem> groupItems;
     boolean isMy;
     int position;
 
@@ -236,6 +276,7 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
         isMy = intent.getBooleanExtra("isMy", false);
         position = intent.getIntExtra("position", 0);
         viewDelegate.onSelectLinsener(null, null);
+        viewDelegate.viewHolder.tv_usable.setText(BigUIUtil.getinstance().bigPrice(groupItems.get(position).getBalance()));
     }
 
     public void initCurrency() {
@@ -246,7 +287,6 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
             viewDelegate.addFragment(currencyFragmentBuy);
         } else {
             currencyFragmentBuy.setNewDatas(CurrencyFragment.TYPE_CURRENCY_BUY, "");
-            currencyFragmentBuy.setNewDatas(CurrencyFragment.TYPE_CURRENCY_SELL, groupItems.get(position).getId());
         }
         viewDelegate.showFragment(0);
         viewDelegate.viewHolder.et_coin_search.getText().clear();

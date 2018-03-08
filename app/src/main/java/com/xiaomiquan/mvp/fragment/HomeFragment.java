@@ -9,13 +9,21 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.base.BaseWebFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.just.agentweb.AgentWebConfig;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.group.GroupBaseDeal;
+import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
+import com.xiaomiquan.mvp.activity.group.HisAccountActivity;
+import com.xiaomiquan.mvp.activity.group.SimulatedTradingActivity;
 import com.xiaomiquan.mvp.databinder.HomeBinder;
 import com.xiaomiquan.mvp.delegate.HomeDelegate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -54,6 +62,24 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
     protected void bindEvenListener() {
         super.bindEvenListener();
         initToolBarSearch();
+        datas = new ArrayList<>();
+        addRequest(binder.listDemo(this));
+        viewDelegate.viewHolder.btn_his_position.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (datas != null) {
+                    SimulatedTradingActivity.startAct(getActivity(), datas, 0, true);
+                }
+            }
+        });
+        viewDelegate.viewHolder.btn_my_position.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (datas != null) {
+                    HisAccountActivity.startAct(getActivity(), datas.get(0).getId());
+                }
+            }
+        });
         if (SingSettingDBUtil.getUserLogin() != null) {
             AgentWebConfig.syncCookie(url, "token=" + "44cf54dbdcbeb90c2e448655a2e54f5c");
             //AgentWebConfig.syncCookie(url, "token=" + SaveUtil.getInstance().getString("token"));
@@ -68,6 +94,7 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
         }
         transaction.commitAllowingStateLoss();
         bridgeWeb();
+
     }
 
 
@@ -111,10 +138,14 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
     }
 
 
+    List<GroupItem> datas;
+
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+            case 0x123:
+                datas = GsonUtil.getInstance().toList(data,GroupItem.class);
+                break;
         }
     }
 

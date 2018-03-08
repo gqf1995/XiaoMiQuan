@@ -71,6 +71,13 @@ public class GroupDealDelegate extends BaseDelegate {
             }
         });
         viewHolder.et_sell_num.addTextChangedListener(textWatcher);
+        viewHolder.et_sell_num.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewHolder.et_sell_num.setText(null);
+                viewHolder.et_sell_num.setHint("输入个数");
+            }
+        });
     }
 
     TextWatcher textWatcher = new TextWatcher() {
@@ -121,6 +128,10 @@ public class GroupDealDelegate extends BaseDelegate {
 
         viewHolder.tv_sell_price.setText("$" + BigUIUtil.getinstance().bigPrice(price));
         viewHolder.tv_buy_price.setText(strings.get(1));
+        if (GsonUtil.getInstance().getValue(data, "count") != null) {
+            viewHolder.tv_hole.setText(GsonUtil.getInstance().getValue(data, "count"));
+        }
+
     }
 
     public void onSelectLinsener(CoinDetail coinDetail, GroupBaseDeal groupItem) {
@@ -141,8 +152,10 @@ public class GroupDealDelegate extends BaseDelegate {
             viewHolder.et_sell_price.setEnabled(true);
         }
         viewHolder.tv_unit.setText(coinDetail.getSymbol());
+        if (coinDetail.getCount() != null) {
+            viewHolder.tv_hole.setText(coinDetail.getCount());
+        }
         List<String> strings = BigUIUtil.getinstance().rateUSDAndCNY(coinDetail.getPriceUsd(), coinDetail.getSymbol(), UserSet.getinstance().getUSDUnit());
-
         viewHolder.tv_sell_price.setText(strings.get(0));
         viewHolder.tv_buy_price.setText(strings.get(1));
 
@@ -185,47 +198,49 @@ public class GroupDealDelegate extends BaseDelegate {
         }
     };
 
+    public String buynum;
+    public String salenum;
+
     private void sellChoose(int id) {
         if (TextUtils.isEmpty(viewHolder.et_sell_price.getText().toString())) {
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_price));
             return;
         }
-        if (CommonUtils.getString(R.string.str_now_no_data).equals(viewHolder.tv_hole.getText().toString())) {
-            ToastUtil.show(CommonUtils.getString(R.string.str_now_no_data));
-            return;
-        }
-        if (id == R.id.tv_all) {
-            viewHolder.et_sell_num.setText(viewHolder.tv_hole.getText().toString());
-        } else if (id == R.id.tv_half_hold) {
-            BigDecimal bigDecimal = new BigDecimal(viewHolder.tv_hole.getText().toString());
-            bigDecimal = bigDecimal.multiply(new BigDecimal("0.5")).setScale(4, BigDecimal.ROUND_UP);
-            viewHolder.et_sell_num.setText(bigDecimal.toPlainString());
-        } else if (id == R.id.tv_half_half_hold) {
-            BigDecimal bigDecimal = new BigDecimal(viewHolder.tv_hole.getText().toString());
-            bigDecimal = bigDecimal.multiply(new BigDecimal("0.25")).setScale(4, BigDecimal.ROUND_UP);
-            viewHolder.et_sell_num.setText(bigDecimal.toPlainString());
-        }
-    }
+        //返回卖出数量
+        salenum = saleNum(id);
 
-    private void buyChoose(int id) {
-        if (TextUtils.isEmpty(viewHolder.et_sell_price.getText().toString())) {
-            ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_price));
-            return;
-        }
-        if (viewHolder.tv_hole.getText().toString().equals("暂无")) {
-            ToastUtil.show("暂无");
-            return;
-        }
-        BigDecimal hold = new BigDecimal(viewHolder.tv_hole.getText().toString());
+        BigDecimal hold = new BigDecimal(viewHolder.tv_usable.getText().toString());
         if (id == R.id.tv_all) {
+            viewHolder.et_sell_num.setText("全仓");
         } else if (id == R.id.tv_half_hold) {
             hold = hold.multiply(new BigDecimal("0.5"));
+            viewHolder.et_sell_num.setText("50%仓");
         } else if (id == R.id.tv_half_half_hold) {
             hold = hold.multiply(new BigDecimal("0.25"));
+            viewHolder.et_sell_num.setText("25%仓");
         }
         BigDecimal price = new BigDecimal(viewHolder.et_sell_price.getText().toString());
         BigDecimal num = hold.divide(price, 4, BigDecimal.ROUND_UP);
-        viewHolder.et_sell_num.setText(num.toPlainString());
+        buynum = num.toPlainString();
+    }
+
+    private String saleNum(int id) {
+        if (CommonUtils.getString(R.string.str_now_no_data).equals(viewHolder.tv_hole.getText().toString())) {
+            return viewHolder.tv_hole.getText().toString();
+        } else {
+            if (id == R.id.tv_all) {
+                return viewHolder.tv_hole.getText().toString();
+            } else if (id == R.id.tv_half_hold) {
+                BigDecimal bigDecimal = new BigDecimal(viewHolder.tv_hole.getText().toString());
+                bigDecimal = bigDecimal.multiply(new BigDecimal("0.5")).setScale(4, BigDecimal.ROUND_UP);
+                return bigDecimal.toPlainString();
+            } else if (id == R.id.tv_half_half_hold) {
+                BigDecimal bigDecimal = new BigDecimal(viewHolder.tv_hole.getText().toString());
+                bigDecimal = bigDecimal.multiply(new BigDecimal("0.25")).setScale(4, BigDecimal.ROUND_UP);
+                return bigDecimal.toPlainString();
+            }
+        }
+        return null;
     }
 
     @Override

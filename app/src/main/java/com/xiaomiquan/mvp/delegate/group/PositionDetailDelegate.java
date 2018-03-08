@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.base.BasePullDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -24,7 +25,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class PositionDetailDelegate extends BaseDelegate {
+public class PositionDetailDelegate extends BasePullDelegate {
     public ViewHolder viewHolder;
 
     @Override

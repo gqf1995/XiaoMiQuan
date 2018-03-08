@@ -19,7 +19,7 @@ public class AppConst {
     /**
      * 测试
      */
-    public static final String httpBaseUrl = "http://192.168.1.2:8080";
+    public static final String httpBaseUrl = "http://47.96.180.179:1904";
     public static final String serviceId = "KEFU151728371459995";
     public static final String rongId = "cpj2xarlc1xsn";
     public static final boolean isLog = true;

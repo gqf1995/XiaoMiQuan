@@ -36,7 +36,7 @@
                         android:id="@+id/tv_total_assets"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="名字"
+                        android:text="- -"
                         android:textColor="@color/color_font1"
                         android:textSize="@dimen/text_trans_35px" />
 
@@ -63,7 +63,7 @@
                         android:id="@+id/tv_usable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="名字"
+                        android:text="- -"
                         android:textColor="@color/color_font1"
                         android:textSize="@dimen/text_trans_35px" />
 

@@ -255,11 +255,11 @@
         <activity
             android:name=".mvp.activity.user.KlineSetActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".mvp.activity.chat.GroupChatActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".mvp.activity.user.ConversationActivity"
             android:screenOrientation="portrait"
@@ -286,25 +286,19 @@
                 android:resource="@xml/rc_file_path" />
         </provider>
 
-
-        <activity android:name=".mvp.activity.group.AddTeamActivity"/>
-        <activity android:name=".mvp.activity.group.ManagementTeamActivity"/>
-        <activity android:name=".mvp.activity.group.InviteFriendsActivity"/>
-        <activity android:name=".mvp.activity.group.TeamDetailActivity"/>
-        <activity android:name=".mvp.activity.group.AllTeamActivity"/>
-        <activity android:name=".mvp.activity.user.PersonalDetailsActivity"/>
-        <activity android:name=".mvp.activity.chat.ChatManagementActivity"/>
-        <activity android:name=".mvp.activity.chat.CoinCircleIndexActivity"/>
         <activity android:name=".mvp.activity.group.AddTeamActivity" />
         <activity android:name=".mvp.activity.group.ManagementTeamActivity" />
         <activity android:name=".mvp.activity.group.InviteFriendsActivity" />
         <activity android:name=".mvp.activity.group.TeamDetailActivity" />
         <activity android:name=".mvp.activity.group.AllTeamActivity" />
+        <activity android:name=".mvp.activity.user.PersonalDetailsActivity" />
+        <activity android:name=".mvp.activity.chat.ChatManagementActivity" />
+        <activity android:name=".mvp.activity.chat.CoinCircleIndexActivity" />
         <activity android:name=".mvp.activity.group.MyPropertyDetailActivity" />
         <activity android:name=".mvp.activity.group.RevenueRankingActivity" />
         <activity android:name=".mvp.activity.group.HisAccountActivity" />
         <activity android:name=".mvp.activity.group.MyAccountActivity" />
-
+        <activity android:name=".mvp.activity.circle.ReleaseForecastActivity" />
     </application>
 
 </manifest>

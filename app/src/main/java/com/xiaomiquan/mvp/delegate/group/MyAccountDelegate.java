@@ -1,14 +1,20 @@
 package com.xiaomiquan.mvp.delegate.group;
 
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
+import com.fivefivelike.mybaselibrary.base.BaseApp;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.entity.ResultDialogEntity;
+import com.fivefivelike.mybaselibrary.utils.ActUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -18,11 +24,17 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.EarningsMovements;
+import com.xiaomiquan.entity.bean.group.TeamInfo;
+import com.xiaomiquan.mvp.activity.group.CreatGroupActivity;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.widget.chart.MyLeftRateMarkerView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.xiaomiquan.utils.TimeUtils.DEFAULT_FORMAT;
 
 public class MyAccountDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
@@ -147,6 +159,42 @@ public class MyAccountDelegate extends BaseDelegate {
         mChartKline.setMaxVisibleValueCount(earningsMovements.getRates().size());
         mChartKline.invalidate();
 
+    }
+    public void initTeaminfo(TeamInfo teamInfo){
+        double monthRate, totalRate, weekRate, yesterdayRate;
+        if (!TextUtils.isEmpty(teamInfo.getMonthProfit())) {
+            monthRate = Double.parseDouble(teamInfo.getMonthProfit());
+        } else {
+            monthRate = 0;
+        }
+        if (!TextUtils.isEmpty(teamInfo.getTotalProfit())) {
+            totalRate = Double.parseDouble(teamInfo.getTotalProfit());
+        } else {
+            totalRate = 0;
+        }
+        if (!TextUtils.isEmpty(teamInfo.getWeekProfit())) {
+            weekRate = Double.parseDouble(teamInfo.getWeekProfit());
+        } else {
+            weekRate = 0;
+        }
+        if (!TextUtils.isEmpty(teamInfo.getYesterdayProfit())) {
+            yesterdayRate = Double.parseDouble(teamInfo.getYesterdayProfit());
+        } else {
+            yesterdayRate = 0;
+        }
+        BigUIUtil.getinstance().rateTextView(monthRate, viewHolder.tv_month_earnings);
+        BigUIUtil.getinstance().rateTextView(totalRate, viewHolder.tv_cumulative_earnings);
+        BigUIUtil.getinstance().rateTextView(weekRate, viewHolder.tv_week_earnings);
+        BigUIUtil.getinstance().rateTextView(yesterdayRate, viewHolder.tv_yesterday_earnings);
+
+
+        EarningsMovements earningsMovements=new EarningsMovements();
+        earningsMovements.setEndTime(teamInfo.getEndTime());
+        earningsMovements.setStartTime(teamInfo.getStartTime());
+        earningsMovements.setRates(teamInfo.getRates());
+        initEarningsMovements(earningsMovements);
+        BigUIUtil.getinstance().rateTextView(Double.parseDouble(teamInfo.getCurrProfit()), viewHolder.tv_today_earnings);
+        viewHolder.tv_daily_operation.setText(teamInfo.getCount()+"");
     }
 
     @Override
