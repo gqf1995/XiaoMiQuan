@@ -57,7 +57,7 @@ public class HomeDelegate extends BaseDelegate {
             for (int i = 0; i < 4; i++) {
                 entities.add(new ReleaseDialog.ReleaseDialogEntity(mBoomTitles[i], mIconBoomColorIds[i], mIconBoomBgColorIds[i]));
             }
-            releaseDialog = new ReleaseDialog(this.getActivity(),R.style.baseNoBgDialog);
+            releaseDialog = new ReleaseDialog(this.getActivity(), R.style.baseNoBgDialog);
             releaseDialog.setDatas(entities);
             releaseDialog.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
@@ -82,16 +82,19 @@ public class HomeDelegate extends BaseDelegate {
         return R.layout.fragment_home;
     }
 
-
     public static class ViewHolder {
         public View rootView;
         public Button chart;
+        public Button btn_my_position;
+        public Button btn_his_position;
         public Button fabu;
         public FrameLayout fl_web;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.chart = (Button) rootView.findViewById(R.id.chart);
+            this.btn_my_position = (Button) rootView.findViewById(R.id.btn_my_position);
+            this.btn_his_position = (Button) rootView.findViewById(R.id.btn_his_position);
             this.fabu = (Button) rootView.findViewById(R.id.fabu);
             this.fl_web = (FrameLayout) rootView.findViewById(R.id.fl_web);
         }
