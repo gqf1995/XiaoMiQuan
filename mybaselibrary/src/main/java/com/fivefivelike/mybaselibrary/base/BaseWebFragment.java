@@ -3,18 +3,24 @@ package com.fivefivelike.mybaselibrary.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.sonic.SonicImpl;
 import com.fivefivelike.mybaselibrary.sonic.SonicJavaScriptInterface;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.github.lzyzsd.jsbridge.BridgeWebViewClient;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.MiddlewareWebClientBase;
+import com.wang.avi.AVLoadingIndicatorView;
+import com.wang.avi.indicators.LineSpinFadeLoaderIndicator;
 
 import static com.fivefivelike.mybaselibrary.sonic.SonicJavaScriptInterface.PARAM_CLICK_TIME;
 
@@ -28,6 +34,7 @@ public class BaseWebFragment extends BaseFragment<BaseWebViewDelegate> {
     protected AgentWeb mAgentWeb;
     WebLinsener webLinsener;
     BridgeWebView mBridgeWebView;
+    AVLoadingIndicatorView indicatorView;
 
     public void setWebLinsener(WebLinsener webLinsener) {
         this.webLinsener = webLinsener;
@@ -47,7 +54,10 @@ public class BaseWebFragment extends BaseFragment<BaseWebViewDelegate> {
     protected void bindEvenListener() {
         super.bindEvenListener();
         url = getArguments().getString("url", "http://47.96.180.179:1904/gameTeam/showWebViewIndex");
-        mBridgeWebView = new BridgeWebView(getActivity());
+        mBridgeWebView = new BridgeWebView(viewDelegate.viewHolder.root.getContext());//getActivity());
+        indicatorView = new AVLoadingIndicatorView(viewDelegate.viewHolder.root.getContext());//尾部加载中状态
+        indicatorView.setIndicator(new LineSpinFadeLoaderIndicator());
+        indicatorView.setIndicatorColor(CommonUtils.getColor(R.color.color_font4));
         //AgentWebConfig.syncCookie(url, "token=" + "44cf54dbdcbeb90c2e448655a2e54f5c");
         // 1. 首先创建SonicImpl
         mSonicImpl = new SonicImpl(url, this.getContext());
@@ -73,7 +83,12 @@ public class BaseWebFragment extends BaseFragment<BaseWebViewDelegate> {
         WebView webView = mAgentWeb.getWebCreator().getWebView();
         WebSettings webSettings = webView.getSettings();
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-
+        viewDelegate.viewHolder.root.addView(indicatorView);
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) indicatorView.getLayoutParams();
+        layoutParams.gravity = Gravity.CENTER;
+        layoutParams.height = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px);
+        layoutParams.width = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px);
+        indicatorView.setLayoutParams(layoutParams);
         //4. 注入 JavaScriptInterface
         mAgentWeb.getJsInterfaceHolder().addJavaObject("sonic",
                 new SonicJavaScriptInterface(mSonicImpl.getSonicSessionClient(),
@@ -138,6 +153,7 @@ public class BaseWebFragment extends BaseFragment<BaseWebViewDelegate> {
                 if (webLinsener != null) {
                     webLinsener.onLoadEndPage();
                 }
+                indicatorView.hide();
             }
         }
 

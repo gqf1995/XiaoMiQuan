@@ -57,7 +57,7 @@ public class HomeDelegate extends BaseDelegate {
             for (int i = 0; i < 4; i++) {
                 entities.add(new ReleaseDialog.ReleaseDialogEntity(mBoomTitles[i], mIconBoomColorIds[i], mIconBoomBgColorIds[i]));
             }
-            releaseDialog = new ReleaseDialog(this.getActivity(), R.style.baseNoBgDialog);
+            releaseDialog = new ReleaseDialog(this.getActivity(),R.style.baseNoBgDialog);
             releaseDialog.setDatas(entities);
             releaseDialog.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
@@ -74,7 +74,7 @@ public class HomeDelegate extends BaseDelegate {
                 }
             });
         }
-        releaseDialog.showDialog();
+        releaseDialog.showDialog(viewHolder.fabu);
     }
 
     @Override

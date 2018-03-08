@@ -51,6 +51,7 @@
     <string name="str_toast_introduction">请输入简介</string>
     <string name="str_toast_input_invite_code">在此输入邀请码</string>
     <string name="str_toast_need_invite_code">请输入邀请码</string>
+    <string name="str_toast_please_input">请输入</string>
     <string name="str_toast_no_change">请修改后再保存</string>
     <string name="str_toast_no_select_coin">当前没有选择币种</string>
     <string name="str_toast_cannot_talk">您的积分不够,不能够发言</string>
@@ -447,7 +448,11 @@
     <string name="downloading_apk">正在后台下载...</string>
 
 
+    <string name="str_quarter">季度合约</string>
+    <string name="str_thisweek">当周合约</string>
+    <string name="str_nextweek">次周合约</string>
     <string name="str_get_customer_service_msg">收到一条客服消息</string>
+
 
 
     <string-array name="circle_show_type">

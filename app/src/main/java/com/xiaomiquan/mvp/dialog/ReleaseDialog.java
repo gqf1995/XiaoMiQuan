@@ -28,6 +28,14 @@ public class ReleaseDialog extends BaseDialog {
     List<ImageView> iconImages;// = new ArrayList<>();
     List<TextView> titleTextViews;// = new ArrayList<>();
 
+    public ReleaseDialog(Context context) {
+        super(context);
+    }
+
+    public ReleaseDialog(Context context, int style) {
+        super(context, style);
+    }
+
     public ReleaseDialog setTitle(String title) {
         this.title = title;
         return this;
@@ -43,6 +51,7 @@ public class ReleaseDialog extends BaseDialog {
     public ImageView iv_piv1;
     public TextView tv_select1;
     public LinearLayout lin1;
+    public LinearLayout root;
     public CircleImageView ic_pic2;
     public ImageView iv_piv2;
     public TextView tv_select2;
@@ -56,6 +65,7 @@ public class ReleaseDialog extends BaseDialog {
     public TextView tv_select4;
     public TextView tv_close;
     public LinearLayout lin4;
+    public View view_dimess;
 
     DefaultClickLinsener defaultClickLinsener;
 
@@ -64,31 +74,26 @@ public class ReleaseDialog extends BaseDialog {
         return this;
     }
 
-    public ReleaseDialog(Context context) {
-        super(context);
-    }
-
-    public ReleaseDialog(Context context, int style) {
-        super(context, style);
-    }
 
     @Override
-    protected int getLayout() {
+    public int getLayout() {
         return R.layout.dialog_release;
     }
 
     @Override
     protected void startInit() {
-        getWindow().setGravity(Gravity.BOTTOM);
-        setWindowNoPadding();
         setCancelable(true);
         setCanceledOnTouchOutside(false);
+        getWindow().setGravity(Gravity.BOTTOM);
+        setWindowNoPadding();
 
         this.tv_title = (TextView) findViewById(R.id.tv_title);
+        this.view_dimess = findViewById(R.id.view_dimess);
         this.ic_pic1 = (CircleImageView) findViewById(R.id.ic_pic1);
         this.iv_piv1 = (ImageView) findViewById(R.id.iv_piv1);
         this.tv_select1 = (TextView) findViewById(R.id.tv_select1);
         this.lin1 = (LinearLayout) findViewById(R.id.lin1);
+        this.root = (LinearLayout) findViewById(R.id.root);
         this.ic_pic2 = (CircleImageView) findViewById(R.id.ic_pic2);
         this.iv_piv2 = (ImageView) findViewById(R.id.iv_piv2);
         this.tv_select2 = (TextView) findViewById(R.id.tv_select2);
@@ -102,6 +107,9 @@ public class ReleaseDialog extends BaseDialog {
         this.tv_select4 = (TextView) findViewById(R.id.tv_select4);
         this.tv_close = (TextView) findViewById(R.id.tv_close);
         this.lin4 = (LinearLayout) findViewById(R.id.lin4);
+
+       // ((View) root.getRootView()).setBackgroundColor(CommonUtils.getColor(R.color.base_mask_dark));
+
         bgImages = new ArrayList<>();
         bgImages.add(ic_pic1);
         bgImages.add(ic_pic2);
@@ -117,9 +125,15 @@ public class ReleaseDialog extends BaseDialog {
         titleTextViews.add(tv_select2);
         titleTextViews.add(tv_select3);
         titleTextViews.add(tv_select4);
+        view_dimess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 
-    public void showDialog() {
+    public void showDialog(View view) {
         for (int i = 0; i < 4; i++) {
             bgImages.get(i).setImageResource(datas.get(i).bgId);
             iconImages.get(i).setImageResource(datas.get(i).iconId);

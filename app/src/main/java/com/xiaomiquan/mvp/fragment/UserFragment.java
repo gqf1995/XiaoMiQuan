@@ -1,11 +1,9 @@
 package com.xiaomiquan.mvp.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
-import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.base.Application;
 import com.xiaomiquan.entity.bean.UserLogin;
@@ -13,14 +11,12 @@ import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.group.InviteFriendsActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeDefaultSetActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeUserInfoActivity;
-import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.activity.user.SecurityActivity;
 import com.xiaomiquan.mvp.activity.user.SetActivity;
 import com.xiaomiquan.mvp.databinder.UserBinder;
 import com.xiaomiquan.mvp.delegate.UserDelegate;
 import com.xiaomiquan.utils.UserSet;
-import com.xiaomiquan.widget.CircleDialogHelper;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -36,13 +32,7 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
         void logout();
     }
 
-    Linsener linsener;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        linsener = (Linsener) activity;
-    }
 
     @Override
     protected Class<UserDelegate> getDelegateClass() {
@@ -153,16 +143,15 @@ public class UserFragment extends BaseDataBindFragment<UserDelegate, UserBinder>
     }
 
     private void logout() {
-        CircleDialogHelper.initDefaultDialog(getActivity(), CommonUtils.getString(R.string.str_warning_islogout), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SingSettingDBUtil.logout();
-                linsener.logout();
-                //退出登录接口
-                addRequest(binder.loginOut());
-                gotoActivity(LoginAndRegisteredActivity.class).setIsFinish(true).startAct();
-            }
-        }).show();
+//        CircleDialogHelper.initDefaultDialog(getActivity(), CommonUtils.getString(R.string.str_warning_islogout), new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SingSettingDBUtil.logout();
+//                //退出登录接口
+//                addRequest(binder.loginOut());
+//                gotoActivity(LoginAndRegisteredActivity.class).setIsFinish(true).startAct();
+//            }
+//        }).show();
     }
 
     @Override

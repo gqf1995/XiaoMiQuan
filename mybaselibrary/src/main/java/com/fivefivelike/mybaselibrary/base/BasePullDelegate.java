@@ -16,13 +16,14 @@ import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.utils.AndroidUtil;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.paginate.LoadingListItemCreator;
 import com.fivefivelike.mybaselibrary.utils.paginate.LoadingListItemSpanLookup;
 import com.fivefivelike.mybaselibrary.utils.paginate.Paginate;
 import com.fivefivelike.mybaselibrary.utils.paginate.ViewHolder;
-import com.fivefivelike.mybaselibrary.view.LoadMoreListView;
-import com.fivefivelike.mybaselibrary.view.ProgressView;
+import com.wang.avi.AVLoadingIndicatorView;
+import com.wang.avi.indicators.BallPulseIndicator;
 
 import java.util.List;
 
@@ -107,7 +108,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
      * @param adapter RecyclerView 的adapter
      * @param manager RecyclerView的显示方式
      */
-    public void initRecycleviewPull(RecyclerView.Adapter adapter, RecyclerView.LayoutManager manager, final LoadMoreListView.Callback callback, int headerCount, SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
+    public void initRecycleviewPull(RecyclerView.Adapter adapter, RecyclerView.LayoutManager manager, final BasePullCallback callback, int headerCount, SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
         mWwipeRefreshLayout = getViewById(R.id.swipeRefreshLayout);
         mPullRecyclerView = getViewById(R.id.pull_recycleview);
         ((SimpleItemAnimator) mPullRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
@@ -168,8 +169,9 @@ public abstract class BasePullDelegate extends BaseDelegate {
             layoutParams.width = AndroidUtil.getScreenW(GlobleContext.getInstance().getApplicationContext(), false);
             mFootView.setLayoutParams(layoutParams);
         }
-        ProgressView loadingView = new ProgressView(parent.getContext());//尾部加载中状态
-        loadingView.setIndicatorId(ProgressView.BallPulse);
+        AVLoadingIndicatorView loadingView = new AVLoadingIndicatorView(parent.getContext());
+        //ProgressView loadingView = new ProgressView(parent.getContext());//尾部加载中状态
+        loadingView.setIndicator(new BallPulseIndicator());
         loadingView.setIndicatorColor(0xff69b3e0);
         TextView endView = new TextView(parent.getContext());//所有数据加载完布局
         endView.setGravity(Gravity.CENTER);
@@ -192,6 +194,12 @@ public abstract class BasePullDelegate extends BaseDelegate {
         nodata.setVisibility(isShowNoData ? View.VISIBLE : View.GONE);
         loadLayout.setVisibility(View.GONE);
         endLayout.setVisibility(View.GONE);
+
+        LinearLayout.LayoutParams layoutParams1 = (LinearLayout.LayoutParams) loadingView.getLayoutParams();
+        layoutParams1.gravity = Gravity.CENTER;
+        layoutParams1.height = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px);
+        layoutParams1.width = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px);
+        loadingView.setLayoutParams(layoutParams1);
 
         if (!mIsLoadMore) {
             loadLayout.setVisibility(View.GONE);

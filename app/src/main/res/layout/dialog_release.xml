@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<skin.support.widget.SkinCompatFrameLayout
+<skin.support.widget.SkinCompatLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/base_mask_dark"
+    android:orientation="vertical"
     >
 
-    <skin.support.widget.SkinCompatImageView
-        android:id="@+id/iv_"
+    <View
+        android:id="@+id/view_dimess"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/base_mask_dark"
-        />
-
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -223,4 +223,4 @@
 
 
     </LinearLayout>
-</skin.support.widget.SkinCompatFrameLayout>
+</skin.support.widget.SkinCompatLinearLayout>

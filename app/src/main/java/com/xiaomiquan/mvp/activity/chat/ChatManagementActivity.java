@@ -4,22 +4,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.View;
 
-import com.circledialog.view.listener.OnInputClickListener;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.chat.ChatGroupInfo;
+import com.xiaomiquan.mvp.activity.EditTextActivity;
 import com.xiaomiquan.mvp.databinder.ChatManagementBinder;
 import com.xiaomiquan.mvp.delegate.ChatManagementDelegate;
 import com.xiaomiquan.utils.UiHeplUtils;
-import com.xiaomiquan.widget.CircleDialogHelper;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.AlbumFile;
 
@@ -87,37 +84,25 @@ public class ChatManagementActivity extends BaseDataBindActivity<ChatManagementD
             viewDelegate.viewHolder.lin3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CircleDialogHelper.initDefaultInputDialog(ChatManagementActivity.this,
+                    EditTextActivity.startAct(ChatManagementActivity.this,
                             CommonUtils.getString(R.string.str_chat_room_introduce),
-                            introduce, CommonUtils.getString(R.string.str_confirm), new OnInputClickListener() {
-                                @Override
-                                public void onClick(String text, View v) {
-                                    //修改简介
-                                    introduce = text;
-                                    addRequest(binder.editChatroomBrief(id, title, text, ChatManagementActivity.this));
-                                }
-                            }
-                    ).show();
+                            introduce,
+                            CommonUtils.getString(R.string.str_toast_please_input) + CommonUtils.getString(R.string.str_chat_room_introduce),
+                            true,
+                            0x124
+                    );
                 }
             });
             viewDelegate.viewHolder.lin2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CircleDialogHelper.initDefaultInputDialog(ChatManagementActivity.this,
+                    EditTextActivity.startAct(ChatManagementActivity.this,
                             CommonUtils.getString(R.string.str_chat_room_name),
-                            title, CommonUtils.getString(R.string.str_confirm), new OnInputClickListener() {
-                                @Override
-                                public void onClick(String text, View v) {
-                                    //名称
-                                    if (TextUtils.isEmpty(text)) {
-                                        ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_group_name));
-                                        return;
-                                    }
-                                    title = text;
-                                    addRequest(binder.editChatroomBrief(id, text, introduce, ChatManagementActivity.this));
-                                }
-                            }
-                    ).show();
+                            introduce,
+                            CommonUtils.getString(R.string.str_toast_please_input) + CommonUtils.getString(R.string.str_chat_room_name),
+                            false,
+                            0x123
+                    );
                 }
             });
             viewDelegate.viewHolder.ic_pic.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +129,22 @@ public class ChatManagementActivity extends BaseDataBindActivity<ChatManagementD
         GlideUtils.loadImage(headPortrait, viewDelegate.viewHolder.ic_pic);
         viewDelegate.viewHolder.tv_name.setText(title);
         viewDelegate.viewHolder.tv_num.setText(CommonUtils.getString(R.string.str_chat_room_online_people, onlineTotal));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0x123) {
+                //修改名称
+                title = data.getStringExtra("content");
+                addRequest(binder.editChatroomBrief(id, title, introduce, ChatManagementActivity.this));
+            } else if (requestCode == 0x124) {
+                //修改简介
+                introduce = data.getStringExtra("content");
+                addRequest(binder.editChatroomBrief(id, title, introduce, ChatManagementActivity.this));
+            }
+        }
     }
 
     private void getPic() {
