@@ -1162,6 +1162,24 @@ public class BigUIUtil {
         }
     }
 
+
+    public String bigName(String name) {
+        if (TextUtils.isEmpty(name)) {
+            return "";
+        }
+        //        "QUARTER" 季度合约
+        //        "THISWEEK" 当周合约
+        //        "NEXTWEEK" 次周合约
+        if (name.contains("QUARTER")) {
+            name = name.replace("QUARTER", CommonUtils.getString(R.string.str_quarter));
+        } else if (name.contains("THISWEEK")) {
+            name = name.replace("THISWEEK", CommonUtils.getString(R.string.str_thisweek));
+        } else if (name.contains("NEXTWEEK")) {
+            name = name.replace("NEXTWEEK", CommonUtils.getString(R.string.str_nextweek));
+        }
+        return name;
+    }
+
     //  市值
     //1111万亿
     //111万亿

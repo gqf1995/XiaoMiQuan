@@ -1,6 +1,7 @@
 package com.xiaomiquan.mvp.activity.main;
 
 import android.view.View;
+
 import com.circledialog.CircleDialogHelper;
 import com.circledialog.callback.ConfigText;
 import com.circledialog.params.TextParams;
@@ -9,9 +10,13 @@ import com.fivefivelike.mybaselibrary.utils.ActUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.AppVersion;
+import com.xiaomiquan.entity.bean.event.CustomerServiceEvent;
+import com.xiaomiquan.mvp.activity.user.ConversationActivity;
 import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
+import com.xiaomiquan.server.NotificationHelper;
 import com.xiaomiquan.utils.UiHeplUtils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -51,7 +56,13 @@ public class MainEventBusHelper {
             activity.toPage(0, 1);
         }
     }
-
+    //客服消息
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onCustomerServiceEvent(CustomerServiceEvent event) {
+        if (!ActUtil.getInstance().getTopActivity().getClass().equals(ConversationActivity.class)) {
+            NotificationHelper.getInstence().sentCoustomerServiceNotification(activity, event, R.mipmap.artboard);
+        }
+    }
     //app更新是否失败
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onAppVersionEvent(final AppVersion event) {

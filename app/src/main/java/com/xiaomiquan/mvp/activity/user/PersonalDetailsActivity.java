@@ -127,6 +127,15 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
     UserPageDetail userPageDetail;
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            //刷新
+
+        }
+    }
+
+    @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
@@ -139,17 +148,17 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
         }
     }
 
-//    private void initSubtitle() {
-//        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) viewDelegate.getmToolbarSubTitle().getLayoutParams();
-//        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-//        layoutParams.rightMargin = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_20px);
-//        viewDelegate.getmToolbarSubTitle().setLayoutParams(layoutParams);
-//        viewDelegate.getmToolbarSubTitle().setPadding(
-//                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
-//                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
-//                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
-//                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px)
-//        );
-//    }
+    //    private void initSubtitle() {
+    //        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) viewDelegate.getmToolbarSubTitle().getLayoutParams();
+    //        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+    //        layoutParams.rightMargin = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_20px);
+    //        viewDelegate.getmToolbarSubTitle().setLayoutParams(layoutParams);
+    //        viewDelegate.getmToolbarSubTitle().setPadding(
+    //                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
+    //                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
+    //                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
+    //                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px)
+    //        );
+    //    }
 
 }

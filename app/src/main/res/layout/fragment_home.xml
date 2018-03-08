@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/chart"
@@ -32,6 +32,12 @@
             android:layout_height="wrap_content"
             android:text="他的模拟账户" />
 
+        <Button
+            android:id="@+id/fabu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发布"
+            />
     </LinearLayout>
 
     <FrameLayout

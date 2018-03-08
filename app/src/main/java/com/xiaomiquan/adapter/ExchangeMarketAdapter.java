@@ -79,7 +79,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
 
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
         tv_name.setText(s.getExchange());
-        tv_coin_type.setText(s.getSymbol());
+        tv_coin_type.setText(BigUIUtil.getinstance().bigName(s.getSymbol()));
         tv_coin_unit.setText(s.getUnit());
         tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + BigUIUtil.getinstance().bigAmount(s.getVolume()));
 
@@ -159,8 +159,8 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                     .get(position).getOnlyKey())) {
                 return;
             }
-            if(data.getTimestamp()<getDatas()
-                    .get(position).getTimestamp()){
+            if (data.getTimestamp() < getDatas()
+                    .get(position).getTimestamp()) {
                 return;
             }
             boolean isSameChange = false;
@@ -170,7 +170,7 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
                 data.setChange(getDatas().get(position).getChange());
                 isSameChange = true;
             } else {
-                if(BigUIUtil.getinstance().rateText(getDatas().get(position).getChange()).equals(BigUIUtil.getinstance().rateText(data.getChange()))){
+                if (BigUIUtil.getinstance().rateText(getDatas().get(position).getChange()).equals(BigUIUtil.getinstance().rateText(data.getChange()))) {
                     //涨幅经计算后一样
                     isSameChange = true;
                 }

@@ -1,15 +1,12 @@
-package com.fivefivelike.mybaselibrary.base;
+package com.xiaomiquan.mvp.delegate;
 
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.EditText;
 
-import com.fivefivelike.mybaselibrary.R;
+import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.xiaomiquan.R;
 
-/**
- * Created by 郭青枫 on 2017/10/13.
- */
-
-public class BaseWebViewDelegate extends BaseDelegate {
+public class EditTextDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
 
     @Override
@@ -19,17 +16,17 @@ public class BaseWebViewDelegate extends BaseDelegate {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_webview;
+        return R.layout.activity_edit_text;
     }
 
 
     public static class ViewHolder {
         public View rootView;
-        public FrameLayout root;
+        public EditText edit;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.root = (FrameLayout) rootView.findViewById(R.id.root);
+            this.edit = (EditText) rootView.findViewById(R.id.edit);
         }
 
     }

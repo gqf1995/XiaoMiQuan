@@ -37,7 +37,6 @@ public class UserDrawerFragment extends BaseDataBindFragment<UserDrawerDelegate,
         linsener = (Linsener) activity;
     }
 
-
     UserLogin userLogin;
 
     @Override

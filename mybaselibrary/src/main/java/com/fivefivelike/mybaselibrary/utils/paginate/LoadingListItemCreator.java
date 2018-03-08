@@ -7,7 +7,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.fivefivelike.mybaselibrary.R;
-import com.fivefivelike.mybaselibrary.view.ProgressView;
+import com.wang.avi.AVLoadingIndicatorView;
+import com.wang.avi.indicators.BallPulseIndicator;
 
 
 /** RecyclerView creator that will be called to create and bind loading list item */
@@ -35,8 +36,9 @@ public interface LoadingListItemCreator {
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footer_layout, parent, false);
             LinearLayout linearLayout= (LinearLayout) view.findViewById(R.id.loading_view_layout);
-            ProgressView loadingView = new ProgressView(parent.getContext());
-            loadingView.setIndicatorId(ProgressView.BallPulse);
+            AVLoadingIndicatorView loadingView=new AVLoadingIndicatorView(parent.getContext());
+            //ProgressView loadingView = new ProgressView(parent.getContext());//尾部加载中状态
+            loadingView.setIndicator(new BallPulseIndicator());
             loadingView.setIndicatorColor(0xff69b3e0);
             linearLayout.addView(loadingView);
             return new RecyclerView.ViewHolder(view) {

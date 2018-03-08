@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.BaseAdapter;
 
 import com.fivefivelike.mybaselibrary.mvp.databind.IDataBind;
-import com.fivefivelike.mybaselibrary.view.LoadMoreListView;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
  */
 
 public abstract class BasePullActivity<T extends BasePullDelegate, D extends IDataBind> extends BaseDataBindActivity<T, D>
-        implements LoadMoreListView.Callback, SwipeRefreshLayout.OnRefreshListener {
+        implements BasePullCallback, SwipeRefreshLayout.OnRefreshListener {
 
 
     /**

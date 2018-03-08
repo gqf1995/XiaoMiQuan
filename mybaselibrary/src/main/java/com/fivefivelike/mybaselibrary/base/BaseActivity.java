@@ -146,10 +146,6 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
     }
 
     protected void clickRightTv() {
-        if ("帮助".equals(viewDelegate.getmToolbarSubTitle().getText().toString())) {
-            //gotoActivity(helpCls).startAct();
-            BaseApp.getInstance().startCustomerService(mContext);
-        }
     }
 
     @Override

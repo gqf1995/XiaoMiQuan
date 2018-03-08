@@ -18,13 +18,21 @@ public class MainDelegate extends IMDelegate {
     public ViewHolder viewHolder;
     private String[] mTitles = {CommonUtils.getString(R.string.str_home),
             CommonUtils.getString(R.string.str_market),
-            CommonUtils.getString(R.string.str_user)};
+            CommonUtils.getString(R.string.str_user),
+            CommonUtils.getString(R.string.str_user)
+    };
     private int[] mIconSelectIds = {
             R.drawable.ic_hebingxingzhuang,
-            R.drawable.ic_hebingxingzhuang, R.drawable.ic_hebingxingzhuang};
+            R.drawable.ic_hebingxingzhuang,
+            R.drawable.ic_hebingxingzhuang,
+            R.drawable.ic_hebingxingzhuang
+    };
     private int[] mIconUnSelectIds = {
             R.drawable.ic_combined_shape,
-            R.drawable.ic_combined_shape, R.drawable.ic_combined_shape};
+            R.drawable.ic_combined_shape,
+            R.drawable.ic_combined_shape,
+            R.drawable.ic_combined_shape
+    };
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Override

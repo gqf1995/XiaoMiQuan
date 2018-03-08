@@ -22,6 +22,11 @@ public class ConversationFragmentEx extends ConversationFragment implements AbsL
     DefaultClickLinsener defaultClickLinsener;
 
     boolean isCanTalk;
+    boolean isClose = false;
+
+    public void setClose(boolean close) {
+        isClose = close;
+    }
 
     public boolean isCanTalk() {
         return isCanTalk;
@@ -50,6 +55,10 @@ public class ConversationFragmentEx extends ConversationFragment implements AbsL
 
     @Override
     public void onSendToggleClick(View v, String text) {
+        if (isClose) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_close_chat));
+            return;
+        }
         if (isCanTalk) {
             super.onSendToggleClick(v, text);
         } else {
