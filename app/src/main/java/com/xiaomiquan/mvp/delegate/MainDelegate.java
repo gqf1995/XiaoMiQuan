@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 public class MainDelegate extends IMDelegate {
     public ViewHolder viewHolder;
-    private String[] mTitles = {CommonUtils.getString(R.string.str_home),
+    private String[] mTitles = {CommonUtils.getString(R.string.str_comprehensive),
             CommonUtils.getString(R.string.str_market),
-            CommonUtils.getString(R.string.str_user),
-            CommonUtils.getString(R.string.str_user)
+            CommonUtils.getString(R.string.str_title_square),
+            CommonUtils.getString(R.string.str_simulate)
     };
     private int[] mIconSelectIds = {
             R.drawable.ic_hebingxingzhuang,

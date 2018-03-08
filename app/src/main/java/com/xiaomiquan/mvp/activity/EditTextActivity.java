@@ -62,13 +62,6 @@ public class EditTextActivity extends BaseDataBindActivity<EditTextDelegate, Edi
         viewDelegate.viewHolder.edit.setHint(hint);
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            viewDelegate.getmToolbarSubTitle().setTextColor(CommonUtils.getColor(R.color.mark_color));
-        }
-    }
 
     @Override
     protected void clickRightTv() {

@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -19,11 +18,9 @@ import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.NoParentsTouchFramelayout;
 import com.tablayout.CommonTabLayout;
-import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
-import com.xiaomiquan.entity.bean.group.GroupBaseDeal;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
@@ -33,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import skin.support.widget.SkinCompatEditText;
 import skin.support.widget.SkinCompatImageView;
 
 /**
@@ -49,7 +45,6 @@ public class GroupDealDelegate extends BaseDelegate {
     List<String> dataset2;
 
     public void initTop() {
-        viewHolder.et_coin_search.setBackground(new RadiuBg(CommonUtils.getColor(R.color.base_mask), 1000, 1000, 1000, 1000));
         dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_price_type));
         selectType = 0;
         viewHolder.tv_choose_txt.setText(dataset2.get(0));
@@ -134,7 +129,7 @@ public class GroupDealDelegate extends BaseDelegate {
 
     }
 
-    public void onSelectLinsener(CoinDetail coinDetail, GroupBaseDeal groupItem) {
+    public void onSelectLinsener(CoinDetail coinDetail) {
         mCoinDetail = coinDetail;
         if (coinDetail == null) {
             viewHolder.tv_buy_price.setText(CommonUtils.getString(R.string.str_now_no_data));
@@ -168,7 +163,7 @@ public class GroupDealDelegate extends BaseDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_80px), viewHolder.vp_sliding, false);
+        viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_180px), viewHolder.vp_sliding, false);
         initTop();
         viewHolder.tv_all.setOnClickListener(onClickListener);
         viewHolder.tv_half_hold.setOnClickListener(onClickListener);
@@ -251,13 +246,11 @@ public class GroupDealDelegate extends BaseDelegate {
 
     public static class ViewHolder {
         public View rootView;
-
         public TextView tv_total_assets;
         public TextView tv_usable;
         public TextView tv_assets_report;
         public SkinCompatImageView iv_banner;
         public TextView tv_input_label1;
-        public SkinCompatEditText et_coin_search;
         public NoParentsTouchFramelayout fl_currency;
         public AppCompatImageView ic_pic;
         public TextView tv_coin_type;
@@ -292,7 +285,6 @@ public class GroupDealDelegate extends BaseDelegate {
             this.tv_assets_report = (TextView) rootView.findViewById(R.id.tv_assets_report);
             this.iv_banner = (SkinCompatImageView) rootView.findViewById(R.id.iv_banner);
             this.tv_input_label1 = (TextView) rootView.findViewById(R.id.tv_input_label1);
-            this.et_coin_search = (SkinCompatEditText) rootView.findViewById(R.id.et_coin_search);
             this.fl_currency = (NoParentsTouchFramelayout) rootView.findViewById(R.id.fl_currency);
             this.ic_pic = (AppCompatImageView) rootView.findViewById(R.id.ic_pic);
             this.tv_coin_type = (TextView) rootView.findViewById(R.id.tv_coin_type);
