@@ -21,6 +21,53 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
     }
 
     /**
+     * 获取直播
+     */
+    public Disposable getLive(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("platform", 1);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().getSquareLive)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("获取直播")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 获取直播
+     */
+    public Disposable getAllLive(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("pageNum", viewDelegate.page);
+        baseMap.put("platform", 1);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x128)
+                .setRequestUrl(HttpUrl.getIntance().getAllSquareLive)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("获取直播")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+
+    /**
      * 加入战队
      */
     public Disposable join(

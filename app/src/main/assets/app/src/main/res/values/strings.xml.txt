@@ -637,6 +637,10 @@
         <item>月榜</item>
         <item>总榜</item>
     </string-array>
+    <string-array name="sa_select_new_square">
+        <item>我关注的</item>
+        <item>全部动态</item>
+    </string-array>
 
     <string-array name="sa_select_price_type">
         <item>限价</item>

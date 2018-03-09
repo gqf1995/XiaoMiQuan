@@ -34,6 +34,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.AppVersion;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
+import com.xiaomiquan.mvp.activity.circle.NewSquareActivity;
 import com.xiaomiquan.mvp.databinder.MainBinder;
 import com.xiaomiquan.mvp.delegate.IMDelegate;
 import com.xiaomiquan.mvp.delegate.MainDelegate;
@@ -61,7 +62,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 
-public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener, SimulatedTradingFragment.Linsener, UserDrawerFragment.Linsener, HomeFragment.Linsener {
+public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener, SimulatedTradingFragment.Linsener, UserDrawerFragment.Linsener, HomeFragment.Linsener,NewSquareActivity.Linsener {
 
     String uid;
     UserLogin userLogin;
@@ -160,7 +161,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     UserDrawerFragment userFragment;
     HomeFragment homeFragment;
     SimulatedTradingFragment simulatedTradingFragment;
-    SquareWebFragment squareWebFragment;
+    NewSquareActivity newSquareActivity;
     SquareFragment squareFragment;
 
     //添加主页4个基础页面
@@ -171,13 +172,13 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         if (isInit) {
             viewDelegate.addFragment(homeFragment = new HomeFragment());
             viewDelegate.addFragment(marketFragment = new MarketFragment());
-            viewDelegate.addFragment(squareFragment = new SquareFragment());
+            viewDelegate.addFragment(newSquareActivity = new NewSquareActivity());
             viewDelegate.addFragment(simulatedTradingFragment = new SimulatedTradingFragment());
             loadDrawerLayout(true);
         } else {
             homeFragment = (HomeFragment) viewDelegate.getFragmentByIndex(0);
             marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
-            squareFragment = (SquareFragment) viewDelegate.getFragmentByIndex(2);
+            newSquareActivity = (NewSquareActivity) viewDelegate.getFragmentByIndex(2);
             simulatedTradingFragment = (SimulatedTradingFragment) viewDelegate.getFragmentByIndex(3);
             loadDrawerLayout(false);
         }

@@ -1,6 +1,8 @@
 package com.xiaomiquan.mvp.fragment.circle;
 
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -28,6 +30,7 @@ import com.xiaomiquan.mvp.activity.circle.ArticleActivity;
 import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
 import com.xiaomiquan.mvp.activity.circle.BigVListActivity;
 import com.xiaomiquan.mvp.activity.circle.LiveActivity;
+import com.xiaomiquan.mvp.activity.circle.NewSquareActivity;
 import com.xiaomiquan.mvp.activity.circle.NewsActivity;
 import com.xiaomiquan.mvp.activity.circle.ReleaseArticleActivity;
 import com.xiaomiquan.mvp.activity.circle.ReleaseDynamicActivity;
@@ -35,6 +38,7 @@ import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.SquareBinder;
 import com.xiaomiquan.mvp.delegate.circle.SquareDelegate;
+import com.xiaomiquan.mvp.fragment.group.RevenueRankingFragment;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 import com.xiaomiquan.widget.circle.SquarePopupWindow;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -68,11 +72,14 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_square)).setSubTitle(CommonUtils.getString(R.string.str_release)).setShowBack(false));
         userLogin = SingSettingDBUtil.getUserLogin();
-        initShortCut();
-        initLive(new ArrayList<SquareLive>());
+//        initShortCut();
+//        initLive(new ArrayList<SquareLive>());
 //        addRequest(binder.getLive(SquareFragment.this));
-        viewDelegate.viewHolder.lin_live.setOnClickListener(this);
-        viewDelegate.initScroll(squareLiveAdapter);
+//        viewDelegate.viewHolder.lin_live.setOnClickListener(this);
+//        viewDelegate.initScroll(squareLiveAdapter);
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+        type = getArguments().getString("type");
+        onRefresh();
     }
 
     @Override
@@ -90,6 +97,11 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                 break;
             case 0x127:
                 break;
+            case 0x128:
+                List<SquareLive> data2 = GsonUtil.getInstance().toList(data, SquareLive.class);
+//                viewDelegate.viewHolder.tv_live_time.setText(datas.get(0).getYearMonthDay());
+                initLive(data2);
+                break;
         }
     }
 
@@ -101,7 +113,15 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
     @Override
     protected void refreshData() {
-        addRequest(binder.getLive(this));
+        switch (type) {
+            case "0":
+                addRequest(binder.getLive(this));
+                break;
+            case "1":
+                addRequest(binder.getAllLive(this));
+                break;
+        }
+
     }
 
     @Override
@@ -167,7 +187,6 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
 
     public void initLive(final List<SquareLive> squareLives) {
         if (squareLiveAdapter == null) {
-            onRefresh();
             squareLiveAdapter = new SquareLiveNewAdapter(binder, getActivity(), squareLives);
             squareLiveAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
@@ -177,7 +196,6 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                     } else {
                         TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
                     }
-
                 }
 
                 @Override
@@ -223,6 +241,33 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
                 gotoActivity(LiveActivity.class).startAct();
                 break;
         }
+    }
+
+    public static SquareFragment newInstance(
+            String type
+    ) {
+        SquareFragment newFragment = new SquareFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("type", type);
+        newFragment.setArguments(bundle);
+        return newFragment;
+    }
+
+    public static String type;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if ((savedInstanceState != null)
+                && savedInstanceState.containsKey("type")) {
+            type = savedInstanceState.getString("type");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("type", type);
     }
 
 

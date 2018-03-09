@@ -2,7 +2,6 @@ package com.xiaomiquan.mvp.delegate.circle;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,8 +12,6 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
-import com.xiaomiquan.adapter.circle.SquareLiveNewAdapter;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.circle.ReleaseArticleActivity;
 import com.xiaomiquan.mvp.activity.circle.ReleaseDynamicActivity;
@@ -35,7 +32,7 @@ public class SquareDelegate extends BaseMyPullDelegate {
 
     public ViewHolder viewHolder;
     List<ReleaseDialog.ReleaseDialogEntity> entities;
-    private String[] mBoomTitles = CommonUtils.getStringArray(R.array.sa_select_release_diolog);
+    private String[] mBoomTitles=CommonUtils.getStringArray(R.array.sa_select_release_diolog);
     private int[] mIconBoomColorIds = {
             R.color.mark_color, R.color.mark_color
             , R.color.mark_color, R.color.mark_color
@@ -106,33 +103,6 @@ public class SquareDelegate extends BaseMyPullDelegate {
             });
         }
         releaseDialog.showDialog(viewHolder.civ_send);
-    }
-
-    public void initScroll(final SquareLiveNewAdapter squareLiveAdapter) {
-        viewHolder.pull_recycleview.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (squareLiveAdapter.getDatas().size() > 0) {
-                    RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                    //判断是当前layoutManager是否为LinearLayoutManager
-                    // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
-                    if (layoutManager instanceof LinearLayoutManager) {
-                        LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
-                        //获取第一个可见view的位置
-                        int firstItemPosition = linearManager.findFirstVisibleItemPosition();
-                        if (firstItemPosition < squareLiveAdapter.getDatas().size()) {
-                            viewHolder.tv_live_time.setText(squareLiveAdapter.getDatas().get(firstItemPosition).getYearMonthDay() + "");
-                        }
-                    }
-                }
-            }
-        });
     }
 
 
