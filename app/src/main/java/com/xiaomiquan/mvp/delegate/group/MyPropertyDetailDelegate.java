@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
+import com.fivefivelike.mybaselibrary.base.BasePullDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -26,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class MyPropertyDetailDelegate extends BaseDelegate {
+public class MyPropertyDetailDelegate extends BaseMyPullDelegate{
     public ViewHolder viewHolder;
 
     @Override

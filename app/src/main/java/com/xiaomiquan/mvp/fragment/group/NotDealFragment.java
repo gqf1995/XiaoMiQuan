@@ -89,7 +89,11 @@ public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, B
 
     @Override
     protected void refreshData() {
-        addRequest(binder.listDeal(id, "1", this));
+        if(!"0".equals(id)) {
+            addRequest(binder.listDeal(id, "1", this));
+        }else{
+            viewDelegate.stopRefresh();
+        }
     }
 
     public static NotDealFragment newInstance(

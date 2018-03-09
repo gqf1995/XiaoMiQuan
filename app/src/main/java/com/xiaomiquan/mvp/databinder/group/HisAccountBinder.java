@@ -33,4 +33,5 @@ public class HisAccountBinder extends BaseDataBind<HisAccountDelegate> {
                 .RxSendRequest();
     }
 
+
 }

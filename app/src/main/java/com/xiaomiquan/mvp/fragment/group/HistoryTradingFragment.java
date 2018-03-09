@@ -77,7 +77,12 @@ public class HistoryTradingFragment extends BasePullFragment<BaseFragentPullDele
 
     @Override
     protected void refreshData() {
-        addRequest(binder.listDeal(id, "2", this));
+        if(!"0".equals(id)) {
+            addRequest(binder.listDeal(id, "2", this));
+        }else{
+            viewDelegate.stopRefresh();
+        }
+
     }
 
     public static HistoryTradingFragment newInstance(

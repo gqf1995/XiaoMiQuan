@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.base.BasePullDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.tablayout.CommonTabLayout;
@@ -15,7 +16,7 @@ import com.xiaomiquan.widget.JudgeNestedScrollView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class HisAccountDelegate extends BaseDelegate {
+public class HisAccountDelegate extends BasePullDelegate {
     public ViewHolder viewHolder;
 
     @Override

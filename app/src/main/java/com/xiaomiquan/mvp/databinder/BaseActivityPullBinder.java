@@ -331,4 +331,71 @@ public class BaseActivityPullBinder<T extends BaseActivityPullDelegate> extends 
                 .build()
                 .RxSendRequest();
     }
+
+
+    /**
+     * 关注人列表
+     */
+    public Disposable attentionUserList(
+            String userId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("page", viewDelegate.page);
+        baseMap.put("userId", userId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().attentionUserList)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("关注人列表")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 粉丝列表
+     */
+    public Disposable attentionMyList(
+            String userId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("page", viewDelegate.page);
+        baseMap.put("userId", userId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().attentionMyList)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("粉丝列表")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+    /**
+     * 关注大V
+     */
+    public Disposable attention(
+            String attentionedUserId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("attentionedUserId", attentionedUserId);
+        baseMap.put("type", 1);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x125)
+                .setRequestUrl(HttpUrl.getIntance().attention)
+                .setRequestName("关注")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 }

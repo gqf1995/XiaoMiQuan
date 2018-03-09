@@ -61,7 +61,8 @@ public class GroupDealCurrencyAdapter extends CommonAdapter<CoinDetail> {
         if (selectPosition == position) {
             icf_check.setVisibility(View.VISIBLE);
             tv_type.setTextColor(CommonUtils.getColor(R.color.white));
-            lin_root.setBackgroundColor(getDatas().size()>=50 ? CommonUtils.getColor(R.color.decreasing_color) : CommonUtils.getColor(R.color.increasing_color));
+//            lin_root.setBackgroundColor(getDatas().size()>=50 ? CommonUtils.getColor(R.color.decreasing_color) : CommonUtils.getColor(R.color.increasing_color));
+            lin_root.setBackgroundColor(CommonUtils.getColor(R.color.mark_color));
         } else {
             icf_check.setVisibility(View.INVISIBLE);
             tv_type.setTextColor(CommonUtils.getColor(R.color.color_font1));

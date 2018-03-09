@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
+import com.just.agentweb.AgentWebConfig;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.xiaomiquan.server.HttpUrl;
@@ -44,6 +45,7 @@ public class SingSettingDBUtil {
         delectUserLogin();
         isLogin = "";
         HttpUrl.getIntance().delectUidAndToken();
+        AgentWebConfig.removeAllCookies();
     }
 
 

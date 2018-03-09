@@ -120,9 +120,13 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
             getDataBack(adapter.getDatas(), strDatas, adapter);
             if (strDatas.size() > 0) {
                 adapter.setSelectPosition(0);
-                onSelectLinsener.onSelectLinsener(adapter.getDatas().get(0));
+                if (onSelectLinsener != null) {
+                    onSelectLinsener.onSelectLinsener(adapter.getDatas().get(0));
+                }
             } else {
-                onSelectLinsener.onSelectLinsener(null);
+                if (onSelectLinsener != null) {
+                    onSelectLinsener.onSelectLinsener(null);
+                }
             }
         }
     }
@@ -158,13 +162,17 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
                 if (datas != null) {
                     if (datas.size() > 0) {
                         if (TYPE_CURRENCY_BUY.equals(type)) {
-                            onSelectLinsener.onSelectLinsener(adapter.getDatas().get(adapter.getSelectPosition()));
+                            if (onSelectLinsener != null) {
+                                onSelectLinsener.onSelectLinsener(adapter.getDatas().get(adapter.getSelectPosition()));
+                            }
                         }
                     }
                 }
                 break;
             case 0x124:
-                onSelectLinsener.onUpdata(data);
+                if (onSelectLinsener != null) {
+                    onSelectLinsener.onUpdata(data);
+                }
                 break;
         }
     }

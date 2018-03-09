@@ -178,7 +178,7 @@ public class TeamDetailActivity extends BasePullActivity<BaseActivityPullDelegat
                 @Override
                 public void onClick(View view, final int position, Object item) {
                     if (view.getId() == R.id.tv_deal) {
-                        SimulatedTradingActivity.startAct(TeamDetailActivity.this, (ArrayList) myGroupAdapter.getDatas(), position, true);
+                        //SimulatedTradingFragment.startAct(TeamDetailActivity.this, (ArrayList) myGroupAdapter.getDatas(), position, true);
                     }
                     if (view.getId() == R.id.tv_look) {
                         CombinationActivity.startAct(TeamDetailActivity.this, myGroupAdapter.getDatas().get(position), true);

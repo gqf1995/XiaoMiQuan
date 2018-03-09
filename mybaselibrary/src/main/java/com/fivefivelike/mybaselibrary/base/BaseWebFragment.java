@@ -50,6 +50,13 @@ public class BaseWebFragment extends BaseFragment<BaseWebViewDelegate> {
         this.mAgentWeb = mAgentWeb;
     }
 
+
+    public void loadUrl(String url) {
+        this.url = url;
+        mAgentWeb.getWebCreator().getWebView().loadUrl(url);
+        indicatorView.show();
+    }
+
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();

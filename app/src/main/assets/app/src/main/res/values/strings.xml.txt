@@ -6,6 +6,7 @@
     <string name="str_market">行情</string>
     <string name="str_comprehensive">综合</string>
     <string name="str_user">个人</string>
+    <string name="str_simulate">模拟</string>
 
     <string name="str_login_label_email">邮箱</string>
     <string name="str_login_et_email">请输入邮箱</string>
@@ -127,6 +128,7 @@
     <string name="str_rank">排名</string>
     <string name="str_price_model">默认显示价格</string>
     <string name="str_customer_service">在线客服</string>
+    <string name="str_management_accounts">管理账户</string>
     <string name="str_my_fans">我的粉丝</string>
     <string name="str_my_home_page">我的主页</string>
     <string name="str_user_home_page">我的个人主页</string>
@@ -240,7 +242,7 @@
     <string name="str_et_buy_price">输入价格</string>
     <string name="str_hold">持有</string>
     <string name="str_poundage">手续费</string>
-    <string name="str_et_buy_num">输入数量</string>
+    <string name="str_et_buy_num">50%仓</string>
     <string name="str_tv_sell_price">卖出价格</string>
     <string name="str_tv_buy_price">买入价格</string>
     <string name="str_et_sell_price">卖出价格</string>
@@ -382,6 +384,11 @@
     <string name="str_pop_release_article">发长文</string>
     <string name="str_pop_release_wechat">导入微信文章</string>
     <string name="str_pop_cancle">取消</string>
+    <string name="str_tv_release_notes">发布须知</string>
+    <string name="str_tv_notes_info">您可以对某个币种的价格走势进行预测，系统会根据您的预测结果予以积分奖励了解详细规则</string>
+    <string name="str_tv_choose_currency">选择币种</string>
+    <string name="str_tv_all_currency">展开全部币种</string>
+    <string name="str_tv_btc_usdt">当前BTC价格指数为12200 USDT</string>
 
     <string name="str_tv_news">热门资讯</string>
     <string name="str_tv_live">大V直播</string>
@@ -452,6 +459,8 @@
     <string name="str_thisweek">当周合约</string>
     <string name="str_nextweek">次周合约</string>
     <string name="str_get_customer_service_msg">收到一条客服消息</string>
+    <string name="str_focuse_other">关注他</string>
+    <string name="str_focuse_each">相互关注</string>
 
 
 
