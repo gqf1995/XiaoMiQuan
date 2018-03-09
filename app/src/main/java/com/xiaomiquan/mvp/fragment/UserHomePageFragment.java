@@ -12,7 +12,6 @@ import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.group.CombinationActivity;
-import com.xiaomiquan.mvp.activity.group.SimulatedTradingActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
@@ -60,7 +59,7 @@ public class UserHomePageFragment extends BasePullFragment<BaseFragentPullDelega
                 @Override
                 public void onClick(View view, final int position, Object item) {
                     if (view.getId() == R.id.tv_deal) {
-                        SimulatedTradingActivity.startAct(getActivity(), (ArrayList)myGroupAdapter.getDatas(),position, true);
+                        //SimulatedTradingFragment.startAct(getActivity(), (ArrayList)myGroupAdapter.getDatas(),position, true);
                     }
                     if (view.getId() == R.id.tv_look) {
                         

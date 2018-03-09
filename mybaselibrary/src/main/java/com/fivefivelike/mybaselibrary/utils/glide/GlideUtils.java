@@ -28,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class GlideUtils {
-    public static final String BASE_URL = "https://otc.forotc.com";
+    public static final String BASE_URL = "https://";
 
     public static String getBaseUrl() {
         return BASE_URL + "/avatar/";

@@ -72,7 +72,11 @@ public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDel
 
     @Override
     protected void refreshData() {
-        addRequest(binder.listPosition(id,this));
+        if(!"0".equals(id)) {
+            addRequest(binder.listPosition(id,this));
+        }else{
+            viewDelegate.stopRefresh();
+        }
     }
 
     public static GroupDetailListFragment newInstance(

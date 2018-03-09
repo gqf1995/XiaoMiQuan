@@ -83,7 +83,6 @@ public class ChatLiveListActivity extends BasePullActivity<BaseActivityPullDeleg
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         } else {
             viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_my_chat_live));
-            viewDelegate.getmToolbarSubTitle().setTextColor(CommonUtils.getColor(R.color.mark_color));
             getDataBack(chatLiveListAdapter.getDatas(), dats, chatLiveListAdapter);
         }
     }

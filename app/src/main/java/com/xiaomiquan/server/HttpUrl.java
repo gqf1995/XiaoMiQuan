@@ -446,6 +446,14 @@ public class HttpUrl {
      * 取消关注
      */
     public String attentiondelete = getBaseUrl() + "/userAttention/delete";
+    /**
+     * 关注人列表
+     */
+    public String attentionUserList = getBaseUrl() + "/userAttention/attentionUserList";
+    /**
+     * 粉丝列表
+     */
+    public String attentionMyList = getBaseUrl() + "/userAttention/attentionMyList";
 
 
     /**

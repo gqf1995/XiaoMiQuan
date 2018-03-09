@@ -14,6 +14,8 @@ import com.xiaomiquan.mvp.activity.group.InviteFriendsActivity;
 import com.xiaomiquan.mvp.activity.user.ChangeUserInfoActivity;
 import com.xiaomiquan.mvp.activity.user.KlineSetActivity;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
+import com.xiaomiquan.mvp.activity.user.MyFansActivity;
+import com.xiaomiquan.mvp.activity.user.MyFocuseActivity;
 import com.xiaomiquan.mvp.activity.user.PersonalDetailsActivity;
 import com.xiaomiquan.mvp.activity.user.SetActivity;
 import com.xiaomiquan.mvp.databinder.UserDrawerBinder;
@@ -90,12 +92,20 @@ public class UserDrawerFragment extends BaseDataBindFragment<UserDrawerDelegate,
         switch (v.getId()) {
             case R.id.lin1:
                 if (SingSettingDBUtil.isLogin(getActivity())) {
-                    PersonalDetailsActivity.startAct(getActivity(), userLogin.getId() + "",0x123);
+                    PersonalDetailsActivity.startAct(getActivity(), userLogin.getId() + "", 0x123);
                 }
                 break;
             case R.id.lin2:
+                //我关注的人
+                if (SingSettingDBUtil.isLogin(getActivity())) {
+                    MyFocuseActivity.startAct(getActivity(), userLogin.getId() + "");
+                }
                 break;
             case R.id.lin3:
+                //我的粉丝
+                if (SingSettingDBUtil.isLogin(getActivity())) {
+                    MyFansActivity.startAct(getActivity(), userLogin.getId() + "");
+                }
                 break;
             case R.id.lin4:
                 //在线客服

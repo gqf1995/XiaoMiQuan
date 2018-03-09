@@ -1,54 +1,68 @@
-package com.xiaomiquan.mvp.activity.group;
+package com.xiaomiquan.mvp.fragment;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcelable;
-import android.text.Editable;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
+import android.widget.FrameLayout;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
-import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
-import com.xiaomiquan.entity.bean.group.GroupBaseDeal;
-import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.entity.bean.group.TradingResult;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.ShareHistoryTradingActivity;
+import com.xiaomiquan.mvp.activity.group.MyAccountActivity;
 import com.xiaomiquan.mvp.databinder.group.GroupDealBinder;
 import com.xiaomiquan.mvp.delegate.group.GroupDealDelegate;
 import com.xiaomiquan.mvp.fragment.group.CurrencyFragment;
+import com.xiaomiquan.mvp.fragment.group.GroupDetailListFragment;
 import com.xiaomiquan.mvp.fragment.group.HistoryEntrustFragment;
 import com.xiaomiquan.mvp.fragment.group.HistoryTradingFragment;
 import com.xiaomiquan.mvp.fragment.group.NotDealFragment;
-import com.xiaomiquan.utils.BigUIUtil;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.fivefivelike.mybaselibrary.utils.glide.GlideUtils.BASE_URL;
 
 /**
  * Created by Andy on 2018/3/6.
  */
 
-public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDelegate, GroupDealBinder> implements CurrencyFragment.OnSelectLinsener {
+public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDelegate, GroupDealBinder> implements CurrencyFragment.OnSelectLinsener {
     CurrencyFragment currencyFragmentBuy;
     CoinDetail coinDetail;
     InnerPagerAdapter innerPagerAdapter;
     int index = 0;
+    String id = "0";
+
+    public interface Linsener {
+        void openDrawerLayout();
+    }
+
+    Linsener linsener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        linsener = (Linsener) activity;
+    }
 
     private Handler handler = new Handler() {//进行延时跳转
         public void handleMessage(Message msg) {
@@ -59,7 +73,6 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
             }
         }
     };
-
 
     //更新币种价格
     public void upData(boolean isUpdataNow) {
@@ -75,18 +88,17 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
             index = 0;
             //直接更新
             currencyFragmentBuy.onUpdata();
-
             handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
             handler.sendEmptyMessageDelayed(1, 1000);
         }
-
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
     }
+
 
     @Override
     public GroupDealBinder getDataBinder(GroupDealDelegate viewDelegate) {
@@ -106,10 +118,6 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
             case 0x123:
                 //买
                 TradingResult tradingResultBuy = GsonUtil.getInstance().toObj(data, TradingResult.class);
-//                groupItems.get(position).setBalance(tradingResultBuy.getBalance());
-                //更新余额
-//                viewDelegate.onSelectLinsener(viewDelegate.mCoinDetail, groupItems.get(position));
-//                viewDelegate.onSelectLinsener(viewDelegate.mCoinDetail, groupItems.get(position));
                 currencyFragmentBuy.setSellResult(tradingResultBuy);
                 currencyFragmentBuy.getSelectPositionData(coinDetail == null ? "" : coinDetail.getSymbol());
                 break;
@@ -119,8 +127,6 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
                 //刷新卖列表
                 currencyFragmentBuy.setSellResult(tradingResultSell);
                 currencyFragmentBuy.getSelectPositionData(coinDetail == null ? "" : coinDetail.getSymbol());
-
-
                 break;
         }
     }
@@ -128,13 +134,51 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        getIntentData();
-        initToolbar(new ToolbarBuilder().setTitle("").setmRightImg1(CommonUtils.getString(R.string.ic_Share1)));
+        initTool();
+        initGroup();
+    }
+
+    public CircleImageView ic_pic;
+    public FrameLayout fl_pic;
+
+    private void initTool() {
+        initToolbar(new ToolbarBuilder().setShowBack(false)
+                .setTitle(CommonUtils.getString(R.string.str_simulation))
+                .setSubTitle(CommonUtils.getString(R.string.str_management_accounts)));
+        View rootView = getActivity().getLayoutInflater().inflate(R.layout.layout_home_top, null);
+        viewDelegate.getFl_content().addView(rootView);
+        this.ic_pic = (CircleImageView) rootView.findViewById(R.id.ic_pic);
+        this.fl_pic = (FrameLayout) rootView.findViewById(R.id.fl_pic);
+        if (SingSettingDBUtil.getUserLogin() != null) {
+            GlideUtils.loadImage(SingSettingDBUtil.getUserLogin().getAvatar(), ic_pic);
+        } else {
+            GlideUtils.loadImage(BASE_URL, ic_pic);
+        }
+        ic_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //打开抽屉
+                linsener.openDrawerLayout();
+            }
+        });
+    }
+
+    @Override
+    protected void clickRightIv() {
+        super.clickRightIv();
+        ShareHistoryTradingActivity.startAct(getActivity(),
+                id);
+    }
+
+    private void initGroup() {
+        viewDelegate.onSelectLinsener(null);
+        initTablelayout();
+        initCurrency();
+        //upData(false);
         viewDelegate.viewHolder.tv_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 commit(0);
-
             }
         });
         viewDelegate.viewHolder.tv_sale.setOnClickListener(new View.OnClickListener() {
@@ -146,45 +190,9 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
         viewDelegate.viewHolder.tv_assets_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               MyAccountActivity.startAct(SimulatedTradingActivity.this,groupItems.get(position));
-            }
-        });
-        initGroup();
-    }
-
-    @Override
-    protected void clickRightIv() {
-        super.clickRightIv();
-        ShareHistoryTradingActivity.startAct(this, groupItems.get(position).getId());
-    }
-
-    private void initGroup() {
-
-        initTablelayout();
-        initCurrency();
-        upData(false);
-//        viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                commit();
-//            }
-//        });
-        viewDelegate.viewHolder.et_coin_search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (currencyFragmentBuy != null) {
-                    currencyFragmentBuy.setSearchOrId(s.toString());
-                }
+                //资产明细
+                MyAccountActivity.startAct(getActivity(),
+                        null);
             }
         });
     }
@@ -212,7 +220,8 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
             }
         }
 
-        addRequest(binder.deal(groupItems.get(position).getId(),
+        addRequest(binder.deal(
+                id,
                 type == 0 ? "1" : "2",
                 type == 0 ? viewDelegate.mCoinDetail.getCoinId() : viewDelegate.mCoinDetail.getCoinId(),
                 viewDelegate.viewHolder.et_sell_price.getText().toString(),
@@ -232,70 +241,59 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
     ArrayList fragments;
 
     private void initTablelayout() {
-        fragments = new ArrayList<>();
-        fragments.add(NotDealFragment.newInstance(groupItems.get(position).getId()));
-        fragments.add(HistoryTradingFragment.newInstance(groupItems.get(position).getId()));
-        fragments.add(HistoryEntrustFragment.newInstance(groupItems.get(position).getId()));
-        if (innerPagerAdapter == null) {
-            mTitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_deal));
-            mTabEntities = new ArrayList<>();
-            for (int i = 0; i < mTitles.size(); i++) {
-                mTabEntities.add(new TabEntity(mTitles.get(i), 0, 0));
+        if (!ListUtils.isEmpty(getChildFragmentManager().getFragments())) {
+            fragments = new ArrayList<>();
+            fragments.add(GroupDetailListFragment.newInstance(id));
+            fragments.add(NotDealFragment.newInstance(id));
+            fragments.add(HistoryTradingFragment.newInstance(id));
+            fragments.add(HistoryEntrustFragment.newInstance(id));
+            if (innerPagerAdapter == null) {
+                mTitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_combination));
+                mTabEntities = new ArrayList<>();
+                for (int i = 0; i < mTitles.size(); i++) {
+                    mTabEntities.add(new TabEntity(mTitles.get(i), 0, 0));
+                }
+                viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
+                innerPagerAdapter = new InnerPagerAdapter(getChildFragmentManager(), fragments, mTitles.toArray(new String[mTitles.size()]));
+                viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.vp_sliding);
+            } else {
+                innerPagerAdapter.setDatas(fragments);
             }
-            viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
-            innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, mTitles.toArray(new String[mTitles.size()]));
-            viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.vp_sliding);
-        } else {
-            innerPagerAdapter.setDatas(fragments);
         }
     }
 
-    public static void startAct(Activity activity,
-                                List<GroupItem> groupItems,
-                                int position,
-                                boolean isMy
-    ) {
-        if (SingSettingDBUtil.getUserLogin() == null) {
-            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
-            return;
-        }
-        Intent intent = new Intent(activity, SimulatedTradingActivity.class);
-        intent.putParcelableArrayListExtra("groupItems", (ArrayList<? extends Parcelable>) groupItems);
-        intent.putExtra("isMy", isMy);
-        intent.putExtra("position", position);
-        activity.startActivity(intent);
-    }
-
-    private List<GroupItem> groupItems;
-    boolean isMy;
-    int position;
-
-    private void getIntentData() {
-        Intent intent = getIntent();
-        groupItems = intent.getParcelableArrayListExtra("groupItems");
-        isMy = intent.getBooleanExtra("isMy", false);
-        position = intent.getIntExtra("position", 0);
-        viewDelegate.onSelectLinsener(null, null);
-        viewDelegate.viewHolder.tv_usable.setText(BigUIUtil.getinstance().bigPrice(groupItems.get(position).getBalance()));
-    }
+//    public static void startAct(Activity activity,
+//                                List<GroupItem> groupItems,
+//                                int position,
+//                                boolean isMy
+//    ) {
+//        if (SingSettingDBUtil.getUserLogin() == null) {
+//            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+//            return;
+//        }
+//        Intent intent = new Intent(activity, SimulatedTradingFragment.class);
+//        intent.putParcelableArrayListExtra("groupItems", (ArrayList<? extends Parcelable>) groupItems);
+//        intent.putExtra("isMy", isMy);
+//        intent.putExtra("position", position);
+//        activity.startActivity(intent);
+//    }
 
     public void initCurrency() {
-        if (viewDelegate.getFragmentList() == null) {
-            viewDelegate.initAddFragment(R.id.fl_currency, getSupportFragmentManager());
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        if (getChildFragmentManager().findFragmentByTag("CurrencyFragment") == null) {
             currencyFragmentBuy = CurrencyFragment.newInstance(CurrencyFragment.TYPE_CURRENCY_BUY, "");
-            currencyFragmentBuy.setOnSelectLinsener(this);
-            viewDelegate.addFragment(currencyFragmentBuy);
+            transaction.add(R.id.fl_currency, currencyFragmentBuy, "CurrencyFragment");
         } else {
-            currencyFragmentBuy.setNewDatas(CurrencyFragment.TYPE_CURRENCY_BUY, "");
+            currencyFragmentBuy = (CurrencyFragment) getChildFragmentManager().findFragmentByTag("CurrencyFragment");
+            transaction.show(currencyFragmentBuy);
         }
-        viewDelegate.showFragment(0);
-        viewDelegate.viewHolder.et_coin_search.getText().clear();
+        transaction.commitAllowingStateLoss();
     }
 
     @Override
     public void onSelectLinsener(CoinDetail coinDetail) {
         this.coinDetail = coinDetail;
-        viewDelegate.onSelectLinsener(coinDetail, groupItems.get(position));
+        viewDelegate.onSelectLinsener(coinDetail);
     }
 
     //价格更新
@@ -304,33 +302,4 @@ public class SimulatedTradingActivity extends BaseDataBindActivity<GroupDealDele
         viewDelegate.setUpdata(data);
     }
 
-
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()) {
-            case R.id.tv_left:
-                if (groupItems.size() == 1) {
-                    return;
-                }
-                if (position == 0) {
-                    position = groupItems.size() - 1;
-                } else {
-                    position--;
-                }
-                initGroup();
-                break;
-            case R.id.tv_right:
-                if (groupItems.size() == 1) {
-                    return;
-                }
-                if (position == groupItems.size() - 1) {
-                    position = 0;
-                } else {
-                    position++;
-                }
-                initGroup();
-                break;
-        }
-    }
 }
