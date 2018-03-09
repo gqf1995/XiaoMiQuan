@@ -295,11 +295,13 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
      */
     public Disposable searchCoin(
             String name,
+            String demoId,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("name", name);//搜索
+        baseMap.put("demoId", demoId);
         baseMap.put("pageNum", viewDelegate.page);
-        baseMap.put("pageSize", viewDelegate.pagesize);
+        baseMap.put("pageSize", 50);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().searchCoin)

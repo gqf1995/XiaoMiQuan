@@ -1,13 +1,11 @@
 package com.xiaomiquan.mvp.delegate.group;
 
 import android.graphics.Color;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.base.BasePullDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.github.mikephil.charting.charts.PieChart;
@@ -32,8 +30,8 @@ public class PositionDetailDelegate extends BasePullDelegate {
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
         viewHolder.scrollView_scroll.setTabAndPager(viewHolder.lin_tab,
-                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px),
-                viewHolder.pull_recycleview, false);
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_110px),
+                viewHolder.fl_content, false);
         initProperty();
     }
 
@@ -47,7 +45,7 @@ public class PositionDetailDelegate extends BasePullDelegate {
         // 显示百分比
         mPieChart.setUsePercentValues(true);
         // 描述信息
-//        mPieChart.setDescription("测试饼图");
+        //        mPieChart.setDescription("测试饼图");
         /*
             设置饼图中心是否是空心的
             true 中间是空心的，环形图
@@ -116,23 +114,22 @@ public class PositionDetailDelegate extends BasePullDelegate {
         mPieChart.invalidate();
     }
 
+
     public static class ViewHolder {
         public View rootView;
         public TextView tv_end_time;
         public PieChart pieChart;
         public LinearLayout lin_tab;
-        public RecyclerView pull_recycleview;
+        public FrameLayout fl_content;
         public JudgeNestedScrollView scrollView_scroll;
-        public SwipeRefreshLayout swipeRefreshLayout;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.tv_end_time = (TextView) rootView.findViewById(R.id.tv_end_time);
             this.pieChart = (PieChart) rootView.findViewById(R.id.pieChart);
             this.lin_tab = (LinearLayout) rootView.findViewById(R.id.lin_tab);
-            this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
+            this.fl_content = (FrameLayout) rootView.findViewById(R.id.fl_content);
             this.scrollView_scroll = (JudgeNestedScrollView) rootView.findViewById(R.id.scrollView_scroll);
-            this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         }
 
     }

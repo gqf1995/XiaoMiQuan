@@ -73,7 +73,7 @@ public class AllGroupDelegate extends BaseFragentPullDelegate {
     List<BannerEntity> bannerDatas;
 
     public void setBanner(List<BannerEntity> datas) {
-        if (!ListUtils.isEmpty(datas)) {
+        if (ListUtils.isEmpty(datas)) {
             return;
         }
         bannerDatas = datas;

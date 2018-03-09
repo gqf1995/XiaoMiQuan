@@ -51,7 +51,7 @@
                         android:textSize="@dimen/text_trans_32px"
                         />
 
-                    <View
+                    <FrameLayout
                         android:id="@+id/view_back_point"
                         android:layout_width="@dimen/trans_10px"
                         android:layout_height="@dimen/trans_10px"
@@ -102,11 +102,12 @@
                     android:textSize="@dimen/text_trans_28px"
                     android:visibility="gone"/>
 
-                <View
+                <FrameLayout
                     android:id="@+id/view_subtitle_point"
                     android:layout_width="@dimen/trans_10px"
                     android:layout_height="@dimen/trans_10px"
-                    android:layout_margin="@dimen/trans_30px"
+                    android:layout_marginTop="@dimen/trans_20px"
+                    android:layout_marginRight="@dimen/trans_5px"
                     android:background="@drawable/shape_red_max_radiu"
                     android:visibility="gone"/>
             </FrameLayout>
@@ -127,12 +128,13 @@
                     android:visibility="gone"
                     />
 
-                <View
+                <FrameLayout
                     android:id="@+id/view_img2_point"
                     android:layout_width="@dimen/trans_10px"
                     android:layout_height="@dimen/trans_10px"
                     android:layout_gravity="right"
-                    android:layout_margin="@dimen/trans_20px"
+                    android:layout_marginTop="@dimen/trans_20px"
+                    android:layout_marginRight="@dimen/trans_5px"
                     android:background="@drawable/shape_red_max_radiu"
                     android:visibility="gone"/>
             </FrameLayout>
@@ -153,12 +155,13 @@
                     android:visibility="gone"
                     />
 
-                <View
+                <FrameLayout
                     android:id="@+id/view_img1_point"
                     android:layout_width="@dimen/trans_10px"
                     android:layout_height="@dimen/trans_10px"
                     android:layout_gravity="right"
-                    android:layout_margin="@dimen/trans_20px"
+                    android:layout_marginTop="@dimen/trans_20px"
+                    android:layout_marginRight="@dimen/trans_5px"
                     android:background="@drawable/shape_red_max_radiu"
                     android:visibility="gone"/>
             </FrameLayout>
@@ -179,12 +182,13 @@
                     android:visibility="gone"
                     />
 
-                <View
+                <FrameLayout
                     android:id="@+id/view_img_point"
                     android:layout_width="@dimen/trans_10px"
                     android:layout_height="@dimen/trans_10px"
                     android:layout_gravity="right"
-                    android:layout_margin="@dimen/trans_20px"
+                    android:layout_marginTop="@dimen/trans_20px"
+                    android:layout_marginRight="@dimen/trans_5px"
                     android:background="@drawable/shape_red_max_radiu"
                     android:visibility="gone"/>
             </FrameLayout>

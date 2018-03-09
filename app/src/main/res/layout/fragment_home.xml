@@ -9,36 +9,7 @@
     <include layout="@layout/include_toolbar_with_statusbar" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/chart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="聊天列表" />
-
-        <Button
-            android:id="@+id/btn_my_position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我的模拟账户" />
-
-        <Button
-            android:id="@+id/btn_his_position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="他的模拟账户" />
-
-        <Button
-            android:id="@+id/fabu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="发布"
-            />
-    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fl_web"

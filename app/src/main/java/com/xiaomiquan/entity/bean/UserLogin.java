@@ -40,11 +40,14 @@ public class UserLogin {
     private int fansCount;
     private String avatar;
     private String email;
+    private String demoId;
 
-    @Generated(hash = 512927053)
+
+
+    @Generated(hash = 973876413)
     public UserLogin(long id, String brief, int score, String phone, String nickName,
-                     String imToken, String vBrief, int attentionCount, int fansCount, String avatar,
-                     String email) {
+            String imToken, String vBrief, int attentionCount, int fansCount, String avatar,
+            String email, String demoId) {
         this.id = id;
         this.brief = brief;
         this.score = score;
@@ -56,10 +59,20 @@ public class UserLogin {
         this.fansCount = fansCount;
         this.avatar = avatar;
         this.email = email;
+        this.demoId = demoId;
     }
 
     @Generated(hash = 180802810)
     public UserLogin() {
+    }
+
+
+
+    public String getBrief() {
+        if (TextUtils.isEmpty(brief)) {
+            return "";
+        }
+        return brief;
     }
 
     public long getId() {
@@ -68,13 +81,6 @@ public class UserLogin {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getBrief() {
-        if (TextUtils.isEmpty(brief)) {
-            return "";
-        }
-        return brief;
     }
 
     public void setBrief(String brief) {
@@ -151,6 +157,14 @@ public class UserLogin {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDemoId() {
+        return demoId;
+    }
+
+    public void setDemoId(String demoId) {
+        this.demoId = demoId;
     }
 
     public String getVBrief() {

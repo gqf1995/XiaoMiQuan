@@ -30,6 +30,7 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
     GroupDealCurrencyAdapter adapter;
     public static final String TYPE_CURRENCY_BUY = "type_currency_buy";
     public static final String TYPE_CURRENCY_SELL = "type_currency_sell";
+    public String demoId;
     public String type;
     public String searchOrId = "";
 
@@ -109,6 +110,8 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
             initRecycleViewPull(adapter, layoutManager);
             viewDelegate.viewHolder.pull_recycleview.setHasFixedSize(true);
             viewDelegate.viewHolder.pull_recycleview.setNestedScrollingEnabled(false);
+            viewDelegate.viewHolder.pull_recycleview.setVerticalScrollBarEnabled(true);
+            viewDelegate.viewHolder.pull_recycleview.setScrollBarSize((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_5px));
             viewDelegate.setIsPullDown(false);
             viewDelegate.setNoDataImgId(0);
             viewDelegate.setNoDataTxt(CommonUtils.getString(R.string.str_now_no_data));
@@ -182,13 +185,14 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
     protected void refreshData() {
         if (adapter != null) {
             if (TYPE_CURRENCY_BUY.equals(type)) {
-                addRequest(binder.searchCoin(searchOrId, this));
+                addRequest(binder.searchCoin(searchOrId, demoId, this));
             } else if (TYPE_CURRENCY_SELL.equals(type)) {
                 addRequest(binder.myCoin(searchOrId, this));
             }
         }
     }
 
+    //刷新币种价格
     public void onUpdata() {
         if (adapter != null) {
             if (ListUtils.isEmpty(adapter.getDatas())) {
@@ -204,11 +208,13 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
     }
 
     public static CurrencyFragment newInstance(
+            String demoId,
             String type,
             String searchOrId
     ) {
         CurrencyFragment newFragment = new CurrencyFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("demoId", demoId);
         bundle.putString("type", type);
         bundle.putString("searchOrId", searchOrId);
         newFragment.setArguments(bundle);
@@ -219,8 +225,11 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if ((savedInstanceState != null)
-                && savedInstanceState.containsKey("type") && savedInstanceState.containsKey("searchOrId")) {
+                && savedInstanceState.containsKey("type")
+                && savedInstanceState.containsKey("demoId")
+                && savedInstanceState.containsKey("searchOrId")) {
             type = savedInstanceState.getString("type");
+            demoId = savedInstanceState.getString("demoId");
             searchOrId = savedInstanceState.getString("searchOrId");
         }
     }
@@ -230,6 +239,7 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
         super.onSaveInstanceState(outState);
         outState.putString("searchOrId", searchOrId);
         outState.putString("type", type);
+        outState.putString("demoId", demoId);
     }
 
 
