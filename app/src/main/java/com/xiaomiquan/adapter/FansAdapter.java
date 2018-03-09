@@ -57,7 +57,8 @@ public class FansAdapter extends CommonAdapter<Participant> {
             @Override
             public void onClick(View v) {
                 if (defaultClickLinsener != null) {
-                    defaultClickLinsener.onClick(v, position, null);
+                        defaultClickLinsener.onClick(v, position, null);
+
                 }
             }
         });

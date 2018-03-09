@@ -3,18 +3,22 @@ package com.xiaomiquan.mvp.activity.chat;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.UserLogin;
+import com.xiaomiquan.entity.bean.chat.CheckScore;
 import com.xiaomiquan.entity.bean.event.ChatControlEvent;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
-import com.xiaomiquan.mvp.databinder.IMBinder;
+import com.xiaomiquan.mvp.databinder.GroupChatBinder;
 import com.xiaomiquan.mvp.delegate.CustomerServiceActDelegate;
 import com.xiaomiquan.mvp.fragment.ConversationFragmentEx;
 import com.xiaomiquan.utils.UserSet;
@@ -31,7 +35,7 @@ import io.rong.imlib.model.UserInfo;
  * Created by 郭青枫 on 2018/3/5 0005.
  */
 
-public class GroupChatActivity extends BaseDataBindActivity<CustomerServiceActDelegate, IMBinder> {
+public class GroupChatActivity extends BaseDataBindActivity<CustomerServiceActDelegate, GroupChatBinder> {
 
     @Override
     protected Class<CustomerServiceActDelegate> getDelegateClass() {
@@ -118,20 +122,43 @@ public class GroupChatActivity extends BaseDataBindActivity<CustomerServiceActDe
     }
 
     @Override
-    public IMBinder getDataBinder(CustomerServiceActDelegate viewDelegate) {
-        return new IMBinder(viewDelegate) {
-        };
+    public GroupChatBinder getDataBinder(CustomerServiceActDelegate viewDelegate) {
+        return new GroupChatBinder(viewDelegate);
     }
+
+    private Handler handler = new Handler() {//进行延时跳转
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    //定时刷新 检测
+                    addRequest(binder.checkScore(id, GroupChatActivity.this));
+                    handler.sendEmptyMessageDelayed(1, 30000);
+                    break;
+            }
+        }
+    };
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        handler.removeCallbacksAndMessages(null);//清空消息方便gc回收
         RongIM.getInstance().setMessageAttachedUserInfo(false);
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-
+        switch (requestCode) {
+            case 0x124:
+                //检测结果
+                CheckScore checkScore = GsonUtil.getInstance().toObj(data, CheckScore.class);
+                isMy = checkScore.isLeader();
+                isCanTalk = checkScore.isCanSpeak();
+                if (fragment != null) {
+                    fragment.setClose(checkScore.isJoinGroup());
+                }
+                break;
+        }
     }
 
     //客服消息
@@ -147,6 +174,7 @@ public class GroupChatActivity extends BaseDataBindActivity<CustomerServiceActDe
     private void getIntentData() {
         UserLogin userLogin = SingSettingDBUtil.getUserLogin();
         RongIM.getInstance().setMessageAttachedUserInfo(true);
+        handler.sendEmptyMessageDelayed(1, 30000);
         RongIM.getInstance().setCurrentUserInfo(new UserInfo(userLogin.getId() + "", userLogin.getNickName(), Uri.parse(userLogin.getAvatar())));
         Intent intent = getIntent();
         id = intent.getStringExtra("id");

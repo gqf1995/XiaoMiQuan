@@ -64,7 +64,11 @@ public class MyFansActivity extends BasePullActivity<BaseActivityPullDelegate, B
                     if (SingSettingDBUtil.getUserLogin() != null) {
                         if (id.equals(SingSettingDBUtil.getUserLogin().getId() + "")) {
                             //关注
-
+                            if (!fansAdapter.getDatas().get(position).isAttentionMyfans()) {
+                                addRequest(binder.attention(fansAdapter.getDatas().get(position).getId() + "", MyFansActivity.this));
+                                fansAdapter.getDatas().get(position).setAttentionMyfans(true);
+                                fansAdapter.notifyItemChanged(position);
+                            }
                         }
                     }
                 }

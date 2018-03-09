@@ -378,5 +378,24 @@ public class BaseActivityPullBinder<T extends BaseActivityPullDelegate> extends 
                 .build()
                 .RxSendRequest();
     }
-
+    /**
+     * 关注大V
+     */
+    public Disposable attention(
+            String attentionedUserId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("attentionedUserId", attentionedUserId);
+        baseMap.put("type", 1);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x125)
+                .setRequestUrl(HttpUrl.getIntance().attention)
+                .setRequestName("关注")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 }
