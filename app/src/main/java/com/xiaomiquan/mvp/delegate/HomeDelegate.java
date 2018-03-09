@@ -82,9 +82,6 @@ public class HomeDelegate extends BaseDelegate {
 
 
         return R.layout.fragment_home;
-
-
-
     }
 
     public static class ViewHolder {

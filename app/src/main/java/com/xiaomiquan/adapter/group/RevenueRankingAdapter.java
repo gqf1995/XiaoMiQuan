@@ -1,18 +1,13 @@
 package com.xiaomiquan.adapter.group;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.TextView;
-
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.entity.bean.group.GroupItem;
-import com.xiaomiquan.entity.bean.group.GroupRank;
+import com.xiaomiquan.mvp.fragment.group.RevenueRankingFragment;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
-
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RevenueRankingAdapter extends CommonAdapter<GroupItem> {
@@ -25,11 +20,9 @@ public class RevenueRankingAdapter extends CommonAdapter<GroupItem> {
     private TextView tv_name;
     private TextView tv_focuse_num;
     private TextView tv_details;
-    String type;
 
-    public RevenueRankingAdapter(Context context , List<GroupItem> datas,String type) {
+    public RevenueRankingAdapter(Context context, List<GroupItem> datas) {
         super(context, R.layout.adapter_revenue_ranking, datas);
-        this.type=type;
     }
 
 
@@ -49,17 +42,17 @@ public class RevenueRankingAdapter extends CommonAdapter<GroupItem> {
         tv_focuse_num = holder.getView(R.id.tv_focuse_num);
         tv_details = holder.getView(R.id.tv_details);
 
-        switch (Integer.parseInt(type)) {
-            case 0:
+        switch (RevenueRankingFragment.type) {
+            case "0":
                 tv_rate_title.setText("今日收益");
                 break;
-            case 1:
+            case "1":
                 tv_rate_title.setText("上周收益");
                 break;
-            case 2:
+            case "2":
                 tv_rate_title.setText("上月收益");
                 break;
-            case 3:
+            case "3":
                 tv_rate_title.setText("累计收益");
                 break;
         }

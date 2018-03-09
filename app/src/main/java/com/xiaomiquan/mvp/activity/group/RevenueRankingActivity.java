@@ -1,10 +1,12 @@
 package com.xiaomiquan.mvp.activity.group;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ListUtils;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -25,6 +27,7 @@ public class RevenueRankingActivity extends BaseDataBindActivity<RevenueRankingD
 
     ArrayList<Fragment> fragments;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+    InnerPagerAdapter innerPagerAdapter;
 
     @Override
     protected Class<RevenueRankingDelegate> getDelegateClass() {
@@ -52,9 +55,21 @@ public class RevenueRankingActivity extends BaseDataBindActivity<RevenueRankingD
                 mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
             }
             viewDelegate.viewHolder.tl.setTabData(mTabEntities);
-            InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
+            innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
             viewDelegate.viewHolder.tl.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.vp_sliding);
         }
+        viewDelegate.viewHolder.vp_sliding.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+                RevenueRankingFragment.type=position+"";
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
 

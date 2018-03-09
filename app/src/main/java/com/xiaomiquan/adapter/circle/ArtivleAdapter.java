@@ -135,6 +135,7 @@ public class ArtivleAdapter extends CommonAdapter<SquareLive> {
                 }
             }
         });
+
         tv_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

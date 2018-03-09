@@ -82,7 +82,7 @@ public class HisAccountActivity extends BaseDataBindActivity<HisAccountDelegate,
 
     private void getIntentData() {
         Intent intent = getIntent();
-        id=intent.getStringExtra("id");
+        id = intent.getStringExtra("id");
     }
 
 }
