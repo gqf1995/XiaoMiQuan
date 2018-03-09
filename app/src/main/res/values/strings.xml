@@ -206,6 +206,7 @@
     <string name="str_yesterday_earnings">昨日收益</string>
     <string name="str_week_earnings">周收益</string>
     <string name="str_last_week_earnings">上周收益</string>
+    <string name="str_last_month_earnings">上月收益</string>
     <string name="str_month_earnings">月收益</string>
     <string name="str_earnings_chart">收益走势</string>
     <string name="str_after_payment">付费后可见</string>
@@ -463,7 +464,6 @@
     <string name="str_focuse_each">相互关注</string>
 
 
-
     <string-array name="circle_show_type">
         <item>全部</item>
         <item>圈主</item>
@@ -611,6 +611,12 @@
         <item>观点</item>
         <item>预测</item>
         <item>文章</item>
+    </string-array>
+    <string-array name="sa_select_release_diolog">
+        <item>观点</item>
+        <item>文章</item>
+        <item>分享</item>
+        <item>预测</item>
     </string-array>
 
     <string-array name="sa_select_hisaccount">

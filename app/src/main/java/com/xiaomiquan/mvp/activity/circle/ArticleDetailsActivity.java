@@ -238,7 +238,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     @Override
     protected void refreshData() {
         if (userLogin != null) {
-            addRequest(binder.getTopicContent(squareLive.getId(), ArticleDetailsActivity.this));
+            addRequest(binder.getComment(squareLive.getId(), ArticleDetailsActivity.this));
         } else {
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);

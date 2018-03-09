@@ -19,6 +19,7 @@ import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
+import com.xiaomiquan.adapter.circle.SquareLiveNewAdapter;
 import com.xiaomiquan.adapter.circle.SquareShortCutAdapter;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
@@ -48,7 +49,7 @@ import java.util.List;
 public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinder> {
 
     SquareShortCutAdapter squareShortCutAdapter;
-    SquareLiveAdapter squareLiveAdapter;
+    SquareLiveNewAdapter squareLiveAdapter;
     UserLogin userLogin;
 
     @Override
@@ -68,34 +69,10 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_square)).setSubTitle(CommonUtils.getString(R.string.str_release)).setShowBack(false));
         userLogin = SingSettingDBUtil.getUserLogin();
         initShortCut();
-        floatBtn();
         initLive(new ArrayList<SquareLive>());
 //        addRequest(binder.getLive(SquareFragment.this));
         viewDelegate.viewHolder.lin_live.setOnClickListener(this);
-
-        viewDelegate.viewHolder.pull_recycleview.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (squareLiveAdapter.getDatas().size() > 0) {
-                    RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                    //判断是当前layoutManager是否为LinearLayoutManager
-                    // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
-                    if (layoutManager instanceof LinearLayoutManager) {
-                        LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
-                        //获取第一个可见view的位置
-                        int firstItemPosition = linearManager.findFirstVisibleItemPosition();
-                        viewDelegate.viewHolder.tv_live_time.setText(
-                                squareLiveAdapter.getDatas().get(firstItemPosition).getYearMonthDay() + "");
-                    }
-                }
-            }
-        });
+        viewDelegate.initScroll(squareLiveAdapter);
     }
 
     @Override
@@ -119,35 +96,7 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-        final SquarePopupWindow squarePopupWindow = new SquarePopupWindow(getActivity());
-        squarePopupWindow.setOnItemClickListener(new SquarePopupWindow.OnItemClickListener() {
-            @Override
-            public void setOnItemClick(View v) {
-                if (userLogin != null) {
-                    switch (v.getId()) {
-                        case R.id.lin_dynamic:
-                            ReleaseDynamicActivity.startAct(getActivity(), "2", "1");
-                            squarePopupWindow.dismiss();
-                            break;
-                        case R.id.lin_article:
-                            ReleaseArticleActivity.startAct(getActivity(), "1", "1", "0");
-                            squarePopupWindow.dismiss();
-                            break;
-                        case R.id.lin_wechat:
-                            ReleaseArticleActivity.startAct(getActivity(), "1", "1", "1");
-                            squarePopupWindow.dismiss();
-                            break;
-                        case R.id.btn_cancel:
-                            squarePopupWindow.dismiss();
-                            break;
-                    }
-                } else {
-                    ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
-                }
-            }
-        });
-        squarePopupWindow.showAtLocation(viewDelegate.viewHolder.lin_live, Gravity.BOTTOM, 0, 0);
-
+        viewDelegate.fabu();
     }
 
     @Override
@@ -219,17 +168,15 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
     public void initLive(final List<SquareLive> squareLives) {
         if (squareLiveAdapter == null) {
             onRefresh();
-            //if (squareLives.size() > 0) {
-            squareLiveAdapter = new SquareLiveAdapter(binder, getActivity(), squareLives);
-
+            squareLiveAdapter = new SquareLiveNewAdapter(binder, getActivity(), squareLives);
             squareLiveAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                        if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
-                            ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
-                        } else {
-                            TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
-                        }
+                    if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
+                        ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                    } else {
+                        TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                    }
 
                 }
 
@@ -266,44 +213,6 @@ public class SquareFragment extends BasePullFragment<SquareDelegate, SquareBinde
             getDataBack(squareLiveAdapter.getDatas(), squareLives, squareLiveAdapter);
         }
 
-    }
-
-    SquarePopupWindow squarePopupWindow;
-
-    public void floatBtn() {
-        viewDelegate.viewHolder.civ_send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                squarePopupWindow = new SquarePopupWindow(getActivity());
-                squarePopupWindow.setOnItemClickListener(new SquarePopupWindow.OnItemClickListener() {
-                    @Override
-                    public void setOnItemClick(View v) {
-                        if (userLogin != null) {
-                            switch (v.getId()) {
-                                case R.id.lin_dynamic:
-                                    ReleaseDynamicActivity.startAct(getActivity(), "2", "1");
-                                    squarePopupWindow.dismiss();
-                                    break;
-                                case R.id.lin_article:
-                                    ReleaseArticleActivity.startAct(getActivity(), "1", "1", "0");
-                                    squarePopupWindow.dismiss();
-                                    break;
-                                case R.id.lin_wechat:
-                                    ReleaseArticleActivity.startAct(getActivity(), "1", "1", "1");
-                                    squarePopupWindow.dismiss();
-                                    break;
-                                case R.id.btn_cancel:
-                                    squarePopupWindow.dismiss();
-                                    break;
-                            }
-                        } else {
-                            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
-                        }
-                    }
-                });
-                squarePopupWindow.showAtLocation(viewDelegate.viewHolder.lin_live, Gravity.BOTTOM, 0, 0);
-            }
-        });
     }
 
     @Override

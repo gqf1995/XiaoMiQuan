@@ -42,6 +42,7 @@ import com.xiaomiquan.mvp.fragment.HomeFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.SimulatedTradingFragment;
 import com.xiaomiquan.mvp.fragment.UserDrawerFragment;
+import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
 import com.xiaomiquan.mvp.fragment.circle.SquareWebFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
@@ -60,7 +61,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 
-public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener,SimulatedTradingFragment.Linsener, UserDrawerFragment.Linsener, HomeFragment.Linsener {
+public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener, SimulatedTradingFragment.Linsener, UserDrawerFragment.Linsener, HomeFragment.Linsener {
 
     String uid;
     UserLogin userLogin;
@@ -160,6 +161,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     HomeFragment homeFragment;
     SimulatedTradingFragment simulatedTradingFragment;
     SquareWebFragment squareWebFragment;
+    SquareFragment squareFragment;
 
     //添加主页4个基础页面
     public void initFragment(boolean isInit) {
@@ -169,13 +171,13 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         if (isInit) {
             viewDelegate.addFragment(homeFragment = new HomeFragment());
             viewDelegate.addFragment(marketFragment = new MarketFragment());
-            viewDelegate.addFragment(squareWebFragment = new SquareWebFragment());
+            viewDelegate.addFragment(squareFragment = new SquareFragment());
             viewDelegate.addFragment(simulatedTradingFragment = new SimulatedTradingFragment());
             loadDrawerLayout(true);
         } else {
             homeFragment = (HomeFragment) viewDelegate.getFragmentByIndex(0);
             marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
-            squareWebFragment = (SquareWebFragment) viewDelegate.getFragmentByIndex(2);
+            squareFragment = (SquareFragment) viewDelegate.getFragmentByIndex(2);
             simulatedTradingFragment = (SimulatedTradingFragment) viewDelegate.getFragmentByIndex(3);
             loadDrawerLayout(false);
         }

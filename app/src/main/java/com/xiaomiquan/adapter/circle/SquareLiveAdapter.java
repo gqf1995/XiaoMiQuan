@@ -93,38 +93,23 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
         lin_praise = holder.getView(R.id.lin_praise);
         lin_comment = holder.getView(R.id.lin_comment);
 
-        if (s.getImgList() != null) {
-            dynamicPhotoAdapter = new DynamicPhotoAdapter(context, s.getImgList());
-            dynamicPhotoAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Album.gallery(context)
-                            .widget(Widget.newDarkBuilder(context).title(CommonUtils.getString(R.string.str_img_preview)).build())
-                            .checkedList((ArrayList<String>) s.getImgList()) // 要浏览的图片列表：ArrayList<String>。
-                            .navigationAlpha(50) // Android5.0+的虚拟导航栏的透明度。
-                            .checkable(false)
-                            .start(); // 千万不要忘记调用start()方法。
-                }
 
-                @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    return false;
-                }
-            });
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            };
-            iv_img.setLayoutManager(gridLayoutManager);
-            iv_img.setAdapter(dynamicPhotoAdapter);
-
-        }
+        //加载图片
+        initImg(s.getImgList());
 
         /**
          * 判断 文章、帖子
          */
+        switch (s.getType()) {
+            case "1":
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            case "4":
+                break;
+        }
         if (s.getType().equals("1")) {
             tv_dynamic.setText(CommonUtils.getString(R.string.str_tv_send_article));
             lin_article.setVisibility(View.VISIBLE);
@@ -133,30 +118,19 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
             tv_title.setText(s.getTitle());
             tv_article.setText(Html.fromHtml(s.getContent()));
         } else {
-            if (s.getImg() == null) {
-                iv_img.setVisibility(View.GONE);
-                tv_dynamic.setText(s.getContent());
-                lin_article.setVisibility(View.GONE);
-            } else {
-                iv_img.setVisibility(View.VISIBLE);
-                tv_dynamic.setText(s.getContent());
-                lin_article.setVisibility(View.GONE);
-
-            }
-
+            tv_dynamic.setText(s.getContent());
+            lin_article.setVisibility(View.GONE);
         }
         /**
          * 用户是否点赞
          */
         if (s.isUserPraise()) {
-
             tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
             tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
         } else {
             tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
             tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
         }
-
 
         /**
          * 用户信息加载
@@ -239,6 +213,40 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
                 .setRequestCallback(null)
                 .build()
                 .RxSendRequest();
+    }
+
+    /**
+     * 图片预览
+     */
+    private void initImg(final List<String> path) {
+        if (path != null) {
+            dynamicPhotoAdapter = new DynamicPhotoAdapter(context, path);
+            dynamicPhotoAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    Album.gallery(context)
+                            .widget(Widget.newDarkBuilder(context).title(CommonUtils.getString(R.string.str_img_preview)).build())
+                            .checkedList((ArrayList<String>) path) // 要浏览的图片列表：ArrayList<String>。
+                            .navigationAlpha(50) // Android5.0+的虚拟导航栏的透明度。
+                            .checkable(false)
+                            .start(); // 千万不要忘记调用start()方法。
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            iv_img.setLayoutManager(gridLayoutManager);
+            iv_img.setAdapter(dynamicPhotoAdapter);
+
+        }
     }
 
 }

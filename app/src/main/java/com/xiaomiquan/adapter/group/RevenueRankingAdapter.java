@@ -2,12 +2,16 @@ package com.xiaomiquan.adapter.group;
 
 import android.content.Context;
 import android.widget.TextView;
+
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.mvp.fragment.group.RevenueRankingFragment;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
+
 import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RevenueRankingAdapter extends CommonAdapter<GroupItem> {
@@ -44,16 +48,16 @@ public class RevenueRankingAdapter extends CommonAdapter<GroupItem> {
 
         switch (RevenueRankingFragment.type) {
             case "0":
-                tv_rate_title.setText("今日收益");
+                tv_rate_title.setText(CommonUtils.getString(R.string.str_today_earnings));
                 break;
             case "1":
-                tv_rate_title.setText("上周收益");
+                tv_rate_title.setText(CommonUtils.getString(R.string.str_last_week_earnings));
                 break;
             case "2":
-                tv_rate_title.setText("上月收益");
+                tv_rate_title.setText(CommonUtils.getString(R.string.str_last_month_earnings));
                 break;
             case "3":
-                tv_rate_title.setText("累计收益");
+                tv_rate_title.setText(CommonUtils.getString(R.string.str_tv_add_percent));
                 break;
         }
 
