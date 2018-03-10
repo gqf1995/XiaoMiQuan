@@ -93,10 +93,12 @@
     <string name="str_total">量\u3000</string>
     <string name="str_cost">费\u3000</string>
     <string name="str_buy_in">买入</string>
+    <string name="str_buy_in_short">买入平空</string>
     <string name="str_buy">买</string>
     <string name="str_highest">高</string>
     <string name="str_opening_quotation">开盘</string>
     <string name="str_sell_out">卖出</string>
+    <string name="str_sell_out_short">卖出开空</string>
     <string name="str_sell">卖</string>
     <string name="str_minimum">低</string>
     <string name="str_closing_quotation">收盘</string>
@@ -207,6 +209,7 @@
     <string name="str_week_earnings">周收益</string>
     <string name="str_last_week_earnings">上周收益</string>
     <string name="str_month_earnings">月收益</string>
+    <string name="str_last_month_earnings">上月收益</string>
     <string name="str_earnings_chart">收益走势</string>
     <string name="str_after_payment">付费后可见</string>
     <string name="str_simulation">模拟交易</string>
@@ -262,6 +265,7 @@
     <string name="str_creat_team">创建战队</string>
     <string name="str_investment_combination">模拟炒币</string>
     <string name="str_my_group">我的模拟账户</string>
+    <string name="str_other_group">他的的模拟账户</string>
     <string name="str_my_live">我的直播</string>
     <string name="str_my_circle">我的圈子</string>
     <string name="str_hot_group">炒币风云</string>
@@ -366,10 +370,12 @@
     <string name="str_tv_dodeal">去交易</string>
     <string name="str_tv_creat_for">创建于</string>
     <string name="str_tv_position_structure">持仓结构</string>
+    <string name="str_total_holdings">持仓总额</string>
     <string name="str_tv_time_end">截止</string>
     <string name="str_tv_gameplay_introduced">玩法介绍</string>
     <string name="str_tv_revenue_ranking">收益排行</string>
     <string name="str_tv_total_assets">资产总值（USDT）</string>
+    <string name="str_assets_valuation">资产估值</string>
     <string name="str_tv_assets_report">资产明细</string>
 
 
@@ -461,6 +467,10 @@
     <string name="str_get_customer_service_msg">收到一条客服消息</string>
     <string name="str_focuse_other">关注他</string>
     <string name="str_focuse_each">相互关注</string>
+    <string name="str_message_center">消息中心</string>
+    <string name="str_system_informs">系统通知</string>
+    <string name="str_i_related">与我相关</string>
+    <string name="str_praise_reply">赞和回复</string>
 
 
 

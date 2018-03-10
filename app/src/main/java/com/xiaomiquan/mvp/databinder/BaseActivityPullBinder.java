@@ -378,6 +378,29 @@ public class BaseActivityPullBinder<T extends BaseActivityPullDelegate> extends 
                 .build()
                 .RxSendRequest();
     }
+
+    /**
+     * 点赞回复
+     */
+    public Disposable listPraiseOrReply(
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("reqPage", viewDelegate.page);
+        baseMap.put("pageSize", viewDelegate.pagesize);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().listPraiseOrReply)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("点赞回复")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
     /**
      * 关注大V
      */

@@ -98,6 +98,9 @@ public class CommonUtils {
     public static float getDimensionPixelSize(int resId) {
         return getResources().getDimensionPixelSize(resId);
     }
+    public static float getDimension(int resId) {
+        return getResources().getDimension(resId);
+    }
 
     /**
      * 获取字符串数组资源

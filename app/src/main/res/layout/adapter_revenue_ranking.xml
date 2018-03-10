@@ -15,8 +15,9 @@
 
         <TextView
             android:id="@+id/tv_num"
-            android:layout_width="16dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/trans_32px"
+            android:minWidth="@dimen/trans_32px"
             android:layout_marginLeft="@dimen/trans_40px"
             android:layout_marginRight="@dimen/trans_40px"
             android:background="@drawable/select_commit"

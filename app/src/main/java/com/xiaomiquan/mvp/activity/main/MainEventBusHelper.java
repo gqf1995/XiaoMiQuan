@@ -10,6 +10,7 @@ import com.fivefivelike.mybaselibrary.utils.ActUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.AppVersion;
+import com.xiaomiquan.entity.bean.MessageInfo;
 import com.xiaomiquan.entity.bean.event.CustomerServiceEvent;
 import com.xiaomiquan.mvp.activity.user.ConversationActivity;
 import com.xiaomiquan.mvp.databinder.MainBinder;
@@ -50,12 +51,10 @@ public class MainEventBusHelper {
         if ("0".equals(event.getCode())) {
             //去投资组合
             ActUtil.getInstance().killAllActivity(activity);
-            activity.toPage(0, 3);
-        } else if ("1".equals(event.getCode())) {
-            //去大赛页面
-            activity.toPage(0, 1);
+            activity.toPage(3, 0);
         }
     }
+
     //客服消息
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onCustomerServiceEvent(CustomerServiceEvent event) {
@@ -63,6 +62,15 @@ public class MainEventBusHelper {
             NotificationHelper.getInstence().sentCoustomerServiceNotification(activity, event, R.mipmap.artboard);
         }
     }
+
+    //点赞和回复消息
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onMessageInfo(MessageInfo event) {
+        if (activity.homeFragment != null) {
+            activity.homeFragment.showMessageNum();
+        }
+    }
+
     //app更新是否失败
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onAppVersionEvent(final AppVersion event) {

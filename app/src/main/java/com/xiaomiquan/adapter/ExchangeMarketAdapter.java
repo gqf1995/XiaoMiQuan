@@ -78,7 +78,13 @@ public class ExchangeMarketAdapter extends CommonAdapter<ExchangeData> {
         ic_piv.setEnabled(false);
 
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
-        tv_name.setText(s.getExchange());
+
+        if (s == null) {
+            return;
+        }
+        if (!TextUtils.isEmpty(s.getExchange())) {
+            tv_name.setText(s.getExchange());
+        }
         tv_coin_type.setText(BigUIUtil.getinstance().bigName(s.getSymbol()));
         tv_coin_unit.setText(s.getUnit());
         tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + BigUIUtil.getinstance().bigAmount(s.getVolume()));

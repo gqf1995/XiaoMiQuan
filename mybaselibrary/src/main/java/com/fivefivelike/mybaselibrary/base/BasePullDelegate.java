@@ -115,6 +115,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
         mPullRecyclerView.getItemAnimator().setChangeDuration(0);// 通过设置动画执行时间为0来解决闪烁问题
         mPullRecyclerView.setLayoutManager(manager);
         mPullRecyclerView.setAdapter(adapter);
+        mPullRecyclerView.setScrollBarSize(0);
         this.headerCount = headerCount;
         callbacks = new Paginate.Callbacks() {
             @Override
@@ -159,6 +160,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
                 .setHeaderCount(headerCount)
                 .build();
         mWwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
+        mWwipeRefreshLayout.setRefreshing(true);
     }
 
     private void addFoot(ViewGroup parent) {
@@ -309,6 +311,7 @@ public abstract class BasePullDelegate extends BaseDelegate {
     public void setIsPullDown(boolean isPullDown) {
         if (mWwipeRefreshLayout != null) {
             mWwipeRefreshLayout.setEnabled(isPullDown);
+            mWwipeRefreshLayout.setRefreshing(false);
         }
     }
 

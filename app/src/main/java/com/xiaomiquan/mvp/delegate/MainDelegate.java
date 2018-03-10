@@ -22,16 +22,16 @@ public class MainDelegate extends IMDelegate {
             CommonUtils.getString(R.string.str_simulate)
     };
     private int[] mIconSelectIds = {
-            R.drawable.ic_hebingxingzhuang,
-            R.drawable.ic_hebingxingzhuang,
-            R.drawable.ic_hebingxingzhuang,
-            R.drawable.ic_hebingxingzhuang
+            R.drawable.ic_index,
+            R.drawable.ic_price,
+            R.drawable.ic_square,
+            R.drawable.ic_exchange
     };
     private int[] mIconUnSelectIds = {
-            R.drawable.ic_combined_shape,
-            R.drawable.ic_combined_shape,
-            R.drawable.ic_combined_shape,
-            R.drawable.ic_combined_shape
+            R.drawable.ic_index_1,
+            R.drawable.ic_price_1,
+            R.drawable.ic_square_1,
+            R.drawable.ic_exchange_1
     };
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 

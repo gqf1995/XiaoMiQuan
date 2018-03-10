@@ -2,14 +2,13 @@ package com.xiaomiquan.mvp.fragment.group;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.entity.bean.group.EarningsMovements;
 import com.xiaomiquan.mvp.databinder.group.EarningsTrendBinder;
 import com.xiaomiquan.mvp.delegate.group.EarningsTrendDelegate;
-import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.xiaomiquan.utils.BigUIUtil;
 
 public class EarningsTrendFragment extends BaseDataBindFragment<EarningsTrendDelegate, EarningsTrendBinder> {
@@ -29,9 +28,11 @@ public class EarningsTrendFragment extends BaseDataBindFragment<EarningsTrendDel
     protected void bindEvenListener() {
         super.bindEvenListener();
         id = getArguments().getString("id");
-        addRequest(binder.allRate(id, this));
-        addRequest(binder.getTodayInfo(id, this));
-        addRequest(binder.rateTrend(id, this));
+        if(!TextUtils.isEmpty(id)) {
+            addRequest(binder.allRate(id, this));
+            addRequest(binder.getTodayInfo(id, this));
+            addRequest(binder.rateTrend(id, this));
+        }
     }
 
 

@@ -135,91 +135,91 @@
         <activity
             android:name=".mvp.activity.group.CreatGroupActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.group.CombinationActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.group.EditIntroductionActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.user.CustomRateActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.market.CoinDetailsActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.market.CoinMarketActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.user.HomePageActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.user.ChangeUserInfoActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.ShareHistoryTradingActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.ReleaseDynamicActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.ArticleActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.BigVListActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.CircleContentActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.ReleaseArticleActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.MembersActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.TopicDetailActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.JurisdictionActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.LiveActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.PayCircleActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.group.CreatTeamActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.CreatCodeActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.EditCircleActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.NewsActivity"
             android:launchMode="singleTop"
@@ -227,7 +227,7 @@
         <activity
             android:name=".mvp.activity.circle.UserInfoActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.circle.ArticleDetailsActivity"
             android:launchMode="singleTop"
@@ -251,15 +251,55 @@
         <activity
             android:name=".mvp.activity.user.KlineSetActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.chat.GroupChatActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.user.MyFansActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.user.MyFocuseActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.EditTextActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.group.RevenueRankingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.group.HisAccountActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.group.MyAccountActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.group.MyPropertyDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.chat.ChatManagementActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.chat.CoinCircleIndexActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.user.PersonalDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.activity.user.PraiseReplyActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".mvp.activity.user.ConversationActivity"
             android:screenOrientation="portrait"
@@ -297,19 +337,12 @@
                 android:resource="@xml/rc_file_path"/>
         </provider>
 
-        <activity android:name=".mvp.activity.group.AddTeamActivity" />
-        <activity android:name=".mvp.activity.group.ManagementTeamActivity" />
-        <activity android:name=".mvp.activity.group.InviteFriendsActivity" />
-        <activity android:name=".mvp.activity.group.TeamDetailActivity" />
-        <activity android:name=".mvp.activity.group.AllTeamActivity" />
-        <activity android:name=".mvp.activity.user.PersonalDetailsActivity" />
-        <activity android:name=".mvp.activity.chat.ChatManagementActivity" />
-        <activity android:name=".mvp.activity.chat.CoinCircleIndexActivity" />
-        <activity android:name=".mvp.activity.group.MyPropertyDetailActivity" />
-        <activity android:name=".mvp.activity.group.RevenueRankingActivity" />
-        <activity android:name=".mvp.activity.group.HisAccountActivity" />
-        <activity android:name=".mvp.activity.group.MyAccountActivity" />
-        <activity android:name=".mvp.activity.EditTextActivity"/>
+        <activity android:name=".mvp.activity.group.AddTeamActivity"/>
+        <activity android:name=".mvp.activity.group.ManagementTeamActivity"/>
+        <activity android:name=".mvp.activity.group.InviteFriendsActivity"/>
+        <activity android:name=".mvp.activity.group.TeamDetailActivity"/>
+        <activity android:name=".mvp.activity.group.AllTeamActivity"/>
+        <activity android:name=".mvp.activity.MessageCenterActivity"/>
     </application>
 
 </manifest>

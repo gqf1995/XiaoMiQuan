@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -241,12 +243,12 @@ public abstract class BaseDelegate extends IDelegateImpl {
             showBack(activity, builder.getBackTxt());
 
         }
-//        //        //设置标题栏的背景颜色
-//        if (builder.getmToolbarBackColor() != 0) {
-//            mToolbar.setBackgroundColor(builder.getmToolbarBackColor());
-//        } else {
-//            mToolbar.setBackgroundColor(CommonUtils.getColor(R.color.toolbar_bg));
-//        }
+        //        //        //设置标题栏的背景颜色
+        //        if (builder.getmToolbarBackColor() != 0) {
+        //            mToolbar.setBackgroundColor(builder.getmToolbarBackColor());
+        //        } else {
+        //            mToolbar.setBackgroundColor(CommonUtils.getColor(R.color.toolbar_bg));
+        //        }
         //设置标题是否显示
         if (!builder.isTitleShow()) {
             mToolbarTitle.setVisibility(View.GONE);
@@ -484,6 +486,34 @@ public abstract class BaseDelegate extends IDelegateImpl {
         fragmentList.remove(index);
         fragmentList.add(index, fragment);
         showFragment(index);
+    }
+
+    public void setPointNum(int num, FrameLayout fl_content) {
+        if (num > 0) {
+            if (fl_content.getChildCount() == 0) {
+                ViewGroup.LayoutParams layoutParams = fl_content.getLayoutParams();
+                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                fl_content.setLayoutParams(layoutParams);
+                TextView textView = new TextView(fl_content.getContext());
+                textView.setPadding(
+                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_5px),
+                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_2px),
+                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_5px),
+                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_2px)
+                );
+                textView.setText(num + "");
+                textView.setTextColor(CommonUtils.getColor(R.color.white));
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX  , CommonUtils.getDimensionPixelSize(R.dimen.text_trans_15px));
+                fl_content.addView(textView);
+            } else {
+                TextView textView = (TextView) fl_content.getChildAt(0);
+                textView.setText(num + "");
+            }
+            fl_content.setVisibility(View.VISIBLE);
+        } else {
+            fl_content.setVisibility(View.GONE);
+        }
     }
 
     /**

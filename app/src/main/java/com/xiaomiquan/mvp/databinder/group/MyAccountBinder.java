@@ -15,7 +15,6 @@ public class MyAccountBinder extends BaseDataBind<MyAccountDelegate> {
     }
 
 
-
     /**
      * 今日收益
      */
@@ -81,6 +80,7 @@ public class MyAccountBinder extends BaseDataBind<MyAccountDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
     /**
      * 我的组合
      */
@@ -100,4 +100,30 @@ public class MyAccountBinder extends BaseDataBind<MyAccountDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
+
+    /**
+     * 大赛组合
+     */
+    public Disposable demoInfo(
+            String demoId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("demoId", demoId);
+        baseMap.put("type", "2");
+        return new HttpRequest.Builder()
+                .setRequestCode(0x123)
+                .setRequestUrl(HttpUrl.getIntance().demoInfo)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("大赛组合")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+
 }

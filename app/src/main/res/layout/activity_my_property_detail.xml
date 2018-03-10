@@ -42,6 +42,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:gravity="center"
                         android:padding="@dimen/trans_40px">
 
                         <LinearLayout
@@ -86,8 +87,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/trans_40px"
                                 android:text="@string/str_tv_usable_usd"
-                                android:textColor="@color/color_font1"
-                                android:textSize="@dimen/trans_30px" />
+                                android:textColor="@color/color_font2"
+                                android:textSize="@dimen/trans_28px" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -107,16 +108,17 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/trans_20px"
                                     android:text="@string/str_tv_usd"
-                                    android:textColor="@color/color_font1"
-                                    android:textSize="@dimen/trans_30px" />
+                                    android:textColor="@color/color_font2"
+                                    android:textSize="@dimen/trans_28px" />
 
                             </LinearLayout>
                         </LinearLayout>
 
                         <com.github.mikephil.charting.charts.PieChart
                             android:id="@+id/pieChart"
-                            android:layout_width="@dimen/trans_300px"
-                            android:layout_height="@dimen/trans_300px" />
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 

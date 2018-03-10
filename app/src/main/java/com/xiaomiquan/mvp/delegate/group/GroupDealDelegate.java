@@ -1,6 +1,7 @@
 package com.xiaomiquan.mvp.delegate.group;
 
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import com.tablayout.CommonTabLayout;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
+import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.UserSet;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
@@ -43,6 +45,11 @@ public class GroupDealDelegate extends BaseDelegate {
     public CoinDetail mCoinDetail;
     public int selectType = 0;
     List<String> dataset2;
+    public boolean isSelectStorehouse = false;
+
+    public void initTopData(GroupItem groupItem) {
+        viewHolder.tv_usable.setText(BigUIUtil.getinstance().bigPrice(groupItem.getBalance()));
+    }
 
     public void initTop() {
         dataset2 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_price_type));
@@ -126,7 +133,6 @@ public class GroupDealDelegate extends BaseDelegate {
         if (GsonUtil.getInstance().getValue(data, "count") != null) {
             viewHolder.tv_hole.setText(GsonUtil.getInstance().getValue(data, "count"));
         }
-
     }
 
     public void onSelectLinsener(CoinDetail coinDetail) {
@@ -158,6 +164,17 @@ public class GroupDealDelegate extends BaseDelegate {
         viewHolder.tv_poundage.setText(coinDetail.getFee() + "%");
 
         viewHolder.tv_coin_type.setText(coinDetail.getSymbol());
+
+        if ("2".equals(mCoinDetail.getType())) {
+            //做空
+            viewHolder.tv_sale.setText(CommonUtils.getString(R.string.str_sell_out_short));
+            viewHolder.tv_buy.setText(CommonUtils.getString(R.string.str_buy_in_short));
+        } else {
+            //做多
+            viewHolder.tv_sale.setText(CommonUtils.getString(R.string.str_sell_out));
+            viewHolder.tv_buy.setText(CommonUtils.getString(R.string.str_buy_in));
+        }
+
     }
 
     @Override
@@ -177,17 +194,14 @@ public class GroupDealDelegate extends BaseDelegate {
                 case R.id.tv_all:
                     //买全部
                     sellChoose(v.getId());
-
                     break;
                 case R.id.tv_half_hold:
                     //买一半
                     sellChoose(v.getId());
-
                     break;
                 case R.id.tv_half_half_hold:
                     //买四分之一
                     sellChoose(v.getId());
-
                     break;
             }
         }
@@ -248,7 +262,7 @@ public class GroupDealDelegate extends BaseDelegate {
         public View rootView;
         public TextView tv_total_assets;
         public TextView tv_usable;
-        public TextView tv_assets_report;
+        public LinearLayout lin_detail;
         public SkinCompatImageView iv_banner;
         public TextView tv_input_label1;
         public NoParentsTouchFramelayout fl_currency;
@@ -277,12 +291,13 @@ public class GroupDealDelegate extends BaseDelegate {
         public LinearLayout lin_table;
         public ViewPager vp_sliding;
         public JudgeNestedScrollView nestedScrollView;
+        public SwipeRefreshLayout swipeRefreshLayout;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.tv_total_assets = (TextView) rootView.findViewById(R.id.tv_total_assets);
             this.tv_usable = (TextView) rootView.findViewById(R.id.tv_usable);
-            this.tv_assets_report = (TextView) rootView.findViewById(R.id.tv_assets_report);
+            this.lin_detail = (LinearLayout) rootView.findViewById(R.id.lin_detail);
             this.iv_banner = (SkinCompatImageView) rootView.findViewById(R.id.iv_banner);
             this.tv_input_label1 = (TextView) rootView.findViewById(R.id.tv_input_label1);
             this.fl_currency = (NoParentsTouchFramelayout) rootView.findViewById(R.id.fl_currency);
@@ -311,6 +326,7 @@ public class GroupDealDelegate extends BaseDelegate {
             this.lin_table = (LinearLayout) rootView.findViewById(R.id.lin_table);
             this.vp_sliding = (ViewPager) rootView.findViewById(R.id.vp_sliding);
             this.nestedScrollView = (JudgeNestedScrollView) rootView.findViewById(R.id.nestedScrollView);
+            this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         }
 
     }

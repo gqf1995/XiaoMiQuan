@@ -454,7 +454,10 @@ public class HttpUrl {
      * 粉丝列表
      */
     public String attentionMyList = getBaseUrl() + "/userAttention/attentionMyList";
-
+    /**
+     * 点赞回复
+     */
+    public String listPraiseOrReply = getBaseUrl() + "/praise/listPraiseOrReply";
 
     /**
      * 获取文章

@@ -18,30 +18,39 @@ public class GroupDealBinder extends BaseDataBind<GroupDealDelegate> {
     }
 
 
-//    /**
-//     * 获取余额
-//     */
-//    public Disposable getBalance(
-//            String demoId,
-//            RequestCallback requestCallback) {
-//        getBaseMapWithUid();
-//        baseMap.put("demoId", demoId);
-//        return new HttpRequest.Builder()
-//                .setRequestCode(0x123)
-//                .setRequestUrl(HttpUrl.getIntance().getBalance)
-//                .setShowDialog(true)
-//                .setDialog(viewDelegate.getNetConnectDialog())
-//                .setRequestName("获取余额")
-//                .setRequestMode(HttpRequest.RequestMode.POST)
-//                .setParameterMode(HttpRequest.ParameterMode.Json)
-//                .setRequestObj(baseMap)
-//                .setRequestCallback(requestCallback)
-//                .build()
-//                .RxSendRequest();
-//    }
+    //    /**
+    //     * 获取余额
+    //     */
+    //    public Disposable getBalance(
+    //            String demoId,
+    //            RequestCallback requestCallback) {
+    //        getBaseMapWithUid();
+    //        baseMap.put("demoId", demoId);
+    //        return new HttpRequest.Builder()
+    //                .setRequestCode(0x123)
+    //                .setRequestUrl(HttpUrl.getIntance().getBalance)
+    //                .setShowDialog(true)
+    //                .setDialog(viewDelegate.getNetConnectDialog())
+    //                .setRequestName("获取余额")
+    //                .setRequestMode(HttpRequest.RequestMode.POST)
+    //                .setParameterMode(HttpRequest.ParameterMode.Json)
+    //                .setRequestObj(baseMap)
+    //                .setRequestCallback(requestCallback)
+    //                .build()
+    //                .RxSendRequest();
+    //    }
 
     /**
      * 申请买卖
+     * {
+     * "demoId": 1,		//组合ID
+     * "type": 1,			//1：买 2：卖
+     * "coinId": 1,		// 币种ID
+     * "price": 10180,		//委托价格
+     * "priceType": 2,		// 1：限价 2：市价
+     * "count": 2.2,		//交易数量
+     * "tradeType": 1      // new 1：做多 2：做空
+     * }
      */
     public Disposable deal(
             String demoId,
@@ -50,6 +59,7 @@ public class GroupDealBinder extends BaseDataBind<GroupDealDelegate> {
             String price,
             String priceType,
             String count,
+            String tradeType,
             int code,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
@@ -59,6 +69,7 @@ public class GroupDealBinder extends BaseDataBind<GroupDealDelegate> {
         baseMap.put("price", price);
         baseMap.put("priceType", priceType);
         baseMap.put("count", count);
+        baseMap.put("tradeType", tradeType);
         return new HttpRequest.Builder()
                 .setRequestCode(code)
                 .setRequestUrl(HttpUrl.getIntance().deal)
@@ -93,5 +104,26 @@ public class GroupDealBinder extends BaseDataBind<GroupDealDelegate> {
                 .RxSendRequest();
     }
 
+    /**
+     * 组合详情
+     */
+    public Disposable getDemoByUserId(
+            String userId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("userId", userId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x125)
+                .setRequestUrl(HttpUrl.getIntance().getDemoByUserId)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("组合详情")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 
 }

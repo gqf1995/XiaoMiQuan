@@ -57,6 +57,10 @@ public class BaseWebFragment extends BaseFragment<BaseWebViewDelegate> {
         indicatorView.show();
     }
 
+    public boolean goBack() {
+        return mAgentWeb.back();
+    }
+
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
@@ -89,7 +93,7 @@ public class BaseWebFragment extends BaseFragment<BaseWebViewDelegate> {
         }
         WebView webView = mAgentWeb.getWebCreator().getWebView();
         WebSettings webSettings = webView.getSettings();
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         viewDelegate.viewHolder.root.addView(indicatorView);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) indicatorView.getLayoutParams();
         layoutParams.gravity = Gravity.CENTER;
