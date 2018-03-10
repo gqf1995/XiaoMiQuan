@@ -52,7 +52,8 @@ public class MyPropertyDetailDelegate extends BaseMyPullDelegate{
         // 显示百分比
         mPieChart.setUsePercentValues(true);
         // 描述信息
-//        mPieChart.setDescription("测试饼图");
+        mPieChart.setDescription("");
+
         /*
             设置饼图中心是否是空心的
             true 中间是空心的，环形图

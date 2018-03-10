@@ -1,36 +1,33 @@
 package com.xiaomiquan.mvp.databinder.circle;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.http.RequestCallback;
-import com.xiaomiquan.mvp.delegate.circle.CircleDelegate;
-import com.xiaomiquan.mvp.delegate.circle.SquareDelegate;
+import com.xiaomiquan.mvp.delegate.circle.DynamicInfoDelegate;
+import com.fivefivelike.mybaselibrary.base.BaseDataBind;
 import com.xiaomiquan.server.HttpUrl;
 
 import io.reactivex.disposables.Disposable;
 
-public class SquareBinder extends BaseDataBind<SquareDelegate> {
+public class DynamicInfoBinder extends BaseDataBind<DynamicInfoDelegate> {
 
-    public SquareBinder(SquareDelegate viewDelegate) {
+    public DynamicInfoBinder(DynamicInfoDelegate viewDelegate) {
         super(viewDelegate);
     }
 
     /**
-     * 获取热门资讯
+     * 获取帖子信息
      */
-    public Disposable getNews(
-            String userGroupId,
-            String page,
+    public Disposable getTopicContent(
+            String id,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("userGroupId", userGroupId);
-        baseMap.put("page", viewDelegate.page);
+        baseMap.put("id", id);
         return new HttpRequest.Builder()
                 .setRequestCode(0x123)
-                .setRequestUrl(HttpUrl.getIntance().getUsertopic)
+                .setRequestUrl(HttpUrl.getIntance().getDetails)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("获取资讯")
+                .setRequestName("获取帖子信息")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
@@ -41,20 +38,22 @@ public class SquareBinder extends BaseDataBind<SquareDelegate> {
     }
 
     /**
-     * 获取直播
+     * 评论
      */
-    public Disposable getLive(
+    public Disposable saveComment(
+            String linkId,
+            String content,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("pageNum", viewDelegate.page);
-        baseMap.put("platform", 1);
+        baseMap.put("linkId", linkId);
+        baseMap.put("content", content);
         return new HttpRequest.Builder()
                 .setRequestCode(0x124)
-                .setRequestUrl(HttpUrl.getIntance().getSquareLive)
-                .setShowDialog(false)
+                .setRequestUrl(HttpUrl.getIntance().saveComment)
+                .setShowDialog(true)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("获取直播")
-                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setRequestName("评论")
+                .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
@@ -64,20 +63,24 @@ public class SquareBinder extends BaseDataBind<SquareDelegate> {
     }
 
     /**
-     * 获取直播
+     * 回复
      */
-    public Disposable getAllLive(
+    public Disposable saveRecomment(
+            String linkId,
+            String content,
+            String reUserId,
             RequestCallback requestCallback) {
         getBaseMapWithUid();
-        baseMap.put("pageNum", viewDelegate.page);
-        baseMap.put("platform", 1);
+        baseMap.put("linkId", linkId);
+        baseMap.put("content", content);
+        baseMap.put("reUserId", reUserId);
         return new HttpRequest.Builder()
-                .setRequestCode(0x128)
-                .setRequestUrl(HttpUrl.getIntance().getAllSquareLive)
-                .setShowDialog(false)
+                .setRequestCode(0x125)
+                .setRequestUrl(HttpUrl.getIntance().saveComment)
+                .setShowDialog(true)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("获取直播")
-                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setRequestName("回复")
+                .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
@@ -95,13 +98,35 @@ public class SquareBinder extends BaseDataBind<SquareDelegate> {
         getBaseMapWithUid();
         baseMap.put("linkId", linkId);
         return new HttpRequest.Builder()
-                .setRequestCode(0x127)
+                .setRequestCode(0x126)
                 .setRequestUrl(HttpUrl.getIntance().savePraise)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("点赞")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+
+    }
+
+    /**
+     * 获取评论
+     */
+    public Disposable getComment(
+            String linkId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("linkId", linkId);
+        baseMap.put("page", viewDelegate.page);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x127)
+                .setRequestUrl(HttpUrl.getIntance().getComment)
+                .setRequestName("获取评论")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
                 .build()

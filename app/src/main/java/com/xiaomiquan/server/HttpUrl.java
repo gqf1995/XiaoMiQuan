@@ -434,6 +434,11 @@ public class HttpUrl {
      * 获取广场朋友圈
      */
     public String getSquareLive = getBaseUrl() + "/articleTopic/listByPage";
+
+    /**
+     * 获取广场朋友圈
+     */
+    public String getAllSquareLive = getBaseUrl() + "/articleTopic/listByPage/all";
     /**
      * 获取大V
      */

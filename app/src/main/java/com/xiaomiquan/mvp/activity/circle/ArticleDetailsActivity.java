@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.style.ClickableSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -238,7 +239,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     @Override
     protected void refreshData() {
         if (userLogin != null) {
-            addRequest(binder.getTopicContent(squareLive.getId(), ArticleDetailsActivity.this));
+            addRequest(binder.getComment(squareLive.getId(), ArticleDetailsActivity.this));
         } else {
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);

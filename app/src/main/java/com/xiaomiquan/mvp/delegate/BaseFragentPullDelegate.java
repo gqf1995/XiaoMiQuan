@@ -10,7 +10,6 @@ import com.xiaomiquan.R;
 
 import skin.support.widget.SkinCompatLinearLayout;
 
-
 /**
  * Created by 郭青枫 on 2017/9/26.
  * 同一的 fragment列表页面 代理
