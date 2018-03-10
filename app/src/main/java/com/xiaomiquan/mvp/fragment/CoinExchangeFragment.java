@@ -102,7 +102,6 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
         this.tv_rise_title = (TextView) rootView.findViewById(R.id.tv_rise_title);
         this.tv_rise = (GainsTabView) rootView.findViewById(R.id.tv_rise);
         this.lin_root = (SkinCompatLinearLayout) rootView.findViewById(R.id.lin_root);
-        tv_rise_title.setVisibility(View.GONE);
         List<String> dataset1 = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_unit));
         tv_unit.setText(UserSet.getinstance().getShowUnit());
         tv_rise.setText(CommonUtils.getString(R.string.str_rise_24h));
@@ -119,7 +118,6 @@ public class CoinExchangeFragment extends BasePullFragment<BaseFragentPullDelega
                 ChangeDefaultSetActivity.startAct(getActivity(), ChangeDefaultSetActivity.TYPE_UNIT);
             }
         });
-        tv_rise.setVisibility(View.GONE);
         viewDelegate.viewHolder.fl_pull.addView(rootView, 0);
     }
 

@@ -126,4 +126,25 @@ public class GroupDealBinder extends BaseDataBind<GroupDealDelegate> {
                 .RxSendRequest();
     }
 
+    /**
+     * 我的资产
+     */
+    public Disposable myAsset(
+            String demoId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("demoId", demoId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x126)
+                .setRequestUrl(HttpUrl.getIntance().myAsset)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("我的资产")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 }

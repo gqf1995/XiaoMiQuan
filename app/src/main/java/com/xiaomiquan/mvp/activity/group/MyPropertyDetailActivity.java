@@ -5,19 +5,21 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.base.BasePullActivity;
+import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.group.MyPropertyDetailAdapter;
-import com.xiaomiquan.entity.bean.group.CoinDetail;
+import com.xiaomiquan.entity.bean.MyAsset;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.mvp.databinder.group.MyPropertyDetailBinder;
 import com.xiaomiquan.mvp.delegate.group.MyPropertyDetailDelegate;
-import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyPropertyDetailActivity extends BaseDataBindActivity<MyPropertyDetailDelegate, MyPropertyDetailBinder> {
+public class MyPropertyDetailActivity extends BasePullActivity<MyPropertyDetailDelegate, MyPropertyDetailBinder> {
 
     MyPropertyDetailAdapter myPropertyDetailAdapter;
 
@@ -34,32 +36,39 @@ public class MyPropertyDetailActivity extends BaseDataBindActivity<MyPropertyDet
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle(""));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_tv_assets_report)));
         getIntentData();
-        initList(new ArrayList<CoinDetail>());
+        initList(new ArrayList<MyAsset.CoinsBean>());
     }
 
-    private void initList(List<CoinDetail> coinDetails) {
+    private void initList(List<MyAsset.CoinsBean> datas) {
         if (myPropertyDetailAdapter == null) {
-            addRequest(binder.myCoin(groupItem.getId(), this));
-            myPropertyDetailAdapter = new MyPropertyDetailAdapter(this, coinDetails);
-            viewDelegate.viewHolder.pull_recycleview.setLayoutManager(new LinearLayoutManager(this));
-            viewDelegate.viewHolder.pull_recycleview.setAdapter(myPropertyDetailAdapter);
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+            myPropertyDetailAdapter = new MyPropertyDetailAdapter(this, datas);
+            initRecycleViewPull(myPropertyDetailAdapter, new LinearLayoutManager(this));
+            viewDelegate.setIsLoadMore(false);
+            onRefresh();
+            viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    MyPropertyDetailActivity.this.refreshData();
+                }
+            });
         } else {
-            myPropertyDetailAdapter.setDatas(coinDetails);
+            getDataBack(myPropertyDetailAdapter.getDatas(), datas, myPropertyDetailAdapter);
         }
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
-            case 0x123:
-                groupItem = GsonUtil.getInstance().toList(data, GroupItem.class).get(0);
+            case 0x126:
+                MyAsset myAsset = GsonUtil.getInstance().toObj(data, MyAsset.class);
+                initList(myAsset.getCoins());
+                viewDelegate.initMyAsset(myAsset);
                 break;
-            case 0x124:
-                List<CoinDetail> details = GsonUtil.getInstance().toList(data, CoinDetail.class);
-                initList(details);
-                break;
+
         }
     }
 
@@ -79,5 +88,8 @@ public class MyPropertyDetailActivity extends BaseDataBindActivity<MyPropertyDet
         viewDelegate.viewHolder.tv_usable_usd.setText(groupItem.getBalance());
     }
 
-
+    @Override
+    protected void refreshData() {
+        addRequest(binder.myAsset(groupItem.getId(), MyPropertyDetailActivity.this));
+    }
 }

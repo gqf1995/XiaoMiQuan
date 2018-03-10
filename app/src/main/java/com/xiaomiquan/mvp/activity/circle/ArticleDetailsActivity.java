@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.style.ClickableSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -138,6 +137,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
 //            viewDelegate.viewHolder.rv_comment.setAdapter(commentAdapter);
             initRecycleViewPull(commentAdapter, new LinearLayoutManager(mContext));
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         } else {
             getDataBack(commentAdapter.getDatas(), comment, commentAdapter);
         }

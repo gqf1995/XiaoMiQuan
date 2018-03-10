@@ -37,12 +37,14 @@ public class EditTextActivity extends BaseDataBindActivity<EditTextDelegate, Edi
                                 String content,
                                 String hint,
                                 boolean isCanNull,
+                                boolean isCanEdit,
                                 int requestCode) {
         Intent intent = new Intent(activity, EditTextActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("content", content);
         intent.putExtra("hint", hint);
         intent.putExtra("isCanNull", isCanNull);
+        intent.putExtra("isCanEdit", isCanEdit);
         activity.startActivityForResult(intent, requestCode);
     }
 
@@ -50,6 +52,7 @@ public class EditTextActivity extends BaseDataBindActivity<EditTextDelegate, Edi
     private String content;
     private String hint;
     private boolean isCanNull = false;
+    private boolean isCanEdit = false;
 
     private void getIntentData() {
         Intent intent = getIntent();
@@ -57,15 +60,20 @@ public class EditTextActivity extends BaseDataBindActivity<EditTextDelegate, Edi
         content = intent.getStringExtra("content");
         hint = intent.getStringExtra("hint");
         isCanNull = intent.getBooleanExtra("isCanNull", false);
-        initToolbar(new ToolbarBuilder().setTitle(title).setSubTitle(CommonUtils.getString(R.string.str_save)));
+        isCanEdit = intent.getBooleanExtra("isCanEdit", true);
+        initToolbar(new ToolbarBuilder().setTitle(title).setSubTitle(isCanEdit ? CommonUtils.getString(R.string.str_save) : ""));
         viewDelegate.viewHolder.edit.setText(content);
         viewDelegate.viewHolder.edit.setHint(hint);
+        viewDelegate.viewHolder.edit.setEnabled(isCanEdit);
     }
 
 
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
+        if (!isCanEdit) {
+            return;
+        }
         if (!isCanNull) {
             if (TextUtils.isEmpty(viewDelegate.viewHolder.edit.getText().toString())) {
                 ToastUtil.show(hint);

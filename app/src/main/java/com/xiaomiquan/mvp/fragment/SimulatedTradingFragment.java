@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
+import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
@@ -21,12 +22,13 @@ import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.MyAsset;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.group.CoinDetail;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.entity.bean.group.TradingResult;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
-import com.xiaomiquan.mvp.activity.group.CombinationActivity;
+import com.xiaomiquan.mvp.activity.group.MyAccountActivity;
 import com.xiaomiquan.mvp.activity.group.MyPropertyDetailActivity;
 import com.xiaomiquan.mvp.databinder.group.GroupDealBinder;
 import com.xiaomiquan.mvp.delegate.group.GroupDealDelegate;
@@ -35,6 +37,7 @@ import com.xiaomiquan.mvp.fragment.group.GroupDetailListFragment;
 import com.xiaomiquan.mvp.fragment.group.HistoryEntrustFragment;
 import com.xiaomiquan.mvp.fragment.group.HistoryTradingFragment;
 import com.xiaomiquan.mvp.fragment.group.NotDealFragment;
+import com.xiaomiquan.utils.BigUIUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,12 +56,13 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
     CoinDetail coinDetail;
     InnerPagerAdapter innerPagerAdapter;
     int index = 0;
-    String id = "0";
+    //String id = "0";
     GroupItem groupItem;
     UserLogin userLogin;
     List<String> mTitles;
     private ArrayList<CustomTabEntity> mTabEntities;
     ArrayList fragments;
+    String myAssetData;
 
     public interface Linsener {
         void openDrawerLayout();
@@ -124,6 +128,7 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
                 currencyFragmentBuy.setSellResult(tradingResultBuy);
                 currencyFragmentBuy.getSelectPositionData(coinDetail == null ? "" : coinDetail.getSymbol());
                 upData(true);
+                updataFragment();
                 break;
             case 0x124:
                 //卖
@@ -132,16 +137,43 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
                 currencyFragmentBuy.setSellResult(tradingResultSell);
                 currencyFragmentBuy.getSelectPositionData(coinDetail == null ? "" : coinDetail.getSymbol());
                 upData(true);
+                updataFragment();
                 break;
             case 0x125:
                 //组合详情
                 groupItem = GsonUtil.getInstance().toObj(data, GroupItem.class);
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 viewDelegate.initTopData(groupItem);
+                if (groupItem != null) {
+                    for (int i = 0; i < fragments.size(); i++) {
+                        if (fragments.get(i) instanceof FragmentLinsener) {
+                            ((FragmentLinsener) fragments.get(i)).setId(groupItem.getId());
+                        }
+                    }
+                    addRequest(binder.myAsset(groupItem.getId() + "", this));
+                }
+                break;
+            case 0x126:
+                //我的资产
+                myAssetData = data;
+                MyAsset myAsset = GsonUtil.getInstance().toObj(data, MyAsset.class);
+                viewDelegate.viewHolder.tv_total_assets.setText(BigUIUtil.getinstance().bigPrice(myAsset.getTotalAmount() + ""));
+                viewDelegate.viewHolder.tv_usable.setText(BigUIUtil.getinstance().bigPrice(myAsset.getBalance() + ""));
                 break;
         }
     }
 
+    private void updataFragment() {
+        if (!ListUtils.isEmpty(getChildFragmentManager().getFragments())) {
+            if (!ListUtils.isEmpty(fragments)) {
+                for (int i = 0; i < fragments.size(); i++) {
+                    if (fragments.get(i) instanceof BasePullFragment) {
+                        ((BasePullFragment) fragments.get(i)).onRefresh();
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     protected void bindEvenListener() {
@@ -185,6 +217,7 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
             public void onClick(View v) {
                 if (SingSettingDBUtil.isLogin(getActivity())) {
                     if (groupItem != null) {
+                        //我的资产
                         MyPropertyDetailActivity.startAct(getActivity(), groupItem);
                     }
                 }
@@ -214,8 +247,7 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
         //管理账户
         if (SingSettingDBUtil.isLogin(getActivity())) {
             if (groupItem != null) {
-                CombinationActivity.startAct(getActivity(), groupItem, true);
-                //MyAccountActivity.startAct(getActivity(), groupItem);
+                MyAccountActivity.startAct(getActivity(), groupItem, myAssetData);
             }
         }
     }
@@ -266,7 +298,7 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
             }
         }
         addRequest(binder.deal(
-                id,
+                groupItem.getId(),
                 type == 0 ? "1" : "2",
                 type == 0 ? viewDelegate.mCoinDetail.getCoinId() : viewDelegate.mCoinDetail.getCoinId(),
                 viewDelegate.viewHolder.et_sell_price.getText().toString(),
@@ -286,10 +318,10 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
     private void initTablelayout() {
         if (!ListUtils.isEmpty(getChildFragmentManager().getFragments())) {
             fragments = new ArrayList<>();
-            fragments.add(GroupDetailListFragment.newInstance(id));
-            fragments.add(NotDealFragment.newInstance(id));
-            fragments.add(HistoryTradingFragment.newInstance(id));
-            fragments.add(HistoryEntrustFragment.newInstance(id));
+            fragments.add(GroupDetailListFragment.newInstance("0"));
+            fragments.add(NotDealFragment.newInstance("0"));
+            fragments.add(HistoryTradingFragment.newInstance("0"));
+            fragments.add(HistoryEntrustFragment.newInstance("0"));
             if (innerPagerAdapter == null) {
                 mTitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_combination));
                 mTabEntities = new ArrayList<>();
@@ -311,7 +343,7 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
         layoutParams.height = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_463px) + (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_60px);
         viewDelegate.viewHolder.fl_currency.setLayoutParams(layoutParams);
         if (getChildFragmentManager().findFragmentByTag("CurrencyFragment") == null) {
-            currencyFragmentBuy = CurrencyFragment.newInstance(CurrencyFragment.TYPE_CURRENCY_BUY, userLogin == null ? "" : userLogin.getDemoId(), "");
+            currencyFragmentBuy = CurrencyFragment.newInstance(userLogin == null ? "" : userLogin.getDemoId(), CurrencyFragment.TYPE_CURRENCY_BUY, "");
             transaction.add(R.id.fl_currency, currencyFragmentBuy, "CurrencyFragment");
         } else {
             currencyFragmentBuy = (CurrencyFragment) getChildFragmentManager().findFragmentByTag("CurrencyFragment");
@@ -331,6 +363,10 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
     @Override
     public void onUpdata(String data) {
         viewDelegate.setUpdata(data);
+    }
+
+    public interface FragmentLinsener {
+        public void setId(String id);
     }
 
 }

@@ -9,6 +9,7 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.MyAsset;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.entity.bean.group.TeamInfo;
 import com.xiaomiquan.mvp.databinder.group.MyAccountBinder;
@@ -44,18 +45,25 @@ public class MyAccountActivity extends BaseDataBindActivity<MyAccountDelegate, M
     }
 
     public static void startAct(Activity activity,
-                                GroupItem groupItem
+                                GroupItem groupItem,
+                                String myAssetData
     ) {
         Intent intent = new Intent(activity, MyAccountActivity.class);
         intent.putExtra("groupItem", groupItem);
+        intent.putExtra("myAssetData", myAssetData);
         activity.startActivity(intent);
     }
 
-    private GroupItem groupItem;
+    GroupItem groupItem;
+    String myAssetData;
+    MyAsset myAsset;
 
     private void getIntentData() {
         Intent intent = getIntent();
         groupItem = intent.getParcelableExtra("groupItem");
+        myAssetData = intent.getStringExtra("myAssetData");
+        myAsset = GsonUtil.getInstance().toObj(myAssetData, MyAsset.class);
+        viewDelegate.initMyAsset(myAsset);
         addRequest(binder.demoInfo(groupItem.getId(), MyAccountActivity.this));
     }
 

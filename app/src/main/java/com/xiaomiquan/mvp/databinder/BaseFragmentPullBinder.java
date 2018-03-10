@@ -604,7 +604,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
         baseMap.put("type", type);
         baseMap.put("pageNum", viewDelegate.page);
         return new HttpRequest.Builder()
-                .setRequestCode(0x124)
+                .setRequestCode(0x123)
                 .setRequestUrl(HttpUrl.getIntance().listByUserAndType)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())

@@ -9,8 +9,8 @@ public class UserDemoDeal {
     long createTime;
     String type;
     String symbol;
-    String positionRetaBefore;
-    String positionRetaAfter;
+    double positionRetaBefore;
+    double positionRetaAfter;
 
 
     public String getPrice() {
@@ -45,19 +45,19 @@ public class UserDemoDeal {
         this.symbol = symbol;
     }
 
-    public String getPositionRetaBefore() {
+    public double getPositionRetaBefore() {
         return positionRetaBefore;
     }
 
-    public void setPositionRetaBefore(String positionRetaBefore) {
+    public void setPositionRetaBefore(double positionRetaBefore) {
         this.positionRetaBefore = positionRetaBefore;
     }
 
-    public String getPositionRetaAfter() {
+    public double getPositionRetaAfter() {
         return positionRetaAfter;
     }
 
-    public void setPositionRetaAfter(String positionRetaAfter) {
+    public void setPositionRetaAfter(double positionRetaAfter) {
         this.positionRetaAfter = positionRetaAfter;
     }
 }

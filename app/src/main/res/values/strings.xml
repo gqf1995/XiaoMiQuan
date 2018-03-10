@@ -145,6 +145,7 @@
     <string name="str_setting_center">设置中心</string>
     <string name="str_kline_setting">行情显示设置</string>
     <string name="str_other_setting">其它设置</string>
+    <string name="str_other">其它</string>
     <string name="str_logout">退出登录</string>
     <string name="str_about_us">关于我们</string>
     <string name="str_custom_rate">自定义汇率</string>

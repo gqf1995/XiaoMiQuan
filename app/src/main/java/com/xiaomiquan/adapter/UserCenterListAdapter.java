@@ -47,6 +47,7 @@ public class UserCenterListAdapter extends CommonAdapter<SquareLive> {
     private TextView tv_article_title;
     private LinearLayout lin_article;
     private RecyclerView recycler_view;
+    private TextView tv_article_content;
 
 
     public UserCenterListAdapter(Context context, List<SquareLive> datas) {
@@ -73,6 +74,7 @@ public class UserCenterListAdapter extends CommonAdapter<SquareLive> {
         tv_article_title = holder.getView(R.id.tv_article_title);
         lin_article = holder.getView(R.id.lin_article);
         recycler_view = holder.getView(R.id.recycler_view);
+        tv_article_content = holder.getView(R.id.tv_article_content);
 
 
         lin_view.setVisibility(View.GONE);
@@ -81,9 +83,10 @@ public class UserCenterListAdapter extends CommonAdapter<SquareLive> {
         //文章1  观点2 操作3
         if ("1".equals(s.getType())) {
             tv_statu.setText("发表了文章");
-            lin_predict.setVisibility(View.VISIBLE);
+            lin_article.setVisibility(View.VISIBLE);
             GlideUtils.loadImage(s.getImg(), iv_piv);
             tv_article_title.setText(s.getTitle());
+            tv_article_content.setText(s.getContent());
         } else if ("2".equals(s.getType())) {
             tv_statu.setText("发表了观点");
             lin_view.setVisibility(View.VISIBLE);
@@ -91,7 +94,7 @@ public class UserCenterListAdapter extends CommonAdapter<SquareLive> {
             initImg(s.getImgList(), recycler_view);
         } else if ("3".equals(s.getType())) {
             tv_statu.setText("更新了操作");
-            lin_article.setVisibility(View.VISIBLE);
+            lin_predict.setVisibility(View.VISIBLE);
             if (!ListUtils.isEmpty(s.getCommentVos())) {
                 tv_operation_time.setText(com.blankj.utilcode.util.TimeUtils.millis2String(s.getUserDemoDealVos().get(0).getCreateTime(), TimeUtils.DEFAULT_FORMAT));
                 if ("1".equals(s.getUserDemoDealVos().get(0).getType())) {
@@ -101,12 +104,16 @@ public class UserCenterListAdapter extends CommonAdapter<SquareLive> {
                 }
                 tv_operation_currency.setText(s.getUserDemoDealVos().get(0).getSymbol());
                 tv_operation_deal_price.setText(BigUIUtil.getinstance().bigPrice(s.getUserDemoDealVos().get(0).getPrice()));
-                tv_operation_change.setText(s.getUserDemoDealVos().get(0).getPositionRetaBefore() + "%" + "-" + s.getUserDemoDealVos().get(0).getPositionRetaAfter() + "%");
+                if (s.getUserDemoDealVos().get(0).getPositionRetaBefore() > s.getUserDemoDealVos().get(0).getPositionRetaAfter()) {
+                    tv_operation_change.setText(s.getUserDemoDealVos().get(0).getPositionRetaBefore() + "%" + CommonUtils.getString(R.string.ic_Fall) + s.getUserDemoDealVos().get(0).getPositionRetaAfter() + "%");
+                } else {
+                    tv_operation_change.setText(s.getUserDemoDealVos().get(0).getPositionRetaBefore() + "%" + CommonUtils.getString(R.string.ic_Climb) + s.getUserDemoDealVos().get(0).getPositionRetaAfter() + "%");
+                }
             }
         }
 
         if (!TextUtils.isEmpty(s.getCreateTime())) {
-            tv_time.setText(TimeUtils.getDateToLeftTime(Long.parseLong(s.getCreateTime()) / 1000));
+            tv_time.setText(TimeUtils.getDateToLeftTime(Long.parseLong(s.getCreateTime())));
         }
 
 
@@ -114,6 +121,7 @@ public class UserCenterListAdapter extends CommonAdapter<SquareLive> {
 
     public void initImg(List<String> paths, RecyclerView recyclerView) {
         AddPicAdapter addPicAdapter = new AddPicAdapter(mContext, paths);
+        addPicAdapter.setShowAdd(false);
         UiHeplUtils.initChoosePicRv(paths,
                 addPicAdapter,
                 (FragmentActivity) mContext,

@@ -12,6 +12,7 @@ import com.xiaomiquan.adapter.group.LabelHistoryTradingAdapter;
 import com.xiaomiquan.entity.bean.group.HistoryTrading;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
+import com.xiaomiquan.mvp.fragment.SimulatedTradingFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 /**
  * 创建组合 成交历史
  */
-public class HistoryTradingFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
+public class HistoryTradingFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> implements SimulatedTradingFragment.FragmentLinsener{
 
     LabelHistoryTradingAdapter adapter;
 
@@ -96,7 +97,10 @@ public class HistoryTradingFragment extends BasePullFragment<BaseFragentPullDele
     }
 
     String id;
-
+    public void setId(String id) {
+        this.id = id;
+        onRefresh();
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

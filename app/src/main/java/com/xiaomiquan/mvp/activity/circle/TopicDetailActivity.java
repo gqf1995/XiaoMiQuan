@@ -86,19 +86,21 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
                 initSquareLive(datas);
                 break;
             case 0x124:
-//                viewDelegate.viewHolder.et_input2.setText("");
-//                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
+                //                viewDelegate.viewHolder.et_input2.setText("");
+                //                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
                 break;
             case 0x125:
-//                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
+                //                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
                 break;
             case 0x126:
 
                 break;
             case 0x127:
-                List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
-                initComment(comments);
-//                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
+                //评论成功
+                //                List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
+                //                initComment(comments);
+                onRefresh();
+                //                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
                 break;
         }
     }
@@ -189,9 +191,9 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
                     PersonalHomePageActivity.startAct(TopicDetailActivity.this, comments.get(position).getCommentUserId());
                 }
             });
-            viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
-//            viewDelegate.viewHolder.pull_recycleview.setAdapter(commentAdapter);
+            //            viewDelegate.viewHolder.pull_recycleview.setAdapter(commentAdapter);
             initRecycleViewPull(commentAdapter, new LinearLayoutManager(mContext));
+            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         } else {
             getDataBack(commentAdapter.getDatas(), comments, commentAdapter);
         }

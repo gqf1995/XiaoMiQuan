@@ -11,7 +11,6 @@ import com.xiaomiquan.adapter.group.MyGroupAdapter;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
-import com.xiaomiquan.mvp.activity.group.MyAccountActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
@@ -71,7 +70,7 @@ public class MyGroupFragment extends BasePullFragment<BaseFragentPullDelegate, B
                         //SimulatedTradingFragment.startAct(getActivity(), (ArrayList)myGroupAdapter.getDatas(),position, true);
                     }
                     if (view.getId() == R.id.tv_look) {
-                        MyAccountActivity.startAct(getActivity(), myGroupAdapter.getDatas().get(position));
+                        //MyAccountActivity.startAct(getActivity(), myGroupAdapter.getDatas().get(position));
                     }
                 }
             });

@@ -9,6 +9,7 @@ import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.xiaomiquan.entity.bean.MessageInfo;
 import com.xiaomiquan.greenDB.MessageInfoDao;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
+import com.xiaomiquan.mvp.activity.user.PersonalDetailsActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -42,12 +43,26 @@ public class SealNotificationReceiver extends PushMessageReceiver {
                     messageInfo.setPushId(message.getPushId());
                     messageInfo.setTime(message.getReceivedTime());
                     messageInfo.setType(type);
-                    DaoManager.getInstance().getDaoSession().getMessageInfoDao().save(messageInfo);
-                    EventBus.getDefault().post(messageInfo);
+                    saveOrUpdataMessage(messageInfo, true);
                 }
             }
         }
         return false; // 返回 false, 会弹出融云 SDK 默认通知; 返回 true, 融云 SDK 不会弹通知, 通知需要由您自定义。
+    }
+
+    private void saveOrUpdataMessage(final MessageInfo messageInfo, final boolean isSave) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (isSave) {
+                    DaoManager.getInstance().getDaoSession().getMessageInfoDao().save(messageInfo);
+                } else {
+                    DaoManager.getInstance().getDaoSession().getMessageInfoDao().update(messageInfo);
+                }
+                EventBus.getDefault().post(messageInfo);
+            }
+        });
+        thread.start();
     }
 
     /* push 通知点击事件 */
@@ -67,22 +82,22 @@ public class SealNotificationReceiver extends PushMessageReceiver {
                     if (!ListUtils.isEmpty(list)) {
                         MessageInfo messageInfo = list.get(0);
                         messageInfo.setLook(true);
-                        DaoManager.getInstance().getDaoSession().getMessageInfoDao().update(messageInfo);
-                        EventBus.getDefault().post(messageInfo);
+                        saveOrUpdataMessage(messageInfo, false);
                     }
                     //跳转 帖子明细
                     // TODO: 2018/3/9 0009 帖子明细页面
-//                    点赞 回复 消息提醒  额外值
-//                    JSONObject jsonObject = new JSONObject();
-//                    jsonObject.put("type",1);//1:点赞;2:评论或回复
-//                    jsonObject.put("isSkip",true);//是否要跳转
-//                    jsonObject.put("linkId",articleTopic.getId());//帖子/文章id
-//
-//                    跳转文章/帖子明细接口
-//                    获取文章/帖子明细接口  参数为文章/帖子id
-//                    http://localhost:8080/articleTopic/detail?id=1
-//                    获取文章/帖子下 评论回复接口  参数：linkId 文章/帖子id；page 第几页
-//                    http://localhost:8080/comment/listComment?linkId=1&page=1
+
+                    //                    点赞 回复 消息提醒  额外值
+                    //                    JSONObject jsonObject = new JSONObject();
+                    //                    jsonObject.put("type",1);//1:点赞;2:评论或回复
+                    //                    jsonObject.put("isSkip",true);//是否要跳转
+                    //                    jsonObject.put("linkId",articleTopic.getId());//帖子/文章id
+                    //
+                    //                    跳转文章/帖子明细接口
+                    //                    获取文章/帖子明细接口  参数为文章/帖子id
+                    //                    http://localhost:8080/articleTopic/detail?id=1
+                    //                    获取文章/帖子下 评论回复接口  参数：linkId 文章/帖子id；page 第几页
+                    //                    http://localhost:8080/comment/listComment?linkId=1&page=1
                 }
             }
 

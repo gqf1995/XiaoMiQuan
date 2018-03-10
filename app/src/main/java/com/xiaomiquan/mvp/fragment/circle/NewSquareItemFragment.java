@@ -7,21 +7,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
-import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
-import com.xiaomiquan.adapter.circle.SquareLiveNewAdapter;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
 import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
 import com.xiaomiquan.mvp.activity.user.PersonalDetailsActivity;
-import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -154,7 +149,7 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
         return newFragment;
     }
 
-    public static int type;
+    public int type;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

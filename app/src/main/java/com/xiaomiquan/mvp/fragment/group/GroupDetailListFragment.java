@@ -13,6 +13,7 @@ import com.xiaomiquan.adapter.group.LabelDetailDealAdapter;
 import com.xiaomiquan.entity.bean.group.HoldDetail;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
+import com.xiaomiquan.mvp.fragment.SimulatedTradingFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * 持仓明细
  */
-public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
+public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> implements SimulatedTradingFragment.FragmentLinsener{
 
     LabelDetailDealAdapter adapter;
 
@@ -89,6 +90,12 @@ public class GroupDetailListFragment extends BasePullFragment<BaseFragentPullDel
         return newFragment;
     }
     String id;
+
+    public void setId(String id) {
+        this.id = id;
+        onRefresh();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

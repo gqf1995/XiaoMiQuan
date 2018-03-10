@@ -243,10 +243,6 @@ public class HttpUrl {
      * 获取圈子详情
      */
     public String getCircleInfo = getBaseUrl() + "/group/detail";
-    /**
-     * 个人中心 列表展示
-     */
-    public String listByUserAndType = getBaseUrl() + "/group/listByUserAndType";
 
     /**
      * 圈子申请
@@ -398,6 +394,10 @@ public class HttpUrl {
      * 大赛详情
      */
     public String demoInfo = getBaseUrl() + demoUrl + "/demoInfo";
+    /**
+     * 我的资产
+     */
+    public String myAsset = getBaseUrl() + demoUrl + "/myAsset";
 
 
     /**
@@ -420,6 +420,11 @@ public class HttpUrl {
      * 圈子导入文章
      */
     public String dealCircleArticle = getBaseUrl() + "/articleTopic/reprintedGroup";
+    /**
+     * 个人中心 列表展示
+     */
+    public String listByUserAndType = getBaseUrl() + "/articleTopic/listByUserAndType";
+
 
     /**
      * 发表评论

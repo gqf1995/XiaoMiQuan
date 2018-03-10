@@ -13,6 +13,7 @@ import com.xiaomiquan.adapter.group.LabelNotDealAdapter;
 import com.xiaomiquan.entity.bean.group.HistoryTrading;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
+import com.xiaomiquan.mvp.fragment.SimulatedTradingFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * 创建组合 未成交
  */
-public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
+public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> implements SimulatedTradingFragment.FragmentLinsener{
 
 
     LabelNotDealAdapter adapter;
@@ -107,7 +108,10 @@ public class NotDealFragment extends BasePullFragment<BaseFragentPullDelegate, B
     }
 
     String id;
-
+    public void setId(String id) {
+        this.id = id;
+        onRefresh();
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
