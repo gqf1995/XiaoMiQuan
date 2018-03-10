@@ -11,15 +11,15 @@ import org.greenrobot.greendao.annotation.Generated;
 public class MessageInfo {
 
     @Id(autoincrement = true)
-    private long id;
+    Long id;
     String message;
     long time;
     boolean isLook;
     String pushId;
     String type;
 
-    @Generated(hash = 1495161841)
-    public MessageInfo(long id, String message, long time, boolean isLook,
+    @Generated(hash = 1300516598)
+    public MessageInfo(Long id, String message, long time, boolean isLook,
             String pushId, String type) {
         this.id = id;
         this.message = message;
@@ -33,35 +33,11 @@ public class MessageInfo {
     public MessageInfo() {
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getPushId() {
-        return pushId;
-    }
-
-    public void setPushId(String pushId) {
-        this.pushId = pushId;
-    }
-
-    public boolean isLook() {
-        return isLook;
-    }
-
-    public void setLook(boolean look) {
-        isLook = look;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -79,6 +55,30 @@ public class MessageInfo {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public boolean isLook() {
+        return isLook;
+    }
+
+    public void setLook(boolean look) {
+        isLook = look;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public boolean getIsLook() {

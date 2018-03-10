@@ -8,7 +8,10 @@ import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
 import com.xiaomiquan.adapter.PraiseReplyAdapter;
+import com.xiaomiquan.entity.bean.MessageInfo;
 import com.xiaomiquan.entity.bean.PraiseReplyItem;
+import com.xiaomiquan.greenDB.MessageInfoDao;
+import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.mvp.databinder.BaseActivityPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseActivityPullDelegate;
 
@@ -34,6 +37,17 @@ public class PraiseReplyActivity extends BasePullActivity<BaseActivityPullDelega
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_praise_reply)));
         initList(new ArrayList<PraiseReplyItem>());
+
+        List<MessageInfo> list = DaoManager.getInstance().getDaoSession().getMessageInfoDao()
+                .queryBuilder()
+                .where(MessageInfoDao.Properties.IsLook.eq(false))
+                .list();
+        for (int i = 0; i < list.size(); i++) {
+            MessageInfo messageInfo = list.get(i);
+            messageInfo.setLook(true);
+            DaoManager.getInstance().getDaoSession().getMessageInfoDao().update(messageInfo);
+        }
+
     }
 
     private void initList(List<PraiseReplyItem> dats) {

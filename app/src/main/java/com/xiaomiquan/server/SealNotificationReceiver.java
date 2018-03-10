@@ -9,7 +9,6 @@ import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.xiaomiquan.entity.bean.MessageInfo;
 import com.xiaomiquan.greenDB.MessageInfoDao;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
-import com.xiaomiquan.mvp.activity.user.PersonalDetailsActivity;
 
 import org.greenrobot.eventbus.EventBus;
 

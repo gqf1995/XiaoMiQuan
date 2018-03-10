@@ -150,6 +150,11 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
                             ((FragmentLinsener) fragments.get(i)).setId(groupItem.getId());
                         }
                     }
+                    if (currencyFragmentBuy != null) {
+                        if(TextUtils.isEmpty(currencyFragmentBuy.getDemoId())) {
+                            currencyFragmentBuy.setDemoId(groupItem.getId());
+                        }
+                    }
                     addRequest(binder.myAsset(groupItem.getId() + "", this));
                 }
                 break;

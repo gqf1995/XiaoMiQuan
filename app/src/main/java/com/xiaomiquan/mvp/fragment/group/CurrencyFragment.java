@@ -34,6 +34,15 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
     public String type;
     public String searchOrId = "";
 
+    public void setDemoId(String demoId) {
+        this.demoId = demoId;
+        onRefresh();
+    }
+
+    public String getDemoId() {
+        return demoId;
+    }
+
     public void setSearchOrId(String searchOrId) {
         this.searchOrId = searchOrId;
         if (adapter != null) {
