@@ -14,13 +14,12 @@ import com.fivefivelike.mybaselibrary.http.HttpRequest;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.server.HttpUrl;
-import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.api.widget.Widget;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -31,33 +30,51 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.disposables.Disposable;
+import skin.support.widget.SkinCompatImageView;
 
 /**
  * Created by Andy on 2018/1/26.
  */
 
-public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
+public class SquareLiveNewAdapter extends CommonAdapter<SquareLive> {
 
     DefaultClickLinsener defaultClickLinsener;
-
-    private CircleImageView cv_head;
-    private TextView tv_name;
-    private TextView tv_time;
-    private IconFontTextview tv_praise;
-    private TextView tv_praise_num;
-    private IconFontTextview tv_comment;
-    private TextView tv_comment_num;
-    private ImageView iv_article;
-    private RecyclerView iv_img;
-    private TextView tv_title;
-    private TextView tv_dynamic;
-    private TextView tv_article;
-    private LinearLayout lin_article;
-    private LinearLayout lin_praise;
-    private LinearLayout lin_comment;
     public Context context;
     BaseDataBind dataBind;
     DynamicPhotoAdapter dynamicPhotoAdapter;
+
+    private CircleImageView cv_head;
+    private TextView tv_name;
+    private TextView tv_type_time;
+    private IconFontTextview icf_more;
+    private TextView tv_reason;
+    private RecyclerView recycleview_reason;
+    private ImageView iv_article;
+    private TextView tv_article_title;
+    private LinearLayout lin_article;
+    private TextView tv_forecast_time;
+    private TextView tv_forecast_info;
+    private TextView tv_forecast_result;
+    private LinearLayout lin_forecast;
+    private TextView tv_title;
+    private TextView tv_topic_brief;
+    private ImageView iv_topic;
+    private LinearLayout lin_topic;
+    private CircleImageView cv_shard_head;
+    private TextView tv_shared_name;
+    private TextView icf_shared_attention;
+    private TextView tv_shared_brief;
+    private SkinCompatImageView iv_shared;
+    private LinearLayout lin_shared_topic;
+    private IconFontTextview icf_shared;
+    private TextView tv_shared_num;
+    private LinearLayout lin_shared;
+    private IconFontTextview tv_comment;
+    private TextView tv_comment_num;
+    private LinearLayout lin_comment;
+    private IconFontTextview tv_praise;
+    private TextView tv_praise_num;
+    private LinearLayout lin_praise;
 
     public void setDefaultClickLinsener(DefaultClickLinsener defaultClickLinsener) {
         this.defaultClickLinsener = defaultClickLinsener;
@@ -69,8 +86,8 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
         this.notifyDataSetChanged();
     }
 
-    public SquareLiveAdapter(BaseDataBind baseDataBind, Context context, List<SquareLive> datas) {
-        super(context, R.layout.adapter_live, datas);
+    public SquareLiveNewAdapter(BaseDataBind baseDataBind, Context context, List<SquareLive> datas) {
+        super(context, R.layout.adapter_square_new, datas);
         this.context = context;
         dataBind = baseDataBind;
     }
@@ -79,19 +96,36 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
     protected void convert(ViewHolder holder, final SquareLive s, final int position) {
         cv_head = holder.getView(R.id.cv_head);
         tv_name = holder.getView(R.id.tv_name);
-        tv_time = holder.getView(R.id.tv_time);
-        tv_praise = holder.getView(R.id.tv_praise);
-        tv_praise_num = holder.getView(R.id.tv_praise_num);
+        tv_type_time = holder.getView(R.id.tv_type_time);
+        icf_more = holder.getView(R.id.icf_more);
+        tv_reason = holder.getView(R.id.tv_reason);
+        recycleview_reason = holder.getView(R.id.recycleview_reason);
+        iv_article = holder.getView(R.id.iv_article);
+        tv_article_title = holder.getView(R.id.tv_article_title);
+        lin_article = holder.getView(R.id.lin_article);
+        tv_forecast_time = holder.getView(R.id.tv_forecast_time);
+        tv_forecast_info = holder.getView(R.id.tv_forecast_info);
+        tv_forecast_result = holder.getView(R.id.tv_forecast_result);
+        lin_forecast = holder.getView(R.id.lin_forecast);
+        tv_title = holder.getView(R.id.tv_title);
+        tv_topic_brief = holder.getView(R.id.tv_topic_brief);
+        iv_topic = holder.getView(R.id.iv_topic);
+        lin_topic = holder.getView(R.id.lin_topic);
+        cv_shard_head = holder.getView(R.id.cv_shard_head);
+        tv_shared_name = holder.getView(R.id.tv_shared_name);
+        icf_shared_attention = holder.getView(R.id.icf_shared_attention);
+        tv_shared_brief = holder.getView(R.id.tv_shared_brief);
+        iv_shared = holder.getView(R.id.iv_shared);
+        lin_shared_topic = holder.getView(R.id.lin_shared_topic);
+        icf_shared = holder.getView(R.id.icf_shared);
+        tv_shared_num = holder.getView(R.id.tv_shared_num);
+        lin_shared = holder.getView(R.id.lin_shared);
         tv_comment = holder.getView(R.id.tv_comment);
         tv_comment_num = holder.getView(R.id.tv_comment_num);
-        tv_dynamic = holder.getView(R.id.tv_dynamic);
-        iv_article = holder.getView(R.id.iv_article);
-        tv_title = holder.getView(R.id.tv_title);
-        tv_article = holder.getView(R.id.tv_article);
-        lin_article = holder.getView(R.id.lin_article);
-        iv_img = holder.getView(R.id.iv_img);
-        lin_praise = holder.getView(R.id.lin_praise);
         lin_comment = holder.getView(R.id.lin_comment);
+        tv_praise = holder.getView(R.id.tv_praise);
+        tv_praise_num = holder.getView(R.id.tv_praise_num);
+        lin_praise = holder.getView(R.id.lin_praise);
 
 
         //加载图片
@@ -110,15 +144,20 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
             case "4":
                 break;
         }
+        lin_forecast.setVisibility(View.GONE);
+        lin_shared_topic.setVisibility(View.GONE);
+        lin_topic.setVisibility(View.GONE);
         if (s.getType().equals("1")) {
-            tv_dynamic.setText(CommonUtils.getString(R.string.str_tv_send_article));
+            tv_type_time.setText(CommonUtils.getString(R.string.str_tv_send_article) + s.getHourMinute());
             lin_article.setVisibility(View.VISIBLE);
-            iv_img.setVisibility(View.GONE);
             GlideUtils.loadImage(s.getImg(), iv_article);
             tv_title.setText(s.getTitle());
-            tv_article.setText(Html.fromHtml(s.getContent()));
+            recycleview_reason.setVisibility(View.GONE);
+            tv_article_title.setText(Html.fromHtml(s.getContent()));
         } else {
-            tv_dynamic.setText(s.getContent());
+            tv_type_time.setText(s.getHourMinute());
+            tv_reason.setText(s.getContent());
+            recycleview_reason.setVisibility(View.VISIBLE);
             lin_article.setVisibility(View.GONE);
         }
         /**
@@ -136,7 +175,6 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
          * 用户信息加载
          */
         tv_name.setText(s.getNickName());
-        tv_time.setText(s.getHourMinute());
         tv_comment_num.setText(s.getCommentCount() + "");
         tv_praise_num.setText(s.getGoodCount() + "");
         GlideUtils.loadImage(s.getAvatar(), cv_head);
@@ -243,8 +281,8 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
                     return false;
                 }
             };
-            iv_img.setLayoutManager(gridLayoutManager);
-            iv_img.setAdapter(dynamicPhotoAdapter);
+            recycleview_reason.setLayoutManager(gridLayoutManager);
+            recycleview_reason.setAdapter(dynamicPhotoAdapter);
 
         }
     }

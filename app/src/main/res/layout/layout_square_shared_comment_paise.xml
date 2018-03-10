@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/trans_100px"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/lin_shared"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:id="@+id/icf_shared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ic_Share"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_30px" />
+
+        <TextView
+            android:id="@+id/tv_shared_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/trans_14px"
+            android:singleLine="true"
+            android:text="0"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_30px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_comment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:id="@+id/tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ic_Chat"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_30px" />
+
+        <TextView
+            android:id="@+id/tv_comment_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/trans_14px"
+            android:singleLine="true"
+            android:text="0"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_30px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_praise"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:id="@+id/tv_praise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ic_Like"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_30px" />
+
+        <TextView
+            android:id="@+id/tv_praise_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/trans_14px"
+            android:singleLine="true"
+            android:text="0"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_30px" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="@dimen/trans_100px"
+        android:layout_height="wrap_content" />
+</LinearLayout>
