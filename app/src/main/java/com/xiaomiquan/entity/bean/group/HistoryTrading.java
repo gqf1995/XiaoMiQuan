@@ -29,8 +29,8 @@ public class HistoryTrading {
     private long dealTime;
     private String demoId;
     private String id;
-    private String positionRateAfter;
-    private String positionRateBefore;
+    private double positionRateAfter;
+    private double positionRateBefore;
     private String price;
     private String priceType;
     private String status;
@@ -87,19 +87,19 @@ public class HistoryTrading {
         this.id = id;
     }
 
-    public String getPositionRateAfter() {
+    public double getPositionRateAfter() {
         return positionRateAfter;
     }
 
-    public void setPositionRateAfter(String positionRateAfter) {
+    public void setPositionRateAfter(double positionRateAfter) {
         this.positionRateAfter = positionRateAfter;
     }
 
-    public String getPositionRateBefore() {
+    public double getPositionRateBefore() {
         return positionRateBefore;
     }
 
-    public void setPositionRateBefore(String positionRateBefore) {
+    public void setPositionRateBefore(double positionRateBefore) {
         this.positionRateBefore = positionRateBefore;
     }
 

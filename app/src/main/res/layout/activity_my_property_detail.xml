@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <include layout="@layout/include_toolbar_with_statusbar" />
+    <include layout="@layout/include_toolbar_with_statusbar"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/trans_1px"
-        android:background="@color/base_mask" />
+        android:background="@color/base_mask"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -41,8 +41,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:gravity="center"
+                        android:orientation="horizontal"
                         android:padding="@dimen/trans_40px">
 
                         <LinearLayout
@@ -57,7 +57,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_tv_property_appraisement"
                                 android:textColor="@color/color_font1"
-                                android:textSize="@dimen/trans_30px" />
+                                android:textSize="@dimen/trans_30px"/>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/color_font1"
-                                    android:textSize="@dimen/trans_30px" />
+                                    android:textSize="@dimen/trans_30px"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                                     android:layout_marginLeft="@dimen/trans_20px"
                                     android:text="@string/str_tv_usd"
                                     android:textColor="@color/color_font1"
-                                    android:textSize="@dimen/trans_30px" />
+                                    android:textSize="@dimen/trans_30px"/>
 
                             </LinearLayout>
 
@@ -88,7 +88,7 @@
                                 android:layout_marginTop="@dimen/trans_40px"
                                 android:text="@string/str_tv_usable_usd"
                                 android:textColor="@color/color_font2"
-                                android:textSize="@dimen/trans_28px" />
+                                android:textSize="@dimen/trans_28px"/>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/color_font1"
-                                    android:textSize="@dimen/trans_30px" />
+                                    android:textSize="@dimen/trans_30px"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -109,7 +109,7 @@
                                     android:layout_marginLeft="@dimen/trans_20px"
                                     android:text="@string/str_tv_usd"
                                     android:textColor="@color/color_font2"
-                                    android:textSize="@dimen/trans_28px" />
+                                    android:textSize="@dimen/trans_28px"/>
 
                             </LinearLayout>
                         </LinearLayout>
@@ -117,8 +117,8 @@
                         <com.github.mikephil.charting.charts.PieChart
                             android:id="@+id/pieChart"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
 
                     </LinearLayout>
 
@@ -139,12 +139,12 @@
                             android:gravity="center"
                             android:text="@string/str_currency"
                             android:textColor="@color/color_font3"
-                            android:textSize="@dimen/text_trans_24px" />
+                            android:textSize="@dimen/text_trans_24px"/>
 
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -152,12 +152,12 @@
                             android:gravity="center"
                             android:text="@string/str_now_price"
                             android:textColor="@color/color_font3"
-                            android:textSize="@dimen/text_trans_24px" />
+                            android:textSize="@dimen/text_trans_24px"/>
 
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"/>
 
 
                         <TextView
@@ -167,12 +167,12 @@
                             android:gravity="center"
                             android:text="@string/str_tv_num"
                             android:textColor="@color/color_font3"
-                            android:textSize="@dimen/text_trans_24px" />
+                            android:textSize="@dimen/text_trans_24px"/>
 
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"/>
 
 
                         <TextView
@@ -182,19 +182,38 @@
                             android:gravity="center"
                             android:text="@string/str_tv_operation"
                             android:textColor="@color/color_font3"
-                            android:textSize="@dimen/text_trans_24px" />
+                            android:textSize="@dimen/text_trans_24px"/>
 
 
                     </LinearLayout>
 
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/pull_recycleview"
+                    <skin.support.widget.SkinCompatLinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/fl_pull"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:scrollbars="none" />
+                        android:background="@color/base_mask_dark"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:id="@+id/fl_rcv"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/pull_recycleview"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scrollbars="vertical"
+                                />
+
+                        </FrameLayout>
+
+                        <!--<include layout="@layout/merge_layout_no_data"/>-->
+                    </skin.support.widget.SkinCompatLinearLayout>
+
                     <!--<include layout="@layout/merge_layout_no_data"/>-->
                 </LinearLayout>
 

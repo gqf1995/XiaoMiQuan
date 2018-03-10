@@ -65,4 +65,6 @@ public class ConversationFragmentEx extends ConversationFragment implements AbsL
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_cannot_talk));
         }
     }
+
+
 }

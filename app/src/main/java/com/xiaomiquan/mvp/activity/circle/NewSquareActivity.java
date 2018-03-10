@@ -6,8 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
+import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
@@ -18,14 +18,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.databinder.circle.NewSquareBinder;
 import com.xiaomiquan.mvp.delegate.circle.NewSquareDelegate;
-import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.xiaomiquan.mvp.fragment.SimulatedTradingFragment;
 import com.xiaomiquan.mvp.fragment.circle.NewSquareItemFragment;
-import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
-import com.xiaomiquan.mvp.fragment.group.EarningsTrendFragment;
-import com.xiaomiquan.mvp.fragment.group.GroupHistoryTradingFragment;
-import com.xiaomiquan.mvp.fragment.group.PositionDetailFragment;
-import com.xiaomiquan.mvp.fragment.group.RevenueRankingFragment;
 
 import java.util.ArrayList;
 
@@ -120,6 +113,20 @@ public class NewSquareActivity extends BaseDataBindFragment<NewSquareDelegate, N
             innerPagerAdapter = new InnerPagerAdapter(getChildFragmentManager(), fragments, stringArray);
             viewDelegate.viewHolder.tl_1.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
         }
+        viewDelegate.viewHolder.viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
 }

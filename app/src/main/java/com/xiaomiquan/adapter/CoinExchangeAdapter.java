@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.circledialog.res.drawable.RadiuBg;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.xiaomiquan.R;
@@ -17,6 +18,7 @@ import com.xiaomiquan.utils.UserSet;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -68,7 +70,7 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
         tv_coin_unit = holder.getView(R.id.tv_coin_unit);
         ic_piv.setEnabled(false);
-        fl_change.setVisibility(View.GONE);
+        fl_change.setVisibility(View.VISIBLE);
 
 
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
@@ -85,7 +87,19 @@ public class CoinExchangeAdapter extends CommonAdapter<ExchangeData> {
 
         tv_coin_market_value.setText(CommonUtils.getString(R.string.str_amount) + BigUIUtil.getinstance().bigAmount(s.getVolume()));
 
-        tv_name.setText(CommonUtils.getString(R.string.str_rise_24h) + BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
+        tv_gains.setText(BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
+        if (!TextUtils.isEmpty(s.getChange())) {
+            if (new BigDecimal(s.getChange()).compareTo(new BigDecimal("0")) == 1) {
+                ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
+                tv_gains.setText("+" + BigUIUtil.getinstance().changeAmount(s.getChange()) + "%");
+            } else {
+                ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getDropColor()), 10, 10, 10, 10));
+            }
+        } else {
+            ic_piv.setBackground(new RadiuBg(CommonUtils.getColor(UserSet.getinstance().getRiseColor()), 10, 10, 10, 10));
+        }
+        tv_name.setVisibility(View.GONE);
+
 
         List<String> strings = BigUIUtil.getinstance().rateTwoPrice(s.getLast(), s.getSymbol(), s.getUnit());
         if (TextUtils.isEmpty(strings.get(0))) {

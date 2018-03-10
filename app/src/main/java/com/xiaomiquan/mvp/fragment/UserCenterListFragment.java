@@ -3,13 +3,18 @@ package com.xiaomiquan.mvp.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.adapter.UserCenterListAdapter;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
+import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
+import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,11 +57,27 @@ public class UserCenterListFragment extends BasePullFragment<BaseFragentPullDele
 
 
     private void initList(List<SquareLive> strDatas) {
-        if(adapter==null) {
+        if (adapter == null) {
             adapter = new UserCenterListAdapter(getActivity(), strDatas);
+            adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    if ("1".equals(adapter.getDatas().get(position).getType())) {
+                        ArticleDetailsActivity.startAct(getActivity(), adapter.getDatas().get(position));
+                    } else if ("2".equals(adapter.getDatas().get(position).getType())) {
+                        TopicDetailActivity.startAct(getActivity(), adapter.getDatas().get(position));
+                    } else if ("3".equals(adapter.getDatas().get(position).getType())) {
+                    }
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
             initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
             viewDelegate.setIsPullDown(false);
-        }else{
+        } else {
             getDataBack(adapter.getDatas(), strDatas, adapter);
         }
         //onRefresh();

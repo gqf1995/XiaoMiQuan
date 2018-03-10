@@ -93,11 +93,16 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         userLogin = SingSettingDBUtil.getUserLogin();
-        if (id.equals(userLogin.getId() + "")) {
+        if (userLogin != null) {
+            if (id.equals(userLogin.getId() + "")) {
+                initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_my_home_page)).setSubTitle(" "));
+                GlideUtils.loadImage(userLogin.getAvatar(), viewDelegate.viewHolder.ic_pic);
+            } else {
+                initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_other_home_page)).setSubTitle(" "));
+            }
+        } else {
             initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_my_home_page)).setSubTitle(" "));
             GlideUtils.loadImage(userLogin.getAvatar(), viewDelegate.viewHolder.ic_pic);
-        } else {
-            initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_other_home_page)).setSubTitle(" "));
         }
         //初始化滑动渐变前
         viewDelegate.getLayoutTitleBar().setVisibility(View.GONE);
@@ -111,28 +116,33 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
             //初始化滑动渐变
             viewDelegate.setToolColor(R.color.colorPrimary, false);
             viewDelegate.initTool();
-            if (id.equals(userLogin.getId() + "")) {
-                viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_edit));
+            if (userLogin != null) {
+                if (id.equals(userLogin.getId() + "")) {
+                    viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_edit));
+                }
             }
+
         }
     }
 
     @Override
     protected void clickRightTv() {
         super.clickRightTv();
-        if (id.equals(userLogin.getId() + "")) {
-            //编辑
-            ChangeUserInfoActivity.startAct(this, 0x123);
-        } else {
-            //关注
-            if (userPageDetail.isIsAttention()) {
-                userPageDetail.setIsAttention(false);
-                addRequest(binder.attentiondelete(id, this));
+        if (SingSettingDBUtil.isLogin(this)) {
+            if (id.equals(userLogin.getId() + "")) {
+                //编辑
+                ChangeUserInfoActivity.startAct(this, 0x123);
             } else {
-                userPageDetail.setIsAttention(true);
-                addRequest(binder.attention(id, this));
+                //关注
+                if (!userPageDetail.isIsAttention()) {
+                    userPageDetail.setIsAttention(false);
+                    addRequest(binder.attentiondelete(id, this));
+                } else {
+                    userPageDetail.setIsAttention(true);
+                    addRequest(binder.attention(id, this));
+                }
+                viewDelegate.getmToolbarSubTitle().setText(userPageDetail.isIsAttention() ? CommonUtils.getString(R.string.str_focuse) : CommonUtils.getString(R.string.str_cancel_fucose));
             }
-            viewDelegate.getmToolbarSubTitle().setText(userPageDetail.isIsAttention() ? CommonUtils.getString(R.string.str_focuse) : CommonUtils.getString(R.string.str_cancel_fucose));
         }
     }
 
@@ -154,8 +164,10 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
             case 0x123:
                 userPageDetail = GsonUtil.getInstance().toObj(data, UserPageDetail.class);
                 viewDelegate.initUserDetail(userPageDetail);
-                if (!id.equals(userLogin.getId() + "")) {
-                    viewDelegate.getmToolbarSubTitle().setText(userPageDetail.isIsAttention() ? CommonUtils.getString(R.string.str_focuse) : CommonUtils.getString(R.string.str_cancel_fucose));
+                if (userLogin != null) {
+                    if (!id.equals(userLogin.getId() + "")) {
+                        viewDelegate.getmToolbarSubTitle().setText(userPageDetail.isIsAttention() ? CommonUtils.getString(R.string.str_focuse) : CommonUtils.getString(R.string.str_cancel_fucose));
+                    }
                 }
                 addRequest(binder.getChatroom(id, this));
                 break;
@@ -185,7 +197,7 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
                 viewDelegate.viewHolder.lin_chat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        addRequest(binder.checkScore(chatLiveItem.getGroupId(), PersonalDetailsActivity.this));
                     }
                 });
                 break;

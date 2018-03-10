@@ -10,25 +10,25 @@ public class AppConst {
      * topcoin的域名为  http://topcoin.bicoin.com.cn/topcoin/
      * 正式
      */
-    //        public static final String httpBaseUrl = "http://topcoin.bicoin.com.cn/topcoin";
-    //        public static final String serviceId = "KEFU151849750997586";
-    //        public static final String rongId = "pgyu6atqp96nu";
-    //        public static final boolean isLog = false;
-    //        public static final boolean isEditUrl = false;
+//    public static final String httpBaseUrl = "http://topcoin.bicoin.com.cn/topcoin";
+//    public static final String serviceId = "KEFU151849750997586";
+//    public static final String rongId = "pgyu6atqp96nu";
+//    public static final boolean isLog = false;
+//    public static final boolean isEditUrl = false;
 
     /**
      * 测试
      */
-    //public static final String httpBaseUrl = "http://47.96.180.179:1904";
-    //public static final String httpBaseUrl = "http://test.bicoin.com.cn/topcoin";
-    public static final String httpBaseUrl = "http://192.168.0.28:8080";
-    //public static final String httpBaseUrl = "http://192.168.0.18:8080";
-    //public static final String httpBaseUrl = "http://192.168.0.1:8080";
-    public static final String serviceId = "KEFU151728371459995";
-    public static final String rongId = "cpj2xarlc1xsn";
-    public static final boolean isLog = true;
-    public static final boolean isEditUrl = false;
-    public static final boolean isSSL = true;
+        //public static final String httpBaseUrl = "http://47.96.180.179:1904";
+        public static final String httpBaseUrl = "http://test.bicoin.com.cn/topcoin";
+        //public static final String httpBaseUrl = "http://192.168.0.28:8080";
+        //public static final String httpBaseUrl = "http://192.168.0.18:8080";
+        //public static final String httpBaseUrl = "http://192.168.0.1:8080";
+        public static final String serviceId = "KEFU151728371459995";
+        public static final String rongId = "cpj2xarlc1xsn";
+        public static final boolean isLog = false;
+        public static final boolean isEditUrl = false;
+        public static final boolean isSSL = true;
 
 
     public static final String CACHE_EXCHANGENAME = "cache_exchangeName";//交易所 名称缓存

@@ -103,6 +103,7 @@ public class GroupDealDelegate extends BaseDelegate {
         if (!TextUtils.isEmpty(price)) {
             return;
         }
+        isSelectStorehouse = false;
         if (!TextUtils.isEmpty(price)) {
             BigDecimal btcMoney = new BigDecimal(price);
             btcMoney = btcMoney.setScale(4, BigDecimal.ROUND_UP);
@@ -193,6 +194,7 @@ public class GroupDealDelegate extends BaseDelegate {
             switch (v.getId()) {
                 case R.id.tv_all:
                     //买全部
+
                     sellChoose(v.getId());
                     break;
                 case R.id.tv_half_hold:
@@ -215,6 +217,7 @@ public class GroupDealDelegate extends BaseDelegate {
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_price));
             return;
         }
+        isSelectStorehouse = true;
         //返回卖出数量
         salenum = saleNum(id);
 

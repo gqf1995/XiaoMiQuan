@@ -52,10 +52,12 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
 
     UserLogin userLogin;
 
+
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         userLogin = SingSettingDBUtil.getUserLogin();
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         getIntentData();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_topic)));
     }
@@ -80,28 +82,29 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
-                //获取动态详情
                 SquareLive datas = GsonUtil.getInstance().toObj(data, SquareLive.class);
                 initSquareLive(datas);
                 break;
             case 0x124:
-//                viewDelegate.viewHolder.et_input2.setText("");
-//                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
+                //                viewDelegate.viewHolder.et_input2.setText("");
+                //                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
                 break;
             case 0x125:
-//                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
+                //                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
                 break;
             case 0x126:
 
                 break;
             case 0x127:
-                //评论成功回调
-                List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
-                initComment(comments);
-//                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
+                //评论成功
+                //                List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
+                //                initComment(comments);
+                onRefresh();
+                //                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
                 break;
         }
     }
+
 
     private void initSquareLive(final SquareLive square) {
         if (square.isUserPraise()) {
@@ -125,7 +128,9 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
         viewDelegate.viewHolder.tv_con.setText(Html.fromHtml(square.getContent()));
         viewDelegate.viewHolder.tv_name.setText(square.getNickName());
     }
+
     DynamicPhotoAdapter dynamicPhotoAdapter;
+
     private void initImgs(final List<String> stringList) {
         if (dynamicPhotoAdapter == null) {
             dynamicPhotoAdapter = new DynamicPhotoAdapter(TopicDetailActivity.this, stringList);
@@ -186,6 +191,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
                     PersonalHomePageActivity.startAct(TopicDetailActivity.this, comments.get(position).getCommentUserId());
                 }
             });
+            //            viewDelegate.viewHolder.pull_recycleview.setAdapter(commentAdapter);
             initRecycleViewPull(commentAdapter, new LinearLayoutManager(mContext));
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         } else {
@@ -238,6 +244,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
     private void getIntentData() {
         Intent intent = getIntent();
         squareLive = (SquareLive) intent.getParcelableExtra(("squareLive"));
+
         initComment(squareLive.getCommentVos());
         initImgs(squareLive.getImgList());
         initSquareLive(squareLive);

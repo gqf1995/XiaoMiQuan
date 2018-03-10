@@ -510,7 +510,8 @@ public class UiHeplUtils {
     }
 
     /**
-     *  path转File
+     * path转File
+     *
      * @param results
      * @return
      */
@@ -952,7 +953,9 @@ public class UiHeplUtils {
             }
         });
         recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(cloumnCount, activity.getResources().getDimensionPixelSize(cloumnAllPaddingRes) / (cloumnCount + 1), true));
+        if (recyclerView.getItemDecorationCount() == 0) {
+            recyclerView.addItemDecoration(new GridSpacingItemDecoration(cloumnCount, activity.getResources().getDimensionPixelSize(cloumnAllPaddingRes) / (cloumnCount + 1), true));
+        }
         recyclerView.setAdapter(addPicAdapter);
         addPicAdapter.setCloumnCount(cloumnCount);
         if (addPicRes != 0) {
@@ -1057,7 +1060,6 @@ public class UiHeplUtils {
         shareDialog.refreshData(systemList);
         shareDialog.show();
     }
-
 
 
 }

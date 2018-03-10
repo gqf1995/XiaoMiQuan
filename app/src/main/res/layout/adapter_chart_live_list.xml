@@ -89,7 +89,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="@dimen/trans_20px">
+                android:paddingLeft="@dimen/trans_20px"
+                android:paddingRight="@dimen/trans_20px"
+                android:paddingTop="@dimen/trans_15px"
+                >
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ic_pic"
@@ -122,11 +125,12 @@
             <TextView
                 android:id="@+id/tv_Introduction"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:paddingBottom="@dimen/trans_20px"
+                android:maxLines="2"
                 android:paddingLeft="@dimen/trans_50px"
+                android:paddingRight="@dimen/trans_15px"
+                android:paddingTop="@dimen/trans_10px"
                 android:text=""
                 android:textColor="@color/color_font3"
                 android:textSize="@dimen/text_trans_20px"/>

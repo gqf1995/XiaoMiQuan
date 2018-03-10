@@ -81,30 +81,6 @@ public class ChatManagementActivity extends BaseDataBindActivity<ChatManagementD
         if (!isMy) {
             viewDelegate.viewHolder.lin1.setVisibility(View.GONE);
         } else {
-            viewDelegate.viewHolder.lin3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EditTextActivity.startAct(ChatManagementActivity.this,
-                            CommonUtils.getString(R.string.str_chat_room_introduce),
-                            introduce,
-                            CommonUtils.getString(R.string.str_toast_please_input) + CommonUtils.getString(R.string.str_chat_room_introduce),
-                            true,
-                            0x124
-                    );
-                }
-            });
-            viewDelegate.viewHolder.lin2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EditTextActivity.startAct(ChatManagementActivity.this,
-                            CommonUtils.getString(R.string.str_chat_room_name),
-                            introduce,
-                            CommonUtils.getString(R.string.str_toast_please_input) + CommonUtils.getString(R.string.str_chat_room_name),
-                            false,
-                            0x123
-                    );
-                }
-            });
             viewDelegate.viewHolder.ic_pic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -126,6 +102,32 @@ public class ChatManagementActivity extends BaseDataBindActivity<ChatManagementD
             });
             addRequest(binder.getChatroom(id, this));
         }
+        viewDelegate.viewHolder.lin3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditTextActivity.startAct(ChatManagementActivity.this,
+                        CommonUtils.getString(R.string.str_chat_room_introduce),
+                        introduce,
+                        CommonUtils.getString(R.string.str_toast_please_input) + CommonUtils.getString(R.string.str_chat_room_introduce),
+                        true,
+                        isMy,
+                        0x124
+                );
+            }
+        });
+        viewDelegate.viewHolder.lin2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditTextActivity.startAct(ChatManagementActivity.this,
+                        CommonUtils.getString(R.string.str_chat_room_name),
+                        introduce,
+                        CommonUtils.getString(R.string.str_toast_please_input) + CommonUtils.getString(R.string.str_chat_room_name),
+                        false,
+                        isMy,
+                        0x123
+                );
+            }
+        });
         GlideUtils.loadImage(headPortrait, viewDelegate.viewHolder.ic_pic);
         viewDelegate.viewHolder.tv_name.setText(title);
         viewDelegate.viewHolder.tv_num.setText(CommonUtils.getString(R.string.str_chat_room_online_people, onlineTotal));

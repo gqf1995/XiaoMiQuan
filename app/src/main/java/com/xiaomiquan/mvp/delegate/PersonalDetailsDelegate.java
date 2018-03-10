@@ -55,6 +55,8 @@ public class PersonalDetailsDelegate extends BaseDelegate {
         height = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_150px);
         viewHolder.layout_title_bar.getBackground().mutate().setAlpha(0);
         viewHolder.layout_title_bar.setVisibility(View.VISIBLE);
+        viewHolder.toolbar_subtitle.setVisibility(View.VISIBLE);
+        viewHolder.toolbar_subtitle.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
         viewHolder.swipeRefreshLayout.setProgressViewEndTarget(false, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_250px));
         viewHolder.nestedScrollView.setTabAndPager(viewHolder.lin_table, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_110px), viewHolder.viewpager, false);
         viewHolder.nestedScrollView.setOnScrollChangeListener(new JudgeNestedScrollView.OnScrollChangeListener() {
@@ -68,8 +70,10 @@ public class PersonalDetailsDelegate extends BaseDelegate {
                 viewHolder.layout_title_bar.setVisibility(View.VISIBLE);
                 if (scrollY <= height / 2) {
                     setToolColor(R.color.colorPrimary, false);
+                    viewHolder.toolbar_subtitle.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
                 } else {
                     setToolColor(R.color.colorPrimary, true);
+                    viewHolder.toolbar_subtitle.setTextColor(CommonUtils.getColor(R.color.mark_color));
                 }
                 if (scrollY <= height) {
                     scale = (float) scrollY / height;
@@ -77,7 +81,6 @@ public class PersonalDetailsDelegate extends BaseDelegate {
                     // 随着滑动距离改变透明度
                     // Log.e("al=","="+alpha);
                     viewHolder.layout_title_bar.getBackground().mutate().setAlpha(alpha);
-
                 } else {
                     if (alpha < 255) {
                         // 防止频繁重复设置相同的值影响性能

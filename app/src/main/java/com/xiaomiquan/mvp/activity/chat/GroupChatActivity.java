@@ -1,6 +1,7 @@
 package com.xiaomiquan.mvp.activity.chat;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
@@ -8,6 +9,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -19,6 +21,7 @@ import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.chat.CheckScore;
 import com.xiaomiquan.entity.bean.event.ChatControlEvent;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
+import com.xiaomiquan.mvp.activity.user.PersonalDetailsActivity;
 import com.xiaomiquan.mvp.databinder.GroupChatBinder;
 import com.xiaomiquan.mvp.delegate.CustomerServiceActDelegate;
 import com.xiaomiquan.mvp.fragment.ConversationFragmentEx;
@@ -231,6 +234,65 @@ public class GroupChatActivity extends BaseDataBindActivity<CustomerServiceActDe
                 fragment = (ConversationFragmentEx) getSupportFragmentManager().getFragments().get(0);
             }
         }
+        fragment.getContext();
+        RongIM.setConversationBehaviorListener(new MyConversationBehaviorListener());
     }
 
+    private class MyConversationBehaviorListener implements RongIM.ConversationBehaviorListener {
+
+        /**
+         * 当点击用户头像后执行。
+         *
+         * @param context          上下文。
+         * @param conversationType 会话类型。
+         * @param userInfo         被点击的用户的信息。
+         * @return 如果用户自己处理了点击后的逻辑，则返回 true，否则返回 false，false 走融云默认处理方式。
+         */
+        @Override
+        public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+            if (userInfo != null) {
+                if (!TextUtils.isEmpty(userInfo.getUserId())) {
+                    if (context != null) {
+                        PersonalDetailsActivity.startAct(fragment.getActivity(), userInfo.getUserId(), 0x123);
+                    }
+                }
+            }
+            return true;
+        }
+
+        /**
+         * 当长按用户头像后执行。
+         *
+         * @param context          上下文。
+         * @param conversationType 会话类型。
+         * @param userInfo         被点击的用户的信息。
+         * @return 如果用户自己处理了点击后的逻辑，则返回 true，否则返回 false，false 走融云默认处理方式。
+         */
+        @Override
+        public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+            return false;
+        }
+
+        @Override
+        public boolean onMessageClick(Context context, View view, io.rong.imlib.model.Message message) {
+            return false;
+        }
+
+        /**
+         * 当点击链接消息时执行。
+         *
+         * @param context 上下文。
+         * @param link    被点击的链接。
+         * @return 如果用户自己处理了点击后的逻辑处理，则返回 true， 否则返回 false, false 走融云默认处理方式。
+         */
+        @Override
+        public boolean onMessageLinkClick(Context context, String link) {
+            return false;
+        }
+
+        @Override
+        public boolean onMessageLongClick(Context context, View view, io.rong.imlib.model.Message message) {
+            return false;
+        }
+    }
 }
