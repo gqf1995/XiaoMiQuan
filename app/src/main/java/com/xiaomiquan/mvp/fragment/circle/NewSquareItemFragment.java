@@ -10,24 +10,28 @@ import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.R;
+import com.xiaomiquan.adapter.circle.SquareLiveAdapter;
 import com.xiaomiquan.adapter.circle.SquareLiveNewAdapter;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
 import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
+import com.xiaomiquan.mvp.activity.user.PersonalDetailsActivity;
 import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
-    SquareLiveNewAdapter squareLiveAdapter;
+    SquareLiveAdapter squareLiveAdapter;
     UserLogin userLogin;
 
     @Override
@@ -44,18 +48,20 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
     protected void bindEvenListener() {
         super.bindEvenListener();
         userLogin = SingSettingDBUtil.getUserLogin();
-        type = getArguments().getString("type");
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+        type = getArguments().getInt("type");
+        initLive(new ArrayList<SquareLive>());
         onRefresh();
+
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+
         switch (requestCode) {
             case 0x123:
                 break;
             case 0x124:
+                viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<SquareLive> datas = GsonUtil.getInstance().toList(data, SquareLive.class);
 //                viewDelegate.viewHolder.tv_live_time.setText(datas.get(0).getYearMonthDay());
                 initLive(datas);
@@ -65,6 +71,7 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
             case 0x127:
                 break;
             case 0x128:
+                viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
                 List<SquareLive> data2 = GsonUtil.getInstance().toList(data, SquareLive.class);
 //                viewDelegate.viewHolder.tv_live_time.setText(datas.get(0).getYearMonthDay());
                 initLive(data2);
@@ -75,14 +82,13 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
     @Override
     protected void refreshData() {
         switch (type) {
-            case "0":
+            case 0:
                 addRequest(binder.getLive(this));
                 break;
-            case "1":
+            case 1:
                 addRequest(binder.getAllLive(this));
                 break;
         }
-
     }
 
     @Override
@@ -92,7 +98,7 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
 
     public void initLive(final List<SquareLive> squareLives) {
         if (squareLiveAdapter == null) {
-            squareLiveAdapter = new SquareLiveNewAdapter(binder, getActivity(), squareLives);
+            squareLiveAdapter = new SquareLiveAdapter(binder, getActivity(), squareLives);
             squareLiveAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
@@ -119,7 +125,7 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
                         }
                     }
                     if (view.getId() == R.id.cv_head) {
-                        PersonalHomePageActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position).getUserId());
+                        PersonalDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position).getUserId(), 0x124);
                     }
                     if (view.getId() == R.id.lin_article) {
                         if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
@@ -139,30 +145,30 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
     }
 
     public static NewSquareItemFragment newInstance(
-            String type
+            int type
     ) {
         NewSquareItemFragment newFragment = new NewSquareItemFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("type", type);
+        bundle.putInt("type", type);
         newFragment.setArguments(bundle);
         return newFragment;
     }
 
-    public static String type;
+    public static int type;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if ((savedInstanceState != null)
                 && savedInstanceState.containsKey("type")) {
-            type = savedInstanceState.getString("type");
+            type = savedInstanceState.getInt("type");
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("type", type);
+        outState.putInt("type", type);
     }
 
 

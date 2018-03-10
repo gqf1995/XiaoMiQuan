@@ -49,6 +49,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_article)));
         userLogin = SingSettingDBUtil.getUserLogin();
         getIntentData();
@@ -56,6 +57,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
                 SquareLive datas = GsonUtil.getInstance().toObj(data, SquareLive.class);
@@ -80,7 +82,6 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     }
 
     private void initSquareLive(final SquareLive square) {
-
         if (square.isUserPraise()) {
             viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
@@ -136,7 +137,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
             });
             viewDelegate.viewHolder.pull_recycleview.getItemAnimator().setChangeDuration(0);
 //            viewDelegate.viewHolder.rv_comment.setAdapter(commentAdapter);
-            initRecycleViewPull(commentAdapter, new LinearLayoutManager(mContext) );
+            initRecycleViewPull(commentAdapter, new LinearLayoutManager(mContext));
         } else {
             getDataBack(commentAdapter.getDatas(), comment, commentAdapter);
         }
@@ -145,6 +146,7 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     SquareLive squareLive;
 
     private void getIntentData() {
+
         Intent intent = getIntent();
         squareLive = (SquareLive) intent.getParcelableExtra("squareLive");
         initSquareLive(squareLive);
