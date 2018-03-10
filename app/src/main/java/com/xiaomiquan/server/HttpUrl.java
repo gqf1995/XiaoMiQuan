@@ -243,6 +243,10 @@ public class HttpUrl {
      * 获取圈子详情
      */
     public String getCircleInfo = getBaseUrl() + "/group/detail";
+    /**
+     * 个人中心 列表展示
+     */
+    public String listByUserAndType = getBaseUrl() + "/group/listByUserAndType";
 
     /**
      * 圈子申请

@@ -2,6 +2,9 @@ package com.xiaomiquan.entity.bean.circle;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.xiaomiquan.entity.bean.UserDemoDeal;
+
 import java.util.List;
 
 /**
@@ -69,6 +72,15 @@ public class SquareLive implements Parcelable {
     private String yearMonthDay;
     private List<Comment> commentVos;
     private List<String> imgList;
+    private List<UserDemoDeal> userDemoDealVos;
+
+    public List<UserDemoDeal> getUserDemoDealVos() {
+        return userDemoDealVos;
+    }
+
+    public void setUserDemoDealVos(List<UserDemoDeal> userDemoDealVos) {
+        this.userDemoDealVos = userDemoDealVos;
+    }
 
     public String getAvatar() {
         return avatar;

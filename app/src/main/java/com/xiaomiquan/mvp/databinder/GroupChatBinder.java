@@ -24,7 +24,7 @@ public class GroupChatBinder extends IMBinder<CustomerServiceActDelegate> {
         return new HttpRequest.Builder()
                 .setRequestCode(0x124)
                 .setRequestUrl(HttpUrl.getIntance().checkScore)
-                .setShowDialog(true)
+                .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
                 .setRequestName("通过积分判断能否继续操作")
                 .setRequestMode(HttpRequest.RequestMode.POST)

@@ -1,5 +1,7 @@
 package com.xiaomiquan.entity.bean;
 
+import com.xiaomiquan.entity.bean.chat.ChatLiveItem;
+
 /**
  * Created by 郭青枫 on 2018/3/6 0006.
  */
@@ -17,6 +19,23 @@ public class UserPageDetail {
     private int attentionCount;
     private int fansCount;
     private UserBean user;
+    private ChatLiveItem articleTopicVos;
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
+    public ChatLiveItem getArticleTopicVos() {
+        return articleTopicVos;
+    }
+
+    public void setArticleTopicVos(ChatLiveItem articleTopicVos) {
+        this.articleTopicVos = articleTopicVos;
+    }
 
     public boolean isIsAttention() {
         return isAttention;

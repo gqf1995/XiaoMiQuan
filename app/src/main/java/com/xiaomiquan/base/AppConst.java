@@ -20,8 +20,8 @@ public class AppConst {
      * 测试
      */
     //public static final String httpBaseUrl = "http://47.96.180.179:1904";
-    public static final String httpBaseUrl = "http://test.bicoin.com.cn/topcoin";
-    //public static final String httpBaseUrl = "http://192.168.0.28:8080";
+    //public static final String httpBaseUrl = "http://test.bicoin.com.cn/topcoin";
+    public static final String httpBaseUrl = "http://192.168.0.28:8080";
     //public static final String httpBaseUrl = "http://192.168.0.18:8080";
     //public static final String httpBaseUrl = "http://192.168.0.1:8080";
     public static final String serviceId = "KEFU151728371459995";

@@ -26,7 +26,7 @@ import com.xiaomiquan.entity.bean.group.CoinDetail;
 import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.entity.bean.group.TradingResult;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
-import com.xiaomiquan.mvp.activity.group.MyAccountActivity;
+import com.xiaomiquan.mvp.activity.group.CombinationActivity;
 import com.xiaomiquan.mvp.activity.group.MyPropertyDetailActivity;
 import com.xiaomiquan.mvp.databinder.group.GroupDealBinder;
 import com.xiaomiquan.mvp.delegate.group.GroupDealDelegate;
@@ -214,7 +214,8 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
         //管理账户
         if (SingSettingDBUtil.isLogin(getActivity())) {
             if (groupItem != null) {
-                MyAccountActivity.startAct(getActivity(), groupItem);
+                CombinationActivity.startAct(getActivity(), groupItem, true);
+                //MyAccountActivity.startAct(getActivity(), groupItem);
             }
         }
     }

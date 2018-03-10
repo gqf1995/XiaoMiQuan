@@ -3,6 +3,7 @@ package com.xiaomiquan.mvp.activity.user;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
@@ -17,10 +18,14 @@ import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.UserPageDetail;
+import com.xiaomiquan.entity.bean.chat.ChatLiveItem;
+import com.xiaomiquan.entity.bean.chat.CheckScore;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
+import com.xiaomiquan.mvp.activity.chat.GroupChatActivity;
 import com.xiaomiquan.mvp.databinder.PersonalDetailsBinder;
 import com.xiaomiquan.mvp.delegate.PersonalDetailsDelegate;
 import com.xiaomiquan.mvp.fragment.UserCenterListFragment;
+import com.xiaomiquan.widget.CircleDialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +35,7 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
     UserLogin userLogin;
     List<Fragment> fragments;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+    ChatLiveItem chatLiveItem;
 
     @Override
     protected Class<PersonalDetailsDelegate> getDelegateClass() {
@@ -46,6 +52,12 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
     protected void bindEvenListener() {
         super.bindEvenListener();
         getIntentData();
+        viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                addRequest(binder.personCenter(id, PersonalDetailsActivity.this));
+            }
+        });
         addRequest(binder.personCenter(id, this));
     }
 
@@ -55,7 +67,7 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
             String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_user_center);
             fragments = new ArrayList<>();
             for (int i = 0; i < stringArray.length; i++) {
-                fragments.add(UserCenterListFragment.newInstance(id));
+                fragments.add(UserCenterListFragment.newInstance(id, i + ""));//文章1  观点2 操作3
             }
             for (int i = 0; i < stringArray.length; i++) {
                 mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
@@ -137,6 +149,7 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
                 userPageDetail = GsonUtil.getInstance().toObj(data, UserPageDetail.class);
@@ -144,6 +157,37 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
                 if (!id.equals(userLogin.getId() + "")) {
                     viewDelegate.getmToolbarSubTitle().setText(userPageDetail.isIsAttention() ? CommonUtils.getString(R.string.str_focuse) : CommonUtils.getString(R.string.str_cancel_fucose));
                 }
+                addRequest(binder.getChatroom(id, this));
+                break;
+            case 0x124:
+                //检测用户是否能进聊天
+                CheckScore checkScore = GsonUtil.getInstance().toObj(data, CheckScore.class);
+                if (!checkScore.isJoinGroup()) {
+                    CircleDialogHelper.initDefaultToastDialog(this, CommonUtils.getString(R.string.str_toast_cannot_join_group), null)
+                            .show();
+                    return;
+                }
+                GroupChatActivity.startAct(this,
+                        chatLiveItem.getGroupId(),
+                        chatLiveItem.getGroupName(),
+                        chatLiveItem.getAvatar(),
+                        chatLiveItem.getTitle(),
+                        chatLiveItem.getOnlineTotal() + "",
+                        checkScore.isLeader(),
+                        checkScore.isCanSpeak(),
+                        0x123
+                );
+                break;
+            case 0x125:
+                //用户聊天室
+                chatLiveItem = GsonUtil.getInstance().toObj(data, ChatLiveItem.class);
+                viewDelegate.initChat(chatLiveItem);
+                viewDelegate.viewHolder.lin_chat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
                 break;
         }
     }

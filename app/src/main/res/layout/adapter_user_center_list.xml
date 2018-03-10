@@ -325,6 +325,12 @@
             android:textColor="@color/color_font2"
             android:textSize="@dimen/text_trans_32px"/>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
     </LinearLayout>
 
     <LinearLayout
