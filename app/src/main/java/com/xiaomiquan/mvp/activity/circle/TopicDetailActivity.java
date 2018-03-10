@@ -57,6 +57,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
     protected void bindEvenListener() {
         super.bindEvenListener();
         userLogin = SingSettingDBUtil.getUserLogin();
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         getIntentData();
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_topic)));
     }
@@ -78,6 +79,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
                 SquareLive datas = GsonUtil.getInstance().toObj(data, SquareLive.class);
@@ -240,6 +242,7 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
     private void getIntentData() {
         Intent intent = getIntent();
         squareLive = (SquareLive) intent.getParcelableExtra(("squareLive"));
+
         initComment(squareLive.getCommentVos());
         initImgs(squareLive.getImgList());
         initSquareLive(squareLive);

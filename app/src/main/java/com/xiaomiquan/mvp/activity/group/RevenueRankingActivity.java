@@ -53,18 +53,6 @@ public class RevenueRankingActivity extends BaseDataBindActivity<RevenueRankingD
             innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
             viewDelegate.viewHolder.tl.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.vp_sliding);
         }
-        viewDelegate.viewHolder.vp_sliding.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-            @Override
-            public void onPageSelected(int position) {
-                RevenueRankingFragment.type=position+"";
-            }
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
     }
 
 

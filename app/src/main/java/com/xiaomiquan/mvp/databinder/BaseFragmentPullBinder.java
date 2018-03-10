@@ -21,7 +21,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
     }
 
     /**
-     * 获取直播
+     * 获取我关注的
      */
     public Disposable getLive(
             RequestCallback requestCallback) {
@@ -33,7 +33,7 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .setRequestUrl(HttpUrl.getIntance().getSquareLive)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("获取直播")
+                .setRequestName("获取我关注的动态")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)
@@ -44,19 +44,18 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
     }
 
     /**
-     * 获取直播
+     * 获取所有
      */
     public Disposable getAllLive(
             RequestCallback requestCallback) {
         getBaseMapWithUid();
         baseMap.put("pageNum", viewDelegate.page);
-        baseMap.put("platform", 1);
         return new HttpRequest.Builder()
                 .setRequestCode(0x128)
                 .setRequestUrl(HttpUrl.getIntance().getAllSquareLive)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("获取直播")
+                .setRequestName("获取所有动态")
                 .setRequestMode(HttpRequest.RequestMode.GET)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
                 .setRequestObj(baseMap)

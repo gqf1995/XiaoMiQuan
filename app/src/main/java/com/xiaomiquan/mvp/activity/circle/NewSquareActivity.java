@@ -113,7 +113,7 @@ public class NewSquareActivity extends BaseDataBindFragment<NewSquareDelegate, N
             String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_new_square);
             fragments = new ArrayList<>();
             for (int i = 0; i < stringArray.length; i++) {
-                fragments.add(NewSquareItemFragment.newInstance(i + ""));
+                fragments.add(NewSquareItemFragment.newInstance(i));
                 mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
             }
             viewDelegate.viewHolder.tl_1.setTabData(mTabEntities);
@@ -127,7 +127,7 @@ public class NewSquareActivity extends BaseDataBindFragment<NewSquareDelegate, N
 
             @Override
             public void onPageSelected(int position) {
-                NewSquareItemFragment.type = position + "";
+                NewSquareItemFragment.type = position;
             }
 
             @Override
