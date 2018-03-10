@@ -1,39 +1,41 @@
-package com.xiaomiquan.mvp.activity.circle;
+package com.xiaomiquan.mvp.fragment.circle;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.ListUtils;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
+import com.xiaomiquan.adapter.circle.CommentDetailAdapter;
+import com.xiaomiquan.adapter.circle.TopicAdapter;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
-import com.xiaomiquan.mvp.databinder.circle.NewSquareBinder;
-import com.xiaomiquan.mvp.delegate.circle.NewSquareDelegate;
+import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
+import com.xiaomiquan.mvp.activity.circle.NewSquareActivity;
+import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
+import com.xiaomiquan.mvp.databinder.circle.ANewBinder;
+import com.xiaomiquan.mvp.delegate.circle.ANewDelegate;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.xiaomiquan.mvp.fragment.SimulatedTradingFragment;
-import com.xiaomiquan.mvp.fragment.circle.NewSquareItemFragment;
-import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
-import com.xiaomiquan.mvp.fragment.group.EarningsTrendFragment;
-import com.xiaomiquan.mvp.fragment.group.GroupHistoryTradingFragment;
-import com.xiaomiquan.mvp.fragment.group.PositionDetailFragment;
-import com.xiaomiquan.mvp.fragment.group.RevenueRankingFragment;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.fivefivelike.mybaselibrary.utils.glide.GlideUtils.BASE_URL;
 
-public class NewSquareActivity extends BaseDataBindFragment<NewSquareDelegate, NewSquareBinder> {
+public class ANewActivity extends BaseDataBindFragment<ANewDelegate, ANewBinder> {
 
     ArrayList<Fragment> fragments;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
@@ -43,30 +45,31 @@ public class NewSquareActivity extends BaseDataBindFragment<NewSquareDelegate, N
         void openDrawerLayout();
     }
 
-    Linsener linsener;
+    NewSquareActivity.Linsener linsener;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        linsener = (Linsener) activity;
+        linsener = (NewSquareActivity.Linsener) activity;
+    }
+
+
+    @Override
+    protected Class<ANewDelegate> getDelegateClass() {
+        return ANewDelegate.class;
     }
 
     @Override
-    protected Class<NewSquareDelegate> getDelegateClass() {
-        return NewSquareDelegate.class;
+    public ANewBinder getDataBinder(ANewDelegate viewDelegate) {
+        return new ANewBinder(viewDelegate);
     }
-
-    @Override
-    public NewSquareBinder getDataBinder(NewSquareDelegate viewDelegate) {
-        return new NewSquareBinder(viewDelegate);
-    }
-
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         initTool();
         initView();
+        initTop();
     }
 
     @Override
@@ -105,7 +108,27 @@ public class NewSquareActivity extends BaseDataBindFragment<NewSquareDelegate, N
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+
         }
+    }
+
+    TopicAdapter topicAdapter;
+
+    private void initTop() {
+        List<String> str = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            str.add(i + "1");
+        }
+        if (topicAdapter == null) {
+            topicAdapter = new TopicAdapter(getActivity(), str);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            viewDelegate.viewHolder.recycleview.setLayoutManager(linearLayoutManager);
+            viewDelegate.viewHolder.recycleview.setAdapter(topicAdapter);
+        } else {
+
+        }
+
     }
 
     private void initView() {

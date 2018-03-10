@@ -154,7 +154,7 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
         return newFragment;
     }
 
-    public static int type;
+    int type;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

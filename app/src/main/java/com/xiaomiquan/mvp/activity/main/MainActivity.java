@@ -43,6 +43,7 @@ import com.xiaomiquan.mvp.fragment.HomeFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.SimulatedTradingFragment;
 import com.xiaomiquan.mvp.fragment.UserDrawerFragment;
+import com.xiaomiquan.mvp.fragment.circle.ANewActivity;
 import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
 import com.xiaomiquan.mvp.fragment.circle.SquareWebFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
@@ -62,7 +63,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 
-public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener, SimulatedTradingFragment.Linsener, UserDrawerFragment.Linsener, HomeFragment.Linsener,NewSquareActivity.Linsener {
+public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener, SimulatedTradingFragment.Linsener, UserDrawerFragment.Linsener, HomeFragment.Linsener, NewSquareActivity.Linsener {
 
     String uid;
     UserLogin userLogin;
@@ -157,12 +158,11 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     }
 
     MarketFragment marketFragment;
-    InvestGroupFragment investGroupFragment;
     UserDrawerFragment userFragment;
     HomeFragment homeFragment;
     SimulatedTradingFragment simulatedTradingFragment;
     NewSquareActivity newSquareActivity;
-    SquareFragment squareFragment;
+    ANewActivity newActivity;
 
     //添加主页4个基础页面
     public void initFragment(boolean isInit) {
@@ -172,13 +172,13 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         if (isInit) {
             viewDelegate.addFragment(homeFragment = new HomeFragment());
             viewDelegate.addFragment(marketFragment = new MarketFragment());
-            viewDelegate.addFragment(newSquareActivity = new NewSquareActivity());
+            viewDelegate.addFragment(newActivity = new ANewActivity());
             viewDelegate.addFragment(simulatedTradingFragment = new SimulatedTradingFragment());
             loadDrawerLayout(true);
         } else {
             homeFragment = (HomeFragment) viewDelegate.getFragmentByIndex(0);
             marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
-            newSquareActivity = (NewSquareActivity) viewDelegate.getFragmentByIndex(2);
+            newActivity = (ANewActivity) viewDelegate.getFragmentByIndex(2);
             simulatedTradingFragment = (SimulatedTradingFragment) viewDelegate.getFragmentByIndex(3);
             loadDrawerLayout(false);
         }

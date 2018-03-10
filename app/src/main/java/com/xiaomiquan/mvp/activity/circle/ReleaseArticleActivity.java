@@ -52,11 +52,11 @@ public class ReleaseArticleActivity extends BaseDataBindActivity<ReleaseArticleD
         viewDelegate.viewHolder.lin_photo.setOnClickListener(this);
         if (wechat.equals("0")) {
             title = CommonUtils.getString(R.string.str_release_article);
-            viewDelegate.viewHolder.et_input2.setVisibility(View.VISIBLE);
+            viewDelegate.viewHolder.et_input2.setHint(CommonUtils.getString(R.string.str_et_title));
             viewDelegate.viewHolder.et_con.setHint(R.string.str_et_con);
         } else {
             title = CommonUtils.getString(R.string.str_deal_article);
-            viewDelegate.viewHolder.et_input2.setVisibility(View.INVISIBLE);
+            viewDelegate.viewHolder.et_input2.setHint(CommonUtils.getString(R.string.str_et_shard));
             viewDelegate.viewHolder.et_con.setHint(R.string.str_et_url);
         }
         if (platform.equals("1")) {
