@@ -2,20 +2,17 @@ package com.xiaomiquan.mvp.activity.group;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.bean.group.EarningsMovements;
 import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.entity.bean.group.TeamInfo;
 import com.xiaomiquan.mvp.databinder.group.MyAccountBinder;
 import com.xiaomiquan.mvp.delegate.group.MyAccountDelegate;
-import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.xiaomiquan.utils.BigUIUtil;
-
-import java.util.List;
 
 public class MyAccountActivity extends BaseDataBindActivity<MyAccountDelegate, MyAccountBinder> {
 
@@ -33,7 +30,7 @@ public class MyAccountActivity extends BaseDataBindActivity<MyAccountDelegate, M
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        initToolbar(new ToolbarBuilder().setTitle(""));
+        initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_my_group)));
         initView();
         getIntentData();
     }
@@ -42,7 +39,7 @@ public class MyAccountActivity extends BaseDataBindActivity<MyAccountDelegate, M
         viewDelegate.setOnClickListener(this,
                 R.id.lin_gameplay_introduced,
                 R.id.lin_revenue_ranking,
-                R.id.tv_assets_report
+                R.id.lin_assets_report
         );
     }
 
@@ -59,32 +56,15 @@ public class MyAccountActivity extends BaseDataBindActivity<MyAccountDelegate, M
     private void getIntentData() {
         Intent intent = getIntent();
         groupItem = intent.getParcelableExtra("groupItem");
-        addRequest(binder.listDemo(this));
-        addRequest(binder.getTodayInfo(groupItem.getId(), this));
+        addRequest(binder.demoInfo(groupItem.getId(), MyAccountActivity.this));
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                //今日收益&日均操作次数
-                BigUIUtil.getinstance().rateTextView(Double.parseDouble(GsonUtil.getInstance().getValue(data, "todayRate")), viewDelegate.viewHolder.tv_today_earnings);
-                viewDelegate.viewHolder.tv_daily_operation.setText(GsonUtil.getInstance().getValue(data, "count"));
-                addRequest(binder.rateTrend(groupItem.getId(), this));
-                break;
-            case 0x124:
-                //分期收益
-                viewDelegate.initRate(data);
-                break;
-            case 0x125:
-                //收益走势
-                EarningsMovements earningsMovements = GsonUtil.getInstance().toObj(data, EarningsMovements.class);
-                viewDelegate.initEarningsMovements(earningsMovements);
-                addRequest(binder.allRate(groupItem.getId(), this));
-                break;
-            case 0x126:
-                //我的组合
-                List<GroupItem> groupItems = GsonUtil.getInstance().toList(data, GroupItem.class);
+                TeamInfo teamInfo = GsonUtil.getInstance().toObj(data, TeamInfo.class);
+                viewDelegate.initTeaminfo(teamInfo);
                 break;
         }
     }
@@ -94,12 +74,14 @@ public class MyAccountActivity extends BaseDataBindActivity<MyAccountDelegate, M
         super.onClick(v);
         switch (v.getId()) {
             case R.id.lin_gameplay_introduced:
-
+                //玩法规则
                 break;
             case R.id.lin_revenue_ranking:
+                //排行
                 startActivity(new Intent(MyAccountActivity.this, RevenueRankingActivity.class));
                 break;
-            case R.id.tv_assets_report:
+            case R.id.lin_assets_report:
+                //资产明细
                 MyPropertyDetailActivity.startAct(MyAccountActivity.this, groupItem);
                 break;
         }

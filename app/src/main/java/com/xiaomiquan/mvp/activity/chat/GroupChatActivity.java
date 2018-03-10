@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
@@ -48,7 +49,7 @@ public class GroupChatActivity extends BaseDataBindActivity<CustomerServiceActDe
         getIntentData();
     }
 
-    public static void startAct(Activity activity,
+    public static void startAct(Activity context,
                                 String id,
                                 String title,
                                 String headPortrait,
@@ -58,7 +59,8 @@ public class GroupChatActivity extends BaseDataBindActivity<CustomerServiceActDe
                                 boolean isCanTalk,
                                 int code
     ) {
-        Intent intent = new Intent(activity, GroupChatActivity.class);
+        Intent intent;
+        intent = new Intent(context, GroupChatActivity.class);
         intent.putExtra("id", id);
         intent.putExtra("title", title);
         intent.putExtra("headPortrait", headPortrait);
@@ -66,7 +68,29 @@ public class GroupChatActivity extends BaseDataBindActivity<CustomerServiceActDe
         intent.putExtra("onlineTotal", onlineTotal);
         intent.putExtra("isMy", isMy);
         intent.putExtra("isCanTalk", isCanTalk);
-        activity.startActivityForResult(intent, code);
+        ((Activity) context).startActivityForResult(intent, code);
+    }
+
+    public static void startAct(Fragment context,
+                                String id,
+                                String title,
+                                String headPortrait,
+                                String introduce,
+                                String onlineTotal,
+                                boolean isMy,
+                                boolean isCanTalk,
+                                int code
+    ) {
+        Intent intent;
+        intent = new Intent(context.getActivity(), GroupChatActivity.class);
+        intent.putExtra("id", id);
+        intent.putExtra("title", title);
+        intent.putExtra("headPortrait", headPortrait);
+        intent.putExtra("introduce", introduce);
+        intent.putExtra("onlineTotal", onlineTotal);
+        intent.putExtra("isMy", isMy);
+        intent.putExtra("isCanTalk", isCanTalk);
+        context.startActivityForResult(intent, code);
     }
 
     @Override

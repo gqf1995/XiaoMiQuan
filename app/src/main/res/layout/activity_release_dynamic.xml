@@ -24,11 +24,11 @@
                 android:gravity="left|top"
                 android:hint="@string/str_et_hint"
                 android:maxLength="140"
-                android:textColorHint="@color/color_font3"
                 android:padding="@dimen/trans_30px"
+                android:textColorHint="@color/color_font3"
                 android:textSize="@dimen/trans_32px"
                 app:met_baseColor="@color/white"
-                app:met_primaryColor="@color/color_blue"
+                app:met_primaryColor="@color/base_mask"
                 app:met_textColor="@color/color_font2"
                 app:met_textColorHint="@color/color_font4"
                 app:met_underlineColor="@color/base_mask" />

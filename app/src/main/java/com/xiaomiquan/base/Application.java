@@ -146,6 +146,7 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
                     //聊天室关闭
                     org.greenrobot.eventbus.EventBus.getDefault().post(new ChatControlEvent(true, extra));
                 }
+                return true;
             }
         }
         return false;

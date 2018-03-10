@@ -229,10 +229,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     public void toPage(int pagePosition, int childPosition) {
         viewDelegate.showFragment(pagePosition);
         viewDelegate.viewHolder.tl_2.setCurrentTab(pagePosition);
-        if (pagePosition == 0) {
-            InvestGroupFragment fragment = (InvestGroupFragment) viewDelegate.getFragmentList().get(pagePosition);
-            fragment.toPage(childPosition);
-        }
+
     }
 
     @Override

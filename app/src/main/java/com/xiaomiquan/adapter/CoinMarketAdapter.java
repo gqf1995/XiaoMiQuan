@@ -71,7 +71,9 @@ public class CoinMarketAdapter extends CommonAdapter<ExchangeData> {
         tv_num = holder.getView(R.id.tv_num);
         tv_coin_probably = holder.getView(R.id.tv_coin_probably);
         ic_piv.setEnabled(false);
-
+        if (s == null) {
+            return;
+        }
         tv_num.setText(s.getRank());
         tv_coin_market_value = holder.getView(R.id.tv_coin_market_value);
         tv_coin_type.setText(s.getSymbol());

@@ -1,6 +1,7 @@
 package com.xiaomiquan.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
@@ -37,7 +38,6 @@ public class ChatLiveListAdapter extends CommonAdapter<ChatLiveItem> {
     public ChatLiveListAdapter(Context context, List<ChatLiveItem> datas) {
         super(context, R.layout.adapter_chart_live_list, datas);
         ints = UiHeplUtils.cacularWidAndHei(context, R.dimen.trans_90px, 2, R.dimen.trans_5px, R.dimen.trans_5px);
-
     }
 
     @Override
@@ -54,7 +54,9 @@ public class ChatLiveListAdapter extends CommonAdapter<ChatLiveItem> {
         UiHeplUtils.setCacularWidAndHei(ints, card_root);
         tv_online_num.setText(s.getOnlineTotalStr() + " ");
         tv_content.setText(s.getTitle());
-        tv_rank.setText(s.getSortStr());
+        if (!TextUtils.isEmpty(s.getSortStr())) {
+            tv_rank.setText(s.getSortStr() + "");
+        }
         tv_Introduction.setText(s.getBrief());
         tv_name.setText(s.getNickName());
         tv_status.setText(s.getStatusStr());

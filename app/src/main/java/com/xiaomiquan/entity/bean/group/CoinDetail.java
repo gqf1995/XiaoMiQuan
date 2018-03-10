@@ -22,12 +22,14 @@ public class CoinDetail {
      * priceUsd : 11280.6
      * createTime : 1516960448000
      * updateTime : 1517040680000
+     * "type": 1,     						// 1：做多 2：做空
      */
 
     private String name;
     private String priceUsd;
     private String createTime;
     private String updateTime;
+    private String type;
     /**
      * coinId : 1
      * count : 9.474
@@ -38,6 +40,14 @@ public class CoinDetail {
 
     private int fee;
     private String picUrl;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getSymbol() {
         return symbol;

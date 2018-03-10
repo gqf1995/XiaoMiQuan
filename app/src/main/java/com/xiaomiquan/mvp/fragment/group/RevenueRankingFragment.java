@@ -3,24 +3,16 @@ package com.xiaomiquan.mvp.fragment.group;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
-import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.group.LabelDetailDealAdapter;
+import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.adapter.group.RevenueRankingAdapter;
 import com.xiaomiquan.entity.bean.group.GroupItem;
-import com.xiaomiquan.entity.bean.group.GroupRank;
-import com.xiaomiquan.entity.bean.group.HoldDetail;
 import com.xiaomiquan.mvp.activity.group.HisAccountActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,40 +38,33 @@ public class RevenueRankingFragment extends BasePullFragment<BaseFragentPullDele
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-
+        initList(new ArrayList<GroupItem>());
     }
 
     @Override
     protected void onFragmentFirstVisible() {
         type = getArguments().getString("type");
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
         addRequest(binder.top(type, this));
     }
 
     private void initList(List<GroupItem> rankList) {
         if (revenueRankingAdapter == null) {
-            revenueRankingAdapter = new RevenueRankingAdapter(getActivity(), rankList);
-            revenueRankingAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            revenueRankingAdapter = new RevenueRankingAdapter(getActivity(), rankList, type);
+            revenueRankingAdapter.setDefaultClickLinsener(new DefaultClickLinsener() {
                 @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    HisAccountActivity.startAct(getActivity(), revenueRankingAdapter.getDatas().get(position).getUserId());
-                }
-                @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    return false;
+                public void onClick(View view, int position, Object item) {
+                    //跳转他人详情
+                    HisAccountActivity.startAct(getActivity(), revenueRankingAdapter.getDatas().get(position).getId());
                 }
             });
             initRecycleViewPull(revenueRankingAdapter, new LinearLayoutManager(getActivity()));
         } else {
             getDataBack(revenueRankingAdapter.getDatas(), rankList, revenueRankingAdapter);
-
         }
-
     }
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x124:
                 List<GroupItem> data1 = GsonUtil.getInstance().toList(GsonUtil.getInstance().getValue(data, "tops"), GroupItem.class);
@@ -103,7 +88,7 @@ public class RevenueRankingFragment extends BasePullFragment<BaseFragentPullDele
         return newFragment;
     }
 
-    public static String type;
+    String type;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

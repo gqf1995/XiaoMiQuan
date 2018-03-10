@@ -43,6 +43,8 @@ public class SingSettingDBUtil {
     public static void logout() {
         //用户登录信息统一 清除
         delectUserLogin();
+        //清除消息通知
+        DaoManager.getInstance().getDaoSession().getMessageInfoDao().deleteAll();
         isLogin = "";
         HttpUrl.getIntance().delectUidAndToken();
         AgentWebConfig.removeAllCookies();
