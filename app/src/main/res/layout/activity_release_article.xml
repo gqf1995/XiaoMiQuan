@@ -74,7 +74,7 @@
                 android:textSize="@dimen/text_trans_35px"
                 android:textStyle="bold"
                 app:met_baseColor="@color/white"
-                app:met_primaryColor="@color/color_blue"
+                app:met_primaryColor="@color/base_mask"
                 app:met_textColor="@color/color_font1"
                 app:met_textColorHint="@color/color_font4"
                 app:met_underlineColor="@color/base_mask" />
@@ -92,7 +92,7 @@
                 android:textColorHint="@color/color_font3"
                 android:textSize="@dimen/trans_32px"
                 app:met_baseColor="@color/white"
-                app:met_primaryColor="@color/color_blue"
+                app:met_primaryColor="@color/base_mask"
                 app:met_textColor="@color/color_font2"
                 app:met_textColorHint="@color/color_font4"
                 app:met_underlineColor="@color/base_mask" />
