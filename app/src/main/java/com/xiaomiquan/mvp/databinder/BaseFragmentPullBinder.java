@@ -545,4 +545,29 @@ public class BaseFragmentPullBinder extends BaseDataBind<BaseFragentPullDelegate
                 .build()
                 .RxSendRequest();
     }
+
+    /**
+     * 个人中心 列表展示
+     */
+    public Disposable listByUserAndType(
+            String userId,
+            String type,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("userId", userId);
+        baseMap.put("type", type);
+        baseMap.put("pageNum", viewDelegate.page);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x124)
+                .setRequestUrl(HttpUrl.getIntance().listByUserAndType)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("个人中心 列表展示")
+                .setRequestMode(HttpRequest.RequestMode.GET)
+                .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 }

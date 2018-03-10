@@ -12,7 +12,6 @@ import com.fivefivelike.mybaselibrary.entity.ResultDialogEntity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
@@ -27,7 +26,6 @@ import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.greenDB.MessageInfoDao;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
-import com.xiaomiquan.mvp.activity.MessageCenterActivity;
 import com.xiaomiquan.mvp.activity.chat.ChatLiveListActivity;
 import com.xiaomiquan.mvp.activity.chat.GroupChatActivity;
 import com.xiaomiquan.mvp.activity.group.HisAccountActivity;
@@ -156,11 +154,12 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
     protected void clickRightIv() {
         super.clickRightIv();
         //消息
-        if (SingSettingDBUtil.getUserLogin() != null) {
-            startActivity(new Intent(getActivity(), MessageCenterActivity.class));
-        } else {
-            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
-        }
+        startActivity(new Intent(getActivity(), ChatLiveListActivity.class));
+//        if (SingSettingDBUtil.getUserLogin() != null) {
+//            startActivity(new Intent(getActivity(), MessageCenterActivity.class));
+//        } else {
+//            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+//        }
     }
 
     @Override
@@ -178,7 +177,9 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
             //登录完 刷新页面
             userLogin = SingSettingDBUtil.getUserLogin();
             AgentWebConfig.syncCookie(url, "token=" + HttpUrl.getIntance().getToken());
-            baseWebFragment.loadUrl(url);
+            if (baseWebFragment != null) {
+                baseWebFragment.loadUrl(url);
+            }
         } else {
             userLogin = SingSettingDBUtil.getUserLogin();
             AgentWebConfig.syncCookie(url, "token=" + HttpUrl.getIntance().getToken());

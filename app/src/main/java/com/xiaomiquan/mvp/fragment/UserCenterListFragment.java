@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.adapter.UserCenterListAdapter;
-import com.xiaomiquan.entity.bean.group.HistoryTrading;
+import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
@@ -20,6 +20,16 @@ import java.util.List;
 public class UserCenterListFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
     UserCenterListAdapter adapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if ((savedInstanceState != null)
+                && savedInstanceState.containsKey("id")) {
+            id = savedInstanceState.getString("id");
+            type = savedInstanceState.getString("type");
+        }
+    }
 
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
@@ -37,17 +47,18 @@ public class UserCenterListFragment extends BasePullFragment<BaseFragentPullDele
         super.bindEvenListener();
         id = getArguments().getString("id");
         type = getArguments().getString("type");
-        initList(new ArrayList<String>());
+        initList(new ArrayList<SquareLive>());
     }
 
 
-    private void initList(List<String> strDatas) {
-        for (int i = 0; i < 20; i++) {
-            strDatas.add("");
+    private void initList(List<SquareLive> strDatas) {
+        if(adapter==null) {
+            adapter = new UserCenterListAdapter(getActivity(), strDatas);
+            initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
+            viewDelegate.setIsPullDown(false);
+        }else{
+            getDataBack(adapter.getDatas(), strDatas, adapter);
         }
-        adapter = new UserCenterListAdapter(getActivity(), strDatas);
-        initRecycleViewPull(adapter, new LinearLayoutManager(getActivity()));
-        viewDelegate.setIsPullDown(false);
         //onRefresh();
     }
 
@@ -55,8 +66,8 @@ public class UserCenterListFragment extends BasePullFragment<BaseFragentPullDele
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
         switch (requestCode) {
             case 0x123:
-                List<HistoryTrading> data1 = GsonUtil.getInstance().toList(data, HistoryTrading.class);
-                getDataBack(adapter.getDatas(), data1, adapter);
+                List<SquareLive> data1 = GsonUtil.getInstance().toList(data, SquareLive.class);
+                initList(data1);
                 break;
         }
     }
@@ -73,31 +84,23 @@ public class UserCenterListFragment extends BasePullFragment<BaseFragentPullDele
 
     @Override
     protected void refreshData() {
-
+        addRequest(binder.listByUserAndType(id, "0".equals(type) ? null : type, this));
     }
 
     public static UserCenterListFragment newInstance(
-            String id
+            String id,
+            String type
     ) {
         UserCenterListFragment newFragment = new UserCenterListFragment();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
+        bundle.putString("type", type);
         newFragment.setArguments(bundle);
         return newFragment;
     }
 
     String id;
     String type;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if ((savedInstanceState != null)
-                && savedInstanceState.containsKey("id")) {
-            id = savedInstanceState.getString("id");
-            type = savedInstanceState.getString("type");
-        }
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
