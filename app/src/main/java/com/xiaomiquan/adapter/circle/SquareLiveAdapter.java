@@ -77,6 +77,8 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
 
     @Override
     protected void convert(ViewHolder holder, final SquareLive s, final int position) {
+
+
         cv_head = holder.getView(R.id.cv_head);
         tv_name = holder.getView(R.id.tv_name);
         tv_time = holder.getView(R.id.tv_time);
@@ -166,8 +168,10 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
                         s.setUserPraise(true);
                         s.setGoodCount(s.getGoodCount() + 1);
                     }
-                    dataBind.addRequest(savePraise(dataBind, s.getId()));
-                    notifyItemChanged(position);
+                   notifyItemChanged(position);
+                    if (dataBind != null) {
+                        dataBind.addRequest(savePraise(dataBind, s.getId()));
+                    }
                 } else {
                     ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
                 }
@@ -190,7 +194,6 @@ public class SquareLiveAdapter extends CommonAdapter<SquareLive> {
                 }
             }
         });
-
 
     }
 

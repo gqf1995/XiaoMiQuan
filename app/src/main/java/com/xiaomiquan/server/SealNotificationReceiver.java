@@ -92,10 +92,10 @@ public class SealNotificationReceiver extends PushMessageReceiver {
                     if (map.get("themeType") != null) {
                         switch (map.get("themeType")) {
                             case "1":
-                                TopicDetailActivity.startAct((Activity) context, null, map.get("linkId"));
+                                TopicDetailActivity.startAct((Activity) context, null, map.get("linkId")+"");
                                 break;
                             case "2":
-                                ArticleDetailsActivity.startAct((Activity) context, null, map.get("linkId"));
+                                ArticleDetailsActivity.startAct((Activity) context, null, map.get("linkId")+"");
                                 break;
                             case "3":
                                 break;

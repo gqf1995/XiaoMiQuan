@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin.support.widget.SkinCompatLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_pull"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_mask_dark"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fl_rcv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/pull_recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                />
+
+        </FrameLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <!--<include layout="@layout/merge_layout_no_data"/>-->
+</skin.support.widget.SkinCompatLinearLayout>
