@@ -129,14 +129,92 @@
                         </LinearLayout>
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/lin_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/trans_30px"
+                        android:paddingLeft="@dimen/trans_30px"
+                        android:paddingRight="@dimen/trans_30px"
+                        android:paddingTop="@dimen/trans_30px"
+                        android:visibility="gone"
+                        >
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingRight="@dimen/trans_25px"
+                            android:text="@string/str_group_earnings"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_28px"/>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingRight="@dimen/trans_15px"
+                            android:text="@string/str_today_earnings"
+                            android:textColor="@color/color_font3"
+                            android:textSize="@dimen/text_trans_22px"/>
+
+                        <TextView
+                            android:id="@id/tv_today_earnings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingRight="@dimen/trans_15px"
+                            android:text="@string/str_today_earnings"
+                            android:textColor="@color/color_font3"
+                            android:textSize="@dimen/text_trans_22px"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingRight="@dimen/trans_15px"
+                            android:text="@string/str_cumulative_earnings"
+                            android:textColor="@color/color_font3"
+                            android:textSize="@dimen/text_trans_22px"/>
+
+                        <TextView
+                            android:id="@id/tv_cumulative_earnings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingRight="@dimen/trans_15px"
+                            android:text="@string/str_today_earnings"
+                            android:textColor="@color/color_font3"
+                            android:textSize="@dimen/text_trans_22px"/>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/ic_Next"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/text_trans_30px"/>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/lin_chat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:clickable="true"
                         android:focusable="true"
+                        android:orientation="vertical"
                         android:paddingBottom="@dimen/trans_30px"
                         android:paddingLeft="@dimen/trans_30px"
                         android:paddingRight="@dimen/trans_30px"

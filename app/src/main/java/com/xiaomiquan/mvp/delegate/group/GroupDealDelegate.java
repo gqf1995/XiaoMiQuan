@@ -211,12 +211,15 @@ public class GroupDealDelegate extends BaseDelegate {
 
     public String buynum;
     public String salenum;
+    public int selectId;
 
-    private void sellChoose(int id) {
+
+    public void sellChoose(int id) {
         if (TextUtils.isEmpty(viewHolder.et_sell_price.getText().toString())) {
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_price));
             return;
         }
+        selectId=id;
         isSelectStorehouse = true;
         //返回卖出数量
         salenum = saleNum(id);

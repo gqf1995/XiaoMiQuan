@@ -98,6 +98,7 @@ public class PersonalDetailsDelegate extends BaseDelegate {
         return R.layout.activity_personal_details;
     }
 
+
     public static class ViewHolder {
         public View rootView;
         public CircleImageView ic_pic;
@@ -105,6 +106,9 @@ public class PersonalDetailsDelegate extends BaseDelegate {
         public TextView tv_focuse_num;
         public TextView tv_fans_num;
         public TextView tv_introduction;
+        public TextView tv_today_earnings;
+        public TextView tv_cumulative_earnings;
+        public LinearLayout lin_group;
         public TextView tv_chat_status;
         public TextView tv_chat_people_num;
         public TextView tv_chat_content;
@@ -140,6 +144,9 @@ public class PersonalDetailsDelegate extends BaseDelegate {
             this.tv_focuse_num = (TextView) rootView.findViewById(R.id.tv_focuse_num);
             this.tv_fans_num = (TextView) rootView.findViewById(R.id.tv_fans_num);
             this.tv_introduction = (TextView) rootView.findViewById(R.id.tv_introduction);
+            this.tv_today_earnings = (TextView) rootView.findViewById(R.id.tv_today_earnings);
+            this.tv_cumulative_earnings = (TextView) rootView.findViewById(R.id.tv_cumulative_earnings);
+            this.lin_group = (LinearLayout) rootView.findViewById(R.id.lin_group);
             this.tv_chat_status = (TextView) rootView.findViewById(R.id.tv_chat_status);
             this.tv_chat_people_num = (TextView) rootView.findViewById(R.id.tv_chat_people_num);
             this.tv_chat_content = (TextView) rootView.findViewById(R.id.tv_chat_content);
