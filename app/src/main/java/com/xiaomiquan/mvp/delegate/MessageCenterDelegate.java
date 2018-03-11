@@ -42,10 +42,13 @@ public class MessageCenterDelegate extends BaseDelegate {
             viewHolder.tv_my_num.setVisibility(View.GONE);
         }
         List<MessageInfo> list2 = DaoManager.getInstance().getDaoSession().getMessageInfoDao()
-                .queryBuilder().list();
+                .queryBuilder()
+                .where(MessageInfoDao.Properties.IsLook.eq(true))
+                .list();
+        list2.addAll(list);
         int time = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getTime() > time) {
+        for (int i = 0; i < list2.size(); i++) {
+            if (list2.get(i).getTime() > time) {
                 viewHolder.tv_my_content.setText(list2.get(i).getMessage());
                 viewHolder.tv_my_time.setText(TimeUtils.getDateToLeftTime(list2.get(i).getTime()));
             }
