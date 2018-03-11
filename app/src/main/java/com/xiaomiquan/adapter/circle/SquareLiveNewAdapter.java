@@ -66,13 +66,13 @@ public class SquareLiveNewAdapter extends CommonAdapter<SquareLive> {
     private TextView tv_shared_brief;
     private SkinCompatImageView iv_shared;
     private LinearLayout lin_shared_topic;
-    private IconFontTextview icf_shared;
+    private SkinCompatImageView icf_shared;
     private TextView tv_shared_num;
     private LinearLayout lin_shared;
-    private IconFontTextview tv_comment;
+    private SkinCompatImageView tv_comment;
     private TextView tv_comment_num;
     private LinearLayout lin_comment;
-    private IconFontTextview tv_praise;
+    private SkinCompatImageView tv_praise;
     private TextView tv_praise_num;
     private LinearLayout lin_praise;
 
@@ -164,11 +164,11 @@ public class SquareLiveNewAdapter extends CommonAdapter<SquareLive> {
          * 用户是否点赞
          */
         if (s.isUserPraise()) {
-            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+            tv_praise.setImageDrawable(CommonUtils.getDrawable(R.drawable.ic_liked));
             tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
         } else {
-            tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
-            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            tv_praise.setImageDrawable(CommonUtils.getDrawable(R.drawable.ic_like));
+            tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font3));
         }
 
         /**

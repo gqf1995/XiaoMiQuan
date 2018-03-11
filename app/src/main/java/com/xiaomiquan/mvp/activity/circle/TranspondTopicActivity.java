@@ -17,9 +17,6 @@ public class TranspondTopicActivity extends BaseDataBindActivity<TranspondTopicD
     @Override
     protected Class<TranspondTopicDelegate> getDelegateClass() {
         return TranspondTopicDelegate.class;
-
-
-
     }
 
     @Override

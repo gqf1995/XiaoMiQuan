@@ -8,9 +8,6 @@
 
     <include layout="@layout/include_toolbar_with_statusbar" />
 
-
-
-
     <FrameLayout
         android:id="@+id/fl_web"
         android:layout_width="match_parent"

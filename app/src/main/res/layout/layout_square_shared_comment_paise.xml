@@ -16,8 +16,8 @@
 
         <skin.support.widget.SkinCompatImageView
             android:id="@+id/icf_shared"
-            android:layout_width="@dimen/trans_40px"
-            android:layout_height="@dimen/trans_40px"
+            android:layout_width="@dimen/trans_34px"
+            android:layout_height="@dimen/trans_34px"
             app:srcCompat="@drawable/ic_reply" />
 
         <TextView
@@ -41,8 +41,8 @@
 
         <skin.support.widget.SkinCompatImageView
             android:id="@+id/tv_comment"
-            android:layout_width="@dimen/trans_40px"
-            android:layout_height="@dimen/trans_40px"
+            android:layout_width="@dimen/trans_34px"
+            android:layout_height="@dimen/trans_34px"
             app:srcCompat="@drawable/ic_comment" />
 
         <TextView
@@ -66,8 +66,8 @@
 
         <skin.support.widget.SkinCompatImageView
             android:id="@+id/tv_praise"
-            android:layout_width="@dimen/trans_40px"
-            android:layout_height="@dimen/trans_40px"
+            android:layout_width="@dimen/trans_34px"
+            android:layout_height="@dimen/trans_34px"
             app:srcCompat="@drawable/ic_like" />
 
         <TextView

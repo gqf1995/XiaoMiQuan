@@ -51,7 +51,6 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-
         switch (requestCode) {
             case 0x123:
                 break;

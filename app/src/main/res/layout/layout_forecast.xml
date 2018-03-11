@@ -4,7 +4,7 @@
     android:layout_width="@dimen/trans_300px"
     android:layout_height="wrap_content"
     android:layout_marginRight="@dimen/trans_20px"
-    android:background="@drawable/shape_mask_maxradiu"
+    android:background="@drawable/select_forecast"
     android:gravity="center"
     android:padding="@dimen/trans_14px"
     android:textColor="@color/color_font1"
