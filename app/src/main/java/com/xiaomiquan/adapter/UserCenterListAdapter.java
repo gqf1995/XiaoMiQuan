@@ -18,6 +18,7 @@ import com.xiaomiquan.entity.bean.circle.SquareLive;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.TimeUtils;
 import com.xiaomiquan.utils.UiHeplUtils;
+import com.xiaomiquan.utils.UserSet;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -80,6 +81,7 @@ public class UserCenterListAdapter extends CommonAdapter<SquareLive> {
         lin_view.setVisibility(View.GONE);
         lin_predict.setVisibility(View.GONE);
         lin_article.setVisibility(View.GONE);
+        lin_operation.setVisibility(View.GONE);
         //文章1  观点2 操作3
         if ("1".equals(s.getType())) {
             tv_statu.setText("发表了文章");
@@ -94,13 +96,15 @@ public class UserCenterListAdapter extends CommonAdapter<SquareLive> {
             initImg(s.getImgList(), recycler_view);
         } else if ("3".equals(s.getType())) {
             tv_statu.setText("更新了操作");
-            lin_predict.setVisibility(View.VISIBLE);
-            if (!ListUtils.isEmpty(s.getCommentVos())) {
+            lin_operation.setVisibility(View.VISIBLE);
+            if (!ListUtils.isEmpty(s.getUserDemoDealVos())) {
                 tv_operation_time.setText(com.blankj.utilcode.util.TimeUtils.millis2String(s.getUserDemoDealVos().get(0).getCreateTime(), TimeUtils.DEFAULT_FORMAT));
                 if ("1".equals(s.getUserDemoDealVos().get(0).getType())) {
                     tv_operation_type.setText(CommonUtils.getString(R.string.str_buy));
+                    tv_operation_type.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
                 } else {
                     tv_operation_type.setText(CommonUtils.getString(R.string.str_sell));
+                    tv_operation_type.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
                 }
                 tv_operation_currency.setText(s.getUserDemoDealVos().get(0).getSymbol());
                 tv_operation_deal_price.setText(BigUIUtil.getinstance().bigPrice(s.getUserDemoDealVos().get(0).getPrice()));

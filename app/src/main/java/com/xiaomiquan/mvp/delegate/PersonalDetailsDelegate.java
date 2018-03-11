@@ -39,12 +39,16 @@ public class PersonalDetailsDelegate extends BaseDelegate {
         viewHolder.tv_introduction.setText(s.getUser().getBrief());
     }
 
-    public void initChat(ChatLiveItem chatLiveItem) {
+    public void initChat(ChatLiveItem chatLiveItem, boolean isMy) {
         this.chatLiveItem = chatLiveItem;
         if (chatLiveItem == null) {
             viewHolder.lin_chat.setVisibility(View.GONE);
         } else {
-            viewHolder.lin_chat.setVisibility(View.VISIBLE);
+            if (isMy) {
+                viewHolder.lin_chat_my.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.lin_chat.setVisibility(View.VISIBLE);
+            }
             viewHolder.tv_chat_status.setText(chatLiveItem.getStatusStr());
             viewHolder.tv_chat_people_num.setText(CommonUtils.getString(R.string.str_people_talking_about, chatLiveItem.getOnlineTotal() + ""));
             viewHolder.tv_chat_content.setText(chatLiveItem.getTitle());
@@ -106,9 +110,14 @@ public class PersonalDetailsDelegate extends BaseDelegate {
         public TextView tv_focuse_num;
         public TextView tv_fans_num;
         public TextView tv_introduction;
+        public TextView tv_today_earnings_my;
+        public TextView tv_cumulative_earnings_my;
+        public TextView tv_usd_my;
+        public LinearLayout lin_group_my;
         public TextView tv_today_earnings;
         public TextView tv_cumulative_earnings;
         public LinearLayout lin_group;
+        public LinearLayout lin_chat_my;
         public TextView tv_chat_status;
         public TextView tv_chat_people_num;
         public TextView tv_chat_content;
@@ -144,9 +153,14 @@ public class PersonalDetailsDelegate extends BaseDelegate {
             this.tv_focuse_num = (TextView) rootView.findViewById(R.id.tv_focuse_num);
             this.tv_fans_num = (TextView) rootView.findViewById(R.id.tv_fans_num);
             this.tv_introduction = (TextView) rootView.findViewById(R.id.tv_introduction);
+            this.tv_today_earnings_my = (TextView) rootView.findViewById(R.id.tv_today_earnings_my);
+            this.tv_cumulative_earnings_my = (TextView) rootView.findViewById(R.id.tv_cumulative_earnings_my);
+            this.tv_usd_my = (TextView) rootView.findViewById(R.id.tv_usd_my);
+            this.lin_group_my = (LinearLayout) rootView.findViewById(R.id.lin_group_my);
             this.tv_today_earnings = (TextView) rootView.findViewById(R.id.tv_today_earnings);
             this.tv_cumulative_earnings = (TextView) rootView.findViewById(R.id.tv_cumulative_earnings);
             this.lin_group = (LinearLayout) rootView.findViewById(R.id.lin_group);
+            this.lin_chat_my = (LinearLayout) rootView.findViewById(R.id.lin_chat_my);
             this.tv_chat_status = (TextView) rootView.findViewById(R.id.tv_chat_status);
             this.tv_chat_people_num = (TextView) rootView.findViewById(R.id.tv_chat_people_num);
             this.tv_chat_content = (TextView) rootView.findViewById(R.id.tv_chat_content);

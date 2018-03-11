@@ -1,13 +1,10 @@
 package com.xiaomiquan.mvp.activity.group;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.utils.ListUtils;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -42,17 +39,15 @@ public class RevenueRankingActivity extends BaseDataBindActivity<RevenueRankingD
     }
 
     private void initView() {
-        if (!ListUtils.isEmpty(getSupportFragmentManager().getFragments())) {
-            String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_rank);
-            fragments = new ArrayList<>();
-            for (int i = 0; i < stringArray.length; i++) {
-                fragments.add(RevenueRankingFragment.newInstance(i + 1 + ""));
-                mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
-            }
-            viewDelegate.viewHolder.tl.setTabData(mTabEntities);
-            innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
-            viewDelegate.viewHolder.tl.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.vp_sliding);
+        String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_rank);
+        fragments = new ArrayList<>();
+        for (int i = 0; i < stringArray.length; i++) {
+            fragments.add(RevenueRankingFragment.newInstance(i + 1 + ""));
+            mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
         }
+        viewDelegate.viewHolder.tl.setTabData(mTabEntities);
+        innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
+        viewDelegate.viewHolder.tl.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.vp_sliding);
     }
 
 

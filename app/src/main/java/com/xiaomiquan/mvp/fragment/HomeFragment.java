@@ -134,9 +134,11 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
                         EventBus.getDefault().post(resultDialogEntity);
                     } else if ("bcoin://chatRoom".equals(forward)) {
                         //点击参与进入具体聊天室
-                        String parameters = GsonUtil.getInstance().getValue(data, "parameters");
-                        chatLiveItem = GsonUtil.getInstance().toObj(parameters, ChatLiveItem.class);
-                        addRequest(binder.checkScore(chatLiveItem.getGroupId(), HomeFragment.this));
+                        if (SingSettingDBUtil.isLogin()) {
+                            String parameters = GsonUtil.getInstance().getValue(data, "parameters");
+                            chatLiveItem = GsonUtil.getInstance().toObj(parameters, ChatLiveItem.class);
+                            addRequest(binder.checkScore(chatLiveItem.getGroupId(), HomeFragment.this));
+                        }
                     } else if ("bcoin://showAccount".equals(forward)) {
                         //点击进入某用户组合详情页,参数userId、type标示在详情页面默认打开的tab
                         String parameters = GsonUtil.getInstance().getValue(data, "parameters");

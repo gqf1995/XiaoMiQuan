@@ -9,7 +9,6 @@ import android.widget.FrameLayout;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
@@ -102,17 +101,15 @@ public class NewSquareActivity extends BaseDataBindFragment<NewSquareDelegate, N
     }
 
     private void initView() {
-        if (!ListUtils.isEmpty(getChildFragmentManager().getFragments())) {
-            String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_new_square);
-            fragments = new ArrayList<>();
-            for (int i = 0; i < stringArray.length; i++) {
-                fragments.add(NewSquareItemFragment.newInstance(i));
-                mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
-            }
-            viewDelegate.viewHolder.tl_1.setTabData(mTabEntities);
-            innerPagerAdapter = new InnerPagerAdapter(getChildFragmentManager(), fragments, stringArray);
-            viewDelegate.viewHolder.tl_1.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
+        String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_new_square);
+        fragments = new ArrayList<>();
+        for (int i = 0; i < stringArray.length; i++) {
+            fragments.add(NewSquareItemFragment.newInstance(i));
+            mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
         }
+        viewDelegate.viewHolder.tl_1.setTabData(mTabEntities);
+        innerPagerAdapter = new InnerPagerAdapter(getChildFragmentManager(), fragments, stringArray);
+        viewDelegate.viewHolder.tl_1.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
         viewDelegate.viewHolder.viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

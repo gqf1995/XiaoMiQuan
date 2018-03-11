@@ -94,6 +94,7 @@ public class CoinDetailFragment extends BaseDataBindFragment<CoinDetailDelegate,
                 }
                 coinData = GsonUtil.getInstance().toObj(data, "symbolInf", CoinData.class);
                 if (coinData != null) {
+                    viewDelegate.initCoinData(coinData);
                     if (!TextUtils.isEmpty(coinData.getNameEg())) {
                         addRequest(binder.getMarketCapById(coinData.getNameEg(), this));
                     }

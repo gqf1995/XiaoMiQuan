@@ -10,6 +10,10 @@ public class ListUtils {
 
     public static boolean isEmpty(List list) {
         if (list != null && !list.isEmpty()) {
+            return false;
+        } else if (list != null && list.isEmpty()) {
+            return true;
+        } else if (list == null) {
             return true;
         } else {
             return false;

@@ -130,6 +130,131 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lin_group_my"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/trans_30px">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/str_tv_today_percent"
+                                android:textColor="@color/color_font3"
+                                android:textSize="@dimen/text_trans_20px"/>
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/trans_10px"/>
+
+                            <TextView
+                                android:id="@+id/tv_today_earnings_my"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text=""
+                                android:textColor="@color/color_333333"
+                                android:textSize="@dimen/text_trans_30px"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="@dimen/trans_1px"
+                            android:layout_height="@dimen/trans_10px"
+                            android:layout_margin="@dimen/trans_30px"
+                            android:background="@color/base_mask"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/str_cumulative_earnings"
+                                android:textColor="@color/color_font3"
+                                android:textSize="@dimen/text_trans_20px"/>
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/trans_10px"/>
+
+                            <TextView
+                                android:id="@+id/tv_cumulative_earnings_my"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text=""
+                                android:textColor="@color/color_333333"
+                                android:textSize="@dimen/text_trans_30px"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="@dimen/trans_1px"
+                            android:layout_height="@dimen/trans_10px"
+                            android:layout_margin="@dimen/trans_30px"
+                            android:background="@color/base_mask"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/str_tv_usable_usd"
+                                android:textColor="@color/color_font3"
+                                android:textSize="@dimen/text_trans_20px"/>
+
+                            <Space
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/trans_10px"/>
+
+                            <TextView
+                                android:id="@+id/tv_usd_my"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text=""
+                                android:textColor="@color/color_333333"
+                                android:textSize="@dimen/text_trans_30px"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="@string/str_tv_dodeal"
+                            android:textColor="@color/color_font1"
+                            android:textSize="@dimen/text_trans_24px"/>
+
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/ic_Next"
+                            android:textColor="@color/color_font2"
+                            android:textSize="@dimen/text_trans_30px"/>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/lin_group"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -198,13 +323,53 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"/>
 
-                        <TextView
+                        <com.fivefivelike.mybaselibrary.view.IconFontTextview
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/ic_Next"
                             android:textColor="@color/color_font2"
                             android:textSize="@dimen/text_trans_30px"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lin_chat_my"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        >
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/text_trans_20px"
+                            android:background="@color/base_mask"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/trans_30px">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/str_in_my_chat_group"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_30px"/>
+
+                            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/ic_Next"
+                                android:textColor="@color/color_font2"
+                                android:textSize="@dimen/text_trans_30px"/>
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
 

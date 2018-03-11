@@ -162,7 +162,7 @@ public class GroupDealDelegate extends BaseDelegate {
         viewHolder.tv_buy_price.setText(strings.get(1));
 
         GlideUtils.loadImage(coinDetail.getPicUrl(), viewHolder.ic_pic);
-        viewHolder.tv_poundage.setText(coinDetail.getFee() + "%");
+        viewHolder.tv_poundage.setText(coinDetail.getFee() * 100 + "%");
 
         viewHolder.tv_coin_type.setText(coinDetail.getSymbol());
 
@@ -219,7 +219,7 @@ public class GroupDealDelegate extends BaseDelegate {
             ToastUtil.show(CommonUtils.getString(R.string.str_toast_input_price));
             return;
         }
-        selectId=id;
+        selectId = id;
         isSelectStorehouse = true;
         //返回卖出数量
         salenum = saleNum(id);

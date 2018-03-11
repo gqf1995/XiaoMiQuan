@@ -6,8 +6,10 @@ import android.os.Message;
 import android.view.WindowManager;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.databinder.WelcomeBinder;
 import com.xiaomiquan.mvp.delegate.WelcomDelegate;
+import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.utils.UserSet;
 
@@ -59,6 +61,9 @@ public class WelcomActivity extends BaseDataBindActivity<WelcomDelegate, Welcome
         addRequest(binder.getAllPriceRate(this));
         if (!UserSet.getinstance().isFirst()) {
             UserSet.getinstance().setIsFirst(true);
+        }
+        if (SingSettingDBUtil.getUserLogin() == null) {
+            HttpUrl.getIntance().saveToken("");
         }
         //        HttpUrl.setBaseUrl(httpBaseUrl4);
     }

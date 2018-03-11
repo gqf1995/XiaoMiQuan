@@ -3,30 +3,22 @@ package com.xiaomiquan.mvp.fragment.circle;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.fivefivelike.mybaselibrary.base.BaseDataBindFragment;
+import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.utils.ListUtils;
-import com.fivefivelike.mybaselibrary.utils.ToastUtil;
-import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
-import com.xiaomiquan.adapter.circle.CommentDetailAdapter;
 import com.xiaomiquan.adapter.circle.TopicAdapter;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
-import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
 import com.xiaomiquan.mvp.activity.circle.NewSquareActivity;
-import com.xiaomiquan.mvp.activity.user.PersonalHomePageActivity;
 import com.xiaomiquan.mvp.databinder.circle.ANewBinder;
 import com.xiaomiquan.mvp.delegate.circle.ANewDelegate;
-import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,17 +124,15 @@ public class ANewActivity extends BaseDataBindFragment<ANewDelegate, ANewBinder>
     }
 
     private void initView() {
-        if (!ListUtils.isEmpty(getChildFragmentManager().getFragments())) {
-            String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_new_square);
-            fragments = new ArrayList<>();
-            for (int i = 0; i < stringArray.length; i++) {
-                fragments.add(NewSquareItemFragment.newInstance(i));
-                mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
-            }
-            viewDelegate.viewHolder.tl_1.setTabData(mTabEntities);
-            innerPagerAdapter = new InnerPagerAdapter(getChildFragmentManager(), fragments, stringArray);
-            viewDelegate.viewHolder.tl_1.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
+        String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_new_square);
+        fragments = new ArrayList<>();
+        for (int i = 0; i < stringArray.length; i++) {
+            fragments.add(NewSquareItemFragment.newInstance(i));
+            mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
         }
+        viewDelegate.viewHolder.tl_1.setTabData(mTabEntities);
+        innerPagerAdapter = new InnerPagerAdapter(getChildFragmentManager(), fragments, stringArray);
+        viewDelegate.viewHolder.tl_1.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
     }
 
 }
