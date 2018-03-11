@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.delegate.circle;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.xiaomiquan.R;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.circle.ReleaseArticleActivity;
 import com.xiaomiquan.mvp.activity.circle.ReleaseDynamicActivity;
+import com.xiaomiquan.mvp.activity.circle.ReleaseForecastActivity;
 import com.xiaomiquan.mvp.dialog.ReleaseDialog;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 
@@ -75,7 +77,8 @@ public class ANewDelegate extends BaseDelegate {
                                 releaseDialog.dismiss();
                                 break;
                             case 4:
-                                ToastUtil.show("正在开发.....");
+                                getActivity().startActivity(new Intent(getActivity(),ReleaseForecastActivity.class));
+                                releaseDialog.dismiss();
                                 break;
                         }
                     } else {

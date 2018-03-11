@@ -63,9 +63,9 @@ public class UserCenterListFragment extends BasePullFragment<BaseFragentPullDele
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     if ("1".equals(adapter.getDatas().get(position).getType())) {
-                        ArticleDetailsActivity.startAct(getActivity(), adapter.getDatas().get(position));
+                        ArticleDetailsActivity.startAct(getActivity(), adapter.getDatas().get(position),"");
                     } else if ("2".equals(adapter.getDatas().get(position).getType())) {
-                        TopicDetailActivity.startAct(getActivity(), adapter.getDatas().get(position));
+                        TopicDetailActivity.startAct(getActivity(), adapter.getDatas().get(position),"");
                     } else if ("3".equals(adapter.getDatas().get(position).getType())) {
                     }
                 }

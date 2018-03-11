@@ -24,7 +24,7 @@ public class MessageInfoDao extends AbstractDao<MessageInfo, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Message = new Property(1, String.class, "message", false, "MESSAGE");
         public final static Property Time = new Property(2, long.class, "time", false, "TIME");
         public final static Property IsLook = new Property(3, boolean.class, "isLook", false, "IS_LOOK");
@@ -45,7 +45,7 @@ public class MessageInfoDao extends AbstractDao<MessageInfo, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"MESSAGE_INFO\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"MESSAGE\" TEXT," + // 1: message
                 "\"TIME\" INTEGER NOT NULL ," + // 2: time
                 "\"IS_LOOK\" INTEGER NOT NULL ," + // 3: isLook
@@ -62,7 +62,11 @@ public class MessageInfoDao extends AbstractDao<MessageInfo, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, MessageInfo entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String message = entity.getMessage();
         if (message != null) {
@@ -85,7 +89,11 @@ public class MessageInfoDao extends AbstractDao<MessageInfo, Long> {
     @Override
     protected final void bindValues(SQLiteStatement stmt, MessageInfo entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String message = entity.getMessage();
         if (message != null) {
@@ -107,13 +115,13 @@ public class MessageInfoDao extends AbstractDao<MessageInfo, Long> {
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public MessageInfo readEntity(Cursor cursor, int offset) {
         MessageInfo entity = new MessageInfo( //
-            cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // message
             cursor.getLong(offset + 2), // time
             cursor.getShort(offset + 3) != 0, // isLook
@@ -125,7 +133,7 @@ public class MessageInfoDao extends AbstractDao<MessageInfo, Long> {
      
     @Override
     public void readEntity(Cursor cursor, MessageInfo entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setMessage(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setTime(cursor.getLong(offset + 2));
         entity.setIsLook(cursor.getShort(offset + 3) != 0);
@@ -150,7 +158,7 @@ public class MessageInfoDao extends AbstractDao<MessageInfo, Long> {
 
     @Override
     public boolean hasKey(MessageInfo entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getId() != null;
     }
 
     @Override

@@ -61,7 +61,6 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
                 //获取动态详情
                 SquareLive datas = GsonUtil.getInstance().toObj(data, SquareLive.class);
                 initSquareLive(datas);
-                squareLive = datas;
                 break;
             case 0x124:
 //                viewDelegate.viewHolder.et_input2.setText("");
@@ -82,14 +81,13 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     }
 
     private void initSquareLive(final SquareLive square) {
+        initComment(square.getCommentVos());
         if (square.isUserPraise()) {
             viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
-
         } else {
             viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
-
         }
         viewDelegate.viewHolder.lin_info_comment.setOnClickListener(this);
         viewDelegate.viewHolder.lin_praise.setOnClickListener(this);
@@ -145,19 +143,26 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     }
 
     SquareLive squareLive;
+    String linkId;
 
     private void getIntentData() {
         Intent intent = getIntent();
         squareLive = (SquareLive) intent.getParcelableExtra("squareLive");
-        initSquareLive(squareLive);
-        initComment(squareLive.getCommentVos());
+        linkId = intent.getStringExtra("id");
+        if (squareLive != null) {
+            initSquareLive(squareLive);
+        } else {
+            addRequest(binder.getTopicContent(linkId, this));
+        }
+
     }
 
     public static void startAct(Activity activity,
-                                SquareLive squareLive
+                                SquareLive squareLive, String id
     ) {
         Intent intent = new Intent(activity, ArticleDetailsActivity.class);
         intent.putExtra("squareLive", squareLive);
+        intent.putExtra("id", id);
         activity.startActivity(intent);
     }
 

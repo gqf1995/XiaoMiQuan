@@ -107,6 +107,8 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
 
 
     private void initSquareLive(final SquareLive square) {
+        initComment(square.getCommentVos());
+        initImgs(square.getImgList());
         if (square.isUserPraise()) {
             viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
@@ -240,21 +242,28 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
     }
 
     SquareLive squareLive;
+    String linkId;
 
     private void getIntentData() {
         Intent intent = getIntent();
         squareLive = (SquareLive) intent.getParcelableExtra(("squareLive"));
+        linkId = intent.getStringExtra("id");
+        if (squareLive != null) {
+            initSquareLive(squareLive);
+        } else {
+            initComment(new ArrayList<Comment>());
+            addRequest(binder.getTopicContent(linkId, this));
+        }
 
-        initComment(squareLive.getCommentVos());
-        initImgs(squareLive.getImgList());
-        initSquareLive(squareLive);
     }
 
     public static void startAct(Activity activity,
-                                SquareLive squareLive
+                                SquareLive squareLive,
+                                String id
     ) {
         Intent intent = new Intent(activity, TopicDetailActivity.class);
         intent.putExtra("squareLive", squareLive);
+        intent.putExtra("id", id);
         activity.startActivity(intent);
     }
 

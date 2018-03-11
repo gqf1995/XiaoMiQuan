@@ -135,7 +135,7 @@ public class CircleContentActivity extends BasePullActivity<CircleContentDelegat
             circleContentAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    TopicDetailActivity.startAct(CircleContentActivity.this, squareLives.get(position));
+                    TopicDetailActivity.startAct(CircleContentActivity.this, squareLives.get(position),null);
                 }
                 @Override
                 public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {

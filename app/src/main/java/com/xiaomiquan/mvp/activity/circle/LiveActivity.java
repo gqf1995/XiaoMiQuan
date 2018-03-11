@@ -3,6 +3,7 @@ package com.xiaomiquan.mvp.activity.circle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import com.fivefivelike.mybaselibrary.base.BasePullActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -16,6 +17,7 @@ import com.xiaomiquan.mvp.databinder.circle.NewsBinder;
 import com.xiaomiquan.mvp.delegate.circle.NewsDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,9 +95,9 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
                     if (squareLives.get(position).getType().equals("1")) {
-                        ArticleDetailsActivity.startAct(LiveActivity.this, squareLives.get(position));
+                        ArticleDetailsActivity.startAct(LiveActivity.this, squareLives.get(position), null);
                     } else {
-                        TopicDetailActivity.startAct(LiveActivity.this, squareLives.get(position));
+                        TopicDetailActivity.startAct(LiveActivity.this, squareLives.get(position), null);
                     }
                 }
 
@@ -109,9 +111,9 @@ public class LiveActivity extends BasePullActivity<NewsDelegate, NewsBinder> {
                 public void onClick(View view, final int position, Object item) {
                     if (view.getId() == R.id.tv_comment) {
                         if (squareLives.get(position).getType().equals("1")) {
-                            ArticleDetailsActivity.startAct(LiveActivity.this, squareLives.get(position));
+                            ArticleDetailsActivity.startAct(LiveActivity.this, squareLives.get(position), null);
                         } else {
-                            TopicDetailActivity.startAct(LiveActivity.this, squareLives.get(position));
+                            TopicDetailActivity.startAct(LiveActivity.this, squareLives.get(position), null);
                         }
                     }
                     if (view.getId() == R.id.cv_head) {

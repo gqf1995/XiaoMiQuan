@@ -80,7 +80,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
             artivleAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
-                    ArticleDetailsActivity.startAct(ArticleActivity.this, squareLives.get(position - 1));
+                    ArticleDetailsActivity.startAct(ArticleActivity.this, squareLives.get(position - 1), "");
                 }
 
                 @Override
@@ -175,7 +175,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
         tv_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArticleDetailsActivity.startAct(ArticleActivity.this, squareLive);
+                ArticleDetailsActivity.startAct(ArticleActivity.this, squareLive, "");
             }
         });
 
@@ -190,25 +190,25 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
             @Override
             public void onClick(View view) {
                 if (userLogin != null) {
-                /**
-                 * 用户是否点赞
-                 //                 */
-                if (squareLive.isUserPraise()) {
-                    squareLive.setUserPraise(false);
-                    squareLive.setGoodCount(squareLive.getGoodCount() - 1);
-                    tv_praise_num.setText(squareLive.getGoodCount() + "");
-                    tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
-                    tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                    /**
+                     * 用户是否点赞
+                     //                 */
+                    if (squareLive.isUserPraise()) {
+                        squareLive.setUserPraise(false);
+                        squareLive.setGoodCount(squareLive.getGoodCount() - 1);
+                        tv_praise_num.setText(squareLive.getGoodCount() + "");
+                        tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                        tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
 
-                } else {
-                    squareLive.setUserPraise(true);
-                    squareLive.setGoodCount(squareLive.getGoodCount() + 1);
-                    tv_praise_num.setText(squareLive.getGoodCount() + "");
-                    tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
-                    tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                    } else {
+                        squareLive.setUserPraise(true);
+                        squareLive.setGoodCount(squareLive.getGoodCount() + 1);
+                        tv_praise_num.setText(squareLive.getGoodCount() + "");
+                        tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
+                        tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
 
-                }
-                addRequest(binder.savePraise(squareLive.getId(), ArticleActivity.this));
+                    }
+                    addRequest(binder.savePraise(squareLive.getId(), ArticleActivity.this));
                 } else {
                     ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
                 }
@@ -218,7 +218,7 @@ public class ArticleActivity extends BasePullActivity<ArticleDelegate, ArticleBi
         tv_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArticleDetailsActivity.startAct(ArticleActivity.this, squareLive);
+                ArticleDetailsActivity.startAct(ArticleActivity.this, squareLive, "");
             }
         });
 

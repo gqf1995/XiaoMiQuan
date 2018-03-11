@@ -344,6 +344,7 @@
         <activity android:name=".mvp.activity.group.AllTeamActivity" />
         <activity android:name=".mvp.activity.MessageCenterActivity" />
         <activity android:name=".mvp.activity.circle.TranspondTopicActivity" />
+        <activity android:name=".mvp.activity.circle.ReleaseForecastActivity" />
     </application>
 
 </manifest>
