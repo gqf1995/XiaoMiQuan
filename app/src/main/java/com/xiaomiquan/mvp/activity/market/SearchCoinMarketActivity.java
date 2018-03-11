@@ -56,7 +56,7 @@ public class SearchCoinMarketActivity extends BaseDataBindActivity<SearchCoinMar
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus){
+        if (hasFocus) {
             //弹出 edittext
             this.et_search.setFocusable(true);
             this.et_search.setFocusableInTouchMode(true);
@@ -75,7 +75,7 @@ public class SearchCoinMarketActivity extends BaseDataBindActivity<SearchCoinMar
         layoutParams.leftMargin = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_40px);
         rootView.setLayoutParams(layoutParams);
         this.et_search = (EditText) rootView.findViewById(R.id.et_search);
-
+        this.et_search.setTextColor(CommonUtils.getColor(R.color.color_font1));
         subTitle = viewDelegate.getmToolbarSubTitle();
         et_search.addTextChangedListener(new TextWatcher() {
             @Override

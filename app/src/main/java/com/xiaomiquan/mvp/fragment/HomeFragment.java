@@ -30,7 +30,7 @@ import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.MessageCenterActivity;
 import com.xiaomiquan.mvp.activity.chat.ChatLiveListActivity;
 import com.xiaomiquan.mvp.activity.chat.GroupChatActivity;
-import com.xiaomiquan.mvp.activity.group.HisAccountActivity;
+import com.xiaomiquan.mvp.activity.group.CombinationActivity;
 import com.xiaomiquan.mvp.activity.main.WebActivityActivity;
 import com.xiaomiquan.mvp.databinder.HomeBinder;
 import com.xiaomiquan.mvp.delegate.HomeDelegate;
@@ -141,8 +141,9 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
                         //点击进入某用户组合详情页,参数userId、type标示在详情页面默认打开的tab
                         String parameters = GsonUtil.getInstance().getValue(data, "parameters");
                         String userId = GsonUtil.getInstance().getValue(parameters, "userId");
-                        String type = GsonUtil.getInstance().getValue(parameters, "type");
-                        HisAccountActivity.startAct(getActivity(), userId, type);
+                        //                        String type = GsonUtil.getInstance().getValue(parameters, "type");
+                        //                        HisAccountActivity.startAct(getActivity(), userId, type);
+                        addRequest(binder.getDemoByUserId(userId, HomeFragment.this));
                     } else {
                         //跳转web页面
                         WebActivityActivity.startAct(getActivity(), forward);
@@ -253,6 +254,18 @@ public class HomeFragment extends BaseDataBindFragment<HomeDelegate, HomeBinder>
                         checkScore.isCanSpeak(),
                         0x123
                 );
+                break;
+            case 0x127:
+                GroupItem groupItem = GsonUtil.getInstance().toObj(data, GroupItem.class);
+                if (userLogin != null) {
+                    if ((userLogin.getId() + "").equals(groupItem.getUserId())) {
+                        CombinationActivity.startAct(getActivity(), groupItem, true);
+                    } else {
+                        CombinationActivity.startAct(getActivity(), groupItem, false);
+                    }
+                } else {
+                    CombinationActivity.startAct(getActivity(), groupItem, false);
+                }
                 break;
         }
     }

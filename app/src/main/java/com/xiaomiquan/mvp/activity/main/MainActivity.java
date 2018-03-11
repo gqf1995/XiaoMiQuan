@@ -45,7 +45,6 @@ import com.xiaomiquan.mvp.fragment.SimulatedTradingFragment;
 import com.xiaomiquan.mvp.fragment.UserDrawerFragment;
 import com.xiaomiquan.mvp.fragment.circle.ANewActivity;
 import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
-import com.xiaomiquan.mvp.fragment.circle.SquareWebFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
 import com.xiaomiquan.server.UpdateService;
@@ -90,7 +89,7 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         uid = UUIDS.getUUID() + System.currentTimeMillis();
         initSocket();
         updata();
-        netWorkLinsener();
+        //netWorkLinsener();
         addRequest(binder.getlatestversion(AppUtils.getAppVersionName(), this));
     }
 

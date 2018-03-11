@@ -122,4 +122,48 @@ public class PersonalDetailsBinder extends BaseDataBind<PersonalDetailsDelegate>
                 .RxSendRequest();
     }
 
+
+    /**
+     * 我的资产
+     */
+    public Disposable myAsset(
+            String demoId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("demoId", demoId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x126)
+                .setRequestUrl(HttpUrl.getIntance().myAsset)
+                .setShowDialog(true)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("我的资产")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 组合详情
+     */
+    public Disposable getDemoByUserId(
+            String userId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("userId", userId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x127)
+                .setRequestUrl(HttpUrl.getIntance().getDemoByUserId)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("组合详情")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
 }

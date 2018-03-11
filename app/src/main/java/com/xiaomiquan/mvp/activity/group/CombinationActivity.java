@@ -14,15 +14,14 @@ import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
-import com.xiaomiquan.entity.bean.group.EarningsMovements;
 import com.xiaomiquan.entity.bean.group.GroupItem;
+import com.xiaomiquan.entity.bean.group.TeamInfo;
 import com.xiaomiquan.mvp.databinder.CombinationBinder;
 import com.xiaomiquan.mvp.delegate.CombinationDelegate;
 import com.xiaomiquan.mvp.fragment.group.GroupDetailListFragment;
 import com.xiaomiquan.mvp.fragment.group.GroupHistoryEntrustFragment;
 import com.xiaomiquan.mvp.fragment.group.GroupHistoryTradingFragment;
 import com.xiaomiquan.mvp.fragment.group.GroupNotDealFragment;
-import com.xiaomiquan.utils.BigUIUtil;
 
 import java.util.ArrayList;
 
@@ -84,10 +83,13 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         viewDelegate.viewHolder.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                addRequest(binder.getTodayInfo(isMy ? groupItem.getId() : groupItem.getUserId(), CombinationActivity.this));
+                //addRequest(binder.getTodayInfo(isMy ? groupItem.getId() : groupItem.getUserId(), CombinationActivity.this));
+                addRequest(binder.demoInfo(groupItem.getId(), CombinationActivity.this));
             }
         });
-        addRequest(binder.getTodayInfo(isMy ? groupItem.getId() : groupItem.getUserId(), this));
+        //addRequest(binder.getTodayInfo(isMy ? groupItem.getId() : groupItem.getUserId(), this));
+        addRequest(binder.demoInfo(groupItem.getId(), this));
+
     }
 
 
@@ -123,21 +125,26 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
-                //今日收益&日均操作次数
-                BigUIUtil.getinstance().rateTextView(Double.parseDouble(GsonUtil.getInstance().getValue(data, "todayRate")), viewDelegate.viewHolder.tv_today_earnings);
-                viewDelegate.viewHolder.tv_daily_operation.setText(GsonUtil.getInstance().getValue(data, "count"));
-                addRequest(binder.rateTrend(isMy ? groupItem.getId() : groupItem.getUserId(), this));
+                TeamInfo teamInfo = GsonUtil.getInstance().toObj(data, TeamInfo.class);
+                viewDelegate.initTeaminfo(teamInfo);
+                viewDelegate.initData(groupItem);
                 break;
-            case 0x124:
-                //分期收益
-                viewDelegate.initRate(data);
-                break;
-            case 0x125:
-                //收益走势
-                EarningsMovements earningsMovements = GsonUtil.getInstance().toObj(data, EarningsMovements.class);
-                viewDelegate.initEarningsMovements(earningsMovements);
-                addRequest(binder.allRate(isMy ? groupItem.getId() : groupItem.getUserId(), this));
-                break;
+            //            case 0x123:
+            //                //今日收益&日均操作次数
+            //                BigUIUtil.getinstance().rateTextView(Double.parseDouble(GsonUtil.getInstance().getValue(data, "todayRate")), viewDelegate.viewHolder.tv_today_earnings);
+            //                viewDelegate.viewHolder.tv_daily_operation.setText(GsonUtil.getInstance().getValue(data, "count"));
+            //                addRequest(binder.rateTrend(isMy ? groupItem.getId() : groupItem.getUserId(), this));
+            //                break;
+            //            case 0x124:
+            //                //分期收益
+            //                viewDelegate.initRate(data);
+            //                break;
+            //            case 0x125:
+            //                //收益走势
+            //                EarningsMovements earningsMovements = GsonUtil.getInstance().toObj(data, EarningsMovements.class);
+            //                viewDelegate.initEarningsMovements(earningsMovements);
+            //                addRequest(binder.allRate(isMy ? groupItem.getId() : groupItem.getUserId(), this));
+            //                break;
         }
     }
 
@@ -145,17 +152,16 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
         if (!ListUtils.isEmpty(getSupportFragmentManager().getFragments())) {
             String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_combination);
             fragments = new ArrayList<>();
-            fragments.add(GroupDetailListFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
-            fragments.add(GroupNotDealFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
-            fragments.add(GroupHistoryTradingFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
-            fragments.add(GroupHistoryEntrustFragment.newInstance(isMy ? groupItem.getId() : groupItem.getUserId()));
+            fragments.add(GroupDetailListFragment.newInstance(groupItem.getId()));
+            fragments.add(GroupNotDealFragment.newInstance(groupItem.getId()));
+            fragments.add(GroupHistoryTradingFragment.newInstance(groupItem.getId()));
+            fragments.add(GroupHistoryEntrustFragment.newInstance(groupItem.getId()));
             for (int i = 0; i < stringArray.length; i++) {
                 mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
             }
             viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
             InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
             viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
-
         }
     }
 

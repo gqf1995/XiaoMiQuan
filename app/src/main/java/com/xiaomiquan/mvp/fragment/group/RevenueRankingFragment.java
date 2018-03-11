@@ -9,8 +9,10 @@ import com.fivefivelike.mybaselibrary.base.BasePullFragment;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.callback.DefaultClickLinsener;
 import com.xiaomiquan.adapter.group.RevenueRankingAdapter;
+import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.group.GroupItem;
-import com.xiaomiquan.mvp.activity.group.HisAccountActivity;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
+import com.xiaomiquan.mvp.activity.group.CombinationActivity;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 
@@ -23,6 +25,7 @@ import java.util.List;
 public class RevenueRankingFragment extends BasePullFragment<BaseFragentPullDelegate, BaseFragmentPullBinder> {
 
     RevenueRankingAdapter revenueRankingAdapter;
+    UserLogin userLogin;
 
     @Override
     protected Class<BaseFragentPullDelegate> getDelegateClass() {
@@ -38,6 +41,7 @@ public class RevenueRankingFragment extends BasePullFragment<BaseFragentPullDele
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        userLogin = SingSettingDBUtil.getUserLogin();
         initList(new ArrayList<GroupItem>());
     }
 
@@ -54,7 +58,16 @@ public class RevenueRankingFragment extends BasePullFragment<BaseFragentPullDele
                 @Override
                 public void onClick(View view, int position, Object item) {
                     //跳转他人详情
-                    HisAccountActivity.startAct(getActivity(), revenueRankingAdapter.getDatas().get(position).getId());
+                    if (userLogin != null) {
+                        if ((userLogin.getId() + "").equals(revenueRankingAdapter.getDatas().get(position).getUserId())) {
+                            CombinationActivity.startAct(getActivity(), revenueRankingAdapter.getDatas().get(position), true);
+                        } else {
+                            CombinationActivity.startAct(getActivity(), revenueRankingAdapter.getDatas().get(position), false);
+                        }
+                    } else {
+                        CombinationActivity.startAct(getActivity(), revenueRankingAdapter.getDatas().get(position), false);
+                    }
+                    //HisAccountActivity.startAct(getActivity(), revenueRankingAdapter.getDatas().get(position).getId());
                 }
             });
             initRecycleViewPull(revenueRankingAdapter, new LinearLayoutManager(getActivity()));

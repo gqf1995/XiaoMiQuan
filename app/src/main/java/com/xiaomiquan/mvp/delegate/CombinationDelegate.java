@@ -32,7 +32,6 @@ import com.xiaomiquan.entity.bean.group.TeamInfo;
 import com.xiaomiquan.mvp.activity.group.CreatGroupActivity;
 import com.xiaomiquan.mvp.activity.group.CreatTeamActivity;
 import com.xiaomiquan.mvp.activity.group.MyPropertyDetailActivity;
-import com.xiaomiquan.mvp.activity.main.WebActivityActivity;
 import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.widget.JudgeNestedScrollView;
 import com.xiaomiquan.widget.chart.MyLeftRateMarkerView;
@@ -44,7 +43,6 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.xiaomiquan.base.AppConst.rulesUrl;
 import static com.xiaomiquan.utils.TimeUtils.DEFAULT_FORMAT;
 
 public class CombinationDelegate extends BaseDelegate {

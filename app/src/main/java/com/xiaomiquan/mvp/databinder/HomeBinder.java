@@ -33,6 +33,7 @@ public class HomeBinder extends BaseDataBind<HomeDelegate> {
                 .build()
                 .RxSendRequest();
     }
+
     /**
      * 通过积分判断能否继续操作
      */
@@ -49,6 +50,28 @@ public class HomeBinder extends BaseDataBind<HomeDelegate> {
                 .setRequestName("通过积分判断能否继续操作")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.KeyValue)
+                .setRequestObj(baseMap)
+                .setRequestCallback(requestCallback)
+                .build()
+                .RxSendRequest();
+    }
+
+    /**
+     * 组合详情
+     */
+    public Disposable getDemoByUserId(
+            String userId,
+            RequestCallback requestCallback) {
+        getBaseMapWithUid();
+        baseMap.put("userId", userId);
+        return new HttpRequest.Builder()
+                .setRequestCode(0x127)
+                .setRequestUrl(HttpUrl.getIntance().getDemoByUserId)
+                .setShowDialog(false)
+                .setDialog(viewDelegate.getNetConnectDialog())
+                .setRequestName("组合详情")
+                .setRequestMode(HttpRequest.RequestMode.POST)
+                .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)
                 .setRequestCallback(requestCallback)
                 .build()

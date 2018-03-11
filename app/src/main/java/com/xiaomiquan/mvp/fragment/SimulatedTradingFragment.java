@@ -151,7 +151,7 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
                         }
                     }
                     if (currencyFragmentBuy != null) {
-                        if(TextUtils.isEmpty(currencyFragmentBuy.getDemoId())) {
+                        if (TextUtils.isEmpty(currencyFragmentBuy.getDemoId())) {
                             currencyFragmentBuy.setDemoId(groupItem.getId());
                         }
                     }
@@ -240,7 +240,9 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
     private void onBinderRefresh() {
         userLogin = SingSettingDBUtil.getUserLogin();
         if (userLogin != null) {
-            addRequest(binder.getDemoByUserId(userLogin.getId() + "", this));
+            if (binder != null) {
+                addRequest(binder.getDemoByUserId(userLogin.getId() + "", this));
+            }
         } else {
             viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         }
@@ -302,6 +304,9 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
                 return;
             }
         }
+        if (viewDelegate.isSelectStorehouse) {
+            viewDelegate.sellChoose(viewDelegate.selectId);
+        }
         addRequest(binder.deal(
                 groupItem.getId(),
                 type == 0 ? "1" : "2",
@@ -321,24 +326,22 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
 
 
     private void initTablelayout() {
-        if (!ListUtils.isEmpty(getChildFragmentManager().getFragments())) {
-            fragments = new ArrayList<>();
-            fragments.add(GroupDetailListFragment.newInstance("0"));
-            fragments.add(NotDealFragment.newInstance("0"));
-            fragments.add(HistoryTradingFragment.newInstance("0"));
-            fragments.add(HistoryEntrustFragment.newInstance("0"));
-            if (innerPagerAdapter == null) {
-                mTitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_combination));
-                mTabEntities = new ArrayList<>();
-                for (int i = 0; i < mTitles.size(); i++) {
-                    mTabEntities.add(new TabEntity(mTitles.get(i), 0, 0));
-                }
-                viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
-                innerPagerAdapter = new InnerPagerAdapter(getChildFragmentManager(), fragments, mTitles.toArray(new String[mTitles.size()]));
-                viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.vp_sliding);
-            } else {
-                innerPagerAdapter.setDatas(fragments);
+        fragments = new ArrayList<>();
+        fragments.add(GroupDetailListFragment.newInstance("0"));
+        fragments.add(NotDealFragment.newInstance("0"));
+        fragments.add(HistoryTradingFragment.newInstance("0"));
+        fragments.add(HistoryEntrustFragment.newInstance("0"));
+        if (innerPagerAdapter == null) {
+            mTitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_combination));
+            mTabEntities = new ArrayList<>();
+            for (int i = 0; i < mTitles.size(); i++) {
+                mTabEntities.add(new TabEntity(mTitles.get(i), 0, 0));
             }
+            viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
+            innerPagerAdapter = new InnerPagerAdapter(getChildFragmentManager(), fragments, mTitles.toArray(new String[mTitles.size()]));
+            viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.vp_sliding);
+        } else {
+            innerPagerAdapter.setDatas(fragments);
         }
     }
 

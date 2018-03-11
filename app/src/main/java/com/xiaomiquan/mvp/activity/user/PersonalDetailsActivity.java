@@ -20,11 +20,15 @@ import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.entity.bean.UserPageDetail;
 import com.xiaomiquan.entity.bean.chat.ChatLiveItem;
 import com.xiaomiquan.entity.bean.chat.CheckScore;
+import com.xiaomiquan.entity.bean.group.GroupItem;
 import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.chat.GroupChatActivity;
+import com.xiaomiquan.mvp.activity.group.CombinationActivity;
+import com.xiaomiquan.mvp.activity.group.MyAccountActivity;
 import com.xiaomiquan.mvp.databinder.PersonalDetailsBinder;
 import com.xiaomiquan.mvp.delegate.PersonalDetailsDelegate;
 import com.xiaomiquan.mvp.fragment.UserCenterListFragment;
+import com.xiaomiquan.utils.BigUIUtil;
 import com.xiaomiquan.widget.CircleDialogHelper;
 
 import java.util.ArrayList;
@@ -36,6 +40,8 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
     List<Fragment> fragments;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     ChatLiveItem chatLiveItem;
+    GroupItem groupItem;
+    boolean isMy = false;
 
     @Override
     protected Class<PersonalDetailsDelegate> getDelegateClass() {
@@ -59,8 +65,8 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
             }
         });
         addRequest(binder.personCenter(id, this));
+        addRequest(binder.getDemoByUserId(id, this));
     }
-
 
     private void initFragemnt() {
         if (!ListUtils.isEmpty(getSupportFragmentManager().getFragments())) {
@@ -97,12 +103,12 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
             if (id.equals(userLogin.getId() + "")) {
                 initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_my_home_page)).setSubTitle(" "));
                 GlideUtils.loadImage(userLogin.getAvatar(), viewDelegate.viewHolder.ic_pic);
+                isMy = true;
             } else {
                 initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_other_home_page)).setSubTitle(" "));
             }
         } else {
-            initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_my_home_page)).setSubTitle(" "));
-            GlideUtils.loadImage(userLogin.getAvatar(), viewDelegate.viewHolder.ic_pic);
+            initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_other_home_page)).setSubTitle(" "));
         }
         //初始化滑动渐变前
         viewDelegate.getLayoutTitleBar().setVisibility(View.GONE);
@@ -121,7 +127,6 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
                     viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_edit));
                 }
             }
-
         }
     }
 
@@ -200,6 +205,31 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
                         addRequest(binder.checkScore(chatLiveItem.getGroupId(), PersonalDetailsActivity.this));
                     }
                 });
+                break;
+            case 0x126:
+                //我的资产
+                MyAccountActivity.startAct(PersonalDetailsActivity.this, groupItem, data);
+                break;
+            case 0x127:
+                //组合详情
+                groupItem = GsonUtil.getInstance().toObj(data, GroupItem.class);
+                if (groupItem != null) {
+                    viewDelegate.viewHolder.lin_group.setVisibility(View.VISIBLE);
+                    BigUIUtil.getinstance().rateTextView(groupItem.getCurrProfit(), viewDelegate.viewHolder.tv_today_earnings);
+                    BigUIUtil.getinstance().rateTextView(groupItem.getTotalProfit(), viewDelegate.viewHolder.tv_cumulative_earnings);
+                    viewDelegate.viewHolder.lin_group.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (isMy) {
+                                addRequest(binder.myAsset(groupItem.getId(), PersonalDetailsActivity.this));
+                            } else {
+                                CombinationActivity.startAct(PersonalDetailsActivity.this, groupItem, false);
+                            }
+                        }
+                    });
+                } else {
+                    viewDelegate.viewHolder.lin_group.setVisibility(View.GONE);
+                }
                 break;
         }
     }
