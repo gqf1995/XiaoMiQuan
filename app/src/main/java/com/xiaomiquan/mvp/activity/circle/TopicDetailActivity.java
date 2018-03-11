@@ -86,21 +86,24 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
                 initSquareLive(datas);
                 break;
             case 0x124:
+                //评论成功
+                onRefresh();
                 //                viewDelegate.viewHolder.et_input2.setText("");
                 //                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
                 break;
             case 0x125:
+                //回复成功
+                onRefresh();
                 //                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
                 break;
             case 0x126:
 
                 break;
             case 0x127:
-                //评论成功
-                //                List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
-                //                initComment(comments);
-                onRefresh();
-                //                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
+                //获取评论
+                List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
+                initComment(comments);
+                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
                 break;
         }
     }

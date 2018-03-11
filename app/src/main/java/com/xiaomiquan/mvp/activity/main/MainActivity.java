@@ -172,13 +172,13 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
         if (isInit) {
             viewDelegate.addFragment(homeFragment = new HomeFragment());
             viewDelegate.addFragment(marketFragment = new MarketFragment());
-            viewDelegate.addFragment(newActivity = new ANewActivity());
+            viewDelegate.addFragment(newSquareActivity = new NewSquareActivity());
             viewDelegate.addFragment(simulatedTradingFragment = new SimulatedTradingFragment());
             loadDrawerLayout(true);
         } else {
             homeFragment = (HomeFragment) viewDelegate.getFragmentByIndex(0);
             marketFragment = (MarketFragment) viewDelegate.getFragmentByIndex(1);
-            newActivity = (ANewActivity) viewDelegate.getFragmentByIndex(2);
+            newSquareActivity = (NewSquareActivity) viewDelegate.getFragmentByIndex(2);
             simulatedTradingFragment = (SimulatedTradingFragment) viewDelegate.getFragmentByIndex(3);
             loadDrawerLayout(false);
         }

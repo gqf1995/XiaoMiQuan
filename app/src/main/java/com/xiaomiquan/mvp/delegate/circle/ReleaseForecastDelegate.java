@@ -36,9 +36,8 @@ public class ReleaseForecastDelegate extends BaseDelegate {
         tagFlowLayout.setAdapter(new TagAdapter<String>(str) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) getActivity().getLayoutInflater().inflate(R.layout.layout_flowtext,
+                TextView tv = (TextView) getActivity().getLayoutInflater().inflate(R.layout.layout_forecast,
                         parent, false);
-                tv.setBackground(new RadiuBg(CommonUtils.getColor(R.color.base_mask), 0, 0, 0, 0));
                 tv.setText(s);
                 return tv;
             }

@@ -71,8 +71,9 @@ public class NewSquareDelegate extends BaseDelegate {
                                 releaseDialog.dismiss();
                                 break;
                             case 4:
-                                getActivity().startActivity(new Intent(getActivity(),ReleaseForecastActivity.class));
-                                releaseDialog.dismiss();
+                                ToastUtil.show("正在开发....");
+//                                getActivity().startActivity(new Intent(getActivity(),ReleaseForecastActivity.class));
+//                                releaseDialog.dismiss();
                                 break;
                         }
                     } else {
