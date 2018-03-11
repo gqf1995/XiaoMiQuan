@@ -43,6 +43,7 @@ import com.xiaomiquan.mvp.fragment.HomeFragment;
 import com.xiaomiquan.mvp.fragment.MarketFragment;
 import com.xiaomiquan.mvp.fragment.SimulatedTradingFragment;
 import com.xiaomiquan.mvp.fragment.UserDrawerFragment;
+import com.xiaomiquan.mvp.fragment.circle.ANewActivity;
 import com.xiaomiquan.mvp.fragment.circle.SquareFragment;
 import com.xiaomiquan.mvp.fragment.group.InvestGroupFragment;
 import com.xiaomiquan.server.HttpUrl;
@@ -61,7 +62,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 
-public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener, SimulatedTradingFragment.Linsener, UserDrawerFragment.Linsener, HomeFragment.Linsener,NewSquareActivity.Linsener {
+public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder> implements MarketFragment.OnHttpChangeLinsener, SimulatedTradingFragment.Linsener, UserDrawerFragment.Linsener, HomeFragment.Linsener, NewSquareActivity.Linsener {
 
     String uid;
     UserLogin userLogin;
@@ -156,12 +157,11 @@ public class MainActivity extends BaseDataBindActivity<MainDelegate, MainBinder>
     }
 
     MarketFragment marketFragment;
-    InvestGroupFragment investGroupFragment;
     UserDrawerFragment userFragment;
     HomeFragment homeFragment;
     SimulatedTradingFragment simulatedTradingFragment;
     NewSquareActivity newSquareActivity;
-    SquareFragment squareFragment;
+    ANewActivity newActivity;
 
     //添加主页4个基础页面
     public void initFragment(boolean isInit) {

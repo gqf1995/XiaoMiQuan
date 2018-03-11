@@ -36,7 +36,7 @@
                     android:textSize="@dimen/text_trans_32px" />
 
                 <TextView
-                    android:id="@+id/tv_input_label1"
+                    android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/trans_20px"
@@ -85,11 +85,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/str_tv_all_currency"
                     android:textColor="@color/color_font2"
-                    android:textSize="@dimen/text_trans_32px" />
+                    android:textSize="@dimen/text_trans_32px"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <com.zhy.view.flowlayout.TagFlowLayout
-                android:id="@+id/id_flowlayout"
+                android:id="@+id/id_currency_flowlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/trans_30px"
@@ -102,6 +103,154 @@
                 android:text="@string/str_tv_btc_usdt"
                 android:textColor="@color/color_font2"
                 android:textSize="@dimen/text_trans_32px" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_1px"
+                android:background="@color/base_mask" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/trans_30px">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/ic_Chart1"
+                    android:textColor="@color/color_blue"
+                    android:textSize="@dimen/text_trans_30px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/trans_20px"
+                    android:text="@string/str_tv_forecast"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/text_trans_34px" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/id_flowlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/trans_30px"
+                app:max_select="1" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_40px" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_1px"
+                android:background="@color/base_mask" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/trans_30px">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/ic_Calendar1"
+                    android:textColor="@color/color_blue"
+                    android:textSize="@dimen/text_trans_30px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/trans_20px"
+                    android:text="@string/str_tv_time"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/text_trans_34px" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/trans_30px">
+
+                <EditText
+                    android:id="@+id/et_time"
+                    android:layout_width="@dimen/trans_160px"
+                    android:layout_height="@dimen/trans_70px"
+                    android:layout_weight="2"
+                    android:background="@drawable/shape_grey_border_radiu5"
+                    android:digits="0123456789."
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/trans_10px"
+                    android:singleLine="true"
+                    android:textColor="@color/color_font1"
+                    android:textColorHint="@color/color_font3"
+                    android:textSize="@dimen/text_trans_28px" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/trans_16px"
+                    android:text="@string/str_et_time"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/text_trans_34px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/trans_24px"
+                    android:text="@string/str_tv_low_to"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/text_trans_34px"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_price"
+                    android:layout_width="@dimen/trans_160px"
+                    android:layout_height="@dimen/trans_70px"
+                    android:layout_marginLeft="@dimen/trans_14px"
+                    android:layout_weight="3"
+                    android:background="@drawable/shape_grey_border_radiu5"
+                    android:digits="0123456789."
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/trans_10px"
+                    android:singleLine="true"
+                    android:textColor="@color/color_font1"
+                    android:textColorHint="@color/color_font3"
+                    android:textSize="@dimen/text_trans_28px" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/trans_16px"
+                    android:text="USDT"
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/text_trans_34px" />
+
+
+            </LinearLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

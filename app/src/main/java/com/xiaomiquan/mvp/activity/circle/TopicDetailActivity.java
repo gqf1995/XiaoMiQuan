@@ -86,27 +86,32 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
                 initSquareLive(datas);
                 break;
             case 0x124:
+                //评论成功
+                onRefresh();
                 //                viewDelegate.viewHolder.et_input2.setText("");
                 //                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
                 break;
             case 0x125:
+                //回复成功
+                onRefresh();
                 //                addRequest(binder.getComment(squareLive.getId(), TopicDetailActivity.this));
                 break;
             case 0x126:
 
                 break;
             case 0x127:
-                //评论成功
-                //                List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
-                //                initComment(comments);
-                onRefresh();
-                //                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
+                //获取评论
+                List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
+                initComment(comments);
+                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
                 break;
         }
     }
 
 
     private void initSquareLive(final SquareLive square) {
+        initComment(square.getCommentVos());
+        initImgs(square.getImgList());
         if (square.isUserPraise()) {
             viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
@@ -240,21 +245,28 @@ public class TopicDetailActivity extends BasePullActivity<TopicDetailDelegate, T
     }
 
     SquareLive squareLive;
+    String linkId;
 
     private void getIntentData() {
         Intent intent = getIntent();
         squareLive = (SquareLive) intent.getParcelableExtra(("squareLive"));
+        linkId = intent.getStringExtra("id");
+        if (squareLive != null) {
+            initSquareLive(squareLive);
+        } else {
+            initComment(new ArrayList<Comment>());
+            addRequest(binder.getTopicContent(linkId, this));
+        }
 
-        initComment(squareLive.getCommentVos());
-        initImgs(squareLive.getImgList());
-        initSquareLive(squareLive);
     }
 
     public static void startAct(Activity activity,
-                                SquareLive squareLive
+                                SquareLive squareLive,
+                                String id
     ) {
         Intent intent = new Intent(activity, TopicDetailActivity.class);
         intent.putExtra("squareLive", squareLive);
+        intent.putExtra("id", id);
         activity.startActivity(intent);
     }
 

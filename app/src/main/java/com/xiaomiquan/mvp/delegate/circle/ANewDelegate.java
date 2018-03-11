@@ -2,8 +2,9 @@ package com.xiaomiquan.mvp.delegate.circle;
 
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
@@ -16,11 +17,14 @@ import com.xiaomiquan.mvp.activity.circle.ReleaseArticleActivity;
 import com.xiaomiquan.mvp.activity.circle.ReleaseDynamicActivity;
 import com.xiaomiquan.mvp.activity.circle.ReleaseForecastActivity;
 import com.xiaomiquan.mvp.dialog.ReleaseDialog;
+import com.xiaomiquan.widget.JudgeNestedScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewSquareDelegate extends BaseDelegate {
+import skin.support.widget.SkinCompatFrameLayout;
+
+public class ANewDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
     List<ReleaseDialog.ReleaseDialogEntity> entities;
     private String[] mBoomTitles = CommonUtils.getStringArray(R.array.sa_select_release_diolog);
@@ -38,11 +42,13 @@ public class NewSquareDelegate extends BaseDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
+        viewHolder.nestedScrollView.setTabAndPager(viewHolder.fl_tab, (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_110px),
+                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px), viewHolder.viewpager, false);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_new_square;
+        return R.layout.activity_anew;
     }
 
     public void fabu() {
@@ -71,9 +77,8 @@ public class NewSquareDelegate extends BaseDelegate {
                                 releaseDialog.dismiss();
                                 break;
                             case 4:
-                                ToastUtil.show("正在开发....");
-//                                getActivity().startActivity(new Intent(getActivity(),ReleaseForecastActivity.class));
-//                                releaseDialog.dismiss();
+                                getActivity().startActivity(new Intent(getActivity(),ReleaseForecastActivity.class));
+                                releaseDialog.dismiss();
                                 break;
                         }
                     } else {
@@ -85,20 +90,23 @@ public class NewSquareDelegate extends BaseDelegate {
         releaseDialog.showDialog(viewHolder.tl_1);
     }
 
-
     public static class ViewHolder {
         public View rootView;
-
+        public RecyclerView recycleview;
         public CommonTabLayout tl_1;
-        public LinearLayout lin_table;
+        public SkinCompatFrameLayout fl_tab;
         public ViewPager viewpager;
+        public JudgeNestedScrollView nestedScrollView;
+        public SwipeRefreshLayout swipeRefreshLayout;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-
+            this.recycleview = (RecyclerView) rootView.findViewById(R.id.recycleview);
             this.tl_1 = (CommonTabLayout) rootView.findViewById(R.id.tl_1);
-            this.lin_table = (LinearLayout) rootView.findViewById(R.id.lin_table);
+            this.fl_tab = (SkinCompatFrameLayout) rootView.findViewById(R.id.fl_tab);
             this.viewpager = (ViewPager) rootView.findViewById(R.id.viewpager);
+            this.nestedScrollView = (JudgeNestedScrollView) rootView.findViewById(R.id.nestedScrollView);
+            this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         }
 
     }

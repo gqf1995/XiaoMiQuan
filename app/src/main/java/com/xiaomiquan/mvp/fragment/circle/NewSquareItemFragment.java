@@ -98,9 +98,9 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
                     if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
-                        ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                        ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position), null);
                     } else {
-                        TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                        TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position), null);
                     }
                 }
 
@@ -114,9 +114,9 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
                 public void onClick(View view, final int position, Object item) {
                     if (view.getId() == R.id.lin_comment) {
                         if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
-                            ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                            ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position), null);
                         } else {
-                            TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                            TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position), null);
                         }
                     }
                     if (view.getId() == R.id.cv_head) {
@@ -124,9 +124,9 @@ public class NewSquareItemFragment extends BasePullFragment<BaseFragentPullDeleg
                     }
                     if (view.getId() == R.id.lin_article) {
                         if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
-                            ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                            ArticleDetailsActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position), null);
                         } else {
-                            TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position));
+                            TopicDetailActivity.startAct(getActivity(), squareLiveAdapter.getDatas().get(position), null);
                         }
                     }
                 }

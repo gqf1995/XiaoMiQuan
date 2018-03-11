@@ -140,9 +140,9 @@ public class PersonalHomePageActivity extends BaseDataBindActivity<PersonalHomeP
                 public void onClick(View view, int position, Object item) {
                     if (view.getId() == R.id.lin_comment) {
                         if (squareLiveAdapter.getDatas().get(position).getType().equals("1")) {
-                            ArticleDetailsActivity.startAct(PersonalHomePageActivity.this, squareLiveAdapter.getDatas().get(position));
+                            ArticleDetailsActivity.startAct(PersonalHomePageActivity.this, squareLiveAdapter.getDatas().get(position), "");
                         } else {
-                            TopicDetailActivity.startAct(PersonalHomePageActivity.this, squareLiveAdapter.getDatas().get(position));
+                            TopicDetailActivity.startAct(PersonalHomePageActivity.this, squareLiveAdapter.getDatas().get(position), "");
                         }
                     }
                 }

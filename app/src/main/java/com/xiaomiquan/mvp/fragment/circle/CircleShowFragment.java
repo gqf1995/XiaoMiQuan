@@ -149,9 +149,9 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
                     if (squareLives.get(position).getType().equals("1")) {
-                        ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
+                        ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position), "");
                     } else {
-                        TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+                        TopicDetailActivity.startAct(getActivity(), squareLives.get(position), "");
                     }
                 }
 
@@ -165,9 +165,9 @@ public class CircleShowFragment extends BasePullFragment<CircleShowDelegate, Cir
                 public void onClick(View view, final int position, Object item) {
                     if (view.getId() == R.id.tv_comment) {
                         if (squareLives.get(position).getType().equals("1")) {
-                            ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position));
+                            ArticleDetailsActivity.startAct(getActivity(), squareLives.get(position), "");
                         } else {
-                            TopicDetailActivity.startAct(getActivity(), squareLives.get(position));
+                            TopicDetailActivity.startAct(getActivity(), squareLives.get(position), "");
                         }
                     }
                     if (view.getId() == R.id.cv_head) {

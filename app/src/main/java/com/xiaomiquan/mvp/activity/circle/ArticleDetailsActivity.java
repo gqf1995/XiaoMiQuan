@@ -48,7 +48,6 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         initToolbar(new ToolbarBuilder().setTitle(CommonUtils.getString(R.string.str_title_article)));
         userLogin = SingSettingDBUtil.getUserLogin();
         getIntentData();
@@ -59,36 +58,40 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
         switch (requestCode) {
             case 0x123:
+                //获取动态详情
                 SquareLive datas = GsonUtil.getInstance().toObj(data, SquareLive.class);
                 initSquareLive(datas);
-                squareLive = datas;
                 break;
             case 0x124:
+                //评论成功回调
+                onRefresh();
 //                viewDelegate.viewHolder.et_input2.setText("");
 //                addRequest(binder.getTopicContent(squareLive.getId(), ArticleDetailsActivity.this));
                 break;
             case 0x125:
+                //回复成功
+                onRefresh();
 //                addRequest(binder.getComment(squareLive.getId(), ArticleDetailsActivity.this));
                 break;
             case 0x126:
                 break;
             case 0x127:
+                //获取评论
                 List<Comment> comments = GsonUtil.getInstance().toList(data, Comment.class);
                 initComment(comments);
-//                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
+                viewDelegate.viewHolder.tv_comment_num.setText(comments.size() + "");
                 break;
         }
     }
 
     private void initSquareLive(final SquareLive square) {
+        initComment(square.getCommentVos());
         if (square.isUserPraise()) {
             viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_blue));
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_blue));
-
         } else {
             viewDelegate.viewHolder.tv_praise.setTextColor(CommonUtils.getColor(R.color.color_font1));
             viewDelegate.viewHolder.tv_praise_num.setTextColor(CommonUtils.getColor(R.color.color_font1));
-
         }
         viewDelegate.viewHolder.lin_info_comment.setOnClickListener(this);
         viewDelegate.viewHolder.lin_praise.setOnClickListener(this);
@@ -144,20 +147,26 @@ public class ArticleDetailsActivity extends BasePullActivity<ArticleDetailsDeleg
     }
 
     SquareLive squareLive;
+    String linkId;
 
     private void getIntentData() {
-
         Intent intent = getIntent();
         squareLive = (SquareLive) intent.getParcelableExtra("squareLive");
-        initSquareLive(squareLive);
-        initComment(squareLive.getCommentVos());
+        linkId = intent.getStringExtra("id");
+        if (squareLive != null) {
+            initSquareLive(squareLive);
+        } else {
+            addRequest(binder.getTopicContent(linkId, this));
+        }
+
     }
 
     public static void startAct(Activity activity,
-                                SquareLive squareLive
+                                SquareLive squareLive, String id
     ) {
         Intent intent = new Intent(activity, ArticleDetailsActivity.class);
         intent.putExtra("squareLive", squareLive);
+        intent.putExtra("id", id);
         activity.startActivity(intent);
     }
 

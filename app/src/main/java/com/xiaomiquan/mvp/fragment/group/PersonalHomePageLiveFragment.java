@@ -62,9 +62,9 @@ public class PersonalHomePageLiveFragment extends BasePullFragment<BaseFragentPu
                 public void onClick(View view, int position, Object item) {
                     if (view.getId() == R.id.lin_comment) {
                         if (adapter.getDatas().get(position).getType().equals("1")) {
-                            ArticleDetailsActivity.startAct(getActivity(), adapter.getDatas().get(position));
+                            ArticleDetailsActivity.startAct(getActivity(), adapter.getDatas().get(position), "");
                         } else {
-                            TopicDetailActivity.startAct(getActivity(), adapter.getDatas().get(position));
+                            TopicDetailActivity.startAct(getActivity(), adapter.getDatas().get(position), "");
                         }
                     }
                 }

@@ -1,5 +1,6 @@
 package com.xiaomiquan.server;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 
@@ -9,6 +10,9 @@ import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.xiaomiquan.entity.bean.MessageInfo;
 import com.xiaomiquan.greenDB.MessageInfoDao;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
+import com.xiaomiquan.mvp.activity.circle.ArticleDetailsActivity;
+import com.xiaomiquan.mvp.activity.circle.TopicDetailActivity;
+import com.xiaomiquan.mvp.activity.user.PersonalDetailsActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -85,12 +89,25 @@ public class SealNotificationReceiver extends PushMessageReceiver {
                     }
                     //跳转 帖子明细
                     // TODO: 2018/3/9 0009 帖子明细页面
+                    if (map.get("themeType") != null) {
+                        switch (map.get("themeType")) {
+                            case "1":
+                                TopicDetailActivity.startAct((Activity) context, null, map.get("linkId"));
+                                break;
+                            case "2":
+                                ArticleDetailsActivity.startAct((Activity) context, null, map.get("linkId"));
+                                break;
+                            case "3":
+                                break;
+                        }
+                    }
 
                     //                    点赞 回复 消息提醒  额外值
                     //                    JSONObject jsonObject = new JSONObject();
-                    //                    jsonObject.put("type",1);//1:点赞;2:评论或回复
-                    //                    jsonObject.put("isSkip",true);//是否要跳转
-                    //                    jsonObject.put("linkId",articleTopic.getId());//帖子/文章id
+                    //                  jsonObject.put("type",1);//1:点赞;2:评论或回复
+//                    jsonObject.put("isSkip",true);//是否要跳转
+//                    jsonObject.put("linkId",articleTopic.getId());//帖子/文章id
+//                    jsonObject.put("themeType",articleTopic.getType());//类型(1:文章;2:帖子;3:组合)
                     //
                     //                    跳转文章/帖子明细接口
                     //                    获取文章/帖子明细接口  参数为文章/帖子id
