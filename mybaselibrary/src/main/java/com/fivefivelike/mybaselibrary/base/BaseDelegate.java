@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -496,15 +497,18 @@ public abstract class BaseDelegate extends IDelegateImpl {
                 layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 fl_content.setLayoutParams(layoutParams);
                 TextView textView = new TextView(fl_content.getContext());
+                textView.setMinWidth((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_25px));
+                textView.setMinHeight((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_25px));
+                textView.setGravity(Gravity.CENTER);
                 textView.setPadding(
                         (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_5px),
-                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_2px),
+                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_1px),
                         (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_5px),
-                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_2px)
+                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_1px)
                 );
                 textView.setText(num + "");
                 textView.setTextColor(CommonUtils.getColor(R.color.white));
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX  , CommonUtils.getDimensionPixelSize(R.dimen.text_trans_15px));
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, CommonUtils.getDimensionPixelSize(R.dimen.text_trans_15px));
                 fl_content.addView(textView);
             } else {
                 TextView textView = (TextView) fl_content.getChildAt(0);
