@@ -949,39 +949,39 @@
     <string name="str_yesterday">昨天</string>
     <style name="AppTheme" parent="AppTheme.Base"/>
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-        
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="baseDialog" parent="@android:style/Theme.Dialog">
 
-        
+        <!-- 背景透明 -->
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
-        
+        <!-- 浮于Activity之上 -->
         <item name="android:windowIsFloating">true</item>
-        
+        <!-- 边框 -->
         <item name="android:windowFrame">@null</item>
-        
+        <!-- Dialog以外的区域模糊效果 -->
         <item name="android:background">@android:color/transparent</item>
-        
+        <!-- 无标题 -->
         <item name="android:windowNoTitle">true</item>
-        
+        <!-- 半透明 -->
         <item name="android:windowIsTranslucent">true</item>
     </style>
     <style name="baseNoBgDialog" parent="@android:style/Theme.Dialog">
 
         <item name="android:windowContentOverlay">@null</item>
-        
+        <!-- 浮于Activity之上 -->
         <item name="android:windowIsFloating">true</item>
-        
+        <!-- 边框 -->
         <item name="android:windowFrame">@null</item>
-        
+        <!-- Dialog以外的区域模糊效果 -->
         <item name="android:background">@color/white_transparent_20</item>
-        
+        <!-- 无标题 -->
         <item name="android:windowNoTitle">true</item>
-        
+        <!-- 半透明 -->
         <item name="android:windowIsTranslucent">false</item>
     </style>
     <style name="line_hor">
