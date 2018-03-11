@@ -50,27 +50,32 @@ public class ConversationActivity extends BaseDataBindActivity<CustomerServiceAc
         viewDelegate.setNoStatusBarFlag(false);
         initToolbar(new ToolbarBuilder().setTitle("客服中心"));
         setStatusBarLightOrNight(UserSet.getinstance().isNight());
-
         setWindowManagerLayoutParams(WindowManagerLayoutParamsNone);
+        /* 加载 ConversationFragment */
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         ConversationFragment fragment = new ConversationFragment();
-
         Conversation.ConversationType conversationType = null;
-
-
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversation")
                 .appendPath(Conversation.ConversationType.CUSTOMER_SERVICE.getName().toLowerCase())
                 .appendQueryParameter("targetId", serviceId).build();
         fragment.setUri(uri);
-
-        /* 加载 ConversationFragment */
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.rong_content, fragment);
-        transaction.commit();
-
+        transaction.replace(R.id.rong_content, fragment, "ConversationFragment");
+//        if (getSupportFragmentManager().findFragmentByTag("ConversationFragment") == null) {
+//            ConversationFragment fragment = new ConversationFragment();
+//            Conversation.ConversationType conversationType = null;
+//            Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
+//                    .appendPath("conversation")
+//                    .appendPath(Conversation.ConversationType.CUSTOMER_SERVICE.getName().toLowerCase())
+//                    .appendQueryParameter("targetId", serviceId).build();
+//            fragment.setUri(uri);
+//            transaction.add(R.id.rong_content, fragment, "ConversationFragment");
+//        } else {
+//            ConversationFragment fragment = (ConversationFragment) getSupportFragmentManager().findFragmentByTag("ConversationFragment");
+//            transaction.show(fragment);
+//        }
+        transaction.commitAllowingStateLoss();
         RongExtension rongExtension = findViewById(R.id.rc_extension);
-
-
     }
     @Override
     protected void onResume() {

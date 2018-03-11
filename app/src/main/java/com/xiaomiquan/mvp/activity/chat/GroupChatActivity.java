@@ -131,6 +131,7 @@ public class GroupChatActivity extends BaseDataBindActivity<CustomerServiceActDe
     protected void onResume() {
         super.onResume();
         binder.connect(SingSettingDBUtil.getUserLogin().getImToken());
+        addRequest(binder.checkScore(id, GroupChatActivity.this));
     }
 
     @Override
@@ -215,7 +216,7 @@ public class GroupChatActivity extends BaseDataBindActivity<CustomerServiceActDe
         setStatusBarLightOrNight(UserSet.getinstance().isNight());
 
         setWindowManagerLayoutParams(WindowManagerLayoutParamsNone);
-        if (!ListUtils.isEmpty(getSupportFragmentManager().getFragments())) {
+        if (ListUtils.isEmpty(getSupportFragmentManager().getFragments())) {
             fragment = new ConversationFragmentEx();
             Conversation.ConversationType conversationType = null;
             Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()

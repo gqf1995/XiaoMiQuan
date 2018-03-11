@@ -143,8 +143,8 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
                 //组合详情
                 groupItem = GsonUtil.getInstance().toObj(data, GroupItem.class);
                 viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
-                viewDelegate.initTopData(groupItem);
                 if (groupItem != null) {
+                    viewDelegate.initTopData(groupItem);
                     for (int i = 0; i < fragments.size(); i++) {
                         if (fragments.get(i) instanceof FragmentLinsener) {
                             ((FragmentLinsener) fragments.get(i)).setId(groupItem.getId());
@@ -244,7 +244,9 @@ public class SimulatedTradingFragment extends BaseDataBindFragment<GroupDealDele
                 addRequest(binder.getDemoByUserId(userLogin.getId() + "", this));
             }
         } else {
-            viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+            if (viewDelegate != null) {
+                viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(false);
+            }
         }
     }
 

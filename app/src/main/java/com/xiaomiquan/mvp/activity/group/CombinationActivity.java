@@ -9,7 +9,6 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -149,20 +148,18 @@ public class CombinationActivity extends BaseDataBindActivity<CombinationDelegat
     }
 
     private void initViews() {
-        if (!ListUtils.isEmpty(getSupportFragmentManager().getFragments())) {
-            String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_combination);
-            fragments = new ArrayList<>();
-            fragments.add(GroupDetailListFragment.newInstance(groupItem.getId()));
-            fragments.add(GroupNotDealFragment.newInstance(groupItem.getId()));
-            fragments.add(GroupHistoryTradingFragment.newInstance(groupItem.getId()));
-            fragments.add(GroupHistoryEntrustFragment.newInstance(groupItem.getId()));
-            for (int i = 0; i < stringArray.length; i++) {
-                mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
-            }
-            viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
-            InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
-            viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
+        String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_combination);
+        fragments = new ArrayList<>();
+        fragments.add(GroupDetailListFragment.newInstance(groupItem.getId()));
+        fragments.add(GroupNotDealFragment.newInstance(groupItem.getId()));
+        fragments.add(GroupHistoryTradingFragment.newInstance(groupItem.getId()));
+        fragments.add(GroupHistoryEntrustFragment.newInstance(groupItem.getId()));
+        for (int i = 0; i < stringArray.length; i++) {
+            mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
         }
+        viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
+        InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
+        viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
     }
 
 }

@@ -132,7 +132,9 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
     }
 
     public void checkToolbarColor() {
-        viewDelegate.checkToolColor();
+        if (viewDelegate != null) {
+            viewDelegate.checkToolColor();
+        }
     }
 
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";

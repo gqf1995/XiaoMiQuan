@@ -5,6 +5,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.MessageInfo;
 import com.xiaomiquan.greenDB.MessageInfoDao;
@@ -33,14 +34,20 @@ public class MessageCenterDelegate extends BaseDelegate {
         });
         List<MessageInfo> list = DaoManager.getInstance().getDaoSession().getMessageInfoDao()
                 .queryBuilder()
-                .where(MessageInfoDao.Properties.IsLook.eq(false), MessageInfoDao.Properties.Type.eq("1"))
+                .where(MessageInfoDao.Properties.IsLook.eq(false))
                 .list();
-        viewHolder.tv_my_num.setText(list.size() + "");
+        if (!ListUtils.isEmpty(list)) {
+            viewHolder.tv_my_num.setText(list.size() + "");
+        } else {
+            viewHolder.tv_my_num.setVisibility(View.GONE);
+        }
+        List<MessageInfo> list2 = DaoManager.getInstance().getDaoSession().getMessageInfoDao()
+                .queryBuilder().list();
         int time = 0;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getTime() > time) {
-                viewHolder.tv_my_content.setText(list.get(i).getMessage());
-                viewHolder.tv_my_time.setText(TimeUtils.getDateToLeftTime(list.get(i).getTime()));
+                viewHolder.tv_my_content.setText(list2.get(i).getMessage());
+                viewHolder.tv_my_time.setText(TimeUtils.getDateToLeftTime(list2.get(i).getTime()));
             }
         }
     }

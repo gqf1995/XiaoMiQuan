@@ -287,7 +287,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="273"/>
 
-                <TextView
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
                     android:id="@+id/tv_operation_change"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -433,7 +433,7 @@
         android:paddingLeft="@dimen/trans_30px"
         android:paddingRight="@dimen/trans_30px"
         android:paddingTop="@dimen/trans_10px"
-        android:visibility="visible"
+        android:visibility="gone"
         >
 
         <LinearLayout

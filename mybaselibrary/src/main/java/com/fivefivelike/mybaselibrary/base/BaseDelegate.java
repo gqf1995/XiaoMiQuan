@@ -388,7 +388,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
         if (fragmentList == null) {
             fragmentList = new ArrayList<>();
         }
-        if (!ListUtils.isEmpty(fragmentList)) {
+        if (ListUtils.isEmpty(fragmentList)) {
             if (fragmentManager.getFragments() != null) {
                 if (fragmentManager.getFragments().size() > 0) {
                     for (int i = 0; i < fragmentManager.getFragments().size(); i++) {
@@ -425,7 +425,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
         if (frl.isAdded()) {
             frl.onResume();
         }
-        if (!ListUtils.isEmpty(fragmentManager.getFragments())) {
+        if (ListUtils.isEmpty(fragmentManager.getFragments())) {
             for (int i = 0; i < fragmentList.size(); i++) {
                 transaction.add(fragmentContainId, fragmentList.get(i), FRAGMENT_TAG + index);
             }
@@ -461,7 +461,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
     }
 
     public Fragment getFragmentByIndex(int index) {
-        if (!ListUtils.isEmpty(fragmentList)) {
+        if (ListUtils.isEmpty(fragmentList)) {
             return null;
         }
         if (index > fragmentList.size()) {

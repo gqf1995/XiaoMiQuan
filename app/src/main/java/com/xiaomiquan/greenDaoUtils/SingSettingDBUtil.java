@@ -3,8 +3,11 @@ package com.xiaomiquan.greenDaoUtils;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
 import com.just.agentweb.AgentWebConfig;
+import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.UserLogin;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
 import com.xiaomiquan.server.HttpUrl;
@@ -22,6 +25,7 @@ public class SingSettingDBUtil {
 
     private static String isLogin = "";//0 未登陆 //1 已登录
 
+    //跳转登录页
     public static boolean isLogin(Activity activity) {
         checkIsLogin(activity);
         if ("0".equals(isLogin)) {
@@ -29,6 +33,24 @@ public class SingSettingDBUtil {
         } else {
             return true;
         }
+    }
+    //弹出需要登录
+    public static boolean isLogin() {
+        checkIsLogin();
+        if ("0".equals(isLogin)) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private static void checkIsLogin() {
+        if (getUserLogin() == null) {
+            isLogin = "0";
+            return;
+        }
+        isLogin = "1";
     }
 
     private static void checkIsLogin(Activity activity) {

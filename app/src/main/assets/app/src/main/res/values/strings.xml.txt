@@ -481,6 +481,7 @@
     <string name="str_i_related">与我相关</string>
     <string name="str_praise_reply">赞和回复</string>
     <string name="str_people_talking_about">%1$s人正在参与讨论</string>
+    <string name="str_in_my_chat_group">进入我的聊天室</string>
 
     <string-array name="circle_show_type">
         <item>全部</item>

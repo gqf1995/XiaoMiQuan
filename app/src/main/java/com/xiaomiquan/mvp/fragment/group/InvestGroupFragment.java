@@ -56,7 +56,7 @@ public class InvestGroupFragment extends BaseDataBindFragment<ComTabViewpageDele
     public void onAttachFragment(Fragment childFragment) {
         super.onAttachFragment(childFragment);
         if (viewDelegate != null) {
-            if (ListUtils.isEmpty(viewDelegate.getFragmentList())) {
+            if (!ListUtils.isEmpty(viewDelegate.getFragmentList())) {
                 viewDelegate.showFragment(viewDelegate.viewHolder.tl_2.getCurrentTab());
             }
         }

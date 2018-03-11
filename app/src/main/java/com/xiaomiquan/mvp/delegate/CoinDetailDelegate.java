@@ -35,6 +35,42 @@ public class CoinDetailDelegate extends BaseDelegate {
         return R.layout.activity_coin_detail;
     }
 
+    public void initCoinData(CoinData data){
+        //viewHolder.tv_name.setText(e.get);
+        StringBuffer name = new StringBuffer("");
+        if (TextUtils.isEmpty(data.getNameZh()) && !TextUtils.isEmpty(data.getNameEg())) {
+            name.append(data.getNameZh());
+        } else if (!TextUtils.isEmpty(data.getNameZh()) && TextUtils.isEmpty(data.getNameEg())) {
+            name.append(data.getNameEg());
+        } else if (!TextUtils.isEmpty(data.getNameZh()) && !TextUtils.isEmpty(data.getNameEg())) {
+            name.append(data.getNameZh()).append(",").append(data.getNameEg());
+        } else {
+        }
+
+        viewHolder.tv_name.setText(name.toString());
+        viewHolder.lin_circulation_amount.setVisibility(TextUtils.isEmpty(data.getExistingCirculationVolume()) ? View.GONE : View.VISIBLE);
+        viewHolder.lin_total_amount.setVisibility(TextUtils.isEmpty(data.getMonetaryTotal()) ? View.GONE : View.VISIBLE);
+        viewHolder.lin_ico_time.setVisibility(TextUtils.isEmpty(data.getIcoTime()) ? View.GONE : View.VISIBLE);
+        viewHolder.lin_ico_cost.setVisibility(TextUtils.isEmpty(data.getIcoCost()) ? View.GONE : View.VISIBLE);
+        viewHolder.lin_development_people.setVisibility(TextUtils.isEmpty(data.getInventor()) ? View.GONE : View.VISIBLE);
+        viewHolder.lin_browser.setVisibility(TextUtils.isEmpty(data.getBlockBrowserUrl()) ? View.GONE : View.VISIBLE);
+        viewHolder.lin_website.setVisibility(TextUtils.isEmpty(data.getOfficalWebsiteUrl()) ? View.GONE : View.VISIBLE);
+        viewHolder.lin_wallet_address.setVisibility(TextUtils.isEmpty(data.getWhitePaperUrl()) ? View.GONE : View.VISIBLE);
+
+        viewHolder.tv_circulation_amount.setText(data.getExistingCirculationVolume());
+        viewHolder.tv_total_amount.setText(data.getMonetaryTotal());
+        viewHolder.tv_ico_time.setText(data.getIcoTime());
+        viewHolder.tv_ico_cost.setText(data.getIcoCost());
+        viewHolder.tv_development_people.setText(data.getInventor());
+        viewHolder.tv_browser.setText(data.getBlockBrowserUrl());
+        viewHolder.tv_website.setText(data.getOfficalWebsiteUrl());
+        viewHolder.tv_wallet_address.setText(data.getWhitePaperUrl());
+        viewHolder.tv_content.setText(data.getDecription() + "");
+
+        GlideUtils.loadImage(data.getPicUrl(), viewHolder.iv_coin_icon);
+
+    }
+
     public void initData(CoinData data, ExchangeData exchangeData) {
         //viewHolder.tv_name.setText(e.get);
         StringBuffer name = new StringBuffer("");

@@ -38,7 +38,7 @@ public class CoinDetail {
      * priceUsd : 8850.59
      */
 
-    private int fee;
+    private float fee;
     private String picUrl;
 
     public String getType() {
@@ -105,11 +105,11 @@ public class CoinDetail {
         this.updateTime = updateTime;
     }
 
-    public int getFee() {
+    public float getFee() {
         return fee;
     }
 
-    public void setFee(int fee) {
+    public void setFee(float fee) {
         this.fee = fee;
     }
 

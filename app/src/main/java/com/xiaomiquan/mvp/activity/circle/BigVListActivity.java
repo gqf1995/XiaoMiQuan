@@ -55,7 +55,7 @@ public class BigVListActivity extends BaseDataBindActivity<BigVListDelegate, Big
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private void initTablelayout() {
-        if (!ListUtils.isEmpty(getSupportFragmentManager().getFragments())) {
+        if (ListUtils.isEmpty(getSupportFragmentManager().getFragments())) {
             mTitles = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_bigv));
             fragments = new ArrayList<>();
             fragments.add(new RecommendFragment());

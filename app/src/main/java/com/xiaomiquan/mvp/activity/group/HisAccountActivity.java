@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
-import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
@@ -46,23 +45,21 @@ public class HisAccountActivity extends BaseDataBindActivity<HisAccountDelegate,
     }
 
     private void initViews() {
-        if (!ListUtils.isEmpty(getSupportFragmentManager().getFragments())) {
-            String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_hisaccount);
-            fragments = new ArrayList<>();
-            fragments.add(EarningsTrendFragment.newInstance(id));
-            fragments.add(PositionDetailFragment.newInstance(id));
-            fragments.add(GroupHistoryTradingFragment.newInstance(id));
-            for (int i = 0; i < stringArray.length; i++) {
-                mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
-            }
-            viewDelegate.viewHolder.tl_1.setTabData(mTabEntities);
-            InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
-            viewDelegate.viewHolder.tl_1.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
-            if(!TextUtils.isEmpty(type)){
-                int posiition= Integer.parseInt(type)-1;
-                viewDelegate.viewHolder.tl_1.setCurrentTab(posiition);
-                viewDelegate.viewHolder.viewpager.setCurrentItem(posiition);
-            }
+        String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_hisaccount);
+        fragments = new ArrayList<>();
+        fragments.add(EarningsTrendFragment.newInstance(id));
+        fragments.add(PositionDetailFragment.newInstance(id));
+        fragments.add(GroupHistoryTradingFragment.newInstance(id));
+        for (int i = 0; i < stringArray.length; i++) {
+            mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
+        }
+        viewDelegate.viewHolder.tl_1.setTabData(mTabEntities);
+        InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), fragments, stringArray);
+        viewDelegate.viewHolder.tl_1.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
+        if (!TextUtils.isEmpty(type)) {
+            int posiition = Integer.parseInt(type) - 1;
+            viewDelegate.viewHolder.tl_1.setCurrentTab(posiition);
+            viewDelegate.viewHolder.viewpager.setCurrentItem(posiition);
         }
     }
 
@@ -80,6 +77,7 @@ public class HisAccountActivity extends BaseDataBindActivity<HisAccountDelegate,
         intent.putExtra("id", id);
         activity.startActivity(intent);
     }
+
     public static void startAct(Activity activity,
                                 String id,
                                 String type
@@ -89,6 +87,7 @@ public class HisAccountActivity extends BaseDataBindActivity<HisAccountDelegate,
         intent.putExtra("type", type);
         activity.startActivity(intent);
     }
+
     String id;
     String type;
 

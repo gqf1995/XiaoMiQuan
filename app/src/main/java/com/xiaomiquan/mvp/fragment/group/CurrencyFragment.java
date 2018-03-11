@@ -204,7 +204,7 @@ public class CurrencyFragment extends BasePullFragment<BaseFragentPullDelegate, 
     //刷新币种价格
     public void onUpdata() {
         if (adapter != null) {
-            if (ListUtils.isEmpty(adapter.getDatas())) {
+            if (!ListUtils.isEmpty(adapter.getDatas())) {
                 addRequest(binder.getCurrPrice(adapter.getDatas().get(adapter.getSelectPosition()).getCoinId(), this));
             }
         }

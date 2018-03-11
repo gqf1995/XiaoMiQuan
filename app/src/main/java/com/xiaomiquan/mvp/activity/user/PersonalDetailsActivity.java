@@ -10,7 +10,6 @@ import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
-import com.fivefivelike.mybaselibrary.utils.ListUtils;
 import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.fivefivelike.mybaselibrary.view.InnerPagerAdapter;
 import com.tablayout.TabEntity;
@@ -69,21 +68,17 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
     }
 
     private void initFragemnt() {
-        if (!ListUtils.isEmpty(getSupportFragmentManager().getFragments())) {
-            String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_user_center);
-            fragments = new ArrayList<>();
-            for (int i = 0; i < stringArray.length; i++) {
-                fragments.add(UserCenterListFragment.newInstance(id, i + ""));//文章1  观点2 操作3
-            }
-            for (int i = 0; i < stringArray.length; i++) {
-                mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
-            }
-            viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
-            InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), (ArrayList) fragments, stringArray);
-            viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
-        } else {
-            fragments = getSupportFragmentManager().getFragments();
+        String[] stringArray = CommonUtils.getStringArray(R.array.sa_select_user_center);
+        fragments = new ArrayList<>();
+        for (int i = 0; i < stringArray.length; i++) {
+            fragments.add(UserCenterListFragment.newInstance(id, i + ""));//文章1  观点2 操作3
         }
+        for (int i = 0; i < stringArray.length; i++) {
+            mTabEntities.add(new TabEntity(stringArray[i], 0, 0));
+        }
+        viewDelegate.viewHolder.tl_2.setTabData(mTabEntities);
+        InnerPagerAdapter innerPagerAdapter = new InnerPagerAdapter(getSupportFragmentManager(), (ArrayList) fragments, stringArray);
+        viewDelegate.viewHolder.tl_2.setViewPager(innerPagerAdapter, viewDelegate.viewHolder.viewpager);
     }
 
     public static void startAct(Activity activity,
@@ -173,6 +168,8 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
                     if (!id.equals(userLogin.getId() + "")) {
                         viewDelegate.getmToolbarSubTitle().setText(userPageDetail.isIsAttention() ? CommonUtils.getString(R.string.str_focuse) : CommonUtils.getString(R.string.str_cancel_fucose));
                     }
+                } else {
+                    viewDelegate.getmToolbarSubTitle().setText(CommonUtils.getString(R.string.str_focuse));
                 }
                 addRequest(binder.getChatroom(id, this));
                 break;
@@ -198,13 +195,17 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
             case 0x125:
                 //用户聊天室
                 chatLiveItem = GsonUtil.getInstance().toObj(data, ChatLiveItem.class);
-                viewDelegate.initChat(chatLiveItem);
-                viewDelegate.viewHolder.lin_chat.setOnClickListener(new View.OnClickListener() {
+                viewDelegate.initChat(chatLiveItem, isMy);
+                View.OnClickListener onClickListener1 = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        addRequest(binder.checkScore(chatLiveItem.getGroupId(), PersonalDetailsActivity.this));
+                        if (SingSettingDBUtil.isLogin(PersonalDetailsActivity.this)) {
+                            addRequest(binder.checkScore(chatLiveItem.getGroupId(), PersonalDetailsActivity.this));
+                        }
                     }
-                });
+                };
+                viewDelegate.viewHolder.lin_chat.setOnClickListener(onClickListener1);
+                viewDelegate.viewHolder.lin_chat_my.setOnClickListener(onClickListener1);
                 break;
             case 0x126:
                 //我的资产
@@ -214,10 +215,12 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
                 //组合详情
                 groupItem = GsonUtil.getInstance().toObj(data, GroupItem.class);
                 if (groupItem != null) {
-                    viewDelegate.viewHolder.lin_group.setVisibility(View.VISIBLE);
+                    BigUIUtil.getinstance().rateTextView(groupItem.getCurrProfit(), viewDelegate.viewHolder.tv_today_earnings_my);
                     BigUIUtil.getinstance().rateTextView(groupItem.getCurrProfit(), viewDelegate.viewHolder.tv_today_earnings);
+                    BigUIUtil.getinstance().rateTextView(groupItem.getTotalProfit(), viewDelegate.viewHolder.tv_cumulative_earnings_my);
                     BigUIUtil.getinstance().rateTextView(groupItem.getTotalProfit(), viewDelegate.viewHolder.tv_cumulative_earnings);
-                    viewDelegate.viewHolder.lin_group.setOnClickListener(new View.OnClickListener() {
+                    viewDelegate.viewHolder.tv_usd_my.setText(BigUIUtil.getinstance().bigPrice(groupItem.getBalance()));
+                    View.OnClickListener onClickListener = new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if (isMy) {
@@ -226,25 +229,19 @@ public class PersonalDetailsActivity extends BaseDataBindActivity<PersonalDetail
                                 CombinationActivity.startAct(PersonalDetailsActivity.this, groupItem, false);
                             }
                         }
-                    });
+                    };
+                    if (isMy) {
+                        viewDelegate.viewHolder.lin_chat_my.setVisibility(View.VISIBLE);
+                        viewDelegate.viewHolder.lin_chat_my.setOnClickListener(onClickListener);
+                    } else {
+                        viewDelegate.viewHolder.lin_group.setVisibility(View.VISIBLE);
+                        viewDelegate.viewHolder.lin_group.setOnClickListener(onClickListener);
+                    }
                 } else {
                     viewDelegate.viewHolder.lin_group.setVisibility(View.GONE);
                 }
                 break;
         }
     }
-
-    //    private void initSubtitle() {
-    //        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) viewDelegate.getmToolbarSubTitle().getLayoutParams();
-    //        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-    //        layoutParams.rightMargin = (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_20px);
-    //        viewDelegate.getmToolbarSubTitle().setLayoutParams(layoutParams);
-    //        viewDelegate.getmToolbarSubTitle().setPadding(
-    //                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
-    //                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
-    //                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px),
-    //                (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_10px)
-    //        );
-    //    }
 
 }

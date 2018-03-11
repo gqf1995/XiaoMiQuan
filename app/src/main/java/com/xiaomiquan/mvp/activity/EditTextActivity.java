@@ -87,6 +87,7 @@ public class EditTextActivity extends BaseDataBindActivity<EditTextDelegate, Edi
         Intent intent = new Intent();
         intent.putExtra("content", viewDelegate.viewHolder.edit.getText().toString());
         setResult(RESULT_OK, intent);
+        onBackPressed();
     }
 
     @Override

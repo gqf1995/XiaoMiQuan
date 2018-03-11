@@ -286,7 +286,7 @@ public class MarketDetailsActivity extends BaseDataBindActivity<MarketDetailsDel
                 Log.i("KlineDraw", "onServiceSuccess");
                 setLog("请求成功" + TimeUtils.millis2String(System.currentTimeMillis(), new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss:SSS")));
                 List<KLineBean> newkLineBeans = GsonUtil.getInstance().toList(data, KLineBean.class);
-                if (!ListUtils.isEmpty(newkLineBeans)) {
+                if (ListUtils.isEmpty(newkLineBeans)) {
                     //没有数据
                     viewDelegate.noKlineView();
                     return;
