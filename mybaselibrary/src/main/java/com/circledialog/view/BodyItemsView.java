@@ -42,7 +42,7 @@ class BodyItemsView extends ListView {
         setLayoutParams(layoutParams);
 
         setSelector(new ColorDrawable(Color.TRANSPARENT));
-        setDivider(new ColorDrawable(CircleColor.divider));
+        setDivider(new ColorDrawable(CircleColor.getDivider()));
 
         setDividerHeight(1);
 
@@ -62,7 +62,7 @@ class BodyItemsView extends ListView {
             LinearLayout.LayoutParams viewLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             viewLayoutParams.height = 1;
             view.setLayoutParams(viewLayoutParams);
-            view.setBackgroundColor(CircleColor.divider);
+            view.setBackgroundColor(CircleColor.getDivider());
             addHeaderView(view);
         }
     }
@@ -105,7 +105,7 @@ class BodyItemsView extends ListView {
             //如果没有背景色，则使用默认色
             this.mBackgroundColor = mItemsParams.backgroundColor != 0 ? mItemsParams
                     .backgroundColor : CircleColor
-                    .bgDialog;
+                    .getBgDialog();
             Object entity = this.mItemsParams.items;
             if (entity != null && entity instanceof Iterable) {
                 this.mItems = (List<T>) entity;

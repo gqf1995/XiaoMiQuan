@@ -67,8 +67,8 @@
     <color name="color_purple_dark">#2e266f</color>
 
 
-    <color name="increasing_color">#FF6960</color>
-    <color name="decreasing_color">#0DCE2B</color>
+    <color name="increasing_color">#D64541</color>
+    <color name="decreasing_color">#3D9970</color>
 
 
     <color name="black_transparent_10">#0a000000</color>
@@ -82,7 +82,11 @@
     <color name="white_transparent_100">#64ffffff</color>
     <color name="white_transparent_150">#96ffffff</color>
 
+
     <!--皮肤包颜色-->
+    <color name="mark_color">#208DE3</color>
+    <color name="navigation_color">#208DE3</color>
+
     <color name="color_Primary">#ffffff</color>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#ffffff</color>
@@ -94,6 +98,10 @@
     <color name="color_font2">#6A7180</color>
     <color name="color_font3">#999999</color>
     <color name="color_font4">#cccccc</color>
+    <color name="color_font1_dark">#FFFFFF</color><!--@color/white-->
+    <color name="color_font2_dark">#cccccc</color><!--@color/color_cccccc-->
+    <color name="color_font3_dark">#999999</color><!--@color/color_999999-->
+    <color name="color_font4_dark">#6A7180</color><!--@color/color_6A7180-->
 
     <!-- chart -->
     <color name="marker_bg">#1C232E</color>
@@ -105,10 +113,12 @@
     <color name="minute_blue">#00D0FC</color>
     <color name="minute_yellow">#E7B448</color>
 
-    <color name="ma5">#823E66</color>
-    <color name="ma10">#B99C7A</color>
+    <color name="ma5">#FFA209</color>
+    <color name="ma7">#FFA209</color>
+    <color name="ma10">#34A9FF</color>
     <color name="ma20">#3C7193</color>
-    <color name="ma30">#7F9976</color>
+    <color name="ma30">#101419</color>
+
 
     <color name="minute_grayLine">#2D3945</color>
     <color name="minute_black">#101419</color>
@@ -120,5 +130,9 @@
     <color name="basic_line">#e5e5e5</color>
     <color name="choose_dialog_content_color">@color/trans_333333</color>
 
+
+    <!--顶部导航栏背景颜色-->
+    <color name="toolbar_bg">#ffffff</color>
+    <color name="status_bg">#ffffff</color>
 
 </resources>

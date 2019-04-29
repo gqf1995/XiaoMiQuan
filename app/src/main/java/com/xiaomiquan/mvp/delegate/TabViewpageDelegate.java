@@ -13,13 +13,6 @@ public class TabViewpageDelegate extends BaseDelegate {
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
-//        if (!UserSet.getinstance().isNight()) {
-//            viewHolder.tl_2.setTextSelectColor(CommonUtils.getColor(R.color.white));
-//            viewHolder.tl_2.setIndicatorColor(CommonUtils.getColor(R.color.white));
-//        } else {
-//            viewHolder.tl_2.setTextSelectColor(CommonUtils.getColor(R.color.black));
-//            viewHolder.tl_2.setIndicatorColor(CommonUtils.getColor(R.color.black));
-//        }
     }
 
     @Override

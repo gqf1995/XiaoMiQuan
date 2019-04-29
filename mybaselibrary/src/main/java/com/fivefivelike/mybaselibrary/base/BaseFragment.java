@@ -1,7 +1,9 @@
 package com.fivefivelike.mybaselibrary.base;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,6 +32,7 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
+
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -54,15 +57,6 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (viewDelegate.isNoStatusBarFlag()) {
-            addNoStatusBarFlag();
-        } else {
-            clearNoStatusBarFlag();
-        }
-    }
 
     /**
      * 初始化标题
@@ -124,9 +118,55 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (viewDelegate.isNoStatusBarFlag()) {
+            addNoStatusBarFlag();
+        } else {
+            clearNoStatusBarFlag();
+        }
+        if (isFragmentVisible) {
+            viewDelegate.checkToolColor();
+        }
+        onFragmentVisibleChange(isFragmentVisible);
+    }
+
+    public void checkToolbarColor() {
+        if (viewDelegate != null) {
+            viewDelegate.checkToolColor();
+        }
+    }
+
+    private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initVariable();
+        if (savedInstanceState != null) {
+            boolean isSupportHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
+            //fragment 自己对自己
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            if (isSupportHidden) {
+                ft.hide(this);
+            } else {
+                ft.show(this);
+            }
+            ft.commit();
+
+            int colorId = savedInstanceState.getInt("colorId");
+            boolean isLight = savedInstanceState.getBoolean("isLight");
+            viewDelegate.setToolColor(colorId, isLight);
+        }
+
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
+        outState.putInt("colorId", viewDelegate.mColorId);
+        outState.putBoolean("isLight", viewDelegate.mIslight);
     }
 
     @Override
@@ -188,7 +228,6 @@ public abstract class BaseFragment<T extends BaseDelegate> extends FragmentPrese
      *                  false 可见  -> 不可见
      */
     protected void onFragmentVisibleChange(boolean isVisible) {
-
     }
 
     /**

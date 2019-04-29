@@ -1,45 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/trans_20px">
 
     <LinearLayout
-        android:id="@+id/circle_creat_root"
-        android:layout_width="@dimen/trans_255px"
-        android:layout_height="@dimen/trans_255px"
-        android:background="@drawable/shape_mask_t20radiu"
-        android:gravity="center_horizontal"
+        android:id="@+id/lin_creat"
+        android:layout_width="@dimen/trans_220px"
+        android:layout_height="@dimen/trans_198px"
+        android:background="@drawable/shape_imaginary_line"
+        android:gravity="center"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/trans_20px"
-        android:paddingTop="@dimen/trans_20px"
-        android:layout_marginTop="@dimen/trans_30px"
-        android:layout_marginLeft="@dimen/trans_50px"
-        >
+        android:visibility="visible">
 
-        <com.fivefivelike.mybaselibrary.view.FontTextview
-            android:id="@+id/circle_creat_name"
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingBottom="@dimen/trans_5px"
-            android:paddingLeft="@dimen/trans_20px"
-            android:paddingRight="@dimen/trans_20px"
-            android:paddingTop="@dimen/trans_5px"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_24px"
-            app:TypeFace="Regular"/>
+            android:text="@string/ic_Plus"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/text_trans_32px" />
 
-        <com.fivefivelike.mybaselibrary.view.FontTextview
-            android:id="@+id/circle_creat_title"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="@dimen/album_dp_10"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_trans_8px"
             android:gravity="center"
-            android:text="创建圈子"
-            android:textColor="@color/color_font1"
-            android:textSize="@dimen/text_trans_35px"/>
+            android:text="加入或创建"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/text_trans_20px" />
     </LinearLayout>
-</FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/riv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_head"
+            android:layout_width="@dimen/trans_220px"
+            android:layout_height="@dimen/trans_198px"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_head"
+            android:layout_alignTop="@+id/iv_head"
+            android:layout_alignRight="@+id/iv_head"
+            android:layout_alignLeft="@+id/iv_head"
+            android:layout_centerInParent="true"
+            android:background="@color/black_transparent_50"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/trans_28px"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/trans_20px"
+                android:orientation="horizontal">
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ic_Group"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_20px" />
+
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/trans_4px"
+                    android:text="123"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_20px" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/trans_100px"
+                android:layout_height="@dimen/trans_2px"
+                android:layout_marginTop="@dimen/trans_10px"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/trans_10px"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_trans_25px" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

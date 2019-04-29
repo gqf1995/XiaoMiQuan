@@ -7,6 +7,8 @@ import com.fivefivelike.mybaselibrary.R;
 /**
  * Toast
  * ToastUtils 常用方式整合
+ *
+ * 统一弹出 toast工具
  */
 public class ToastUtil {
 

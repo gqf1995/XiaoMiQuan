@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar" />
+
+    <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
+        android:id="@+id/et_con"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_200px"
+        android:layout_marginTop="@dimen/trans_30px"
+        android:gravity="left|top"
+        android:hint="@string/str_tv_transpond_topic"
+        android:maxLength="140"
+        android:padding="@dimen/trans_30px"
+        android:textColorHint="@color/color_font3"
+        android:textSize="@dimen/trans_32px"
+        app:met_baseColor="@color/white"
+        app:met_primaryColor="@color/base_mask"
+        app:met_textColor="@color/color_font2"
+        app:met_textColorHint="@color/color_font4"
+        app:met_underlineColor="@color/base_mask" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/trans_40px">
+
+        <include layout="@layout/layout_square_shared" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

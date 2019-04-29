@@ -22,8 +22,8 @@ import java.util.List;
 
 public class LoginAndRegisteredDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
-    public boolean isLoginInputPhone = false;
-    public boolean isRegisteredInputPhone = false;
+    public boolean isLoginInputPhone = true;
+    public boolean isRegisteredInputPhone = true;
 
     private List<String> mTitles = new ArrayList<>();
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
@@ -51,6 +51,7 @@ public class LoginAndRegisteredDelegate extends BaseDelegate {
         viewHolder.tv_commit.setOnClickListener(onClickListener);
         tablayout();
         initLogin();
+        initPhone();
     }
 
 
@@ -117,8 +118,11 @@ public class LoginAndRegisteredDelegate extends BaseDelegate {
             mTabEntities.add(new TabEntity(mTitles.get(i), 0, 0));
         }
         viewHolder.tl_2.setIconVisible(false);
-        viewHolder.tl_2.setmIndicatorId(R.drawable.shape_white_maxradiu);
+        //viewHolder.tl_2.setmIndicatorId(R.drawable.shape_white_maxradiu);
         viewHolder.tl_2.setTabData(mTabEntities);
+        viewHolder.tl_2.setTextSelectColor(CommonUtils.getColor(R.color.mark_color));
+        viewHolder.tl_2.setTextUnselectColor(CommonUtils.getColor(R.color.color_font2));
+        viewHolder.tl_2.setIndicatorColor(CommonUtils.getColor(R.color.mark_color));
         viewHolder.tl_2.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
@@ -154,7 +158,7 @@ public class LoginAndRegisteredDelegate extends BaseDelegate {
         saveInput();
         viewHolder.tv_commit.setText(CommonUtils.getString(R.string.str_registered));
         viewHolder.tv_forget_pass.setVisibility(View.GONE);
-        viewHolder.lin_agreement.setVisibility(View.VISIBLE);
+        viewHolder.lin_agreement.setVisibility(View.GONE);
         setInput();
         if (isRegisteredInputPhone) {
             initPhone();

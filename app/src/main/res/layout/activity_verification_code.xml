@@ -30,7 +30,7 @@
         android:layout_marginRight="@dimen/trans_60px"
         android:layout_marginTop="@dimen/trans_30px"
         app:codeLength="6"
-        app:textColor="@color/color_font1"
+        app:textColor="@color/black"
         app:textSize="@dimen/trans_32px"
         app:underlineBaseColor="@color/color_font2"
         app:underlineCursorColor="@color/color_font1"
@@ -66,6 +66,7 @@
         android:padding="@dimen/trans_20px"
         android:text="@string/str_code_not_received"
         android:textColor="@color/color_font1"
-        android:textSize="@dimen/text_trans_28px"/>
+        android:textSize="@dimen/text_trans_28px"
+        android:visibility="gone"/>
 
 </LinearLayout>

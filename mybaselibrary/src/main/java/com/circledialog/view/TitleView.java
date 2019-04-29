@@ -28,7 +28,7 @@ class TitleView extends ScaleTextView {
 
         //如果标题没有背景色，则使用默认色
         int backgroundColor = titleParams.backgroundColor != 0 ? titleParams.backgroundColor :
-                CircleColor.bgDialog;
+                CircleColor.getBgDialog();
 
       //  setPadding(50, 50, 50, 0);
         //有内容则顶部圆角

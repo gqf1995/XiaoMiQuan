@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/lin_shared_topic"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginTop="@dimen/trans_14px"
+    android:background="@color/base_mask"
+    android:orientation="vertical"
+    android:padding="@dimen/trans_24px">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cv_shard_head"
+            android:layout_width="@dimen/trans_50px"
+            android:layout_height="@dimen/trans_50px"
+            android:src="@color/color_blue" />
+
+        <TextView
+            android:id="@+id/tv_shared_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/trans_16px"
+            android:singleLine="true"
+            android:text="- -"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_32px" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="@dimen/trans_1px"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/icf_shared_attention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_focuse"
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/text_trans_28px" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_shared_brief"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:padding="@dimen/trans_10px"
+        android:text="- -"
+        android:textColor="@color/color_font1"
+        android:textSize="@dimen/text_trans_32px" />
+
+    <skin.support.widget.SkinCompatImageView
+        android:id="@+id/iv_shared"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_192px"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg" />
+</LinearLayout>

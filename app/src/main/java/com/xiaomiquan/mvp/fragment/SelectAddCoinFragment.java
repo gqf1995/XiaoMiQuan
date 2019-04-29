@@ -7,10 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.fivefivelike.mybaselibrary.base.BasePullFragment;
+import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.xiaomiquan.adapter.AddCoinAdapter;
+import com.xiaomiquan.entity.bean.ExchangeData;
 import com.xiaomiquan.mvp.databinder.BaseFragmentPullBinder;
 import com.xiaomiquan.mvp.delegate.BaseFragentPullDelegate;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,20 +23,39 @@ public class SelectAddCoinFragment extends BasePullFragment<BaseFragentPullDeleg
 
     String type;
     AddCoinAdapter addCoinAdapter;
-    List<String> datas;
+    List<ExchangeData> strDatas;
+    boolean isCoin = false;
+    List<String> userSelectKeys;
+
+    public void setUserSelectKeys(List<String> userSelectKeys) {
+        this.userSelectKeys = userSelectKeys;
+        if (addCoinAdapter != null) {
+            //重置已选中自选
+            addCoinAdapter.setUserSelectKeys(userSelectKeys);
+        }
+    }
+
+    public void setCoin(boolean coin) {
+        //设置是否是 根据币自选
+        isCoin = coin;
+    }
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
+        type = getArguments().getString("type");
         initList();
     }
 
     private void initList() {
-        datas = new ArrayList<>();
-        addCoinAdapter = new AddCoinAdapter(getActivity(), datas);
+        strDatas = new ArrayList<>();
+        addCoinAdapter = new AddCoinAdapter(getActivity(), strDatas);
+        addCoinAdapter.setCoin(isCoin);
+        addCoinAdapter.setUserSelectKeys(userSelectKeys);
         addCoinAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                EventBus.getDefault().post(addCoinAdapter.getDatas().get(position));
                 addCoinAdapter.select(position);
             }
 
@@ -44,19 +67,34 @@ public class SelectAddCoinFragment extends BasePullFragment<BaseFragentPullDeleg
         initRecycleViewPull(addCoinAdapter, new LinearLayoutManager(getActivity()));
         viewDelegate.setIsLoadMore(false);
         viewDelegate.viewHolder.swipeRefreshLayout.setRefreshing(true);
+        onRefresh();
     }
 
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
+            case 0x123:
+                List<ExchangeData> datas = GsonUtil.getInstance().toList(data, ExchangeData.class);
+                getDataBack(strDatas, datas, addCoinAdapter);
+                break;
         }
     }
+
 
     @Override
     protected void refreshData() {
         addRequest(binder.show(type, this));
+    }
+
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        if (isVisible) {
+            //每次进入后重新刷新,防止重复
+            if (addCoinAdapter != null) {
+                addCoinAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     public static SelectAddCoinFragment newInstance(

@@ -37,7 +37,7 @@ public class MACDEntity {
         float mACD = 0.0f;
         if (kLineBeen != null && kLineBeen.size() > 0) {
             for (int i = 0; i < kLineBeen.size(); i++) {
-                close = kLineBeen.get(i).close;
+                close = kLineBeen.get(i).close.floatValue();
                 if (i == 0) {
                     eMA12 = close;
                     eMA26 = close;

@@ -6,19 +6,32 @@ import android.content.Context;
 import com.biv.BigImageViewer;
 import com.biv.loader.glide.GlideImageLoader;
 import com.blankj.utilcode.util.Utils;
-import com.dhh.websocket.RxWebSocketUtil;
 import com.fivefivelike.mybaselibrary.base.BaseApp;
+import com.fivefivelike.mybaselibrary.http.WebSocketRequest;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.utils.GlobleContext;
+import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.utils.glide.GlideAlbumLoader;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
-import com.squareup.leakcanary.LeakCanary;
+import com.xiaomiquan.R;
+import com.xiaomiquan.entity.bean.event.ChatControlEvent;
+import com.xiaomiquan.entity.bean.event.CustomerServiceEvent;
 import com.xiaomiquan.greenDaoUtils.DaoManager;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
 import com.xiaomiquan.mvp.activity.user.LoginAndRegisteredActivity;
+import com.yanzhenjie.album.Album;
+import com.yanzhenjie.album.AlbumConfig;
 import com.yanzhenjie.nohttp.NoHttp;
+
+import java.util.Locale;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.CSCustomServiceInfo;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
-import okhttp3.OkHttpClient;
+import io.rong.imlib.model.MessageContent;
+import io.rong.message.TextMessage;
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCardViewInflater;
 import skin.support.constraint.app.SkinConstraintViewInflater;
@@ -41,6 +54,13 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
         //融云初始化
         initRongCloud();
         initClient();
+        //设置配置画廊可以加载网络图片
+        Album.initialize(
+                AlbumConfig.newBuilder(this)
+                        .setAlbumLoader(new GlideAlbumLoader()) // 设置Album加载器。
+                        .setLocale(Locale.CHINA) // 比如强制设置在任何语言下都用中文显示。
+                        .build()
+        );
     }
 
     private void initSkin() {
@@ -67,7 +87,6 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
         }
 
         //监听接收到的消息
-        //RongIMClient.setOnReceiveMessageListener(this);
         RongIM.setOnReceiveMessageListener(this);
     }
 
@@ -87,23 +106,24 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
             //初始化换肤
             initSkin();
         }
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
+    }
+
+    //客户服务
+    public void startCustomerService(Activity activity) {
+        if (SingSettingDBUtil.getUserLogin() != null) {
+            CSCustomServiceInfo.Builder csBuilder = new CSCustomServiceInfo.Builder();
+            CSCustomServiceInfo csInfo = csBuilder.nickName(SingSettingDBUtil.getUserLogin().getNickName()).build();
+            RongIM.getInstance().startCustomerServiceChat(activity, "KEFU151728371459995", "客服中心", csInfo);
+        } else {
+            ToastUtil.show(CommonUtils.getString(R.string.str_toast_need_login));
         }
-        LeakCanary.install(this);
     }
 
     @Override
     public void onTerminate() {
         // 程序终止的时候执行
+        WebSocketRequest.getInstance().onDestory();
         super.onTerminate();
-    }
-
-    @Override
-    public void startCustomerService(Activity activity) {
-
     }
 
     public Class getLoginActivityClass() {
@@ -113,10 +133,27 @@ public class Application extends BaseApp implements RongIMClient.OnReceiveMessag
 
     @Override
     public boolean onReceived(Message message, int i) {
+        MessageContent messageContent = message.getContent();
+        if (messageContent instanceof TextMessage) {
+            if (message.getConversationType() == Conversation.ConversationType.CUSTOMER_SERVICE) {
+                org.greenrobot.eventbus.EventBus.getDefault().post(new CustomerServiceEvent(CommonUtils.getString(R.string.str_get_customer_service_msg), ((TextMessage) messageContent).getContent()));
+            } else if (message.getConversationType() == Conversation.ConversationType.GROUP) {
+                String extra = ((TextMessage) messageContent).getExtra();
+                if ("mgp:open".equals(extra)) {
+                    //聊天室开启
+                    org.greenrobot.eventbus.EventBus.getDefault().post(new ChatControlEvent(false, extra));
+                } else if ("mgp:close".equals(extra)) {
+                    //聊天室关闭
+                    org.greenrobot.eventbus.EventBus.getDefault().post(new ChatControlEvent(true, extra));
+                }
+            }
+        }
         return false;
     }
+
     private static Context mContext;
-    public static Context getContext(){
+
+    public static Context getContext() {
         return mContext;
     }
 }

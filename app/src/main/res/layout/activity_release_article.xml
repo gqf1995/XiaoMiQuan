@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar" />
+
+
+    <com.xiaomiquan.widget.StickyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_490px"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY" />
+
+                <LinearLayout
+                    android:id="@+id/lin_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_img"
+                    android:layout_alignTop="@+id/iv_img"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/trans_40px"
+                    android:background="@drawable/shape_imaginary_line"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                        android:id="@+id/icf_update_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ic_Photo"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_40px" />
+
+                    <TextView
+                        android:id="@+id/tv_input_label1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/trans_10px"
+                        android:text="@string/str_tv_addimg"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/trans_32px" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
+                android:id="@+id/et_input2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/str_et_title"
+                android:maxLength="25"
+                android:padding="@dimen/trans_20px"
+                android:paddingLeft="@dimen/trans_40px"
+                android:paddingRight="@dimen/trans_40px"
+                android:textColorHint="@color/color_font3"
+                android:textSize="@dimen/text_trans_35px"
+                android:textStyle="bold"
+                app:met_baseColor="@color/white"
+                app:met_primaryColor="@color/base_mask"
+                app:met_textColor="@color/color_font1"
+                app:met_textColorHint="@color/color_font4"
+                app:met_underlineColor="@color/base_mask" />
+
+            <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
+                android:id="@+id/et_con"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/durban_dp_200"
+                android:layout_marginTop="@dimen/album_dp_10"
+                android:gravity="left|top"
+                android:hint="@string/str_et_con"
+                android:maxLength="140"
+                android:paddingLeft="@dimen/trans_40px"
+                android:paddingRight="@dimen/trans_40px"
+                android:textColorHint="@color/color_font3"
+                android:textSize="@dimen/trans_32px"
+                app:met_baseColor="@color/white"
+                app:met_primaryColor="@color/base_mask"
+                app:met_textColor="@color/color_font2"
+                app:met_textColorHint="@color/color_font4"
+                app:met_underlineColor="@color/base_mask" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/album_dp_10"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/trans_40px"
+                android:paddingRight="@dimen/trans_40px"
+                android:visibility="gone">
+
+                <skin.support.widget.SkinCompatCheckBox
+                    android:id="@+id/ck_live"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_ck_live"
+                    android:textColor="@color/color_font1"
+                    android:theme="@style/BlueCheckBox" />
+
+                <skin.support.widget.SkinCompatCheckBox
+                    android:id="@+id/ck_circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/trans_100px"
+                    android:text="@string/str_ck_circle"
+                    android:textColor="@color/color_font1"
+                    android:theme="@style/BlueCheckBox" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.xiaomiquan.widget.StickyScrollView>
+
+
+</LinearLayout>

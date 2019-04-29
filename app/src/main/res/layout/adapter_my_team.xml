@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lin_root"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/trans_30px">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ic_pic"
+            android:layout_width="@dimen/trans_100px"
+            android:layout_height="@dimen/trans_100px"
+            android:layout_marginRight="@dimen/trans_35px"
+            android:src="@color/color_blue"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="名称"
+                android:textColor="@color/navigation_color"
+                android:textSize="@dimen/text_trans_32px"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_10px"/>
+
+            <TextView
+                android:id="@+id/tv_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="昵称"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_24px"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="222%"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/text_trans_40px"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_10px"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_average_rate"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_20px"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/trans_25px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/trans_35px"
+        android:paddingRight="@dimen/trans_35px"
+        android:paddingTop="@dimen/trans_30px">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_team_reward"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_24px"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_6px"/>
+
+            <com.fivefivelike.mybaselibrary.view.FontTextview
+                android:id="@+id/tv_team_earnings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1.24ETH"
+                app:TypeFace="SemiBold"
+                android:textStyle="bold"
+                android:textColor="@color/increasing_color"
+                android:textSize="@dimen/text_trans_48px"/>
+
+        </LinearLayout>
+
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_team_people_num"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/text_trans_24px"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/trans_6px"/>
+
+
+            <com.fivefivelike.mybaselibrary.view.FontTextview
+                android:id="@+id/tv_team_people_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="17人"
+                app:TypeFace="SemiBold"
+                android:textStyle="bold"
+                android:textColor="@color/increasing_color"
+                android:textSize="@dimen/text_trans_48px"/>
+
+        </LinearLayout>
+
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+
+        <TextView
+            android:id="@+id/tv_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/select_commit"
+            android:gravity="center"
+            android:paddingBottom="@dimen/trans_15px"
+            android:paddingLeft="@dimen/trans_25px"
+            android:paddingRight="@dimen/trans_25px"
+            android:paddingTop="@dimen/trans_15px"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_trans_30px"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

@@ -245,7 +245,6 @@ public final class KLog {
         }
 
 
-
     }
 
     private static void printDebug(String tagStr, Object... objects) {

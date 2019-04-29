@@ -1,14 +1,20 @@
 package com.xiaomiquan.utils;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DimenRes;
+import android.support.annotation.DrawableRes;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -25,15 +31,33 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SDCardUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.fivefivelike.mybaselibrary.adapter.entity.ShareItemEntity;
+import com.fivefivelike.mybaselibrary.base.BigImageviewActivity;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
+import com.fivefivelike.mybaselibrary.view.AddPicAdapter;
+import com.fivefivelike.mybaselibrary.view.GridSpacingItemDecoration;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.PathEntity;
+import com.xiaomiquan.mvp.dialog.ShareDialog;
+import com.xiaomiquan.widget.CircleDialogHelper;
+import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.api.widget.Widget;
+import com.yanzhenjie.durban.Controller;
+import com.yanzhenjie.durban.Durban;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.PermissionListener;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -57,10 +81,14 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 
 /**
  * Created by 郭青枫 on 2017/8/5.
+ * <p>
+ * ui 处理统一工具
  */
 
 public class UiHeplUtils {
@@ -88,10 +116,12 @@ public class UiHeplUtils {
      */
     public static int[] cacularWidAndHei(Context context, @DimenRes int paddingRes, int viewNum, int relWith, int relHei) {
         int[] size = new int[2];
+        int width = (int) CommonUtils.getDimensionPixelSize(relWith);
+        int hight = (int) CommonUtils.getDimensionPixelSize(relHei);
         int paddingValue = context.getResources().getDimensionPixelSize(paddingRes);
         int screenWidth = getScreenW(context, false);
         int viewWidth = (screenWidth - paddingValue) / viewNum;
-        int viewHeight = viewWidth * relHei / relWith;
+        int viewHeight = viewWidth * hight / width;
         size[0] = viewWidth;
         size[1] = viewHeight;
         return size;
@@ -99,10 +129,12 @@ public class UiHeplUtils {
 
     public static int[] cacularWidAndHei(Context context, @DimenRes int widthRes, @DimenRes int paddingRes, int viewNum, int relWith, int relHei) {
         int[] size = new int[2];
+        int width = (int) CommonUtils.getDimensionPixelSize(relWith);
+        int hight = (int) CommonUtils.getDimensionPixelSize(relHei);
         int paddingValue = context.getResources().getDimensionPixelSize(paddingRes);
         int screenWidth = getScreenW(context, false) - context.getResources().getDimensionPixelSize(widthRes);
         int viewWidth = (screenWidth - paddingValue) / viewNum;
-        int viewHeight = viewWidth * relHei / relWith;
+        int viewHeight = viewWidth * hight / width;
         size[0] = viewWidth;
         size[1] = viewHeight;
         return size;
@@ -408,18 +440,18 @@ public class UiHeplUtils {
 
 
     //设置图库样式
-    public static Widget getDefaultAlbumWight(Context context, String title) {
-        return Widget.newDarkBuilder(context)
+    public static Widget getDefaultAlbumWight(String title) {
+        return Widget.newDarkBuilder(GlobleContext.getInstance().getApplicationContext())
                 .title(title) // Title.
-                .statusBarColor(context.getResources().getColor(R.color.color_blue)) // StatusBar color.
-                .toolBarColor(context.getResources().getColor(R.color.color_blue)) // Toolbar color.
+                .statusBarColor(CommonUtils.getColor(R.color.toolbar_bg)) // StatusBar color.
+                .toolBarColor(CommonUtils.getColor(R.color.toolbar_bg)) // Toolbar color.
                 .navigationBarColor(Color.WHITE) // Virtual NavigationBar color of Android5.0+.
-                .mediaItemCheckSelector(context.getResources().getColor(R.color.color_blue),
-                        context.getResources().getColor(R.color.color_blue_dark)) // Image or video selection box.
-                .bucketItemCheckSelector(context.getResources().getColor(R.color.color_blue),
-                        context.getResources().getColor(R.color.color_blue_dark)) // Select the folder selection box.
+                .mediaItemCheckSelector(CommonUtils.getColor(R.color.color_blue),
+                        CommonUtils.getColor(R.color.color_blue_dark)) // Image or video selection box.
+                .bucketItemCheckSelector(CommonUtils.getColor(R.color.color_blue),
+                        CommonUtils.getColor(R.color.color_blue_dark)) // Select the folder selection box.
                 .buttonStyle( // Used to configure the style of button when the image/video is not found.
-                        Widget.ButtonStyle.newDarkBuilder(context) // With Widget's Builder model.
+                        Widget.ButtonStyle.newDarkBuilder(GlobleContext.getInstance().getApplicationContext()) // With Widget's Builder model.
                                 .setButtonSelector(Color.WHITE, Color.WHITE) // Button selector.
                                 .build()
                 ).build();
@@ -475,6 +507,21 @@ public class UiHeplUtils {
             albumFileList.add(albumFile);
         }
         return albumFileList;
+    }
+
+    /**
+     * path转File
+     *
+     * @param results
+     * @return
+     */
+    public static List<File> stringsToFiles(List<String> results) {
+        List<File> fileList = new ArrayList<>();
+        for (String result : results) {
+            File file = new File(result);
+            fileList.add(file);
+        }
+        return fileList;
     }
 
     /**
@@ -720,4 +767,299 @@ public class UiHeplUtils {
                     + String.valueOf((size % 100)) + " GB";
         }
     }
+
+    /**
+     * gly 添加
+     */
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
+     * 获取手机的密度
+     */
+    public static float getDensity(Context context) {
+        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+        return dm.density;
+    }
+
+    public static void getPhoto(final FragmentActivity fragmentActivity, final com.yanzhenjie.album.Action<String> cameraLinsener, final com.yanzhenjie.album.Action<ArrayList<AlbumFile>> photoLinsener, final int selectNum) {
+        AndPermission.with(fragmentActivity)
+                .requestCode(100)
+                .permission(Permission.CAMERA, Permission.STORAGE)
+                .rationale(new RationaleListener() {
+                    @Override
+                    public void showRequestPermissionRationale(int requestCode, Rationale rationale) {
+                        AndPermission.rationaleDialog(fragmentActivity, rationale).show();
+                    }
+                })
+                .callback(new PermissionListener() {
+                    @Override
+                    public void onSucceed(int requestCode, @android.support.annotation.NonNull List<String> grantPermissions) {
+                        showPhotoDialog(fragmentActivity, cameraLinsener, photoLinsener, selectNum);
+                    }
+
+                    @Override
+                    public void onFailed(int requestCode, @android.support.annotation.NonNull List<String> deniedPermissions) {
+
+                    }
+                })
+                .start();
+    }
+
+    private static void camera(FragmentActivity fragmentActivity, com.yanzhenjie.album.Action<String> a) {
+        Album.camera(fragmentActivity) // 相机功能。
+                .image() // 拍照。
+                .requestCode(0x123)
+                .onResult(a)
+                .start();
+    }
+
+    private static void photo(FragmentActivity fragmentActivity, com.yanzhenjie.album.Action<ArrayList<AlbumFile>> a, int selectNum) {
+        if (selectNum == 1) {
+            Album.image(fragmentActivity) // 选择图片。
+                    .singleChoice()
+                    .requestCode(0x123)
+                    .camera(true)
+                    .columnCount(3)
+                    .onResult(a)
+                    .start();
+        } else {
+            Album.image(fragmentActivity) // 选择图片。
+                    .multipleChoice()
+                    .requestCode(0x123)
+                    .camera(true)
+                    .columnCount(3)
+                    .selectCount(selectNum)
+                    .onResult(a)
+                    .start();
+        }
+    }
+
+    private static void showPhotoDialog(final FragmentActivity fragmentActivity, final com.yanzhenjie.album.Action<String> cameraLinsener, final com.yanzhenjie.album.Action<ArrayList<AlbumFile>> photoLinsener, final int selectNum) {
+        String[] item = CommonUtils.getStringArray(R.array.sa_select_pic);
+        CircleDialogHelper.initDefaultItemDialog(fragmentActivity, item, new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    camera(fragmentActivity, cameraLinsener);
+                } else {
+                    photo(fragmentActivity, photoLinsener, selectNum);
+                }
+            }
+        }).show();
+    }
+
+    public static void reducePhoto(final Context context, List<String> paths, OnCompressListener listener) {
+        Luban.with(context)
+                .load(paths)                                   // 传人要压缩的图片列表
+                .ignoreBy(100)                                  // 忽略不压缩图片的大小
+                .setTargetDir(SDCardUtils.getSDCardPaths().get(0) + "/AndroidSamples")  // 设置压缩后文件存储位置
+                .setCompressListener(listener).launch();    //启动压缩
+    }
+
+
+    /**
+     * 修剪图片
+     */
+    public static final int CROP_CODE_1 = 101;
+    /**
+     * 图片路径
+     */
+    private String mFilepath = SDCardUtils.getSDCardPaths().get(0) + "/AndroidSamples";
+
+    public static void cropPhoto(Activity activity, String path) {
+        Durban.with(activity)
+                // 裁剪界面的标题。
+                .title("修剪图片")
+                .statusBarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark))
+                .toolBarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+                .navigationBarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark))
+                // 图片路径list或者数组。
+                .inputImagePaths(path)
+                // 图片输出文件夹路径。
+                .outputDirectory(SDCardUtils.getSDCardPaths().get(0) + "/AndroidSamples")
+                // 裁剪图片输出的最大宽高。
+                .maxWidthHeight(750, 500)
+                // 裁剪时的宽高比。
+                .aspectRatio(3, 2)
+                // 图片压缩格式：JPEG、PNG。
+                .compressFormat(Durban.COMPRESS_JPEG)
+                // 图片压缩质量，请参考：Bitmap#compress(Bitmap.CompressFormat, int, OutputStream)
+                .compressQuality(80)
+                // 裁剪时的手势支持：ROTATE, SCALE, ALL, NONE.
+                .gesture(Durban.GESTURE_ALL)
+                .controller(
+                        Controller.newBuilder()
+                                .enable(false) // 是否开启控制面板。
+                                .rotation(true) // 是否有旋转按钮。
+                                .rotationTitle(true) // 旋转控制按钮上面的标题。
+                                .scale(true) // 是否有缩放按钮。
+                                .scaleTitle(true) // 缩放控制按钮上面的标题。
+                                .build()) // 创建控制面板配置。
+                .requestCode(CROP_CODE_1)
+                .start();
+    }
+
+    public static void galleryPhoto(final FragmentActivity fragmentActivity,
+                                    final com.yanzhenjie.album.Action<ArrayList<String>> photoLinsener,
+                                    final com.yanzhenjie.album.Action<String> cancleLinsener,
+                                    final Boolean check,
+                                    final List<String> paths,
+                                    final String title) {
+        // 浏览一般的String路径：
+        Album.gallery(fragmentActivity)
+                .widget(Widget.newDarkBuilder(fragmentActivity).title(title).build())
+                .requestCode(200) // 请求码，会在listener中返回。
+                .checkedList((ArrayList<String>) paths) // 要浏览的图片列表：ArrayList<String>。
+                .navigationAlpha(50) // Android5.0+的虚拟导航栏的透明度。
+                .checkable(check) // 是否有浏览时的选择功能。
+                .onResult(photoLinsener)
+                .onCancel(cancleLinsener)
+                .start(); // 千万不要忘记调用start()方法。
+    }
+
+    /**
+     * @param list                存路径的集合
+     * @param addPicAdapter       适配器
+     * @param activity
+     * @param recyclerView
+     * @param cloumnCount         每行数量
+     * @param cloumnAllPaddingRes 总行间距
+     * @param addPicRes           添加图标资源
+     * @param bigImageSelect      进入大图是否有选择操作
+     */
+    public static void initChoosePicRv(final List<String> list,
+                                       final AddPicAdapter addPicAdapter,
+                                       final FragmentActivity activity,
+                                       RecyclerView recyclerView,
+                                       int cloumnCount,
+                                       @DimenRes int cloumnAllPaddingRes,
+                                       @DrawableRes int addPicRes,
+                                       final boolean bigImageSelect,
+                                       final int selectIconNum) {
+        cloumnCount = cloumnCount == 0 ? 4 : cloumnCount;
+        cloumnAllPaddingRes = cloumnAllPaddingRes == 0 ? R.dimen.trans_100px : cloumnAllPaddingRes;
+        recyclerView.setLayoutManager(new GridLayoutManager(activity, cloumnCount) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
+        recyclerView.setNestedScrollingEnabled(false);
+        if (recyclerView.getItemDecorationCount() == 0) {
+            recyclerView.addItemDecoration(new GridSpacingItemDecoration(cloumnCount, activity.getResources().getDimensionPixelSize(cloumnAllPaddingRes) / (cloumnCount + 1), true));
+        }
+        recyclerView.setAdapter(addPicAdapter);
+        addPicAdapter.setCloumnCount(cloumnCount);
+        if (addPicRes != 0) {
+            addPicAdapter.setAddPicRes(addPicRes);
+        }
+        addPicAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                int itemViewType = addPicAdapter.getItemViewType(position);
+                switch (itemViewType) {
+                    case AddPicAdapter.TYPE_ADD://添加图片
+                        getPhoto(activity, new com.yanzhenjie.album.Action<String>() {
+                            @Override
+                            public void onAction(int requestCode, @android.support.annotation.NonNull String result) {
+                                if (!TextUtils.isEmpty(result)) {
+                                    list.add(result);
+                                    addPicAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }, new com.yanzhenjie.album.Action<ArrayList<AlbumFile>>() {
+                            @Override
+                            public void onAction(int requestCode, @android.support.annotation.NonNull ArrayList<AlbumFile> result) {
+                                if (result != null) {
+                                    for (AlbumFile item : result) {
+                                        list.add(item.getPath());
+                                    }
+                                    addPicAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }, selectIconNum - list.size());
+                        break;
+                    case AddPicAdapter.TYPE_PIC://显示大图
+                        BigImageviewActivity.toBigImage(activity)
+                                .checkedList(list)
+                                .currentPosition(position)
+                                .checkable(bigImageSelect)
+                                .setmWidget(getDefaultAlbumWight(CommonUtils.getString(R.string.str_gallery)))
+                                .onResult(new com.yanzhenjie.album.Action<List<String>>() {
+                                    @Override
+                                    public void onAction(int requestCode, @android.support.annotation.NonNull List<String> result) {
+                                        list.clear();
+                                        list.addAll(result);
+                                        addPicAdapter.notifyDataSetChanged();
+                                    }
+                                }).start();
+                        break;
+                }
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
+
+    }
+
+
+    public static Bitmap screenShot(FragmentActivity activity) {
+        //获取当前屏幕的大小
+        int width = activity.getWindow().getDecorView().getRootView().getWidth();
+        int height = activity.getWindow().getDecorView().getRootView().getHeight();
+        //生成相同大小的图片
+        Bitmap temBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        //找到当前页面的跟布局
+        View view = activity.getWindow().getDecorView().getRootView();
+        //设置缓存
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();
+        //从缓存中获取当前屏幕的图片
+        temBitmap = view.getDrawingCache();
+        return temBitmap;
+    }
+
+    public static void shareImgs(final FragmentActivity activity, final List<Bitmap> bitmaps) {
+        ShareDialog shareDialog;
+        shareDialog = new ShareDialog(activity, new ShareDialog.SharePlatformChooseListener() {
+            @Override
+            public void onPlatformChoose(Dialog dialog, final ShareItemEntity shareObj) {
+                dialog.dismiss();
+                if (shareObj.isSystemShare()) {//系统分享
+                    List<String> names = new ArrayList<>();
+                    List<File> files = new ArrayList<>();
+                    for (int i = 0; i < bitmaps.size(); i++) {
+                        names.add("/sdcard/" + "BCOIN_share" + System.currentTimeMillis() + ".png");
+                    }
+                    ShareDialog.downBitmapToFile(activity, bitmaps, names, false);
+                    for (int i = 0; i < names.size(); i++) {
+                        files.add(new File(names.get(i)));
+                    }
+                    ShareDialog.shareWithSystem(activity, shareObj, files, "");
+                } else {//sharesdk分享
+
+                }
+            }
+        });
+        List<ShareItemEntity> systemList = ShareDialog.getSystemList(activity);
+        if (systemList == null || systemList.size() == 0) {
+            ToastUtil.show(CommonUtils.getString(R.string.str_share_no));
+            return;
+        }
+        shareDialog.refreshData(systemList);
+        shareDialog.show();
+    }
+
+
 }

@@ -17,18 +17,22 @@ import com.xiaomiquan.mvp.activity.main.MainActivity;
 import com.xiaomiquan.mvp.databinder.InputSetBinder;
 import com.xiaomiquan.mvp.delegate.InputSetDelegate;
 
+/**
+ *
+ */
 public class InputSetActivity extends BaseDataBindActivity<InputSetDelegate, InputSetBinder> {
 
     public static final String FIND_PASSWORD_PHONE = "find_password_phone";
     public static final String FIND_PASSWORD_EMAIL = "find_password_email";
     public static final String SET_PASSWORD_AGAIN = "set_password_again";
+    public static final String SET_PHONE = "set_phone";
+    public static final String SET_EMAIL = "set_email";
     String title = "";
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
         getIntentData();
-
         if (FIND_PASSWORD_PHONE.equals(type)) {
             title = CommonUtils.getString(R.string.str_title_findpassword);
             viewDelegate.initPhoneFindPass();
@@ -40,7 +44,6 @@ public class InputSetActivity extends BaseDataBindActivity<InputSetDelegate, Inp
             viewDelegate.initSetPassword();
         }
         initToolbar(new ToolbarBuilder().setTitle(title));
-
         viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,13 +85,26 @@ public class InputSetActivity extends BaseDataBindActivity<InputSetDelegate, Inp
                 return;
             }
             addRequest(binder.retrievePassword(content, isPhone, viewDelegate.viewHolder.et_input1.getText().toString(), code, this));
+        } else if (SET_PHONE.equals(type)) {
+            //绑定手机号
+            if (TextUtils.isEmpty(viewDelegate.viewHolder.et_input1.getText().toString())) {
+                ToastUtil.show(CommonUtils.getString(R.string.str_login_et_phone));
+                return;
+            }
+            VerificationCodeActivity.startAct(this, VerificationCodeActivity.CODE_FIND_PASSWORD_PHONE, viewDelegate.viewHolder.et_input1.getText().toString());
+        } else if (SET_EMAIL.equals(type)) {
+            //绑定邮箱
+            if (TextUtils.isEmpty(viewDelegate.viewHolder.et_input1.getText().toString())) {
+                ToastUtil.show(CommonUtils.getString(R.string.str_login_et_email));
+                return;
+            }
+            VerificationCodeActivity.startAct(this, VerificationCodeActivity.CODE_FIND_PASSWORD_PHONE, viewDelegate.viewHolder.et_input1.getText().toString());
         }
     }
 
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 //设置密码成功

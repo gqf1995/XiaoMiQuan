@@ -34,7 +34,7 @@ class SingleButton extends ScaleTextView {
 
         //如果取消按钮没有背景色，则使用默认色
         int backgroundColor = mButtonParams.backgroundColor != 0 ? mButtonParams.backgroundColor
-                : CircleColor.bgDialog;
+                : CircleColor.getBgDialog();
 
         int radius = params.dialogParams.radius;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

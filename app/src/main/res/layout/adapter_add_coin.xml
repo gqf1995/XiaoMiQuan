@@ -29,10 +29,14 @@
             android:textSize="@dimen/text_trans_28px"
             app:TypeFace="Regular"/>
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_select"
-            android:layout_width="@dimen/trans_35px"
-            android:layout_height="@dimen/trans_35px"
+        <com.fivefivelike.mybaselibrary.view.IconFontTextview
+            android:id="@+id/tv_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/ic_Check1"
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/text_trans_36px"
             />
 
     </LinearLayout>

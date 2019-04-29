@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_1px"
+        android:background="@color/base_mask" />
+
+    <skin.support.widget.SkinCompatFrameLayout
+        android:id="@+id/fl_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <com.tablayout.CommonTabLayout
+            android:id="@+id/tl"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/trans_80px"
+            android:orientation="horizontal"
+            tl:tl_indicator_color="@color/color_blue"
+            tl:tl_indicator_height="@dimen/trans_5px"
+            tl:tl_indicator_width="@dimen/trans_32px"
+            tl:tl_textSelectColor="@color/color_blue"
+            tl:tl_textUnselectColor="@color/color_font3"
+            tl:tl_textsize="@dimen/text_trans_28px"
+            tl:tl_underline_color="#1A000000"
+            tl:tl_underline_height="0dp" />
+    </skin.support.widget.SkinCompatFrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_1px"
+        android:background="@color/base_mask" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_sliding"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

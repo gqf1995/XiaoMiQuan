@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/lin_choose" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/album_dp_50"
+        android:background="@color/color_blue"
+        android:gravity="center"
+        android:text="@string/str_crete_hint"
+        android:textColor="@color/color_font1"
+        android:textSize="@dimen/text_trans_35px" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/album_dp_80"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/lin_free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="@string/ic_Plus"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_150px" />
+
+            <skin.support.widget.SkinCompatCheckBox
+                android:id="@+id/ck_free"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_ck_free"
+                android:textColor="@color/color_font1" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/album_dp_50"
+            android:layout_height="@dimen/album_dp_1" />
+
+        <LinearLayout
+            android:id="@+id/lin_charge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="@string/ic_Plus"
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_150px" />
+
+            <skin.support.widget.SkinCompatCheckBox
+                android:id="@+id/ck_charge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_ck_charge"
+                android:textColor="@color/color_font1" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/album_dp_15"
+        android:layout_marginTop="@dimen/album_dp_50"
+        android:orientation="horizontal">
+
+        <skin.support.widget.SkinCompatCheckBox
+            android:id="@+id/ck_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_ck_agree"
+            android:textColor="@color/color_font1" />
+
+        <TextView
+            android:id="@+id/tv_rule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/album_dp_15"
+            android:text="@string/str_tv_rule"
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/trans_32px" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/album_dp_50"
+        android:layout_gravity="center"
+        android:background="@color/color_blue"
+        android:padding="@dimen/album_dp_15"
+        android:text="@string/str_tv_next"
+        android:textColor="@color/color_font1"
+        android:textSize="@dimen/text_trans_30px" />
+
+
+</LinearLayout>

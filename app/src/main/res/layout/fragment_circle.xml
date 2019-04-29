@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tl="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/include_toolbar_with_statusbar"/>
+        <include layout="@layout/include_toolbar_with_statusbar" />
 
         <com.tablayout.SlidingTabLayout
             android:id="@+id/tl_2"
@@ -20,16 +20,15 @@
             android:layout_gravity="bottom|center_horizontal"
             android:orientation="horizontal"
             app:tl_indicator_corner_radius="360dp"
-            tl:tl_indicator_color="@color/color_font1"
+            tl:tl_indicator_color="@color/white"
             tl:tl_indicator_height="@dimen/trans_5px"
             tl:tl_indicator_margin_bottom="@dimen/trans_5px"
             tl:tl_indicator_width="@dimen/trans_32px"
-            tl:tl_textSelectColor="@color/color_font1"
-            tl:tl_textUnselectColor="@color/color_font3"
+            tl:tl_textSelectColor="@color/white"
+            tl:tl_textUnselectColor="@color/color_e5e5e5"
             tl:tl_textsize="@dimen/text_trans_28px"
             tl:tl_underline_color="#1A000000"
-            tl:tl_underline_height="0dp"
-            />
+            tl:tl_underline_height="0dp" />
 
     </FrameLayout>
 

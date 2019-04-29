@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_70px"
+        android:background="@color/base_mask"
+        android:id="@+id/lin_share"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="32"/>
+
+        <skin.support.widget.SkinCompatCheckBox
+            android:id="@+id/ck_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:textColor="@color/color_font1"
+            android:theme="@style/BlueCheckBox"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="32"/>
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_type"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_24px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="46"/>
+
+        <TextView
+            android:id="@+id/tv_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_currency"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_24px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="34"/>
+
+        <TextView
+            android:id="@+id/tv_entrust_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_entrust_price"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_24px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="38"/>
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_tv_num"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_24px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="102"/>
+
+        <TextView
+            android:id="@+id/tv_deal_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_deal_time"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_24px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="32"/>
+
+        <TextView
+            android:id="@+id/tv_hold_proportion_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_hold_proportion_change"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_24px"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="32"/>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

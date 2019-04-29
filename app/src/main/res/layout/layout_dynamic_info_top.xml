@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cv_head"
+            android:layout_width="@dimen/trans_70px"
+            android:layout_height="@dimen/trans_70px"
+            android:layout_margin="@dimen/trans_20px"
+            android:src="@color/color_blue" />
+
+
+        <LinearLayout
+            android:id="@+id/lin_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/trans_30px"
+            android:paddingRight="@dimen/trans_20px"
+            android:paddingTop="@dimen/trans_20px">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/trans_70px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="- -"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_30px" />
+
+                    <TextView
+                        android:id="@+id/tv_type_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="- -"
+                        android:textColor="@color/color_font2"
+                        android:textSize="@dimen/text_trans_25px" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                    android:id="@+id/icf_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ic_Dots2"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/text_trans_32px"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/trans_24px"
+                android:lineSpacingExtra="@dimen/trans_6px"
+                android:maxLines="4"
+                android:text="- -"
+                android:textColor="@color/color_font1"
+                android:textSize="@dimen/text_trans_30px" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleview_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none" />
+
+            <!-- 点赞、 评论 -->
+            <include layout="@layout/layout_square_shared_comment_paise" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_20px"
+        android:background="@color/base_mask" />
+
+    <TextView
+        android:id="@+id/tv_comment_member"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_90px"
+        android:layout_marginLeft="@dimen/trans_20px"
+        android:gravity="center_vertical"
+        android:text="- -"
+        android:textColor="@color/color_font1"
+        android:textSize="@dimen/text_trans_32px" />
+
+</LinearLayout>

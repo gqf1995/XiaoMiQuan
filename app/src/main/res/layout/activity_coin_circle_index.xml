@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tl="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar"/>
+
+    <com.tablayout.CommonTabLayout
+        android:id="@+id/tl_2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/trans_100px"
+        android:layout_gravity="bottom"
+        android:background="@color/base_mask"
+        android:paddingTop="@dimen/trans_10px"
+        app:tl_indicator_width="@dimen/trans_8px"
+        app:tl_underline_gravity="TOP"
+        tl:tl_iconHeight="@dimen/trans_40px"
+        tl:tl_iconWidth="@dimen/trans_40px"
+        tl:tl_indicator_color="@color/navigation_color"
+        tl:tl_indicator_height="0dp"
+        tl:tl_textSelectColor="@color/navigation_color"
+        tl:tl_textUnselectColor="@color/color_font3"
+        tl:tl_textsize="@dimen/text_trans_24px"
+        tl:tl_underline_color="@color/black_transparent_99"
+        tl:tl_underline_height="0dp"
+        >
+
+    </com.tablayout.CommonTabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

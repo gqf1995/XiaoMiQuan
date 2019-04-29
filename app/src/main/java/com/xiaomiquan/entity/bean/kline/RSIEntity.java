@@ -71,8 +71,8 @@ public class RSIEntity {
         Float[] abs = new Float[2];
         for (int i = a; i <= b; i++) {
             if (i > a) {
-                closeT = kLineBeens.get(i).close;
-                closeY = kLineBeens.get(i - 1).close;
+                closeT = kLineBeens.get(i).close.floatValue();
+                closeY = kLineBeens.get(i - 1).close.floatValue();
 
                 float c = closeT - closeY;
                 if (c > 0) {

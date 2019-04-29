@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar" />
+
+
+    <skin.support.widget.SkinCompatFrameLayout
+        android:id="@+id/fl_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <com.tablayout.CommonTabLayout
+            android:id="@+id/tl_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/trans_110px"
+            android:orientation="horizontal"
+            app:tl_indicator_corner_radius="@dimen/trans_100px"
+            tl:tl_indicator_color="@color/color_blue"
+            tl:tl_indicator_height="@dimen/trans_5px"
+            tl:tl_textSelectColor="@color/color_blue"
+            tl:tl_textUnselectColor="@color/color_font2"
+            tl:tl_textsize="@dimen/text_trans_30px"
+            tl:tl_underline_color="#1A000000"
+            tl:tl_underline_height="0dp" />
+    </skin.support.widget.SkinCompatFrameLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+</LinearLayout>

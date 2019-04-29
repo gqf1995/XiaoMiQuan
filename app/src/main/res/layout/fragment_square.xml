@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin.support.widget.SkinCompatLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_pull"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include
+        layout="@layout/include_toolbar_with_statusbar"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.xiaomiquan.widget.JudgeNestedScrollView
+                android:id="@+id/scrollView_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/ry_entrance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:scrollbars="none" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_1px"
+                            android:background="@color/base_mask" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_1px"
+                            android:background="@color/base_mask" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/trans_20px"
+                        android:background="@color/base_mask" />
+
+                    <LinearLayout
+                        android:id="@+id/lin_tab"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/lin_live"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_80px"
+                            android:background="@color/colorPrimary"
+                            android:clickable="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/trans_40px"
+                            android:paddingRight="@dimen/trans_40px">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="@dimen/trans_40px"
+                                android:layout_height="@dimen/trans_40px"
+                                app:srcCompat="@drawable/icon_live" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/trans_16px"
+                                android:text="@string/str_tv_live"
+                                android:textColor="@color/color_font1"
+                                android:textSize="@dimen/text_trans_28px" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <com.fivefivelike.mybaselibrary.view.IconFontTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/trans_8px"
+                                android:text="@string/ic_Calendar"
+                                android:textColor="@color/color_font2"
+                                android:textSize="@dimen/text_trans_30px" />
+
+                            <TextView
+                                android:id="@+id/tv_live_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/color_font2"
+                                android:textSize="@dimen/text_trans_24px" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/trans_1px"
+                            android:background="@color/base_mask" />
+                    </LinearLayout>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/pull_recycleview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:scrollbars="none" />
+                    <!--<include layout="@layout/merge_layout_no_data"/>-->
+                </LinearLayout>
+            </com.xiaomiquan.widget.JudgeNestedScrollView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/civ_send"
+            android:layout_width="@dimen/trans_92px"
+            android:layout_height="@dimen/trans_92px"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="@dimen/trans_80px"
+            android:layout_marginRight="@dimen/trans_80px"
+            app:srcCompat="@drawable/ic_write" />
+
+    </FrameLayout>
+
+</skin.support.widget.SkinCompatLinearLayout>

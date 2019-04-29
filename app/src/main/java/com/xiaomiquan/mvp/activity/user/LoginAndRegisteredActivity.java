@@ -1,5 +1,6 @@
 package com.xiaomiquan.mvp.activity.user;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -15,6 +16,9 @@ import com.xiaomiquan.mvp.activity.main.MainActivity;
 import com.xiaomiquan.mvp.databinder.LoginAndRegisteredBinder;
 import com.xiaomiquan.mvp.delegate.LoginAndRegisteredDelegate;
 
+/**
+ * 登录注册
+ */
 public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndRegisteredDelegate, LoginAndRegisteredBinder> {
 
 
@@ -34,6 +38,7 @@ public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndReg
         super.bindEvenListener();
         initToolbar(new ToolbarBuilder().setTitle(""));
         viewDelegate.getmToolbarTitle().setVisibility(View.GONE);
+        SingSettingDBUtil.delectUserLogin();
         viewDelegate.viewHolder.tv_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,13 +79,13 @@ public class LoginAndRegisteredActivity extends BaseDataBindActivity<LoginAndReg
 
     @Override
     protected void onServiceSuccess(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
         switch (requestCode) {
             case 0x123:
                 //登录成功
                 UserLogin userLogin = GsonUtil.getInstance().toObj(data, UserLogin.class);
                 SingSettingDBUtil.setNewUserLogin(userLogin);
-                gotoActivity(MainActivity.class).setIsFinish(true).startAct();
+                startActivity(new Intent(LoginAndRegisteredActivity.this, MainActivity.class));
+                finish();
                 break;
         }
     }

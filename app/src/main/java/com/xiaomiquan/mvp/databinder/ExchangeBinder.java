@@ -50,7 +50,7 @@ public class ExchangeBinder extends BaseDataBind<ExchangeDelegate> {
                 .setRequestUrl(HttpUrl.getIntance().getAllMarketBySymbol)
                 .setShowDialog(false)
                 .setDialog(viewDelegate.getNetConnectDialog())
-                .setRequestName("根据交易所名称获得相关信息")
+                .setRequestName("根据币种名称获得相关信息")
                 .setRequestMode(HttpRequest.RequestMode.POST)
                 .setParameterMode(HttpRequest.ParameterMode.Json)
                 .setRequestObj(baseMap)

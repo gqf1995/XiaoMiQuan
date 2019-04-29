@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">MyBaseLibrary</string>
     <string name="ic_Back">#xe643;</string>
+    <string name="str_confirm">确认</string>
+    <string name="str_determine">确定</string>
+    <string name="str_ago">前</string>
+    <string name="str_sec">秒</string>
+    <string name="str_min">分</string>
+    <string name="str_hrs">小时</string>
+    <string name="str_yesterday">昨天</string>
+    <string name="str_today">今天</string>
+    <string name="str_cancel">取消</string>
+
 
 </resources>

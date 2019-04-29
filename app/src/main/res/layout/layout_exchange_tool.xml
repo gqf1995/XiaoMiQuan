@@ -23,36 +23,52 @@
         android:textSize="@dimen/text_trans_24px"/>
 
 
-    <com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner
+    <TextView
         android:id="@+id/tv_unit"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="150"
         android:clickable="true"
         android:focusable="true"
-        android:gravity="left"
+        android:gravity="right"
         android:orientation="horizontal"
         android:text="1天"
-        android:textColor="@color/color_font2"
+        android:textColor="@color/color_font3"
         android:textSize="@dimen/text_trans_24px"
-        app:backgroundSelector="@color/transparent"
-        app:hideArrow="true"
-        app:textTint="@color/color_font2"
         >
 
-    </com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner>
+    </TextView>
 
+    <com.fivefivelike.mybaselibrary.view.IconFontTextview
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="@string/ic_icon_right"
+        android:rotation="90"
+        android:textColor="@color/color_font3"
+        android:textSize="@dimen/text_trans_10px" />
+
+    <Space
+        android:layout_width="@dimen/trans_40px"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_rise_title"
+        android:layout_width="@dimen/trans_150px"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/str_rise_24h"
+        android:textColor="@color/color_font3"
+        android:textSize="@dimen/text_trans_24px" />
 
     <com.xiaomiquan.widget.GainsTabView
         android:id="@+id/tv_rise"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/trans_200px"
         android:layout_height="match_parent"
-        android:layout_weight="190"
-        android:clickable="true"
-        android:focusable="true"
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone"
         android:gravity="left"
-        android:paddingRight="@dimen/trans_30px"
         />
 
 

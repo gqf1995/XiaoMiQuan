@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <plurals name="album_check_album_limit">
+        <item quantity="other">您只能选择%1$d个文件</item>
+    </plurals>
+    <plurals name="album_check_album_limit_camera">
+        <item quantity="other">您只能选择%1$d个文件，请反选后再操作</item>
+    </plurals>
+    <plurals name="album_check_image_limit">
+        <item quantity="other">您只能选择%1$d张图片</item>
+    </plurals>
+    <plurals name="album_check_image_limit_camera">
+        <item quantity="other">您只能选择%1$d张图片，请反选后再操作</item>
+    </plurals>
+    <plurals name="album_check_video_limit">
+        <item quantity="other">您只能选择%1$d个视频</item>
+    </plurals>
+    <plurals name="album_check_video_limit_camera">
+        <item quantity="other">您只能选择%1$d个视频，请反选后再操作</item>
+    </plurals>
+    <string name="agentweb_camera">相机</string>
+    <string name="agentweb_cancel">取消</string>
+    <string name="agentweb_click_open">点击打开</string>
+    <string name="agentweb_coming_soon_download">即将开始下载文件</string>
+    <string name="agentweb_current_downloading_progress">当前进度:%s</string>
+    <string name="agentweb_download">下载</string>
+    <string name="agentweb_download_fail">下载失败!</string>
+    <string name="agentweb_download_task_has_been_exist">该任务已经存在 ， 请勿重复点击下载!</string>
+    <string name="agentweb_file_chooser">文件</string>
+    <string name="agentweb_file_download">文件下载</string>
+    <string name="agentweb_honeycomblow">您正在使用手机流量 ， 继续下载该文件吗?</string>
+    <string name="agentweb_leave">离开</string>
+    <string name="agentweb_leave_app_and_go_other_page">您需要离开%s前往其他应用吗？</string>
+    <string name="agentweb_loading">加载中 ...</string>
+    <string name="agentweb_max_file_length_limit">选择的文件不能大于%sMB</string>
+    <string name="agentweb_tips">提示</string>
+    <string name="agentweb_trickter">您有一条新通知</string>
+    <string name="album_all_images">所有图片</string>
+    <string name="album_all_images_videos">所有图片/视频</string>
+    <string name="album_all_videos">所有视频</string>
+    <string name="album_camera_image_capture">拍照片</string>
+    <string name="album_camera_video_capture">录视频</string>
+    <string name="album_check">选择</string>
+    <string name="album_check_album_little">你还没有选择媒体文件</string>
+    <string name="album_check_image_little">你还没有选择图片</string>
+    <string name="album_check_video_little">你还没有选择视频</string>
+    <string name="album_dialog_sure">好的</string>
+    <string name="album_item_unavailable">不可用</string>
+    <string name="album_menu_camera_image">拍照片</string>
+    <string name="album_menu_camera_video">录视频</string>
+    <string name="album_menu_finish">完成</string>
+    <string name="album_not_found_album">没有发现媒体文件</string>
+    <string name="album_not_found_image">没有发现图片文件</string>
+    <string name="album_not_found_video">没有发现视频文件</string>
+    <string name="album_permission_camera_image_failed_hint">获取相机、存储权限失败，请在使用之前在系统设置中授权。</string>
+    <string name="album_permission_camera_video_failed_hint">获取相机、存储、录音权限失败，请在使用之前在系统设置中授权。</string>
+    <string name="album_permission_storage_failed_hint">获取存储权限失败，请在使用之前在系统设置中授权。</string>
+    <string name="album_title">媒体专辑</string>
+    <string name="album_title_permission_failed">没有权限</string>
+    <string name="crop__cancel" ns1:ignore="ButtonCase">取消</string>
+    <string name="crop__done">完成</string>
+    <string name="crop__pick_error">无效的图片</string>
+    <string name="crop__saving">正在保存照片…</string>
+    <string name="crop__wait">请等待…</string>
+    <string name="durban_controller_title_rotation">旋转</string>
+    <string name="durban_controller_title_scale">缩放</string>
+    <string name="durban_menu_crop">确定</string>
+    <string name="durban_title_crop">图片裁剪</string>
+    <string name="loading_default_messsage">请稍等…</string>
+    <string name="permission_cancel">取消</string>
+    <string name="permission_message_permission_failed">我们需要的一些权限被您拒绝或者系统发生错误申请失败，请您到设置页面手动授权，否则功能无法正常使用！</string>
+    <string name="permission_message_permission_rationale">您已经拒绝过我们申请授权，请您同意授权，否则功能无法正常使用！</string>
+    <string name="permission_resume">继续</string>
+    <string name="permission_setting">去设置</string>
+    <string name="permission_title_permission_failed">权限申请失败</string>
+    <string name="permission_title_permission_rationale">权限已被拒绝</string>
+    <string name="recycler_swipe_click_load_more">点击加载更多</string>
+    <string name="recycler_swipe_data_empty">暂时没有数据</string>
+    <string name="recycler_swipe_load_error">加载出错啦，请稍后重试</string>
+    <string name="recycler_swipe_load_more_message">正在加载更多数据，请稍后</string>
+    <string name="recycler_swipe_more_not">没有更多数据啦</string>
+</resources>

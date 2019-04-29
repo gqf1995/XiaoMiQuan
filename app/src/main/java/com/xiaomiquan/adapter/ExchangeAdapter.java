@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.fivefivelike.mybaselibrary.utils.glide.GlideUtils;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeName;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -29,9 +30,10 @@ public class ExchangeAdapter extends CommonAdapter<ExchangeName> {
     protected void convert(ViewHolder holder, ExchangeName s, final int position) {
         iv_pic = holder.getView(R.id.iv_pic);
         tv_name = holder.getView(R.id.tv_name);
-        iv_pic.setImageResource(R.drawable.bitcoin);
+        iv_pic.setImageResource(R.drawable.dogecoin);
         tv_name.setText(s.getEname());
 
+        GlideUtils.loadImage("http://topcoin.oss-cn-hangzhou.aliyuncs.com/exchange/exchange_" + s.getEname().toLowerCase() + ".png", iv_pic);
     }
 
 }

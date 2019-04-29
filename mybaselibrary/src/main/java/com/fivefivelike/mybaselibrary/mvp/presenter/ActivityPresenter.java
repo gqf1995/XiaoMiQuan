@@ -34,6 +34,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatAc
         setContentView(viewDelegate.getRootView());
         viewDelegate.initView();
         intentHelper = new IntentHelper(this);
+        bindEvenListenerBuyState(savedInstanceState);
         bindEvenListener();
     }
 
@@ -67,6 +68,9 @@ public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatAc
     }
 
     protected void bindEvenListener() {
+    }
+
+    protected void bindEvenListenerBuyState(Bundle savedInstanceState) {
     }
 
     protected abstract Class<T> getDelegateClass();

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.xiaomiquan.widget.JudgeNestedScrollView
+            android:id="@+id/judgeNested_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/lin_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_mycircle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_20px"
+                    android:background="@color/base_mask" />
+
+                <LinearLayout
+                    android:id="@+id/lin_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_80px"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/trans_40px"
+                    android:paddingRight="@dimen/trans_40px">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/civ_img"
+                        android:layout_width="@dimen/trans_40px"
+                        android:layout_height="@dimen/trans_40px"
+                        app:srcCompat="@drawable/icon_circle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/trans_18px"
+                        android:gravity="center"
+                        android:text="@string/str_title_dynamic"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_28px" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/trans_1px"
+                    android:background="@color/base_mask" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/pull_recycleview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <!--<include layout="@layout/merge_layout_no_data"/>-->
+
+            </LinearLayout>
+        </com.xiaomiquan.widget.JudgeNestedScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>

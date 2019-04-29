@@ -1,18 +1,18 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
+import com.fivefivelike.mybaselibrary.base.BaseMyPullDelegate;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.BaseMyPullDelegate;
 
+import skin.support.widget.SkinCompatLinearLayout;
 
 /**
  * Created by 郭青枫 on 2017/9/26.
+ * 同一的 fragment列表页面 代理
  */
 
 public class BaseFragentPullDelegate extends BaseMyPullDelegate {
@@ -32,16 +32,16 @@ public class BaseFragentPullDelegate extends BaseMyPullDelegate {
     public static class ViewHolder {
         public View rootView;
         public RecyclerView pull_recycleview;
+        public FrameLayout fl_rcv;
         public SwipeRefreshLayout swipeRefreshLayout;
-        public RelativeLayout no_data;
-        public LinearLayout fl_pull;
+        public SkinCompatLinearLayout fl_pull;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.pull_recycleview = (RecyclerView) rootView.findViewById(R.id.pull_recycleview);
+            this.fl_rcv = (FrameLayout) rootView.findViewById(R.id.fl_rcv);
             this.swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
-            this.no_data = (RelativeLayout) rootView.findViewById(R.id.no_data);
-            this.fl_pull = (LinearLayout) rootView.findViewById(R.id.fl_pull);
+            this.fl_pull = (SkinCompatLinearLayout) rootView.findViewById(R.id.fl_pull);
         }
 
     }

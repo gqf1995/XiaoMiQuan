@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin.support.widget.SkinCompatCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="@color/color_font1_dark"
+    app:cardCornerRadius="@dimen/trans_5px">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="98"
+            >
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:riv_corner_radius_top_left="@dimen/trans_5px"
+                app:riv_corner_radius_top_right="@dimen/trans_5px"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/trans_20px">
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_F5A623"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/trans_5px"
+                    android:paddingRight="@dimen/trans_5px"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_16px"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tv_online_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/str_online_people"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_trans_20px"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/black_transparent_10"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:padding="@dimen/trans_20px"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_trans_30px"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="74"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/trans_20px"
+                android:paddingRight="@dimen/trans_20px"
+                android:paddingTop="@dimen/trans_15px"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ic_pic"
+                    android:layout_width="@dimen/trans_32px"
+                    android:layout_height="@dimen/trans_32px"
+                    android:layout_marginRight="@dimen/trans_20px"/>
+
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text=""
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/text_trans_26px"/>
+
+                <TextView
+                    android:id="@+id/tv_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/color_font2"
+                    android:textSize="@dimen/text_trans_18px"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_Introduction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:paddingLeft="@dimen/trans_50px"
+                android:paddingRight="@dimen/trans_15px"
+                android:paddingTop="@dimen/trans_10px"
+                android:text=""
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_20px"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</skin.support.widget.SkinCompatCardView>

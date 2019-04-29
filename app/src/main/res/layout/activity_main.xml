@@ -1,61 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tl="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:id="@+id/main_drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@android:color/transparent">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tl="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
 
         <FrameLayout
-            android:id="@+id/fl_root"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:id="@+id/fl_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
 
         </FrameLayout>
 
-        <View
+
+        <com.tablayout.CommonTabLayout
+            android:id="@+id/tl_2"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/trans_10px"
+            android:layout_height="@dimen/trans_100px"
             android:layout_gravity="bottom"
-            android:background="@drawable/shadow_line"
-            android:rotation="180"/>
+            android:background="@color/base_mask"
+            android:paddingTop="@dimen/trans_10px"
+            app:tl_indicator_width="@dimen/trans_8px"
+            app:tl_underline_gravity="TOP"
+            tl:tl_iconHeight="@dimen/trans_45px"
+            tl:tl_iconWidth="@dimen/trans_45px"
+            tl:tl_indicator_color="@color/navigation_color"
+            tl:tl_indicator_height="0dp"
+            tl:tl_textSelectColor="@color/navigation_color"
+            tl:tl_textUnselectColor="@color/color_font3"
+            tl:tl_textsize="@dimen/text_trans_20px"
+            tl:tl_underline_color="@color/black_transparent_99"
+            tl:tl_underline_height="0dp"
+            >
+
+        </com.tablayout.CommonTabLayout>
+
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_left"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorPrimary">
+
 
     </FrameLayout>
 
 
-    <com.tablayout.CommonTabLayout
-        android:id="@+id/tl_2"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/trans_80px"
-        android:layout_gravity="bottom"
-        android:paddingTop="@dimen/trans_15px"
-        app:tl_indicator_width="@dimen/trans_8px"
-        app:tl_textBold="BOTH"
-        app:tl_underline_gravity="TOP"
-        tl:tl_iconHeight="@dimen/trans_50px"
-        tl:tl_iconWidth="@dimen/trans_50px"
-        tl:tl_indicator_color="@color/color_blue"
-        tl:tl_indicator_height="@dimen/trans_8px"
-        tl:tl_textSelectColor="@color/color_blue"
-        tl:tl_textUnselectColor="@color/color_font3"
-        tl:tl_textsize="@dimen/text_trans_40px"
-        tl:tl_underline_color="@color/black_transparent_99"
-        tl:tl_underline_height="0dp"
-        >
-
-    </com.tablayout.CommonTabLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/trans_20px"
-        />
-
-
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>

@@ -3,7 +3,10 @@ package com.fivefivelike.mybaselibrary.base;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.multidex.MultiDexApplication;
+
+import com.fivefivelike.mybaselibrary.utils.UUIDS;
 
 /**
  * @创建者 CSDN_LQR
@@ -16,7 +19,14 @@ public abstract class BaseApp extends MultiDexApplication {
     public static synchronized BaseApp getInstance() {
         return instance;
     }
-
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+//        Configuration config=new Configuration();
+//        config.setToDefaults();
+//        res.updateConfiguration(config,res.getDisplayMetrics());
+        return res;
+    }
     public abstract void startCustomerService(Activity activity);
 
     //获取登录页面class
@@ -41,6 +51,7 @@ public abstract class BaseApp extends MultiDexApplication {
         //对全局属性赋值
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
             instance = this;
+            UUIDS.buidleID(this).check();
         }
     }
 

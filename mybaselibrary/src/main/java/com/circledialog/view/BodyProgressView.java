@@ -7,13 +7,13 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.widget.ProgressBar;
 
+import com.circledialog.params.ButtonParams;
 import com.circledialog.params.CircleParams;
+import com.circledialog.params.DialogParams;
 import com.circledialog.params.ProgressParams;
 import com.circledialog.params.TitleParams;
-import com.circledialog.res.values.CircleColor;
 import com.circledialog.res.drawable.CircleDrawable;
-import com.circledialog.params.ButtonParams;
-import com.circledialog.params.DialogParams;
+import com.circledialog.res.values.CircleColor;
 import com.circledialog.res.values.CircleDimen;
 
 import java.lang.reflect.Field;
@@ -44,7 +44,7 @@ class BodyProgressView extends ScaleLinearLayout {
         //如果没有背景色，则使用默认色
         int backgroundColor = mProgressParams.backgroundColor != 0 ? mProgressParams
                 .backgroundColor : CircleColor
-                .bgDialog;
+                .getBgDialog();
 
         //有标题没按钮则底部圆角
         if (titleParams != null && negativeParams == null && positiveParams == null) {
@@ -107,7 +107,9 @@ class BodyProgressView extends ScaleLinearLayout {
                     mProgressBar.setIndeterminateDrawable(context.getResources().getDrawable
                             (progressDrawableId));
             } else {
-                mProgressBar = new ProgressBar(getContext(), null, android.R.attr.progressBarStyle);
+                mProgressBar = new ProgressBar(getContext(), null,
+                        android.R.attr.progressBarStyle);
+                //mProgressBar.getProgressDrawable().setColorFilter(CommonUtils.getColor(R.color.blue), PorterDuff.Mode.SRC_IN);
             }
             mProgressParams.progressHeight = CircleDimen.PROGRESS_HEIGHT_SPINNER;
         }

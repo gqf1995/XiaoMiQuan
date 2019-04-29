@@ -55,6 +55,7 @@ public abstract class BaseDataBindActivity<T extends BaseDelegate, D extends IDa
 
     @Override
     public void success(int requestCode, String jsonData) {
+        onStopLoading();
         if (binder != null) {
             binder.success(this, this, this, requestCode, jsonData);
         }
@@ -72,9 +73,14 @@ public abstract class BaseDataBindActivity<T extends BaseDelegate, D extends IDa
 
     @Override
     public void error(int requestCode, Throwable exThrowable) {
+        onStopLoading();
         if (binder != null) {
             binder.showError(exThrowable);
         }
+    }
+
+    public void onStopLoading() {
+        //网络请求结束,不管成功或者失败
     }
 
     protected void onServiceError(String data, String info, int status, int requestCode) {

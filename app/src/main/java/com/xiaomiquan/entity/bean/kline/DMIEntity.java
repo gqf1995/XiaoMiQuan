@@ -79,12 +79,12 @@ public class DMIEntity {
                 dmH = 0.0f;
                 dmL = 0.0f;
 
-                nowC = lineBean.close;
-                tr = lineBean.high - lineBean.low;
+                nowC = lineBean.close.floatValue();
+                tr = lineBean.high.floatValue() - lineBean.low.floatValue();
             } else {
 
-                dmH = lineBean.high - kLineBeens.get(i - 1).high;
-                dmL = kLineBeens.get(i - 1).low - lineBean.low;
+                dmH = lineBean.high.floatValue() - kLineBeens.get(i - 1).high.floatValue();
+                dmL = kLineBeens.get(i - 1).low.floatValue() - lineBean.low.floatValue();
 
                 dmH = dmH <= 0 ? 0 : dmH;
                 dmL = dmL <= 0 ? 0 : dmL;
@@ -95,10 +95,10 @@ public class DMIEntity {
 //                    dmH = 0.0f;
 //                }
 
-                tr1 = lineBean.high - lineBean.low;
-                tr2 = lineBean.high - nowC;
-                tr3 = lineBean.low - nowC;
-                nowC = lineBean.close;
+                tr1 = lineBean.high.floatValue() - lineBean.low.floatValue();
+                tr2 = lineBean.high.floatValue() - nowC;
+                tr3 = lineBean.low.floatValue() - nowC;
+                nowC = lineBean.close.floatValue();
 
                 tr1 = Math.abs(tr1);
                 tr2 = Math.abs(tr2);

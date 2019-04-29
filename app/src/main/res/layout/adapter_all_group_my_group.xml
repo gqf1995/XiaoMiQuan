@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/lin_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/trans_1px"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="2号"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_24px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="@dimen/trans_5px"
+            android:text="@string/str_tv_add_percent"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_18px"/>
+
+        <TextView
+            android:id="@+id/tv_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="@dimen/trans_10px"
+            android:paddingTop="@dimen/trans_3px"
+            android:text="+456%"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/text_trans_24px"/>
+
+
+        <TextView
+            android:id="@+id/tv_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/select_commit"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/trans_10px"
+            android:paddingLeft="@dimen/trans_20px"
+            android:paddingRight="@dimen/trans_20px"
+            android:paddingTop="@dimen/trans_10px"
+            android:text="@string/str_tv_deal"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_trans_28px"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/lin_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/trans_25px"
+            android:src="@drawable/add_team"
+            />
+
+
+    </LinearLayout>
+
+</FrameLayout>

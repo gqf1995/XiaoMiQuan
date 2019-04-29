@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.fivefivelike.mybaselibrary.utils.GlobleContext;
 import com.fivefivelike.mybaselibrary.utils.GsonUtil;
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.fivefivelike.mybaselibrary.utils.logger.KLog;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -37,7 +39,9 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.Luban;
 
 
 /**
@@ -53,6 +57,7 @@ public class HttpRequest {
     private Object mRequestObj;//传参
     private String mFirstCharForGetRequest = "?";
     private boolean mIsShowDialog;//是否显示加载dialog
+    public boolean mIsLunban = false;//是否压缩图片
     private String mEncoding;
     public int mConnectTimeOut;//链接超时时间
     public int mReadTimeOut;
@@ -68,6 +73,7 @@ public class HttpRequest {
     private String RESPONSE_TAG = "response";
     private OnUploadListener mOnUploadListener;
     Request<String> mRequest = null;
+
     // -------------------------------------------构造函数--------------------------------------------------------
 
 
@@ -148,21 +154,30 @@ public class HttpRequest {
         } else if (mRequestMode == RequestMode.GET) {
             mRequest = NoHttp.createStringRequest(mRequestUrl, RequestMethod.GET);
         }
-
+        KLog.i(REQUEST_TAG, "请求名称: " + mRequestName + "请求Url: " + mRequestUrl.toString());
+        if (mRequestObj != null && mParameterMode != ParameterMode.Rest) {
+            logRequestUrlAndParams();
+        }
         mRequest.setTag(mRequestTag);
         mRequest.setConnectTimeout(mConnectTimeOut);
         mRequest.setReadTimeout(mReadTimeOut);
         mRequest.setCacheMode(mCacheMode);
         mRequest.setParamsEncoding(mEncoding);
-        KLog.i(REQUEST_TAG, "请求名称: " + mRequestName + "请求Url: " + mRequestUrl.toString());
+        if (mIsLunban) {
+            //图片压缩
+
+        } else {
+            requestFilesSet();
+        }
+    }
+
+
+    private void requestFilesSet() {
         if (mFileMap != null && mFileMap.size() > 0) {
             addFileMap();
         }
         if (mFileList != null && mFileList.size() > 0) {
             addFileList();
-        }
-        if (mRequestObj != null && mParameterMode != ParameterMode.Rest) {
-            logRequestUrlAndParams();
         }
     }
 
@@ -198,6 +213,9 @@ public class HttpRequest {
      */
     private void addFileMap() {
         int i = 0;
+        if (mFileMap == null) {
+            return;
+        }
         for (Map.Entry<String, Object> entry : mFileMap.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
@@ -241,7 +259,7 @@ public class HttpRequest {
                 binaries.add(bitmapBinary);
             }
         }
-        mRequest.add("file", binaries);//以文件的形式上传
+        mRequest.add("files", binaries);//以文件的形式上传
     }
 
     /**
@@ -284,6 +302,10 @@ public class HttpRequest {
             setRestUrl();
         }
 
+        if (mRequest.getRequestMethod() == RequestMethod.POST) {
+            mRequest.setMultipartFormEnable(true);
+        }
+
         //        if (map.containsKey("uid")) {
         //            if (mParameterMode != ParameterMode.Rest) {
         //                mRequest.addHeader("uid", map.get("uid").toString());
@@ -309,7 +331,6 @@ public class HttpRequest {
         KLog.i(REQUEST_TAG, "全地址: " + mRequestName + "请求全Url: " + sb.toString());
     }
 
-
     /**
      * 获得Disposable对象
      *
@@ -320,12 +341,16 @@ public class HttpRequest {
             @Override
             public void subscribe(ObservableEmitter<Response<String>> e) throws Exception {
                 //同步请求
-                Response<String> response = NoHttp.startRequestSync(mRequest);
                 if (!e.isDisposed()) {
-                    if (response.isSucceed())
-                        e.onNext(response);
-                    else {
-                        e.onError(response.getException());//onError 之后不可可继下游可继续接受 onNext
+                    Response<String> response = NoHttp.startRequestSync(mRequest);
+                    if (response.isSucceed()) {
+                        if (!e.isDisposed()) {
+                            e.onNext(response);
+                        }
+                    } else {
+                        if (!e.isDisposed()) {
+                            e.onError(response.getException());//onError 之后不可可继下游可继续接受 onNext
+                        }
                     }
                     e.onComplete();//onComplete 之后可继下游可继续接受 onNext
                 }
@@ -360,6 +385,46 @@ public class HttpRequest {
                     }
                 });
     }
+
+    //图片压缩
+    public static Disposable imgLuban(List<String> paths, final ImgLunban lunban) {
+        return Flowable.just(paths)
+                .observeOn(Schedulers.io())
+                .map(new Function<List<String>, List<File>>() {
+                    @Override
+                    public List<File> apply(@NonNull List<String> list) throws Exception {
+                        // 同步方法直接返回压缩后的文件
+                        return Luban.with(GlobleContext.getInstance().getApplicationContext()).load(list).get();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<File>>() {//onNext()
+                    @Override
+                    public void accept(@NonNull List<File> stringResponse) throws Exception {
+                        //调用成功 返回json
+                        if (lunban != null) {
+                            lunban.success(stringResponse);
+
+                        }
+
+                    }
+                }, new Consumer<Throwable>() {//onError()
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        //调用失败
+                        throwable.printStackTrace();
+                        if (lunban != null) {
+                            lunban.failed();
+                        }
+                    }
+                }, new Action() {//onCompleted()
+                    @Override
+                    public void run() throws Exception {
+
+                    }
+                });
+    }
+
 
     /**
      * 请求成功后的操作
@@ -427,7 +492,7 @@ public class HttpRequest {
         private boolean isShowDialog;
         private String enCoding = "UTF-8";
         private Object requestTag;
-        private CacheMode cacheMode = CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE;
+        private CacheMode cacheMode = CacheMode.ONLY_REQUEST_NETWORK;
         private int requestCode = -1;
         private NetWorkDialog dialog;
         public int connectTimeOut = 10 * 1000;
@@ -437,6 +502,7 @@ public class HttpRequest {
         public RequestMode requestMode = RequestMode.POST;
         public ParameterMode parameterMode = ParameterMode.Json;
         private OnUploadListener onUploadListener;
+
 
         public Builder() {
         }
@@ -453,6 +519,8 @@ public class HttpRequest {
             return this;
         }
 
+
+        //设置传参模式
         public Builder setParameterMode(ParameterMode parameterMode) {
             this.parameterMode = parameterMode;
             return this;
@@ -580,6 +648,7 @@ public class HttpRequest {
             return this;
         }
 
+        //设置请求模式
         public Builder setRequestMode(RequestMode requestMode) {
             this.requestMode = requestMode;
             return this;
@@ -591,6 +660,12 @@ public class HttpRequest {
         public HttpRequest build() {
             return new HttpRequest(this);
         }
+    }
+
+    public interface ImgLunban {
+        void success(List<File> files);
+
+        void failed();
     }
 
     public enum RequestMode {

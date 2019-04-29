@@ -27,7 +27,7 @@
     <color name="color_e5e5e5">#e5e5e5</color>
     <color name="color_f5f5f5">#f5f5f5</color>
 
-       <color name="color_666666">#666666</color>
+    <color name="color_666666">#666666</color>
     <color name="color_555555">#555555</color>
     <color name="color_6A7180">#6A7180</color>
     <color name="color_f45638">#f45638</color>
@@ -68,8 +68,10 @@
     <color name="color_purple_dark">#2e266f</color>
 
 
-    <color name="increasing_color">#FF6960</color>
-    <color name="decreasing_color">#0DCE2B</color>
+    <color name="increasing_color">#FF766F</color>
+    <color name="increasing_color_dark">#fc5f57</color>
+    <color name="decreasing_color">#3D9970</color>
+    <color name="decreasing_color_dark">#289c69</color>
 
 
     <color name="black_transparent_10">#0a000000</color>
@@ -82,8 +84,13 @@
     <color name="white_transparent_50">#32ffffff</color>
     <color name="white_transparent_100">#64ffffff</color>
     <color name="white_transparent_150">#96ffffff</color>
+    <color name="kBg_dark">#1E1E35</color>
+    <color name="kBg_light">#ffffff</color>
 
     <!--皮肤包颜色-->
+    <color name="mark_color">#208DE3</color>
+    <color name="navigation_color">#208DE3</color>
+
     <color name="color_Primary">#1E1E35</color>
     <color name="colorPrimary">#1E1E35</color>
     <color name="colorPrimaryDark">#19193b</color>
@@ -91,10 +98,20 @@
     <color name="base_mask">#32ffffff</color><!--@color/white_transparent_50-->
     <color name="base_mask_dark">#32000000</color><!--@color/black_transparent_50-->
 
+
     <color name="color_font1">#FFFFFF</color><!--@color/white-->
     <color name="color_font2">#cccccc</color><!--@color/color_cccccc-->
     <color name="color_font3">#999999</color><!--@color/color_999999-->
-    <color name="color_font4">#6A7180</color><!--@color/color_6A7180-->
+    <color name="color_font4">#777777</color><!--@color/color_6A7180-->
+    <color name="color_font1_dark">#000000</color>
+    <color name="color_font2_dark">#6A7180</color>
+    <color name="color_font3_dark">#999999</color>
+    <color name="color_font4_dark">#cccccc</color>
+
+    <color name="big_price_color">#555c7d</color>
+    <color name="little_price_color">#7d839f</color>
+
+
     <!-- chart -->
     <color name="marker_bg">#1C232E</color>
     <color name="marker_line_bg">#000000</color>
@@ -105,10 +122,11 @@
     <color name="minute_blue">#00D0FC</color>
     <color name="minute_yellow">#E7B448</color>
 
-    <color name="ma5">#823E66</color>
-    <color name="ma10">#B99C7A</color>
+    <color name="ma5">#FFA209</color>
+    <color name="ma7">#FFA209</color>
+    <color name="ma10">#34A9FF</color>
     <color name="ma20">#3C7193</color>
-    <color name="ma30">#7F9976</color>
+    <color name="ma30">#101419</color>
 
     <color name="minute_grayLine">#2D3945</color>
     <color name="minute_black">#101419</color>
@@ -126,5 +144,10 @@
     <color name="praise_item_default">#333333</color>
     <color name="praise_item_selector_default">#cccccc</color>
     <color name="praise_item">#8290AF</color>
+
+    <!--顶部导航栏背景颜色-->
+    <color name="toolbar_bg">#1E1E35</color>
+    <color name="status_bg">#ffffff</color>
+
 
 </resources>

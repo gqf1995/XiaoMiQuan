@@ -1,0 +1,2 @@
+io.rong.imlib
+int string rc_notification_ticker_text 0x7f150001

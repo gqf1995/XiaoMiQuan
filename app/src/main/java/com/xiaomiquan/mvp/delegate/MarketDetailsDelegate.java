@@ -1,6 +1,9 @@
 package com.xiaomiquan.mvp.delegate;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -12,13 +15,23 @@ import com.fivefivelike.mybaselibrary.utils.AndroidUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.fivefivelike.mybaselibrary.view.FontTextview;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
-import com.fivefivelike.mybaselibrary.view.spinnerviews.NiceSpinner;
 import com.tablayout.listener.CustomTabEntity;
 import com.xiaomiquan.R;
 import com.xiaomiquan.entity.bean.ExchangeData;
+import com.xiaomiquan.entity.bean.kline.DataParse;
+import com.xiaomiquan.entity.bean.kline.KLineBean;
+import com.xiaomiquan.mvp.fragment.CoinDetailFragment;
+import com.xiaomiquan.utils.BigUIUtil;
+import com.xiaomiquan.utils.UserSet;
+import com.xiaomiquan.widget.DropDownView;
 import com.xiaomiquan.widget.chart.KCombinedChart;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import skin.support.widget.SkinCompatToolbar;
 
 public class MarketDetailsDelegate extends BaseDelegate {
     public ViewHolder viewHolder;
@@ -27,12 +40,15 @@ public class MarketDetailsDelegate extends BaseDelegate {
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     LinearLayout linearLayout;
     ExchangeData mExchangeData;
+    List<String> klineTypeData;
 
     @Override
     public void initView() {
         viewHolder = new ViewHolder(getRootView());
         initCommonTabLayout();
+        klineTypeData = Arrays.asList(CommonUtils.getStringArray(R.array.sa_select_kline_show_type));
     }
+
 
     @Override
     protected int getLayoutId() {
@@ -47,45 +63,204 @@ public class MarketDetailsDelegate extends BaseDelegate {
         layoutParams.height = AndroidUtil.getScreenW(viewHolder.rootView.getContext(), true) - AndroidUtil.getStatusBarHeight(viewHolder.rootView.getContext()) - (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_90px);
         viewHolder.lin_kline.setLayoutParams(layoutParams);
 
+
+    }
+
+    CoinDetailFragment coinDetailFragment;
+
+    //没有k线
+    public void noKlineView() {
+        viewHolder.lin_kbg.setVisibility(View.GONE);
+        viewHolder.fl_no_kline.setVisibility(View.VISIBLE);
+        getmToolbarSubTitle().setVisibility(View.GONE);
+        //加载币种资料页面
+        initAddFragment(R.id.fl_no_kline, ((FragmentActivity) viewHolder.rootView.getContext()).getSupportFragmentManager());
+        coinDetailFragment = new CoinDetailFragment();
+        coinDetailFragment.setExchangeData(mExchangeData);
+        coinDetailFragment.setShowToast(true);
+        addFragment(coinDetailFragment);
+        showFragment(0);
+    }
+
+    public int selectPosition = 0;
+
+    public void setDetailsData(int position, DataParse data) {
+        //展示 1根k线数据
+        selectPosition = position;
+        KLineBean kLineBean = data.getKLineDatas().get(position);
+        viewHolder.tv_ktime.setText(kLineBean.date);
+        viewHolder.tv_kopen.setText(CommonUtils.getString(R.string.str_opening_quotation) + BigUIUtil.getinstance().bigPrice(kLineBean.open.toPlainString()) + "");
+        viewHolder.tv_kheight.setText(CommonUtils.getString(R.string.str_highest) + BigUIUtil.getinstance().bigPrice(kLineBean.high.toPlainString()) + "");
+        viewHolder.tv_klow.setText(CommonUtils.getString(R.string.str_minimum) + BigUIUtil.getinstance().bigPrice(kLineBean.low.toPlainString()) + "");
+        viewHolder.tv_kclose.setText(CommonUtils.getString(R.string.str_closing_quotation) + BigUIUtil.getinstance().bigPrice(kLineBean.close.toPlainString()) + "");
+
+
+        float v = (kLineBean.close.floatValue() / kLineBean.open.floatValue()) - 1;
+        if (v > 0) {
+            viewHolder.tv_krise.setTextColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
+        } else {
+            viewHolder.tv_krise.setTextColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
+        }
+
+        viewHolder.tv_krise.setText(v + "");
+        viewHolder.tv_kamplitude.setText(((kLineBean.high.floatValue() - kLineBean.low.floatValue()) / kLineBean.open.floatValue()) + "");
+
+        viewHolder.tv_ma5.setText("MA5:" + BigUIUtil.getinstance().bigAmount(data.getMa5DataV().get(position).getVal() + "") + "");
+        viewHolder.tv_ma10.setText("MA10:" + BigUIUtil.getinstance().bigAmount(data.getMa10DataV().get(position).getVal() + "") + "");
+        viewHolder.tv_kvolume.setText(CommonUtils.getString(R.string.str_kvolume) + BigUIUtil.getinstance().bigAmount(data.getKLineDatas().get(position).volume.toPlainString()));
+
+
+        if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 0) {
+            //MA
+            viewHolder.tv_ma7.setText("MA7:" + BigUIUtil.getinstance().bigPrice(data.getMa7DataL().get(position).getVal() + "") + "");
+            //viewHolder.tv_ma15.setText("MA15:" + BigUIUtil.getinstance().bigPrice(data.getMa15DataL().get(position).getVal() + "") + "");
+            viewHolder.tv_ma30.setText("MA30:" + BigUIUtil.getinstance().bigPrice(data.getMa30DataL().get(position).getVal() + "") + "");
+            viewHolder.tv_ma7.setVisibility(View.VISIBLE);
+            setKDJMaLine(3, viewHolder.tv_ma7);
+            setKDJMaLine(1, viewHolder.tv_ma30);
+            viewHolder.tv_ma15.setVisibility(View.GONE);
+            viewHolder.tv_ma30.setVisibility(View.VISIBLE);
+            viewHolder.tv_boll.setVisibility(View.GONE);
+        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 1) {
+            //EMA
+            viewHolder.tv_ma7.setText("EMA7:" + BigUIUtil.getinstance().bigPrice(data.getExpmaData7().get(position).getVal() + "") + "");
+            viewHolder.tv_ma15.setText("EMA30:" + BigUIUtil.getinstance().bigPrice(data.getExpmaData30().get(position).getVal() + "") + "");
+            setKDJMaLine(3, viewHolder.tv_ma7);
+            setKDJMaLine(1, viewHolder.tv_ma30);
+            viewHolder.tv_ma7.setVisibility(View.VISIBLE);
+            viewHolder.tv_ma15.setVisibility(View.VISIBLE);
+            viewHolder.tv_ma30.setVisibility(View.GONE);
+            viewHolder.tv_boll.setVisibility(View.GONE);
+        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 2) {
+            //            //BOLL
+            //            viewHolder.tv_ma7.setText("BOLL:" + BigUIUtil.getinstance().bigPrice(data.getBollDataMB().get(position).getVal() + "") + "");
+            //            viewHolder.tv_ma15.setText("UB:" + BigUIUtil.getinstance().bigPrice(data.getBollDataUP().get(position).getVal() + "") + "");
+            //            viewHolder.tv_ma30.setText("LB:" + BigUIUtil.getinstance().bigPrice(data.getBollDataDN().get(position).getVal() + "") + "");
+            //            setKDJMaLine(3, viewHolder.tv_ma7);
+            //            setKDJMaLine(1, viewHolder.tv_ma30);
+            //            setKDJMaLine(0, viewHolder.tv_ma30);
+            //            viewHolder.tv_ma7.setVisibility(View.VISIBLE);
+            //            viewHolder.tv_ma15.setVisibility(View.VISIBLE);
+            //            viewHolder.tv_ma30.setVisibility(View.VISIBLE);
+            //            viewHolder.tv_boll.setVisibility(View.VISIBLE);
+            //均线
+            viewHolder.tv_ma7.setVisibility(View.GONE);
+            viewHolder.tv_ma15.setVisibility(View.GONE);
+            viewHolder.tv_ma30.setVisibility(View.GONE);
+            viewHolder.tv_boll.setVisibility(View.GONE);
+        } else if (klineTypeData.indexOf(UserSet.getinstance().getKType()) == 3) {
+            //均线
+            viewHolder.tv_ma7.setVisibility(View.GONE);
+            viewHolder.tv_ma15.setVisibility(View.GONE);
+            viewHolder.tv_ma30.setVisibility(View.GONE);
+            viewHolder.tv_boll.setVisibility(View.GONE);
+        }
+    }
+
+    private void setKDJMaLine(int type, TextView textView) {
+        //DEA
+        if (type == 0) {
+            textView.setTextColor(CommonUtils.getColor(R.color.ma5));
+        } else if (type == 1) {
+            textView.setTextColor(CommonUtils.getColor(R.color.ma10));
+        } else if (type == 2) {
+            textView.setTextColor(CommonUtils.getColor(R.color.ma20));
+        } else {
+            textView.setTextColor(CommonUtils.getColor(R.color.ma30));
+        }
+
     }
 
     public void initData(ExchangeData exchangeData) {
-        mExchangeData = exchangeData;
         viewHolder.tv_title.setText(exchangeData.getExchange());
-        viewHolder.tv_price.setText(exchangeData.getLast().toString());
-        viewHolder.tv_volume.setText(exchangeData.getVolume().toString());
-        viewHolder.tv_highest.setText(exchangeData.getHigh().toString());
-        viewHolder.tv_minimum.setText(exchangeData.getLow().toString());
-        viewHolder.tv_buy_one.setText(exchangeData.getBid().toString());
-        viewHolder.tv_sell_one.setText(exchangeData.getAsk().toString());
-        viewHolder.tv_rise.setText(exchangeData.getChange().toString());
+        viewHolder.tv_subtitle.setText(exchangeData.getSymbol() + "/" + exchangeData.getUnit());
+        viewHolder.tv_price.setText(BigUIUtil.getinstance().getUnitSymbol(exchangeData.getUnit()) + BigUIUtil.getinstance().bigPrice(exchangeData.getLast()));
 
+        String s = BigUIUtil.getinstance().rateMarketPrice(exchangeData.getLast(), exchangeData.getSymbol(), exchangeData.getUnit());
 
+        if (TextUtils.isEmpty(s)) {
+            viewHolder.tv_rate.setVisibility(View.GONE);
+        } else {
+            viewHolder.tv_rate.setVisibility(View.VISIBLE);
+            viewHolder.tv_rate.setText(Html.fromHtml(s));
+        }
+
+        if (!TextUtils.isEmpty(exchangeData.getChange())) {
+            BigUIUtil.getinstance().rateTextView(Double.parseDouble(exchangeData.getChange()), viewHolder.tv_rise);
+        }
+
+        //动画
+        if (mExchangeData != null) {
+            if (!mExchangeData.getLast().equals(exchangeData.getLast())) {
+                BigUIUtil.getinstance().noAnim(viewHolder.tv_price, mExchangeData.getLast(), exchangeData.getLast(), CommonUtils.getColor(R.color.color_font3), exchangeData.getOnlyKey());
+                BigUIUtil.getinstance().noAnim(viewHolder.tv_price_ic, mExchangeData.getLast(), exchangeData.getLast(), CommonUtils.getColor(R.color.color_font3), exchangeData.getOnlyKey());
+                BigUIUtil.getinstance().noAnim(viewHolder.tv_rate, mExchangeData.getLast(), exchangeData.getLast(), CommonUtils.getColor(R.color.color_font3), exchangeData.getOnlyKey());
+                if (new BigDecimal(mExchangeData.getLast()).compareTo(new BigDecimal(exchangeData.getLast())) == 1) {
+                    viewHolder.tv_price_ic.setText(CommonUtils.getString(R.string.ic_up));
+                } else {
+                    viewHolder.tv_price_ic.setText(CommonUtils.getString(R.string.ic_down));
+                }
+            }
+        }
+        mExchangeData = exchangeData;
+        if (TextUtils.isEmpty(exchangeData.getVolume())) {
+            viewHolder.tv_volume.setText("--");
+        } else {
+            viewHolder.tv_volume.setText(BigUIUtil.getinstance().bigAmount(exchangeData.getVolume()));
+        }
+        if (TextUtils.isEmpty(exchangeData.getHigh())) {
+            viewHolder.tv_highest.setText("--");
+        } else {
+            viewHolder.tv_highest.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getHigh()));
+        }
+        if (TextUtils.isEmpty(exchangeData.getLow())) {
+            viewHolder.tv_minimum.setText("--");
+        } else {
+            viewHolder.tv_minimum.setText(BigUIUtil.getinstance().bigPrice(exchangeData.getLow()));
+        }
     }
+
 
     public static class ViewHolder {
         public View rootView;
-        public IconFontTextview tv_left;
+        public View v_status;
+        public IconFontTextview toolbar_back;
+        public TextView toolbar_back_txt;
+        public LinearLayout toolbar_lin_back;
+        public FrameLayout fl_content;
+        public IconFontTextview toolbar_subtitle;
+        public View view_subtitle_point;
+        public IconFontTextview toolbar_img2;
+        public View view_img2_point;
+        public IconFontTextview toolbar_img1;
+        public View view_img1_point;
+        public IconFontTextview toolbar_img;
+        public View view_img_point;
+        public TextView toolbar_title;
+        public SkinCompatToolbar toolbar;
+        public LinearLayout layout_title_bar;
         public TextView tv_title;
-        public IconFontTextview tv_right;
+        public TextView tv_subtitle;
         public FontTextview tv_price;
+        public IconFontTextview tv_price_ic;
         public FontTextview tv_rate;
         public IconFontTextview tv_rise;
-        public TextView tv_volume;
         public TextView tv_highest;
         public TextView tv_minimum;
+        public TextView tv_volume;
         public TextView tv_buy_one;
         public TextView tv_sell_one;
         public TextView tv_market_value;
         public TextView tv_circulation;
-        public NiceSpinner lin_time;
-        public NiceSpinner lin_indicators;
-        public NiceSpinner lin_color;
+        public DropDownView lin_time;
+        public DropDownView lin_indicators;
+        public DropDownView lin_color;
         public TextView tv_ktime;
         public TextView tv_kopen;
         public TextView tv_kheight;
         public TextView tv_klow;
         public TextView tv_kclose;
+        public TextView tv_boll;
         public TextView tv_ma7;
         public TextView tv_ma15;
         public TextView tv_ma30;
@@ -98,37 +273,58 @@ public class MarketDetailsDelegate extends BaseDelegate {
         public TextView tv_ma10;
         public LinearLayout lin_ma2;
         public KCombinedChart barchart;
-        public LinearLayout lin_discuss;
+        public LinearLayout lin_kbg;
+        public FrameLayout fl_no_kline;
         public LinearLayout lin_global_market;
-        public LinearLayout lin_information;
         public LinearLayout lin_currency_data;
+        public LinearLayout lin_simulation;
+        public IconFontTextview tv_icon_add;
+        public TextView tv_add;
+        public LinearLayout lin_add;
         public LinearLayout lin_advance_warning;
         public LinearLayout lin_kline;
         public FrameLayout fl_bottom;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
-            this.tv_left = (IconFontTextview) rootView.findViewById(R.id.tv_left);
+            this.v_status = (View) rootView.findViewById(R.id.v_status);
+            this.toolbar_back = (IconFontTextview) rootView.findViewById(R.id.toolbar_back);
+            this.toolbar_back_txt = (TextView) rootView.findViewById(R.id.toolbar_back_txt);
+            this.toolbar_lin_back = (LinearLayout) rootView.findViewById(R.id.toolbar_lin_back);
+            this.fl_content = (FrameLayout) rootView.findViewById(R.id.fl_content);
+            this.toolbar_subtitle = (IconFontTextview) rootView.findViewById(R.id.toolbar_subtitle);
+            this.view_subtitle_point = (View) rootView.findViewById(R.id.view_subtitle_point);
+            this.toolbar_img2 = (IconFontTextview) rootView.findViewById(R.id.toolbar_img2);
+            this.view_img2_point = (View) rootView.findViewById(R.id.view_img2_point);
+            this.toolbar_img1 = (IconFontTextview) rootView.findViewById(R.id.toolbar_img1);
+            this.view_img1_point = (View) rootView.findViewById(R.id.view_img1_point);
+            this.toolbar_img = (IconFontTextview) rootView.findViewById(R.id.toolbar_img);
+            this.view_img_point = (View) rootView.findViewById(R.id.view_img_point);
+            this.toolbar_title = (TextView) rootView.findViewById(R.id.toolbar_title);
+            this.toolbar = (SkinCompatToolbar) rootView.findViewById(R.id.toolbar);
+            this.layout_title_bar = (LinearLayout) rootView.findViewById(R.id.layout_title_bar);
             this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
-            this.tv_right = (IconFontTextview) rootView.findViewById(R.id.tv_right);
+            this.tv_subtitle = (TextView) rootView.findViewById(R.id.tv_subtitle);
             this.tv_price = (FontTextview) rootView.findViewById(R.id.tv_price);
+            this.tv_price_ic = (IconFontTextview) rootView.findViewById(R.id.tv_price_ic);
             this.tv_rate = (FontTextview) rootView.findViewById(R.id.tv_rate);
             this.tv_rise = (IconFontTextview) rootView.findViewById(R.id.tv_rise);
-            this.tv_volume = (TextView) rootView.findViewById(R.id.tv_volume);
             this.tv_highest = (TextView) rootView.findViewById(R.id.tv_highest);
             this.tv_minimum = (TextView) rootView.findViewById(R.id.tv_minimum);
+            this.tv_volume = (TextView) rootView.findViewById(R.id.tv_volume);
             this.tv_buy_one = (TextView) rootView.findViewById(R.id.tv_buy_one);
             this.tv_sell_one = (TextView) rootView.findViewById(R.id.tv_sell_one);
             this.tv_market_value = (TextView) rootView.findViewById(R.id.tv_market_value);
             this.tv_circulation = (TextView) rootView.findViewById(R.id.tv_circulation);
-            this.lin_time = (NiceSpinner) rootView.findViewById(R.id.lin_time);
-            this.lin_indicators = (NiceSpinner) rootView.findViewById(R.id.lin_indicators);
-            this.lin_color = (NiceSpinner) rootView.findViewById(R.id.lin_color);
+            this.lin_time = (DropDownView) rootView.findViewById(R.id.lin_time);
+            this.lin_indicators = (DropDownView) rootView.findViewById(R.id.lin_indicators);
+            this.lin_color = (DropDownView) rootView.findViewById(R.id.lin_color);
             this.tv_ktime = (TextView) rootView.findViewById(R.id.tv_ktime);
             this.tv_kopen = (TextView) rootView.findViewById(R.id.tv_kopen);
             this.tv_kheight = (TextView) rootView.findViewById(R.id.tv_kheight);
             this.tv_klow = (TextView) rootView.findViewById(R.id.tv_klow);
             this.tv_kclose = (TextView) rootView.findViewById(R.id.tv_kclose);
+            this.tv_boll = (TextView) rootView.findViewById(R.id.tv_boll);
             this.tv_ma7 = (TextView) rootView.findViewById(R.id.tv_ma7);
             this.tv_ma15 = (TextView) rootView.findViewById(R.id.tv_ma15);
             this.tv_ma30 = (TextView) rootView.findViewById(R.id.tv_ma30);
@@ -141,10 +337,14 @@ public class MarketDetailsDelegate extends BaseDelegate {
             this.tv_ma10 = (TextView) rootView.findViewById(R.id.tv_ma10);
             this.lin_ma2 = (LinearLayout) rootView.findViewById(R.id.lin_ma2);
             this.barchart = (KCombinedChart) rootView.findViewById(R.id.barchart);
-            this.lin_discuss = (LinearLayout) rootView.findViewById(R.id.lin_discuss);
+            this.lin_kbg = (LinearLayout) rootView.findViewById(R.id.lin_kbg);
+            this.fl_no_kline = (FrameLayout) rootView.findViewById(R.id.fl_no_kline);
             this.lin_global_market = (LinearLayout) rootView.findViewById(R.id.lin_global_market);
-            this.lin_information = (LinearLayout) rootView.findViewById(R.id.lin_information);
             this.lin_currency_data = (LinearLayout) rootView.findViewById(R.id.lin_currency_data);
+            this.lin_simulation = (LinearLayout) rootView.findViewById(R.id.lin_simulation);
+            this.tv_icon_add = (IconFontTextview) rootView.findViewById(R.id.tv_icon_add);
+            this.tv_add = (TextView) rootView.findViewById(R.id.tv_add);
+            this.lin_add = (LinearLayout) rootView.findViewById(R.id.lin_add);
             this.lin_advance_warning = (LinearLayout) rootView.findViewById(R.id.lin_advance_warning);
             this.lin_kline = (LinearLayout) rootView.findViewById(R.id.lin_kline);
             this.fl_bottom = (FrameLayout) rootView.findViewById(R.id.fl_bottom);
@@ -152,3 +352,4 @@ public class MarketDetailsDelegate extends BaseDelegate {
 
     }
 }
+

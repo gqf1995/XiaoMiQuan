@@ -141,7 +141,7 @@ public class RollViewPage implements OnPageChangeListener {
                 iv.setScaleType(ScaleType.CENTER_CROP);
                 Glide.with(context).load(object.toString())
                         .apply(new RequestOptions()
-                                .error(R.drawable.loaderror)).into(iv);
+                                .error(R.drawable.loaderor)).into(iv);
                 list_image.add(iv);
             }
         }

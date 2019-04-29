@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="21dp"
+    android:height="21dp"
+    android:viewportWidth="21"
+    android:viewportHeight="21">
+
+    <group
+            android:translateY="3.000000">
+        <path
+            android:fillColor="#FFFFFF"
+            android:fillType="evenOdd"
+            android:strokeWidth="1"
+            android:pathData="M 2 0 L 19 0 Q 21 0 21 2 L 21 13 Q 21 15 19 15 L 2 15 Q 0 15 0 13 L 0 2 Q 0 0 2 0 Z" />
+        <path
+            android:fillColor="#FFFFFF"
+            android:fillType="evenOdd"
+            android:strokeWidth="1"
+            android:pathData="M 2 0 L 19 0 Q 21 0 21 2 L 21 13 Q 21 15 19 15 L 2 15 Q 0 15 0 13 L 0 2 Q 0 0 2 0 Z" />
+        <path
+            android:fillColor="#00000000"
+            android:fillType="evenOdd"
+            android:strokeWidth="1"
+            android:pathData="M 2 0 L 19 0 Q 21 0 21 2 L 21 13 Q 21 15 19 15 L 2 15 Q 0 15 0 13 L 0 2 Q 0 0 2 0 Z" />
+        <path
+            android:fillColor="#00000000"
+            android:fillType="evenOdd"
+            android:strokeWidth="1"
+            android:pathData="M 2 0 L 19 0 Q 21 0 21 2 L 21 13 Q 21 15 19 15 L 2 15 Q 0 15 0 13 L 0 2 Q 0 0 2 0 Z" />
+        <path
+            android:fillColor="#00000000"
+            android:fillType="evenOdd"
+            android:strokeWidth="1"
+            android:pathData="M 2 0 L 19 0 Q 21 0 21 2 L 21 13 Q 21 15 19 15 L 2 15 Q 0 15 0 13 L 0 2 Q 0 0 2 0 Z" />
+        <path
+            android:fillColor="#00000000"
+            android:fillType="evenOdd"
+            android:strokeWidth="1"
+            android:pathData="M 2 0 L 19 0 Q 21 0 21 2 L 21 13 Q 21 15 19 15 L 2 15 Q 0 15 0 13 L 0 2 Q 0 0 2 0 Z" />
+        <path
+            android:fillColor="#BD0536"
+            android:fillType="evenOdd"
+            android:strokeWidth="1"
+            android:pathData="M 10.5 4 C 12.4329966244 4 14 5.56700337559 14 7.5 C 14 9.43299662441 12.4329966244 11 10.5 11 C 8.56700337559 11 7 9.43299662441 7 7.5 C 7 5.56700337559 8.56700337559 4 10.5 4 Z" />
+        <path
+            android:fillType="evenOdd"
+            android:strokeColor="#2F343A"
+            android:strokeAlpha="0.156646286"
+            android:strokeWidth="1"
+            android:pathData="M 1.5 0.5 L 19.5 0.5 Q 20.5 0.5 20.5 1.5 L 20.5 13.5 Q 20.5 14.5 19.5 14.5 L 1.5 14.5 Q 0.5 14.5 0.5 13.5 L 0.5 1.5 Q 0.5 0.5 1.5 0.5 Z" />
+        <path
+            android:fillType="evenOdd"
+            android:strokeColor="#2F343A"
+            android:strokeAlpha="0.156646286"
+            android:strokeWidth="1"
+            android:pathData="M 1.5 0.5 L 19.5 0.5 Q 20.5 0.5 20.5 1.5 L 20.5 13.5 Q 20.5 14.5 19.5 14.5 L 1.5 14.5 Q 0.5 14.5 0.5 13.5 L 0.5 1.5 Q 0.5 0.5 1.5 0.5 Z" />
+    </group>
+</vector>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black_transparent_50"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:id="@+id/id_pop_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/trans_20px"
+            android:paddingRight="@dimen/trans_20px"
+            android:paddingTop="@dimen/trans_50px">
+
+            <LinearLayout
+                android:id="@+id/lin_dynamic"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/trans_92px"
+                    android:layout_height="@dimen/trans_92px"
+                    app:srcCompat="@drawable/ic_dynamic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/trans_20px"
+                    android:text="@string/str_pop_release_dynamic"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/trans_28px" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/lin_article"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/trans_92px"
+                    android:layout_height="@dimen/trans_92px"
+                    app:srcCompat="@drawable/ic_article" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/trans_20px"
+                    android:text="@string/str_pop_release_article"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/trans_28px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_wechat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/trans_92px"
+                    android:layout_height="@dimen/trans_92px"
+                    app:srcCompat="@drawable/ic_wechat" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/trans_20px"
+                    android:text="@string/str_pop_release_wechat"
+                    android:textColor="@color/color_font1"
+                    android:textSize="@dimen/trans_28px" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/trans_2px"
+            android:layout_marginTop="@dimen/trans_30px"
+            android:background="@color/base_mask" />
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="@string/str_pop_cancle"
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/text_trans_32px" />
+
+    </LinearLayout>
+
+</RelativeLayout>

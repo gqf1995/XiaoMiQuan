@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.BaseAdapter;
 
 import com.fivefivelike.mybaselibrary.mvp.databind.IDataBind;
-import com.fivefivelike.mybaselibrary.view.LoadMoreListView;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
  */
 
 public abstract class BasePullFragment<T extends BasePullDelegate, D extends IDataBind> extends BaseDataBindFragment<T, D>
-        implements LoadMoreListView.Callback, SwipeRefreshLayout.OnRefreshListener {
+        implements BasePullCallback, SwipeRefreshLayout.OnRefreshListener {
 
     /**
      * 初始化使用RecycleView的上拉页面
@@ -23,6 +22,9 @@ public abstract class BasePullFragment<T extends BasePullDelegate, D extends IDa
         viewDelegate.initRecycleviewPull(adapter, layoutManager, this, 0, this);
     }
 
+    /**
+     * 初始化使用 有头部RecycleView的上拉页面
+     */
     protected void initRecycleViewPull(RecyclerView.Adapter adapter, int headerCount, RecyclerView.LayoutManager layoutManager) {
         viewDelegate.initRecycleviewPull(adapter, layoutManager, this, headerCount, this);
     }
@@ -88,12 +90,12 @@ public abstract class BasePullFragment<T extends BasePullDelegate, D extends IDa
     @Override
     public void error(int requestCode, Throwable exThrowable) {
         super.error(requestCode, exThrowable);
+
+    }
+
+    public void onStopLoading() {
+        super.onStopLoading();
         viewDelegate.stopRefresh();
     }
 
-    @Override
-    protected void onServiceError(String data, String info, int status, int requestCode) {
-        super.onServiceError(data, info, status, requestCode);
-        viewDelegate.stopRefresh();
-    }
 }

@@ -4,11 +4,13 @@ import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 
-import com.fivefivelike.mybaselibrary.base.BaseActivity;
+import com.fivefivelike.mybaselibrary.base.BaseDataBindActivity;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.greenDaoUtils.SingSettingDBUtil;
+import com.xiaomiquan.mvp.databinder.IMBinder;
 import com.xiaomiquan.mvp.delegate.CustomerServiceActDelegate;
+import com.xiaomiquan.utils.UserSet;
 
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.fragment.ConversationFragment;
@@ -18,8 +20,9 @@ import static com.xiaomiquan.base.AppConst.serviceId;
 
 /**
  * Created by 郭青枫 on 2017/11/14.
+ * 聊天页面
  */
-public class ConversationActivity extends BaseActivity<CustomerServiceActDelegate> {
+public class ConversationActivity extends BaseDataBindActivity<CustomerServiceActDelegate,IMBinder> {
 
 
     @Override
@@ -47,24 +50,46 @@ public class ConversationActivity extends BaseActivity<CustomerServiceActDelegat
         viewDelegate.setNoStatusBarFlag(false);
         initToolbar(new ToolbarBuilder().setTitle("客服中心"));
         setStatusBarLightOrNight(UserSet.getinstance().isNight());
-
         setWindowManagerLayoutParams(WindowManagerLayoutParamsNone);
-        ConversationFragment fragment = new ConversationFragment();
-        Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
-                .appendPath("conversation")
-                .appendPath(Conversation.ConversationType.PRIVATE.getName().toLowerCase())
-                .appendQueryParameter("targetId", serviceId).build();
-
-        fragment.setUri(uri);
-
         /* 加载 ConversationFragment */
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.rong_content, fragment);
-        transaction.commit();
-
+        ConversationFragment fragment = new ConversationFragment();
+        Conversation.ConversationType conversationType = null;
+        Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
+                .appendPath("conversation")
+                .appendPath(Conversation.ConversationType.CUSTOMER_SERVICE.getName().toLowerCase())
+                .appendQueryParameter("targetId", serviceId).build();
+        fragment.setUri(uri);
+        transaction.replace(R.id.rong_content, fragment, "ConversationFragment");
+//        if (getSupportFragmentManager().findFragmentByTag("ConversationFragment") == null) {
+//            ConversationFragment fragment = new ConversationFragment();
+//            Conversation.ConversationType conversationType = null;
+//            Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
+//                    .appendPath("conversation")
+//                    .appendPath(Conversation.ConversationType.CUSTOMER_SERVICE.getName().toLowerCase())
+//                    .appendQueryParameter("targetId", serviceId).build();
+//            fragment.setUri(uri);
+//            transaction.add(R.id.rong_content, fragment, "ConversationFragment");
+//        } else {
+//            ConversationFragment fragment = (ConversationFragment) getSupportFragmentManager().findFragmentByTag("ConversationFragment");
+//            transaction.show(fragment);
+//        }
+        transaction.commitAllowingStateLoss();
         RongExtension rongExtension = findViewById(R.id.rc_extension);
-
-
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        binder.connect(SingSettingDBUtil.getUserLogin().getImToken());
+    }
+    @Override
+    public IMBinder getDataBinder(CustomerServiceActDelegate viewDelegate) {
+        return new IMBinder(viewDelegate) {
+        };
     }
 
+    @Override
+    protected void onServiceSuccess(String data, String info, int status, int requestCode) {
+
+    }
 }

@@ -42,6 +42,10 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
     protected Map<String, Object> baseMap;
     protected CompositeDisposable compositeDisposable;
 
+    public Map<String, Object> getMap(){
+        return baseMap;
+    }
+
     public BaseDataBind(T viewDelegate) {
         this.viewDelegate = viewDelegate;
     }
@@ -98,7 +102,7 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
         } else if (exThrowable instanceof JSONException) {
             ToastUtil.show("数据格式错误");
         } else {
-            ToastUtil.show("未知错误");
+            ToastUtil.show("未知错误" + exThrowable.getMessage());
         }
     }
 
@@ -142,21 +146,22 @@ public abstract class BaseDataBind<T extends IDelegate> implements IDataBind<T> 
         return baseMap;
     }
 
-    protected Map<String, Object> getBaseMapWithUid() {
+    public Map<String, Object> getBaseMapWithUid() {
         getBaseMap();
-        //baseMap.put("uid", SaveUtil.getInstance().getString("uid"));
         baseMap.put("token", SaveUtil.getInstance().getString("token"));
         String language = SaveUtil.getInstance().getString("language");
         if (TextUtils.isEmpty(language)) {
             language = "zh-cn";
         }
         baseMap.put("language", language);
-        String unit = SaveUtil.getInstance().getString("unit");
-        if (TextUtils.isEmpty(unit)) {
-            unit = "default";
-        }
-        baseMap.put("unit", unit);
         return baseMap;
+    }
+
+    public void put(String key,Object val){
+        if(baseMap==null){
+            getBaseMapWithUid();
+        }
+        baseMap.put(key,val);
     }
 
 }

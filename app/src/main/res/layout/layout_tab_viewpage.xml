@@ -11,26 +11,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/include_toolbar_with_statusbar" />
+        <include layout="@layout/include_toolbar_with_statusbar"/>
 
     </FrameLayout>
 
-    <com.tablayout.SlidingTabLayout
-        android:id="@+id/tl_2"
+    <skin.support.widget.SkinCompatFrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/trans_79px"
-        android:orientation="horizontal"
-        app:tl_indicator_corner_radius="@dimen/trans_100px"
-        app:tl_indicator_margin_bottom="@dimen/trans_15px"
-        tl:tl_indicator_color="@color/color_font1"
-        tl:tl_indicator_height="@dimen/trans_5px"
-        tl:tl_indicator_width="@dimen/trans_32px"
-        tl:tl_textSelectColor="@color/color_font1"
-        tl:tl_textUnselectColor="@color/color_font3"
-        tl:tl_textsize="@dimen/text_trans_28px"
-        tl:tl_underline_color="#1A000000"
-        tl:tl_underline_height="0dp"
-        />
+        android:layout_height="wrap_content"
+        android:background="@color/mark_color"
+        >
+
+        <com.tablayout.SlidingTabLayout
+            android:id="@+id/tl_2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/trans_79px"
+            android:orientation="horizontal"
+            app:tl_indicator_corner_radius="@dimen/trans_100px"
+            app:tl_indicator_margin_bottom="@dimen/trans_15px"
+            tl:tl_indicator_color="@color/white"
+            tl:tl_indicator_height="@dimen/trans_5px"
+            tl:tl_indicator_width="@dimen/trans_32px"
+            tl:tl_textSelectColor="@color/white"
+            tl:tl_textUnselectColor="@color/color_e5e5e5"
+            tl:tl_textsize="@dimen/text_trans_32px"
+            tl:tl_underline_color="#1A000000"
+            tl:tl_underline_height="0dp"
+            />
+    </skin.support.widget.SkinCompatFrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -39,8 +46,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/trans_10px"
-            android:background="@drawable/shadow_line"/>
+            android:layout_height="@dimen/trans_1px"
+            android:background="@color/base_mask"
+            />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_sliding"

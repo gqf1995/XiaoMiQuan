@@ -33,24 +33,49 @@
 
                 <TextView
                     android:id="@+id/tv_num"
-                    android:layout_width="@dimen/trans_35px"
-                    android:layout_height="@dimen/trans_35px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/trans_30px"
+                    android:layout_marginRight="@dimen/trans_15px"
                     android:background="@drawable/select_commit"
                     android:gravity="center"
+                    android:minWidth="@dimen/trans_35px"
+                    android:paddingLeft="@dimen/trans_3px"
+                    android:paddingRight="@dimen/trans_3px"
                     android:text="01"
-                    android:layout_marginRight="@dimen/trans_15px"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_trans_20px"/>
+                    android:textSize="@dimen/text_trans_16px"/>
 
-                <com.fivefivelike.mybaselibrary.view.FontTextview
-                    android:id="@+id/tv_coin_type"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="BTC"
-                    android:textColor="@color/color_font1"
-                    android:textSize="@dimen/text_trans_48px"
-                    app:TypeFace="SemiBold"/>
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.fivefivelike.mybaselibrary.view.FontTextview
+                        android:id="@+id/tv_coin_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/trans_10px"
+                        android:text="BTC"
+                        android:textColor="@color/color_font1"
+                        android:textSize="@dimen/text_trans_31px"
+                        />
+
+                    <com.fivefivelike.mybaselibrary.view.FontTextview
+                        android:id="@+id/tv_coin_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:lines="1"
+                        android:text="BTC"
+                        android:textColor="@color/color_font3"
+                        android:textSize="@dimen/text_trans_23px"
+                        />
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -62,9 +87,9 @@
                 android:paddingBottom="@dimen/trans_10px"
                 android:paddingTop="@dimen/trans_10px"
                 android:text="市值$58,497,247,500"
-                android:textColor="@color/color_font2"
-                android:textSize="@dimen/text_trans_24px"
-                app:TypeFace="Medium"/>
+                android:textColor="@color/color_font3"
+                android:textSize="@dimen/text_trans_21px"
+                />
 
         </LinearLayout>
 
@@ -81,17 +106,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:includeFontPadding="false"
                 android:text="0.00000008"
-                android:textColor="@color/color_font1"
-                android:textSize="@dimen/text_trans_32px"
+                android:textColor="@color/big_price_color"
+                android:textSize="@dimen/text_trans_34px"
+                android:textStyle="bold"
+                app:TypeFace="SemiBold"
+                />
+
+            <com.fivefivelike.mybaselibrary.view.FontTextview
+                android:id="@+id/tv_coin_probably"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="≈¥14.7345"
+                android:textColor="@color/little_price_color"
+                android:textSize="@dimen/text_trans_23px"
+                android:textStyle="bold"
                 app:TypeFace="SemiBold"/>
-
-
         </LinearLayout>
 
         <FrameLayout
             android:layout_width="@dimen/trans_144px"
-            android:layout_height="@dimen/trans_70px"
+            android:layout_height="@dimen/trans_60px"
             android:layout_gravity="center">
 
             <com.makeramen.roundedimageview.RoundedImageView
@@ -109,8 +147,10 @@
                 android:gravity="center"
                 android:text="+ 50.79%"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_trans_28px"
-                app:TypeFace="SemiBold"/>
+                android:textSize="@dimen/text_trans_25px"
+                android:textStyle="bold"
+                app:TypeFace="SemiBold"
+                />
 
 
         </FrameLayout>

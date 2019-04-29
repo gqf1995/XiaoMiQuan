@@ -23,7 +23,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,7 +47,7 @@ import static skin.support.widget.SkinCompatHelper.INVALID_ID;
 /**
  * 滑动TabLayout,对于ViewPager的依赖性强
  */
-public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.OnPageChangeListener, SkinCompatSupportable {
+public class SlidingTabLayout extends SkinHorizontalScrollView implements ViewPager.OnPageChangeListener, SkinCompatSupportable {
     private ViewPager mViewPager;
     private ArrayList<String> mTitles;
     private LinearLayout mTabsContainer;
@@ -148,6 +147,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
             int color = CommonUtils.getColor(mIndicatorColorId);
             mIndicatorColor = color;
         }
+
         updateTabStyles();
     }
 

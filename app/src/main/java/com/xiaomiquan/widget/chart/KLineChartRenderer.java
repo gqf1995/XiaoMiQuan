@@ -1,10 +1,8 @@
 package com.xiaomiquan.widget.chart;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.graphics.Rect;
 
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.github.mikephil.charting.animation.ChartAnimator;
@@ -16,7 +14,7 @@ import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -139,14 +137,14 @@ public class KLineChartRenderer extends CombinedChartRenderer {
         if (lowX > mWidth - mWidth / 3) {//标识朝左
             c.drawLine(lowX, lowY + vLength, lowX - hLength, lowY + vLength, paint);
             //画矩形
-            c.drawRect(new Rect((int) (lowX - hLength - rectLength), (int) (lowY + vLength - rect), (int) (lowX - hLength), (int) (lowY + vLength + rect)), paint);
+            //c.drawRect(new Rect((int) (lowX - hLength - rectLength), (int) (lowY + vLength - rect), (int) (lowX - hLength), (int) (lowY + vLength + rect)), paint);
             //写数字
-            paint.setColor(Color.WHITE);
+            paint.setColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
             c.drawText(minFloat[1] + "", lowX - rectLength - hLength + textX, lowY + vLength + textY, paint);
         } else {//标识朝右
             c.drawLine(lowX, lowY + vLength, lowX + hLength, lowY + vLength, paint);
-            c.drawRect(new Rect((int) (lowX + hLength), (int) (lowY + vLength - rect), (int) (lowX + hLength + rectLength), (int) (lowY + vLength + rect)), paint);
-            paint.setColor(Color.WHITE);
+            //c.drawRect(new Rect((int) (lowX + hLength), (int) (lowY + vLength - rect), (int) (lowX + hLength + rectLength), (int) (lowY + vLength + rect)), paint);
+            paint.setColor(CommonUtils.getColor(UserSet.getinstance().getDropColor()));
             c.drawText(minFloat[1] + "", lowX + hLength + textX, lowY + vLength + textY, paint);
         }
 
@@ -187,14 +185,14 @@ public class KLineChartRenderer extends CombinedChartRenderer {
         if (lowX > mWidth - mWidth / 3) {//标识朝左
             c.drawLine(lowX, lowY + vLength, lowX - hLength, lowY + vLength, paint);
             //画矩形
-            c.drawRect(new Rect((int) (lowX - hLength - rectLength), (int) (lowY + vLength - rect), (int) (lowX - hLength), (int) (lowY + vLength + rect)), paint);
+            //c.drawRect(new Rect((int) (lowX - hLength - rectLength), (int) (lowY + vLength - rect), (int) (lowX - hLength), (int) (lowY + vLength + rect)), paint);
             //写数字
-            paint.setColor(Color.WHITE);
+            paint.setColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
             c.drawText(minFloat[1] + "", lowX - rectLength - hLength + textX, lowY + vLength + textY, paint);
         } else {//标识朝右
             c.drawLine(lowX, lowY + vLength, lowX + hLength, lowY + vLength, paint);
-            c.drawRect(new Rect((int) (lowX + hLength), (int) (lowY + vLength - rect), (int) (lowX + hLength + rectLength), (int) (lowY + vLength + rect)), paint);
-            paint.setColor(Color.WHITE);
+            //c.drawRect(new Rect((int) (lowX + hLength), (int) (lowY + vLength - rect), (int) (lowX + hLength + rectLength), (int) (lowY + vLength + rect)), paint);
+            paint.setColor(CommonUtils.getColor(UserSet.getinstance().getRiseColor()));
             c.drawText(minFloat[1] + "", lowX + hLength + textX, lowY + vLength + textY, paint);
         }
     }

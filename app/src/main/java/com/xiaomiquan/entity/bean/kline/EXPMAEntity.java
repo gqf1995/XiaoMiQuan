@@ -20,9 +20,9 @@ public class EXPMAEntity {
 
             for (int i = 0; i < kLineBeens.size(); i++) {
                 if (i == 0) {
-                    ema = kLineBeens.get(i).close;
+                    ema = kLineBeens.get(i).close.floatValue();
                 } else {
-                    ema = (yz * kLineBeens.get(i).close) + ((1 - yz) * ema);
+                    ema = (yz * kLineBeens.get(i).close.floatValue()) + ((1 - yz) * ema);
 //                    ema = (kLineBeens.get(i).close - ema) * (2 / (n + 1)) + ema;
                 }
                 EXPMAs.add(ema);

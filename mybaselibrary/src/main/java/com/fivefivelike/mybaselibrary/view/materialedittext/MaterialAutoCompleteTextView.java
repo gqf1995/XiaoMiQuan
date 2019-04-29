@@ -1,5 +1,7 @@
 package com.fivefivelike.mybaselibrary.view.materialedittext;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -35,8 +37,6 @@ import android.view.View;
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.view.materialedittext.validation.METLengthChecker;
 import com.fivefivelike.mybaselibrary.view.materialedittext.validation.METValidator;
-import com.nineoldandroids.animation.ArgbEvaluator;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 import java.util.ArrayList;
 import java.util.List;

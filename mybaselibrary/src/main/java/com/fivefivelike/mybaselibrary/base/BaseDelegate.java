@@ -10,7 +10,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,8 +27,11 @@ import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
 import com.fivefivelike.mybaselibrary.mvp.view.IDelegateImpl;
 import com.fivefivelike.mybaselibrary.utils.AndroidUtil;
 import com.fivefivelike.mybaselibrary.utils.CommonUtils;
+import com.fivefivelike.mybaselibrary.utils.ListUtils;
+import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.fivefivelike.mybaselibrary.view.IconFontTextview;
 import com.fivefivelike.mybaselibrary.view.dialog.NetWorkDialog;
+import com.githang.statusbar.StatusBarCompat;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -44,8 +52,12 @@ public abstract class BaseDelegate extends IDelegateImpl {
     private View viewImg2Point;
     private View viewImg1Point;
     private View viewImgPoint;
+    private View viewBackPoint;
     private DialogFragment netConnectDialog;
     private LinearLayout layoutTitleBar;
+    private FrameLayout fl_content;
+
+
     private ImageButton mNavButtonView;
     private int cuurentFragmentPosition = -1;
     private int fragmentContainId = -1;
@@ -58,6 +70,7 @@ public abstract class BaseDelegate extends IDelegateImpl {
     private IconFontTextview mToolbarBack;
     private View mViewSubtitlePoint;
 
+    private String FRAGMENT_TAG = "fragment_tag";
 
     public NetWorkDialog getNetConnectDialog() {
         return initDialog("加载中...");
@@ -115,6 +128,42 @@ public abstract class BaseDelegate extends IDelegateImpl {
         }
     }
 
+    public int mColorId = 0;
+    public boolean mIslight;
+
+    public void checkToolColor() {
+        if (mColorId != 0) {
+            setToolColor(mColorId, mIslight);
+        }
+    }
+
+    public void setToolColor(int colorId, boolean isLight) {
+        mColorId = colorId;
+        mIslight = isLight;
+        Log.i("setToolColor", "setToolColor" + colorId + "isLight" + isLight + "mToolbar != null" + (mToolbar != null));
+        if (layoutTitleBar != null) {
+            setStatusBg(isLight);
+            layoutTitleBar.setBackgroundColor(CommonUtils.getColor(colorId));
+            if (isLight) {
+                mToolbarTitle.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                mToolbarSubTitle.setTextColor(CommonUtils.getColor(R.color.mark_color));
+                mToolbarRightImg1.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                mToolbarRightImg2.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                mToolbarRightImg3.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                mToolbarBackTxt.setTextColor(CommonUtils.getColor(R.color.color_font1));
+                mToolbarBack.setTextColor(CommonUtils.getColor(R.color.color_font1));
+            } else {
+                mToolbarTitle.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+                mToolbarSubTitle.setTextColor(CommonUtils.getColor(R.color.mark_color));
+                mToolbarRightImg1.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+                mToolbarRightImg2.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+                mToolbarRightImg3.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+                mToolbarBackTxt.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+                mToolbarBack.setTextColor(CommonUtils.getColor(R.color.color_font1_dark));
+            }
+        }
+    }
+
     /**
      * 初始化标题栏
      *
@@ -131,6 +180,8 @@ public abstract class BaseDelegate extends IDelegateImpl {
         viewImg2Point = getViewById(R.id.view_img2_point);
         viewImg1Point = getViewById(R.id.view_img1_point);
         viewImgPoint = getViewById(R.id.view_img_point);
+        viewBackPoint = getViewById(R.id.view_back_point);
+        fl_content = getViewById(R.id.fl_content);
 
 
         mToolbarBackTxt = getViewById(R.id.toolbar_back_txt);
@@ -140,13 +191,15 @@ public abstract class BaseDelegate extends IDelegateImpl {
 
 
         //标题总背景
-        if (layoutTitleBar != null) {
-            if (builder.getLayoutBarBack() != 0) {
-                layoutTitleBar.setBackgroundResource(builder.getLayoutBarBack());
-            } else {
-                layoutTitleBar.setBackgroundResource(R.color.transparent);
-            }
-        }
+        //        if (layoutTitleBar != null) {
+        //            if (builder.getLayoutBarBack() != 0) {
+        //                layoutTitleBar.setBackgroundResource(builder.getLayoutBarBack());
+        //            } else {
+        //                layoutTitleBar.setBackgroundResource(R.color.transparent);
+        //            }
+        //        }
+
+
         //状态栏
         initStatus(activity, builder.getStatusBack());
         if (mToolbar != null) {
@@ -191,15 +244,20 @@ public abstract class BaseDelegate extends IDelegateImpl {
             showBack(activity, builder.getBackTxt());
 
         }
-        //设置标题栏的背景颜色
-        if (builder.getmToolbarBackColor() != 0) {
-            mToolbar.setBackgroundColor(builder.getmToolbarBackColor());
-        }
+        //        //        //设置标题栏的背景颜色
+        //        if (builder.getmToolbarBackColor() != 0) {
+        //            mToolbar.setBackgroundColor(builder.getmToolbarBackColor());
+        //        } else {
+        //            mToolbar.setBackgroundColor(CommonUtils.getColor(R.color.toolbar_bg));
+        //        }
         //设置标题是否显示
         if (!builder.isTitleShow()) {
             mToolbarTitle.setVisibility(View.GONE);
             activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
+        boolean isNight = SaveUtil.getInstance().getBoolean("isNight");
+        setToolColor(R.color.toolbar_bg, isNight);
     }
 
     /**
@@ -219,6 +277,25 @@ public abstract class BaseDelegate extends IDelegateImpl {
                 v_status.getLayoutParams().height = 0;
             }
             v_status.requestLayout();
+        }
+    }
+
+    public View getStatus() {
+        View v_status = getViewById(R.id.v_status);
+        return v_status;
+    }
+
+
+    public void setStatusBg(boolean isLight) {
+        View v_status = getViewById(R.id.v_status);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            StatusBarCompat.setLightStatusBar(getActivity().getWindow(), isLight);
+            if (isLight) {
+                if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)) {
+                    StatusBarCompat.setLightStatusBar(getActivity().getWindow(), false);
+                    v_status.setBackgroundColor(CommonUtils.getColor(R.color.font_grey));
+                }
+            }
         }
     }
 
@@ -275,7 +352,18 @@ public abstract class BaseDelegate extends IDelegateImpl {
     public void initAddFragment(int fragmentContainId, FragmentManager fragmentManager) {
         this.fragmentContainId = fragmentContainId;
         this.fragmentManager = fragmentManager;
-
+        if (this.fragmentManager.getFragments() != null) {
+            if (this.fragmentManager.getFragments().size() != 0) {
+                int backStackCount = this.fragmentManager.getBackStackEntryCount();
+                for (int i = 0; i < backStackCount; i++) {
+                    this.fragmentManager.popBackStack();
+                }
+                if (fragmentList != null) {
+                    fragmentList.clear();
+                }
+            }
+        }
+        initFromSave();
     }
 
     /**
@@ -288,6 +376,29 @@ public abstract class BaseDelegate extends IDelegateImpl {
             fragmentList = new ArrayList<>();
         }
         fragmentList.add(fragment);
+    }
+
+    public void initFromSave() {
+        if (fragmentContainId == -1) {//没有设置容器
+            return;
+        }
+        if (fragmentManager == null) {//没有初始化管理器
+            return;
+        }
+        if (fragmentList == null) {
+            fragmentList = new ArrayList<>();
+        }
+        if (ListUtils.isEmpty(fragmentList)) {
+            if (fragmentManager.getFragments() != null) {
+                if (fragmentManager.getFragments().size() > 0) {
+                    for (int i = 0; i < fragmentManager.getFragments().size(); i++) {
+                        if (fragmentManager.getFragments().get(i).getTag().contains(FRAGMENT_TAG)) {
+                            fragmentList.add(fragmentManager.getFragments().get(i));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -313,23 +424,51 @@ public abstract class BaseDelegate extends IDelegateImpl {
         Fragment frl = fragmentList.get(index);
         if (frl.isAdded()) {
             frl.onResume();
-        } else {
-            transaction.add(fragmentContainId, frl);
+        }
+        if (ListUtils.isEmpty(fragmentManager.getFragments())) {
+            for (int i = 0; i < fragmentList.size(); i++) {
+                transaction.add(fragmentContainId, fragmentList.get(i), FRAGMENT_TAG + index);
+            }
         }
         for (int i = 0; i < fragmentList.size(); i++) {
-            Fragment fragment = fragmentList.get(i);
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            if (index == i) {
-                ft.show(fragment);
-            } else {
-                ft.hide(fragment);
+            if (TextUtils.isEmpty(fragmentList.get(i).getTag())) {
+                continue;
             }
-            ft.commitAllowingStateLoss();
+            if (fragmentList.get(i).getTag().contains(FRAGMENT_TAG)) {
+                Fragment fragment = fragmentList.get(i);
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                if (index == i) {
+                    ft.show(fragment);
+                } else {
+                    ft.hide(fragment);
+                }
+                ft.commitAllowingStateLoss();
+            }
         }
         transaction.commitAllowingStateLoss();
         cuurentFragmentPosition = index;
     }
 
+    public String getFramentTag(int index) {
+        return FRAGMENT_TAG + index;
+    }
+
+    public Fragment getFragmentByTag(String tag) {
+        if (fragmentManager == null) {
+            return null;
+        }
+        return fragmentManager.findFragmentByTag(tag);
+    }
+
+    public Fragment getFragmentByIndex(int index) {
+        if (ListUtils.isEmpty(fragmentList)) {
+            return null;
+        }
+        if (index > fragmentList.size()) {
+            return null;
+        }
+        return fragmentList.get(index);
+    }
 
     public void replaceFragment(int index, Fragment fragment) {
         if (fragmentContainId == -1) {//没有设置容器
@@ -348,6 +487,37 @@ public abstract class BaseDelegate extends IDelegateImpl {
         fragmentList.remove(index);
         fragmentList.add(index, fragment);
         showFragment(index);
+    }
+
+    public void setPointNum(int num, FrameLayout fl_content) {
+        if (num > 0) {
+            if (fl_content.getChildCount() == 0) {
+                ViewGroup.LayoutParams layoutParams = fl_content.getLayoutParams();
+                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                fl_content.setLayoutParams(layoutParams);
+                TextView textView = new TextView(fl_content.getContext());
+                textView.setMinWidth((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_25px));
+                textView.setMinHeight((int) CommonUtils.getDimensionPixelSize(R.dimen.trans_25px));
+                textView.setGravity(Gravity.CENTER);
+                textView.setPadding(
+                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_5px),
+                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_1px),
+                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_5px),
+                        (int) CommonUtils.getDimensionPixelSize(R.dimen.trans_1px)
+                );
+                textView.setText(num + "");
+                textView.setTextColor(CommonUtils.getColor(R.color.white));
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, CommonUtils.getDimensionPixelSize(R.dimen.text_trans_15px));
+                fl_content.addView(textView);
+            } else {
+                TextView textView = (TextView) fl_content.getChildAt(0);
+                textView.setText(num + "");
+            }
+            fl_content.setVisibility(View.VISIBLE);
+        } else {
+            fl_content.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -427,4 +597,11 @@ public abstract class BaseDelegate extends IDelegateImpl {
         return viewImgPoint;
     }
 
+    public FrameLayout getFl_content() {
+        return fl_content;
+    }
+
+    public View getViewBackPoint() {
+        return viewBackPoint;
+    }
 }

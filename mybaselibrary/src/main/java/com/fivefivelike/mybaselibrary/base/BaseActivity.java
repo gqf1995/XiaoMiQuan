@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
 import android.view.WindowManager;
+
 import com.circledialog.CircleDialog;
 import com.fivefivelike.mybaselibrary.R;
 import com.fivefivelike.mybaselibrary.entity.ToolbarBuilder;
@@ -14,7 +15,6 @@ import com.fivefivelike.mybaselibrary.mvp.presenter.ActivityPresenter;
 import com.fivefivelike.mybaselibrary.utils.ActUtil;
 import com.fivefivelike.mybaselibrary.utils.SaveUtil;
 import com.fivefivelike.mybaselibrary.utils.ToastUtil;
-import com.githang.statusbar.StatusBarCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,24 +71,10 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
         ActUtil.getInstance().addActivity(this);
         setStatusBarLightOrNight(SaveUtil.getInstance().getBoolean("isNight"));
         super.onCreate(savedInstanceState);
-
     }
 
     public void setStatusBarLightOrNight(boolean lightStatuBar) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (!lightStatuBar) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorPrimary), false);
-                } else {
-                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.colorPrimary), false);
-                }
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), true);
-                } else {
-                    StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.font_grey), false);
-                }
-            }
             if (viewDelegate.isNoStatusBarFlag()) {
                 addNoStatusBarFlag();
             } else {
@@ -160,9 +146,28 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
     }
 
     protected void clickRightTv() {
-        if ("帮助".equals(viewDelegate.getmToolbarSubTitle().getText().toString())) {
-            //gotoActivity(helpCls).startAct();
-            BaseApp.getInstance().startCustomerService(mContext);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("colorId", viewDelegate.mColorId);
+        outState.putBoolean("isLight", viewDelegate.mIslight);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        int colorId = savedInstanceState.getInt("colorId");
+        boolean isLight = savedInstanceState.getBoolean("isLight");
+        viewDelegate.setToolColor(colorId, isLight);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            viewDelegate.checkToolColor();
         }
     }
 
@@ -172,5 +177,6 @@ public abstract class BaseActivity<T extends BaseDelegate> extends ActivityPrese
         if (WindowManagerLayoutParams != 0) {
             getWindow().setSoftInputMode(WindowManagerLayoutParams);
         }
+        viewDelegate.checkToolColor();
     }
 }

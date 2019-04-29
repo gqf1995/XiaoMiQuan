@@ -1,24 +1,38 @@
 package com.xiaomiquan.mvp.delegate;
 
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.fivefivelike.mybaselibrary.base.BaseDelegate;
+import com.fivefivelike.mybaselibrary.utils.CommonUtils;
 import com.tablayout.CommonTabLayout;
 import com.tablayout.TabEntity;
 import com.tablayout.listener.CustomTabEntity;
 import com.tablayout.listener.OnTabSelectListener;
 import com.xiaomiquan.R;
-import com.xiaomiquan.base.UserSet;
+import com.xiaomiquan.utils.UserSet;
 
 import java.util.ArrayList;
 
-public class MainDelegate extends BaseDelegate {
+public class MainDelegate extends IMDelegate {
     public ViewHolder viewHolder;
-    private String[] mTitles = {"", "", "", ""};
+    private String[] mTitles = {CommonUtils.getString(R.string.str_comprehensive),
+            CommonUtils.getString(R.string.str_market),
+            CommonUtils.getString(R.string.str_title_square),
+            CommonUtils.getString(R.string.str_simulate)
+    };
     private int[] mIconSelectIds = {
-            R.string.ic_Chart, R.string.ic_Layers,
-            R.string.ic_Inbox, R.string.ic_Home};
+            R.drawable.ic_index,
+            R.drawable.ic_price,
+            R.drawable.ic_square,
+            R.drawable.ic_exchange
+    };
+    private int[] mIconUnSelectIds = {
+            R.drawable.ic_index_1,
+            R.drawable.ic_price_1,
+            R.drawable.ic_square_1,
+            R.drawable.ic_exchange_1
+    };
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Override
@@ -26,7 +40,6 @@ public class MainDelegate extends BaseDelegate {
         viewHolder = new ViewHolder(getRootView());
         //初始化皮肤
         UserSet.getinstance().setNight(UserSet.getinstance().isNight());
-        initBottom();
     }
 
     @Override
@@ -34,35 +47,44 @@ public class MainDelegate extends BaseDelegate {
         return R.layout.activity_main;
     }
 
-    private void initBottom() {
+    public void initBottom(OnTabSelectListener onTabSelectListener) {
         for (int i = 0; i < mTitles.length; i++) {
-            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], 0));
+            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnSelectIds[i]));
         }
-        viewHolder.tl_2.setIconVisible(false);
-        viewHolder.tl_2.setmIndicatorId(R.drawable.shape_blue_maxradiu);
+        viewHolder.tl_2.setIconVisible(true);
+        //viewHolder.tl_2.setmIndicatorId(R.drawable.shape_blue_maxradiu);
         viewHolder.tl_2.setTabData(mTabEntities);
-        viewHolder.tl_2.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                showFragment(position);
-            }
-
-            @Override
-            public void onTabReselect(int position) {
-
-            }
-        });
+        viewHolder.tl_2.setOnTabSelectListener(onTabSelectListener);
     }
+
+    @Override
+    public void ImError() {
+        if (imLinsener != null) {
+            imLinsener.ImError();
+        }
+    }
+
+    @Override
+    public void ImSuccess() {
+        if (imLinsener != null) {
+            imLinsener.ImSuccess();
+        }
+    }
+
 
     public static class ViewHolder {
         public View rootView;
         public FrameLayout fl_root;
         public CommonTabLayout tl_2;
+        public FrameLayout fl_left;
+        public DrawerLayout main_drawer_layout;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.fl_root = (FrameLayout) rootView.findViewById(R.id.fl_root);
             this.tl_2 = (CommonTabLayout) rootView.findViewById(R.id.tl_2);
+            this.fl_left = (FrameLayout) rootView.findViewById(R.id.fl_left);
+            this.main_drawer_layout = (DrawerLayout) rootView.findViewById(R.id.main_drawer_layout);
         }
 
     }

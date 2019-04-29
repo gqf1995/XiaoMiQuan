@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar_with_statusbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/text_trans_30px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_trans_30px"
+            android:text="这是一个付费的圈子，您有一下两种加圈方式"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/trans_32px" />
+
+        <TextView
+            android:id="@+id/tv_input_label1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/text_trans_30px"
+            android:text="1 输入为唯一加圈码"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/trans_32px" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/trans_30px"
+            android:orientation="horizontal">
+
+            <com.fivefivelike.mybaselibrary.view.materialedittext.MaterialEditText
+                android:id="@+id/et_input2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="输入圈码"
+                android:maxLength="25"
+                android:textColorHint="@color/color_font3"
+                android:textSize="@dimen/trans_32px"
+                app:met_baseColor="@color/white"
+                app:met_primaryColor="@color/color_blue"
+                app:met_textColor="@color/color_font2"
+                app:met_textColorHint="@color/color_font4"
+                app:met_underlineColor="@color/base_mask" />
+
+            <TextView
+                android:id="@+id/tv_join"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/text_trans_10px"
+                android:text="加入"
+                android:textColor="@color/color_font2"
+                android:textSize="@dimen/trans_32px" />
+        </LinearLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/trans_30px"
+            android:gravity="center"
+            android:text="2 支付"
+            android:textColor="@color/color_font2"
+            android:textSize="@dimen/trans_32px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/trans_30px"
+            android:background="@color/color_blue"
+            android:padding="@dimen/text_trans_20px"
+            android:text="去付款"
+            android:visibility="gone"
+            android:textColor="@color/color_font1"
+            android:textSize="@dimen/trans_32px" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
